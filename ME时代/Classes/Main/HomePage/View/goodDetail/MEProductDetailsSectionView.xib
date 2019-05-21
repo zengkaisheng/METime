@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MEProductDetailsSectionView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VUp-bU-nrh">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="10"/>
+                    <color key="backgroundColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="bc3-ck-vvq"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MwA-TU-RJ4">
+                    <rect key="frame" x="0.0" y="10" width="375" height="51"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kv-dg-gwo">
+                            <rect key="frame" x="15" y="19" width="345" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="9kv-dg-gwo" secondAttribute="trailing" constant="15" id="ErK-Av-W5B"/>
+                        <constraint firstItem="9kv-dg-gwo" firstAttribute="centerY" secondItem="MwA-TU-RJ4" secondAttribute="centerY" id="gnl-zs-JIe"/>
+                        <constraint firstItem="9kv-dg-gwo" firstAttribute="leading" secondItem="MwA-TU-RJ4" secondAttribute="leading" constant="15" id="osr-AV-KWT"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="VUp-bU-nrh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="8n9-uF-IOp"/>
+                <constraint firstItem="MwA-TU-RJ4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JLS-3Y-iaY"/>
+                <constraint firstAttribute="bottom" secondItem="MwA-TU-RJ4" secondAttribute="bottom" id="NaX-FV-ZS7"/>
+                <constraint firstAttribute="trailing" secondItem="MwA-TU-RJ4" secondAttribute="trailing" id="VM0-2C-eHu"/>
+                <constraint firstItem="VUp-bU-nrh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="e9I-ml-mGk"/>
+                <constraint firstItem="MwA-TU-RJ4" firstAttribute="top" secondItem="VUp-bU-nrh" secondAttribute="bottom" id="mkR-iw-M8j"/>
+                <constraint firstAttribute="trailing" secondItem="VUp-bU-nrh" secondAttribute="trailing" id="vJo-pM-cGG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="lblTitle" destination="9kv-dg-gwo" id="s7T-ik-O83"/>
+            </connections>
+            <point key="canvasLocation" x="32.5" y="134.5"/>
+        </view>
+    </objects>
+</document>

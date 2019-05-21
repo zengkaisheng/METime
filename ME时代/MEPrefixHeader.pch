@@ -1,0 +1,53 @@
+//
+//  MEPrefixHeader.pch
+//  ME时代
+//
+//  Created by hank on 2018/9/5.
+//  Copyright © 2018年 hank. All rights reserved.
+//
+
+#ifndef MEPrefixHeader_pch
+#define MEPrefixHeader_pch
+
+// System Library
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+// Pods Library
+#import <AFNetworking/AFNetworking.h>
+#import <Masonry.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <SDWebImage/UIImageView+WebCache.h>//SDWebImage
+#import <MJRefresh/MJRefresh.h>//上拉下拉加载数据
+#import <MJExtension/MJExtension.h>//将json数据转换成Model
+#import <SDCycleScrollView/SDCycleScrollView.h>
+#import <FMDB/FMDB.h>
+#import <UMAnalytics/MobClick.h>
+#import <UMCommon/UMCommon.h>
+#import <UMShare/UMShare.h>
+#import <UShareUI/UShareUI.h>
+#import "JXCategoryView.h"
+
+//local header
+#import "MECommonConst.h"//const的所有头文件
+#import "MEAllMacros.h"//宏的所有头文件
+#import "MELocalCategoryHeader.h"//分类的所有头文件
+#import "MEAlertView.h"//自定义alert
+#import "MECustomActionSheet.h"//自定义sheet
+#import "ZLRequestResponse.h"//网络请求最外层model
+#import "MENetListModel.h"
+#import "MEAllToolHeader.h"//工具类的header
+#import "MEView.h" //封装自定义view
+#import "ZLRefreshTool.h" //下拉请求数据封装
+#import "MEUserInfoModel.h"
+#import "MEPayModel.h"
+#import "LVWxPay.h"//wx pay
+#import "HDAlertView.h"
+#import "MEWxLoginVC.h"
+#import "MELoginVC.h"
+#import "AAGlobalMacro.h"
+
+#import "TUIKit.h"
+#import "IMMessageExt.h"
+#import "THeader.h"
+#endif /* MEPrefixHeader_pch */

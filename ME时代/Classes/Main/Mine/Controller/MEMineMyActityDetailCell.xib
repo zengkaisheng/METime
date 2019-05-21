@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MEMineMyActityDetailCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="61.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xro-NX-skm">
+                        <rect key="frame" x="10" y="9" width="300" height="52.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已完成" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eT2-JN-bN4">
+                                <rect key="frame" x="246" y="18" width="44" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="HwS-IV-qIG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S3G-tT-rwX">
+                                <rect key="frame" x="10" y="18" width="226" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="S3G-tT-rwX" firstAttribute="centerY" secondItem="xro-NX-skm" secondAttribute="centerY" id="3aQ-c0-6uh"/>
+                            <constraint firstItem="eT2-JN-bN4" firstAttribute="centerY" secondItem="xro-NX-skm" secondAttribute="centerY" id="CT6-x4-VPt"/>
+                            <constraint firstItem="eT2-JN-bN4" firstAttribute="leading" secondItem="S3G-tT-rwX" secondAttribute="trailing" constant="10" id="JEr-OU-Qff"/>
+                            <constraint firstAttribute="trailing" secondItem="eT2-JN-bN4" secondAttribute="trailing" constant="10" id="tc9-De-oea"/>
+                            <constraint firstItem="S3G-tT-rwX" firstAttribute="leading" secondItem="xro-NX-skm" secondAttribute="leading" constant="10" id="wSq-OO-IRx"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.94901960780000005" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="xro-NX-skm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="3RQ-SW-DwS"/>
+                    <constraint firstItem="xro-NX-skm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="cWP-ar-vNI"/>
+                    <constraint firstAttribute="bottom" secondItem="xro-NX-skm" secondAttribute="bottom" id="nFX-ZG-bGI"/>
+                    <constraint firstAttribute="trailing" secondItem="xro-NX-skm" secondAttribute="trailing" constant="10" id="t3O-km-8wA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="lblStatus" destination="eT2-JN-bN4" id="7vx-jf-DdM"/>
+                <outlet property="lblTitle" destination="S3G-tT-rwX" id="myZ-iH-XA3"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

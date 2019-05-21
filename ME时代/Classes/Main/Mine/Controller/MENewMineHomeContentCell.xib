@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MENewMineHomeContentCell">
+            <rect key="frame" x="0.0" y="0.0" width="77" height="75"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="77" height="75"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_woddemiaosha" translatesAutoresizingMaskIntoConstraints="NO" id="ocG-5s-ZCA">
+                        <rect key="frame" x="27.5" y="25" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="K7Q-g0-0Yn"/>
+                            <constraint firstAttribute="width" constant="22" id="rfd-KU-Rcv"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDC-r4-62R">
+                        <rect key="frame" x="0.0" y="60.5" width="77" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWE-BF-WOD">
+                        <rect key="frame" x="45.5" y="12" width="20" height="20"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="LAl-vp-3zR"/>
+                            <constraint firstAttribute="width" constant="20" id="Zhw-4Z-9Dl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="DWE-BF-WOD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="12" id="0OU-D8-zTa"/>
+                <constraint firstItem="ocG-5s-ZCA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="25" id="Fsa-bi-LM5"/>
+                <constraint firstAttribute="bottom" secondItem="jDC-r4-62R" secondAttribute="bottom" id="Jb9-px-SGm"/>
+                <constraint firstItem="jDC-r4-62R" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="NiJ-kd-B9q"/>
+                <constraint firstAttribute="trailing" secondItem="jDC-r4-62R" secondAttribute="trailing" id="QL9-oM-73m"/>
+                <constraint firstItem="DWE-BF-WOD" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" constant="17" id="aBB-Sm-A0B"/>
+                <constraint firstItem="ocG-5s-ZCA" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="tu0-RZ-igL"/>
+            </constraints>
+            <size key="customSize" width="77" height="80"/>
+            <connections>
+                <outlet property="imgPic" destination="ocG-5s-ZCA" id="VTS-uz-YrR"/>
+                <outlet property="lblTitle" destination="jDC-r4-62R" id="DSd-e1-Hv4"/>
+                <outlet property="lblUnMessage" destination="DWE-BF-WOD" id="Xc1-jo-mXt"/>
+            </connections>
+            <point key="canvasLocation" x="151.19999999999999" y="125.4872563718141"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="icon_woddemiaosha" width="18" height="18"/>
+    </resources>
+</document>

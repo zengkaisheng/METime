@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="METhridGoodsGoodSectionView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ThridGoods" translatesAutoresizingMaskIntoConstraints="NO" id="ZDq-dX-GK7">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ZDq-dX-GK7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Gzt-zS-F85"/>
+                <constraint firstItem="ZDq-dX-GK7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="q16-98-ih4"/>
+                <constraint firstAttribute="trailing" secondItem="ZDq-dX-GK7" secondAttribute="trailing" id="vRR-3J-MpS"/>
+                <constraint firstAttribute="bottom" secondItem="ZDq-dX-GK7" secondAttribute="bottom" id="zSs-EN-UcL"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ThridGoods" width="375" height="42"/>
+    </resources>
+</document>

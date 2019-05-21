@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MECoupleHomeMainCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="221"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="220.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PK6-iG-5Bt">
+                        <rect key="frame" x="4" y="4" width="312" height="216.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="todayBuys" translatesAutoresizingMaskIntoConstraints="NO" id="BIG-bK-7Hs">
+                                <rect key="frame" x="0.0" y="0.0" width="312" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="6cL-x7-C6k"/>
+                                </constraints>
+                            </imageView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="luh-ze-CdT">
+                                <rect key="frame" x="12" y="50" width="288" height="166.5"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RF2-NH-uln">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VxL-FU-HF0">
+                                <rect key="frame" x="0.0" y="0.0" width="312" height="50"/>
+                                <connections>
+                                    <action selector="tapAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Qd6-Wn-Azi"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="VxL-FU-HF0" firstAttribute="leading" secondItem="BIG-bK-7Hs" secondAttribute="leading" id="0cz-7w-5QW"/>
+                            <constraint firstAttribute="trailing" secondItem="luh-ze-CdT" secondAttribute="trailing" constant="12" id="44u-32-ElB"/>
+                            <constraint firstItem="BIG-bK-7Hs" firstAttribute="leading" secondItem="PK6-iG-5Bt" secondAttribute="leading" id="EHg-tY-2sq"/>
+                            <constraint firstItem="luh-ze-CdT" firstAttribute="top" secondItem="BIG-bK-7Hs" secondAttribute="bottom" id="Myn-Ul-SAT"/>
+                            <constraint firstItem="luh-ze-CdT" firstAttribute="leading" secondItem="PK6-iG-5Bt" secondAttribute="leading" constant="12" id="TKm-2V-rSL"/>
+                            <constraint firstItem="BIG-bK-7Hs" firstAttribute="top" secondItem="PK6-iG-5Bt" secondAttribute="top" id="cP2-zY-6X8"/>
+                            <constraint firstItem="VxL-FU-HF0" firstAttribute="bottom" secondItem="BIG-bK-7Hs" secondAttribute="bottom" id="da8-0Y-U9T"/>
+                            <constraint firstAttribute="bottom" secondItem="luh-ze-CdT" secondAttribute="bottom" id="jal-PL-RIS"/>
+                            <constraint firstAttribute="trailing" secondItem="BIG-bK-7Hs" secondAttribute="trailing" id="qNe-GF-b4u"/>
+                            <constraint firstItem="VxL-FU-HF0" firstAttribute="trailing" secondItem="BIG-bK-7Hs" secondAttribute="trailing" id="xs3-8N-WTk"/>
+                            <constraint firstItem="VxL-FU-HF0" firstAttribute="top" secondItem="BIG-bK-7Hs" secondAttribute="top" id="yBt-Ko-HM9"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.96078431369999995" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="PK6-iG-5Bt" secondAttribute="bottom" id="Ca7-ls-NDx"/>
+                    <constraint firstItem="PK6-iG-5Bt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="MTU-AE-h5N"/>
+                    <constraint firstItem="PK6-iG-5Bt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="Qng-fV-zBR"/>
+                    <constraint firstAttribute="trailing" secondItem="PK6-iG-5Bt" secondAttribute="trailing" constant="4" id="qBF-5V-DyP"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="collectionView" destination="luh-ze-CdT" id="Azu-VZ-5Wv"/>
+                <outlet property="consImageHeight" destination="6cL-x7-C6k" id="ffK-SN-zfi"/>
+                <outlet property="imgPic" destination="BIG-bK-7Hs" id="kvt-oR-Nra"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="todayBuys" width="366" height="50"/>
+    </resources>
+</document>

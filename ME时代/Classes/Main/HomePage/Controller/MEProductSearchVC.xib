@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MEProductSearchVC">
+            <connections>
+                <outlet property="collectionView" destination="hUf-5N-bzB" id="Krc-2X-A3l"/>
+                <outlet property="consTopMargin" destination="bah-1S-c51" id="3TV-v2-DJE"/>
+                <outlet property="tfSearch" destination="MqE-CV-nxu" id="JQT-tC-8hw"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xoi-jJ-Hwa">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CZi-t6-V7G">
+                            <rect key="frame" x="14" y="7" width="301" height="30"/>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="搜索" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="MqE-CV-nxu">
+                                    <rect key="frame" x="44" y="0.0" width="257" height="30"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="VkZ-8R-wI9"/>
+                                    </connections>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tHK-P9-ZjD">
+                                    <rect key="frame" x="10" y="3" width="24" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="24" id="6SD-sP-F0c"/>
+                                        <constraint firstAttribute="width" constant="24" id="Knc-p0-TLN"/>
+                                    </constraints>
+                                    <state key="normal" image="common_nav_btn_search"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="MqE-CV-nxu" secondAttribute="bottom" id="HeO-p3-RE5"/>
+                                <constraint firstItem="MqE-CV-nxu" firstAttribute="top" secondItem="CZi-t6-V7G" secondAttribute="top" id="If1-J4-8y5"/>
+                                <constraint firstItem="tHK-P9-ZjD" firstAttribute="leading" secondItem="CZi-t6-V7G" secondAttribute="leading" constant="10" id="NeU-mV-I6o"/>
+                                <constraint firstItem="tHK-P9-ZjD" firstAttribute="centerY" secondItem="CZi-t6-V7G" secondAttribute="centerY" id="QPH-AX-Ooa"/>
+                                <constraint firstAttribute="trailing" secondItem="MqE-CV-nxu" secondAttribute="trailing" id="frg-0Y-YvY"/>
+                                <constraint firstItem="MqE-CV-nxu" firstAttribute="leading" secondItem="tHK-P9-ZjD" secondAttribute="trailing" constant="10" id="wKU-ab-o7a"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sok-Ib-V6o">
+                            <rect key="frame" x="315" y="0.0" width="60" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="E2s-op-mio"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="取消">
+                                <color key="titleColor" red="1" green="0.53333333329999999" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="faa-0m-fqw"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Sok-Ib-V6o" firstAttribute="top" secondItem="Xoi-jJ-Hwa" secondAttribute="top" id="6ER-LF-nd0"/>
+                        <constraint firstAttribute="bottom" secondItem="Sok-Ib-V6o" secondAttribute="bottom" id="8wI-lL-FtC"/>
+                        <constraint firstAttribute="bottom" secondItem="CZi-t6-V7G" secondAttribute="bottom" constant="7" id="TJo-fe-fe3"/>
+                        <constraint firstAttribute="height" constant="44" id="Vgr-zN-qXL"/>
+                        <constraint firstItem="CZi-t6-V7G" firstAttribute="leading" secondItem="Xoi-jJ-Hwa" secondAttribute="leading" constant="14" id="g7s-XX-deK"/>
+                        <constraint firstAttribute="trailing" secondItem="Sok-Ib-V6o" secondAttribute="trailing" id="jki-Jg-0Wd"/>
+                        <constraint firstItem="CZi-t6-V7G" firstAttribute="top" secondItem="Xoi-jJ-Hwa" secondAttribute="top" constant="7" id="oFd-2K-g0y"/>
+                        <constraint firstItem="Sok-Ib-V6o" firstAttribute="leading" secondItem="CZi-t6-V7G" secondAttribute="trailing" id="srr-4G-ToB"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hUf-5N-bzB">
+                    <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="11t-he-IJ8">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="hUf-5N-bzB" secondAttribute="bottom" id="2ul-SD-8wC"/>
+                <constraint firstAttribute="trailing" secondItem="Xoi-jJ-Hwa" secondAttribute="trailing" id="H7X-7U-Sgs"/>
+                <constraint firstAttribute="trailing" secondItem="hUf-5N-bzB" secondAttribute="trailing" id="Hsr-sl-Rua"/>
+                <constraint firstItem="hUf-5N-bzB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="OaK-27-bEg"/>
+                <constraint firstItem="hUf-5N-bzB" firstAttribute="top" secondItem="Xoi-jJ-Hwa" secondAttribute="bottom" id="XZc-aX-MUv"/>
+                <constraint firstItem="Xoi-jJ-Hwa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bah-1S-c51"/>
+                <constraint firstItem="Xoi-jJ-Hwa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yjm-Ax-3Q5"/>
+            </constraints>
+            <point key="canvasLocation" x="32.5" y="89.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="common_nav_btn_search" width="16" height="17"/>
+    </resources>
+</document>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MELogisticsCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="61.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQF-i3-HzD">
+                        <rect key="frame" x="0.0" y="0.0" width="70" height="61.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xS9-7s-Sz5">
+                                <rect key="frame" x="35" y="0.0" width="1" height="61.5"/>
+                                <color key="backgroundColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="1" id="CQI-7C-9Lp"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-sjrhfaiy" translatesAutoresizingMaskIntoConstraints="NO" id="jJI-WE-Iv8">
+                                <rect key="frame" x="27" y="10" width="16" height="16"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jJI-WE-Iv8" firstAttribute="centerX" secondItem="dQF-i3-HzD" secondAttribute="centerX" id="FHX-9W-vDn"/>
+                            <constraint firstAttribute="bottom" secondItem="xS9-7s-Sz5" secondAttribute="bottom" id="Hjg-fc-W51"/>
+                            <constraint firstItem="xS9-7s-Sz5" firstAttribute="centerX" secondItem="dQF-i3-HzD" secondAttribute="centerX" id="PHo-PY-Fj8"/>
+                            <constraint firstItem="xS9-7s-Sz5" firstAttribute="top" secondItem="dQF-i3-HzD" secondAttribute="top" id="hkf-L0-69N"/>
+                            <constraint firstItem="jJI-WE-Iv8" firstAttribute="top" secondItem="dQF-i3-HzD" secondAttribute="top" constant="10" id="iow-8Q-7JP"/>
+                            <constraint firstAttribute="width" constant="70" id="kAk-sj-5Lh"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDz-v1-3LE">
+                        <rect key="frame" x="70" y="10" width="235" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="FGg-H8-6st"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8i-JW-trn">
+                        <rect key="frame" x="70" y="34" width="235" height="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="99Z-jP-2ya">
+                        <rect key="frame" x="70" y="61.5" width="250" height="0.5"/>
+                        <color key="backgroundColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="zHL-2a-aPW"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="u8i-JW-trn" firstAttribute="leading" secondItem="DDz-v1-3LE" secondAttribute="leading" id="1sC-kb-qO7"/>
+                    <constraint firstAttribute="trailing" secondItem="99Z-jP-2ya" secondAttribute="trailing" id="9uc-AD-qiE"/>
+                    <constraint firstItem="99Z-jP-2ya" firstAttribute="leading" secondItem="dQF-i3-HzD" secondAttribute="trailing" id="Crs-2O-9jP"/>
+                    <constraint firstAttribute="bottom" secondItem="99Z-jP-2ya" secondAttribute="bottom" id="Kfh-PX-Ma6"/>
+                    <constraint firstAttribute="trailing" secondItem="DDz-v1-3LE" secondAttribute="trailing" constant="15" id="Q2G-ao-8EH"/>
+                    <constraint firstItem="dQF-i3-HzD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Z5P-fj-0H7"/>
+                    <constraint firstItem="DDz-v1-3LE" firstAttribute="leading" secondItem="dQF-i3-HzD" secondAttribute="trailing" id="dQJ-nP-RH0"/>
+                    <constraint firstAttribute="bottom" secondItem="dQF-i3-HzD" secondAttribute="bottom" id="dfi-HW-p1v"/>
+                    <constraint firstItem="u8i-JW-trn" firstAttribute="top" secondItem="DDz-v1-3LE" secondAttribute="bottom" constant="7" id="eqO-xK-GH9"/>
+                    <constraint firstItem="u8i-JW-trn" firstAttribute="trailing" secondItem="DDz-v1-3LE" secondAttribute="trailing" id="mD2-Sg-efD"/>
+                    <constraint firstItem="dQF-i3-HzD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="qgi-mF-bV9"/>
+                    <constraint firstItem="DDz-v1-3LE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ufo-Ay-2SX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="consStatuHeight" destination="FGg-H8-6st" id="d0P-2R-Qlk"/>
+                <outlet property="consTipW" destination="kAk-sj-5Lh" id="tzi-h8-uG2"/>
+                <outlet property="imgTip" destination="jJI-WE-Iv8" id="akF-zT-xtG"/>
+                <outlet property="lblStatus" destination="DDz-v1-3LE" id="Ecm-LK-bZN"/>
+                <outlet property="lblTime" destination="u8i-JW-trn" id="Ngr-eW-aTy"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon-sjrhfaiy" width="16" height="16"/>
+    </resources>
+</document>

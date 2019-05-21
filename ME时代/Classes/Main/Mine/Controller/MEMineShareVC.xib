@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MEMineShareVC">
+            <connections>
+                <outlet property="btnSave" destination="Rkl-va-Fnw" id="uVb-fX-aim"/>
+                <outlet property="consImgHeight" destination="Vza-YU-yWR" id="ljP-UM-37h"/>
+                <outlet property="consTopMargin" destination="cHd-cC-rNe" id="o5a-ws-69P"/>
+                <outlet property="imgCode" destination="Nwh-nf-8IJ" id="6b4-mG-mQ4"/>
+                <outlet property="imgPic" destination="Pxl-Aj-nKe" id="HRW-fw-LXs"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareImg" translatesAutoresizingMaskIntoConstraints="NO" id="Pxl-Aj-nKe">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="250" id="Vza-YU-yWR"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rkl-va-Fnw">
+                    <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                    <color key="backgroundColor" red="1" green="0.53333333329999999" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="zOU-n1-VXN"/>
+                    </constraints>
+                    <state key="normal" title="保存图片">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="saveAction:" destination="-1" eventType="touchUpInside" id="VtQ-Lk-z7l"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nwh-nf-8IJ">
+                    <rect key="frame" x="0.0" y="250" width="375" height="367"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Pxl-Aj-nKe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Huj-Cf-1GH"/>
+                <constraint firstAttribute="trailing" secondItem="Rkl-va-Fnw" secondAttribute="trailing" id="NRQ-d9-IBF"/>
+                <constraint firstAttribute="trailing" secondItem="Nwh-nf-8IJ" secondAttribute="trailing" id="T5O-u6-bAK"/>
+                <constraint firstItem="Nwh-nf-8IJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cDu-MI-gJS"/>
+                <constraint firstItem="Pxl-Aj-nKe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cHd-cC-rNe"/>
+                <constraint firstAttribute="bottom" secondItem="Rkl-va-Fnw" secondAttribute="bottom" id="cYg-0t-9ur"/>
+                <constraint firstItem="Rkl-va-Fnw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ci4-mB-lpf"/>
+                <constraint firstItem="Rkl-va-Fnw" firstAttribute="top" secondItem="Nwh-nf-8IJ" secondAttribute="bottom" id="ep3-WR-EaU"/>
+                <constraint firstItem="Nwh-nf-8IJ" firstAttribute="top" secondItem="Pxl-Aj-nKe" secondAttribute="bottom" id="jeq-i4-s9e"/>
+                <constraint firstAttribute="trailing" secondItem="Pxl-Aj-nKe" secondAttribute="trailing" id="rJ7-nE-H5G"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="shareImg" width="750" height="510"/>
+    </resources>
+</document>

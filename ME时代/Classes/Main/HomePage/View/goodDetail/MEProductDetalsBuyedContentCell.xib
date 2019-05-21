@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="90u-j4-Ayi" customClass="MEProductDetalsBuyedContentCell">
+            <rect key="frame" x="0.0" y="0.0" width="110" height="200"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="110" height="200"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大撒的撒的撒大撒的撒的撒的撒打算的撒大撒的撒的撒的撒打算的撒大撒的撒的撒的撒打算的撒大撒的撒的撒的撒打算的撒的撒打算的撒" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2v-hZ-fyw">
+                        <rect key="frame" x="0.0" y="130" width="110" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="29" id="Hob-Vw-3hf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥1000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ptt-QA-fdV">
+                        <rect key="frame" x="0.0" y="167" width="37" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="37" id="0ei-5z-WMz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥1000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCJ-EG-x8B">
+                        <rect key="frame" x="56" y="166.5" width="54" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="1" green="0.53333333329999999" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" tag="103" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_huiyuanbiaoshi.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fpy-Hp-PFS">
+                        <rect key="frame" x="37" y="166.5" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="38z-sG-hMQ"/>
+                            <constraint firstAttribute="width" constant="15" id="JN0-mA-g94"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="caP-07-xdS">
+                        <rect key="frame" x="0.0" y="0.0" width="110" height="115"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="115" id="ZXk-oz-v0q"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预约" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WY8-WE-dt5">
+                        <rect key="frame" x="47" y="166.5" width="53" height="15"/>
+                        <color key="backgroundColor" red="1" green="0.53333333329999999" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Ptt-QA-fdV" firstAttribute="leading" secondItem="90u-j4-Ayi" secondAttribute="leading" id="6zq-SF-aYO"/>
+                <constraint firstItem="Ptt-QA-fdV" firstAttribute="top" secondItem="V2v-hZ-fyw" secondAttribute="bottom" constant="8" id="7lW-GE-6wh"/>
+                <constraint firstAttribute="trailing" secondItem="WY8-WE-dt5" secondAttribute="trailing" constant="10" id="DWq-Ek-cxF"/>
+                <constraint firstItem="caP-07-xdS" firstAttribute="leading" secondItem="90u-j4-Ayi" secondAttribute="leading" id="Evg-iI-EKa"/>
+                <constraint firstItem="caP-07-xdS" firstAttribute="top" secondItem="90u-j4-Ayi" secondAttribute="top" id="PY1-zs-GPS"/>
+                <constraint firstItem="MCJ-EG-x8B" firstAttribute="leading" secondItem="Fpy-Hp-PFS" secondAttribute="trailing" constant="4" id="UIs-AM-CGm"/>
+                <constraint firstAttribute="trailing" secondItem="V2v-hZ-fyw" secondAttribute="trailing" id="V3G-J8-jXV"/>
+                <constraint firstItem="WY8-WE-dt5" firstAttribute="centerY" secondItem="Ptt-QA-fdV" secondAttribute="centerY" id="aCa-hM-trw"/>
+                <constraint firstItem="MCJ-EG-x8B" firstAttribute="centerY" secondItem="Fpy-Hp-PFS" secondAttribute="centerY" id="aEF-fh-JMr"/>
+                <constraint firstItem="V2v-hZ-fyw" firstAttribute="leading" secondItem="90u-j4-Ayi" secondAttribute="leading" id="eG3-s2-efI"/>
+                <constraint firstItem="WY8-WE-dt5" firstAttribute="leading" secondItem="Ptt-QA-fdV" secondAttribute="trailing" constant="10" id="ffg-0O-JFO"/>
+                <constraint firstItem="MCJ-EG-x8B" firstAttribute="centerY" secondItem="Ptt-QA-fdV" secondAttribute="centerY" id="ns4-eg-qmG"/>
+                <constraint firstAttribute="trailing" secondItem="caP-07-xdS" secondAttribute="trailing" id="o2m-re-fnU"/>
+                <constraint firstAttribute="trailing" secondItem="MCJ-EG-x8B" secondAttribute="trailing" id="qRi-Pm-3br"/>
+                <constraint firstItem="V2v-hZ-fyw" firstAttribute="top" secondItem="caP-07-xdS" secondAttribute="bottom" constant="15" id="vt5-B8-0zl"/>
+                <constraint firstItem="Fpy-Hp-PFS" firstAttribute="leading" secondItem="Ptt-QA-fdV" secondAttribute="trailing" id="zIl-Kj-9hP"/>
+            </constraints>
+            <size key="customSize" width="195" height="310"/>
+            <connections>
+                <outlet property="conlblWdith" destination="0ei-5z-WMz" id="mM6-Zz-07z"/>
+                <outlet property="imgIcon" destination="Fpy-Hp-PFS" id="eHn-Nf-sf9"/>
+                <outlet property="imgPic" destination="caP-07-xdS" id="pwm-Yn-Suk"/>
+                <outlet property="lblAppoint" destination="WY8-WE-dt5" id="cVz-Xr-bIt"/>
+                <outlet property="lblIntergal" destination="MCJ-EG-x8B" id="dWU-N5-2Qd"/>
+                <outlet property="lblPrice" destination="Ptt-QA-fdV" id="vNb-rF-QhP"/>
+                <outlet property="lblTitle" destination="V2v-hZ-fyw" id="8D4-Pl-B7U"/>
+            </connections>
+            <point key="canvasLocation" x="290" y="104"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="pic_huiyuanbiaoshi.png" width="15" height="15"/>
+    </resources>
+</document>

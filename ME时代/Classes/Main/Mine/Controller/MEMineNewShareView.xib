@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MEMineNewShareView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="699"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jJH-e4-BQL">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="559" id="IHL-Pr-9gO"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TGR-sC-g5o">
+                    <rect key="frame" x="0.0" y="559" width="375" height="140"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WGS-1z-mgN">
+                            <rect key="frame" x="241" y="13" width="114" height="114"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="114" id="BHb-BH-Znf"/>
+                                <constraint firstAttribute="width" constant="114" id="IlC-nk-nWP"/>
+                            </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OAg-1d-pOY">
+                            <rect key="frame" x="20" y="45" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="1GH-2E-4D5"/>
+                                <constraint firstAttribute="width" constant="50" id="geo-CQ-ydJ"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZH-Zi-BZs">
+                            <rect key="frame" x="80" y="50" width="151" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Wg-gp-3cF">
+                            <rect key="frame" x="80" y="78" width="151" height="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="2Wg-gp-3cF" firstAttribute="leading" secondItem="KZH-Zi-BZs" secondAttribute="leading" id="5Yn-0c-7Nj"/>
+                        <constraint firstAttribute="height" constant="140" id="6p0-Gm-eqn"/>
+                        <constraint firstItem="KZH-Zi-BZs" firstAttribute="top" secondItem="TGR-sC-g5o" secondAttribute="top" constant="50" id="8TI-6n-b8J"/>
+                        <constraint firstItem="WGS-1z-mgN" firstAttribute="leading" secondItem="KZH-Zi-BZs" secondAttribute="trailing" constant="10" id="DHH-fs-IIy"/>
+                        <constraint firstItem="KZH-Zi-BZs" firstAttribute="leading" secondItem="OAg-1d-pOY" secondAttribute="trailing" constant="10" id="ITR-Aq-ZQH"/>
+                        <constraint firstItem="WGS-1z-mgN" firstAttribute="centerY" secondItem="TGR-sC-g5o" secondAttribute="centerY" id="Rai-AZ-vli"/>
+                        <constraint firstItem="OAg-1d-pOY" firstAttribute="centerY" secondItem="TGR-sC-g5o" secondAttribute="centerY" id="cZR-bh-DQI"/>
+                        <constraint firstAttribute="trailing" secondItem="WGS-1z-mgN" secondAttribute="trailing" constant="20" id="lcp-6T-gp6"/>
+                        <constraint firstItem="2Wg-gp-3cF" firstAttribute="trailing" secondItem="KZH-Zi-BZs" secondAttribute="trailing" id="oA3-Ym-wxh"/>
+                        <constraint firstItem="OAg-1d-pOY" firstAttribute="leading" secondItem="TGR-sC-g5o" secondAttribute="leading" constant="20" id="oKQ-Vr-qxf"/>
+                        <constraint firstItem="2Wg-gp-3cF" firstAttribute="top" secondItem="KZH-Zi-BZs" secondAttribute="bottom" constant="10" id="orv-0E-ogM"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="jJH-e4-BQL" secondAttribute="trailing" id="1e4-vY-Stv"/>
+                <constraint firstAttribute="bottom" secondItem="TGR-sC-g5o" secondAttribute="bottom" id="368-We-EY6"/>
+                <constraint firstAttribute="trailing" secondItem="TGR-sC-g5o" secondAttribute="trailing" id="DKR-cZ-pgh"/>
+                <constraint firstItem="TGR-sC-g5o" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JJ0-Qi-Thd"/>
+                <constraint firstItem="TGR-sC-g5o" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JJc-En-28f"/>
+                <constraint firstItem="jJH-e4-BQL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ORR-O7-In5"/>
+                <constraint firstItem="jJH-e4-BQL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Xta-Co-5So"/>
+                <constraint firstItem="jJH-e4-BQL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="c72-sD-kLM"/>
+                <constraint firstItem="jJH-e4-BQL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rfW-7s-Yrt"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="conHh" destination="geo-CQ-ydJ" id="6wL-da-6Fj"/>
+                <outlet property="consCodeR" destination="lcp-6T-gp6" id="De2-f5-r4u"/>
+                <outlet property="consHeaderL" destination="oKQ-Vr-qxf" id="pRS-z7-joO"/>
+                <outlet property="consHw" destination="1GH-2E-4D5" id="gAJ-03-EZs"/>
+                <outlet property="consImgCodeH" destination="IlC-nk-nWP" id="zQY-w5-RgS"/>
+                <outlet property="consImgCodeW" destination="BHb-BH-Znf" id="rLG-ld-chk"/>
+                <outlet property="consLevTop" destination="orv-0E-ogM" id="gIT-l4-j53"/>
+                <outlet property="consNameTop" destination="8TI-6n-b8J" id="sSE-J1-mS4"/>
+                <outlet property="consSubViewHeight" destination="6p0-Gm-eqn" id="3Aj-uL-kKo"/>
+                <outlet property="consbIMgHeight" destination="IHL-Pr-9gO" id="xiJ-v8-7cG"/>
+                <outlet property="imgCode" destination="WGS-1z-mgN" id="MvL-0T-Dy6"/>
+                <outlet property="imgHeader" destination="OAg-1d-pOY" id="my6-ve-DAs"/>
+                <outlet property="imgPic" destination="jJH-e4-BQL" id="cDK-hb-Z8P"/>
+                <outlet property="lblLevel" destination="2Wg-gp-3cF" id="bS1-Dx-Byo"/>
+                <outlet property="lblName" destination="KZH-Zi-BZs" id="QVd-gN-fad"/>
+            </connections>
+            <point key="canvasLocation" x="-26.5" y="75.5"/>
+        </view>
+    </objects>
+</document>

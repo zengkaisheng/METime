@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MECoupleHomeNavView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4J0-dh-CUA">
+                    <rect key="frame" x="0.0" y="0.0" width="60" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="iiF-oP-vbS"/>
+                    </constraints>
+                    <state key="normal" image="inc-xz"/>
+                    <connections>
+                        <action selector="backAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Xkz-U8-00H"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coupleSearch" translatesAutoresizingMaskIntoConstraints="NO" id="g5c-Dy-5rq">
+                    <rect key="frame" x="60" y="0.0" width="295" height="64"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeS-6y-F08">
+                    <rect key="frame" x="60" y="0.0" width="295" height="64"/>
+                    <connections>
+                        <action selector="searchAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="3Rh-ur-IBg"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="g5c-Dy-5rq" secondAttribute="trailing" constant="20" id="3pm-Gv-ASX"/>
+                <constraint firstItem="aeS-6y-F08" firstAttribute="top" secondItem="g5c-Dy-5rq" secondAttribute="top" id="Cw9-4u-w69"/>
+                <constraint firstItem="aeS-6y-F08" firstAttribute="leading" secondItem="g5c-Dy-5rq" secondAttribute="leading" id="GhB-fO-Ysr"/>
+                <constraint firstItem="4J0-dh-CUA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Mbb-jN-GWR"/>
+                <constraint firstItem="aeS-6y-F08" firstAttribute="bottom" secondItem="g5c-Dy-5rq" secondAttribute="bottom" id="S1w-mr-hvt"/>
+                <constraint firstAttribute="bottom" secondItem="4J0-dh-CUA" secondAttribute="bottom" id="Wfq-96-g2g"/>
+                <constraint firstAttribute="bottom" secondItem="g5c-Dy-5rq" secondAttribute="bottom" id="ZEr-Mq-cx3"/>
+                <constraint firstItem="g5c-Dy-5rq" firstAttribute="top" secondItem="4J0-dh-CUA" secondAttribute="top" id="mOS-qx-Aih"/>
+                <constraint firstItem="g5c-Dy-5rq" firstAttribute="leading" secondItem="4J0-dh-CUA" secondAttribute="trailing" id="o0Y-OU-rIV"/>
+                <constraint firstItem="4J0-dh-CUA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="oa2-Ms-NzU"/>
+                <constraint firstItem="aeS-6y-F08" firstAttribute="trailing" secondItem="g5c-Dy-5rq" secondAttribute="trailing" id="q30-PB-SRT"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="conTop" destination="oa2-Ms-NzU" id="tUA-EL-atj"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="coupleSearch" width="508" height="54"/>
+        <image name="inc-xz" width="10" height="18"/>
+    </resources>
+</document>

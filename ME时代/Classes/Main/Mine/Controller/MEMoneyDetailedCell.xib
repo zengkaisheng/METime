@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MEMoneyDetailedCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="66.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zIb-67-9pK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="10"/>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="beP-4m-vtv"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MvE-zb-gax">
+                        <rect key="frame" x="15" y="19" width="38" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="38" id="1Gh-g4-sbb"/>
+                            <constraint firstAttribute="width" constant="38" id="yVb-EZ-Xlf"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="19"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018-14-17 00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5U-Dd-Rej">
+                        <rect key="frame" x="63" y="42" width="121.5" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="122" id="xpu-ZK-TIF"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="获得金额:¥1999:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qMG-zg-dP2">
+                        <rect key="frame" x="199.5" y="30.5" width="105.5" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gs-Ou-GwL">
+                        <rect key="frame" x="63" y="19" width="121.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="MvE-zb-gax" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="0Zc-q1-d7X"/>
+                    <constraint firstItem="u5U-Dd-Rej" firstAttribute="bottom" secondItem="MvE-zb-gax" secondAttribute="bottom" id="9z5-RI-95f"/>
+                    <constraint firstItem="5gs-Ou-GwL" firstAttribute="leading" secondItem="MvE-zb-gax" secondAttribute="trailing" constant="10" id="MiF-7M-jkc"/>
+                    <constraint firstItem="u5U-Dd-Rej" firstAttribute="trailing" secondItem="5gs-Ou-GwL" secondAttribute="trailing" id="TrU-v5-yh0"/>
+                    <constraint firstItem="u5U-Dd-Rej" firstAttribute="leading" secondItem="5gs-Ou-GwL" secondAttribute="leading" id="UmU-3v-ItC"/>
+                    <constraint firstAttribute="trailing" secondItem="zIb-67-9pK" secondAttribute="trailing" id="VGu-52-WBR"/>
+                    <constraint firstItem="zIb-67-9pK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bhm-kM-Bue"/>
+                    <constraint firstAttribute="trailing" secondItem="qMG-zg-dP2" secondAttribute="trailing" constant="15" id="dIP-Uo-uKl"/>
+                    <constraint firstItem="zIb-67-9pK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jyA-Ms-l8q"/>
+                    <constraint firstItem="qMG-zg-dP2" firstAttribute="leading" secondItem="u5U-Dd-Rej" secondAttribute="trailing" constant="15" id="lwB-nM-FFU"/>
+                    <constraint firstItem="5gs-Ou-GwL" firstAttribute="top" secondItem="MvE-zb-gax" secondAttribute="top" id="s8Q-yB-JFY"/>
+                    <constraint firstItem="qMG-zg-dP2" firstAttribute="centerY" secondItem="MvE-zb-gax" secondAttribute="centerY" id="uNE-fN-rdI"/>
+                    <constraint firstItem="MvE-zb-gax" firstAttribute="top" secondItem="zIb-67-9pK" secondAttribute="bottom" constant="9" id="yp5-Yk-iR2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imgPic" destination="MvE-zb-gax" id="Pbc-2X-TWR"/>
+                <outlet property="lblPrice" destination="qMG-zg-dP2" id="Hjo-kJ-jka"/>
+                <outlet property="lblTime" destination="u5U-Dd-Rej" id="Irp-YU-VRJ"/>
+                <outlet property="lblTitle" destination="5gs-Ou-GwL" id="dLk-zL-3fA"/>
+            </connections>
+            <point key="canvasLocation" x="56" y="86.5"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MEMineExchangeRudeSectionView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsI-iN-PLF">
+                    <rect key="frame" x="15" y="16" width="38" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_more" translatesAutoresizingMaskIntoConstraints="NO" id="xdf-Gk-fxG">
+                    <rect key="frame" x="353" y="19.5" width="7" height="11"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="11" id="X3G-15-O68"/>
+                        <constraint firstAttribute="width" constant="7" id="fyH-Ij-cgh"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UxB-mb-lg1">
+                    <rect key="frame" x="305" y="0.0" width="70" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="JCj-4T-Ebh"/>
+                    </constraints>
+                    <connections>
+                        <action selector="expandAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="KrM-dN-ese"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="UxB-mb-lg1" secondAttribute="trailing" id="Ccv-iq-XHz"/>
+                <constraint firstItem="nsI-iN-PLF" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Fng-MD-GEb"/>
+                <constraint firstItem="xdf-Gk-fxG" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="G5W-Nv-jI0"/>
+                <constraint firstItem="nsI-iN-PLF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="UR2-bV-j2M"/>
+                <constraint firstItem="UxB-mb-lg1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aci-w8-4M8"/>
+                <constraint firstAttribute="trailing" secondItem="xdf-Gk-fxG" secondAttribute="trailing" constant="15" id="np3-Bx-FTX"/>
+                <constraint firstAttribute="bottom" secondItem="UxB-mb-lg1" secondAttribute="bottom" id="ohK-UV-xnJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnExpand" destination="UxB-mb-lg1" id="ey7-6Y-N7M"/>
+                <outlet property="imgIcon" destination="xdf-Gk-fxG" id="Sjp-05-wdY"/>
+                <outlet property="lblTitle" destination="nsI-iN-PLF" id="sxT-Gq-f0h"/>
+            </connections>
+            <point key="canvasLocation" x="108.5" y="126"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_more" width="7" height="11"/>
+    </resources>
+</document>

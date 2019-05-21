@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1DP-hV-DgB" customClass="MEStoreSelectCityView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="深圳" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kd3-km-5W1">
+                    <rect key="frame" x="15" y="15.5" width="33" height="19.5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="94q-9m-zRX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(当前城市)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TyZ-03-Ggw">
+                    <rect key="frame" x="49" y="16.5" width="68" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="68" id="Rdu-BS-tGc"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inco-tguspgwu" translatesAutoresizingMaskIntoConstraints="NO" id="tcM-kB-EwV">
+                    <rect key="frame" x="348" y="18" width="12" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="12" id="5UB-dr-f6o"/>
+                        <constraint firstAttribute="height" constant="14" id="SPO-Oi-9KJ"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="重新定位" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nsk-wl-8hi">
+                    <rect key="frame" x="281.5" y="16" width="61.5" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="61.5" id="60O-YV-bzp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.80000000000000004" green="0.61960784310000006" blue="0.41176470590000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="tcM-kB-EwV" firstAttribute="leading" secondItem="Nsk-wl-8hi" secondAttribute="trailing" constant="5" id="1Y6-ot-uYa"/>
+                <constraint firstItem="Nsk-wl-8hi" firstAttribute="centerY" secondItem="1DP-hV-DgB" secondAttribute="centerY" id="6ju-rr-Frz"/>
+                <constraint firstItem="TyZ-03-Ggw" firstAttribute="leading" secondItem="kd3-km-5W1" secondAttribute="trailing" constant="1" id="LfC-2L-h1N"/>
+                <constraint firstItem="kd3-km-5W1" firstAttribute="leading" secondItem="1DP-hV-DgB" secondAttribute="leading" constant="15" id="NmU-wD-g1C"/>
+                <constraint firstAttribute="trailing" secondItem="tcM-kB-EwV" secondAttribute="trailing" constant="15" id="RPU-je-ZQB"/>
+                <constraint firstItem="tcM-kB-EwV" firstAttribute="centerY" secondItem="1DP-hV-DgB" secondAttribute="centerY" id="cQ2-b4-kiD"/>
+                <constraint firstItem="kd3-km-5W1" firstAttribute="centerY" secondItem="1DP-hV-DgB" secondAttribute="centerY" id="hib-Kp-gIC"/>
+                <constraint firstItem="TyZ-03-Ggw" firstAttribute="centerY" secondItem="1DP-hV-DgB" secondAttribute="centerY" id="pb4-dj-0ub"/>
+                <constraint firstItem="kd3-km-5W1" firstAttribute="centerY" secondItem="1DP-hV-DgB" secondAttribute="centerY" id="ztL-8o-WYe"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="inco-tguspgwu" width="10" height="14"/>
+    </resources>
+</document>
