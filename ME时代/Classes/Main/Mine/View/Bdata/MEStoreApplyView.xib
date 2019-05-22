@@ -87,8 +87,8 @@
                         <constraint firstAttribute="height" constant="10" id="E1F-Hy-mlg"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="店铺信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgI-bF-ot6">
-                    <rect key="frame" x="15" y="316" width="69.5" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="店铺信息（可以自行修改成自己的）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgI-bF-ot6">
+                    <rect key="frame" x="15" y="316" width="277.5" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -534,7 +534,7 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_bynamicAdd" width="104.5" height="104.5"/>
+        <image name="icon_bynamicAdd" width="104" height="104"/>
         <image name="icon_dydDel" width="17" height="17"/>
         <image name="stroelocation" width="15" height="19"/>
     </resources>

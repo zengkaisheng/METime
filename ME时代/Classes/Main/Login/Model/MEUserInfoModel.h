@@ -20,6 +20,16 @@
 #define kCurrentUser [MEUserInfoModel shareUser]
 static NSString *kTokenKey = @"kTokenKey";
 
+
+@interface MEAuditModel :MEBaseModel
+
+@property (nonatomic, assign) NSInteger is_aide;
+@property (nonatomic, assign) NSInteger is_radar;//判断AI雷达是否显示 1显示 2隐藏
+
+
+@end
+
+
 @interface MEUserInfoModelTLSData :MEBaseModel
 
 @property (nonatomic, copy) NSString *tls_id;//testmsd_user,msd_user_uid
@@ -61,6 +71,8 @@ static NSString *kTokenKey = @"kTokenKey";
 //用户身份 4普通会员 3体验店 2营销中心 1售后中心 5店员
 @property (nonatomic, assign) NSInteger user_type;
 @property (nonatomic, assign) MEClientTypeStyle client_type;
+
+@property (nonatomic, strong) MEAuditModel *audit;
 
 //淘宝的分享id
 @property (nonatomic, copy) NSString *relation_id;

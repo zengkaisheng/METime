@@ -70,7 +70,7 @@
     
     
     MEBStoreMannagerInfoModel *storeModel =  [MEBStoreMannagerInfoModel new];
-    storeModel.title = @"店铺信息";
+    storeModel.title = @"店铺信息（可以自行修改成自己的）";
     [storeModel.arrModel addObject:[MEBStoreMannagercontentInfoModel initWithType:MEBStoreMannagerInfoStoreNameType title:@"店铺名称:" subTitle:kMeUnNilStr(_model.store_name)]];
     [storeModel.arrModel addObject:[MEBStoreMannagercontentInfoModel initWithType:MEBStoreMannagerInfoStoreTelType title:@"店铺电话:" subTitle:kMeUnNilStr(_model.mobile)]];
     [storeModel.arrModel addObject:[MEBStoreMannagercontentInfoModel initWithType:MEBStoreMannagerInfocodeIdType title:@"身份证号:" subTitle:kMeUnNilStr(_model.id_number)]];

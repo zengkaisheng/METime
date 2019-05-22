@@ -13,6 +13,11 @@
 static NSString *kUserInfoKey = @"kUserInfo";
 static MEUserInfoModel *shareUser;
 
+
+@implementation MEAuditModel
+
+@end
+
 @implementation MEUserInfoModelTLSData
 
 @end

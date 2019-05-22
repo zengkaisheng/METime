@@ -32,7 +32,12 @@
 //    if(kCurrentUser.user_type == 3){
 //        _arrtype = @[@{@"title":@"地址",@"subTitle":@[@{@"title":@"收货地址",@"type":@(MESetAddressStyle)}]},@{@"title":@"账号与安全",@"subTitle":@[@{@"title":@"清理缓存",@"type":@(MESetCLearChacheStyle)},@{@"title":@"接收店铺访问通知",@"type":@(MESetNoticeStyle)}]},@{@"title":@"关于",@"subTitle":@[@{@"title":@"关于我们",@"type":@(MESetAboutWeStyle)},@{@"title":@"APP隐私权政策",@"type":@(MESetCompandNoticeStyle)}]}];
 //    }else{
-       _arrtype = @[@{@"title":@"地址",@"subTitle":@[@{@"title":@"收货地址",@"type":@(MESetAddressStyle)}]},@{@"title":@"账号与安全",@"subTitle":@[@{@"title":@"更换手机号码",@"type":@(MESetPhoneStyle)},@{@"title":@"清理缓存",@"type":@(MESetCLearChacheStyle)}]},@{@"title":@"关于",@"subTitle":@[@{@"title":@"关于我们",@"type":@(MESetAboutWeStyle)},@{@"title":@"APP隐私权政策",@"type":@(MESetCompandNoticeStyle)}]}];
+    if(kCurrentUser.user_type == 4){
+        _arrtype = @[@{@"title":@"地址",@"subTitle":@[@{@"title":@"收货地址",@"type":@(MESetAddressStyle)}]},@{@"title":@"账号与安全",@"subTitle":@[@{@"title":@"更换手机号码",@"type":@(MESetPhoneStyle)},@{@"title":@"清理缓存",@"type":@(MESetCLearChacheStyle)}]},@{@"title":@"关于",@"subTitle":@[@{@"title":@"关于我们",@"type":@(MESetAboutWeStyle)},@{@"title":@"APP隐私权政策",@"type":@(MESetCompandNoticeStyle)}]}];
+    }else{
+        _arrtype = @[@{@"title":@"地址",@"subTitle":@[@{@"title":@"收货地址",@"type":@(MESetAddressStyle)}]},@{@"title":@"账号与安全",@"subTitle":@[@{@"title":@"清理缓存",@"type":@(MESetCLearChacheStyle)}]},@{@"title":@"关于",@"subTitle":@[@{@"title":@"关于我们",@"type":@(MESetAboutWeStyle)},@{@"title":@"APP隐私权政策",@"type":@(MESetCompandNoticeStyle)}]}];
+    }
+
 //    }
     
     [self.view addSubview:self.tableView];
