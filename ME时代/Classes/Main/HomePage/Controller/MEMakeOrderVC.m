@@ -340,6 +340,9 @@
         if(_goodModel.product_type == 16){
             model.order_type = @"16";
         }
+        if ([self->_goodModel.skus containsString:@"到店领取"]) {
+            model.is_store_get = 1;
+        }
         model.uid = kMeUnNilStr(self.uid);
         [MEPublicNetWorkTool postCreateOrderWithAttrModel:model successBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
