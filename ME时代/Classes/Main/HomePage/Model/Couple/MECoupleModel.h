@@ -73,7 +73,7 @@
 @property (nonatomic, strong) NSString * truePrice;
 @property (nonatomic, strong) NSString * coupon_share_url;
 @property (nonatomic, strong) NSString * coupon_id;
-
+@property (nonatomic, assign) CGFloat min_ratio;
 
 - (void)resetModelWithModel:(MECouponInfo *)model;
 @end

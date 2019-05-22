@@ -14,6 +14,6 @@
 
 - (instancetype)initWithModel:(MECoupleModel *)model;
 - (instancetype)initWithPinduoudoModel:(MEPinduoduoCoupleModel *)model;
-- (instancetype)initWithProductrId:(NSString *)ProductrId couponId:(NSString *)couponId couponurl:(NSString *)couponurl;
+- (instancetype)initWithProductrId:(NSString *)ProductrId couponId:(NSString *)couponId couponurl:(NSString *)couponurl Model:(MECoupleModel *)model;
 
 @end

@@ -578,6 +578,10 @@
 //获取默认地址
 #define MEIPcommonAddressGetdefaultAddress @"common/address/defaultAddress"
 
+//获取到店领取的店铺地址
+#define MEIPcommonAddressGetStoreAddress @"common/address/addStoreAddress"
+
+
 //编辑收货地址
 #define MEIPcommonAddressEditAddress @"common/address/editAddress"
 //删除地址

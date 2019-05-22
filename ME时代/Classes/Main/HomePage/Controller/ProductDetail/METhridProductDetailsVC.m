@@ -27,7 +27,7 @@
 #import "MEProductDetailCommentVC.h"
 
 typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
-    kpurchaseSelectSkuViewType,
+    kpurchaseSelectSkuViewType,//选择规格
     kpurchaseViewBuyType,
     kpurchaseViewShoppingType,
 };
@@ -416,7 +416,7 @@ kTDWebViewCellDidFinishLoadNotificationMethod
         };
         _bottomView.addShopcartBlock = ^{
             kMeSTRONGSELF
-            if(strongSelf.model.product_type == 15){
+            if(strongSelf.model.product_type == 15||strongSelf.model.product_type == 16){
                 [MEShowViewTool showMessage:@"该商品不支持加入购物车" view:kMeCurrentWindow];
             }else{
                 [strongSelf showBuyViewWithTypy:kpurchaseViewShoppingType];

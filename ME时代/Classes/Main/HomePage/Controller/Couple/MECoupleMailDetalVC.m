@@ -31,6 +31,7 @@
     NSString *_couponurl;
     NSDictionary *_goods_promotion_url;
     NSDictionary *_sharegoods_promotion_url;
+    CGFloat _min_ratio;
 }
 
 @property (nonatomic, strong) UITableView           *tableView;
@@ -58,11 +59,12 @@
     return self;
 }
 
-- (instancetype)initWithProductrId:(NSString *)ProductrId couponId:(NSString *)couponId couponurl:(NSString *)couponurl{
+- (instancetype)initWithProductrId:(NSString *)ProductrId couponId:(NSString *)couponId couponurl:(NSString *)couponurl Model:(MECoupleModel *)model{
     if(self = [super init]){
         _detailId = ProductrId;
         _couponId = couponId;
         _couponurl = couponurl;
+        _min_ratio = model.min_ratio;
     }
     return self;
 }
@@ -119,6 +121,7 @@
                 NSArray *arr= responseObject.data[@"tbk_item_info_get_response"][@"results"][@"n_tbk_item"];
                 if([arr isKindOfClass:[NSArray class]] && arr.count){
                     strongSelf->_detailModel = [MECoupleModel mj_objectWithKeyValues:arr[0]];
+                    strongSelf->_detailModel.min_ratio = strongSelf->_min_ratio;
                 }else{
                     strongSelf->_detailModel = [MECoupleModel new];
                 }
@@ -440,7 +443,9 @@
             NSString *str = [NSString stringWithFormat:@"分享购买最低%@佣金",[MECommonTool changeformatterWithFen:@(_pinduoduomodel.min_ratio)]];
             [_btnShare setTitle:str forState:UIControlStateNormal];
         }else{
-            [_btnShare setTitle:@"马上分享" forState:UIControlStateNormal];
+//            [_btnShare setTitle:@"马上分享" forState:UIControlStateNormal];
+            NSString *str = [NSString stringWithFormat:@"分享购买最低%.2f佣金",_detailModel.min_ratio];
+            [_btnShare setTitle:str forState:UIControlStateNormal];
         }
         _btnShare.titleLabel.font = kMeFont(15);
     }
@@ -451,9 +456,9 @@
     if(!_addTbVIew){
         _addTbVIew = [[[NSBundle mainBundle]loadNibNamed:@"MEAddTbView" owner:nil options:nil] lastObject];
         _addTbVIew.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        kMeWEAKSELF
+//        kMeWEAKSELF
         _addTbVIew.finishBlock = ^(BOOL sucess) {
-            kMeSTRONGSELF
+//            kMeSTRONGSELF
             if(sucess){
                 
             }

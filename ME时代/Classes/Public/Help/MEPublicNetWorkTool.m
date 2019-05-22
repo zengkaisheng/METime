@@ -1753,6 +1753,7 @@
     NSDictionary *dic = @{@"goods_id":goodsId,
                           @"spec_ids":specIds,
                           @"token":kMeUnNilStr(kCurrentUser.token),
+                          @"uid":kMeUnNilStr(kCurrentUser.uid)
                           };
     NSString *url = kGetApiWithUrl(MEIPcommonGoodsGetPriceAndStock);
     MBProgressHUD *HUD = [self commitWithHUD:@"获取库存中"];
@@ -1994,6 +1995,26 @@
     }];
 }
 
++ (void)postStoreAddressWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure {
+    NSDictionary *dic = @{
+                          @"token":kMeUnNilStr(kCurrentUser.token),
+                          };
+    
+    NSString *url = kGetApiWithUrl(MEIPcommonAddressGetStoreAddress);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
 
 
 #pragma mark - UserCentre

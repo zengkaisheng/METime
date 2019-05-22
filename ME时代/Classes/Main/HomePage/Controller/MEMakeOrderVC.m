@@ -66,6 +66,24 @@
     self.title = @"生成订单";
     _topMargin.constant = kMeNavBarHeight;
     kMeWEAKSELF
+    if ([self->_goodModel.skus containsString:@"到店领取"]) {
+        [MEPublicNetWorkTool postStoreAddressWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            [strongSelf getUserDefaultAddress];
+            
+        } failure:^(id object) {
+            kMeSTRONGSELF
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        }];
+    }else {
+        [self getUserDefaultAddress];
+    }
+//    [self initSomeThing];
+    // Do any additional setup after loading the view from its nib.
+}
+//获取用户默认收货地址
+- (void)getUserDefaultAddress {
+    kMeWEAKSELF
     [MEPublicNetWorkTool postAddressDefaultAddressWithsuccessBlock:^(ZLRequestResponse *responseObject) {
         MEAddressModel *model = [MEAddressModel mj_objectWithKeyValues:responseObject.data];
         kMeSTRONGSELF
@@ -80,8 +98,6 @@
         kMeSTRONGSELF
         [strongSelf initSomeThing];
     }];
-//    [self initSomeThing];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)initSomeThing {
@@ -102,7 +118,12 @@
             }
         }
         _arrType = @[@(MEMakrOrderCellMessage)];
-        _arrData = @[@""];
+        if ([self->_goodModel.skus containsString:@"到店领取"]) {
+            NSString *msg = [NSString stringWithFormat:@"%@ %@",kMeUnNilStr(kCurrentUser.name),kMeUnNilStr(kCurrentUser.mobile)];
+            _arrData = @[msg];
+        }else {
+            _arrData = @[@""];
+        }
         _lblAllPrice.text = [NSString stringWithFormat:@"%.2f",allPrice];
     }
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEMakeOrderCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEMakeOrderCell class])];
@@ -233,6 +254,9 @@
 #pragma mark - Private
 
 - (void)selectAddress{
+    if ([self->_goodModel.skus containsString:@"到店领取"]) {
+        return;
+    }
     MESelectAddressVC *vc = [[MESelectAddressVC alloc]init];
     kMeWEAKSELF
     vc.selectModelBlock = ^(MEAddressModel *addressModel) {

@@ -341,7 +341,7 @@ const static CGFloat kImgStore = 50;
             kMeSTRONGSELF
             MECoupleModel *model = self.refresh.arrData[index];
             if(kMeUnNilStr(model.coupon_id).length){
-                MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url)];
+                MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
                 [strongSelf.navigationController pushViewController:dvc animated:YES];
             }else{
                 MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];

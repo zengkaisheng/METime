@@ -8,6 +8,12 @@
 
 #import "MEPriceAndStockModel.h"
 
+@implementation MECanBuyModel
+
+@end
+
+
+
 @implementation MEPriceAndStockModel
 
 @end

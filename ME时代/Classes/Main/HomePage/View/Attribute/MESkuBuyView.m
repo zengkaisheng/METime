@@ -153,7 +153,11 @@
     cell.confirmBlock = ^{
         kMeSTRONGSELF
         [strongSelf hide:^{
-            kMeCallBlock(strongSelf.confirmBlock);
+            if ([kMeUnNilStr(strongSelf->_goodModel.psmodel.can_buy.status) integerValue] == 0) {
+                [MEShowViewTool showMessage:kMeUnNilStr(strongSelf->_goodModel.psmodel.can_buy.tips) view:kMeCurrentWindow];
+            }else {
+                kMeCallBlock(strongSelf.confirmBlock);
+            }
         }];
     };
     return cell;
