@@ -337,6 +337,9 @@
         if(_goodModel.product_type == 15){
             model.order_type = @"15";
         }
+        if(_goodModel.product_type == 16){
+            model.order_type = @"16";
+        }
         model.uid = kMeUnNilStr(self.uid);
         [MEPublicNetWorkTool postCreateOrderWithAttrModel:model successBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
