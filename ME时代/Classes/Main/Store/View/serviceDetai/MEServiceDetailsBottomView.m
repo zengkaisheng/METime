@@ -49,8 +49,8 @@
 - (void)sharAction{
     MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
     shareTool.sharWebpageUrl = MEIPShare;
-    shareTool.shareTitle = @"睁着眼洗的洁面慕斯,你见过吗?";
-    shareTool.shareDescriptionBody = @"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
+    shareTool.shareTitle = @"一款自买省钱分享赚钱的购物神器！";
+    shareTool.shareDescriptionBody = @"包含淘宝、京东、拼多多等平台大额隐藏优惠劵！赶快试一试！";
     shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
     
     [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
