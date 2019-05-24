@@ -295,7 +295,7 @@ const static CGFloat kImgStore = 50;
 }
 
 - (void)toStore{
-
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
