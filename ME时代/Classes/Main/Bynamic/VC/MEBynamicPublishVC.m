@@ -14,12 +14,17 @@
 #import "YBImageBrowser.h"
 #import "MEBynamicPublishGridContentView.h"
 
+#import "MEChooseTerminalView.h"
+#import "MEChooseTerminalVC.h"
+
 const static CGFloat MEBynamicPublishVCTextHeight = 135;
 
 @interface MEBynamicPublishVC ()<TZImagePickerControllerDelegate,YBImageBrowserDataSource>{
     NSInteger _currentIndex;
     NSMutableArray *_arrImage;
     NSString *_token;
+    NSInteger _selectedTerminal;
+    BOOL _isVisable; //是否仅店员可见
     BOOL _isError;
 }
 //@property (weak, nonatomic) IBOutlet MEBynamicPublishGridView *gridView;
@@ -30,6 +35,8 @@ const static CGFloat MEBynamicPublishVCTextHeight = 135;
 @property (nonatomic , strong) MEBynamicPublishGridView *gridView;
 @property (strong, nonatomic) NSMutableArray *arrModel;
 @property (nonatomic, strong) UIButton *btnRight;
+
+@property (nonatomic , strong) MEChooseTerminalView *chooseView;
 @end
 
 @implementation MEBynamicPublishVC
@@ -39,6 +46,8 @@ const static CGFloat MEBynamicPublishVCTextHeight = 135;
     self.title = @"发表";
     kMeWEAKSELF
     _isError = NO;
+    _isVisable = YES;
+    _selectedTerminal = 0;
     MBProgressHUD *HUD = [MEPublicNetWorkTool commitWithHUD:@""];
     [MEPublicNetWorkTool postgetQiuNiuTokkenWithSuccessBlock:^(ZLRequestResponse *responseObject) {
         [HUD hideAnimated:YES];
@@ -59,6 +68,7 @@ const static CGFloat MEBynamicPublishVCTextHeight = 135;
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, sheight);
     [_scrollView addSubview:self.textView];
     [_scrollView addSubview:self.gridView];
+    [_scrollView addSubview:self.chooseView];
     [self reloadGridView];
     // Do any additional setup after loading the view from its nib.
 }
@@ -71,6 +81,7 @@ const static CGFloat MEBynamicPublishVCTextHeight = 135;
     [self.view endEditing:YES];
     NSString *content = kMeUnNilStr(_textView.textView.text);
     if(content.length == 0 && self.arrModel.count ==1){
+        
         [MEShowViewTool showMessage:@"内容不能为空" view:self.view];
         return;
     }
@@ -127,7 +138,8 @@ const static CGFloat MEBynamicPublishVCTextHeight = 135;
                                                                      error:&error];
                 NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                              encoding:NSUTF8StringEncoding];
-                [MEPublicNetWorkTool postdynamicVotingCommentWithConten:content images:jsonString successBlock:^(ZLRequestResponse *responseObject) {
+                NSString *visable = strongSelf->_isVisable?@"1":@"2";
+                [MEPublicNetWorkTool postdynamicVotingCommentWithConten:content images:jsonString terminal:[NSString stringWithFormat:@"%ld",strongSelf->_selectedTerminal] onlyClerkView:visable successBlock:^(ZLRequestResponse *responseObject) {
                     kMeSTRONGSELF
                     kMeCallBlock(strongSelf.publishSucessBlock);
                     [strongSelf.navigationController popViewControllerAnimated:YES];
@@ -241,6 +253,28 @@ const static CGFloat MEBynamicPublishVCTextHeight = 135;
         _textView.textView.textColor = kMEblack;
     }
     return _textView;
+}
+
+- (MEChooseTerminalView *)chooseView {
+    if (!_chooseView) {
+        _chooseView = [[MEChooseTerminalView alloc] initWithFrame:CGRectMake(0, 401-kMeNavBarHeight, SCREEN_WIDTH, 104)];
+        kMeWEAKSELF
+        _chooseView.chooseBlock = ^{
+            kMeSTRONGSELF
+            MEChooseTerminalVC *vc = [[MEChooseTerminalVC alloc] init];
+            vc.tag = strongSelf->_selectedTerminal;
+            vc.indexBlock = ^(NSInteger index) {
+                strongSelf->_selectedTerminal = index;
+                [strongSelf->_chooseView setTerminalWithIndex:index];
+            };
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        };
+        _chooseView.visiableBlock = ^(BOOL isVisiable) {
+            kMeSTRONGSELF
+            strongSelf->_isVisable = isVisiable;
+        };
+    }
+    return _chooseView;
 }
 
 @end

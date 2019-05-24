@@ -13,6 +13,8 @@
 #define kMEPink [UIColor colorWithHexString:@"ff88a4"]
 #define kMELightPink [UIColor colorWithHexString:@"FAC7D3"]
 #define kMEUnSelect [UIColor colorWithHexString:@"c2c2c2"]
+#define kMEFinish [UIColor colorWithHexString:@"07C160"]
+
 
 #define kMEHexColor(color) [UIColor colorWithHexString:color]
 #define kMEColorRGB(rgb)    [UIColor colorWithRed:(rgb)/255.0 green:(rgb)/255.0 blue:(rgb)/255.0 alpha:1.0]

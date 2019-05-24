@@ -94,7 +94,7 @@
 + (void)posUploadImagesWithFile:(UIImage *)image successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
 //B Clerk s发表评论
-+ (void)postdynamicVotingCommentWithConten:(NSString *)content images:(NSString*)images successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
++ (void)postdynamicVotingCommentWithConten:(NSString *)content images:(NSString*)images terminal:(NSString *)terminal onlyClerkView:(NSString *)onlyClerkView successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //删除
 + (void)postdynamicDelDynamicWithdynamicId:(NSString *)dynamic_id successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //点赞

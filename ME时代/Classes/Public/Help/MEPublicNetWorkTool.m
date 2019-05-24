@@ -408,8 +408,8 @@
 }
 
 //B Clerk s发表评论
-+ (void)postdynamicVotingCommentWithConten:(NSString *)content images:(NSString*)images successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
-    NSDictionary *dic = @{@"content":kMeUnNilStr(content),@"token":kMeUnNilStr(kCurrentUser.token),@"images":images};
++ (void)postdynamicVotingCommentWithConten:(NSString *)content images:(NSString*)images terminal:(NSString *)terminal onlyClerkView:(NSString *)onlyClerkView successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"content":kMeUnNilStr(content),@"token":kMeUnNilStr(kCurrentUser.token),@"images":images,@"tool":kMeUnNilStr(terminal),@"only_clerk_view":kMeUnNilStr(onlyClerkView)};
     NSString *url = kGetApiWithUrl(MEIPcommongetGetVotingComment);
     MBProgressHUD *HUD = [self commitWithHUD:@"发表中"];
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {

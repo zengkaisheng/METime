@@ -979,6 +979,8 @@
 		EB6D02A52151DF0F0053B19E /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB6D02A42151DF0E0053B19E /* city.plist */; };
 		EB6D02A8215225740053B19E /* MEEqualSpaceFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D02A7215225740053B19E /* MEEqualSpaceFlowLayout.m */; };
 		EB6D02AB215259290053B19E /* MEPriceAndStockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D02AA215259290053B19E /* MEPriceAndStockModel.m */; };
+		EB9F946622977F400049CFFD /* MEChooseTerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F946522977F400049CFFD /* MEChooseTerminalView.m */; };
+		EB9F946922979CBC0049CFFD /* MEChooseTerminalVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F946822979CBC0049CFFD /* MEChooseTerminalVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -2715,6 +2717,10 @@
 		EB6D02A7215225740053B19E /* MEEqualSpaceFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEEqualSpaceFlowLayout.m; sourceTree = "<group>"; };
 		EB6D02A9215259290053B19E /* MEPriceAndStockModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEPriceAndStockModel.h; sourceTree = "<group>"; };
 		EB6D02AA215259290053B19E /* MEPriceAndStockModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEPriceAndStockModel.m; sourceTree = "<group>"; };
+		EB9F946422977F400049CFFD /* MEChooseTerminalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEChooseTerminalView.h; sourceTree = "<group>"; };
+		EB9F946522977F400049CFFD /* MEChooseTerminalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEChooseTerminalView.m; sourceTree = "<group>"; };
+		EB9F946722979CBC0049CFFD /* MEChooseTerminalVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEChooseTerminalVC.h; sourceTree = "<group>"; };
+		EB9F946822979CBC0049CFFD /* MEChooseTerminalVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEChooseTerminalVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4960,6 +4966,8 @@
 				363BB68B2230F8BA003C8D34 /* METextView.m */,
 				36F6B2B9224D0269007FDD7A /* MEPickerDayView.h */,
 				36F6B2BA224D0269007FDD7A /* MEPickerDayView.m */,
+				EB9F946422977F400049CFFD /* MEChooseTerminalView.h */,
+				EB9F946522977F400049CFFD /* MEChooseTerminalView.m */,
 			);
 			path = CommonView;
 			sourceTree = "<group>";
@@ -5530,6 +5538,8 @@
 				36F697032230BCB4001E53BA /* MEBynamicPublishVC.h */,
 				36F697042230BCB4001E53BA /* MEBynamicPublishVC.m */,
 				36F697052230BCB4001E53BA /* MEBynamicPublishVC.xib */,
+				EB9F946722979CBC0049CFFD /* MEChooseTerminalVC.h */,
+				EB9F946822979CBC0049CFFD /* MEChooseTerminalVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -6820,6 +6830,7 @@
 				36FDE3D4218A993800633C40 /* MEFilterVC.m in Sources */,
 				369D7E6E2241D46400A35DBB /* MEBdataPieCell.m in Sources */,
 				36F3E59921FADAFE00CBADFF /* MEPinduoduoCouponSearchDataVC.m in Sources */,
+				EB9F946622977F400049CFFD /* MEChooseTerminalView.m in Sources */,
 				36F10AB1224E6D650006E5C1 /* UIWebView+KWHideAccessoryView.m in Sources */,
 				36F5E811222F68F1000B0241 /* TSelectView.m in Sources */,
 				3602A192214243A6004A6E1F /* MEStarButton.m in Sources */,
@@ -6877,6 +6888,7 @@
 				EB623E852154D3A4007C949B /* MEDistrbutionOrderModel.m in Sources */,
 				36FB9E152199193B00B3DDD3 /* MENoticeVC.m in Sources */,
 				3637F05D224A09B3002C661E /* MEDynamicGoodApplyModel.m in Sources */,
+				EB9F946922979CBC0049CFFD /* MEChooseTerminalVC.m in Sources */,
 				366019C621E8798400F1BB37 /* MEMineMyActityDetailCell.m in Sources */,
 				36F5E838222F68F1000B0241 /* TChatController.m in Sources */,
 				36F320CA22265E370020F7C2 /* MEDataDealStoreCustomerVC.m in Sources */,
