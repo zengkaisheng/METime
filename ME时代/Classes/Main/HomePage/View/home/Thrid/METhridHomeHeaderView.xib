@@ -163,7 +163,7 @@
                         <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owL-AX-tb3" customClass="MEMidelMiddelImageButton">
                             <rect key="frame" x="0.0" y="0.0" width="78.5" height="92"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="9.9包邮" image="home99juan">
+                            <state key="normal" title="超值特惠" image="icon_TeHuiType">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -234,13 +234,13 @@
         </view>
     </objects>
     <resources>
-        <image name="home99juan" width="45" height="45"/>
         <image name="homebigjuan" width="45" height="45"/>
+        <image name="icon_TeHuiType" width="45" height="45"/>
         <image name="thirdHomeJd" width="45" height="45"/>
         <image name="thirdHomePdd" width="45" height="45"/>
-        <image name="thirdHomeTbC" width="45.5" height="45"/>
+        <image name="thirdHomeTbC" width="45" height="45"/>
         <image name="thredbanc" width="375" height="74"/>
-        <image name="thridHomeChat" width="20" height="19.5"/>
+        <image name="thridHomeChat" width="20" height="19"/>
         <image name="thridHomeShare" width="20" height="19"/>
     </resources>
 </document>

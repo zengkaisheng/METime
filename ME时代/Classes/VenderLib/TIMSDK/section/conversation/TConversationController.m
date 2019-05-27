@@ -19,6 +19,8 @@
 @interface TConversationController () <UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *data;
 @property (nonatomic, strong) TNaviBarIndicatorView *titleView;
+
+@property (nonatomic, strong) UILabel *tipsLbl;
 @end
 
 @implementation TConversationController
@@ -64,6 +66,8 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+    
+    [self.view addSubview:self.tipsLbl];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -130,6 +134,8 @@
         [_data addObject:data];
     }
     [_tableView reloadData];
+    
+    self.tipsLbl.hidden = _data.count <= 0?NO:YES;
 }
 
 - (void)onRefreshConversations:(NSNotification *)notification
@@ -206,6 +212,8 @@
         type = TIM_C2C;
     }
     [[TIMManager sharedInstance] deleteConversation:type receiver:conv.convId];
+    
+    [self updateConversations];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -415,6 +423,16 @@
         }
     }
     return [dateFmt stringFromDate:date];
+}
+
+- (UILabel *)tipsLbl {
+    if (!_tipsLbl) {
+        _tipsLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - 20)/2, SCREEN_WIDTH, 20)];
+        _tipsLbl.text = @"暂无聊天";
+        _tipsLbl.font = [UIFont systemFontOfSize:15.0f];
+        _tipsLbl.textAlignment = NSTextAlignmentCenter;
+    }
+    return _tipsLbl;
 }
 
 @end

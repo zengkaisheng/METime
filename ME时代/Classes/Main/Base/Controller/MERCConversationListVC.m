@@ -51,7 +51,7 @@
     MENavigationVC *nav = (MENavigationVC *)self.navigationController;
     nav.canDragBack = YES;;
 }
-
+#pragma mark -- TConversationControllerDelegagte
 - (void)conversationController:(TConversationController *)conversationController didSelectConversation:(TConversationCellData *)conversation
 {
     MERCConversationVC *chat = [[MERCConversationVC alloc] initWIthconversationData:conversation];

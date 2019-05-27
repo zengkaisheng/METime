@@ -331,6 +331,13 @@ const static CGFloat kImgStore = 50;
             METhridHomeGoodGoodMainCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class]) forIndexPath:indexPath];
             MEGoodModel *model = _arrHot[indexPath.row-1];
             [cell setUIWithModel:model];
+            kMeWEAKSELF
+            cell.buyBlock = ^{
+                kMeSTRONGSELF
+                MEGoodModel *model = strongSelf->_arrHot[indexPath.row-1];
+                METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+                [strongSelf.navigationController pushViewController:details animated:YES];
+            };
             return cell;
         }
     }else if (indexPath.section==3){

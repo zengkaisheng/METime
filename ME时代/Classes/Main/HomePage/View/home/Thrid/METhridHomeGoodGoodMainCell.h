@@ -15,6 +15,8 @@ const static CGFloat kMEThridHomeGoodGoodMainCellHeight = 135;
 
 @interface METhridHomeGoodGoodMainCell : UITableViewCell
 
+@property (nonatomic, copy) kMeBasicBlock buyBlock;
+
 - (void)setUIWithModel:(MEGoodModel *)model;
 
 @end

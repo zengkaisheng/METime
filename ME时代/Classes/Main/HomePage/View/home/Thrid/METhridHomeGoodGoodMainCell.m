@@ -53,6 +53,11 @@
     
 //    [_lblUnderLinePrice setLineStrWithStr:commStr];
 }
+- (IBAction)buyAction:(id)sender {
+    if (self.buyBlock) {
+        self.buyBlock();
+    }
+}
 
 
 @end

@@ -83,6 +83,7 @@
     [_tfCaptcha addTarget:self action:@selector(tfCodeTextDidChange:) forControlEvents:UIControlEventEditingChanged];
     [_tfCaptcha addTarget:self action:@selector(tfVerficationTextDidChange:) forControlEvents:UIControlEventEditingChanged];
     _tfCaptcha.delegate = self;
+    _tfNnumber.delegate = self;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     [self.view addGestureRecognizer:tap];
 }
@@ -136,7 +137,15 @@
     }
 }
 
-#pragma mark - UITextField Action
+#pragma mark - UITextField Action13168734537
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // text field 上实际字符长度
+    NSInteger strLength = textField.text.length - range.length + string.length;
+    if (textField == self.tfNnumber) {
+        return (strLength <= 11);
+    }
+    return (strLength <= 6);
+}
 
 - (void)tfCodeTextDidChange:(UITextField *)textField{
     if(textField.text.length> kLimitVerficationNum){

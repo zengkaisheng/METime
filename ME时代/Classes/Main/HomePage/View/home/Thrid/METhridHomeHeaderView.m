@@ -159,8 +159,11 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
         switch (index) {
 
             case METhridHomeHeaderViewActiveTb99couponType:
-            {
-                MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearch99BuyType];
+            {//9.9包邮改为超值特惠
+//                MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearch99BuyType];
+//                [homeVC.navigationController pushViewController:vc animated:YES];
+                MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTeHuiType];
+                vc.titleStr = @"超值特惠专场";
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;

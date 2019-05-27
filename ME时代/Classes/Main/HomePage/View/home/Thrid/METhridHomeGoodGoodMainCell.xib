@@ -64,6 +64,9 @@
                                         <real key="value" value="4"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="buyAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0F3-Y9-bJc"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VjN-lM-kVO">
                                 <rect key="frame" x="126" y="81" width="261" height="29"/>
@@ -109,7 +112,7 @@
                 <outlet property="lblSubTitle" destination="ftJ-TE-I04" id="amH-Tt-47J"/>
                 <outlet property="lblTitle" destination="6Bw-H0-J2h" id="PKm-F9-oSz"/>
             </connections>
-            <point key="canvasLocation" x="280" y="161.46926536731635"/>
+            <point key="canvasLocation" x="-173" y="166"/>
         </tableViewCell>
     </objects>
 </document>
