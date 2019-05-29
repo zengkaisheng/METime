@@ -89,6 +89,7 @@
             if([kMeUnNilStr(model.tls_id) isEqualToString:kCurrentUser.tls_data.tls_id]){
                 [MEShowViewTool showMessage:@"暂不支持和自己聊天" view:strongSelf.view];
             }else{
+                [MEPublicNetWorkTool postgetIPcommonclerkAddCommunicationLogWithUid:@(model.member_id).description SuccessBlock:nil failure:nil];
                 TConversationCellData *data = [[TConversationCellData alloc] init];
                 data.convId = kMeUnNilStr(model.tls_id);
                 data.convType = TConv_Type_C2C;

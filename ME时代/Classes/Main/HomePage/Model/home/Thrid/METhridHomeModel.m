@@ -33,7 +33,7 @@ MEModelIdToIdField
 
 +(NSDictionary *)mj_replacedKeyFromPropertyName{return @{@"member_exclusive" : @"new_member_exclusive"};}
 
-MEModelObjectClassInArrayWithDic((@{@"service" : [METhridHomeserviceModel class],@"top_banner" : [METhridHomeAdModel class],@"scare_buying_goods" : [METhridHomeBuyingGoodsModel class]}))
+MEModelObjectClassInArrayWithDic((@{@"service" : [METhridHomeserviceModel class], @"top_banner" : [METhridHomeAdModel class], @"scare_buying_goods" : [METhridHomeBuyingGoodsModel class]}))
 
 - (NSArray*)scare_buying_goods{
     if(!_scare_buying_goods){

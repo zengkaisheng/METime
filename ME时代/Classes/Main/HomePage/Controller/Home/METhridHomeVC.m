@@ -49,6 +49,10 @@
 #import "MEHomeAddRedeemcodeVC.h"
 #import "MERedeemgetStatusModel.h"
 
+#import "MEAddTbView.h"
+#import "ZLWebViewVC.h"
+#import "UIImage+GIF.h"
+
 const static CGFloat kImgStore = 50;
 @interface METhridHomeVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     NSInteger _selectTimeIndex;
@@ -70,6 +74,7 @@ const static CGFloat kImgStore = 50;
 @property (nonatomic, strong) METhridHomeNavView *navView;
 @property (nonatomic, strong) ZLRefreshTool         *refresh;
 @property (nonatomic, strong) UIImageView *imgStore;
+@property (strong, nonatomic) MEAddTbView *addTbVIew;
 @end
 
 @implementation METhridHomeVC
@@ -234,14 +239,41 @@ const static CGFloat kImgStore = 50;
                 [strongSelf->_headerView.sdView makeScrollViewScrollToIndex:0];
             }
             [strongSelf setSdBackgroundColorWithIndex:0];
-            if(strongSelf->_stroeModel){
-                 kSDLoadImg(strongSelf->_imgStore, kMeUnNilStr(strongSelf->_stroeModel.mask_img));
-            }else{
-                strongSelf->_imgStore.image = [UIImage imageNamed:@"icon-wgvilogo"];
+//            if(strongSelf->_stroeModel){
+//                 kSDLoadImg(strongSelf->_imgStore, kMeUnNilStr(strongSelf->_stroeModel.mask_img));
+//            }else{
+//                strongSelf->_imgStore.image = [UIImage imageNamed:@"icon-wgvilogo"];
+//            }
+//            strongSelf->_imgStore.hidden = YES;
+            if (kMeUnNilStr(strongSelf->_homeModel.right_bottom_img.ad_img)) {
+                strongSelf->_imgStore.hidden = NO;
+                [strongSelf setStoreImage];
+            }else {
+                strongSelf->_imgStore.hidden = YES;
             }
-            strongSelf->_imgStore.hidden = YES;
+            
             strongSelf.tableView.tableHeaderView = strongSelf->_headerView;
             [strongSelf.tableView reloadData];
+        });
+    });
+}
+//根据返回图片类型选择展示方式
+- (void)setStoreImage {
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    kMeWEAKSELF
+    dispatch_group_async(group, queue, ^{
+        kMeSTRONGSELF
+        //获取字节，用于判断动图
+        NSData *data = [NSData dataWithContentsOfURL: [NSURL URLWithString:kMeUnNilStr(strongSelf->_homeModel.right_bottom_img.ad_img)]];
+        uint8_t c;
+        [data getBytes:&c length:1];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (c == 0x47) {//gif
+                strongSelf->_imgStore.image = [UIImage sd_animatedGIFWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(strongSelf->_homeModel.right_bottom_img.ad_img)]]];
+            }else {
+                kSDLoadImg(strongSelf->_imgStore, kMeUnNilStr(strongSelf->_homeModel.right_bottom_img.ad_img));
+            }
         });
     });
 }
@@ -253,11 +285,15 @@ const static CGFloat kImgStore = 50;
         if([responseObject.data isKindOfClass:[NSDictionary class]]){
             MEAdModel *model = [MEAdModel mj_objectWithKeyValues:responseObject.data];
             [MERushBuyView ShowWithModel:model tapBlock:^{
-                if(model.product_id!=0){
-                    kMeSTRONGSELF
-                    strongSelf.tabBarController.selectedIndex = 0;
-                    METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-                    [strongSelf.navigationController pushViewController:dvc animated:YES];
+                kMeSTRONGSELF
+                if (model.show_type == 8) {
+                    [strongSelf toStore];
+                }else {
+                    if(model.product_id!=0){
+                        strongSelf.tabBarController.selectedIndex = 0;
+                        METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+                        [strongSelf.navigationController pushViewController:dvc animated:YES];
+                    }
                 }
             } cancelBlock:^{
                 
@@ -295,7 +331,45 @@ const static CGFloat kImgStore = 50;
 }
 
 - (void)toStore{
-    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+//    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+     kMeWEAKSELF
+    if([MEUserInfoModel isLogin]){
+        [weakSelf checkRelationId];
+    }else {
+        [MELoginVC presentLoginVCWithSuccessHandler:^(id object) {
+            kMeSTRONGSELF
+            [strongSelf toStore];
+        } failHandler:nil];
+    }
+}
+
+- (void)checkRelationId {
+    if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
+        [self openAddTbView];
+    }else{
+        if (kMeUnNilStr(_homeModel.right_bottom_img.ad_url).length > 0) {
+            NSString *rid = [NSString stringWithFormat:@"&relationId=%@",kCurrentUser.relation_id];
+            NSString *str = [kMeUnNilStr(_homeModel.right_bottom_img.ad_url) stringByAppendingString:rid];
+            ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+            webVC.showProgress = YES;
+            webVC.title = @"618狂欢主会场";
+            [webVC loadURL:[NSURL URLWithString:str]];
+            [self.navigationController pushViewController:webVC animated:YES];
+        }
+    }
+}
+
+- (void)openAddTbView{
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postShareTaobaokeGetInviterUrlWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        NSString *strApi = kMeUnNilStr(responseObject.data[@"url"]);
+        NSURL *url = [NSURL URLWithString:strApi];
+        [[UIApplication sharedApplication] openURL:url];
+        strongSelf.addTbVIew.url = strApi;
+        [strongSelf.addTbVIew show];
+    } failure:^(id object) {
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -420,8 +494,6 @@ const static CGFloat kImgStore = 50;
     } failure:^(id object) {
         
     }];
-    
-
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -451,13 +523,13 @@ const static CGFloat kImgStore = 50;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if(scrollView.contentOffset.y>=_alphaNum){
-        _imgStore.hidden = NO;
-    }else if (scrollView.contentOffset.y<0){
-        _imgStore.hidden = YES;
-    }else{
-         _imgStore.hidden = YES;
-    }
+//    if(scrollView.contentOffset.y>=_alphaNum){
+//        _imgStore.hidden = NO;
+//    }else if (scrollView.contentOffset.y<0){
+//        _imgStore.hidden = YES;
+//    }else{
+//         _imgStore.hidden = YES;
+//    }
 }
 
 - (void)searchCoupon{
@@ -492,8 +564,8 @@ const static CGFloat kImgStore = 50;
 
 - (UIImageView *)imgStore{
     if(!_imgStore){
-        _imgStore = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-k15Margin-kImgStore, SCREEN_HEIGHT-kMeTabBarHeight-k15Margin-kImgStore, kImgStore, kImgStore)];
-        _imgStore.cornerRadius = kImgStore/2;
+        _imgStore = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-k15Margin-kImgStore, SCREEN_HEIGHT-kMeTabBarHeight-k15Margin-kImgStore-25, kImgStore, kImgStore+15)];
+//        _imgStore.cornerRadius = kImgStore/2;
         _imgStore.clipsToBounds = YES;
         _imgStore.hidden = YES;
         _imgStore.userInteractionEnabled = YES;
@@ -548,6 +620,21 @@ const static CGFloat kImgStore = 50;
 //        _refresh.showMaskView = YES;
     }
     return _refresh;
+}
+
+- (MEAddTbView *)addTbVIew{
+    if(!_addTbVIew){
+        _addTbVIew = [[[NSBundle mainBundle]loadNibNamed:@"MEAddTbView" owner:nil options:nil] lastObject];
+        _addTbVIew.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        //        kMeWEAKSELF
+        _addTbVIew.finishBlock = ^(BOOL sucess) {
+            //            kMeSTRONGSELF
+            if(sucess){
+                
+            }
+        };
+    }
+    return _addTbVIew;
 }
 
 @end

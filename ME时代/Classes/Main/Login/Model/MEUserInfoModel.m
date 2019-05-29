@@ -69,6 +69,8 @@ static MEUserInfoModel *shareUser;
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.unMessageCount=0;
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [kCurrentUser setterWithDict:@{}];
+    [kCurrentUser save];
     kNoticeUserLogout
 }
 

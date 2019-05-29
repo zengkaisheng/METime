@@ -70,6 +70,8 @@
 #define MEIPcommonaisetMemberLabel @"common/user/setMemberLabel"
 //跟进投票用户（点击打电话时调用）
 #define MEIPcommonaifollowUpMember @"common/followup/followUpMember"
+//Ai雷达点战友（点击发消息时调用）
+#define MEIPcommonaiAddCommunicationLog @"common/airadar/addCommunicationLog"
 /*********************************************/
 
 /*********************************************/

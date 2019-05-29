@@ -46,6 +46,8 @@
 
 //跟进投票用户（点击打电话时调用） 1投票活动2海报3文章4访问店铺
 + (void)postgetIPcommonclerknotFollowUpMemberWithUid:(NSString*)uid type:(NSInteger)type SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//（点击发消息时调用
++ (void)postgetIPcommonclerkAddCommunicationLogWithUid:(NSString*)uid SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 #pragma makr - GoodMannger
 //获取门店权限

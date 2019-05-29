@@ -203,6 +203,7 @@ const static CGFloat bottomBtnHeight = 47;
     if([kMeUnNilStr(_model.tls_id) isEqualToString:kCurrentUser.tls_data.tls_id]){
         [MEShowViewTool showMessage:@"暂不支持和自己聊天" view:self.view];
     }else{
+        [MEPublicNetWorkTool postgetIPcommonclerkAddCommunicationLogWithUid:@(_model.member_id).description SuccessBlock:nil failure:nil];
         TConversationCellData *data = [[TConversationCellData alloc] init];
         data.convId = kMeUnNilStr(_model.tls_id);
         data.convType = TConv_Type_C2C;

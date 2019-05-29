@@ -136,6 +136,18 @@
     }];
 }
 
++ (void)postgetIPcommonclerkAddCommunicationLogWithUid:(NSString*)uid SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSString *url = kGetApiWithUrl(MEIPcommonaiAddCommunicationLog);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:@{@"token":kMeUnNilStr(kCurrentUser.token),@"uid":kMeUnNilStr(uid)} strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(failure,error);
+    }];
+}
+
 //雷达--行为
 + (void)postgetMemberBehaviorWithtype:(NSString*)type SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSString *url = kGetApiWithUrl(MEIPcommonaigetMemberBehavior);
