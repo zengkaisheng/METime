@@ -15,4 +15,8 @@ const static CGFloat kMEMyOrderDetailCellHeight = 49;
 - (void)setUIWithModel:(id)model Type:(MEOrderSettlmentStyle)type orderType:(MEOrderStyle)orderType;
 - (void)setAppointUIWithModel:(id)model appointType:(MEAppointmentSettlmentStyle)type orderType:(MEAppointmenyStyle)orderType;
 
+- (void)setUIWithAmount:(NSString *)amount;
+
+- (void)setUIWithRefundDetail:(NSString *)desc;
+
 @end

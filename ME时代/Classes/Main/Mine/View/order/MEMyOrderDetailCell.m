@@ -51,6 +51,31 @@
         _lblTitle.text = _arrAppointTitle[type];
         _lblSubTitle.text = title;
     }
-
 }
+
+- (void)setUIWithAmount:(NSString *)amount {
+    _lblTitle.hidden = YES;
+    _lblSubTitle.hidden = YES;
+    NSString *fstr = [NSString stringWithFormat:@"退款金额     ¥ %@",kMeUnNilStr(amount)];
+    NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
+    
+    _lblFristBuy.textColor = [UIColor colorWithHexString:@"#CA0D0D"];
+    _lblFristBuy.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:12];
+    NSUInteger firstLoc = 0;
+    NSUInteger secondLoc = [[faString string] rangeOfString:@"¥"].location;
+    
+    NSRange range = NSMakeRange(firstLoc, secondLoc - firstLoc);
+    [faString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#333333"] range:range];
+    _lblFristBuy.attributedText = faString;
+}
+
+- (void)setUIWithRefundDetail:(NSString *)desc {
+    _lblTitle.hidden = YES;
+    _lblSubTitle.hidden = YES;
+    _lblFristBuy.text = desc;
+    
+    _lblFristBuy.textColor = kME999999;
+    _lblFristBuy.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:12];
+}
+
 @end

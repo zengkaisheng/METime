@@ -60,10 +60,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="luw-Eq-y4j" customClass="MEMidelMiddelImageButton">
-                            <rect key="frame" x="15" y="57" width="60" height="78"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="60" id="zR3-Yr-esp"/>
-                            </constraints>
+                            <rect key="frame" x="15" y="57" width="63" height="78"/>
                             <state key="normal" title="待付款" image="icon_daifukuan">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -72,7 +69,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hvu-g0-btn" customClass="MEMidelMiddelImageButton">
-                            <rect key="frame" x="270" y="57" width="60" height="78"/>
+                            <rect key="frame" x="204" y="57" width="63" height="78"/>
                             <state key="normal" title="已完成" image="icon_yiwancheng">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -81,7 +78,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5KW-Tb-dl7" customClass="MEMidelMiddelImageButton">
-                            <rect key="frame" x="210" y="57" width="60" height="78"/>
+                            <rect key="frame" x="141" y="57" width="63" height="78"/>
                             <state key="normal" title="待收货" image="icon_daishouhuo">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -90,7 +87,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHW-Ax-JMJ" customClass="MEMidelMiddelImageButton">
-                            <rect key="frame" x="75" y="57" width="60" height="78"/>
+                            <rect key="frame" x="78" y="57" width="63" height="78"/>
                             <state key="normal" title="待发货" image="icon_daifahuo">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -102,6 +99,15 @@
                             <rect key="frame" x="0.0" y="0.0" width="345" height="56"/>
                             <connections>
                                 <action selector="allOrderAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="qUe-ND-cd3"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w33-7g-P4a" customClass="MEMidelMiddelImageButton">
+                            <rect key="frame" x="267" y="57" width="63" height="78"/>
+                            <state key="normal" title="退款/售后" image="icon_refund">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="returnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="dRc-OQ-Ln8"/>
                             </connections>
                         </button>
                     </subviews>
@@ -117,8 +123,12 @@
                         <constraint firstItem="luw-Eq-y4j" firstAttribute="leading" secondItem="gfN-or-tQT" secondAttribute="leading" constant="15" id="9ra-dn-09c"/>
                         <constraint firstItem="luw-Eq-y4j" firstAttribute="top" secondItem="zqR-MM-MDx" secondAttribute="bottom" id="Ffk-7n-lQT"/>
                         <constraint firstItem="hvu-g0-btn" firstAttribute="centerY" secondItem="luw-Eq-y4j" secondAttribute="centerY" id="JzI-mf-Wuc"/>
+                        <constraint firstItem="w33-7g-P4a" firstAttribute="width" secondItem="luw-Eq-y4j" secondAttribute="width" id="L7x-xt-WtN"/>
                         <constraint firstItem="5KW-Tb-dl7" firstAttribute="centerY" secondItem="luw-Eq-y4j" secondAttribute="centerY" id="LdD-L7-xmA"/>
                         <constraint firstItem="hvu-g0-btn" firstAttribute="height" secondItem="luw-Eq-y4j" secondAttribute="height" id="M54-ez-UXK"/>
+                        <constraint firstItem="w33-7g-P4a" firstAttribute="height" secondItem="luw-Eq-y4j" secondAttribute="height" id="PA1-zy-8Em"/>
+                        <constraint firstItem="5KW-Tb-dl7" firstAttribute="leading" secondItem="YHW-Ax-JMJ" secondAttribute="trailing" id="PfG-lI-7iU"/>
+                        <constraint firstItem="w33-7g-P4a" firstAttribute="centerY" secondItem="luw-Eq-y4j" secondAttribute="centerY" id="QdM-fm-nap"/>
                         <constraint firstAttribute="trailing" secondItem="Dwa-g4-UgN" secondAttribute="trailing" constant="15" id="QuA-v6-KQ5"/>
                         <constraint firstItem="zqR-MM-MDx" firstAttribute="leading" secondItem="gfN-or-tQT" secondAttribute="leading" constant="15" id="V3K-5I-CaM"/>
                         <constraint firstAttribute="trailing" secondItem="zqR-MM-MDx" secondAttribute="trailing" constant="15" id="ZfH-be-BSz"/>
@@ -126,11 +136,12 @@
                         <constraint firstItem="zqR-MM-MDx" firstAttribute="top" secondItem="Nkm-YA-pDk" secondAttribute="bottom" id="b2N-pS-XC9"/>
                         <constraint firstItem="YHW-Ax-JMJ" firstAttribute="height" secondItem="luw-Eq-y4j" secondAttribute="height" id="bi2-0L-MHd"/>
                         <constraint firstAttribute="bottom" secondItem="luw-Eq-y4j" secondAttribute="bottom" id="blg-Wm-q4F"/>
+                        <constraint firstAttribute="trailing" secondItem="w33-7g-P4a" secondAttribute="trailing" constant="15" id="fNZ-K7-bVc"/>
                         <constraint firstItem="hvu-g0-btn" firstAttribute="leading" secondItem="5KW-Tb-dl7" secondAttribute="trailing" id="fro-Zb-Pxc"/>
+                        <constraint firstItem="w33-7g-P4a" firstAttribute="leading" secondItem="hvu-g0-btn" secondAttribute="trailing" id="gYw-G0-oka"/>
                         <constraint firstItem="YHW-Ax-JMJ" firstAttribute="width" secondItem="luw-Eq-y4j" secondAttribute="width" id="kgg-Af-TeK"/>
                         <constraint firstItem="5RY-VD-0Fa" firstAttribute="top" secondItem="gfN-or-tQT" secondAttribute="top" constant="20" id="lDX-98-atM"/>
                         <constraint firstItem="5KW-Tb-dl7" firstAttribute="width" secondItem="luw-Eq-y4j" secondAttribute="width" id="lpp-OW-d1N"/>
-                        <constraint firstAttribute="trailing" secondItem="hvu-g0-btn" secondAttribute="trailing" constant="15" id="nFh-cG-ORb"/>
                         <constraint firstItem="5RY-VD-0Fa" firstAttribute="leading" secondItem="gfN-or-tQT" secondAttribute="leading" constant="15" id="nFp-lW-qA0"/>
                         <constraint firstItem="zqR-MM-MDx" firstAttribute="top" secondItem="5RY-VD-0Fa" secondAttribute="bottom" constant="20" id="nH8-Oc-flK"/>
                     </constraints>
@@ -226,7 +237,6 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="consBtnW" destination="zR3-Yr-esp" id="9pb-JO-hyy"/>
                 <outlet property="consSetTopMargin" destination="SSI-Rz-eam" id="Cg1-HY-vLf"/>
                 <outlet property="imgPic" destination="EiY-Z9-hT3" id="gMI-2r-Tlk"/>
                 <outlet property="lblLeve" destination="m7A-EC-Atk" id="4vF-kP-sQy"/>
@@ -234,7 +244,7 @@
                 <outlet property="lblTel" destination="07M-vF-6qS" id="rlh-d1-kNv"/>
                 <outlet property="viewLine" destination="1hG-ou-a3L" id="Yl4-5P-8X5"/>
             </connections>
-            <point key="canvasLocation" x="130.40000000000001" y="120.53973013493254"/>
+            <point key="canvasLocation" x="212" y="-273"/>
         </view>
     </objects>
     <resources>
@@ -242,6 +252,7 @@
         <image name="icon_daifukuan" width="20" height="20"/>
         <image name="icon_daishouhuo" width="20" height="20"/>
         <image name="icon_more" width="7" height="11"/>
+        <image name="icon_refund" width="20" height="20"/>
         <image name="icon_yiwancheng" width="20" height="20"/>
         <image name="newMIneSet" width="22" height="22"/>
         <image name="newmineHeader" width="375" height="211"/>

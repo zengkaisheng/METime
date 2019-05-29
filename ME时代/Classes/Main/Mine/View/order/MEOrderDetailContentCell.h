@@ -11,6 +11,7 @@
 @class MEAppointDetailModel;
 @class MEOrderGoodModel;
 @class MEOrderDetailModel;
+@class MERefundGoodModel;
 
 const static CGFloat kMEOrderDetailContentCellHeight = 131;
 
@@ -22,5 +23,10 @@ const static CGFloat kMEOrderDetailContentCellHeight = 131;
 - (void)setUIWithChildModel:(MEOrderGoodModel *)model;
 //预约
 - (void)setAppointUIWithChildModel:(MEAppointDetailModel *)model;
+
+//退款
+- (void)setUIWithRefundModel:(MERefundGoodModel *)model;
+@property (nonatomic, assign) BOOL isApplyRefund;  //是否申请退款
+@property (nonatomic, assign) BOOL isRefundDetail;  //是否退款详情
 
 @end

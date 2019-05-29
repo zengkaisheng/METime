@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -84,11 +84,31 @@
                             <constraint firstAttribute="height" constant="130.5" id="JDT-1R-UQg"/>
                         </constraints>
                     </tableView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_refundRed" translatesAutoresizingMaskIntoConstraints="NO" id="yOM-qN-jfA">
+                        <rect key="frame" x="15" y="177.5" width="17" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="17" id="APu-xd-g04"/>
+                            <constraint firstAttribute="height" constant="17" id="KB7-Di-Z6t"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退货/退款  退款成功" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTK-mB-Uav">
+                        <rect key="frame" x="41" y="177.5" width="143" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="N12-pE-SU5"/>
+                            <constraint firstAttribute="width" constant="143" id="bPo-6q-YX4"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="pTK-mB-Uav" firstAttribute="leading" secondItem="yOM-qN-jfA" secondAttribute="trailing" constant="9" id="0pw-LG-DXs"/>
                     <constraint firstAttribute="trailing" secondItem="pTi-Hs-KJO" secondAttribute="trailing" id="1du-at-Fgb"/>
                     <constraint firstItem="1iJ-Yz-unS" firstAttribute="centerY" secondItem="XhG-DF-194" secondAttribute="centerY" id="8w4-fA-8dw"/>
+                    <constraint firstItem="yOM-qN-jfA" firstAttribute="centerY" secondItem="fpo-qQ-Vyh" secondAttribute="centerY" id="9go-0I-jen"/>
                     <constraint firstAttribute="trailing" secondItem="SSb-W2-3gF" secondAttribute="trailing" constant="15" id="C8Q-ZY-lja"/>
+                    <constraint firstItem="yOM-qN-jfA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="CgD-sP-yXL"/>
                     <constraint firstAttribute="bottom" secondItem="fpo-qQ-Vyh" secondAttribute="bottom" constant="13.5" id="DCO-Qo-kOt"/>
                     <constraint firstItem="bfy-iQ-nN8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="IX7-4S-zdk"/>
                     <constraint firstAttribute="trailing" secondItem="bfy-iQ-nN8" secondAttribute="trailing" constant="15" id="JTw-1O-SrU"/>
@@ -100,6 +120,7 @@
                     <constraint firstItem="SSb-W2-3gF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="d4D-qL-A9X"/>
                     <constraint firstItem="1iJ-Yz-unS" firstAttribute="leading" secondItem="XhG-DF-194" secondAttribute="trailing" constant="1" id="ewl-g6-kKu"/>
                     <constraint firstItem="bfy-iQ-nN8" firstAttribute="top" secondItem="pTi-Hs-KJO" secondAttribute="bottom" id="iaV-88-HL4"/>
+                    <constraint firstItem="pTK-mB-Uav" firstAttribute="centerY" secondItem="yOM-qN-jfA" secondAttribute="centerY" id="je6-fl-ob1"/>
                     <constraint firstItem="XhG-DF-194" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="lGL-8w-I2E"/>
                     <constraint firstItem="23x-kk-gEn" firstAttribute="centerY" secondItem="1iJ-Yz-unS" secondAttribute="centerY" id="mXn-Dt-aBa"/>
                     <constraint firstAttribute="trailing" secondItem="fpo-qQ-Vyh" secondAttribute="trailing" constant="15" id="mu6-ga-AS3"/>
@@ -111,9 +132,14 @@
                 <outlet property="btnPay" destination="fpo-qQ-Vyh" id="SqU-N0-rug"/>
                 <outlet property="consTableViewHeight" destination="JDT-1R-UQg" id="nEw-aB-7BV"/>
                 <outlet property="lblOrderNum" destination="1iJ-Yz-unS" id="i4o-yv-FDv"/>
+                <outlet property="refundImgV" destination="yOM-qN-jfA" id="plt-4P-cco"/>
+                <outlet property="refundLbl" destination="pTK-mB-Uav" id="fMh-B4-DRY"/>
                 <outlet property="tableView" destination="pTi-Hs-KJO" id="Ooa-69-wIt"/>
             </connections>
-            <point key="canvasLocation" x="33" y="68.5"/>
+            <point key="canvasLocation" x="-507.19999999999999" y="5.8470764617691158"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_refundRed" width="17" height="17"/>
+    </resources>
 </document>

@@ -402,6 +402,12 @@
 + (void)postCreateServiceOrderWithAttrModel:(MEMakeOrderAttrModel *)attrModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //查询快递
 + (void)postGetLogistWithOrder_sn:(NSString *)order_sn successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//申请退款
++ (void)postApplyRefundWithOrder_sn:(NSString *)order_sn order_goods_sn:(NSString *)order_goods_sn desc:(NSString *)desc successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//退款详情
++ (void)postRefundOrderDetailWithRefund_sn:(NSString *)refund_sn successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
 /***************************************/
 
 

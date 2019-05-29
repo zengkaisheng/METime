@@ -54,4 +54,23 @@ const static CGFloat kTitleWdith = 92;
     }
 }
 
+- (void)setUI {
+    _lblSubTitle.hidden = YES;
+    _lblTitle.text = @"退款原因：";
+    _lblTitle.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:12];
+    
+    _txMessage.placeholder = @"请填写";
+    _txMessage.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:12];
+    kMeWEAKSELF
+//    _txMessage.text = model;
+    _txMessage.contentBlock = ^(NSString *str) {
+        kMeSTRONGSELF
+        kMeCallBlock(strongSelf.messageBlock,str);
+    };
+    _txMessage.returnBlock = ^{
+        kMeSTRONGSELF
+        kMeCallBlock(strongSelf.returnBlock);
+    };
+}
+
 @end

@@ -2521,6 +2521,50 @@
     }];
 }
 
++ (void)postApplyRefundWithOrder_sn:(NSString *)order_sn order_goods_sn:(NSString *)order_goods_sn desc:(NSString *)desc successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure {
+    NSDictionary *dic = @{
+                          @"order_sn":kMeUnNilStr(order_sn),
+                          @"order_goods_sn":kMeUnNilStr(order_goods_sn),
+                          @"desc":kMeUnNilStr(desc),
+                          @"token":kMeUnNilStr(kCurrentUser.token),
+                          };
+    NSString *url = kGetApiWithUrl(MEIPCommonOrderApplyRefund);
+    MBProgressHUD *HUD = [self commitWithHUD:@"退款申请中..."];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
++ (void)postRefundOrderDetailWithRefund_sn:(NSString *)refund_sn successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure {
+    NSDictionary *dic = @{
+                          @"refund_sn":kMeUnNilStr(refund_sn),
+                          @"token":kMeUnNilStr(kCurrentUser.token),
+                          };
+    NSString *url = kGetApiWithUrl(MEIPCommonOrderRefundDetail);
+    MBProgressHUD *HUD = [self commitWithHUD:@"详情获取中..."];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
 /***************************************/
 #pragma mark - AboutUser
 //用户微信登录

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @class MEOrderModel;
+@class MERefundModel;
+
 const static CGFloat kMEOrderCellNeedPayBtnHeight = 95.5;
 const static CGFloat kMEOrderCellNoPayedBtnHeight = 52;
 
@@ -22,5 +24,8 @@ const static CGFloat kMEOrderCellNoPayedBtnHeight = 52;
 + (CGFloat)getCellSelfHeightWithModel:(MEOrderModel *)model;
 @property (nonatomic, copy) kMeBasicBlock touchBlock;
 @property (nonatomic, copy) kMeBasicBlock cancelOrderBlock;
+
+- (void)setUIWithRefundModel:(MERefundModel *)model;
++ (CGFloat)getCellHeightWithRefundModel:(MERefundModel *)model;
 
 @end

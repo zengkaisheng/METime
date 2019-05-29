@@ -8,6 +8,7 @@
 
 #import "MEMyChildOrderContentCell.h"
 #import "MEOrderModel.h"
+#import "MERefundModel.h"
 
 @interface MEMyChildOrderContentCell (){
     NSArray *_arrType;
@@ -46,5 +47,13 @@
     _lblSkuAndNum.text = [NSString stringWithFormat:@"规格:%@ 数量:%@",kMeUnNilStr(model.order_spec_name),@(model.product_number)];
 }
 
+
+- (void)setUIWithRefundModel:(MERefundGoodModel *)model{
+    kSDLoadImg(_imgPic, MELoadQiniuImagesWithUrl(kMeUnNilStr(model.product_image)));
+    _lblStatus.text = kMeUnNilStr(model.order_goods_status_name);
+    _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.product_amount)];
+    _lblTitle.text = kMeUnNilStr(model.product_name);
+    _lblSkuAndNum.text = [NSString stringWithFormat:@"规格:%@ 数量:%@",kMeUnNilStr(model.order_spec_name),@(model.product_number)];
+}
 
 @end

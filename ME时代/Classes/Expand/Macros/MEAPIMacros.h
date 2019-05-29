@@ -529,6 +529,14 @@
 //获取物流
 #define MEIPCommongetLogist @""
 
+
+//退款列表
+#define MEIPCommonOrderRefundList @"common/order/refundList"
+//申请退款
+#define MEIPCommonOrderApplyRefund @"common/order/applyRefund"
+//退款详情
+#define MEIPCommonOrderRefundDetail @"common/order/refundDetail"
+
 /*********************************************/
 
 

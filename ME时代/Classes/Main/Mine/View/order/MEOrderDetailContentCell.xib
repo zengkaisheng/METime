@@ -61,6 +61,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="6yd-Hm-lAe" secondAttribute="bottom" constant="7" id="AkJ-br-v72"/>
                             <constraint firstItem="vOy-jE-WTX" firstAttribute="trailing" secondItem="4yh-71-xK6" secondAttribute="trailing" id="H1P-ns-Mbc"/>
                             <constraint firstItem="JVF-qk-S3v" firstAttribute="leading" secondItem="vOy-jE-WTX" secondAttribute="leading" id="II3-F5-dYS"/>
                             <constraint firstItem="6hd-L6-16S" firstAttribute="trailing" secondItem="vOy-jE-WTX" secondAttribute="trailing" id="IMr-eo-ivk"/>
@@ -86,13 +87,16 @@
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
+                <outlet property="bgVHeightConstraints" destination="wda-JF-YYg" id="tMO-L6-1Uj"/>
+                <outlet property="bgView" destination="8Mg-tm-x0b" id="Zat-HG-3sD"/>
                 <outlet property="imgPic" destination="6yd-Hm-lAe" id="naU-a0-2Pk"/>
+                <outlet property="imgVWidthConstraints" destination="Y5C-Uq-dUY" id="WqM-jb-Gbt"/>
                 <outlet property="lblAppointStatus" destination="6hd-L6-16S" id="eTP-y4-DZI"/>
                 <outlet property="lblPrice" destination="JVF-qk-S3v" id="vEG-uZ-hca"/>
                 <outlet property="lblSku" destination="vOy-jE-WTX" id="NpQ-Rc-9LJ"/>
                 <outlet property="lblTitle" destination="4yh-71-xK6" id="1y0-qR-qdv"/>
             </connections>
-            <point key="canvasLocation" x="170" y="118"/>
+            <point key="canvasLocation" x="-570" y="116"/>
         </tableViewCell>
     </objects>
 </document>

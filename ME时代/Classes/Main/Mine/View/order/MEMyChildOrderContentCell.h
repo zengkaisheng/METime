@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @class MEOrderGoodModel;
+@class MERefundGoodModel;
+
 static const CGFloat kMEMyChildOrderContentCellHeight = 120;
 
 @interface MEMyChildOrderContentCell : UITableViewCell
@@ -16,4 +18,5 @@ static const CGFloat kMEMyChildOrderContentCellHeight = 120;
 - (void)setUIWithModel:(MEOrderGoodModel *)model;
 - (void)setSelfUIWithModel:(MEOrderGoodModel *)model extractStatus:(NSString *)status;
 
+- (void)setUIWithRefundModel:(MERefundGoodModel *)model;
 @end

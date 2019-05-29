@@ -69,8 +69,9 @@ typedef enum : NSUInteger {
     MEAllNeedReceivedOrder = 3,
     MEAllFinishOrder = 4,
     MEAllCancelOrder = 5,
+    MEAllRefundOrder = 6,
 } MEOrderStyle;
-#define MEOrderStyleTitle @[@"全部",@"待付款",@"待发货",@"待收货",@"已完成",@"已取消"];
+#define MEOrderStyleTitle @[@"全部",@"待付款",@"待发货",@"待收货",@"已完成",@"已取消",@"申请退款"];
 
 //B 端自提订单
 typedef enum : NSUInteger {

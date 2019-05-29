@@ -17,5 +17,8 @@ const static CGFloat kMEMakeOrderCellHeight = 64;
 
 - (void)setUIWithType:(MEMakrOrderCellStyle)type model:(NSString *)model;
 
+//退款
+- (void)setUI;
+
 
 @end

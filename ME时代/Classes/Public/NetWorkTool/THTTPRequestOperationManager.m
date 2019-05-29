@@ -80,7 +80,7 @@ NSString *const kServerError = @"服务器无法连接";
 //    MBProgressHUD *progress = [MBProgressHUD showHUDAddedTo:view animated:YES];
 //    progress.dimBackground = YES;
 //    progress.mode = MBProgressHUDModeAnnularDeterminate;
-    NSLog(@"dicParameter = %@",parameter);
+    NSLog(@"urlStr = %@ ~~~~~ dicParameter = %@",urlStr,parameter);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
