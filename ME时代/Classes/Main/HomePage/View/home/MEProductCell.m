@@ -32,6 +32,7 @@
     _conlblWdith.constant = kLblWdith;
     _lblPrice.adjustsFontSizeToFitWidth = YES;
     _lblIntergal.adjustsFontSizeToFitWidth = YES;
+    self.contentView.backgroundColor = [UIColor whiteColor];
     // Initialization code
 }
 

@@ -10,11 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface MEBynamicHomepraiseModel : MEBaseModel
 
 @property (nonatomic, strong) NSString * header_pic;
 @property (nonatomic, strong) NSString * member_id;
 @property (nonatomic, strong) NSString * nick_name;
+
+@end
+
+
+@interface MEBynamicJDModel : MEBaseModel
+
+@property (nonatomic, strong) NSString * url;
 
 @end
 
@@ -47,6 +55,26 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger product_id;
 @property (nonatomic, strong) NSString *goods_title;
 @property (nonatomic, copy) NSString *member_id;
+
+@property (nonatomic, assign) NSInteger skip_type;
+@property (nonatomic, assign) CGFloat min_ratio;
+
+//淘宝
+@property (nonatomic, strong) NSString * tbk_num_iids;
+@property (nonatomic, strong) NSString * tbk_coupon_id;
+@property (nonatomic, strong) NSString * tbk_coupon_share_url;
+//拼多多
+@property (nonatomic, strong) NSString * ddk_goods_id;
+//京东
+@property (nonatomic, strong) NSString * jd_material_url;
+@property (nonatomic, strong) NSString * jd_link;
+@property (nonatomic, strong) NSArray * imageList;
+@property (nonatomic, strong) NSString * skuName;
+@property (nonatomic, strong) NSString * discount;
+@property (nonatomic, strong) NSString * price;
+@property (nonatomic, strong) NSString * useStartTime;
+@property (nonatomic, strong) NSString * useEndTime;
+
 
 @end
 

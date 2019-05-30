@@ -75,6 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * skuName;
 @property (nonatomic, assign) NSInteger spuid;
 @property (nonatomic, assign) CGFloat percent;
+@property (nonatomic, assign) CGFloat min_ratio;
 
 @end
 

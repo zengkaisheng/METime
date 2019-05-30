@@ -10,6 +10,7 @@
 #import "MEAIDataHomeActiveHomeView.h"
 #import "MEAIDataHomeActiveHomeCell.h"
 #import "MEAIDataHomeActiveModel.h"
+#import "MEAICustomerCheckDetailVC.h"
 
 @interface MEAIDataHomeActiveVC ()<UITableViewDelegate, UITableViewDataSource>{
     NSArray *_arrData;
@@ -90,7 +91,39 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    MEAIDataHomeTimeModel *model = self.refresh.arrData[indexPath.row];
-    
+    MEAIDataHomeActiveHomeCellType type = [_arrData[indexPath.section][indexPath.row] integerValue];
+    switch (type) {
+        case MEAIDataHomeActiveHomeCellcheckStoreType:
+        {
+            MEAICustomerCheckDetailVC *detailVC = [[MEAICustomerCheckDetailVC alloc] initWithUrl:MEIPcommonAIBehaviorVisitStore type:0];
+            detailVC.title = @"查看店铺详情";
+            [self.navigationController pushViewController:detailVC animated:YES];
+        }
+            break;
+        case MEAIDataHomeActiveHomeCellshareStoreType:
+        {
+            MEAICustomerCheckDetailVC *detailVC = [[MEAICustomerCheckDetailVC alloc] initWithUrl:MEIPcommonAIBehaviorShareStore type:1];
+            detailVC.title = @"分享店铺详情";
+            [self.navigationController pushViewController:detailVC animated:YES];
+        }
+            break;
+        case MEAIDataHomeActiveHomeCellcheckpintuanType:
+        {
+            MEAICustomerCheckDetailVC *detailVC = [[MEAICustomerCheckDetailVC alloc] initWithUrl:MEIPcommonAIBehaviorLookGroupBuyActivity type:2];
+            detailVC.title = @"查看拼团活动详情";
+            [self.navigationController pushViewController:detailVC animated:YES];
+        }
+            break;
+        case MEAIDataHomeActiveHomeCellcheckServerType:
+        {
+            MEAICustomerCheckDetailVC *detailVC = [[MEAICustomerCheckDetailVC alloc] initWithUrl:MEIPcommonAIBehaviorLookServices type:3];
+            detailVC.title = @"查看服务项目";
+            [self.navigationController pushViewController:detailVC animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

@@ -27,6 +27,8 @@
 //#import "MEShoppingMallVC.h"
 #import "MEFilterGoodVC.h"
 
+#import "MENewFilterGoodsVC.h"
+
 @interface METabBarVC ()<UITabBarControllerDelegate>
 
 @property (nonatomic, strong) MENewMineHomeVC *mine;
@@ -48,11 +50,13 @@
     [self addChildVc:home title:@"首页" image:@"home" selectedImage:@"home_s"];
     //17620355568
 //    MEStoreHomeVC *store = [[MEStoreHomeVC alloc] init];
-    MEFilterGoodVC *filter = [[MEFilterGoodVC alloc]initWithcategory_id:@"0" title:@"优选"];
-    filter.isHome = YES;
+//    MEFilterGoodVC *filter = [[MEFilterGoodVC alloc]initWithcategory_id:@"0" title:@"优选"];?
+//    filter.isHome = YES;?
     //    MEIMageVC *store = [[MEIMageVC alloc]initWithType:MEMainStoreStyle];
-    [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];
+//    [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];?
     
+    MENewFilterGoodsVC *filter = [[MENewFilterGoodsVC alloc] init];
+    [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];
     
     MEBynamicHomeVC *dynamic = [[MEBynamicHomeVC alloc] init];
     //    MEIMageVC *store = [[MEIMageVC alloc]initWithType:MEMainStoreStyle];

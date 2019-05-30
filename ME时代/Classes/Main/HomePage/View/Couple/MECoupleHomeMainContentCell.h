@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class MECoupleModel;
 const static CGFloat kMECoupleHomeMainContentCellHeight = 168.0;
 const static CGFloat kMECoupleHomeMainContentCellWidth = 110.0;
+//new
+const static CGFloat kMECoupleHomeMainContentCellHeightNew = 135.0;
+const static CGFloat kMECoupleHomeMainContentCellWidthNew = 105.0;
 
 @interface MECoupleHomeMainContentCell : UICollectionViewCell
 

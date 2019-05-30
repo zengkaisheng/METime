@@ -26,6 +26,7 @@
     UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(addAction)];
     _imgAdd.userInteractionEnabled = YES;
     [_imgAdd addGestureRecognizer:ges];
+    _btnCancel.hidden = YES;
     
 }
 

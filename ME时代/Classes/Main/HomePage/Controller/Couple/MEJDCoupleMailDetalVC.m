@@ -228,8 +228,13 @@
         [_btnShare addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
         _btnShare.backgroundColor = [UIColor colorWithHexString:@"FC8F0C"];
         [_btnShare setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        NSString *str = [NSString stringWithFormat:@"分享购买最低%.2f佣金",_detailModel.commissionInfo.commission* _detailModel.percent];
-        [_btnShare setTitle:str forState:UIControlStateNormal];
+        if (self.isDynamic) {
+            NSString *str = [NSString stringWithFormat:@"分享购买最低%.2f佣金",_detailModel.min_ratio];
+            [_btnShare setTitle:str forState:UIControlStateNormal];
+        }else {
+            NSString *str = [NSString stringWithFormat:@"分享购买最低%.2f佣金",_detailModel.commissionInfo.commission* _detailModel.percent];
+            [_btnShare setTitle:str forState:UIControlStateNormal];
+        }
         _btnShare.titleLabel.font = kMeFont(15);
         _btnShare.hidden = ![WXApi isWXAppInstalled];
     }

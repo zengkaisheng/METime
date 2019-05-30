@@ -1700,6 +1700,38 @@
     }];
 }
 
++ (void)postFetchProductsWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"page":@"1",
+                          @"pageSize":@"4",
+                          @"uid":kMeUnNilStr(kCurrentUser.uid)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonFindGoods);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
++ (void)postFetchYouxianBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"tool":@"1",
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonGetYouxianBanner);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
 + (void)postGoodsDetailWithGoodsId:(NSInteger)goodsId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"goodsId":@(goodsId),
                           @"uid":kMeUnNilStr(kCurrentUser.uid)

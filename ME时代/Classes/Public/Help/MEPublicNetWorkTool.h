@@ -303,6 +303,12 @@
 + (void)postGoodsComboDetailWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取推荐到首次购买活动商品
 + (void)postRecommendProductWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+
+//新优选获取商品接口（5-30）
++ (void)postFetchProductsWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//新优选获取banner图（5-30）
++ (void)postFetchYouxianBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
 
 

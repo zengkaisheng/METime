@@ -74,8 +74,15 @@
     _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.sold_quantity)];
     _lblOrigalPrice.text = [NSString stringWithFormat:@"原价¥%@", [MECommonTool changeformatterWithFen:@(model.min_group_price)]];
      _lblJuan.text =[NSString stringWithFormat:@"%@元券",[MECommonTool changeformatterWithFen:@(model.coupon_discount)]];
-    _lblJuanPrice.text =[NSString stringWithFormat:@"¥%@", [MECommonTool changeformatterWithFen:@(model.min_group_price-model.coupon_discount)]];
+//    _lblJuanPrice.text =[NSString stringWithFormat:@"¥%@", [MECommonTool changeformatterWithFen:@(model.min_group_price-model.coupon_discount)]];
    
+    NSString *fstr = [NSString stringWithFormat:@"卷后¥%@", [MECommonTool changeformatterWithFen:@(model.min_group_price-model.coupon_discount)]];
+    NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
+    NSUInteger secondLoc = [[faString string] rangeOfString:@"¥"].location;
+    
+    NSRange range = NSMakeRange(0, secondLoc+1);
+    [faString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"PingFang-SC-Regular" size:11] range:range];
+    _lblJuanPrice.attributedText = faString;
 }
 
 - (void)setJDUIWithModel:(MEJDCoupleModel *)model{

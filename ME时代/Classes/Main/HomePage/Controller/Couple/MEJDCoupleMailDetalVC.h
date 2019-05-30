@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MEJDCoupleModel;
 @interface MEJDCoupleMailDetalVC : MEBaseVC
 
+@property (nonatomic, assign) BOOL isDynamic;
 - (instancetype)initWithModel:(MEJDCoupleModel *)model;
 
 @end

@@ -137,7 +137,8 @@ const static CGFloat kImgStore = 50;
     [self.navView setRead:YES];
     _stroeModel = nil;
     [_headerView setUIWithModel:_homeModel stroeModel:_stroeModel];
-    _imgStore.image = [UIImage imageNamed:@"icon-wgvilogo"];
+//    _imgStore.image = [UIImage imageNamed:@"icon-wgvilogo"];
+//    _imgStore.frame = CGRectMake(SCREEN_WIDTH-k15Margin-kImgStore, SCREEN_HEIGHT-kMeTabBarHeight-k15Margin-kImgStore, kImgStore, kImgStore);
 }
 
 - (void)userLogin{
@@ -245,7 +246,7 @@ const static CGFloat kImgStore = 50;
 //                strongSelf->_imgStore.image = [UIImage imageNamed:@"icon-wgvilogo"];
 //            }
 //            strongSelf->_imgStore.hidden = YES;
-            if (kMeUnNilStr(strongSelf->_homeModel.right_bottom_img.ad_img)) {
+            if (kMeUnNilStr(strongSelf->_homeModel.right_bottom_img.ad_img).length > 0) {
                 strongSelf->_imgStore.hidden = NO;
                 [strongSelf setStoreImage];
             }else {
@@ -269,6 +270,7 @@ const static CGFloat kImgStore = 50;
         uint8_t c;
         [data getBytes:&c length:1];
         dispatch_async(dispatch_get_main_queue(), ^{
+            strongSelf->_imgStore.frame = CGRectMake(SCREEN_WIDTH-k15Margin-kImgStore, SCREEN_HEIGHT-kMeTabBarHeight-k15Margin-kImgStore-25, kImgStore, kImgStore+15);
             if (c == 0x47) {//gif
                 strongSelf->_imgStore.image = [UIImage sd_animatedGIFWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(strongSelf->_homeModel.right_bottom_img.ad_img)]]];
             }else {
@@ -564,7 +566,7 @@ const static CGFloat kImgStore = 50;
 
 - (UIImageView *)imgStore{
     if(!_imgStore){
-        _imgStore = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-k15Margin-kImgStore, SCREEN_HEIGHT-kMeTabBarHeight-k15Margin-kImgStore-25, kImgStore, kImgStore+15)];
+        _imgStore = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-k15Margin-kImgStore, SCREEN_HEIGHT-kMeTabBarHeight-k15Margin-kImgStore, kImgStore, kImgStore)];
 //        _imgStore.cornerRadius = kImgStore/2;
         _imgStore.clipsToBounds = YES;
         _imgStore.hidden = YES;

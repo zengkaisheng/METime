@@ -14,6 +14,12 @@
 #import "IQKeyboardManager.h"
 #import "MEBynamicPublishVC.h"
 #import "ALAssetsLibrary+MECategory.h"
+#import "MECoupleMailDetalVC.h"
+
+#import "MEPinduoduoCoupleModel.h"
+#import "MECoupleModel.h"
+#import "MEJDCoupleModel.h"
+#import "MEJDCoupleMailDetalVC.h"
 
 @interface MEBynamicHomeVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate,JXCategoryViewDelegate>{
     NSInteger _comentIndex;
@@ -181,14 +187,74 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEBynamicHomeModel *model = self.refresh.arrData[indexPath.row];
+    NSLog(@"height:%.2f",[MEBynamicMainCell getCellHeightithModel:model]);
     return [MEBynamicMainCell getCellHeightithModel:model];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MEBynamicHomeModel *model = self.refresh.arrData[indexPath.row];
-    if(model.product_id){
-        METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-        [self.navigationController pushViewController:dvc animated:YES];
+    switch (model.skip_type) {
+        case 1:
+        {//详情
+            if(model.product_id){
+                METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+                [self.navigationController pushViewController:dvc animated:YES];
+            }
+        }
+            break;
+        case 2:
+        {//淘宝
+            MECoupleModel *TBmodel = [[MECoupleModel alloc] init];
+            TBmodel.min_ratio = model.min_ratio;
+            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.tbk_num_iids couponId:kMeUnNilStr(model.tbk_coupon_id) couponurl:kMeUnNilStr(model.tbk_coupon_share_url) Model:TBmodel];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 3:
+        {//拼多多
+            MEPinduoduoCoupleModel *PDDModel = [[MEPinduoduoCoupleModel alloc] init];
+            PDDModel.goods_id = model.ddk_goods_id;
+            PDDModel.min_ratio = model.min_ratio;
+            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:PDDModel];
+            vc.isDynamic = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 4:
+        {//京东
+            
+            MEJDCoupleModel *JDModel = [[MEJDCoupleModel alloc] init];
+            JDModel.materialUrl = model.jd_material_url;
+            
+            CouponContentInfo *couponInfoModel = [CouponContentInfo new];
+            couponInfoModel.link = model.jd_link;
+            couponInfoModel.discount = model.discount;
+            couponInfoModel.useStartTime = model.useStartTime;
+            couponInfoModel.useEndTime = model.useEndTime;
+            
+            CouponInfo *couponInfo = [CouponInfo new];
+            couponInfo.couponList = @[couponInfoModel];
+            
+            JDModel.couponInfo = couponInfo;
+            
+            ImageInfo *imgInfo = [ImageInfo new];
+            imgInfo.imageList = model.imageList;
+            JDModel.imageInfo = imgInfo;
+            
+            JDModel.skuName = model.skuName;
+            
+            PriceInfo *priceInfo = [PriceInfo new];
+            priceInfo.price = model.price;
+            JDModel.priceInfo = priceInfo;
+            JDModel.min_ratio = model.min_ratio;
+            
+            MEJDCoupleMailDetalVC *vc = [[MEJDCoupleMailDetalVC alloc]initWithModel:JDModel];
+            vc.isDynamic = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        default:
+            break;
     }
 }
 

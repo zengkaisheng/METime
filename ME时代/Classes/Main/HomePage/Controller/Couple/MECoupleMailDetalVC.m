@@ -440,8 +440,13 @@
         [_btnShare setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _btnShare.hidden = ![WXApi isWXAppInstalled];
         if(_pinduoduomodel){
-            NSString *str = [NSString stringWithFormat:@"分享购买最低%@佣金",[MECommonTool changeformatterWithFen:@(_pinduoduomodel.min_ratio)]];
-            [_btnShare setTitle:str forState:UIControlStateNormal];
+            if (self.isDynamic) {
+                NSString *str = [NSString stringWithFormat:@"分享购买最低%.2f佣金",_pinduoduomodel.min_ratio];
+                [_btnShare setTitle:str forState:UIControlStateNormal];
+            }else {
+                NSString *str = [NSString stringWithFormat:@"分享购买最低%@佣金",[MECommonTool changeformatterWithFen:@(_pinduoduomodel.min_ratio)]];
+                [_btnShare setTitle:str forState:UIControlStateNormal];
+            }
         }else{
 //            [_btnShare setTitle:@"马上分享" forState:UIControlStateNormal];
             NSString *str = [NSString stringWithFormat:@"分享购买最低%.2f佣金",_detailModel.min_ratio];

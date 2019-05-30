@@ -12,6 +12,10 @@
 
 @end
 
+@implementation MEBynamicJDModel
+
+@end
+
 @implementation MEBynamicHomecommentModel
 
 @end
@@ -20,7 +24,7 @@
 
 MEModelIdToIdField
 
-MEModelObjectClassInArrayWithDic((@{@"praise" : [MEBynamicHomepraiseModel class],@"comment" : [MEBynamicHomecommentModel class]}))
+MEModelObjectClassInArrayWithDic((@{@"praise" : [MEBynamicHomepraiseModel class],@"comment" : [MEBynamicHomecommentModel class],@"imageList" : [MEBynamicJDModel class]}))
 
 - (NSString *)content{
     if(!_content || kMeUnNilStr(_content).length == 0){

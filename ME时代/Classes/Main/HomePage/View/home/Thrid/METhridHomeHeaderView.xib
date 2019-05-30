@@ -24,7 +24,7 @@
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wol-gn-TZl">
                     <rect key="frame" x="0.0" y="94" width="392" height="48"/>
-                    <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jzx-cp-lET" customClass="SDCycleScrollView">
                     <rect key="frame" x="5" y="0.0" width="382" height="137"/>
@@ -234,11 +234,11 @@
         </view>
     </objects>
     <resources>
-        <image name="homebigjuan" width="45" height="45"/>
-        <image name="icon_TeHuiType" width="45" height="45"/>
-        <image name="thirdHomeJd" width="45" height="45"/>
-        <image name="thirdHomePdd" width="45" height="45"/>
-        <image name="thirdHomeTbC" width="45" height="45"/>
+        <image name="homebigjuan" width="42" height="42"/>
+        <image name="icon_TeHuiType" width="42" height="42"/>
+        <image name="thirdHomeJd" width="42" height="42"/>
+        <image name="thirdHomePdd" width="42" height="42"/>
+        <image name="thirdHomeTbC" width="42" height="42"/>
         <image name="thredbanc" width="375" height="74"/>
         <image name="thridHomeChat" width="20" height="19"/>
         <image name="thridHomeShare" width="20" height="19"/>

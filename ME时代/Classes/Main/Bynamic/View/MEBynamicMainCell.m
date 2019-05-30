@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnDel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consDelW;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consDelLeft;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *consShareW;
 
 @end
 
@@ -55,6 +56,8 @@
 
 - (void)setUIWithModel:(MEBynamicHomeModel *)model{
     _model = model;
+    _btnShare.hidden = YES;
+    _consShareW.constant = 0;
     if(kMeUnNilStr(model.member_id).length == 0){
         _btnDel.hidden = YES;
         _consDelW.constant = 0;
@@ -98,9 +101,14 @@
     _viewCommentAndLike.hidden = (kMeUnArr(model.praise).count==0 && kMeUnArr(model.comment).count==0);
     
     [_viewCommentAndLike setUIWithArrLike:kMeUnArr(model.praise) Arrcomment:kMeUnArr(model.comment)];
-    if(model.product_id){
+    if(model.skip_type != 0){
         _viewForStore.hidden = NO;
-        kSDLoadImg(_imgStoreHeader, MELoadQiniuImagesWithUrl(kMeUnNilStr(model.goods_images)));
+        if (model.skip_type == 1) {
+            kSDLoadImg(_imgStoreHeader, MELoadQiniuImagesWithUrl(kMeUnNilStr(model.goods_images)));
+        }else {
+            kSDLoadImg(_imgStoreHeader, kMeUnNilStr(model.goods_images));
+        }
+        
         NSString *str = kMeUnNilStr(model.goods_title);
         CGFloat titleHeight = [NSAttributedString heightForAtsWithStr:str font:[UIFont systemFontOfSize:12] width:kmainCommentCellStoreWdith lineH:0 maxLine:0]+16;
         _consStoreTitleHeight.constant = titleHeight>57?titleHeight:57;
@@ -161,7 +169,7 @@
     }else{
         height+=14;
     }
-    if(model.product_id){
+    if(model.skip_type != 0){//model.product_id
         NSString *str = kMeUnNilStr(model.goods_title);
         CGFloat titleHeight = [NSAttributedString heightForAtsWithStr:str font:[UIFont systemFontOfSize:12] width:kmainCommentCellStoreWdith lineH:0 maxLine:0]+16;
         height+=titleHeight>57?titleHeight:57;

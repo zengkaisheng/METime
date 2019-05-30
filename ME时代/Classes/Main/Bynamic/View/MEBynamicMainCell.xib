@@ -211,6 +211,7 @@
                 <outlet property="consDelLeft" destination="vih-eQ-Jid" id="Bn8-0b-J7Y"/>
                 <outlet property="consDelW" destination="JPQ-2q-Uy9" id="c7s-UO-dNF"/>
                 <outlet property="consGridViewHeight" destination="bBb-jc-vDl" id="QIP-QG-T5e"/>
+                <outlet property="consShareW" destination="Bmh-wK-OBg" id="iLJ-zQ-DB0"/>
                 <outlet property="consStoreTitleHeight" destination="Bg7-Ks-VRq" id="1VX-FK-p0S"/>
                 <outlet property="consTitleHeight" destination="tFY-lp-kd8" id="bsj-su-PFB"/>
                 <outlet property="gridView" destination="oID-Dg-RwW" id="fnp-to-XIg"/>
@@ -230,7 +231,7 @@
         <image name="dynalDel" width="16" height="15"/>
         <image name="dynamicComment" width="16" height="15"/>
         <image name="dynamicLike" width="17" height="15"/>
-        <image name="dynamicLikeS" width="18.5" height="16"/>
-        <image name="dynamicShare" width="16" height="15.5"/>
+        <image name="dynamicLikeS" width="18" height="16"/>
+        <image name="dynamicShare" width="16" height="15"/>
     </resources>
 </document>

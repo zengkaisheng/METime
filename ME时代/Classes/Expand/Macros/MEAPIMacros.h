@@ -11,7 +11,7 @@
 
 #warning -mustNotes 上线一定要注释/海报分享产品分享
 
-#define TestVersion
+//#define TestVersion
 
 //域名 develop
 #ifdef TestVersion
@@ -72,6 +72,16 @@
 #define MEIPcommonaifollowUpMember @"common/followup/followUpMember"
 //Ai雷达点战友（点击发消息时调用）
 #define MEIPcommonaiAddCommunicationLog @"common/airadar/addCommunicationLog"
+
+
+//行为--查看店铺
+#define MEIPcommonAIBehaviorVisitStore @"common/airadar/behaviorVisitStore"
+//行为--分享店铺
+#define MEIPcommonAIBehaviorShareStore @"common/airadar/behaviorShareStore"
+//行为--查看拼团活动
+#define MEIPcommonAIBehaviorLookGroupBuyActivity @"common/airadar/behaviorLookGroupBuyActivity"
+//行为--查看服务项目
+#define MEIPcommonAIBehaviorLookServices @"common/airadar/behaviorLookServices"
 /*********************************************/
 
 /*********************************************/
@@ -165,6 +175,10 @@
 #define MEIPcommonduoduokeGetBrokerageDetailGoods @"common/duoduoke/getBrokerageDetailGoods"
 //佣金祥情
 #define MEIPcommonduoduokeGetBrokerageDetailBase @"common/duoduoke/getBrokerageDetailBase"
+
+
+//获取新优选推荐商品列表
+#define MEIPcommonGetRecommendGoodsLit @"common/duoduoke/getRecommendGoodsLit"
 /*********************************************/
 
 
@@ -598,11 +612,14 @@
 #define MEIPcommonAddressDelAddres @"common/address/delAddress"
 //搜索产品
 #define MEIPcommonFindGoods @"common/goods/findGoods"
+
+//获取新优选banner图
+#define MEIPcommonGetYouxianBanner @"common/ad/getYouxianBanner"
 /*********************************************/
 
 /*********************************************/
 #pragma makr - aboutUser
-//新手指南
+//新手指南G
 #define MEIPguidegetList @"common/guide/getList"
 //电子协议
 #define MEIPWebgetAgreement @"common/web/getAgreement"
