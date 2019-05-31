@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MENewFilterGoodsMiddleHeaderView" id="U6b-Vx-4bR" customClass="MENewFilterGoodsMiddleHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rFa-0z-leM">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="255"/>
+                </imageView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fzR-3y-N0g">
+                    <rect key="frame" x="15" y="95" width="345" height="155"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LRQ-Pu-npp">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="rFa-0z-leM" secondAttribute="trailing" id="2Em-Ng-2GX"/>
+                <constraint firstAttribute="bottom" secondItem="fzR-3y-N0g" secondAttribute="bottom" constant="10" id="ZY8-Ky-pri"/>
+                <constraint firstAttribute="bottom" secondItem="rFa-0z-leM" secondAttribute="bottom" constant="5" id="acZ-Xk-DYn"/>
+                <constraint firstItem="fzR-3y-N0g" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="15" id="eVK-dx-bs8"/>
+                <constraint firstAttribute="trailing" secondItem="fzR-3y-N0g" secondAttribute="trailing" constant="15" id="h8q-ma-DgZ"/>
+                <constraint firstItem="rFa-0z-leM" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="t4X-rr-o8j"/>
+                <constraint firstItem="fzR-3y-N0g" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="95" id="tbZ-2N-2YM"/>
+                <constraint firstItem="rFa-0z-leM" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="zRy-VI-t39"/>
+            </constraints>
+            <connections>
+                <outlet property="BGImageV" destination="rFa-0z-leM" id="tPR-VI-g7I"/>
+                <outlet property="collectionView" destination="fzR-3y-N0g" id="44O-Jd-M2G"/>
+            </connections>
+            <point key="canvasLocation" x="132" y="154.72263868065968"/>
+        </collectionReusableView>
+    </objects>
+</document>

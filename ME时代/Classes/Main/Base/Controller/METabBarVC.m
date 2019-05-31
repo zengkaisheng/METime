@@ -27,7 +27,7 @@
 //#import "MEShoppingMallVC.h"
 #import "MEFilterGoodVC.h"
 
-#import "MENewFilterGoodsVC.h"
+#import "MENewFilterGoodVC.h"
 
 @interface METabBarVC ()<UITabBarControllerDelegate>
 
@@ -55,7 +55,7 @@
     //    MEIMageVC *store = [[MEIMageVC alloc]initWithType:MEMainStoreStyle];
 //    [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];?
     
-    MENewFilterGoodsVC *filter = [[MENewFilterGoodsVC alloc] init];
+    MENewFilterGoodVC *filter = [[MENewFilterGoodVC alloc] init];
     [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];
     
     MEBynamicHomeVC *dynamic = [[MEBynamicHomeVC alloc] init];

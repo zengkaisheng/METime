@@ -1,38 +1,34 @@
 //
-//  MENewFilterPopularizeCell.m
+//  MENewFilterGoodsMiddleHeaderView.m
 //  ME时代
 //
-//  Created by gao lei on 2019/5/30.
+//  Created by gao lei on 2019/5/31.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MENewFilterPopularizeCell.h"
+#import "MENewFilterGoodsMiddleHeaderView.h"
 #import "MECommondCouponContentCell.h"
 #import "MECoupleModel.h"
 #import "MECoupleMailVC.h"
 #import "MECoupleHomeVC.h"
 #import "MECoupleMailDetalVC.h"
-#import "MENewFilterGoodsVC.h"
+#import "MENewFilterGoodVC.h"
 
 const static CGFloat kMargin = 4;
 
-@interface MENewFilterPopularizeCell ()<UICollectionViewDelegate,UICollectionViewDataSource>
-
+@interface MENewFilterGoodsMiddleHeaderView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UIImageView *BGImageV;
 @property (nonatomic, strong) NSArray *arrModel;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
-@implementation MENewFilterPopularizeCell
+@implementation MENewFilterGoodsMiddleHeaderView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
     [self initSomeThing];
-    CGFloat imaggW = SCREEN_WIDTH - 8;
-    CGFloat imageH = (imaggW *100)/732;
-    self.backgroundColor = kMEf5f4f4;
     [self layoutIfNeeded];
 }
 
@@ -47,9 +43,9 @@ const static CGFloat kMargin = 4;
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MEPinduoduoCoupleModel *model = self.arrModel[indexPath.row];
-    MENewFilterGoodsVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewFilterGoodsVC class] targetResponderView:self];
+    MENewFilterGoodVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewFilterGoodVC class] targetResponderView:self];
     if(homevc){
-       MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:model];
+        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:model];
         [homevc.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -99,22 +95,6 @@ const static CGFloat kMargin = 4;
 
 - (void)setbgImageViewWithImage:(NSString *)image {
     kSDLoadImg(_BGImageV, kMeUnNilStr(image));
-}
-
-+ (CGFloat)getCellHeightWithArr:(NSArray*)arr{
-    CGFloat imaggW = SCREEN_WIDTH - 8;
-    CGFloat imageH = (imaggW *100)/732;
-    if(arr.count == 0){
-        return imageH;
-    }
-    CGFloat height = 221-50;
-    return height+imageH;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

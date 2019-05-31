@@ -68,7 +68,6 @@
         MEPinduoduoCoupleModel *model = _arrModel[indexPath.row];
         [cell setpinduoduoUIWithModel:model];
     }
-    
     return cell;
 }
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MENewFilterGoodsTopHeaderView" id="U6b-Vx-4bR" customClass="MENewFilterGoodsTopHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="223"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nxh-jV-Tjq">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="223"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drt-Yw-BrM" customClass="SDCycleScrollView">
+                    <rect key="frame" x="10" y="73" width="355" height="150"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="bHo-mu-qXU"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="9"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Nxh-jV-Tjq" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="7ve-hc-knk"/>
+                <constraint firstAttribute="bottom" secondItem="drt-Yw-BrM" secondAttribute="bottom" id="BAQ-8C-aWM"/>
+                <constraint firstItem="drt-Yw-BrM" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="10" id="TUg-Oy-B6X"/>
+                <constraint firstAttribute="trailing" secondItem="Nxh-jV-Tjq" secondAttribute="trailing" id="bbF-L4-IqS"/>
+                <constraint firstItem="Nxh-jV-Tjq" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="h6Y-8C-IKs"/>
+                <constraint firstAttribute="bottom" secondItem="Nxh-jV-Tjq" secondAttribute="bottom" id="pTK-C3-Laf"/>
+                <constraint firstAttribute="trailing" secondItem="drt-Yw-BrM" secondAttribute="trailing" constant="10" id="puf-BM-Lv0"/>
+            </constraints>
+            <connections>
+                <outlet property="BGImageV" destination="Nxh-jV-Tjq" id="jKJ-9P-wFn"/>
+                <outlet property="sdView" destination="drt-Yw-BrM" id="jR7-zf-dQv"/>
+            </connections>
+            <point key="canvasLocation" x="-810" y="72"/>
+        </collectionReusableView>
+    </objects>
+</document>

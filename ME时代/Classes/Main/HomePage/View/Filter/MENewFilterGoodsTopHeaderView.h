@@ -1,8 +1,8 @@
 //
-//  MENewFilterHeaderView.h
+//  MENewFilterGoodsTopHeaderView.h
 //  ME时代
 //
-//  Created by gao lei on 2019/5/30.
+//  Created by gao lei on 2019/5/31.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
@@ -10,11 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MENewFilterHeaderView : UIView
+@interface MENewFilterGoodsTopHeaderView : UICollectionReusableView
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *sdView;
 
 - (void)setUIWithBackgroundImage:(NSString *)bgImage bannerImage:(NSString *)bannerImage;
-- (void)setUIWithModel;
 
 @end
 
