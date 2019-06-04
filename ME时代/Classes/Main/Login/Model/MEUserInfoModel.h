@@ -38,6 +38,13 @@ static NSString *kTokenKey = @"kTokenKey";
 
 @end
 
+@interface MEUserInfoModelParentData :MEBaseModel
+
+@property (nonatomic, copy) NSString *parent_name;
+@property (nonatomic, copy) NSString *parent_header_pic;
+
+@end
+
 @interface MEUserInfoModel : MEBaseModel
 
 + (MEUserInfoModel *)shareUser;
@@ -110,6 +117,10 @@ static NSString *kTokenKey = @"kTokenKey";
 @property (nonatomic, copy) MEUserPathModel *path;
 
 @property (nonatomic, strong) MEUserInfoModelTLSData *tls_data;
+
+@property (nonatomic, strong) MEUserInfoModelParentData *parent_header;
+//邀请码，体验店以上才显示
+@property (nonatomic, copy) NSString *invite_code;
 
 //个人中心C端
 //@property (nonatomic, assign) NSInteger admin_team;

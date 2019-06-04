@@ -11,6 +11,7 @@
 #import "MENewMineHomeCell.h"
 #import "MEProductListVC.h"
 
+#import "MENewMineHomeCodeHeaderView.h"
 
 @interface MENewMineHomeVC ()<UITableViewDelegate,UITableViewDataSource>{
     NSArray *_arrtype;
@@ -18,7 +19,8 @@
 }
 
 @property (nonatomic, strong) UITableView           *tableView;
-@property (nonatomic, strong) MENewMineHomeHeaderView *headerView;
+//@property (nonatomic, strong) MENewMineHomeHeaderView *headerView;
+@property (nonatomic, strong) MENewMineHomeCodeHeaderView *headerView;
 
 @end
 
@@ -60,7 +62,8 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self getUnMeaasge];
     if([MEUserInfoModel isLogin] && _headerView){
-        _headerView.lblTel.text =  [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
+//        _headerView.lblTel.text =  [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
+        _headerView.LblTel.text =  [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
     }
 }
 
@@ -203,10 +206,18 @@
     return _tableView;
 }
 
-- (MENewMineHomeHeaderView *)headerView{
+//- (MENewMineHomeHeaderView *)headerView{
+//    if(!_headerView){
+//        _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeHeaderView" owner:nil options:nil] lastObject];
+//        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeHeaderViewHeight);
+//    }
+//    return _headerView;
+//}
+
+- (MENewMineHomeCodeHeaderView *)headerView{
     if(!_headerView){
-        _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeHeaderView" owner:nil options:nil] lastObject];
-        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeHeaderViewHeight);
+        _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeCodeHeaderView" owner:nil options:nil] lastObject];
+        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeCodeHeaderViewHeight);
     }
     return _headerView;
 }

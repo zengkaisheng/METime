@@ -9,11 +9,13 @@
 #import "MELoginVC.h"
 #import "METickTimerTool.h"
 #import "MEUserInfoModel.h"
-#import "MEAddTelView.h"
+//#import "MEAddTelView.h"
 #import "MEWxAuthModel.h"
 #import "JPUSHService.h"
 #import "AppDelegate.h"
 #import "MECompandNoticeVC.h"
+
+#import "MENewAddTelView.h"
 
 #define kImgTopMargin (54.0 * kMeFrameScaleY())
 
@@ -34,7 +36,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consImgBottomMargin;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consBtnTopMargin;
 @property (assign, nonatomic) BOOL isModelPush;
-@property (strong, nonatomic) MEAddTelView *addTelVIew;
+@property (strong, nonatomic) MENewAddTelView *addTelVIew;
 @property (weak, nonatomic) IBOutlet UIButton *btnWxLogin;
 @property (weak, nonatomic) IBOutlet UILabel *lblLogin;
 @property (assign, nonatomic) BOOL isShowCancel;
@@ -330,18 +332,18 @@
     }];
 }
 
-- (MEAddTelView *)addTelVIew{
+- (MENewAddTelView *)addTelVIew{
     if(!_addTelVIew){
-        _addTelVIew = [[[NSBundle mainBundle]loadNibNamed:@"MEAddTelView" owner:nil options:nil] lastObject];
+        _addTelVIew = [[[NSBundle mainBundle]loadNibNamed:@"MENewAddTelView" owner:nil options:nil] lastObject];
         _addTelVIew.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         kMeWEAKSELF
         _addTelVIew.finishBlock = ^(BOOL sucess) {
             kMeSTRONGSELF
-            if(sucess){
+            if(sucess){//确认无误
                 [strongSelf loginSuccess];
-            }else{
-                [kCurrentUser removeFromLocalData];
-                [strongSelf loginFail];
+            }else{//信息错误
+//                [kCurrentUser removeFromLocalData];
+//                [strongSelf loginFail];
             }
         };
     }

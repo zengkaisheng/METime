@@ -11,7 +11,7 @@
 #import "MERCConversationListVC.h"
 #import <UserNotifications/UserNotifications.h>
 #import "METabBarVC.h"
-#import "MELoginVC.h"
+//#import "MELoginVC.h"
 #import "MEJupshContentModel.h"
 
 // 引入 JPush 功能所需头文件

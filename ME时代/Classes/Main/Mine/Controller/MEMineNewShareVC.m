@@ -12,6 +12,8 @@
 @interface MEMineNewShareVC ()<UIScrollViewDelegate>{
     CGFloat _allHeight;
     NSString *_lev;
+    NSString *_codeStr;
+    NSString *_bgImgStr;
 }
 
 @property (nonatomic, strong) MEMineNewShareView *cview;
@@ -59,19 +61,57 @@
     self.title  = @"推广二维码";
     _allHeight = [MEMineNewShareView getViewHeight];
     self.view.backgroundColor = [UIColor colorWithHexString:@"fbfbfb"];
+    [self requestNetwork];
+}
+
+- (void)requestNetwork {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
+    hud.label.text = @"获取二维码...";
+    hud.userInteractionEnabled = YES;
+    // 隐藏时候从父控件中移除
+    hud.removeFromSuperViewOnHide = YES;
+    // 1秒之后再消失
+    [hud hideAnimated:YES afterDelay:1.5];
+    
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //获取分类
+    dispatch_group_async(group, queue, ^{
+        kMeWEAKSELF
+        [MEPublicNetWorkTool getUserGetCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            strongSelf->_codeStr = kMeUnNilStr(responseObject.data);
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+            kMeSTRONGSELF
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        }];
+    });
+    dispatch_group_async(group, queue, ^{
+        kMeWEAKSELF
+        [MEPublicNetWorkTool getUserGetCodeBGImageWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            strongSelf->_bgImgStr = kMeUnNilStr(responseObject.data[@"img_url"]);
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
     kMeWEAKSELF
-    [MEPublicNetWorkTool getUserGetCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+    dispatch_group_notify(group, queue, ^{
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
             kMeSTRONGSELF
             [strongSelf.view addSubview:strongSelf.scrollerView];
             [strongSelf.view addSubview:strongSelf.btnSave];
             [strongSelf.scrollerView addSubview:strongSelf.cview];
-            [strongSelf.cview setCode:kMeUnNilStr(responseObject.data) levStr:strongSelf->_lev];
+            [strongSelf.cview setCode:strongSelf->_codeStr levStr:strongSelf->_lev bgImg:strongSelf->_bgImgStr];
         });
-    } failure:^(id object) {
-        kMeSTRONGSELF
-        [strongSelf.navigationController popViewControllerAnimated:YES];
-    }];
+    });
 }
 
 - (UIScrollView *)scrollerView{

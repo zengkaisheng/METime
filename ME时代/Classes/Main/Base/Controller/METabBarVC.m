@@ -17,7 +17,7 @@
 #import "MENewMineHomeVC.h"
 #import "ZLWebVC.h"
 #import "MEProductShoppingCartVC.h"
-#import "MELoginVC.h"
+//#import "MELoginVC.h"
 #import "MEIMageVC.h"
 #import "AppDelegate.h"
 #import "MEMemberHomeVC.h"

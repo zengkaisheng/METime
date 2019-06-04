@@ -10,7 +10,7 @@
 
 @interface MEMineNewShareView : UIView
 
-- (void)setCode:(NSString *)codeStr levStr:(NSString*)levStr;
+- (void)setCode:(NSString *)codeStr levStr:(NSString*)levStr bgImg:(NSString*)bgImgStr;
 + (CGFloat)getViewHeight;
 
 @end

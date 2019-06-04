@@ -510,6 +510,9 @@
 #define MEIPcommonUserGetAdminOrder @"common/user/getAdminOrder"
 //获取C端二维码
 #define MEIPcommonUserGetCode @"common/user/getWechatCode"
+//获取C端二维码背景图
+#define MEIPcommonUserGetGeneralizeTheBackground @"common/user/getGeneralizeTheBackground"
+
 //第二版 获取首页数据
 //#define MEIPGetHomePageData @"homePageData"
 //判断是否完成首单

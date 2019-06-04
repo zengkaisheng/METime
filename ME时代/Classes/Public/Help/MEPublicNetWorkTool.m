@@ -2445,16 +2445,45 @@
     NSDictionary *dic = @{
                           @"token":kMeUnNilStr(kCurrentUser.token),
                           };
-    MBProgressHUD *HUD = [self commitWithHUD:@"获取二维码"];
+    
+//    MBProgressHUD *HUD = [self commitWithHUD:@"获取二维码"];
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
-        [HUD hideAnimated:YES];
+//        [HUD hideAnimated:YES];
         kMeCallBlock(successBlock,responseObject);
     } failure:^(id error) {
         if([error isKindOfClass:[ZLRequestResponse class]]){
-            ZLRequestResponse *res = (ZLRequestResponse*)error;
-            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                MBProgressHUD *HUD = [self commitWithHUD:@""];
+                ZLRequestResponse *res = (ZLRequestResponse*)error;
+                [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+            });
         }else{
-            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                MBProgressHUD *HUD = [self commitWithHUD:@""];
+                [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+            });
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//获取推广二维码背景图
++ (void)getUserGetCodeBGImageWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSString *url = kGetApiWithUrl(MEIPcommonUserGetGeneralizeTheBackground);
+    
+    [THTTPManager postWithParameter:nil strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                MBProgressHUD *HUD = [self commitWithHUD:@""];
+                ZLRequestResponse *res = (ZLRequestResponse*)error;
+                [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+            });
+        }else{
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 MBProgressHUD *HUD = [self commitWithHUD:@""];
+                 [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+             });
         }
         kMeCallBlock(failure,error);
     }];

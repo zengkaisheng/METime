@@ -22,6 +22,11 @@ static MEUserInfoModel *shareUser;
 
 @end
 
+@implementation MEUserInfoModelParentData
+
+@end
+
+
 @implementation MEUserInfoModel
 
 //- (void)setUnionid:(NSString *)unionid{

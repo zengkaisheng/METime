@@ -393,6 +393,8 @@
 + (void)getUserDistributionWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取C端二维码
 + (void)getUserGetCodeWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取C端二维码背景图
++ (void)getUserGetCodeBGImageWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取权益
 + (void)getUserGetEquitiesWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //电子协议

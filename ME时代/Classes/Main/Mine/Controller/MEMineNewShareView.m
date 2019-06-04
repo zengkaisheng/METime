@@ -62,8 +62,9 @@
 
 }
 
-- (void)setCode:(NSString *)codeStr levStr:(NSString*)levStr{
-    _imgPic.image = [UIImage imageNamed:@"codeb"];
+- (void)setCode:(NSString *)codeStr levStr:(NSString*)levStr bgImg:(NSString *)bgImgStr{
+//    _imgPic.image = [UIImage imageNamed:@"codeb"];
+    kSDLoadImg(_imgPic, kMeUnNilStr(bgImgStr));
     kSDLoadImg(_imgCode, kMeUnNilStr(codeStr));
     kSDLoadImg(_imgHeader, kMeUnNilStr(kCurrentUser.header_pic));
     _lblName.text = kMeUnNilStr(kCurrentUser.name);
