@@ -10,7 +10,7 @@
 #import "MEGoodModel.h"
 
 #import "MENewFilterGoodsTopHeaderView.h"
-#import "MENewFilterGoodsMiddleHeaderView.h"
+#import "MENewFilterGoodsMiddleBannerView.h"
 #import "MEProductCell.h"
 #import "METhridProductDetailsVC.h"
 
@@ -18,19 +18,28 @@
 #import "MECoupleMailCell.h"
 #import "MECoupleMailDetalVC.h"
 
+#import "MEFilterMainModel.h"
+#import "MEAdModel.h"
+#import "MEServiceDetailsVC.h"
+#import "ZLWebViewVC.h"
+
 #define kMEGoodsMargin (7.5)
 
-@interface MENewFilterGoodVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,RefreshToolDelegate>{
-    NSArray *_productArr;
-    NSArray *_mainArr;
+@interface MENewFilterGoodVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,RefreshToolDelegate,JXCategoryViewDelegate>{
+    NSArray *_productArr;//
+    NSArray *_filterArr;//分类
     //    NSMutableArray *_bannerArr;
     NSString *_top_banner_image;
-    NSString *_banner_image;
-    NSString *_banner_midddle_image;
+    NSArray *_banner_images;
+    NSArray *_banner_midddle_images;
+    NSString *_category_id;
+    NSInteger _selectedIndex;
 }
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) ZLRefreshTool    *refresh;
+@property (nonatomic, strong) UIView *navView;
+@property (nonatomic, strong) JXCategoryTitleView *categoryView;
 
 @end
 
@@ -42,13 +51,47 @@
     
     self.navBarHidden = YES;
     self.view.backgroundColor = [UIColor colorWithHexString:@"efc388"];
-    //    _bannerArr = [NSMutableArray array];
+//    _bannerArr = [NSMutableArray array];
     _productArr = [NSArray array];
-    _mainArr = [NSArray array];
+    _filterArr = [NSArray array];
+    _banner_images = [NSArray array];
+    _banner_midddle_images = [NSArray array];
+    _category_id = @"";
+    _selectedIndex = 0;
     
     [self.view addSubview:self.collectionView];
     [self.refresh addRefreshView];
-    // Do any additional setup after loading the view.
+}
+
+- (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index{
+    NSLog(@"index:%ld",(long)index);
+    [self reloadProductsWithIndex:index isTop:YES];
+}
+//刷新优选商品
+- (void)reloadProductsWithIndex:(NSInteger)index isTop:(BOOL)isTop{
+    _selectedIndex = index;
+    MEFilterMainModel *model = _filterArr[index];
+    _category_id = [NSString stringWithFormat:@"%ld",(long)model.idField];
+    [self fetchYouXuanProductsWithTop:isTop];
+}
+
+- (void)fetchYouXuanProductsWithTop:(BOOL)isTop {
+    kMeWEAKSELF
+    [MECommonTool showMessage:@"数据加载中..." view:kMeCurrentWindow];
+    [MEPublicNetWorkTool postFetchProductsWithCategoryId:self->_category_id successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        id data = responseObject.data[@"data"];
+        if ([data isKindOfClass:[NSArray class]]) {
+            strongSelf->_productArr = [MEGoodModel mj_objectArrayWithKeyValuesArray:data];
+            [strongSelf.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+            if (isTop) {
+                [self.collectionView setContentOffset:CGPointMake(0, 223*kMeFrameScaleY()-kMeStatusBarHeight+2) animated:YES];
+            }
+            strongSelf.categoryView.defaultSelectedIndex = strongSelf->_selectedIndex;
+            [strongSelf.categoryView reloadData];
+        }
+    } failure:^(id object) {
+    }];
 }
 
 #pragma mark - RefreshToolDelegate
@@ -56,10 +99,47 @@
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     dispatch_group_t group = dispatch_group_create();
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    //原优选商品
+    //获取分类
     dispatch_group_async(group, queue, ^{
         kMeWEAKSELF
-        [MEPublicNetWorkTool postFetchProductsWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+        [MEPublicNetWorkTool postGoodFilterWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            id arrDIc = responseObject.data;
+            if([arrDIc isKindOfClass:[NSArray class]]){
+                strongSelf->_filterArr = [MEFilterMainModel mj_objectArrayWithKeyValuesArray:arrDIc];
+                if (strongSelf->_filterArr.count > 0) {
+                    MEFilterMainModel *model = strongSelf->_filterArr[0];
+                    strongSelf->_category_id = [NSString stringWithFormat:@"%ld",(long)model.idField];
+                }
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    dispatch_group_async(group, queue, ^{
+        kMeWEAKSELF
+        [MEPublicNetWorkTool postFetchYouxianBannerNewWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            id data = responseObject.data;
+            if ([data isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dict = (NSDictionary *)data;
+                
+                strongSelf->_top_banner_image = dict[@"banner_top_background"][@"ad_img"];
+                
+                strongSelf->_banner_images = [MEAdModel mj_objectArrayWithKeyValuesArray:dict[@"banner_img"]];
+                strongSelf->_banner_midddle_images = [MEAdModel mj_objectArrayWithKeyValuesArray:dict[@"banner_middle"]];
+            }
+
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    //原优选商品
+    dispatch_group_async(group, queue, ^{
+        kMeWEAKSELF//category_id
+        [MEPublicNetWorkTool postFetchProductsWithCategoryId:self->_category_id successBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             id data = responseObject.data[@"data"];
             if ([data isKindOfClass:[NSArray class]]) {
@@ -70,45 +150,7 @@
             dispatch_semaphore_signal(semaphore);
         }];
     });
-    dispatch_group_async(group, queue, ^{
-        kMeWEAKSELF
-        [MEPublicNetWorkTool postFetchYouxianBannerWithsuccessBlock:^(ZLRequestResponse *responseObject) {
-            kMeSTRONGSELF
-            id data = responseObject.data;
-            if ([data isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *dict = (NSDictionary *)data;
-                strongSelf->_top_banner_image = dict[@"banner_top_background"][@"ad_img"];
-                strongSelf->_banner_image = dict[@"banner_img"][@"ad_img"];
-                strongSelf->_banner_midddle_image = dict[@"banner_middle"][@"ad_img"];
-                //                MEAdModel *topBackModel = [MEAdModel mj_objectWithKeyValues:dict[@"banner_top_background"]];
-                //                [strongSelf->_bannerArr addObject:topBackModel];
-                //
-                //                MEAdModel *bannerModel = [MEAdModel mj_objectWithKeyValues:dict[@"banner_img"]];
-                //                [strongSelf->_bannerArr addObject:bannerModel];
-                //
-                //                MEAdModel *bannerMiddleModel = [MEAdModel mj_objectWithKeyValues:dict[@"banner_middle"]];
-                //                [strongSelf->_bannerArr addObject:bannerMiddleModel];
-            }
-            
-            dispatch_semaphore_signal(semaphore);
-        } failure:^(id object) {
-            dispatch_semaphore_signal(semaphore);
-        }];
-    });
-    //拼多多
-    dispatch_group_async(group, queue, ^{
-        kMeWEAKSELF
-        [MEPublicNetWorkTool postGetPinduoduoCommondPoductWithSuccessBlock:^(ZLRequestResponse *responseObject) {
-            kMeSTRONGSELF
-            id arrDIc = responseObject.data[@"goods_search_response"][@"goods_list"];
-            if([arrDIc isKindOfClass:[NSArray class]]){
-                strongSelf->_mainArr = [MEPinduoduoCoupleModel mj_objectArrayWithKeyValuesArray:arrDIc];
-            }
-            dispatch_semaphore_signal(semaphore);
-        } failure:^(id object) {
-            dispatch_semaphore_signal(semaphore);
-        }];
-    });
+    
     kMeWEAKSELF
     dispatch_group_notify(group, queue, ^{
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -116,7 +158,16 @@
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
             kMeSTRONGSELF
-//            [strongSelf->_headerView setUIWithBackgroundImage:kMeUnNilStr(strongSelf->_top_banner_image) bannerImage:kMeUnNilStr(strongSelf->_banner_image)];
+            NSMutableArray *titles = [[NSMutableArray alloc] init];
+            for (int i = 0; i < strongSelf->_filterArr.count; i++) {
+                MEFilterMainModel *model = strongSelf->_filterArr[i];
+                [titles addObject:model.category_name];
+            }
+            if (titles.count > 1) {
+                strongSelf.categoryView.titles = [titles copy];
+                strongSelf.categoryView.defaultSelectedIndex = 0;
+                [strongSelf.categoryView reloadData];
+            }
             [strongSelf.collectionView reloadData];
         });
     });
@@ -126,7 +177,8 @@
     if(self.refresh.pageIndex == 1){
         [self requestNetWork];
     }
-    return @{@"sort_type":@"12"};
+//    return @{@"sort_type":@"12"};
+    return @{};
 }
 
 - (void)handleResponse:(id)data{
@@ -175,9 +227,13 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return CGSizeMake(SCREEN_WIDTH, 223 *kMeFrameScaleY());
+        if (_filterArr.count > 1) {
+            return CGSizeMake(SCREEN_WIDTH, 223*kMeFrameScaleY() + 46);
+        }else {
+            return CGSizeMake(SCREEN_WIDTH, 223*kMeFrameScaleY());
+        }
     }
-    return CGSizeMake(SCREEN_WIDTH, 260*kMeFrameScaleY());
+    return CGSizeMake(SCREEN_WIDTH, 167);
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -185,12 +241,35 @@
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         if (indexPath.section == 0) {
             MENewFilterGoodsTopHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsTopHeaderView class]) forIndexPath:indexPath];
-            [header setUIWithBackgroundImage:kMeUnNilStr(_top_banner_image) bannerImage:kMeUnNilStr(_banner_image)];
+            [header setUIWithBackgroundImage:kMeUnNilStr(_top_banner_image) bannerImage:_banner_images];
+            NSMutableArray *titles = [[NSMutableArray alloc] init];
+            for (int i = 0; i < _filterArr.count; i++) {
+                MEFilterMainModel *model = _filterArr[i];
+                [titles addObject:model.category_name];
+            }
+            [header setUIWithTitleArray:titles.copy];
+            [header reloadTitleViewWithIndex:_selectedIndex];
+            kMeWEAKSELF
+            header.titleSelectedIndexBlock = ^(NSInteger index) {
+                [weakSelf reloadProductsWithIndex:index isTop:NO];
+            };
+            header.selectedIndexBlock = ^(NSInteger index) {
+                kMeSTRONGSELF
+                NSLog(@"点击了第%ld张banner图",(long)index);
+                MEAdModel *model = strongSelf->_banner_images[index];
+                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+            };
             headerView = header;
         }else if (indexPath.section == 1) {
-            MENewFilterGoodsMiddleHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsMiddleHeaderView class]) forIndexPath:indexPath];
-            [header setUIWithArr:_mainArr];
-            [header setbgImageViewWithImage:_banner_midddle_image];
+            MENewFilterGoodsMiddleBannerView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsMiddleBannerView class]) forIndexPath:indexPath];
+            [header setUIWithImages:_banner_midddle_images];
+            kMeWEAKSELF
+            header.selectedIndexBlock = ^(NSInteger index) {
+                kMeSTRONGSELF
+                NSLog(@"点击了第%ld张banner图",(long)index);
+                MEAdModel *model = strongSelf->_banner_midddle_images[index];
+                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+            };
             headerView = header;
         }
     }
@@ -225,6 +304,121 @@
     return kMEGoodsMargin;
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if ([scrollView isEqual:self.collectionView]) {
+        if (_filterArr.count > 1) {
+            
+            if (scrollView.contentOffset.y >= 223*kMeFrameScaleY()-kMeStatusBarHeight) {
+                self.navView.hidden = NO;
+            }else {
+                self.navView.hidden = YES;
+            }
+        }else {
+            self.navView.hidden = YES;
+        }
+    }
+}
+//banner图点击跳转
+- (void)cycleScrollViewDidSelectItemWithModel:(MEAdModel *)model {
+    
+    switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
+        case 1:
+        {
+            METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        case 2:
+        {
+            MEServiceDetailsVC *dvc = [[MEServiceDetailsVC alloc]initWithId:model.product_id];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        case 3:
+        {
+            ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+            webVC.showProgress = YES;
+            [webVC loadURL:[NSURL URLWithString:kMeUnNilStr(model.ad_url)]];
+            [self.navigationController pushViewController:webVC animated:YES];
+        }
+            break;
+        case 4:
+        {
+            NSURL *URL = [NSURL URLWithString:kMeUnNilStr(model.ad_url)];
+            [[UIApplication sharedApplication] openURL:URL];
+        }
+            break;
+        case 5:
+        {
+            MEBaseVC *vc = [[MEBaseVC alloc] init];
+            vc.title = @"详情";
+            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[model.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+
+            UITextView *tv = [[UITextView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
+            tv.attributedText = attributedString;
+            tv.editable = NO;
+            [vc.view addSubview:tv];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 6:
+        {
+            
+        }
+            break;
+        case 8:
+        {
+            [self toTaoBaoActivityWithUrl:kMeUnNilStr(model.ad_url)];
+        }
+            break;
+        default:
+            break;
+    }
+}
+//618活动
+- (void)toTaoBaoActivityWithUrl:(NSString *)url{
+    kMeWEAKSELF
+    if([MEUserInfoModel isLogin]){
+        [weakSelf checkRelationIdWithUrl:url];
+    }else {
+        [MELoginVC presentLoginVCWithSuccessHandler:^(id object) {
+            kMeSTRONGSELF
+            [strongSelf toTaoBaoActivityWithUrl:url];
+        } failHandler:nil];
+    }
+}
+
+//获取淘宝授权
+- (void)obtainTaoBaoAuthorizeWithUrl:(NSString *)url {
+    NSString *str = @"https://oauth.taobao.com/authorize?response_type=code&client_id=25425439&redirect_uri=http://test.meshidai.com/src/taobaoauthorization.html&view=wap";
+    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+    webVC.showProgress = YES;
+    webVC.title = @"获取淘宝授权";
+    [webVC loadURL:[NSURL URLWithString:str]];
+    kMeWEAKSELF
+    webVC.authorizeBlock = ^{
+        [weakSelf checkRelationIdWithUrl:url];
+    };
+    [self.navigationController pushViewController:webVC animated:YES];
+}
+
+- (void)checkRelationIdWithUrl:(NSString *)url {
+    if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
+        //        [self openAddTbView];
+        [self obtainTaoBaoAuthorizeWithUrl:url];
+    }else{
+        if (url.length > 0) {
+            NSString *rid = [NSString stringWithFormat:@"&relationId=%@",kCurrentUser.relation_id];
+            NSString *str = [url stringByAppendingString:rid];
+            ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+            webVC.showProgress = YES;
+            webVC.title = @"618狂欢主会场";
+            [webVC loadURL:[NSURL URLWithString:str]];
+            [self.navigationController pushViewController:webVC animated:YES];
+        }
+    }
+}
+
 #pragma mark - Getting And Setting
 - (UICollectionView *)collectionView{
     if(!_collectionView){
@@ -235,7 +429,7 @@
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEProductCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MEProductCell class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MECoupleMailCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MECoupleMailCell class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MENewFilterGoodsTopHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsTopHeaderView class])];
-        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MENewFilterGoodsMiddleHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsMiddleHeaderView class])];
+        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MENewFilterGoodsMiddleBannerView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsMiddleBannerView class])];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.alwaysBounceVertical = YES;
@@ -247,12 +441,37 @@
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
         _refresh = [[ZLRefreshTool alloc]initWithContentView:self.collectionView url:kGetApiWithUrl(MEIPcommonGetRecommendGoodsLit)];
-        _refresh.isPinduoduoCoupleMater = YES;
         _refresh.delegate = self;
+        _refresh.showMaskView = YES;
         _refresh.isDataInside = YES;
-        _refresh.showFailView = NO;
+        _refresh.isPinduoduoCoupleMater = YES;
     }
     return _refresh;
 }
+
+- (UIView *)navView {
+    if (!_navView) {
+        _navView = [[UIView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, 46 + kMeStatusBarHeight)];
+        _navView.backgroundColor = [UIColor whiteColor];
+        
+        _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeStatusBarHeight, SCREEN_WIDTH, 46)];
+        JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
+        lineView.indicatorLineViewColor =  kMEPink;
+        lineView.indicatorLineViewHeight = 1;
+        
+//        _categoryView.titles = @[];
+        _categoryView.indicators = @[lineView];
+        _categoryView.delegate = self;
+        _categoryView.backgroundColor = [UIColor whiteColor];
+        _categoryView.titleColor =  [UIColor blackColor];
+        _categoryView.titleSelectedColor = kMEPink;
+//        _categoryView.defaultSelectedIndex = 0;
+        [_navView addSubview:_categoryView];
+        [self.view addSubview:_navView];
+        _navView.hidden = YES;
+    }
+    return _navView;
+}
+
 
 @end

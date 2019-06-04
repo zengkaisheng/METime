@@ -12,8 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MENewFilterGoodsTopHeaderView : UICollectionReusableView
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *sdView;
+@property (nonatomic,copy)kMeIndexBlock selectedIndexBlock; //banner图点击下标
+@property (nonatomic,copy)kMeIndexBlock titleSelectedIndexBlock;
 
-- (void)setUIWithBackgroundImage:(NSString *)bgImage bannerImage:(NSString *)bannerImage;
+- (void)setUIWithBackgroundImage:(NSString *)bgImage bannerImage:(NSArray *)bannerImages;
+
+- (void)setUIWithTitleArray:(NSArray *)titles;
+
+- (void)reloadTitleViewWithIndex:(NSInteger)index;
 
 @end
 

@@ -140,6 +140,9 @@
 + (void)postShareTaobaokeGetMemberRelationWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取淘宝渠道备案URL
 + (void)postShareTaobaokeGetInviterUrlWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//通过Session获取relation_id
++ (void)postTaobaokePublisherInfoSaveWithSession:(NSString *)session successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 /*********************************************/
@@ -306,9 +309,11 @@
 
 
 //新优选获取商品接口（5-30）
-+ (void)postFetchProductsWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
++ (void)postFetchProductsWithCategoryId:(NSString *)categoryId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //新优选获取banner图（5-30）
 + (void)postFetchYouxianBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//新优选获取banner图(新)
++ (void)postFetchYouxianBannerNewWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
 
 

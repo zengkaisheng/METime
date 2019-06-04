@@ -52,6 +52,9 @@
         }];
     }
     
+    kCurrentUser.relation_id = @"";
+    [kCurrentUser save];
+    
     if (@available(iOS 11.0, *)) {
         [UIScrollView appearance].contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }

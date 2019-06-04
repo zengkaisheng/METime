@@ -49,11 +49,11 @@
     METhridHomeVC *home = [[METhridHomeVC alloc] init];
     [self addChildVc:home title:@"首页" image:@"home" selectedImage:@"home_s"];
     //17620355568
+//    MEIMageVC *store = [[MEIMageVC alloc]initWithType:MEMainStoreStyle];
 //    MEStoreHomeVC *store = [[MEStoreHomeVC alloc] init];
-//    MEFilterGoodVC *filter = [[MEFilterGoodVC alloc]initWithcategory_id:@"0" title:@"优选"];?
-//    filter.isHome = YES;?
-    //    MEIMageVC *store = [[MEIMageVC alloc]initWithType:MEMainStoreStyle];
-//    [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];?
+//    MEFilterGoodVC *filter = [[MEFilterGoodVC alloc]initWithcategory_id:@"0" title:@"优选"];
+//    filter.isHome = YES;
+//    [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];
     
     MENewFilterGoodVC *filter = [[MENewFilterGoodVC alloc] init];
     [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];

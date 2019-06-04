@@ -201,9 +201,27 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     }
 }
 
+//获取淘宝授权
+- (void)obtainTaoBaoAuthorizeWithUrl:(NSString *)url {
+    NSString *str = @"https://oauth.taobao.com/authorize?response_type=code&client_id=25425439&redirect_uri=http://test.meshidai.com/src/taobaoauthorization.html&view=wap";
+    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+    webVC.showProgress = YES;
+    webVC.title = @"获取淘宝授权";
+    [webVC loadURL:[NSURL URLWithString:str]];
+    kMeWEAKSELF
+    webVC.authorizeBlock = ^{
+        [weakSelf checkRelationIdWithUrl:url];
+    };
+    METhridHomeVC *homeVC = (METhridHomeVC *)[MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
+    if (homeVC) {
+        [homeVC.navigationController pushViewController:webVC animated:YES];
+    }
+}
+
 - (void)checkRelationIdWithUrl:(NSString *)url {
     if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
-        [self openAddTbView];
+//        [self openAddTbView];
+        [self obtainTaoBaoAuthorizeWithUrl:url];
     }else{
         if (url.length > 0) {
             METhridHomeVC *homeVC = (METhridHomeVC *)[MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];

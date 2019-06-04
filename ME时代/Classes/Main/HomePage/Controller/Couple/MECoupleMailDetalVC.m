@@ -232,7 +232,8 @@
             }
         }else{
             if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
-                [self openAddTbView];
+//                [self openAddTbView];
+                [self obtainTaoBaoAuthorizeWithBuyAction:YES];
             }else{
                 if(kMeUnNilStr(_Tpwd).length){
                     [self openTb];
@@ -300,7 +301,8 @@
             }
         }else{
             if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
-                [self openAddTbView];
+//                [self openAddTbView];
+                [self obtainTaoBaoAuthorizeWithBuyAction:NO];
             }else{
                 //淘宝
                 if(kMeUnNilStr(_Tpwd).length){
@@ -330,6 +332,24 @@
             [strongSelf shareAction:nil];
         } failHandler:nil];
     }
+}
+
+//获取淘宝授权
+- (void)obtainTaoBaoAuthorizeWithBuyAction:(BOOL)isBuy {
+    NSString *str = @"https://oauth.taobao.com/authorize?response_type=code&client_id=25425439&redirect_uri=http://test.meshidai.com/src/taobaoauthorization.html&view=wap";
+    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+    webVC.showProgress = YES;
+    webVC.title = @"获取淘宝授权";
+    [webVC loadURL:[NSURL URLWithString:str]];
+    kMeWEAKSELF
+    webVC.authorizeBlock = ^{
+        if (isBuy) {
+            [weakSelf buyAction:nil];
+        }else {
+            [weakSelf shareAction:nil];
+        }
+    };
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 - (void)openAddTbView{

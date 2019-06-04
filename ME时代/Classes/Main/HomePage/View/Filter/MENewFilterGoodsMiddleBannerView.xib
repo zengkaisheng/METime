@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MENewFilterGoodsMiddleBannerView" id="U6b-Vx-4bR" customClass="MENewFilterGoodsMiddleBannerView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="boH-9h-ykl" customClass="SDCycleScrollView">
+                    <rect key="frame" x="10" y="0.0" width="355" height="167"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="9"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="boH-9h-ykl" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="34J-OY-ZqZ"/>
+                <constraint firstItem="boH-9h-ykl" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="10" id="kB5-Ul-fTy"/>
+                <constraint firstAttribute="trailing" secondItem="boH-9h-ykl" secondAttribute="trailing" constant="10" id="s7Q-WM-5f8"/>
+                <constraint firstAttribute="bottom" secondItem="boH-9h-ykl" secondAttribute="bottom" id="vbG-kj-2zg"/>
+            </constraints>
+            <connections>
+                <outlet property="sdView" destination="boH-9h-ykl" id="G2w-r2-10D"/>
+            </connections>
+            <point key="canvasLocation" x="133.59999999999999" y="154.27286356821591"/>
+        </collectionReusableView>
+    </objects>
+</document>

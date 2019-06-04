@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic, assign) BOOL showProgress;
 @property (nonatomic, strong)NSString *URLString;
+@property (nonatomic, copy) kMeBasicBlock authorizeBlock;
 
 #pragma mark - Static Initializers
 

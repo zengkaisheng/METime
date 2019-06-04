@@ -49,7 +49,7 @@
     self.scrollView.backgroundColor = [UIColor colorWithHexString:@"f4f4f4"];
     
     //1、初始化JXCategoryTitleView
-    self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeNavBarHeight+kMEAICustomerHomeHeaderSearchViewHeight, SCREEN_WIDTH, kCategoryViewHeight)];
+    self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kMEAICustomerHomeHeaderSearchViewHeight,  SCREEN_WIDTH, kCategoryViewHeight)];
     self.categoryView.backgroundColor = [UIColor whiteColor];
     
     

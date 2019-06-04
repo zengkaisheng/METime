@@ -26,6 +26,7 @@
     NSArray *_arrType;
     //1 动态 2 每日爆款 3宣传素材
     NSInteger _type;
+    NSString *_imgUrl;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -259,6 +260,33 @@
 }
 
 - (void)saveAllPhotoWithIndex:(NSInteger)index{
+    
+    kMeWEAKSELF
+    [MEPublicNetWorkTool getUserGetCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        strongSelf->_imgUrl = kMeUnNilStr(responseObject.data);
+    } failure:^(id object) {
+    }];
+    
+    MEBynamicHomeModel *model = self.refresh.arrData[index];
+    
+    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"http://test.meshidai.com/article.html?id=%@&img=%@",model.idField,_imgUrl];
+    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+    
+    shareTool.shareTitle = model.title;
+    shareTool.shareDescriptionBody = model.content;
+    shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
+    
+    [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
+        NSLog(@"分享成功%@",data);
+        [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+        [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+    } failure:^(NSError *error) {
+        NSLog(@"分享失败%@",error);
+        [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+    }];
+    /*
     MEBynamicHomeModel *model = self.refresh.arrData[index];
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = kMeUnNilStr(model.content);
@@ -311,6 +339,7 @@
             }
         });
     });
+     */
 }
 
 

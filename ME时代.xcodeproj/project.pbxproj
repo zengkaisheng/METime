@@ -991,6 +991,8 @@
 		EB7E83FE229CCF9300C9E14C /* MERefundOrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7E83FD229CCF9300C9E14C /* MERefundOrderListVC.m */; };
 		EB7E8401229CE78900C9E14C /* MEApplyRefundVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7E8400229CE78900C9E14C /* MEApplyRefundVC.m */; };
 		EB7E8405229D233E00C9E14C /* MERefundModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7E8404229D233E00C9E14C /* MERefundModel.m */; };
+		EB81D2C122A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB81D2BF22A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.m */; };
+		EB81D2C222A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB81D2C022A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.xib */; };
 		EB939D07229D5F4B006088AB /* MERefundDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB939D06229D5F4B006088AB /* MERefundDetailVC.m */; };
 		EB939D0A229D6274006088AB /* MERefundDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB939D09229D6274006088AB /* MERefundDetailModel.m */; };
 		EB939D11229D662B006088AB /* MERefundDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB939D10229D662B006088AB /* MERefundDetailHeaderView.m */; };
@@ -2755,6 +2757,9 @@
 		EB7E8400229CE78900C9E14C /* MEApplyRefundVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEApplyRefundVC.m; sourceTree = "<group>"; };
 		EB7E8403229D233E00C9E14C /* MERefundModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERefundModel.h; sourceTree = "<group>"; };
 		EB7E8404229D233E00C9E14C /* MERefundModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERefundModel.m; sourceTree = "<group>"; };
+		EB81D2BE22A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MENewFilterGoodsMiddleBannerView.h; sourceTree = "<group>"; };
+		EB81D2BF22A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MENewFilterGoodsMiddleBannerView.m; sourceTree = "<group>"; };
+		EB81D2C022A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MENewFilterGoodsMiddleBannerView.xib; sourceTree = "<group>"; };
 		EB939D05229D5F4B006088AB /* MERefundDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERefundDetailVC.h; sourceTree = "<group>"; };
 		EB939D06229D5F4B006088AB /* MERefundDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERefundDetailVC.m; sourceTree = "<group>"; };
 		EB939D08229D6274006088AB /* MERefundDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERefundDetailModel.h; sourceTree = "<group>"; };
@@ -2949,12 +2954,12 @@
 		3602A18221424091004A6E1F /* ZLWebViewVC */ = {
 			isa = PBXGroup;
 			children = (
+				3602A18721424091004A6E1F /* UIWebView+FLUIWebView.h */,
 				3602A18321424091004A6E1F /* UIWebView+FLUIWebView.m */,
 				3602A18421424091004A6E1F /* ZLWebVC.h */,
-				3602A18521424091004A6E1F /* ZLWebViewVC.h */,
 				3602A18621424091004A6E1F /* ZLWebVC.m */,
-				3602A18721424091004A6E1F /* UIWebView+FLUIWebView.h */,
 				3602A18821424091004A6E1F /* FLWebViewProvider.h */,
+				3602A18521424091004A6E1F /* ZLWebViewVC.h */,
 				3602A18921424091004A6E1F /* ZLWebViewVC.m */,
 				3602A18A21424091004A6E1F /* ZLWKJSPOST.html */,
 			);
@@ -5860,6 +5865,9 @@
 				EB3E3B4C22A1166A002EAC8D /* MENewFilterGoodsMiddleHeaderView.h */,
 				EB3E3B4D22A1166A002EAC8D /* MENewFilterGoodsMiddleHeaderView.m */,
 				EB3E3B4E22A1166A002EAC8D /* MENewFilterGoodsMiddleHeaderView.xib */,
+				EB81D2BE22A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.h */,
+				EB81D2BF22A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.m */,
+				EB81D2C022A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.xib */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -6239,6 +6247,7 @@
 				36F43DCD216C913E00FBA16E /* MEBankTransferAccountsCell.xib in Resources */,
 				3630AC3F21F6F2A8006C3F8D /* METhridProductDetailsHeaderView.xib in Resources */,
 				366019B721E8634E00F1BB37 /* MENewMineHomeCell.xib in Resources */,
+				EB81D2C222A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.xib in Resources */,
 				36E1BF1821490C1F00E28301 /* MEMineExchangeRudeSectionView.xib in Resources */,
 				3600A745215A224500195484 /* MEModifyPhoneVC.xib in Resources */,
 				360034C721AE8A6600BAF337 /* MEVisterSectionView.xib in Resources */,
@@ -6821,6 +6830,7 @@
 				36F5E82D222F68F1000B0241 /* TFaceView.m in Sources */,
 				36BE0568225D9FDA00526753 /* MEAIDataHomeActiveModel.m in Sources */,
 				363BB68C2230F8BA003C8D34 /* METextView.m in Sources */,
+				EB81D2C122A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.m in Sources */,
 				3617C30421D0AC1600004072 /* MECoupleFilterModel.m in Sources */,
 				3691308A22363B6E008B1836 /* AALabels.m in Sources */,
 				36FD63E9213FA722009743C5 /* MENavigationVC.m in Sources */,

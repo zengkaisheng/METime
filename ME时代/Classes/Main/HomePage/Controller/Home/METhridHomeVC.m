@@ -344,10 +344,24 @@ const static CGFloat kImgStore = 50;
         } failHandler:nil];
     }
 }
+//获取淘宝授权
+- (void)obtainTaoBaoAuthorize {
+    NSString *str = @"https://oauth.taobao.com/authorize?response_type=code&client_id=25425439&redirect_uri=http://test.meshidai.com/src/taobaoauthorization.html&view=wap";
+    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+    webVC.showProgress = YES;
+    webVC.title = @"获取淘宝授权";
+    [webVC loadURL:[NSURL URLWithString:str]];
+    kMeWEAKSELF
+    webVC.authorizeBlock = ^{
+        [weakSelf checkRelationId];
+    };
+    [self.navigationController pushViewController:webVC animated:YES];
+}
 
 - (void)checkRelationId {
     if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
-        [self openAddTbView];
+//        [self openAddTbView];
+        [self obtainTaoBaoAuthorize];
     }else{
         if (kMeUnNilStr(_homeModel.right_bottom_img.ad_url).length > 0) {
             NSString *rid = [NSString stringWithFormat:@"&relationId=%@",kCurrentUser.relation_id];
@@ -373,19 +387,7 @@ const static CGFloat kImgStore = 50;
     } failure:^(id object) {
     }];
 }
-/*
- NSURL *url = [NSURL URLWithString:@"taobao://"];
- // 判断当前系统是否有安装淘宝客户端
- if ([[UIApplication sharedApplication] canOpenURL:url]) {
- [[UIApplication sharedApplication] openURL:url];
- } else {
- NSString *rid = [NSString stringWithFormat:@"&relationId=%@",kCurrentUser.relation_id];
- NSString *str = [kMeUnNilStr(_detailModel.coupon_click_url) stringByAppendingString:rid];
- //kMeUnNilStr(_detailModel.coupon_click_url)
- NSURL *url = [NSURL URLWithString:str];
- [[UIApplication sharedApplication] openURL:url];
- }
- */
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
 }

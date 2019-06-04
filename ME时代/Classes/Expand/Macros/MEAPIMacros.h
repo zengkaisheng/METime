@@ -207,6 +207,8 @@
 //获取我的淘优惠券明细
 #define MEIPcommonTaobaokecheckgetMyTbkOrder @"common/taobaoke/getMyTbkOrder"
 
+//通过Session获取relation_id
+#define MEIPcommonTaobaokePublisherInfoSave @"common/taobaoke/scPublisherInfoSave"
 
 /*********************************************/
 
@@ -615,6 +617,8 @@
 
 //获取新优选banner图
 #define MEIPcommonGetYouxianBanner @"common/ad/getYouxianBanner"
+//获取新优选banner图（新）
+#define MEIPcommonGetYouxianBannerNew @"common/ad/getYouxianBannerNew"
 /*********************************************/
 
 /*********************************************/

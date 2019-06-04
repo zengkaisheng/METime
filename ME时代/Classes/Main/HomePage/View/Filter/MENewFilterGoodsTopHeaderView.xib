@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MENewFilterGoodsTopHeaderView" id="U6b-Vx-4bR" customClass="MENewFilterGoodsTopHeaderView">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="223"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="269"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nxh-jV-Tjq">
@@ -22,7 +22,7 @@
                     <rect key="frame" x="10" y="73" width="355" height="150"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="150" id="bHo-mu-qXU"/>
+                        <constraint firstAttribute="width" secondItem="drt-Yw-BrM" secondAttribute="height" multiplier="71:30" id="g6N-as-Amy"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -30,21 +30,33 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IUr-aa-4wP">
+                    <rect key="frame" x="0.0" y="223" width="375" height="46"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="46" id="CvU-c7-u4U"/>
+                    </constraints>
+                </view>
             </subviews>
             <constraints>
-                <constraint firstItem="Nxh-jV-Tjq" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="7ve-hc-knk"/>
-                <constraint firstAttribute="bottom" secondItem="drt-Yw-BrM" secondAttribute="bottom" id="BAQ-8C-aWM"/>
-                <constraint firstItem="drt-Yw-BrM" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="10" id="TUg-Oy-B6X"/>
-                <constraint firstAttribute="trailing" secondItem="Nxh-jV-Tjq" secondAttribute="trailing" id="bbF-L4-IqS"/>
-                <constraint firstItem="Nxh-jV-Tjq" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="h6Y-8C-IKs"/>
-                <constraint firstAttribute="bottom" secondItem="Nxh-jV-Tjq" secondAttribute="bottom" id="pTK-C3-Laf"/>
-                <constraint firstAttribute="trailing" secondItem="drt-Yw-BrM" secondAttribute="trailing" constant="10" id="puf-BM-Lv0"/>
+                <constraint firstAttribute="trailing" secondItem="Nxh-jV-Tjq" secondAttribute="trailing" id="6l1-Rb-tQU"/>
+                <constraint firstItem="IUr-aa-4wP" firstAttribute="top" secondItem="Nxh-jV-Tjq" secondAttribute="bottom" id="J9R-Ni-iGU"/>
+                <constraint firstItem="Nxh-jV-Tjq" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="Lqc-JL-Ccc"/>
+                <constraint firstAttribute="trailing" secondItem="drt-Yw-BrM" secondAttribute="trailing" constant="10" id="R4O-FR-5K1"/>
+                <constraint firstItem="IUr-aa-4wP" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="SQC-sG-X67"/>
+                <constraint firstAttribute="bottom" secondItem="IUr-aa-4wP" secondAttribute="bottom" id="W4I-8a-Jz8"/>
+                <constraint firstItem="drt-Yw-BrM" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="10" id="nJy-Fz-jRo"/>
+                <constraint firstItem="Nxh-jV-Tjq" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="nTy-KC-yKD"/>
+                <constraint firstItem="drt-Yw-BrM" firstAttribute="bottom" secondItem="Nxh-jV-Tjq" secondAttribute="bottom" id="sAJ-hf-gLj"/>
+                <constraint firstAttribute="trailing" secondItem="IUr-aa-4wP" secondAttribute="trailing" id="wyu-Jj-jGp"/>
             </constraints>
             <connections>
                 <outlet property="BGImageV" destination="Nxh-jV-Tjq" id="jKJ-9P-wFn"/>
                 <outlet property="sdView" destination="drt-Yw-BrM" id="jR7-zf-dQv"/>
+                <outlet property="titleButtonView" destination="IUr-aa-4wP" id="aTU-Jq-EOv"/>
+                <outlet property="titleViewConsHeight" destination="CvU-c7-u4U" id="MMP-XL-Ctv"/>
             </connections>
-            <point key="canvasLocation" x="-810" y="72"/>
+            <point key="canvasLocation" x="-1652" y="97"/>
         </collectionReusableView>
     </objects>
 </document>

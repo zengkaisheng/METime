@@ -9,14 +9,15 @@
 #import "ZLWebViewVC.h"
 #import "UIWebView+FLUIWebView.h"
 #import <JavaScriptCore/JavaScriptCore.h>
+#import "MERelationIdModel.h"
 
-@interface ZLWebViewVC ()
+@interface ZLWebViewVC ()<UIWebViewDelegate>
 
 @property (nonatomic, strong) NSTimer *fakeProgressTimer;
 @property (nonatomic, assign) BOOL uiWebViewIsLoading;
 @property (nonatomic, strong) NSURL *uiWebViewCurrentURL;
 @property (nonatomic, strong) UIWebView *uiWebView;
-
+@property (nonatomic, strong) JSContext *jsContext;
 
 @end
 
@@ -75,6 +76,7 @@
     self = [super init];
     if(self) {
         self.uiWebView = [[UIWebView alloc] init];
+        self.uiWebView.delegate = self;
         self.showProgress = NO;
     }
     return self;
@@ -190,13 +192,52 @@
 }
 - (void) webViewDidFinishLoad: (UIWebView *) webView{
     //注意：加弱引用是防止网络很差时，webview未加载结束，pop当前控制器崩溃，具体原因还不知道。
+
     kMeWEAKSELF
     if(webView == weakSelf.uiWebView) {
         if(!weakSelf.uiWebView.isLoading) {
             weakSelf.uiWebViewIsLoading = NO;
             [weakSelf fakeProgressBarStopLoading];
         }
+        self.jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+
+        kMeWEAKSELF
+        self.jsContext[@"onRelationIdSuccess"] = ^(){
+            
+            NSArray<JSValue *> *args = [JSContext currentArguments];
+            NSString *session = args[0].toString;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                MBProgressHUD *HUD = [MEPublicNetWorkTool commitWithHUD:@"正在授权..."];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [HUD hideAnimated:YES];
+                });
+            });
+            
+            [MEPublicNetWorkTool postTaobaokePublisherInfoSaveWithSession:session successBlock:^(ZLRequestResponse *responseObject) {
+                kMeSTRONGSELF
+                
+                MERelationIdModel *relation_idmodel = [MERelationIdModel mj_objectWithKeyValues:responseObject.data];
+                NSString *relation_id = kMeUnNilStr(relation_idmodel.relation_id);
+                if(kMeUnNilStr(relation_id).length == 0 || [relation_id isEqualToString:@"0"]){
+//              [MEShowViewTool SHOWHUDWITHHUD:HUD test:@"加入失败,请先授权"];
+//              [strongSelf hideWithBlock:strongSelf.finishBlock isSucess:YES];
+                }else{
+                    kCurrentUser.relation_id = kMeUnNilStr(relation_id);
+                    [kCurrentUser save];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        if (strongSelf.authorizeBlock) {
+                            strongSelf.authorizeBlock();
+                        }
+                    });
+                    [strongSelf.navigationController popViewControllerAnimated:YES];
+                }
+            } failure:^(id object) {
+                
+            }];
+        };
     }
 }
+
 
 @end

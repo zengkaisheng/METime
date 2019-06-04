@@ -617,6 +617,27 @@
     }];
 }
 
+//通过Session获取relation_id
++ (void)postTaobaokePublisherInfoSaveWithSession:(NSString *)session successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"session":session
+                          };
+    NSString *urlApi = kGetApiWithUrl(MEIPcommonTaobaokePublisherInfoSave);
+//    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:urlApi success:^(ZLRequestResponse *responseObject) {
+//        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        MBProgressHUD *HUD = [self commitWithHUD:@""];
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
 
 //获取淘宝客Banner
 + (void)postAgetTbkBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
@@ -1573,20 +1594,21 @@
 
 
 #pragma mark - Goods
-
 + (void)postGoodFilterWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{};
     NSString *url = kGetApiWithUrl(MEIPGoodsGetCategory);
-    MBProgressHUD *HUD = [self commitWithHUD:@""];
+//    MBProgressHUD *HUD = [self commitWithHUD:@""];
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+//        [HUD hideAnimated:YES];
         kMeCallBlock(successBlock,responseObject);
-        [HUD hideAnimated:YES];
     } failure:^(id error) {
         if([error isKindOfClass:[ZLRequestResponse class]]){
             ZLRequestResponse *res = (ZLRequestResponse*)error;
-            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+            [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
         }else{
-            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+            [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
         }
         kMeCallBlock(failure,error);
     }];
@@ -1700,9 +1722,8 @@
     }];
 }
 
-+ (void)postFetchProductsWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
-    NSDictionary *dic = @{@"page":@"1",
-                          @"pageSize":@"4",
++ (void)postFetchProductsWithCategoryId:(NSString *)categoryId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"category_id":kMeUnNilStr(categoryId),
                           @"uid":kMeUnNilStr(kCurrentUser.uid)
                           };
     NSString *url = kGetApiWithUrl(MEIPcommonFindGoods);
@@ -1721,6 +1742,21 @@
     NSDictionary *dic = @{@"tool":@"1",
                           };
     NSString *url = kGetApiWithUrl(MEIPcommonGetYouxianBanner);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
++ (void)postFetchYouxianBannerNewWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"tool":@"1",
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonGetYouxianBannerNew);
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
         kMeCallBlock(successBlock,responseObject);
     } failure:^(id error) {
