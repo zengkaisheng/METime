@@ -23,7 +23,7 @@
 #import "MEServiceDetailsVC.h"
 #import "ZLWebViewVC.h"
 
-#define kMEGoodsMargin (7.5*kMeFrameScaleX())
+#define kMEGoodsMargin ((IS_iPhoneX?10:7.5)*kMeFrameScaleX())
 
 @interface MENewFilterGoodVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,RefreshToolDelegate,JXCategoryViewDelegate>{
     NSArray *_productArr;//
@@ -253,7 +253,6 @@
             };
             header.selectedIndexBlock = ^(NSInteger index) {
                 kMeSTRONGSELF
-                NSLog(@"点击了第%ld张banner图",(long)index);
                 MEAdModel *model = strongSelf->_banner_images[index];
                 [strongSelf cycleScrollViewDidSelectItemWithModel:model];
             };
@@ -264,7 +263,6 @@
             kMeWEAKSELF
             header.selectedIndexBlock = ^(NSInteger index) {
                 kMeSTRONGSELF
-                NSLog(@"点击了第%ld张banner图",(long)index);
                 MEAdModel *model = strongSelf->_banner_midddle_images[index];
                 [strongSelf cycleScrollViewDidSelectItemWithModel:model];
             };
@@ -282,23 +280,23 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    if (section == 0) {
-        return UIEdgeInsetsMake(kMEGoodsMargin*1.5, kMEGoodsMargin*1.5, kMEGoodsMargin*1.5, kMEGoodsMargin*1.5);
-    }
+//    if (section == 0) {
+//        return UIEdgeInsetsMake(kMEGoodsMargin*1.5, kMEGoodsMargin*1.5, kMEGoodsMargin*1.5, kMEGoodsMargin*1.5);
+//    }
     return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    if (section == 0) {
-        return kMEGoodsMargin;
-    }
+//    if (section == 0) {
+//        return kMEGoodsMargin;
+//    }
     return kMEGoodsMargin;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    if (section == 0) {
-        return kMEGoodsMargin;
-    }
+//    if (section == 0) {
+//        return kMEGoodsMargin;
+//    }
     return kMEGoodsMargin;
 }
 

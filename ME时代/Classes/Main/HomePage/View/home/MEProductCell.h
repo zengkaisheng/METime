@@ -10,7 +10,7 @@
 @class MEGoodModel;
 
 const static CGFloat kMEProductCellHeight  = 230;
-#define kMEProductCellWdith ((SCREEN_WIDTH - (15*3))/2)
+#define kMEProductCellWdith ((SCREEN_WIDTH - (15*2))/2)
 #define kMEMargin (7.5)
 
 
