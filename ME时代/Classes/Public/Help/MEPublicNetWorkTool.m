@@ -1377,9 +1377,13 @@
     } failure:^(id error) {
         if([error isKindOfClass:[ZLRequestResponse class]]){
             ZLRequestResponse *res = (ZLRequestResponse*)error;
-            [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
         }else{
-            [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
+            });
         }
         kMeCallBlock(failure,error);
     }];
@@ -1604,11 +1608,13 @@
     } failure:^(id error) {
         if([error isKindOfClass:[ZLRequestResponse class]]){
             ZLRequestResponse *res = (ZLRequestResponse*)error;
-//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
-            [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
         }else{
-//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
-            [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
+            });
         }
         kMeCallBlock(failure,error);
     }];
@@ -1732,7 +1738,9 @@
     } failure:^(id error) {
         if([error isKindOfClass:[ZLRequestResponse class]]){
             ZLRequestResponse *res = (ZLRequestResponse*)error;
-            [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
         }
         kMeCallBlock(failure,error);
     }];
@@ -1762,7 +1770,9 @@
     } failure:^(id error) {
         if([error isKindOfClass:[ZLRequestResponse class]]){
             ZLRequestResponse *res = (ZLRequestResponse*)error;
-            [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
         }
         kMeCallBlock(failure,error);
     }];

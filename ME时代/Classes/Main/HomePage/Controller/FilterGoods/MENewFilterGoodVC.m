@@ -23,12 +23,11 @@
 #import "MEServiceDetailsVC.h"
 #import "ZLWebViewVC.h"
 
-#define kMEGoodsMargin (7.5)
+#define kMEGoodsMargin (7.5*kMeFrameScaleX())
 
 @interface MENewFilterGoodVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,RefreshToolDelegate,JXCategoryViewDelegate>{
     NSArray *_productArr;//
     NSArray *_filterArr;//分类
-    //    NSMutableArray *_bannerArr;
     NSString *_top_banner_image;
     NSArray *_banner_images;
     NSArray *_banner_midddle_images;
@@ -51,7 +50,6 @@
     
     self.navBarHidden = YES;
     self.view.backgroundColor = [UIColor colorWithHexString:@"efc388"];
-//    _bannerArr = [NSMutableArray array];
     _productArr = [NSArray array];
     _filterArr = [NSArray array];
     _banner_images = [NSArray array];
@@ -285,7 +283,7 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     if (section == 0) {
-        return UIEdgeInsetsMake(kMEGoodsMargin*2, kMEGoodsMargin*2, kMEGoodsMargin*2, kMEGoodsMargin*2);
+        return UIEdgeInsetsMake(kMEGoodsMargin*1.5, kMEGoodsMargin*1.5, kMEGoodsMargin*1.5, kMEGoodsMargin*1.5);
     }
     return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin);
 }

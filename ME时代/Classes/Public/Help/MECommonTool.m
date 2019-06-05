@@ -107,7 +107,7 @@
     // 隐藏时候从父控件中移除
     hud.removeFromSuperViewOnHide = YES;
     // 1秒之后再消失
-    [hud hideAnimated:YES afterDelay:1.5];
+    [hud hideAnimated:YES afterDelay:1.2];
 }
 
 + (void)SHOWHUDWITHHUD:(MBProgressHUD *)HUD test:(NSString *)text{

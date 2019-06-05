@@ -22,13 +22,13 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kk6-IU-ojS">
-                    <rect key="frame" x="126" y="49" width="204" height="18"/>
+                    <rect key="frame" x="119" y="47" width="211" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8D-Wv-nyg">
-                    <rect key="frame" x="126" y="78" width="234" height="14.5"/>
+                    <rect key="frame" x="119" y="76" width="241" height="14.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -250,7 +250,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urX-Rd-KyT">
-                    <rect key="frame" x="126" y="99.5" width="234" height="15"/>
+                    <rect key="frame" x="119" y="97.5" width="241" height="15"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -269,7 +269,7 @@
                 <constraint firstAttribute="trailing" secondItem="R8D-Wv-nyg" secondAttribute="trailing" constant="15" id="GDS-7J-Mei"/>
                 <constraint firstItem="urX-Rd-KyT" firstAttribute="top" secondItem="R8D-Wv-nyg" secondAttribute="bottom" constant="7" id="N0r-m3-cLT"/>
                 <constraint firstItem="Xgv-KA-i2t" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" constant="41" id="Qy5-K1-ill"/>
-                <constraint firstItem="kk6-IU-ojS" firstAttribute="top" secondItem="Xgv-KA-i2t" secondAttribute="top" constant="8" id="SeG-nf-EUv"/>
+                <constraint firstItem="kk6-IU-ojS" firstAttribute="top" secondItem="Xgv-KA-i2t" secondAttribute="top" constant="6" id="SeG-nf-EUv"/>
                 <constraint firstItem="urX-Rd-KyT" firstAttribute="trailing" secondItem="R8D-Wv-nyg" secondAttribute="trailing" id="Ysr-w3-6bl"/>
                 <constraint firstAttribute="trailing" secondItem="FuN-D3-tmG" secondAttribute="trailing" id="akT-q5-Ehg"/>
                 <constraint firstItem="avq-p1-BvR" firstAttribute="top" secondItem="Xgv-KA-i2t" secondAttribute="bottom" constant="63" id="b9f-NV-Li2"/>
@@ -279,7 +279,7 @@
                 <constraint firstAttribute="trailing" secondItem="vmF-7a-DZa" secondAttribute="trailing" constant="25" id="gol-hb-TwI"/>
                 <constraint firstItem="XCS-KK-IRX" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" constant="20" id="h6F-Cx-XAP"/>
                 <constraint firstItem="FuN-D3-tmG" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" id="jHT-Ox-dsC"/>
-                <constraint firstItem="kk6-IU-ojS" firstAttribute="leading" secondItem="Xgv-KA-i2t" secondAttribute="trailing" constant="30" id="kln-kq-IyG"/>
+                <constraint firstItem="kk6-IU-ojS" firstAttribute="leading" secondItem="Xgv-KA-i2t" secondAttribute="trailing" constant="23" id="kln-kq-IyG"/>
                 <constraint firstAttribute="trailing" secondItem="XCS-KK-IRX" secondAttribute="trailing" constant="15" id="krZ-qR-L4J"/>
                 <constraint firstItem="snG-Jl-D0c" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" id="prX-WE-VSf"/>
                 <constraint firstItem="urX-Rd-KyT" firstAttribute="leading" secondItem="R8D-Wv-nyg" secondAttribute="leading" id="zow-zu-25S"/>

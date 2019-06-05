@@ -10,7 +10,6 @@
 #import "MENewMineHomeHeaderView.h"
 #import "MENewMineHomeCell.h"
 #import "MEProductListVC.h"
-
 #import "MENewMineHomeCodeHeaderView.h"
 
 @interface MENewMineHomeVC ()<UITableViewDelegate,UITableViewDataSource>{
@@ -19,12 +18,12 @@
 }
 
 @property (nonatomic, strong) UITableView           *tableView;
-//@property (nonatomic, strong) MENewMineHomeHeaderView *headerView;
-@property (nonatomic, strong) MENewMineHomeCodeHeaderView *headerView;
+@property (nonatomic, strong) MENewMineHomeHeaderView *headerView;
+@property (nonatomic, strong) MENewMineHomeCodeHeaderView *headerCodeView;
 
 @end
 
-@implementation MENewMineHomeVC
+@implementation MENewMineHomeVC 
 
 - (void)dealloc{
     kNSNotificationCenterDealloc
@@ -61,9 +60,17 @@
     [super viewWillAppear:animated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self getUnMeaasge];
-    if([MEUserInfoModel isLogin] && _headerView){
-//        _headerView.lblTel.text =  [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
-        _headerView.LblTel.text =  [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
+    
+    if ([MEUserInfoModel isLogin]) {
+        if (kCurrentUser.user_type > 3) {
+            if (_headerView) {
+                _headerView.lblTel.text =  [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
+            }
+        }else {
+            if (_headerCodeView) {
+                _headerCodeView.LblTel.text =  [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
+            }
+        }
     }
 }
 
@@ -159,8 +166,14 @@
             }
                 break;
         }
-        [strongSelf.headerView reloadUIWithUserInfo];
-        strongSelf.tableView.tableHeaderView = strongSelf.headerView;
+        if (kCurrentUser.user_type > 3) {
+            [strongSelf.headerView reloadUIWithUserInfo];
+            strongSelf.tableView.tableHeaderView = strongSelf.headerView;
+        }else {
+            [strongSelf.headerCodeView reloadUIWithUserInfo];
+            strongSelf.tableView.tableHeaderView = strongSelf.headerCodeView;
+        }
+        
         [strongSelf.tableView reloadData];
         [strongSelf.tableView.mj_header endRefreshing];
     } failure:^(id object) {
@@ -206,19 +219,19 @@
     return _tableView;
 }
 
-//- (MENewMineHomeHeaderView *)headerView{
-//    if(!_headerView){
-//        _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeHeaderView" owner:nil options:nil] lastObject];
-//        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeHeaderViewHeight);
-//    }
-//    return _headerView;
-//}
-
-- (MENewMineHomeCodeHeaderView *)headerView{
+- (MENewMineHomeHeaderView *)headerView{
     if(!_headerView){
-        _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeCodeHeaderView" owner:nil options:nil] lastObject];
-        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeCodeHeaderViewHeight);
+        _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeHeaderView" owner:nil options:nil] lastObject];
+        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeHeaderViewHeight);
     }
     return _headerView;
+}
+
+- (MENewMineHomeCodeHeaderView *)headerCodeView{
+    if(!_headerCodeView){
+        _headerCodeView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeCodeHeaderView" owner:nil options:nil] lastObject];
+        _headerCodeView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeCodeHeaderViewHeight);
+    }
+    return _headerCodeView;
 }
 @end

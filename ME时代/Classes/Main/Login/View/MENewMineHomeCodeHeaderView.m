@@ -40,46 +40,32 @@
     _consSetTopMargin.constant = kMeStatusBarHeight+10;
     
     
-    self.invationBGView.backgroundColor = [UIColor colorWithRed:236/255.0 green:198/255.0 blue:125/255.0 alpha:1.0];
-    CAGradientLayer *gl = [CAGradientLayer layer];
-    gl.frame = CGRectMake(25,132,325*kMeFrameScaleX(),48);
-    gl.startPoint = CGPointMake(0, 0);
-    gl.endPoint = CGPointMake(1, 1);
-    gl.colors = @[(__bridge id)[UIColor colorWithRed:74/255.0 green:74/255.0 blue:72/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0].CGColor];
-    gl.locations = @[@(0.1f),@(1.0f)];
-    [self.invationBGView.layer addSublayer:gl];
-    self.invationBGView.layer.cornerRadius = 8;
+    CGRect bounds = self.invationBGView.layer.bounds;
+    CGFloat bgViewWidth = [UIScreen mainScreen].bounds.size.width - 50;
+    bounds.size.width = bgViewWidth;
+    
+    CAGradientLayer *layer = [self getLayerWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) colors:@[(__bridge id)[UIColor colorWithRed:74/255.0 green:74/255.0 blue:72/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0].CGColor] locations:@[@(0.1f),@(1.0f)] frame:bounds];
+    [self.invationBGView.layer insertSublayer:layer atIndex:0];
     
     
-    
-    self.cpBtn.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1.0];
-    CAGradientLayer *gl1 = [CAGradientLayer layer];
-    gl1.frame = CGRectMake(246*kMeFrameScaleX(),10,68,24);
-    gl1.startPoint = CGPointMake(0, 0);
-    gl1.endPoint = CGPointMake(1, 1);
-    gl1.colors = @[(__bridge id)[UIColor colorWithRed:252/255.0 green:213/255.0 blue:138/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:227/255.0 green:163/255.0 blue:40/255.0 alpha:1.0].CGColor];
-    gl1.locations = @[@(0.0),@(1.0)];
-    [self.cpBtn.layer addSublayer:gl1];
-    self.cpBtn.layer.cornerRadius = 12;
+    CAGradientLayer *btnLayer = [self getLayerWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) colors:@[(__bridge id)[UIColor colorWithRed:252/255.0 green:213/255.0 blue:138/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:227/255.0 green:163/255.0 blue:40/255.0 alpha:1.0].CGColor] locations:@[@(0.0),@(1.0)] frame:self.cpBtn.layer.bounds];
+    [self.cpBtn.layer insertSublayer:btnLayer atIndex:0];
+}
+
+- (CAGradientLayer *)getLayerWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint colors:(NSArray *)colors locations:(NSArray *)locations frame:(CGRect)frame {
+    CAGradientLayer *layer = [CAGradientLayer layer];
+    layer.startPoint = startPoint;//（0，0）表示从左上角开始变化。默认值是(0.5,0.0)表示从x轴为中间，y为顶端的开始变化
+    layer.endPoint = endPoint;//（1，1）表示到右下角变化结束。默认值是(0.5,1.0)  表示从x轴为中间，y为低端的结束变化
+    layer.colors = colors;
+    layer.locations = locations;//渐变颜色的区间分布，locations的数组长度和color一致，这个值一般不用管它，默认是nil，会平均分布
+    layer.frame = frame;
+    return layer;
 }
 
 - (void)reloadUIWithUserInfo{
     _lblName.text = kMeUnNilStr(kCurrentUser.name);
-    
-    //    NSMutableAttributedString * attriStr = [[NSMutableAttributedString alloc] initWithString:kMeUnNilStr(kCurrentUser.name)];
-    //
-    //    NSTextAttachment *attchImage = [[NSTextAttachment alloc] init];
-    //    // 表情图片
-    //    attchImage.image = [UIImage imageNamed:@"icon_chengzhangzhi"];
-    //    // 设置图片大小
-    //    attchImage.bounds = CGRectMake(0, 0, 15, 15);
-    //    NSAttributedString *stringImage = [NSAttributedString attributedStringWithAttachment:attchImage];
-    //    [attriStr insertAttributedString:stringImage atIndex:0];
-    //
-    //    _lblName.attributedText = attriStr;
 
-    NSString *invationStr = @"邀请ID：GZ6MPZ";
-//    [NSString stringWithFormat:@"邀请ID：%@",kMeUnNilStr(kCurrentUser.invite_code)];
+    NSString *invationStr = [NSString stringWithFormat:@"邀请ID：%@",kMeUnNilStr(kCurrentUser.invite_code)];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:invationStr attributes:@{NSFontAttributeName: [UIFont fontWithName:@"PingFang-SC-Medium" size: 15],NSForegroundColorAttributeName: [UIColor colorWithRed:205/255.0 green:177/255.0 blue:126/255.0 alpha:1.0]}];
     self.invationLbl.attributedText = string;
     
@@ -119,6 +105,10 @@
     kSDLoadImg(_imgPic, @"");
 }
 - (IBAction)copyBtnAction:(id)sender {
+    UIPasteboard * pastboard = [UIPasteboard generalPasteboard];
+    
+    pastboard.string = kMeUnNilStr(kCurrentUser.invite_code);
+    [MECommonTool showMessage:@"复制成功" view:kMeCurrentWindow];
 }
 
 - (IBAction)allOrderAction:(UIButton *)sender {

@@ -58,18 +58,14 @@
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
 //    [_bgView addGestureRecognizer:tap];
 //    [self addGestureRecognizer:tap];
-    
-    if ([kCurrentUser.parent_header.parent_header_pic length] > 0) {
-        kSDLoadImg(_headerImgV, kMeUnNilStr(kCurrentUser.parent_header.parent_header_pic));
-    }else {
+    if (kMeUnObjectIsEmpty(kCurrentUser.parent_header)) {
         _headerImgV.image = [UIImage imageNamed:@"icon-wgvilogo"];
-    }
-    if ([kCurrentUser.parent_header.parent_name length] > 0) {
-        self.headerNameLbl.text = kMeUnNilStr(kCurrentUser.parent_header.parent_name);
-        self.invationLbl.hidden = NO;
-    }else {
         self.headerNameLbl.text = @"ME时代优选";
         self.invationLbl.hidden = YES;
+    }else {
+        kSDLoadImg(_headerImgV, kMeUnNilStr(kCurrentUser.parent_header.parent_header_pic));
+        self.headerNameLbl.text = kMeUnNilStr(kCurrentUser.parent_header.parent_name);
+        self.invationLbl.hidden = NO;
     }
 }
 
