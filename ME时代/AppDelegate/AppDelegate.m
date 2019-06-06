@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "METabBarVC.h"
-#import "MERCConversationListVC.h"
+//#import "MERCConversationListVC.h"
 #import <UserNotifications/UserNotifications.h>
 #import "METabBarVC.h"
 //#import "MELoginVC.h"

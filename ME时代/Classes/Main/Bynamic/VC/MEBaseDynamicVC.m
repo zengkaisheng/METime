@@ -1,137 +1,59 @@
 //
-//  MEBynamicHomeVC.m
+//  MEBaseDynamicVC.m
 //  ME时代
 //
-//  Created by hank on 2019/1/23.
-//  Copyright © 2019 hank. All rights reserved.
+//  Created by gao lei on 2019/6/5.
+//  Copyright © 2019年 hank. All rights reserved.
 //
-
-#import "MEBynamicHomeVC.h"
-//#import "MEBynamicMainCell.h"
-//#import "CLInputToolbar.h"
-//#import "MEBynamicHomeModel.h"
-//#import "METhridProductDetailsVC.h"
-//#import "IQKeyboardManager.h"
-#import "MEBynamicPublishVC.h"
-////#import "ALAssetsLibrary+MECategory.h"
-//#import "MECoupleMailDetalVC.h"
-//
-//#import "MEPinduoduoCoupleModel.h"
-//#import "MECoupleModel.h"
-//#import "MEJDCoupleModel.h"
-//#import "MEJDCoupleMailDetalVC.h"
 
 #import "MEBaseDynamicVC.h"
+#import "MEBynamicMainCell.h"
+#import "CLInputToolbar.h"
+#import "MEBynamicHomeModel.h"
+#import "METhridProductDetailsVC.h"
+#import "IQKeyboardManager.h"
+#import "MEBynamicPublishVC.h"
+//#import "ALAssetsLibrary+MECategory.h"
+#import "MECoupleMailDetalVC.h"
 
+#import "MEPinduoduoCoupleModel.h"
+#import "MECoupleModel.h"
+#import "MEJDCoupleModel.h"
+#import "MEJDCoupleMailDetalVC.h"
 
-@interface MEBynamicHomeVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>{
-//<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate,JXCategoryViewDelegate>{
-//    NSInteger _comentIndex;
-    NSArray *_arrType;
+@interface MEBaseDynamicVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
+{
+    NSInteger _comentIndex;
     //1 动态 2 每日爆款 3宣传素材
-//    NSInteger _type;
-//    NSString *_imgUrl;
+    NSInteger _type;
+    NSString *_imgUrl;
 }
 
-//@property (nonatomic, strong) UITableView *tableView;
-//@property (nonatomic, strong) CLInputToolbar *inputToolbar;
-//@property (nonatomic, strong) ZLRefreshTool         *refresh;
-//@property (nonatomic, strong) UIView *maskView;
-@property (nonatomic, strong) UIButton *btnRight;
-@property (nonatomic, strong) JXCategoryTitleView *categoryView;
-@property (nonatomic, strong) UIScrollView *scrollView;
-
-@property (nonatomic, strong) MEBaseDynamicVC *dynamicVC;//动态
-@property (nonatomic, strong) MEBaseDynamicVC *hotVC;//每日爆款
-@property (nonatomic, strong) MEBaseDynamicVC *publicizeVC;//宣传素材
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) CLInputToolbar *inputToolbar;
+@property (nonatomic, strong) ZLRefreshTool         *refresh;
+@property (nonatomic, strong) UIView *maskView;
 
 @end
 
-@implementation MEBynamicHomeVC
+@implementation MEBaseDynamicVC
 
-- (void)dealloc{
-    kNSNotificationCenterDealloc
+- (instancetype)initWithType:(NSInteger)type {
+    if (self = [super init]) {
+        _type = type;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"动态";
-//    _type = 1;
-     _arrType = @[@"动态",@"每日爆款",@"宣传素材"];
-    if(![MEUserInfoModel isLogin]){
-        
-    }else{
-        
-        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight-kMeTabBarHeight)];
-        self.scrollView.delegate = self;
-        self.scrollView.pagingEnabled = YES;
-        self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *_arrType.count,  SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight-kMeTabBarHeight);
-        self.scrollView.bounces = NO;
-        self.scrollView.showsVerticalScrollIndicator = NO;
-        self.scrollView.showsHorizontalScrollIndicator = NO;
-        [self.scrollView addSubview:self.dynamicVC.view];
-        [self.scrollView addSubview:self.hotVC.view];
-        [self.scrollView addSubview:self.publicizeVC.view];
-        [self.view addSubview:self.scrollView];
-        
-        //1、初始化JXCategoryTitleView
-        self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeNavBarHeight, SCREEN_WIDTH, kCategoryViewHeight)];
-        JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
-        lineView.indicatorLineWidth = 55 *kMeFrameScaleX();
-        lineView.indicatorLineViewColor = kMEPink;//[UIColor colorWithHexString:@"333333"];
-        lineView.indicatorLineViewHeight = 2;
-        self.categoryView.indicators = @[lineView];
-        
-        self.categoryView.titles = _arrType;
-        self.categoryView.delegate = self;
-        self.categoryView.titleSelectedColor = kMEPink;
-        self.categoryView.contentScrollView = self.scrollView;
-        self.categoryView.titleColor =  [UIColor colorWithHexString:@"999999"];
-        [self.view addSubview:self.categoryView];
-        self.categoryView.defaultSelectedIndex = 0;
-        
-//        [self.view addSubview:self.tableView];
-//        [self.refresh addRefreshView];
-//        [self setTextViewToolbar];
-    }
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogout) name:kUserLogout object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogin) name:kUserLogin object:nil];
-    if(kCurrentUser.user_type == 3 || kCurrentUser.user_type == 5){
-        self.btnRight.hidden = NO;
-    }else{
-        self.btnRight.hidden = YES;
-    }
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillHide:)
-//                                                 name:UIKeyboardWillHideNotification
-//                                               object:nil];
+    // Do any additional setup after loading the view.
+    [self.view addSubview:self.tableView];
+    [self.refresh addRefreshView];
+    [self setTextViewToolbar];
+    kOrderReload
 }
-//- (void)keyboardWillHide:(NSNotification *)notification{
-//    if(self.maskView && self.inputToolbar){
-//        [self.inputToolbar bounceToolbar];
-//        self.maskView.hidden = YES;
-//    }
-//}
 
-- (void)userLogout{
-//    _type = 1;
-    [self.navigationController popToViewController:self animated:NO];
-//    [self.refresh.arrData removeAllObjects];
-//    self.refresh = nil;
-//    [self.tableView removeFromSuperview];
-//    self.tableView = nil;
-//    self.maskView.hidden = YES;
-//    [self.inputToolbar bounceToolbar];
-//    [self.inputToolbar removeFromSuperview];
-//    self.inputToolbar = nil;
-//    [self.maskView removeFromSuperview];
-//    self.maskView = nil;
-    [self.categoryView removeFromSuperview];
-    self.categoryView = nil;
-    self.btnRight.hidden = YES;
-}
-/*
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
@@ -141,20 +63,7 @@
     [super viewWillDisappear:animated];
     [IQKeyboardManager sharedManager].enable = YES;
 }
-*/
-- (void)userLogin{
-    if(kCurrentUser.user_type == 3 || kCurrentUser.user_type == 5){
-        self.btnRight.hidden = NO;
-    }else{
-        self.btnRight.hidden = YES;
-    }
-//    _type = 1;
-    [self.view addSubview:self.categoryView];
-//    [self.view addSubview:self.tableView];
-//    [self.refresh addRefreshView];
-//    [self setTextViewToolbar];
-}
-/*
+
 #pragma mark - RefreshToolDelegate
 
 - (NSDictionary *)requestParameter{
@@ -167,16 +76,19 @@
     }
     [self.refresh.arrData addObjectsFromArray:[MEBynamicHomeModel mj_objectArrayWithKeyValuesArray:data]];
 }
-*/
-- (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index{
+
+- (void)reloadData {
+    [self.refresh reload];
+}
+
+//- (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index{
 //    NSInteger currentindex = index+1;
 //    if(currentindex == _type){
 //        return;
 //    }
 //    _type = currentindex;
 //    [self.refresh reload];
-}
-/*
+//}
 #pragma mark - tableView deleagte and sourcedata
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -227,7 +139,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEBynamicHomeModel *model = self.refresh.arrData[indexPath.row];
-    NSLog(@"height:%.2f",[MEBynamicMainCell getCellHeightithModel:model]);
     return [MEBynamicMainCell getCellHeightithModel:model];
 }
 
@@ -325,60 +236,60 @@
         NSLog(@"分享失败%@",error);
         [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
     }];
- //作废
-    MEBynamicHomeModel *model = self.refresh.arrData[index];
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = kMeUnNilStr(model.content);
-    SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-    __block BOOL isError = NO;
-    dispatch_group_async(group, queue, ^{
-        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [kMeUnArr(model.images) enumerateObjectsUsingBlock:^(NSString *urlString, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSURL *url = [NSURL URLWithString: urlString];
-            [manager diskImageExistsForURL:url completion:^(BOOL isInCache) {
-                UIImage *img;
-                if(isInCache){
-                    img =  [[manager imageCache] imageFromDiskCacheForKey:url.absoluteString];
-                }else{
-                    NSData *data = [NSData dataWithContentsOfURL:url];
-                    img = [UIImage imageWithData:data];
-                }
-                HUD.label.text = [NSString stringWithFormat:@"正在保存第%@张",@(idx+1)];
-                if(img){
-                    [library saveImage:img toAlbum:kMEAppName withCompletionBlock:^(NSError *error) {
-                        NSLog(@"%@",[error description]);
-                        if (!error) {
-                            dispatch_semaphore_signal(semaphore);
-                        }else{
-                            isError = YES;
-                            dispatch_semaphore_signal(semaphore);
-                            *stop = YES;
-                        }
-                    }];
-                }else{
-                    [MEShowViewTool showMessage:@"图片出错" view:kMeCurrentWindow];
-                    dispatch_semaphore_signal(semaphore);
-                }
-            }];
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        }];
-    });
- 
-    dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [HUD hideAnimated:YES];
-            if(isError){
-                [[[UIAlertView alloc]initWithTitle:@"无法保存" message:@"请在iPhone的“设置-隐私-照片”选项中，允许%@访问你的照片" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil] show];
-            }else{
-                [[[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"图片已保存至您的手机相册并复制描述" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil] show];
-            }
-        });
-    });
-//作废
+    /*
+     MEBynamicHomeModel *model = self.refresh.arrData[index];
+     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+     pasteboard.string = kMeUnNilStr(model.content);
+     SDWebImageManager *manager = [SDWebImageManager sharedManager];
+     MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+     dispatch_group_t group = dispatch_group_create();
+     dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+     __block BOOL isError = NO;
+     dispatch_group_async(group, queue, ^{
+     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+     [kMeUnArr(model.images) enumerateObjectsUsingBlock:^(NSString *urlString, NSUInteger idx, BOOL * _Nonnull stop) {
+     NSURL *url = [NSURL URLWithString: urlString];
+     [manager diskImageExistsForURL:url completion:^(BOOL isInCache) {
+     UIImage *img;
+     if(isInCache){
+     img =  [[manager imageCache] imageFromDiskCacheForKey:url.absoluteString];
+     }else{
+     NSData *data = [NSData dataWithContentsOfURL:url];
+     img = [UIImage imageWithData:data];
+     }
+     HUD.label.text = [NSString stringWithFormat:@"正在保存第%@张",@(idx+1)];
+     if(img){
+     [library saveImage:img toAlbum:kMEAppName withCompletionBlock:^(NSError *error) {
+     NSLog(@"%@",[error description]);
+     if (!error) {
+     dispatch_semaphore_signal(semaphore);
+     }else{
+     isError = YES;
+     dispatch_semaphore_signal(semaphore);
+     *stop = YES;
+     }
+     }];
+     }else{
+     [MEShowViewTool showMessage:@"图片出错" view:kMeCurrentWindow];
+     dispatch_semaphore_signal(semaphore);
+     }
+     }];
+     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+     }];
+     });
+     
+     dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+     dispatch_async(dispatch_get_main_queue(), ^{
+     [HUD hideAnimated:YES];
+     if(isError){
+     [[[UIAlertView alloc]initWithTitle:@"无法保存" message:@"请在iPhone的“设置-隐私-照片”选项中，允许%@访问你的照片" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil] show];
+     }else{
+     [[[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"图片已保存至您的手机相册并复制描述" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil] show];
+     }
+     });
+     });
+     */
 }
 
 
@@ -407,20 +318,19 @@
     _comentIndex = index;
     [self didTouchBtn];
 }
-*/
-- (void)pushlishAction:(UIButton *)btn{
-    MEBynamicPublishVC *vc = [[MEBynamicPublishVC alloc]init];
-    kMeWEAKSELF
-    vc.publishSucessBlock = ^{
-        kMeSTRONGSELF
+
+//- (void)pushlishAction:(UIButton *)btn{
+//    MEBynamicPublishVC *vc = [[MEBynamicPublishVC alloc]init];
+//    kMeWEAKSELF
+//    vc.publishSucessBlock = ^{
+//        kMeSTRONGSELF
 //        strongSelf->_type = 1;
-        [strongSelf.categoryView selectItemAtIndex:0];
+//        [strongSelf.categoryView selectItemAtIndex:0];
 //        [strongSelf.refresh reload];
-        [strongSelf.dynamicVC reloadData];
-    };
-    [self.navigationController pushViewController:vc animated:YES];
-}
-/*
+//    };
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
+
 - (void)likeAction:(NSInteger)index{
     if(index>self.refresh.arrData.count){
         return;
@@ -505,7 +415,7 @@
 
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kMeTabBarHeight-kCategoryViewHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kMeTabBarHeight-kCategoryViewHeight) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEBynamicMainCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEBynamicMainCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -514,7 +424,7 @@
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
         view.backgroundColor = kMEededed;
         _tableView.tableFooterView = [UIView new];//view;
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.backgroundColor = [UIColor clearColor];
     }
     return _tableView;
 }
@@ -525,7 +435,7 @@
         _refresh.delegate = self;
         _refresh.isDataInside = YES;
         _refresh.showMaskView = YES;
-
+        
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
             failView.backgroundColor = [UIColor whiteColor];
             failView.lblOfNodata.text = @"没有动态";
@@ -533,85 +443,6 @@
     }
     return _refresh;
 }
-*/
 
-#pragma MARK - Setter
-- (MEBaseDynamicVC *)dynamicVC {
-    if (!_dynamicVC) {
-        _dynamicVC = [[MEBaseDynamicVC alloc] initWithType:1];
-        _dynamicVC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _dynamicVC.view.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight-kMeTabBarHeight);
-        [self addChildViewController:_dynamicVC];
-    }
-    return _dynamicVC;
-}
-
-- (MEBaseDynamicVC *)hotVC {
-    if (!_hotVC) {
-        _hotVC = [[MEBaseDynamicVC alloc] initWithType:2];
-        _hotVC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _hotVC.view.frame = CGRectMake(SCREEN_WIDTH,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight-kMeTabBarHeight);
-        [self addChildViewController:_hotVC];
-    }
-    return _hotVC;
-}
-
-- (MEBaseDynamicVC *)publicizeVC {
-    if (!_publicizeVC) {
-        _publicizeVC = [[MEBaseDynamicVC alloc] initWithType:3];
-        _publicizeVC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _publicizeVC.view.frame = CGRectMake(SCREEN_WIDTH*2,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight-kMeTabBarHeight);
-        [self addChildViewController:_publicizeVC];
-    }
-    return _publicizeVC;
-}
-
-- (UIButton *)btnRight{
-    if(!_btnRight){
-        _btnRight= [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_btnRight setTitle:@"发表" forState:UIControlStateNormal];
-        [_btnRight setImage:[UIImage imageNamed:@"icon_push"] forState:UIControlStateNormal];
-        [_btnRight setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _btnRight.cornerRadius = 2;
-        _btnRight.clipsToBounds = YES;
-        _btnRight.frame = CGRectMake(0, 0, 30, 30);
-        _btnRight.titleLabel.font = kMeFont(15);
-        [_btnRight addTarget:self action:@selector(pushlishAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _btnRight;
-}
-
-//- (JXCategoryTitleView *)categoryView{
-//    if(!_categoryView){
-//        _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeNavBarHeight, SCREEN_WIDTH, kCategoryViewHeight)];
-//        JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
-//        lineView.indicatorLineWidth = 55 *kMeFrameScaleX();
-//        lineView.indicatorLineViewColor = kMEPink;//[UIColor colorWithHexString:@"333333"];
-//        lineView.indicatorLineViewHeight = 2;
-//        _categoryView.indicators = @[lineView];
-//        //    self.categoryView.lineStyle = JXCategoryLineStyle_None;
-//        _categoryView.titles = _arrType;
-//        _categoryView.delegate = self;
-//        _categoryView.titleSelectedColor = kMEPink;//[UIColor colorWithHexString:@"333333"];
-////        _categoryView.contentScrollView = self.scrollView;
-//        _categoryView.titleColor =  [UIColor colorWithHexString:@"999999"];
-//        _categoryView.defaultSelectedIndex = 0;
-//    }
-//    return _categoryView;
-//}
-//
-//- (UIScrollView *)scrollView {
-//    if (!_scrollView) {
-//        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight-kMeTabBarHeight)];
-//        _scrollView.delegate = self;
-//        _scrollView.pagingEnabled = YES;
-//        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *_arrType.count,  SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight-kMeTabBarHeight);
-//        _scrollView.bounces = NO;
-//        _scrollView.showsVerticalScrollIndicator = NO;
-//        _scrollView.showsHorizontalScrollIndicator = NO;
-//        _scrollView.backgroundColor = [UIColor redColor];
-//    }
-//    return _scrollView;
-//}
 
 @end

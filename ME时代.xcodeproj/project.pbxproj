@@ -958,6 +958,7 @@
 		36FFEB782175C0750007697D /* MEMemberHomeProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 36FFEB762175C0750007697D /* MEMemberHomeProductCell.m */; };
 		36FFEB792175C0750007697D /* MEMemberHomeProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36FFEB772175C0750007697D /* MEMemberHomeProductCell.xib */; };
 		5C1CED26C06DA28283855842 /* libPods-ME时代.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4D5C0077C18A33767DDC8DB /* libPods-ME时代.a */; };
+		EB0C68B222A7C1BF00701153 /* MEBaseDynamicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0C68B122A7C1BF00701153 /* MEBaseDynamicVC.m */; };
 		EB28101221533123006A765A /* NSObject+MEDebugDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28101121533123006A765A /* NSObject+MEDebugDescription.m */; };
 		EB28101521539424006A765A /* MELocationCLLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28101421539424006A765A /* MELocationCLLModel.m */; };
 		EB28101821539B65006A765A /* MEStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28101721539B65006A765A /* MEStoreModel.m */; };
@@ -2704,6 +2705,8 @@
 		36FFEB772175C0750007697D /* MEMemberHomeProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEMemberHomeProductCell.xib; sourceTree = "<group>"; };
 		9661DF4B71CF89433CB3E047 /* Pods-ME时代.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ME时代.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ME时代/Pods-ME时代.debug.xcconfig"; sourceTree = "<group>"; };
 		B4D5C0077C18A33767DDC8DB /* libPods-ME时代.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ME时代.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB0C68B022A7C1BF00701153 /* MEBaseDynamicVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEBaseDynamicVC.h; sourceTree = "<group>"; };
+		EB0C68B122A7C1BF00701153 /* MEBaseDynamicVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEBaseDynamicVC.m; sourceTree = "<group>"; };
 		EB28101021533123006A765A /* NSObject+MEDebugDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+MEDebugDescription.h"; sourceTree = "<group>"; };
 		EB28101121533123006A765A /* NSObject+MEDebugDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MEDebugDescription.m"; sourceTree = "<group>"; };
 		EB28101321539424006A765A /* MELocationCLLModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MELocationCLLModel.h; sourceTree = "<group>"; };
@@ -5629,6 +5632,8 @@
 				36F697052230BCB4001E53BA /* MEBynamicPublishVC.xib */,
 				EB9F946722979CBC0049CFFD /* MEChooseTerminalVC.h */,
 				EB9F946822979CBC0049CFFD /* MEChooseTerminalVC.m */,
+				EB0C68B022A7C1BF00701153 /* MEBaseDynamicVC.h */,
+				EB0C68B122A7C1BF00701153 /* MEBaseDynamicVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -6863,6 +6868,7 @@
 				3617C30421D0AC1600004072 /* MECoupleFilterModel.m in Sources */,
 				3691308A22363B6E008B1836 /* AALabels.m in Sources */,
 				36FD63E9213FA722009743C5 /* MENavigationVC.m in Sources */,
+				EB0C68B222A7C1BF00701153 /* MEBaseDynamicVC.m in Sources */,
 				36356A7821770A4B004174E7 /* MELocationConverter.m in Sources */,
 				EB939D0A229D6274006088AB /* MERefundDetailModel.m in Sources */,
 				36BF3E4D21F9921000C8F856 /* MECouponMoneyModel.m in Sources */,
