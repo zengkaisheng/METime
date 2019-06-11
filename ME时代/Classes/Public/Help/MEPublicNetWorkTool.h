@@ -273,6 +273,9 @@
 
 + (void)postGetCustomIdWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
+//app获取技术客服微信信息
++ (void)postGetCustomerServiceWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
 //获取客服信息
 + (void)postGetCustomerGetUserInfoWithUid:(NSString*)uid SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 + (void)postGetUserGetUserInfoWithUid:(NSString*)uid SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;

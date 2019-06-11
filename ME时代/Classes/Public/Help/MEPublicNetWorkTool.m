@@ -1219,6 +1219,17 @@
     }];
 }
 
+//app获取技术客服微信信息
++ (void)postGetCustomerServiceWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token)};
+    NSString *url = kGetApiWithUrl(MEIPGetCustomerService);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        kMeCallBlock(failure,error);
+    }];
+}
+
 + (void)postGetCustomerGetUserInfoWithUid:(NSString*)uid SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"customer_id":kMeUnNilStr(uid),@"token":kMeUnNilStr(kCurrentUser.token)};
     NSString *url = kGetApiWithUrl(MEIPCustomerGetUserInfo);
@@ -1369,7 +1380,8 @@
 //获取2.0首页数据
 + (void)postThridHomeStyleWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{
-                          @"tool":@"1"
+                          @"tool":@"1",
+                          @"uid":kMeUnNilStr(kCurrentUser.uid)
                           };
     NSString *url = kGetApiWithUrl(MEIPcommonGetThridHomeBase);
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {

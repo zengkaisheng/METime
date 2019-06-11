@@ -32,6 +32,7 @@
                 <constraint firstItem="eOR-hk-hQC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Vve-IU-nhs"/>
                 <constraint firstItem="eOR-hk-hQC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kMs-85-qEa"/>
             </constraints>
+            <point key="canvasLocation" x="-204" y="156"/>
         </view>
     </objects>
 </document>

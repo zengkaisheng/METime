@@ -122,7 +122,7 @@ NSString *const kServerError = @"服务器无法连接";
     }
     if(view) [MBProgressHUD showHUDAddedTo:view animated:YES];
     NSDictionary *dicParameter = [self dicParameterWithDic:parameter];
-    NSLog(@"dicParameter = %@",dicParameter);
+    NSLog(@"urlStr == %@ \n dicParameter = %@",urlStr,dicParameter);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [self customProcessingForManager:manager];//设置相应内容类型
     [manager POST:urlStr parameters:dicParameter progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

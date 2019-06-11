@@ -430,6 +430,8 @@
 #define MEIPCustomerGetUserInfo @"customer/auth/getCustomerInfo"
 //获取用户信息
 #define MEIPUserGetUserInfo @"common/user/getUser"
+//获取平台技术客服微信
+#define MEIPGetCustomerService @"common/service/getCustomerService"
 /*********************************************/
 
 
