@@ -136,7 +136,7 @@ const static CGFloat kImgStore = 50;
 - (void)userLogout{
     [self.navView setRead:YES];
     _stroeModel = nil;
-    [_headerView setUIWithModel:_homeModel stroeModel:_stroeModel];
+    [self.headerView setUIWithModel:_homeModel stroeModel:_stroeModel];
 //    _imgStore.image = [UIImage imageNamed:@"icon-wgvilogo"];
 //    _imgStore.frame = CGRectMake(SCREEN_WIDTH-k15Margin-kImgStore, SCREEN_HEIGHT-kMeTabBarHeight-k15Margin-kImgStore, kImgStore, kImgStore);
 }
@@ -599,6 +599,9 @@ const static CGFloat kImgStore = 50;
         _headerView.scrollToIndexBlock = ^(NSInteger index) {
             kMeSTRONGSELF
             [strongSelf setSdBackgroundColorWithIndex:index];
+        };
+        _headerView.reloadBlock = ^{
+           [weakSelf.refresh reload];
         };
     }
     return _headerView;

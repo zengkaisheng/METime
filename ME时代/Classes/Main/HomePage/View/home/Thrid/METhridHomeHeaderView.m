@@ -126,6 +126,19 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     METhridHomeAdModel *model = kMeUnArr(_model.top_banner)[index];
     METhridHomeVC *homeVC = (METhridHomeVC *)[MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
     
+    if (model.is_need_login == 1) {
+        if(![MEUserInfoModel isLogin]){
+            kMeWEAKSELF
+            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                kMeSTRONGSELF
+                if (strongSelf.reloadBlock) {
+                    strongSelf.reloadBlock();
+                }
+            } failHandler:nil];
+            return;
+        }
+    }
+    
     switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
         case 1:
         {

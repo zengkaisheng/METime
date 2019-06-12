@@ -28,6 +28,7 @@ const static CGFloat kMEThridHomeHeaderViewHeight = 331;
 - (void)setUIWithModel:(METhridHomeModel *)model stroeModel:(MEStoreModel *)storemodel;
 @property (nonatomic,copy)kMeIndexBlock scrollToIndexBlock;
 @property (nonatomic,copy) kMeTextBlock activityBlock;
+@property (nonatomic,copy) kMeBasicBlock reloadBlock;
 
 @property (weak, nonatomic) IBOutlet UIView *viewForBack;
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *sdView;

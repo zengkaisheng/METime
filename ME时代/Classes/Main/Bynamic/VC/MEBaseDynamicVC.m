@@ -52,6 +52,13 @@
     [self.refresh addRefreshView];
     [self setTextViewToolbar];
     kOrderReload
+    
+    kMeWEAKSELF
+    [MEPublicNetWorkTool getUserGetCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        strongSelf->_imgUrl = kMeUnNilStr(responseObject.data);
+    } failure:^(id object) {
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -211,18 +218,14 @@
 
 - (void)saveAllPhotoWithIndex:(NSInteger)index{
     
-    kMeWEAKSELF
-    [MEPublicNetWorkTool getUserGetCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
-        kMeSTRONGSELF
-        strongSelf->_imgUrl = kMeUnNilStr(responseObject.data);
-    } failure:^(id object) {
-    }];
-    
     MEBynamicHomeModel *model = self.refresh.arrData[index];
     
     MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"http://test.meshidai.com/article.html?id=%@&img=%@",model.idField,_imgUrl];
-    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+    NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+    baseUrl = [@"http" stringByAppendingString:baseUrl];
+    
+    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@article.html?id=%@&img=%@",baseUrl,model.idField,_imgUrl];
+//    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
     
     shareTool.shareTitle = model.title;
     shareTool.shareDescriptionBody = model.content;

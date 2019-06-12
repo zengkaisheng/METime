@@ -581,37 +581,5 @@
     return _btnRight;
 }
 
-//- (JXCategoryTitleView *)categoryView{
-//    if(!_categoryView){
-//        _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeNavBarHeight, SCREEN_WIDTH, kCategoryViewHeight)];
-//        JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
-//        lineView.indicatorLineWidth = 55 *kMeFrameScaleX();
-//        lineView.indicatorLineViewColor = kMEPink;//[UIColor colorWithHexString:@"333333"];
-//        lineView.indicatorLineViewHeight = 2;
-//        _categoryView.indicators = @[lineView];
-//        //    self.categoryView.lineStyle = JXCategoryLineStyle_None;
-//        _categoryView.titles = _arrType;
-//        _categoryView.delegate = self;
-//        _categoryView.titleSelectedColor = kMEPink;//[UIColor colorWithHexString:@"333333"];
-////        _categoryView.contentScrollView = self.scrollView;
-//        _categoryView.titleColor =  [UIColor colorWithHexString:@"999999"];
-//        _categoryView.defaultSelectedIndex = 0;
-//    }
-//    return _categoryView;
-//}
-//
-//- (UIScrollView *)scrollView {
-//    if (!_scrollView) {
-//        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight-kMeTabBarHeight)];
-//        _scrollView.delegate = self;
-//        _scrollView.pagingEnabled = YES;
-//        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *_arrType.count,  SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight-kMeTabBarHeight);
-//        _scrollView.bounces = NO;
-//        _scrollView.showsVerticalScrollIndicator = NO;
-//        _scrollView.showsHorizontalScrollIndicator = NO;
-//        _scrollView.backgroundColor = [UIColor redColor];
-//    }
-//    return _scrollView;
-//}
 
 @end

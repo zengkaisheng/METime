@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, assign) NSInteger tool;
 @property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) NSInteger is_need_login;//0 不需要登录 1 需要登录
 
 @end
 
