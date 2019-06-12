@@ -38,8 +38,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    _consViewHeight.constant = kMENewAddTelViewHeight;
-    _consViewWidth.constant = kMENewAddTelViewWidth;
+    _consViewHeight.constant = kMENewAddTelViewHeight<294?294:kMENewAddTelViewHeight;
+    _consViewWidth.constant = kMENewAddTelViewWidth<275?275:kMENewAddTelViewWidth;
     _consViewX.constant = kMeFrameScaleY()<1?-40:0;
     [self layoutIfNeeded];
     [self initSomeThing];
