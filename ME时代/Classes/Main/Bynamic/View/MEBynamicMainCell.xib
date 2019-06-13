@@ -207,6 +207,7 @@
                 <outlet property="btnDel" destination="I4h-sx-pb6" id="4oQ-Ty-cNC"/>
                 <outlet property="btnLike" destination="hLA-1h-SFt" id="g92-nd-ydJ"/>
                 <outlet property="btnShare" destination="VU1-pZ-mG8" id="QgW-ce-x2o"/>
+                <outlet property="commentBtn" destination="yq6-HL-NRY" id="iJ5-Ga-TeU"/>
                 <outlet property="consComentHeight" destination="ZGp-qc-jk9" id="sbM-lK-XXk"/>
                 <outlet property="consDelLeft" destination="vih-eQ-Jid" id="Bn8-0b-J7Y"/>
                 <outlet property="consDelW" destination="JPQ-2q-Uy9" id="c7s-UO-dNF"/>

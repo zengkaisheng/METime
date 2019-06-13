@@ -441,6 +441,7 @@
         _refresh.showMaskView = YES;
         _refresh.isDataInside = YES;
         _refresh.isPinduoduoCoupleMater = YES;
+        _refresh.isFilter = YES;
     }
     return _refresh;
 }

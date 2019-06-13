@@ -216,7 +216,7 @@
                 <outlet property="viewForF" destination="zhK-x5-cyC" id="yoB-zd-1wG"/>
                 <outlet property="viewForS" destination="mkf-fk-PI3" id="jnY-I3-3h4"/>
             </connections>
-            <point key="canvasLocation" x="129.59999999999999" y="123.23838080959521"/>
+            <point key="canvasLocation" x="-306" y="106"/>
         </tableViewCell>
     </objects>
     <resources>

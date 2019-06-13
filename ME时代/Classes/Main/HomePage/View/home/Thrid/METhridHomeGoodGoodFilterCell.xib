@@ -134,7 +134,7 @@
             <connections>
                 <outlet property="consHeight" destination="juK-Yb-jGn" id="K1a-Cq-Mee"/>
             </connections>
-            <point key="canvasLocation" x="144.80000000000001" y="223.98800599700152"/>
+            <point key="canvasLocation" x="-6" y="214"/>
         </tableViewCell>
     </objects>
     <resources>

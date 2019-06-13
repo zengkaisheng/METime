@@ -28,6 +28,7 @@
 #import "MEFilterGoodVC.h"
 
 #import "MENewFilterGoodVC.h"
+#import "MEFourHomeVC.h"
 
 @interface METabBarVC ()<UITabBarControllerDelegate>
 
@@ -46,7 +47,8 @@
     self.tabBar.translucent = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     // 1.初始化子控制器
-    METhridHomeVC *home = [[METhridHomeVC alloc] init];
+//    METhridHomeVC *home = [[METhridHomeVC alloc] init];
+    MEFourHomeVC *home = [[MEFourHomeVC alloc] init];
     [self addChildVc:home title:@"首页" image:@"home" selectedImage:@"home_s"];
     //17620355568
 //    MEIMageVC *store = [[MEIMageVC alloc]initWithType:MEMainStoreStyle];

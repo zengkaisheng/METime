@@ -15,6 +15,7 @@
 #import "MEFilterVC.h"
 #import "MEStoreModel.h"
 #import "MECoupleFilterVC.h"
+#import "MEFourHomeVC.h"
 
 @interface METhridHomeNavView ()<JXCategoryViewDelegate>{
     CGFloat _top;
@@ -27,7 +28,7 @@
 @property (nonatomic, strong)UIView *viewForSearch;
 @property (nonatomic, strong)UIImageView *imageForSearch;
 @property (nonatomic, strong)UIView *viewForUnread;
-@property (nonatomic, strong) JXCategoryTitleView *categoryView;
+
 
 //@property (nonatomic, strong)UIView *viewForStore;
 //
@@ -71,7 +72,6 @@
     JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
     lineView.indicatorLineViewColor =  [UIColor whiteColor];
     lineView.indicatorLineViewHeight = 1;
-
     self.categoryView.indicators = @[lineView];
 
     self.categoryView.titles = @[@"精选",@"特卖",@"猜你喜欢",@"女装",@"美妆",@"母婴"];
@@ -151,7 +151,8 @@
     }
 }
 - (void)sortAction:(UIButton*)btn{
-    METhridHomeVC *homeVC = (METhridHomeVC *)[MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
+//    METhridHomeVC *homeVC = (METhridHomeVC *)[MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
+    MEFourHomeVC *homeVC = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
     if(homeVC){
         MECoupleFilterVC *svc = [[MECoupleFilterVC alloc]init];
         [homeVC.navigationController pushViewController:svc animated:YES];
@@ -159,7 +160,8 @@
 }
 
 - (void)toNotice{
-    METhridHomeVC *homeVC = (METhridHomeVC *)[MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
+//    METhridHomeVC *homeVC = (METhridHomeVC *)[MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
+    MEFourHomeVC *homeVC = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
     if(homeVC){
         MENoticeVC *svc = [[MENoticeVC alloc]init];
         [homeVC.navigationController pushViewController:svc animated:YES];

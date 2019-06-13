@@ -41,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consDelW;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consDelLeft;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consShareW;
+@property (weak, nonatomic) IBOutlet UIButton *commentBtn;
 
 @end
 
@@ -57,6 +58,7 @@
 - (void)setUIWithModel:(MEBynamicHomeModel *)model{
     _model = model;
     _btnShare.hidden = YES;
+    _commentBtn.hidden = YES;
     _consShareW.constant = 0;
     if(kMeUnNilStr(model.member_id).length == 0){
         _btnDel.hidden = YES;

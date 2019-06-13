@@ -54,6 +54,7 @@
 @property (nonatomic,assign) BOOL isCoupleMater;//优惠卷物料搜索
 @property (nonatomic,assign) BOOL isPinduoduoCoupleMater;//pinduoduo优惠卷物料搜索
 @property (nonatomic,assign) BOOL isGet;
+@property (nonatomic,assign) BOOL isFilter;
 
 
 - (instancetype ) initWithContentView:(UIScrollView *)scrollView url:(NSString *)url;

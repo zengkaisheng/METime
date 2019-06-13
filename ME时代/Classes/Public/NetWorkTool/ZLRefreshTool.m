@@ -127,10 +127,18 @@ NSUInteger const kSizeNum = 10;
                         [strongSelf.delegate handleResponse:responseObject.data[@"tbk_dg_material_optional_response"][@"result_list"][@"map_data"]];
                     }else{
                         if(strongSelf->_isPinduoduoCoupleMater){
-                            NSInteger count = [responseObject.data[@"goods_search_response"][@"total_count"] integerValue];
-                            count=count==0?1000:count;
-                            strongSelf.allRows = count ;
-                            [strongSelf.delegate handleResponse:responseObject.data[@"goods_search_response"][@"goods_list"]];
+                            if (!kMeUnObjectIsEmpty(responseObject.data)) {
+                                NSInteger count = [responseObject.data[@"goods_search_response"][@"total_count"] integerValue];
+                                if (strongSelf.isFilter) {
+                                    count=count>0?1000:count;
+                                }else {
+                                    count=count==0?1000:count;
+                                }
+                                strongSelf.allRows = count;
+                                [strongSelf.delegate handleResponse:responseObject.data[@"goods_search_response"][@"goods_list"]];
+                            }else {
+                                strongSelf.allRows = 0;
+                            }
                         }else{
                             strongSelf->_response = [MENetListModel mj_objectWithKeyValues:responseObject.data];
                             MENetListModel *nlModel = [MENetListModel mj_objectWithKeyValues:responseObject.data];

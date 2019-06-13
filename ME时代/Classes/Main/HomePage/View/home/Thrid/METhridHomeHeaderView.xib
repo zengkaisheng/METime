@@ -106,6 +106,7 @@
                         <constraint firstAttribute="height" constant="70" id="en2-M0-mSo"/>
                         <constraint firstItem="gLz-tW-Wr6" firstAttribute="leading" secondItem="OBx-mg-6uZ" secondAttribute="trailing" constant="10" id="gtJ-kM-S3e"/>
                         <constraint firstItem="bBw-5m-kGN" firstAttribute="leading" secondItem="qcK-SS-e62" secondAttribute="trailing" constant="10" id="jUN-h9-sgS"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="kEC-0L-Qjj"/>
                         <constraint firstItem="qcK-SS-e62" firstAttribute="leading" secondItem="QiX-5y-TyF" secondAttribute="leading" constant="10" id="mWh-Nl-OLQ"/>
                         <constraint firstItem="qcK-SS-e62" firstAttribute="centerY" secondItem="QiX-5y-TyF" secondAttribute="centerY" id="p5l-Zs-rVe"/>
                         <constraint firstItem="gLz-tW-Wr6" firstAttribute="top" secondItem="QiX-5y-TyF" secondAttribute="top" id="sJZ-Oj-Ql5"/>
@@ -201,6 +202,7 @@
             <constraints>
                 <constraint firstItem="Keb-yR-Udh" firstAttribute="trailing" secondItem="jzx-cp-lET" secondAttribute="trailing" constant="5" id="18a-yi-Hl9"/>
                 <constraint firstItem="wol-gn-TZl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="2DS-J8-CQ7"/>
+                <constraint firstAttribute="trailing" secondItem="QiX-5y-TyF" secondAttribute="trailing" constant="10" id="9zb-gh-GdO"/>
                 <constraint firstItem="jzx-cp-lET" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ENt-TN-hdA"/>
                 <constraint firstItem="ZZg-s4-Brm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="G5s-rd-nan"/>
                 <constraint firstAttribute="trailing" secondItem="jzx-cp-lET" secondAttribute="trailing" constant="5" id="Gc6-96-GQ6"/>
@@ -208,10 +210,12 @@
                 <constraint firstAttribute="trailing" secondItem="ZZg-s4-Brm" secondAttribute="trailing" id="Nlo-XL-qsY"/>
                 <constraint firstItem="jzx-cp-lET" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="Qfz-sP-xJQ"/>
                 <constraint firstItem="JDG-Ce-fh1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="SM6-oO-R4a"/>
+                <constraint firstItem="ZZg-s4-Brm" firstAttribute="top" secondItem="QiX-5y-TyF" secondAttribute="bottom" constant="5" id="U3W-J5-gar"/>
                 <constraint firstItem="ZZg-s4-Brm" firstAttribute="top" secondItem="QiX-5y-TyF" secondAttribute="bottom" constant="5" id="a27-1e-P4c"/>
                 <constraint firstItem="Keb-yR-Udh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cFk-l7-0fv"/>
                 <constraint firstAttribute="trailing" secondItem="JDG-Ce-fh1" secondAttribute="trailing" id="dMn-AX-WtC"/>
                 <constraint firstAttribute="trailing" secondItem="QiX-5y-TyF" secondAttribute="trailing" constant="10" id="g75-0N-tQb"/>
+                <constraint firstItem="QiX-5y-TyF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="jTn-3t-soO"/>
                 <constraint firstItem="JDG-Ce-fh1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ms7-s4-ro5"/>
                 <constraint firstAttribute="trailing" secondItem="wol-gn-TZl" secondAttribute="trailing" id="rhM-6b-zYV"/>
                 <constraint firstItem="JDG-Ce-fh1" firstAttribute="bottom" secondItem="jzx-cp-lET" secondAttribute="bottom" constant="-43" id="u2j-TP-toC"/>
@@ -230,7 +234,7 @@
                 <outlet property="sdView" destination="jzx-cp-lET" id="0qS-aC-pnX"/>
                 <outlet property="viewForBack" destination="JDG-Ce-fh1" id="sPP-r9-Xzx"/>
             </connections>
-            <point key="canvasLocation" x="65.599999999999994" y="-103.89805097451276"/>
+            <point key="canvasLocation" x="-195" y="-123"/>
         </view>
     </objects>
     <resources>

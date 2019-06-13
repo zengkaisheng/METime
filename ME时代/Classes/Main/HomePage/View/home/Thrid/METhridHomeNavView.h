@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic ,copy) kMeBasicBlock toStoreBlock;
 @property (nonatomic ,copy) kMeIndexBlock selectIndexBlock;
 @property (nonatomic ,copy) kMeBasicBlock searchBlock;
+@property (nonatomic, strong) JXCategoryTitleView *categoryView;
+
 @end
 
 NS_ASSUME_NONNULL_END

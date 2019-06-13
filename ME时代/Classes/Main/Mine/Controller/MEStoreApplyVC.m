@@ -85,6 +85,10 @@
         [MEShowViewTool showMessage:@"详情地址不能为空" view:kMeCurrentWindow];
         return;
     }
+    if(!kMeUnNilStr(self.parModel.longitude).length || !kMeUnNilStr(self.parModel.latitude).length){
+        [MEShowViewTool showMessage:@"地址解析失败，请重新选择" view:kMeCurrentWindow];
+        return;
+    }
     MEBynamicPublishGridModel *business_imagesModel = self.parModel.business_imagesModel;
     if(business_imagesModel.isAdd){
         [MEShowViewTool showMessage:@"请上传营业执照" view:kMeCurrentWindow];

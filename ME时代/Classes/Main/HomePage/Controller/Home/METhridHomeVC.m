@@ -8,14 +8,14 @@
 
 #import "METhridHomeVC.h"
 #import "METhridHomeHeaderView.h"
-#import "METhridHomeTimeSecionView.h"
-#import "MERushBuyCell.h"
-#import "MECommondCouponCell.h"
+//#import "METhridHomeTimeSecionView.h"
+//#import "MERushBuyCell.h"
+//#import "MECommondCouponCell.h"
 #import "MECoupleModel.h"
 #import "MECoupleHomeMainGoodGoodsCell.h"
 #import "METhridHomeNavView.h"
-#import "MEShoppingMallVC.h"
-#import "MECoupleHomeVC.h"
+//#import "MEShoppingMallVC.h"
+//#import "MECoupleHomeVC.h"
 #import "MEAdModel.h"
 #import "MERushBuyView.h"
 #import "METhridProductDetailsVC.h"
@@ -49,7 +49,6 @@
 #import "MEHomeAddRedeemcodeVC.h"
 #import "MERedeemgetStatusModel.h"
 
-#import "MEAddTbView.h"
 #import "ZLWebViewVC.h"
 #import "UIImage+GIF.h"
 
@@ -74,7 +73,7 @@ const static CGFloat kImgStore = 50;
 @property (nonatomic, strong) METhridHomeNavView *navView;
 @property (nonatomic, strong) ZLRefreshTool         *refresh;
 @property (nonatomic, strong) UIImageView *imgStore;
-@property (strong, nonatomic) MEAddTbView *addTbVIew;
+
 @end
 
 @implementation METhridHomeVC
@@ -360,7 +359,6 @@ const static CGFloat kImgStore = 50;
 
 - (void)checkRelationId {
     if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
-//        [self openAddTbView];
         [self obtainTaoBaoAuthorize];
     }else{
         if (kMeUnNilStr(_homeModel.right_bottom_img.ad_url).length > 0) {
@@ -373,19 +371,6 @@ const static CGFloat kImgStore = 50;
             [self.navigationController pushViewController:webVC animated:YES];
         }
     }
-}
-
-- (void)openAddTbView{
-    kMeWEAKSELF
-    [MEPublicNetWorkTool postShareTaobaokeGetInviterUrlWithsuccessBlock:^(ZLRequestResponse *responseObject) {
-        kMeSTRONGSELF
-        NSString *strApi = kMeUnNilStr(responseObject.data[@"url"]);
-        NSURL *url = [NSURL URLWithString:strApi];
-        [[UIApplication sharedApplication] openURL:url];
-        strongSelf.addTbVIew.url = strApi;
-        [strongSelf.addTbVIew show];
-    } failure:^(id object) {
-    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -641,19 +626,5 @@ const static CGFloat kImgStore = 50;
     return _refresh;
 }
 
-- (MEAddTbView *)addTbVIew{
-    if(!_addTbVIew){
-        _addTbVIew = [[[NSBundle mainBundle]loadNibNamed:@"MEAddTbView" owner:nil options:nil] lastObject];
-        _addTbVIew.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        //        kMeWEAKSELF
-        _addTbVIew.finishBlock = ^(BOOL sucess) {
-            //            kMeSTRONGSELF
-            if(sucess){
-                
-            }
-        };
-    }
-    return _addTbVIew;
-}
 
 @end
