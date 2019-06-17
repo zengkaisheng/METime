@@ -960,6 +960,8 @@
 		5C1CED26C06DA28283855842 /* libPods-ME时代.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4D5C0077C18A33767DDC8DB /* libPods-ME时代.a */; };
 		EB0C68B222A7C1BF00701153 /* MEBaseDynamicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0C68B122A7C1BF00701153 /* MEBaseDynamicVC.m */; };
 		EB12D71522B113D10006C217 /* MEFourHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB12D71422B113D10006C217 /* MEFourHomeVC.m */; };
+		EB21E74B22B7B12700F48DF5 /* MEFeedBackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB21E74922B7B12700F48DF5 /* MEFeedBackVC.m */; };
+		EB21E74C22B7B12700F48DF5 /* MEFeedBackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB21E74A22B7B12700F48DF5 /* MEFeedBackVC.xib */; };
 		EB28101221533123006A765A /* NSObject+MEDebugDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28101121533123006A765A /* NSObject+MEDebugDescription.m */; };
 		EB28101521539424006A765A /* MELocationCLLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28101421539424006A765A /* MELocationCLLModel.m */; };
 		EB28101821539B65006A765A /* MEStoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28101721539B65006A765A /* MEStoreModel.m */; };
@@ -2730,6 +2732,9 @@
 		EB0C68B122A7C1BF00701153 /* MEBaseDynamicVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEBaseDynamicVC.m; sourceTree = "<group>"; };
 		EB12D71322B113D10006C217 /* MEFourHomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFourHomeVC.h; sourceTree = "<group>"; };
 		EB12D71422B113D10006C217 /* MEFourHomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFourHomeVC.m; sourceTree = "<group>"; };
+		EB21E74822B7B12700F48DF5 /* MEFeedBackVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFeedBackVC.h; sourceTree = "<group>"; };
+		EB21E74922B7B12700F48DF5 /* MEFeedBackVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFeedBackVC.m; sourceTree = "<group>"; };
+		EB21E74A22B7B12700F48DF5 /* MEFeedBackVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEFeedBackVC.xib; sourceTree = "<group>"; };
 		EB28101021533123006A765A /* NSObject+MEDebugDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+MEDebugDescription.h"; sourceTree = "<group>"; };
 		EB28101121533123006A765A /* NSObject+MEDebugDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MEDebugDescription.m"; sourceTree = "<group>"; };
 		EB28101321539424006A765A /* MELocationCLLModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MELocationCLLModel.h; sourceTree = "<group>"; };
@@ -4863,6 +4868,9 @@
 				36F4C0A52255DDCC005E2713 /* MEPAVistorVC.m */,
 				362850B7228156A400395352 /* MeHomeNewGuideVC.h */,
 				362850B8228156A400395352 /* MeHomeNewGuideVC.m */,
+				EB21E74822B7B12700F48DF5 /* MEFeedBackVC.h */,
+				EB21E74922B7B12700F48DF5 /* MEFeedBackVC.m */,
+				EB21E74A22B7B12700F48DF5 /* MEFeedBackVC.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -6554,6 +6562,7 @@
 				3652600A216F2F32003E3CB4 /* MEStoreDetailHeaderView.xib in Resources */,
 				360EE7FB21F599980048490E /* MERushBuyContentCell.xib in Resources */,
 				36021ADC214B7E9F001B8DAF /* MEServiceDetailsBottomView.xib in Resources */,
+				EB21E74C22B7B12700F48DF5 /* MEFeedBackVC.xib in Resources */,
 				363A6C0721E1A25F008B303B /* MEClerksSortCell.xib in Resources */,
 				360AF11421AFD7220039AB79 /* MEVisterDetailCell.xib in Resources */,
 				EB84603822A6547A00AA283D /* MEFillInvationCodeVC.xib in Resources */,
@@ -6930,6 +6939,7 @@
 				36F5E840222F68F1000B0241 /* TGroupInfoController.m in Sources */,
 				36F27DF72243830D00276A77 /* MEStoreApplyStatusVC.m in Sources */,
 				EB28101821539B65006A765A /* MEStoreModel.m in Sources */,
+				EB21E74B22B7B12700F48DF5 /* MEFeedBackVC.m in Sources */,
 				3691309B22363B6E008B1836 /* AAAnimation.m in Sources */,
 				3633516621F9BC4E0062D53D /* METhridHomeModel.m in Sources */,
 				3628E7CA21C09EE800D5405B /* MEClerkManngerVC.m in Sources */,

@@ -127,8 +127,8 @@
 //    self.inputToolbar = nil;
 //    [self.maskView removeFromSuperview];
 //    self.maskView = nil;
-    [self.categoryView removeFromSuperview];
-    self.categoryView = nil;
+//    [self.categoryView removeFromSuperview];
+//    self.categoryView = nil;
     self.btnRight.hidden = YES;
 }
 /*

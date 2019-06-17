@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MEBynamicPublishVC">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MEFeedBackVC">
             <connections>
-                <outlet property="consTopMargin" destination="Vve-IU-nhs" id="Mq3-pU-BrL"/>
-                <outlet property="scrollView" destination="eOR-hk-hQC" id="p3F-B4-RVm"/>
+                <outlet property="consTopMargin" destination="p5e-jx-P72" id="Vug-WY-Qya"/>
+                <outlet property="scrollView" destination="wAk-p5-28r" id="pGX-Tv-PjK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,18 +21,18 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eOR-hk-hQC">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAk-p5-28r">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="eOR-hk-hQC" secondAttribute="trailing" id="9pf-Uj-nMq"/>
-                <constraint firstAttribute="bottom" secondItem="eOR-hk-hQC" secondAttribute="bottom" id="Map-MB-KJ8"/>
-                <constraint firstItem="eOR-hk-hQC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Vve-IU-nhs"/>
-                <constraint firstItem="eOR-hk-hQC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kMs-85-qEa"/>
+                <constraint firstAttribute="trailing" secondItem="wAk-p5-28r" secondAttribute="trailing" id="RhY-rA-OV2"/>
+                <constraint firstItem="wAk-p5-28r" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aRL-YI-c1H"/>
+                <constraint firstItem="wAk-p5-28r" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="p5e-jx-P72"/>
+                <constraint firstAttribute="bottom" secondItem="wAk-p5-28r" secondAttribute="bottom" id="x95-df-u0p"/>
             </constraints>
-            <point key="canvasLocation" x="126" y="142"/>
+            <point key="canvasLocation" x="-127.2" y="154.27286356821591"/>
         </view>
     </objects>
 </document>

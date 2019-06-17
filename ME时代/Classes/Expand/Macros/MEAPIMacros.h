@@ -143,6 +143,9 @@
 #define MEIPcommongetGetVotingComment @"common/dynamic/addDynamic"
 //上传图片
 #define MEIPcommonUploadImages @"common/common/uploadImages"
+
+//意见反馈
+#define MEIPcommonFeedbBack @"common/feedback/feedback"
 /*********************************************/
 
 

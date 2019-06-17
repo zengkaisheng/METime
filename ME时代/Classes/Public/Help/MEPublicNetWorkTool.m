@@ -438,6 +438,25 @@
     }];
 }
 
+//意见反馈
++ (void)postFeedBackWithConten:(NSString *)content images:(NSString*)images successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"content":kMeUnNilStr(content),@"token":kMeUnNilStr(kCurrentUser.token),@"file":images};
+    NSString *url = kGetApiWithUrl(MEIPcommonFeedbBack);
+    MBProgressHUD *HUD = [self commitWithHUD:@"提交中"];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
 //删除
 + (void)postdynamicDelDynamicWithdynamicId:(NSString *)dynamic_id successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"id":kMeUnNilStr(dynamic_id),@"token":kMeUnNilStr(kCurrentUser.token)};

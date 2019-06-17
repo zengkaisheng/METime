@@ -50,7 +50,7 @@
 //    METhridHomeVC *home = [[METhridHomeVC alloc] init];
     MEFourHomeVC *home = [[MEFourHomeVC alloc] init];
     [self addChildVc:home title:@"首页" image:@"home" selectedImage:@"home_s"];
-    //17620355568
+    
 //    MEIMageVC *store = [[MEIMageVC alloc]initWithType:MEMainStoreStyle];
 //    MEStoreHomeVC *store = [[MEStoreHomeVC alloc] init];
 //    MEFilterGoodVC *filter = [[MEFilterGoodVC alloc]initWithcategory_id:@"0" title:@"优选"];
