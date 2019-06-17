@@ -44,7 +44,7 @@
         if(!self.couponPrice){
             return @"";
         }
-        CGFloat price = [self.zk_final_price floatValue] - [self.couponPrice floatValue];
+        CGFloat price = [self.zk_final_price floatValue] - [self.coupon_amount floatValue];
         NSString *strPrice = [NSString stringWithFormat:@"%.2f",price];
         return strPrice;
     }

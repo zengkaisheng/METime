@@ -38,6 +38,7 @@
     }else {
         _sdView.infiniteLoop = YES;
         _sdView.autoScroll = YES;
+        _sdView.autoScrollTimeInterval = 4;
     }
 }
 

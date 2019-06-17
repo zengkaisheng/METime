@@ -114,9 +114,6 @@
         return 0;
     }
     NSInteger section = (arr.count/2)+((arr.count%2)==1?1:0);
-    if (section >= 10) {
-        section = 10;
-    }
     CGFloat height =  (section * (kMECoupleMailCellHeight+kMEMargin))+kMEMargin;
     return height;
 }

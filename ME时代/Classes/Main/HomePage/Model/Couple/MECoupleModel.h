@@ -75,5 +75,7 @@
 @property (nonatomic, strong) NSString * coupon_id;
 @property (nonatomic, assign) CGFloat min_ratio;
 
+@property (nonatomic, copy) NSString *coupon_amount;
+
 - (void)resetModelWithModel:(MECouponInfo *)model;
 @end

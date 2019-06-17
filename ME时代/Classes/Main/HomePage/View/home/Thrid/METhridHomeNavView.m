@@ -28,6 +28,7 @@
 @property (nonatomic, strong)UIView *viewForSearch;
 @property (nonatomic, strong)UIImageView *imageForSearch;
 @property (nonatomic, strong)UIView *viewForUnread;
+@property (nonatomic, strong)UILabel *placeholderLbl;
 
 
 //@property (nonatomic, strong)UIView *viewForStore;
@@ -62,6 +63,7 @@
 //    [self addSubview:self.viewForBack];
     [self addSubview:self.viewForSearch];
     [self.viewForSearch addSubview:self.imageForSearch];
+    [self.viewForSearch addSubview:self.placeholderLbl];
     [self addSubview:self.btnNotice];
     [self addSubview:self.btnSort];
     [self addSubview:self.viewForUnread];
@@ -177,6 +179,15 @@
     return _imageForSearch;
 }
 
+- (UILabel *)placeholderLbl {
+    if (!_placeholderLbl) {
+        _placeholderLbl = [[UILabel alloc] initWithFrame:CGRectMake(30, 9.5, self.width - 104 - 30, 16)];
+        _placeholderLbl.text = @"搜索商品名或粘贴淘宝标题";
+        _placeholderLbl.textColor = kME999999;
+        _placeholderLbl.font = [UIFont systemFontOfSize:14];
+    }
+    return _placeholderLbl;
+}
 
 
 @end

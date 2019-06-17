@@ -115,6 +115,8 @@
 #pragma makr - pinduoduo
 //拼多多推荐
 + (void)postGetPinduoduoCommondPoductWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//拼多多筛选
++ (void)postGetPinduoduoCommondPoductWithSortType:(NSInteger)sortType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //佣金祥情
 + (void)postGetPinduoduoBrokerageDetailBaseWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //多多商品详情
@@ -143,6 +145,7 @@
 
 //通过Session获取relation_id
 + (void)postTaobaokePublisherInfoSaveWithSession:(NSString *)session successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
 /*********************************************/
 
 /*********************************************/

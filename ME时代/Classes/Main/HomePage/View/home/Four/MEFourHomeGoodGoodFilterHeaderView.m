@@ -11,6 +11,7 @@
 #import "MEFourHomeVC.h"
 #import "MECoupleMailVC.h"
 #import "MECoupleFilterVC.h"
+#import "MEChartsVC.h"
 
 @interface MEFourHomeGoodGoodFilterHeaderView ()
 
@@ -35,8 +36,9 @@
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
     MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
     if(homevc){
-        MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchGoodGoodsType];
-        vc.titleStr = @"排行榜";
+//        MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchGoodGoodsType];
+        MEChartsVC *vc = [[MEChartsVC alloc] init];
+//        vc.titleStr = @"排行榜";
         [homevc.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -77,8 +79,10 @@
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
     MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
     if(homevc){
-        MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTopBuyType];
-        vc.titleStr = @"今日热卖专场";
+//        MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTopBuyType];
+        MEChartsVC *vc = [[MEChartsVC alloc] init];
+        vc.isHot = YES;
+//        vc.titleStr = @"今日热卖专场";
         [homevc.navigationController pushViewController:vc animated:YES];
     }
 }

@@ -42,16 +42,31 @@
                 break;
             case ButtonImageTitleStyleRight:
             {
-                //图片在右，文字在左
-                self.titleEdgeInsets = UIEdgeInsetsMake(0,
-                                                        -(imageRect.size.width + padding/2),
-                                                        0,
-                                                        (imageRect.size.width + padding/2));
+                CGFloat labelWidth = 0.0;
+                CGFloat labelHeight = 0.0;
+                if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0) {
+                    // 由于iOS8中titleLabel的size为0，用下面的这种设置
+                    labelWidth = self.titleLabel.intrinsicContentSize.width;
+                    labelHeight = self.titleLabel.intrinsicContentSize.height;
+                } else {
+                    labelWidth = self.titleLabel.frame.size.width;
+                    labelHeight = self.titleLabel.frame.size.height;
+                }
                 
-                self.imageEdgeInsets = UIEdgeInsetsMake(0,
-                                                        (titleRect.size.width+ padding/2),
-                                                        0,
-                                                        -(titleRect.size.width+ padding/2));
+                self.titleEdgeInsets = UIEdgeInsetsMake(0, labelWidth+padding/2.0, 0, -labelWidth-padding/2.0);
+                
+                self.imageEdgeInsets = UIEdgeInsetsMake(0, -imageRect.size.width-padding/2.0, 0, imageRect.size.width+padding/2.0);
+                
+                //图片在右，文字在左
+//                self.titleEdgeInsets = UIEdgeInsetsMake(0,
+//                                                        -(imageRect.size.width + padding/2),
+//                                                        0,
+//                                                        (imageRect.size.width + padding/2));
+//
+//                self.imageEdgeInsets = UIEdgeInsetsMake(0,
+//                                                        (titleRect.size.width+ padding/2),
+//                                                        0,
+//                                                        -(titleRect.size.width+ padding/2));
             }
                 break;
             case ButtonImageTitleStyleTop:

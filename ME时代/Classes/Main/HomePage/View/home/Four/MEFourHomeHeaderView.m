@@ -27,6 +27,7 @@
 #import "MERCConversationVC.h"
 #import "ZLWebViewVC.h"
 #import "MEAddTbView.h"
+#import "MEFourCoupleVC.h"
 
 typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     //    METhridHomeHeaderViewActiveNewType = 0,
@@ -269,6 +270,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     _sdView.contentMode = UIViewContentModeScaleAspectFill;
     _sdView.clipsToBounds = YES;
     _sdView.imageURLStringsGroup = arrImage;
+    _sdView.autoScrollTimeInterval = 4;
     
     //店铺
     if(storemodel){
@@ -307,7 +309,8 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
                 break;
             case METhridHomeHeaderViewActivePinduoduoCouponType:
             {
-                MECoupleHomeVC *vc= [[MECoupleHomeVC alloc]initWithIsTbK:NO];
+//                MECoupleHomeVC *vc= [[MECoupleHomeVC alloc]initWithIsTbK:NO];
+                MEFourCoupleVC *vc = [[MEFourCoupleVC alloc] initWithIsJD:NO];
                 [homeVC.navigationController pushViewController:vc animated:YES];
                 
             }
@@ -315,7 +318,8 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
                 
             case METhridHomeHeaderViewActiveJDType:
             {
-                MEJDCoupleHomeVC *vc = [[MEJDCoupleHomeVC alloc]init];
+//                MEJDCoupleHomeVC *vc = [[MEJDCoupleHomeVC alloc]init];
+                MEFourCoupleVC *vc = [[MEFourCoupleVC alloc] initWithIsJD:YES];
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;

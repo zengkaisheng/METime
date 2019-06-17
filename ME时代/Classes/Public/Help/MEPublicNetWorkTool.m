@@ -528,6 +528,16 @@
         kMeCallBlock(failure,error);
     }];
 }
+//拼多多筛选
++ (void)postGetPinduoduoCommondPoductWithSortType:(NSInteger)sortType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"sort_type":@(sortType),@"page":@"1",@"pageSize":@"20"};
+    NSString *url = kGetApiWithUrl(MEIPcommonduoduokeGetgetGoodsList);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        kMeCallBlock(failure,error);
+    }];
+}
 
 //佣金祥情
 + (void)postGetPinduoduoBrokerageDetailBaseWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{

@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECoupleHomeVC : MEBaseVC
 
+@property (nonatomic, copy) NSString *keyWords;
 - (instancetype)initWithIsTbK:(BOOL)isTBk;
 
 @end

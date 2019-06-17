@@ -16,11 +16,13 @@
 #import "MECouponSearchVC.h"
 #import "MECoupleMailVC.h"
 #import "MENavigationVC.h"
-
 #import "METhridProductDetailsVC.h"
-
 #import "MEFourHomeBaseVC.h"
+#import "MEIntelligentSearchView.h"
+#import "MECoupleHomeVC.h"
+#import "MEJDCoupleHomeVC.h"
 
+#import "MEFourCouponSearchHomeVC.h"
 
 @interface MEFourHomeVC ()<UIScrollViewDelegate>{
     METhridHomeModel *_homeModel;
@@ -66,7 +68,6 @@
     [self.scrollview addSubview:self.ladiesVC.view];
     [self.scrollview addSubview:self.cosmeticsVC.view];
     [self.scrollview addSubview:self.pregnantVC.view];
-    self.scrollview.backgroundColor = [UIColor yellowColor];
 
     [self.view addSubview:self.scrollview];
     
@@ -74,7 +75,6 @@
     [self.view addSubview:self.navView];
     self.navView.categoryView.contentScrollView = self.scrollview;
     self.navBarHidden = YES;
-    
     
     [self getRushGood];
     [self getUnInfo];
@@ -154,13 +154,16 @@
 }
 
 - (void)searchCoupon{
-    MECouponSearchVC *searchViewController = [MECouponSearchVC searchViewControllerWithHotSearches:@[] searchBarPlaceholder:@"搜索优惠券" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-        MECoupleMailVC *dataVC = [[MECoupleMailVC alloc]initWithQuery:searchText];
-        [searchViewController.navigationController pushViewController:dataVC animated:YES];
-    }];
-    [searchViewController setSearchHistoriesCachePath:kMECouponSearchVCSearchHistoriesCachePath];
-    MENavigationVC *nav = [[MENavigationVC alloc] initWithRootViewController:searchViewController];
-    [self presentViewController:nav  animated:NO completion:nil];
+    MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] init];
+    [self.navigationController pushViewController:searchHomeVC animated:YES];
+    
+//    MECouponSearchVC *searchViewController = [MECouponSearchVC searchViewControllerWithHotSearches:@[] searchBarPlaceholder:@"搜索优惠券" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+//        MECoupleMailVC *dataVC = [[MECoupleMailVC alloc]initWithQuery:searchText];
+//        [searchViewController.navigationController pushViewController:dataVC animated:YES];
+//    }];
+//    [searchViewController setSearchHistoriesCachePath:kMECouponSearchVCSearchHistoriesCachePath];
+//    MENavigationVC *nav = [[MENavigationVC alloc] initWithRootViewController:searchViewController];
+//    [self presentViewController:nav  animated:NO completion:nil];
 }
 
 #pragma setter && getter
@@ -171,6 +174,35 @@
         _navView.searchBlock = ^{
             kMeSTRONGSELF
             [strongSelf searchCoupon];
+            //搜索弹窗
+//            [MEIntelligentSearchView ShowWithTitle:@"我就是个测试标题" tapBlock:^(NSInteger index) {
+//                switch (index) {
+//                    case 0://淘宝
+//                    {
+//                        MECoupleHomeVC *vc= [[MECoupleHomeVC alloc]initWithIsTbK:YES];
+//                        vc.keyWords = @"我就是个测试标题";
+//                        [strongSelf.navigationController pushViewController:vc animated:YES];
+//                    }
+//                        break;
+//                    case 1://拼多多
+//                    {
+//                        MECoupleHomeVC *vc= [[MECoupleHomeVC alloc]initWithIsTbK:NO];
+//                        vc.keyWords = @"我就是个测试标题";
+//                        [strongSelf.navigationController pushViewController:vc animated:YES];
+//                    }
+//                        break;
+//                    case 2://京东
+//                    {
+//                        MEJDCoupleHomeVC *vc = [[MEJDCoupleHomeVC alloc]init];
+//                        vc.keyWords = @"我就是个测试标题";
+//                        [strongSelf.navigationController pushViewController:vc animated:YES];
+//                    }
+//                    default:
+//                        break;
+//                }
+//            } cancelBlock:^{
+//
+//            } superView:kMeCurrentWindow];
         };
         _navView.selectIndexBlock = ^(NSInteger index) {
             kMeSTRONGSELF

@@ -15,6 +15,7 @@
 @interface MECoupleMailVC ()<UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>{
     NSString *_queryStr;
     MECouponSearchType _type;
+    NSInteger _material_id;
 }
 
 @property (nonatomic, strong)UICollectionView *collectionView;
@@ -44,6 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor =  [UIColor colorWithHexString:@"eeeeee"];
+    _material_id = 0;
 //    //type:1:9.9、2：时尚潮流、3人气爆款、4大额券、5特惠、6好货、7好券直播、8品牌
 //    typedef enum : NSUInteger {
 //        MECouponSearch99BuyType = 1,
@@ -65,6 +67,7 @@
                 break;
             case MECouponSearchShiShangType:{
                 str = @"时尚潮流专场";
+                _material_id = 4093;
             }
                 break;
             case MECouponSearchTopBuyType:{
@@ -80,7 +83,8 @@
             }
                 break;
             case MECouponSearchGoodGoodsType:{
-                str = @"人气爆款专场";//@"精选好物专场";
+                str = @"大额优惠券";//@"精选好物专场";@"人气爆款专场"
+                _material_id = 9660;
             }
                 break;
             case MECouponSearchGoodJuanType:{
@@ -114,7 +118,11 @@
 - (NSDictionary *)requestParameter{
 //    return @{@"r":@"Port/index",@"type":@"total",@"appkey":@"58de5a1fe2",@"v":@"2"};
     if(_isMater){
-        return @{@"type":@(_type)};
+        if (_material_id != 0) {
+            return @{@"material_id":@(_material_id)};
+        }else {
+            return @{@"type":@(_type)};
+        }
     }else{
         return @{@"q":kMeUnNilStr(_queryStr),@"tool":@"ios"};
     }

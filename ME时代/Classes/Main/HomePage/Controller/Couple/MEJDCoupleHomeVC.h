@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEJDCoupleHomeVC : MEBaseVC
 
+@property (nonatomic, copy) NSString *keyWords;
+
 @end
 
 NS_ASSUME_NONNULL_END

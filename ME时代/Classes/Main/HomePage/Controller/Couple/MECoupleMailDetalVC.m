@@ -32,6 +32,7 @@
     NSDictionary *_goods_promotion_url;
     NSDictionary *_sharegoods_promotion_url;
     CGFloat _min_ratio;
+    NSString *_coupon_amount;
 }
 
 @property (nonatomic, strong) UITableView           *tableView;
@@ -65,6 +66,7 @@
         _couponId = couponId;
         _couponurl = couponurl;
         _min_ratio = model.min_ratio;
+        _coupon_amount = model.coupon_amount;
     }
     return self;
 }
@@ -122,6 +124,7 @@
                 if([arr isKindOfClass:[NSArray class]] && arr.count){
                     strongSelf->_detailModel = [MECoupleModel mj_objectWithKeyValues:arr[0]];
                     strongSelf->_detailModel.min_ratio = strongSelf->_min_ratio;
+                    strongSelf->_detailModel.coupon_amount = strongSelf->_coupon_amount;
                 }else{
                     strongSelf->_detailModel = [MECoupleModel new];
                 }
