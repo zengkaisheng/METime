@@ -44,8 +44,18 @@
                             <action selector="switchstatusAction:" destination="KGk-i7-Jjw" eventType="valueChanged" id="DmQ-YG-YDM"/>
                         </connections>
                     </switch>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前版本号3.3.5" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urk-hx-bWV">
+                        <rect key="frame" x="179.5" y="18" width="110.5" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="NPL-St-ENu"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="orS-Ds-kf7" firstAttribute="leading" secondItem="Urk-hx-bWV" secondAttribute="trailing" constant="8" id="707-1E-tZV"/>
                     <constraint firstItem="pVz-5E-5am" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="CCg-pb-SdG"/>
                     <constraint firstAttribute="trailing" secondItem="vtT-eg-F0d" secondAttribute="trailing" constant="15" id="HOu-bm-Bor"/>
                     <constraint firstItem="vtT-eg-F0d" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="J2H-EU-Z5a"/>
@@ -54,6 +64,7 @@
                     <constraint firstItem="1Ug-jh-jdj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="SXK-3R-tI0"/>
                     <constraint firstAttribute="trailing" secondItem="orS-Ds-kf7" secondAttribute="trailing" constant="15" id="d2L-Ue-eMb"/>
                     <constraint firstItem="orS-Ds-kf7" firstAttribute="centerY" secondItem="pVz-5E-5am" secondAttribute="centerY" id="ffv-Zy-Iwp"/>
+                    <constraint firstItem="Urk-hx-bWV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="iMj-nD-CYI"/>
                     <constraint firstItem="pVz-5E-5am" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="wAo-lp-ro9"/>
                 </constraints>
             </tableViewCellContentView>
@@ -61,7 +72,9 @@
                 <outlet property="imgArrow" destination="orS-Ds-kf7" id="6zn-Bj-xYr"/>
                 <outlet property="lblTitle" destination="pVz-5E-5am" id="JMy-qK-q5X"/>
                 <outlet property="swotice" destination="vtT-eg-F0d" id="Tch-YQ-NrB"/>
+                <outlet property="versionLbl" destination="Urk-hx-bWV" id="sLa-jO-4PJ"/>
             </connections>
+            <point key="canvasLocation" x="40" y="46.776611694152926"/>
         </tableViewCell>
     </objects>
     <resources>

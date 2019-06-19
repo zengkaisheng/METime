@@ -45,11 +45,11 @@
     [self addSubview:self.maskView];
     [self addSubview:self.bgView];
     //图片
-    UIImageView *topImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+    UIImageView *topImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"intelligentSearch"]];
     topImgV.frame = CGRectMake(0, 0, BGViewWidth, 135*(kMeFrameScaleY()>1?kMeFrameScaleY():1));
     [self.bgView addSubview:topImgV];
     //标题
-    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(13, CGRectGetMaxY(topImgV.frame)+15, BGViewWidth-26, 31)];
+    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(13, CGRectGetMaxY(topImgV.frame)+15, BGViewWidth-26, 36)];
     titleLbl.text = title;
     titleLbl.textColor = kME333333;
     titleLbl.font = [UIFont systemFontOfSize:14];

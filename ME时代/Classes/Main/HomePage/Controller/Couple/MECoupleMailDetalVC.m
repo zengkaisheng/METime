@@ -218,7 +218,12 @@
     if([MEUserInfoModel isLogin]){
         if(_pinduoduomodel){
             if(_goods_promotion_url){
-                [self openTb];
+                if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
+                    //                [self openAddTbView];
+                    [self obtainTaoBaoAuthorizeWithBuyAction:YES];
+                }else{
+                    [self openTb];
+                }
             }else{
                 NSString *goodId = [NSString stringWithFormat:@"[%@]",kMeUnNilStr(_pinduoduomodel.goods_id)];
                 kMeWEAKSELF
@@ -228,7 +233,12 @@
                     if(arr && arr.count){
                         strongSelf->_goods_promotion_url = arr[0];
                     }
-                    [strongSelf openTb];
+                    if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
+                        //                [self openAddTbView];
+                        [strongSelf obtainTaoBaoAuthorizeWithBuyAction:YES];
+                    }else{
+                        [strongSelf openTb];
+                    }
                 } failure:^(id object) {
                     
                 }];

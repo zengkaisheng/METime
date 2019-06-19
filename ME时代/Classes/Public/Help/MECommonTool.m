@@ -18,6 +18,9 @@
 #import "MEFindView.h"
 #import "MEFindViewModel.h"
 
+#import "MEIntelligentSearchView.h"
+#import "MEFourCouponSearchHomeVC.h"
+
 @implementation MECommonTool
 
 + (void)initAppSomeThing{
@@ -563,6 +566,69 @@
 //                    [aler show];
                 }
             }
+        } failure:^(id object) {
+            
+        }];
+    }
+}
+
++ (void)getUIPasteboardCouponData {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    NSString *str = kMeUnNilStr([pasteboard string]);
+    
+    if(str.length) {
+        [MEPublicNetWorkTool postPasteboardCouponDataWithQueryStr:str successBlock:^(ZLRequestResponse *responseObject) {
+            if([responseObject.data isKindOfClass:[NSDictionary class]]){
+                NSArray *map_data = responseObject.data[@"tbk_dg_material_optional_response"][@"result_list"][@"map_data"];
+                if (map_data.count > 0) {
+                    pasteboard.string = @"";
+                    // 取到tabbarcontroller
+                    METabBarVC *tabBarController = ( METabBarVC*)kMeCurrentWindow.rootViewController;
+                    // 取到navigationcontroller
+                    MENavigationVC *nav = (MENavigationVC *)tabBarController.selectedViewController;
+                    UIViewController * baseVC = (UIViewController *)nav.visibleViewController;
+                    //搜索弹窗
+                    [MEIntelligentSearchView ShowWithTitle:str tapBlock:^(NSInteger index) {
+                        switch (index) {
+                            case 0://淘宝
+                            {
+                                MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] init];
+                                searchHomeVC.keyWords = str;
+                                [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
+                            }
+                                break;
+                            case 1://拼多多
+                            {
+                                MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:1];
+                                searchHomeVC.keyWords = str;
+                                [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
+                            }
+                                break;
+                            case 2://京东
+                            {
+                                MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:2];
+                                searchHomeVC.keyWords = str;
+                                [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
+                            }
+                            default:
+                                break;
+                        }
+                    } cancelBlock:^{
+                        
+                    } superView:kMeCurrentWindow];
+                }
+            }
+        } failure:^(id object) {
+            
+        }];
+    }
+}
+
++ (void)postAuthRegId {
+    if (kMeUnNilStr(kCurrentUser.token).length > 0 && kMeUnNilStr(kCurrentUser.registration_id).length > 0) {
+        [MEPublicNetWorkTool postAuthAddRegIdWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+            NSDictionary *data = responseObject.data;
+//            NSLog(@"data:%@",data);
         } failure:^(id object) {
             
         }];

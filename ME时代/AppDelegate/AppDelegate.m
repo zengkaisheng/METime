@@ -52,8 +52,8 @@
         }];
     }
     
-    kCurrentUser.relation_id = @"";
-    [kCurrentUser save];
+//    kCurrentUser.relation_id = @"";
+//    [kCurrentUser save];
     
     if (@available(iOS 11.0, *)) {
         [UIScrollView appearance].contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -93,8 +93,6 @@
         [application registerForRemoteNotificationTypes:myTypes];
     }
     
-    
-    
 #pragma mark - 极光tuis
     JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
     entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
@@ -123,6 +121,9 @@
             [JPUSHService setAlias:kMeUnNilStr(kCurrentUser.uid) completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
                 
             } seq:0];
+            [JPUSHService setTags:[NSSet setWithObject:kMeUnNilStr(kCurrentUser.tag)] completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
+                
+            } seq:0];
         });
     }
     self.window = [[UIWindow alloc] init];
@@ -139,6 +140,8 @@
     [MECommonTool newCheckVersion];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getImUnread) name:TUIKitNotification_TIMRefreshListener object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onForceOffline:) name:TUIKitNotification_TIMUserStatusListener object:nil];
+    
+    [MECommonTool postAuthRegId];
     //
     return YES;
 }
@@ -238,6 +241,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"deviceToken%@",token);
     [self configOnAppRegistAPNSWithDeviceToken:deviceToken];
     
+    kCurrentUser.registration_id = token;
+    [kCurrentUser save];
 }
 
 - (void)configOnAppRegistAPNSWithDeviceToken:(NSData *)deviceToken
@@ -425,6 +430,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     kNoticeUnNoticeMessage
     [MECommonTool getUIPasteboardContent];
+    NSString *frist = [[NSUserDefaults standardUserDefaults] objectForKey:kMEAppVersion];
+    if(kMeUnNilStr(frist).length){
+        [MECommonTool getUIPasteboardCouponData];
+    }
     if ([MEUserInfoModel isLogin]) {
         [[TIMManager sharedInstance] doForeground:^() {
             

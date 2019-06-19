@@ -8,15 +8,17 @@
 
 #import "MEFourCouponSearchHomeVC.h"
 #import "MEFourCouponSearchBaseVC.h"
+#import "MEFourSearchCouponNavView.h"
 
-@interface MEFourCouponSearchHomeVC ()<UITextFieldDelegate,JXCategoryViewDelegate,UIScrollViewDelegate>
+@interface MEFourCouponSearchHomeVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>
 
-@property (nonatomic, strong) UIButton *rightBtn;
-@property (nonatomic, strong) UITextField *searchTF;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
 @property (nonatomic, strong) NSArray *arrType;
 @property (nonatomic, assign) NSInteger index;
+@property (nonatomic, strong) UIView *keywordsView;
+
+@property (nonatomic, strong) MEFourSearchCouponNavView *navView;
 
 @property (nonatomic, strong) MEFourCouponSearchBaseVC *TBVC;
 @property (nonatomic, strong) MEFourCouponSearchBaseVC *PDDVC;
@@ -36,19 +38,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    UIButton *leftButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [leftButton addTarget:self action:@selector(leftBarButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [leftButton setImage:[UIImage imageNamed:@"inc-xz"] forState:UIControlStateNormal];
-    leftButton.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10);
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    
-    self.navigationItem.titleView = self.searchTF;
-//    [self.navigationController.navigationBar addSubview:self.searchTF];
-    
-    //right
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightBtn];
-    self.navigationItem.rightBarButtonItem = rightItem;
+
+    self.navBarHidden = YES;
+    [self.view addSubview:self.navView];
     
     self.arrType = @[@"淘宝",@"拼多多",@"京东"];
     
@@ -79,129 +71,86 @@
     self.categoryView.titleColor =  [UIColor colorWithHexString:@"333333"];
     [self.view addSubview:self.categoryView];
     self.categoryView.defaultSelectedIndex = self.index;
-}
-
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    NSString *str = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (str.length > 0) {
-        [self.rightBtn setTitle:@"搜索" forState:UIControlStateNormal];
-        [self.rightBtn setTitleColor:kME333333 forState:UIControlStateNormal];
-    }else {
-        [self.rightBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [self.rightBtn setTitleColor:kMEPink forState:UIControlStateNormal];
-    }
-    return YES;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    NSString *str = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (str.length > 0) {
-        [self.rightBtn setTitle:@"搜索" forState:UIControlStateNormal];
-        [self.rightBtn setTitleColor:kME333333 forState:UIControlStateNormal];
-    }else {
-        [self.rightBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [self.rightBtn setTitleColor:kMEPink forState:UIControlStateNormal];
-    }
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSString *str = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (str.length > 0) {
-        [self.rightBtn setTitle:@"搜索" forState:UIControlStateNormal];
-        [self.rightBtn setTitleColor:kME333333 forState:UIControlStateNormal];
-    }else {
-        [self.rightBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [self.rightBtn setTitleColor:kMEPink forState:UIControlStateNormal];
-    }
-    return YES;
-}
-
-- (BOOL)textFieldShouldClear:(UITextField *)textField {
-    [self.rightBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [self.rightBtn setTitleColor:kMEPink forState:UIControlStateNormal];
-    return YES;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-
-    NSString *str = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if ([str length] > 0) {
-        switch (self.categoryView.selectedIndex) {
+    
+    if ([self.keyWords length] > 0) {
+        self.navView.searchTF.enabled = NO;
+        [self.navView addSubview:self.keywordsView];
+        switch (self.index) {
             case 0:
-                [self.TBVC searchCouponDataWithQueryStr:str];
+                [self.TBVC searchCouponDataWithQueryStr:self.keyWords];
                 break;
             case 1:
-                [self.PDDVC searchCouponDataWithQueryStr:str];
+                [self.PDDVC searchCouponDataWithQueryStr:self.keyWords];
                 break;
             case 2:
-                [self.JDVC searchCouponDataWithQueryStr:str];
+                [self.JDVC searchCouponDataWithQueryStr:self.keyWords];
                 break;
             default:
                 break;
         }
     }
-    return YES;
 }
 
-- (void)leftBarButtonClick {
-    [self.view endEditing:YES];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)rightBarButtonClick {
-    if ([self.rightBtn.titleLabel.text isEqualToString:@"搜索"]) {
-        [self.searchTF resignFirstResponder];
-        NSString *str = [self.searchTF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        switch (self.categoryView.selectedIndex) {
-            case 0:
-                [self.TBVC searchCouponDataWithQueryStr:str];
-                break;
-            case 1:
-                [self.PDDVC searchCouponDataWithQueryStr:str];
-                break;
-            case 2:
-                [self.JDVC searchCouponDataWithQueryStr:str];
-                break;
-            default:
-                break;
-        }
-    }else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+- (void)cancelBtnAction {
+    [self.keywordsView removeFromSuperview];
+    self.keywordsView = nil;
+    self.navView.searchTF.enabled = YES;
 }
 
 #pragma mark - Getting And Setting
-- (UITextField *)searchTF {
-    if (!_searchTF) {
-        _searchTF = [[UITextField alloc] initWithFrame:CGRectMake(43, 4, SCREEN_WIDTH - 43 - 53, 36)];
-        _searchTF.placeholder = @"搜索商品";
-        _searchTF.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _searchTF.backgroundColor = kMEeeeeee;
-        _searchTF.layer.cornerRadius = 18;
-        _searchTF.delegate = self;
-        _searchTF.returnKeyType = UIReturnKeySearch;
-        UIView *leftV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 36)];
-        leftV.backgroundColor = kMEeeeeee;
-        UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"common_nav_btn_search"]];
-        imgV.frame = CGRectMake(18, 9, 18, 18);
-        [leftV addSubview:imgV];
-        _searchTF.leftView = leftV;
-        _searchTF.leftViewMode = UITextFieldViewModeAlways;
+- (MEFourSearchCouponNavView *)navView{
+    if(!_navView){
+        _navView = [[MEFourSearchCouponNavView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kMeNavBarHeight)];
+        kMeWEAKSELF
+        _navView.searchBlock = ^(NSString *str) {
+            kMeSTRONGSELF
+            if ([str length] > 0) {
+                switch (strongSelf.categoryView.selectedIndex) {
+                    case 0:
+                        [strongSelf.TBVC searchCouponDataWithQueryStr:str];
+                        break;
+                    case 1:
+                        [strongSelf.PDDVC searchCouponDataWithQueryStr:str];
+                        break;
+                    case 2:
+                        [strongSelf.JDVC searchCouponDataWithQueryStr:str];
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        _navView.backBlock = ^{
+           kMeSTRONGSELF
+            [strongSelf.view endEditing:YES];
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        };
     }
-    return _searchTF;
+    return _navView;
 }
 
-- (UIButton *)rightBtn {
-    if (!_rightBtn) {
-        _rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 30)];
-        [_rightBtn addTarget:self action:@selector(rightBarButtonClick) forControlEvents:UIControlEventTouchUpInside];
-        [_rightBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [_rightBtn setTitleColor:kMEPink forState:UIControlStateNormal];
-        _rightBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        _rightBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+- (UIView *)keywordsView {
+    if (!_keywordsView) {
+        CGFloat width = [self.keyWords boundingRectWithSize:CGSizeMake(MAXFLOAT, 14) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size.width;
+        width = width+34>self.navView.searchTF.width-44-28?self.navView.searchTF.width-44-28:width+34;
+        _keywordsView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.navView.searchTF.frame) + 44, CGRectGetMinY(self.navView.searchTF.frame)+4, width, 28)];
+        _keywordsView.backgroundColor = [UIColor whiteColor];
+        _keywordsView.layer.cornerRadius = 14;
+        
+        UILabel *keywordLbl = [[UILabel alloc] initWithFrame:CGRectMake(12, 7, width-34, 14)];
+        keywordLbl.text = self.keyWords;
+        keywordLbl.textColor = kME666666;
+        keywordLbl.font = [UIFont systemFontOfSize:14];
+        keywordLbl.lineBreakMode = NSLineBreakByTruncatingMiddle;
+        [_keywordsView addSubview:keywordLbl];
+        
+        UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [cancelBtn setImage:[UIImage imageNamed:@"stortdel"] forState:UIControlStateNormal];
+        [cancelBtn addTarget:self action:@selector(cancelBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        cancelBtn.frame = CGRectMake(width - 24, 4, 20, 20);
+        [_keywordsView addSubview:cancelBtn];
     }
-    return _rightBtn;
+    return _keywordsView;
 }
 
 - (MEFourCouponSearchBaseVC *)TBVC {

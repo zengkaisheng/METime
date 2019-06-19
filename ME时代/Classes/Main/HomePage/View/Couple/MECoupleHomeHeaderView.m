@@ -13,6 +13,7 @@
 #import "MEAdModel.h"
 #import "MECoupleMailVC.h"
 #import "MEPinduoduoCouponSearchDataVC.h"
+#import "MEFourCouponSearchHomeVC.h"
 
 @interface MECoupleHomeHeaderView ()<SDCycleScrollViewDelegate>{
     NSArray *_Model;
@@ -117,13 +118,25 @@
     MECoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MECoupleHomeVC class] targetResponderView:self];
     if(homevc){
         MEAdModel *model = _Model[index];
-        if(_isTbk){
-            MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithQuery:kMeUnNilStr(model.keywork)];
-            [homevc.navigationController pushViewController:vc animated:YES];
-        }else{
-            MEPinduoduoCouponSearchDataVC *vc = [[MEPinduoduoCouponSearchDataVC alloc]initWithQuery:kMeUnNilStr(model.keywork)];
-            [homevc.navigationController pushViewController:vc animated:YES];
+        
+        if (kMeUnNilStr(model.keywork).length > 0) {
+            if (_isTbk) {
+                MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] init];
+                searchHomeVC.keyWords = model.keywork;
+                [homevc.navigationController pushViewController:searchHomeVC animated:YES];
+            }else {
+                MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:1];
+                searchHomeVC.keyWords = model.keywork;
+                [homevc.navigationController pushViewController:searchHomeVC animated:YES];
+            }
         }
+//        if(_isTbk){
+//            MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithQuery:kMeUnNilStr(model.keywork)];
+//            [homevc.navigationController pushViewController:vc animated:YES];
+//        }else{
+//            MEPinduoduoCouponSearchDataVC *vc = [[MEPinduoduoCouponSearchDataVC alloc]initWithQuery:kMeUnNilStr(model.keywork)];
+//            [homevc.navigationController pushViewController:vc animated:YES];
+//        }
     }
 }
 

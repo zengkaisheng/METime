@@ -209,17 +209,7 @@
 #pragma mark - RefreshToolDelegate
 - (NSDictionary *)requestParameter{
     if(self.refresh.pageIndex == 1){
-//        if(_isJD){
-//            [self requestNetWork];
-//        }else{
-            kMeWEAKSELF
-            [MEPublicNetWorkTool postAgetTbkBannerWithsuccessBlock:^(ZLRequestResponse *responseObject) {
-                kMeSTRONGSELF
-                strongSelf->_arrAdv =  [MEAdModel mj_objectArrayWithKeyValuesArray:responseObject.data];
-                [strongSelf.collectionView reloadData];
-            } failure:^(id object) {
-            }];
-//        }
+        [self requestBannerNetWork];
     }
     return self.dic;
 }
@@ -233,6 +223,20 @@
     }else{
         [self.refresh.arrData addObjectsFromArray:[MEPinduoduoCoupleModel mj_objectArrayWithKeyValuesArray:data]];
     }
+}
+#pragma mark -- netWorking
+- (void)requestBannerNetWork {
+    kMeWEAKSELF
+    NSString *type = @"pdd";
+    if (_isJD) {
+        type = @"jd";
+    }
+    [MEPublicNetWorkTool postGetCouponsBannerWithBannerType:type successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        strongSelf->_arrAdv =  [MEAdModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+        [strongSelf.collectionView reloadData];
+    } failure:^(id object) {
+    }];
 }
 
 - (void)getPDDDataWithNetwork {
@@ -387,12 +391,16 @@
 
 //banner图点击跳转
 - (void)cycleScrollViewDidSelectItemWithModel:(MEAdModel *)model {
-    
-    if (_isJD) {
-        
-    }else {
-        MEPinduoduoCouponSearchDataVC *vc = [[MEPinduoduoCouponSearchDataVC alloc]initWithQuery:kMeUnNilStr(model.keywork)];
-        [self.navigationController pushViewController:vc animated:YES];
+    if (kMeUnNilStr(model.keywork).length > 0) {
+        if (_isJD) {
+            MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:2];
+            searchHomeVC.keyWords = model.keywork;
+            [self.navigationController pushViewController:searchHomeVC animated:YES];
+        }else {
+            MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:1];
+            searchHomeVC.keyWords = model.keywork;
+            [self.navigationController pushViewController:searchHomeVC animated:YES];
+        }
     }
     
     /*

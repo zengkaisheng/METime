@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MEFourCouponSearchHomeVC : MEBaseVC
 
 - (instancetype)initWithIndex:(NSInteger)index;
+@property (nonatomic, copy) NSString *keyWords;
 
 @end
 

@@ -63,14 +63,23 @@
     
         dispatch_group_async(group, queue, ^{
             kMeWEAKSELF
-            [MEPublicNetWorkTool postAgetTbkBannerWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+            [MEPublicNetWorkTool postGetCouponsBannerWithBannerType:@"tbk" successBlock:^(ZLRequestResponse *responseObject) {
                 kMeSTRONGSELF
                 strongSelf->_arrAdv =  [MEAdModel mj_objectArrayWithKeyValuesArray:responseObject.data];
                 dispatch_semaphore_signal(semaphore);
             } failure:^(id object) {
                 dispatch_semaphore_signal(semaphore);
             }];
+//            kMeWEAKSELF
+//            [MEPublicNetWorkTool postAgetTbkBannerWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+//                kMeSTRONGSELF
+//                strongSelf->_arrAdv =  [MEAdModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+//                dispatch_semaphore_signal(semaphore);
+//            } failure:^(id object) {
+//                dispatch_semaphore_signal(semaphore);
+//            }];
         });
+
         dispatch_group_async(group, queue, ^{
             kMeWEAKSELF
             [MEPublicNetWorkTool postCoupledgMaterialOptionalWithType:MECouponSearchTopBuyType successBlock:^(ZLRequestResponse *responseObject) {
@@ -117,12 +126,18 @@
            [self requestNetWork];
         }else{
             kMeWEAKSELF
-            [MEPublicNetWorkTool postAgetTbkBannerWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+            [MEPublicNetWorkTool postGetCouponsBannerWithBannerType:@"tbk" successBlock:^(ZLRequestResponse *responseObject) {
                 kMeSTRONGSELF
                 strongSelf->_arrAdv =  [MEAdModel mj_objectArrayWithKeyValuesArray:responseObject.data];
                 [strongSelf->_headerView setUiWithModel:strongSelf->_arrAdv isTKb:strongSelf->_isTBk];
             } failure:^(id object) {
             }];
+//            [MEPublicNetWorkTool postAgetTbkBannerWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+//                kMeSTRONGSELF
+//                strongSelf->_arrAdv =  [MEAdModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+//                [strongSelf->_headerView setUiWithModel:strongSelf->_arrAdv isTKb:strongSelf->_isTBk];
+//            } failure:^(id object) {
+//            }];
         }
     }
     if(_isTBk){

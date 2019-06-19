@@ -151,6 +151,14 @@
 
 /*********************************************/
 
+
+/*********************************************/
+#pragma makr - coupons
+//获取优惠券Banner
++ (void)postGetCouponsBannerWithBannerType:(NSString *)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+/*********************************************/
+
+
 /*********************************************/
 #pragma makr - gift
 + (void)postAgetGiftBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
@@ -466,7 +474,25 @@
 //获取超级会员数据
 + (void)getSupportMemberWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 + (void)postSupportMemberManyGoodsWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//获取优惠券信息
++ (void)postPasteboardCouponDataWithQueryStr:(NSString *)queryStr successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
+
+/***************************************/
+#pragma mark - Prize
+//今日福利
++ (void)postGetPrizeTodayDataWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+/***************************************/
+
+
+/***************************************/
+#pragma mark - auth
+//添加极光注册id
++ (void)postAuthAddRegIdWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+/***************************************/
+
 
 
 /***************************************/

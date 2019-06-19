@@ -13,5 +13,6 @@ const static CGFloat kMEMineSetCellHeight = 50;
 @interface MEMineSetCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
 //- (void)setType:(MESetStyle)type status:(BOOL)status switchBlock:(kMeBOOLBlock)switchBlock;
+@property (weak, nonatomic) IBOutlet UILabel *versionLbl;
 
 @end

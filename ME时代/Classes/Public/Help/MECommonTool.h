@@ -46,6 +46,10 @@
 + (void)checkVersion;
 + (void)newCheckVersion;
 + (void)getUIPasteboardContent;
+//获取粘贴板优惠券信息
++ (void)getUIPasteboardCouponData;
+
++ (void)postAuthRegId;
 
 + (NSString *)changeformatterWithFen:(id)money;
 + (BOOL)openWXMiniProgram:(NSString *)path username:(NSString *)username;

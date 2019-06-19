@@ -216,6 +216,14 @@
 /*********************************************/
 
 
+/*********************************************/
+#pragma makr - coupon
+
+//获取优惠券Banner
+#define MEIPcommonGetConponsBanner @"common/ad/getConponsBanner"
+
+/*********************************************/
+
 
 /*********************************************/
 #pragma makr - gift
@@ -566,7 +574,22 @@
 /*********************************************/
 
 
+/*********************************************/
+#pragma makr - Prize 签到抽奖
+//今日福利
+#define MEIPCommonPrizeToday @"common/prize/prizeToday"
+//往期福利
+#define MEIPCommonPrizeHistory @"common/prize/prizeHistory"
 
+/*********************************************/
+
+/*********************************************/
+#pragma makr - auth
+//添加极光注册id
+#define MEIPAPPAuthAddRegId @"app/auth/addRegId"
+
+
+/*********************************************/
 
 
 /*********************************************/

@@ -680,6 +680,19 @@
     }];
 }
 
+//获取优惠券Banner
++ (void)postGetCouponsBannerWithBannerType:(NSString *)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"tool":@"1",
+                          @"banner_type":type
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonGetConponsBanner);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        kMeCallBlock(failure,error);
+    }];
+}
+
 //推广券信息查询
 + (void)postCoupleTbkCouponGetWithActivity_id:(NSString *)activity_id item_id:(NSString*)item_id successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"activity_id":kMeUnNilStr(activity_id),@"item_id":kMeUnNilStr(item_id)};
@@ -2962,6 +2975,47 @@
     }];
 }
 
+//获取优惠券信息
++ (void)postPasteboardCouponDataWithQueryStr:(NSString *)queryStr successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"q":kMeUnNilStr(queryStr)};
+    NSString *url = kGetApiWithUrl(MEIPcommonTaobaokeGetDgMaterialOptional);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        kMeCallBlock(failure,error);
+    }];
+}
+
+/***************************************/
+
+
+/***************************************/
+#pragma mark - Prize
+//获取抽奖活动 今日福利
++ (void)postGetPrizeTodayDataWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),@"page":@"1",@"pageSize":@"10"};
+    NSString *url = kGetApiWithUrl(MEIPCommonPrizeToday);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        kMeCallBlock(failure,error);
+    }];
+}
+
+/***************************************/
+
+/***************************************/
+#pragma mark - auth
+//添加极光注册id
++ (void)postAuthAddRegIdWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),@"registration_id":kMeUnNilStr(kCurrentUser.registration_id)};
+    NSString *url = kGetApiWithUrl(MEIPAPPAuthAddRegId);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        kMeCallBlock(failure,error);
+    }];
+}
 
 /***************************************/
 

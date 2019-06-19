@@ -108,11 +108,15 @@
 
 -(void)loginSuccess{
     [self loginIm];
+    [MECommonTool postAuthRegId];
     [MEPublicNetWorkTool getUserCheckFirstBuyWithSuccessBlock:nil failure:nil];
     //设置alias
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [JPUSHService setAlias:kMeUnNilStr(kCurrentUser.uid) completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
             NSLog(@"iAlias=%@",iAlias);
+        } seq:0];
+        [JPUSHService setTags:[NSSet setWithObject:kMeUnNilStr(kCurrentUser.tag)] completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
+            NSLog(@"iTags=%@",iTags);
         } seq:0];
     });
     kNoticeUserLogin

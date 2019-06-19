@@ -94,7 +94,7 @@ NSString *const kServerError = @"服务器无法连接";
 //        progress.progress = uploadProgress.fractionCompleted;
     }success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"responseObject = %@",dic);
+        NSLog(@"urlStr == %@ \n dicParameter = %@ \n responseObject = %@",urlStr,parameter,responseObject);
         [self requestResponse:dic success:^(ZLRequestResponse *responseObject) {
 //            progress.label.text = @"上传成功";
 //            [progress hideAnimated:YES];
@@ -122,11 +122,10 @@ NSString *const kServerError = @"服务器无法连接";
     }
     if(view) [MBProgressHUD showHUDAddedTo:view animated:YES];
     NSDictionary *dicParameter = [self dicParameterWithDic:parameter];
-    NSLog(@"urlStr == %@ \n dicParameter = %@",urlStr,dicParameter);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [self customProcessingForManager:manager];//设置相应内容类型
     [manager POST:urlStr parameters:dicParameter progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject %@",responseObject);
+        NSLog(@"urlStr == %@ \n dicParameter = %@ \n responseObject = %@",urlStr,dicParameter,responseObject);
         if(view) [MBProgressHUD hideHUDForView:view animated:YES];
         [self requestResponse:responseObject success:success failure:failure];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -159,7 +158,7 @@ NSString *const kServerError = @"服务器无法连接";
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [self customProcessingForManager:manager];//设置相应内容类型
     [manager GET:urlStr parameters:dicParmeter progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        NSLog(@"%@",responseObject);
+        NSLog(@"urlStr == %@ \n dicParameter = %@ \n responseObject = %@",urlStr,parameter,responseObject);
         if(view) [MBProgressHUD hideHUDForView:view animated:YES];
         [self requestResponse:responseObject success:success failure:failure];
     } failure:^(NSURLSessionTask *operation, NSError *error) {
@@ -179,7 +178,7 @@ NSString *const kServerError = @"服务器无法连接";
     [manager.requestSerializer setValue:@"Wap" forHTTPHeaderField:@"ClientSystem"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager GET:urlStr parameters:dicParmeter progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        NSLog(@"%@",responseObject);
+        NSLog(@"urlStr == %@ \n dicParameter = %@ \n responseObject = %@",urlStr,parameter,responseObject);
         kMeCallBlock(success,responseObject);
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         kMeCallBlock(failure,error);

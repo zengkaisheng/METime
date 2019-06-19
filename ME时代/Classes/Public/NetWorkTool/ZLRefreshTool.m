@@ -150,8 +150,8 @@ NSUInteger const kSizeNum = 10;
             }else{
                 [strongSelf.delegate handleResponse:responseObject.data];
                     if (strongSelf->_isJD) {
-                    NSArray *datas = [NSArray arrayWithArray:(NSArray *)responseObject.data];
-                    strongSelf.allRows = datas.count>0?1000:datas.count;
+                        NSArray *datas = [NSArray arrayWithArray:(NSArray *)responseObject.data];
+                        strongSelf.allRows = datas.count>0?1000:datas.count;
                     }
             }
             

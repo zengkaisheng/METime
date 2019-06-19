@@ -18,11 +18,12 @@
 #import "MENavigationVC.h"
 #import "METhridProductDetailsVC.h"
 #import "MEFourHomeBaseVC.h"
-#import "MEIntelligentSearchView.h"
 #import "MECoupleHomeVC.h"
 #import "MEJDCoupleHomeVC.h"
 
 #import "MEFourCouponSearchHomeVC.h"
+
+#import "MESignInListVC.h"
 
 @interface MEFourHomeVC ()<UIScrollViewDelegate>{
     METhridHomeModel *_homeModel;
@@ -173,36 +174,9 @@
         kMeWEAKSELF
         _navView.searchBlock = ^{
             kMeSTRONGSELF
-            [strongSelf searchCoupon];
-            //搜索弹窗
-//            [MEIntelligentSearchView ShowWithTitle:@"我就是个测试标题" tapBlock:^(NSInteger index) {
-//                switch (index) {
-//                    case 0://淘宝
-//                    {
-//                        MECoupleHomeVC *vc= [[MECoupleHomeVC alloc]initWithIsTbK:YES];
-//                        vc.keyWords = @"我就是个测试标题";
-//                        [strongSelf.navigationController pushViewController:vc animated:YES];
-//                    }
-//                        break;
-//                    case 1://拼多多
-//                    {
-//                        MECoupleHomeVC *vc= [[MECoupleHomeVC alloc]initWithIsTbK:NO];
-//                        vc.keyWords = @"我就是个测试标题";
-//                        [strongSelf.navigationController pushViewController:vc animated:YES];
-//                    }
-//                        break;
-//                    case 2://京东
-//                    {
-//                        MEJDCoupleHomeVC *vc = [[MEJDCoupleHomeVC alloc]init];
-//                        vc.keyWords = @"我就是个测试标题";
-//                        [strongSelf.navigationController pushViewController:vc animated:YES];
-//                    }
-//                    default:
-//                        break;
-//                }
-//            } cancelBlock:^{
-//
-//            } superView:kMeCurrentWindow];
+//            [strongSelf searchCoupon];
+            MESignInListVC *signInVC = [[MESignInListVC alloc] init];
+            [strongSelf.navigationController pushViewController:signInVC animated:YES];
         };
         _navView.selectIndexBlock = ^(NSInteger index) {
             kMeSTRONGSELF

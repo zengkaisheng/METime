@@ -83,6 +83,8 @@ static NSString *kTokenKey = @"kTokenKey";
 
 //淘宝的分享id
 @property (nonatomic, copy) NSString *relation_id;
+@property (nonatomic, copy) NSString *tag;
+@property (nonatomic, copy) NSString *registration_id; //极光返回id
 /**
  * admin_id : 舒
  * admin_team : 1

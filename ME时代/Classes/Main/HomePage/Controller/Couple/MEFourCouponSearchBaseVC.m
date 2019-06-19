@@ -48,6 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kMEf5f4f4;
+    self.navBarHidden = YES;
     self.isUp = YES;
     self.isAddLimit = NO;
     self.sort = @"";

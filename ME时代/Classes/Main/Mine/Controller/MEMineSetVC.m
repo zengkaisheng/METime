@@ -34,10 +34,10 @@
 //        _arrtype = @[@{@"title":@"地址",@"subTitle":@[@{@"title":@"收货地址",@"type":@(MESetAddressStyle)}]},@{@"title":@"账号与安全",@"subTitle":@[@{@"title":@"清理缓存",@"type":@(MESetCLearChacheStyle)},@{@"title":@"接收店铺访问通知",@"type":@(MESetNoticeStyle)}]},@{@"title":@"关于",@"subTitle":@[@{@"title":@"关于我们",@"type":@(MESetAboutWeStyle)},@{@"title":@"APP隐私权政策",@"type":@(MESetCompandNoticeStyle)}]}];
 //    }else{
     if(kCurrentUser.user_type == 4){
-        _arrtype = @[@{@"title":@"地址",@"subTitle":@[@{@"title":@"收货地址",@"type":@(MESetAddressStyle)}]},@{@"title":@"账号与安全",@"subTitle":@[@{@"title":@"更换手机号码",@"type":@(MESetPhoneStyle)},@{@"title":@"清理缓存",@"type":@(MESetCLearChacheStyle)}]},@{@"title":@"关于",@"subTitle":@[@{@"title":@"关于我们",@"type":@(MESetAboutWeStyle)},@{@"title":@"意见反馈",@"type":@(MESetFeedbackStyle)},@{@"title":@"APP隐私权政策",@"type":@(MESetCompandNoticeStyle)}]}];
+        _arrtype = @[@{@"title":@"地址",@"subTitle":@[@{@"title":@"收货地址",@"type":@(MESetAddressStyle)}]},@{@"title":@"账号与安全",@"subTitle":@[@{@"title":@"更换手机号码",@"type":@(MESetPhoneStyle)},@{@"title":@"清理缓存",@"type":@(MESetCLearChacheStyle)}]},@{@"title":@"关于",@"subTitle":@[@{@"title":@"关于我们",@"type":@(MESetAboutWeStyle)},@{@"title":@"APP隐私权政策",@"type":@(MESetCompandNoticeStyle)},@{@"title":@"意见反馈",@"type":@(MESetFeedbackStyle)},@{@"title":@"版本号",@"type":@(MESetVersionStyle)}]}];
     }else{
-        _arrtype = @[@{@"title":@"地址",@"subTitle":@[@{@"title":@"收货地址",@"type":@(MESetAddressStyle)}]},@{@"title":@"账号与安全",@"subTitle":@[@{@"title":@"清理缓存",@"type":@(MESetCLearChacheStyle)}]},@{@"title":@"关于",@"subTitle":@[@{@"title":@"关于我们",@"type":@(MESetAboutWeStyle)},@{@"title":@"意见反馈",@"type":@(MESetFeedbackStyle)},@{@"title":@"APP隐私权政策",@"type":@(MESetCompandNoticeStyle)}]}];
-        //@{@"title":@"版本号",@"type":@(MESetVersionStyle)},
+        _arrtype = @[@{@"title":@"地址",@"subTitle":@[@{@"title":@"收货地址",@"type":@(MESetAddressStyle)}]},@{@"title":@"账号与安全",@"subTitle":@[@{@"title":@"清理缓存",@"type":@(MESetCLearChacheStyle)}]},@{@"title":@"关于",@"subTitle":@[@{@"title":@"关于我们",@"type":@(MESetAboutWeStyle)},@{@"title":@"APP隐私权政策",@"type":@(MESetCompandNoticeStyle)},@{@"title":@"意见反馈",@"type":@(MESetFeedbackStyle)},@{@"title":@"版本号",@"type":@(MESetVersionStyle)}]}];
+        //
     }
 
 //    }
@@ -66,6 +66,17 @@
     NSArray *subTitle = dic[@"subTitle"];
     NSDictionary *subDic = subTitle[indexPath.row];
     cell.lblTitle.text = kMeUnNilStr(subDic[@"title"]);
+    MESetStyle type = [subDic[@"type"] integerValue];
+    
+    if (type == MESetVersionStyle) {
+        cell.versionLbl.hidden = NO;
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        
+        cell.versionLbl.text = [NSString stringWithFormat:@"当前版本号 %@",app_Version];
+    }else {
+        cell.versionLbl.hidden = YES;
+    }
 //    MESetStyle type = [subDic[@"type"] integerValue];
 //    kMeWEAKSELF
 //    [cell setType:type status:_status switchBlock:^(BOOL status) {
@@ -134,7 +145,7 @@
         }
             break;
         case MESetVersionStyle:{
-            
+            [MECommonTool newCheckVersion];
         }
             break;
         default:
