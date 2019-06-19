@@ -62,12 +62,13 @@
     // Do any additional setup after loading the view.
     self.navBarHidden = YES;
     self.view.backgroundColor = kMEf5f4f4;
+    _arrAdv = [NSArray array];
+    
     self.isUp = YES;
     self.sort = @"";
     self.isTop = NO;
-    _arrAdv = [NSArray array];
-    
     [self.view addSubview:self.navView];
+    
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.siftView];
     [self sortDataWithSiftTag:100];

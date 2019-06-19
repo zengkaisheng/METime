@@ -92,7 +92,6 @@
     }];
 }
 
-#pragma mark - RefreshToolDelegate
 - (void)requestNetWork{
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     dispatch_group_t group = dispatch_group_create();
@@ -170,7 +169,7 @@
         });
     });
 }
-
+#pragma mark - RefreshToolDelegate
 - (NSDictionary *)requestParameter{
     if(self.refresh.pageIndex == 1){
         [self requestNetWork];

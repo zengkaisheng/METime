@@ -1,16 +1,16 @@
 //
-//  MESignInListVC.m
+//  MEPrizeListVC.m
 //  ME时代
 //
 //  Created by gao lei on 2019/6/18.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MESignInListVC.h"
+#import "MEPrizeListVC.h"
 #import "MESignInListCell.h"
 #import "MEPrizeListModel.h"
 
-@interface MESignInListVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
+@interface MEPrizeListVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     NSArray *_todayData;
 }
 @property (nonatomic, strong) UITableView *tableView;
@@ -18,13 +18,13 @@
 
 @end
 
-@implementation MESignInListVC
+@implementation MEPrizeListVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kMEf6f6f6;
-    self.title = @"签到活动";
+    self.title = @"抽奖活动";
     _todayData = [[NSArray alloc] init];
     
     [self.view addSubview:self.tableView];

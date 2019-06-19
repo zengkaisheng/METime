@@ -1,5 +1,5 @@
 //
-//  MESignInListVC.h
+//  MEPrizeListVC.h
 //  ME时代
 //
 //  Created by gao lei on 2019/6/18.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MESignInListVC : MEBaseVC
+@interface MEPrizeListVC : MEBaseVC
 
 @end
 

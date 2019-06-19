@@ -17,7 +17,7 @@ const static CGFloat kSecondImageHeight = 154;
 const static CGFloat kThridImageWidth = 177;
 const static CGFloat kThridImageHeight = 200;
 
-const static CGFloat kMEThridHomeHeaderViewHeight = 331;
+const static CGFloat kMEThridHomeHeaderViewHeight = 423;
 
 
 @interface MEFourHomeHeaderView : UICollectionReusableView

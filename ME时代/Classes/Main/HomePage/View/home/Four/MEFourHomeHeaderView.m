@@ -28,6 +28,8 @@
 #import "ZLWebViewVC.h"
 #import "MEAddTbView.h"
 #import "MEFourCoupleVC.h"
+#import "MEPrizeListVC.h"
+#import "MESpecialSaleVC.h"
 
 typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     //    METhridHomeHeaderViewActiveNewType = 0,
@@ -35,8 +37,11 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     METhridHomeHeaderViewActiveTb99couponType = 0,
     METhridHomeHeaderViewActiveTbcouponType = 1,
     METhridHomeHeaderViewActivePinduoduoCouponType = 2,
-    METhridHomeHeaderViewActiveJDType =3,
-    METhridHomeHeaderViewActiveBigJuanType =4
+    METhridHomeHeaderViewActiveJDType = 3,
+    METhridHomeHeaderViewActivePingPaiTeMaiType = 4,
+    METhridHomeHeaderViewActiveJuHuaSuanType = 5,
+    METhridHomeHeaderViewActiveBigJuanType = 6,
+    METhridHomeHeaderViewActiveSignInType = 7
     
 };
 
@@ -304,7 +309,6 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             {
                 MECoupleHomeVC *vc= [[MECoupleHomeVC alloc]initWithIsTbK:YES];
                 [homeVC.navigationController pushViewController:vc animated:YES];
-                
             }
                 break;
             case METhridHomeHeaderViewActivePinduoduoCouponType:
@@ -312,10 +316,8 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
 //                MECoupleHomeVC *vc= [[MECoupleHomeVC alloc]initWithIsTbK:NO];
                 MEFourCoupleVC *vc = [[MEFourCoupleVC alloc] initWithIsJD:NO];
                 [homeVC.navigationController pushViewController:vc animated:YES];
-                
             }
                 break;
-                
             case METhridHomeHeaderViewActiveJDType:
             {
 //                MEJDCoupleHomeVC *vc = [[MEJDCoupleHomeVC alloc]init];
@@ -323,13 +325,30 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
+            case METhridHomeHeaderViewActivePingPaiTeMaiType:
+            {
+                MESpecialSaleVC *vc = [[MESpecialSaleVC alloc] init];
+                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case METhridHomeHeaderViewActiveJuHuaSuanType:
+            {
+//                MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchGoodGoodsType];
+//                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
+                break;
             case METhridHomeHeaderViewActiveBigJuanType:
             {
                 MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchGoodGoodsType];
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
+                break; 
+            case METhridHomeHeaderViewActiveSignInType:
+            {
+                MEPrizeListVC *prizeVC = [[MEPrizeListVC alloc] init];
+                [homeVC.navigationController pushViewController:prizeVC animated:YES];
+            }
                 break;
-                
             default:
                 break;
         }
