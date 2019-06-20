@@ -33,7 +33,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="自动开奖" image="inc-xi">
+                                        <state key="normal" title="自动开奖" image="icon_box">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -139,6 +139,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="inc-xi" width="11" height="10"/>
+        <image name="icon_box" width="15" height="12"/>
     </resources>
 </document>

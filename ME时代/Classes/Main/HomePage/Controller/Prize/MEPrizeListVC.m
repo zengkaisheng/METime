@@ -9,6 +9,7 @@
 #import "MEPrizeListVC.h"
 #import "MESignInListCell.h"
 #import "MEPrizeListModel.h"
+#import "MEJoinPrizeVC.h"
 
 @interface MEPrizeListVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     NSArray *_todayData;
@@ -29,16 +30,18 @@
     
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
+    kPrizeReloadOrderReload
 }
 
-- (NSDictionary *)requestParameter{
-    if(self.refresh.pageIndex == 1){
-        [self getNetWork];
-    }
-    return @{@"token":kMeUnNilStr(kCurrentUser.token)};
+- (void)dealloc {
+    kNSNotificationCenterDealloc
 }
 
-- (void)getNetWork{
+- (void)reloadList {
+    [self.refresh reload];
+}
+
+- (void)requestNetWork{
     kMeWEAKSELF
     [MEPublicNetWorkTool postGetPrizeTodayDataWithSuccessBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
@@ -50,9 +53,15 @@
         [strongSelf.tableView reloadData];
     } failure:^(id object) {
         kMeSTRONGSELF
-        strongSelf->_todayData = [[NSArray alloc] init];
-        [strongSelf.tableView reloadData];
+        [strongSelf.navigationController popViewControllerAnimated:YES];
     }];
+}
+
+- (NSDictionary *)requestParameter{
+    if(self.refresh.pageIndex == 1){
+        [self requestNetWork];
+    }
+    return @{@"token":kMeUnNilStr(kCurrentUser.token)};
 }
 
 - (void)handleResponse:(id)data{
@@ -77,13 +86,23 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MESignInListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MESignInListCell class]) forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    MEPrizeListModel *model;
     if (indexPath.section == 0) {
-         MEPrizeListModel *model = _todayData[indexPath.row];
+        model = _todayData[indexPath.row];
         [cell setUIWithModel:model];
     }else {
-        MEPrizeListModel *model = self.refresh.arrData[indexPath.row];
+        model = self.refresh.arrData[indexPath.row];
         [cell setUIWithModel:model];
     }
+    kMeWEAKSELF
+    cell.tapBlock = ^{
+        kMeSTRONGSELF
+        MEJoinPrizeVC *vc = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",model.idField]];
+        vc.finishBlock = ^{
+            [strongSelf.refresh reload];
+        };
+        [strongSelf.navigationController pushViewController:vc animated:YES];
+    };
     return cell;
 }
 

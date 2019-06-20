@@ -169,6 +169,8 @@ kTDWebViewCellDidFinishLoadNotificationMethod
                 //生成订单
                 MEMakeOrderVC *vc = [[MEMakeOrderVC alloc]initWithIsinteral:NO goodModel:strongSelf->_model];
                 vc.uid = kMeUnNilStr(strongSelf.uid);
+                vc.isReceivePrize = YES;
+                vc.activity_id = self.activity_id;
                 [strongSelf.navigationController pushViewController:vc animated:YES];
             }
                 break;
@@ -407,7 +409,13 @@ kTDWebViewCellDidFinishLoadNotificationMethod
 - (MEProductDetailsBottomView *)bottomView{
     if(!_bottomView){
         _bottomView = [[[NSBundle mainBundle]loadNibNamed:@"MEProductDetailsBottomView" owner:nil options:nil] lastObject];
-        _bottomView.btnGift.hidden = _type==METhridProductDetailsVCNormalType;//!self.isGift;
+        if (self.isReceivePrize) {
+            _bottomView.btnGift.hidden = NO;
+            [_bottomView.btnGift setTitle:@"立即领取" forState:UIControlStateNormal];
+        }else {
+            _bottomView.btnGift.hidden = _type==METhridProductDetailsVCNormalType;//!self.isGift;
+            [_bottomView.btnGift setTitle:@"立即抢购" forState:UIControlStateNormal];
+        }
         _bottomView.model = _model;
         kMeWEAKSELF
         _bottomView.buyBlock = ^{

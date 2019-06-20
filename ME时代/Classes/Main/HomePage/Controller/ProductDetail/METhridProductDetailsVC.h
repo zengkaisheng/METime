@@ -21,6 +21,8 @@ typedef NS_ENUM(NSUInteger, METhridProductDetailsVCType) {
 //来自好友分享
 @property(nonatomic, copy) NSString *uid;
 @property (nonatomic, assign) BOOL isGift;
+@property (nonatomic, assign) BOOL isReceivePrize;
+@property (nonatomic, copy) NSString *activity_id;
 @property (nonatomic, strong) NSString *time;
 
 @end

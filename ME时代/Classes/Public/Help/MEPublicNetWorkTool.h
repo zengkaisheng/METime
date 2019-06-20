@@ -483,7 +483,14 @@
 #pragma mark - Prize
 //今日福利
 + (void)postGetPrizeTodayDataWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
-
+//抽奖活动 详情
++ (void)postGetPrizeDetailWithActivityId:(NSString *)activityId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//参加抽奖活动
++ (void)postJoinPrizeWithActivityId:(NSString *)activityId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//查看抽奖活动图文详情
++ (void)postCheckPrizeContentWithActivityId:(NSString *)activityId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//领取抽奖商品
++ (void)postCreatePrizeOrderWithAttrModel:(MEMakeOrderAttrModel *)attrModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
 
 

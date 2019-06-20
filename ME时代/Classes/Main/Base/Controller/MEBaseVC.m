@@ -61,7 +61,7 @@
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         backButton.frame = CGRectMake(0, 0, 44, 44);
         [backButton setImage:[UIImage imageNamed:@"inc-xz"] forState:UIControlStateNormal];
-        backButton.imageEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0);
+        backButton.imageEdgeInsets = UIEdgeInsetsMake(0, 9, 0, 0);
         [backButton addTarget:self action:@selector(backButtonPressed)
              forControlEvents:UIControlEventTouchUpInside];
         _backButton = backButton;

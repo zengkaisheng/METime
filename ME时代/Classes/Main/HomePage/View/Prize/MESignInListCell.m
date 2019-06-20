@@ -42,7 +42,7 @@
 //    _sdView.autoScrollTimeInterval = 4;
     
     _titleLbl.text = model.title;
-    _countLbl.text = [NSString stringWithFormat:@"份数%ld",model.total];
+    _countLbl.text = [NSString stringWithFormat:@"份数%ld",(long)model.total];
     _timeLbl.text = [NSString stringWithFormat:@"开奖时间 %@",model.open_time];
     if (model.status == 1) {
         _automicBtn.hidden = NO;
@@ -90,7 +90,10 @@
 }
 
 - (IBAction)drawAction:(id)sender {
-    NSLog(@"点击了参与抽奖按钮");
+//    NSLog(@"点击了参与抽奖按钮");
+    if (self.tapBlock) {
+        self.tapBlock();
+    }
 }
 
 @end

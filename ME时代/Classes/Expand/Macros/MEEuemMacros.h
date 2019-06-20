@@ -134,8 +134,9 @@ typedef enum : NSUInteger {
     MEMakrOrderCellDistribution = 1,//配送方式
     MEMakrOrderCellSuperMember = 2,//开通超级会员节省
     MEMakrOrderCellExhange = 3,//积分兑换
+    MEMakrOrderCellPreferential = 4//领取奖品
 }  MEMakrOrderCellStyle;
-#define MEMakrOrderCellStyleTitle @[@"买家留言",@"运费",@"开通超级会员本单节省",@"使用积分兑换"]
+#define MEMakrOrderCellStyleTitle @[@"买家留言",@"运费",@"开通超级会员本单节省",@"使用积分兑换",@"领取奖品"]
 
 
 typedef enum : NSUInteger {

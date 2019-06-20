@@ -253,6 +253,10 @@ NS_INLINE NSString *kMeFilePathAtDocumentWithName(NSString *fileNAme){
 #define kNoticeReloadSelfExtractOrder [[NSNotificationCenter defaultCenter] postNotificationName:kSelfExtractOrder object:nil];
 #define kSelfExtractOrderReload   [[NSNotificationCenter defaultCenter]addObserver:self.refresh selector:@selector(reload) name:kSelfExtractOrder object:nil];
 
+//通知刷新抽奖活动
+#define kPrizeReloadOrder @"kPrizeReloadOrder"
+#define kNoticeReloadPrizeOrder [[NSNotificationCenter defaultCenter] postNotificationName:kPrizeReloadOrder object:nil];
+#define kPrizeReloadOrderReload   [[NSNotificationCenter defaultCenter]addObserver:self.refresh selector:@selector(reload) name:kPrizeReloadOrder object:nil];
 
 //通知用户刷新融云信息
 #define kUnMessage @"kUnMessage"

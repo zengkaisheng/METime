@@ -580,6 +580,16 @@
 #define MEIPCommonPrizeToday @"common/prize/prizeToday"
 //往期福利
 #define MEIPCommonPrizeHistory @"common/prize/prizeHistory"
+//抽奖活动详情
+#define MEIPCommonPrizeDetails @"common/prize/prizeDetails"
+//参加抽奖活动
+#define MEIPCommonPrizeJoin @"common/prize/prizeJoin"
+//查看抽奖活动图文详情
+#define MEIPCommonPrizeLookContent @"common/prize/prizeLookContent"
+//查看抽奖活动参与人数
+#define MEIPCommonPrizeJoinUserList @"common/prize/prizeJoinUserList"
+//领取抽奖商品
+#define MEIPCommonPrizeCreateOrder @"common/prize/createOrder"
 
 /*********************************************/
 

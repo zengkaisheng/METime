@@ -15,7 +15,8 @@
 - (instancetype)initWithIsinteral:(BOOL)isInteral goodModel:(MEGoodDetailModel *)goodModel;
 //产品的980活动   默认不是
 @property (nonatomic, assign) BOOL isProctComd;
-
+@property (nonatomic, assign) BOOL isReceivePrize;//领取中奖奖品
+@property (nonatomic, copy) NSString *activity_id;
 //来自好友分享
 @property(nonatomic, copy) NSString *uid;
 

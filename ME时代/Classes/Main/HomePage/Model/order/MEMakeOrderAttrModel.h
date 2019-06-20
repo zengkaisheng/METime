@@ -26,6 +26,8 @@
 @property (nonatomic, strong) NSString * remark;
 @property (nonatomic, strong) NSString * channel;
 
+@property (nonatomic, copy) NSString *activity_id;
+
 @property (nonatomic, assign) NSInteger is_store_get;
 
 //来自好友的分享
