@@ -46,7 +46,7 @@
     [MEPublicNetWorkTool postGetPrizeTodayDataWithSuccessBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         if ([responseObject.data isKindOfClass:[NSArray class]]) {
-            strongSelf->_todayData =[MEPrizeListModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+            strongSelf->_todayData = [MEPrizeListModel mj_objectArrayWithKeyValuesArray:responseObject.data];
         }else{
             strongSelf->_todayData = [[NSArray alloc] init];
         }

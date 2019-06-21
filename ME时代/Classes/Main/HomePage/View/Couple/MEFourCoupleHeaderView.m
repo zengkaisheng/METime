@@ -15,6 +15,7 @@
 @property (nonatomic, assign) BOOL isUp;
 @property (nonatomic, assign) BOOL isTop;
 @property (nonatomic, copy) NSString *sort;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sdViewConsHeight;
 
 @end
 
@@ -24,7 +25,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    NSArray *titles = @[@"综合",@"佣金",@"销量",@"价格"];
+    NSArray *titles = @[@"综合",@"优惠券",@"销量",@"价格"];
     CGFloat itemW = SCREEN_WIDTH / titles.count;
     for (int i = 0; i < titles.count; i++) {
         UIButton *siftBtn = [self createSiftButtomWithTitle:titles[i] tag:100+i];
@@ -39,24 +40,32 @@
 
 - (void)setUIWithBannerImage:(NSArray *)bannerImages {
     
-    _sdView.contentMode = UIViewContentModeScaleAspectFill;
-    _sdView.clipsToBounds = YES;
-    _sdView.delegate = self;
-    
-    __block NSMutableArray *arrImage =[NSMutableArray array];
-    [bannerImages enumerateObjectsUsingBlock:^(MEAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        [arrImage addObject:kMeUnNilStr(model.ad_img)];
-    }];
-    _sdView.imageURLStringsGroup = arrImage;
-    
-    if (arrImage.count <= 1) {
-        _sdView.infiniteLoop = NO;
-        _sdView.autoScroll = NO;
+    if (bannerImages.count > 0) {
+        _sdViewConsHeight.constant = 150;
+        _sdView.hidden = NO;
+        _sdView.contentMode = UIViewContentModeScaleAspectFill;
+        _sdView.clipsToBounds = YES;
+        _sdView.delegate = self;
+        
+        __block NSMutableArray *arrImage =[NSMutableArray array];
+        [bannerImages enumerateObjectsUsingBlock:^(MEAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            [arrImage addObject:kMeUnNilStr(model.ad_img)];
+        }];
+        _sdView.imageURLStringsGroup = arrImage;
+        
+        if (arrImage.count <= 1) {
+            _sdView.infiniteLoop = NO;
+            _sdView.autoScroll = NO;
+        }else {
+            _sdView.infiniteLoop = YES;
+            _sdView.autoScroll = YES;
+            _sdView.autoScrollTimeInterval = 4;
+        }
     }else {
-        _sdView.infiniteLoop = YES;
-        _sdView.autoScroll = YES;
-        _sdView.autoScrollTimeInterval = 4;
+        _sdViewConsHeight.constant = 0;
+        _sdView.hidden = YES;
     }
+    
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
@@ -76,7 +85,11 @@
     }
     //jiagedown  jiagenomal  jiageup
     [siftBtn setTag:tag];
-    [siftBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:-70];
+    if ([title isEqualToString:@"优惠券"]) {
+        [siftBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:-95];
+    }else {
+        [siftBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:-70];
+    }
     [siftBtn addTarget:self action:@selector(siftBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     siftBtn.backgroundColor = [UIColor whiteColor];
     

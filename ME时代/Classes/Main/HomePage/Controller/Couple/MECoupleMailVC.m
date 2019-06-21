@@ -10,12 +10,14 @@
 #import "MECoupleMailCell.h"
 #import "MECoupleModel.h"
 #import "MECoupleMailDetalVC.h"
-
+//#import "MEJuHuaSuanCoupleModel.h"
+#import "MEPinduoduoCoupleModel.h"
 
 @interface MECoupleMailVC ()<UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>{
     NSString *_queryStr;
     MECouponSearchType _type;
     NSInteger _material_id;
+    NSString *_url;
 }
 
 @property (nonatomic, strong)UICollectionView *collectionView;
@@ -30,6 +32,14 @@
     if(self = [super init]){
         _isMater = YES;
         _type = type;
+    }
+    return self;
+}
+
+- (instancetype)initWithUrl:(NSString *)url{//拼多多推荐商品
+    if(self = [super init]){
+        _url = url;
+        _isMater = YES;
     }
     return self;
 }
@@ -95,6 +105,10 @@
                 str = @"品牌专场";
             }
                 break;
+            case MECouponSearchJuHSType:{
+                str = @"聚划算";
+            }
+                break;
             default:
                 str = @"优惠券";
                 break;
@@ -103,6 +117,9 @@
             self.title = kMeUnNilStr(self.titleStr);
         }else{
            self.title = str;
+            if (_url) {
+                self.title = @"推荐商品";
+            }
         }
     }else{
         self.title = _queryStr;
@@ -118,6 +135,16 @@
 - (NSDictionary *)requestParameter{
 //    return @{@"r":@"Port/index",@"type":@"total",@"appkey":@"58de5a1fe2",@"v":@"2"};
     if(_isMater){
+        if (_type == MECouponSearchJuHSType) {
+            return @{@"need_free_shipment":@"true",
+                     @"need_prepay":@"true",
+                     @"include_good_rate":@"true",
+                     @"tk_rate":@"tk_rate_des"
+                     };
+        }
+        if (_url.length > 0) {
+            return @{};
+        }
         if (_material_id != 0) {
             return @{@"material_id":@(_material_id)};
         }else {
@@ -132,7 +159,11 @@
     if(![data isKindOfClass:[NSArray class]]){
         return;
     }
-    [self.refresh.arrData addObjectsFromArray:[MECoupleModel mj_objectArrayWithKeyValuesArray:data]];
+    if (_url.length > 0) {
+        [self.refresh.arrData addObjectsFromArray:[MEPinduoduoCoupleModel mj_objectArrayWithKeyValuesArray:data]];
+    }else {
+        [self.refresh.arrData addObjectsFromArray:[MECoupleModel mj_objectArrayWithKeyValuesArray:data]];
+    }
 }
 
 
@@ -140,9 +171,15 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if(_isMater){
-        MECoupleModel *model = self.refresh.arrData[indexPath.row];
-        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
-        [self.navigationController pushViewController:vc animated:YES];
+        if (_url.length > 0) {
+            MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
+            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc] initWithPinduoudoModel:model];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else {
+            MECoupleModel *model = self.refresh.arrData[indexPath.row];
+            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }else{
         MECoupleModel *model = self.refresh.arrData[indexPath.row];
         MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
@@ -156,8 +193,13 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MECoupleMailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MECoupleMailCell class]) forIndexPath:indexPath];
-    MECoupleModel *model = self.refresh.arrData[indexPath.row];
-    [cell setUIWithModel:model];
+    if (_url.length > 0) {
+        MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
+        [cell setpinduoduoUIWithModel:model];
+    }else {
+        MECoupleModel *model = self.refresh.arrData[indexPath.row];
+        [cell setUIWithModel:model];
+    }
     return cell;
 }
 
@@ -201,12 +243,31 @@
     if(!_refresh){
         NSString *str = MEIPcommonTaobaokeGetCoupon;
         if(_isMater){
-            str = MEIPcommonTaobaokeGetDgMaterialOptional;
+            if (_url.length > 0) {
+                str = _url;
+            }else {
+//                if (_type == MECouponSearchJuHSType) {
+//                    str = MEIPcommonTaobaokeGetTbkJuItemsSearch;
+//                }else {
+//                    str = MEIPcommonTaobaokeGetDgMaterialOptional;
+//                }
+                str = MEIPcommonTaobaokeGetDgMaterialOptional;
+            }
         }
         _refresh = [[ZLRefreshTool alloc]initWithContentView:self.collectionView url:kGetApiWithUrl(str)];
         _refresh.delegate = self;
         if(_isMater){
-            _refresh.isCoupleMater = YES;
+            if (_url.length > 0) {
+                _refresh.isPinduoduoCoupleMater = YES;
+                _refresh.isFilter = YES;
+            }else {
+//                if (_type == MECouponSearchJuHSType) {
+//                    _refresh.isJuHS = YES;
+//                }else {
+//                    _refresh.isCoupleMater = YES;
+//                }
+                _refresh.isCoupleMater = YES;
+            }
         }else{
             _refresh.isCouple = YES;
         }

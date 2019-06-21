@@ -12,6 +12,8 @@
 
 - (instancetype)initWithQuery:(NSString *)query;
 - (instancetype)initWithType:(MECouponSearchType)type;
+- (instancetype)initWithUrl:(NSString *)url;
+
 @property (nonatomic,copy) NSString *titleStr;
 
 @end

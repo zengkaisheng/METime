@@ -126,7 +126,13 @@ NSUInteger const kSizeNum = 10;
                         strongSelf.allRows = count ;
                         [strongSelf.delegate handleResponse:responseObject.data[@"tbk_dg_material_optional_response"][@"result_list"][@"map_data"]];
                     }else{
-                        if(strongSelf->_isPinduoduoCoupleMater){
+                        if (strongSelf->_isJuHS) {
+                            if (!kMeUnObjectIsEmpty(responseObject.data)) {
+                                NSInteger count = [responseObject.data[@"ju_items_search_response"][@"result"][@"total_item"] integerValue];
+                                strongSelf.allRows = count ;
+                                [strongSelf.delegate handleResponse:responseObject.data[@"ju_items_search_response"][@"result"][@"model_list"][@"items"]];
+                            }
+                        }else if(strongSelf->_isPinduoduoCoupleMater){
                             if (!kMeUnObjectIsEmpty(responseObject.data)) {
                                 NSInteger count = [responseObject.data[@"goods_search_response"][@"total_count"] integerValue];
                                 if (strongSelf.isFilter) {

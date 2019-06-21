@@ -68,7 +68,7 @@
         MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
         if(homevc){
             METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:_model.spreebuy_goods.product_id];
-            details.time = kMeUnNilStr(_model.spreebuy_goods.time);
+//            details.time = kMeUnNilStr(_model.spreebuy_goods.time);
             [homevc.navigationController pushViewController:details animated:YES];
         }
     }

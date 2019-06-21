@@ -1803,7 +1803,7 @@
 + (void)postFetchYouxianBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"tool":@"1",
                           };
-    NSString *url = kGetApiWithUrl(MEIPcommonGetYouxianBanner);
+    NSString *url = kGetApiWithUrl(MEIPcommonGetYouxianBannerNew);
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
         kMeCallBlock(successBlock,responseObject);
     } failure:^(id error) {
@@ -1815,10 +1815,10 @@
     }];
 }
 
-+ (void)postFetchYouxianBannerNewWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
++ (void)postFetchSpecialSalesBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"tool":@"1",
                           };
-    NSString *url = kGetApiWithUrl(MEIPcommonGetYouxianBannerNew);
+    NSString *url = kGetApiWithUrl(MEIPcommonGetSpecialSalsesBanner);
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
         kMeCallBlock(successBlock,responseObject);
     } failure:^(id error) {

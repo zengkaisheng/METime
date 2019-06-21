@@ -18,6 +18,9 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TMr-p8-Jl9" customClass="SDCycleScrollView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="Esz-qP-qjf"/>
+                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDz-wL-zHD">
                     <rect key="frame" x="0.0" y="150" width="375" height="40"/>
@@ -39,6 +42,7 @@
             </constraints>
             <connections>
                 <outlet property="sdView" destination="TMr-p8-Jl9" id="egF-ww-jFs"/>
+                <outlet property="sdViewConsHeight" destination="Esz-qP-qjf" id="sFD-4Y-Pwa"/>
                 <outlet property="siftView" destination="pDz-wL-zHD" id="yuH-RE-Au7"/>
             </connections>
             <point key="canvasLocation" x="-167" y="43"/>

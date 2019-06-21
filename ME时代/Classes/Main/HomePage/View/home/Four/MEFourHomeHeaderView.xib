@@ -121,7 +121,7 @@
                     <rect key="frame" x="0.0" y="235" width="392" height="184"/>
                     <subviews>
                         <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZR6-Ho-cgd" customClass="MEMidelMiddelImageButton">
-                            <rect key="frame" x="196" y="0.0" width="98" height="92"/>
+                            <rect key="frame" x="196" y="5" width="98" height="92"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="京东劵" image="thirdHomeJd">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -131,7 +131,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Yf-lT-aFo" customClass="MEMidelMiddelImageButton">
-                            <rect key="frame" x="98" y="0.0" width="98" height="92"/>
+                            <rect key="frame" x="98" y="5" width="98" height="92"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="拼多多券" image="thirdHomePdd">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -141,7 +141,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdJ-CD-tA0" customClass="MEMidelMiddelImageButton">
-                            <rect key="frame" x="294" y="0.0" width="98" height="92"/>
+                            <rect key="frame" x="294" y="5" width="98" height="92"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="品牌特卖" image="homeTeMai">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -151,7 +151,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="erW-TJ-V7c" customClass="MEMidelMiddelImageButton">
-                            <rect key="frame" x="0.0" y="0.0" width="98" height="92"/>
+                            <rect key="frame" x="0.0" y="5" width="98" height="92"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="淘宝券" image="thirdHomeTbC">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -204,15 +204,15 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="vOQ-lJ-TYn" secondAttribute="trailing" id="0Eo-d3-aM0"/>
-                        <constraint firstItem="ZR6-Ho-cgd" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" id="0io-Mh-Bsx"/>
+                        <constraint firstItem="ZR6-Ho-cgd" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" constant="5" id="0io-Mh-Bsx"/>
                         <constraint firstAttribute="height" constant="184" id="18M-Cs-zbk"/>
                         <constraint firstItem="ZR6-Ho-cgd" firstAttribute="leading" secondItem="5Yf-lT-aFo" secondAttribute="trailing" id="2id-ut-kmu"/>
                         <constraint firstItem="vOQ-lJ-TYn" firstAttribute="width" secondItem="mbS-XB-k61" secondAttribute="width" id="6AE-Yd-Iqr"/>
                         <constraint firstItem="erW-TJ-V7c" firstAttribute="leading" secondItem="oid-XO-uly" secondAttribute="leading" id="7Hd-fd-qeI"/>
                         <constraint firstAttribute="bottom" secondItem="vOQ-lJ-TYn" secondAttribute="bottom" id="7sh-Lw-LhV"/>
                         <constraint firstItem="vOQ-lJ-TYn" firstAttribute="leading" secondItem="TbA-dX-I7C" secondAttribute="trailing" id="9Ht-iP-6ZT"/>
-                        <constraint firstItem="cdJ-CD-tA0" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" id="BAd-uT-CVH"/>
-                        <constraint firstItem="mbS-XB-k61" firstAttribute="top" secondItem="5Yf-lT-aFo" secondAttribute="bottom" id="EVv-NT-waj"/>
+                        <constraint firstItem="cdJ-CD-tA0" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" constant="5" id="BAd-uT-CVH"/>
+                        <constraint firstItem="mbS-XB-k61" firstAttribute="top" secondItem="5Yf-lT-aFo" secondAttribute="bottom" constant="-5" id="EVv-NT-waj"/>
                         <constraint firstItem="cdJ-CD-tA0" firstAttribute="height" secondItem="5Yf-lT-aFo" secondAttribute="height" id="Gjf-0S-a13"/>
                         <constraint firstItem="mbS-XB-k61" firstAttribute="leading" secondItem="R2j-oT-WLM" secondAttribute="trailing" id="Gos-RV-erf"/>
                         <constraint firstItem="cdJ-CD-tA0" firstAttribute="width" secondItem="5Yf-lT-aFo" secondAttribute="width" id="J10-yY-cu9"/>
@@ -228,15 +228,15 @@
                         <constraint firstItem="mbS-XB-k61" firstAttribute="height" secondItem="5Yf-lT-aFo" secondAttribute="height" id="Tte-RA-76r"/>
                         <constraint firstItem="cdJ-CD-tA0" firstAttribute="leading" secondItem="ZR6-Ho-cgd" secondAttribute="trailing" id="Vzn-se-U9I"/>
                         <constraint firstAttribute="bottom" secondItem="R2j-oT-WLM" secondAttribute="bottom" id="XVp-RS-jcV"/>
-                        <constraint firstItem="vOQ-lJ-TYn" firstAttribute="top" secondItem="cdJ-CD-tA0" secondAttribute="bottom" id="dWt-H8-ql0"/>
+                        <constraint firstItem="vOQ-lJ-TYn" firstAttribute="top" secondItem="cdJ-CD-tA0" secondAttribute="bottom" constant="-5" id="dWt-H8-ql0"/>
                         <constraint firstItem="ZR6-Ho-cgd" firstAttribute="height" secondItem="5Yf-lT-aFo" secondAttribute="height" id="fRN-Qv-iFe"/>
                         <constraint firstAttribute="bottom" secondItem="TbA-dX-I7C" secondAttribute="bottom" id="gWe-rs-fSL"/>
-                        <constraint firstItem="TbA-dX-I7C" firstAttribute="top" secondItem="ZR6-Ho-cgd" secondAttribute="bottom" id="iQY-Zg-eQv"/>
-                        <constraint firstItem="R2j-oT-WLM" firstAttribute="top" secondItem="erW-TJ-V7c" secondAttribute="bottom" id="kAm-4S-3VO"/>
-                        <constraint firstItem="erW-TJ-V7c" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" id="l8r-qV-3Qe"/>
+                        <constraint firstItem="TbA-dX-I7C" firstAttribute="top" secondItem="ZR6-Ho-cgd" secondAttribute="bottom" constant="-5" id="iQY-Zg-eQv"/>
+                        <constraint firstItem="R2j-oT-WLM" firstAttribute="top" secondItem="erW-TJ-V7c" secondAttribute="bottom" constant="-5" id="kAm-4S-3VO"/>
+                        <constraint firstItem="erW-TJ-V7c" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" constant="5" id="l8r-qV-3Qe"/>
                         <constraint firstItem="mbS-XB-k61" firstAttribute="width" secondItem="R2j-oT-WLM" secondAttribute="width" id="mG6-7f-OmH"/>
                         <constraint firstItem="5Yf-lT-aFo" firstAttribute="leading" secondItem="erW-TJ-V7c" secondAttribute="trailing" id="oWT-lI-Tdv"/>
-                        <constraint firstItem="5Yf-lT-aFo" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" id="v24-fY-arH"/>
+                        <constraint firstItem="5Yf-lT-aFo" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" constant="5" id="v24-fY-arH"/>
                         <constraint firstItem="R2j-oT-WLM" firstAttribute="leading" secondItem="oid-XO-uly" secondAttribute="leading" id="yah-XR-Wsq"/>
                     </constraints>
                 </view>

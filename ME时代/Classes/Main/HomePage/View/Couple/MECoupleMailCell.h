@@ -10,6 +10,7 @@
 @class MECoupleModel;
 @class MEPinduoduoCoupleModel;
 @class MEJDCoupleModel;
+@class MEJuHuaSuanCoupleModel;
 
 #define kMECoupleMailCellHeight (kMECoupleMailCellWdith +93)
 #define kMECoupleMailCellWdith ((SCREEN_WIDTH - 30)/2)
@@ -20,5 +21,6 @@
 - (void)setJDUIWithModel:(MEJDCoupleModel *)model;
 - (void)setUIWithModel:(MECoupleModel *)model;
 - (void)setpinduoduoUIWithModel:(MEPinduoduoCoupleModel *)model;
+- (void)setJuHSWithModel:(MEJuHuaSuanCoupleModel *)model;
 
 @end

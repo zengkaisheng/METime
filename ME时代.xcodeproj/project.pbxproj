@@ -1050,6 +1050,7 @@
 		EB939D0A229D6274006088AB /* MERefundDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB939D09229D6274006088AB /* MERefundDetailModel.m */; };
 		EB939D11229D662B006088AB /* MERefundDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB939D10229D662B006088AB /* MERefundDetailHeaderView.m */; };
 		EB939D13229D6638006088AB /* MERefundDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB939D12229D6638006088AB /* MERefundDetailHeaderView.xib */; };
+		EB98F11522BC8382006DCD47 /* MEJuHuaSuanCoupleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB98F11422BC8382006DCD47 /* MEJuHuaSuanCoupleModel.m */; };
 		EB9F946622977F400049CFFD /* MEChooseTerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F946522977F400049CFFD /* MEChooseTerminalView.m */; };
 		EB9F946922979CBC0049CFFD /* MEChooseTerminalVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F946822979CBC0049CFFD /* MEChooseTerminalVC.m */; };
 		EBD4CE2A229FC53900D3C36E /* MENewFilterBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD4CE29229FC53900D3C36E /* MENewFilterBannerModel.m */; };
@@ -2907,6 +2908,8 @@
 		EB939D0F229D662B006088AB /* MERefundDetailHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERefundDetailHeaderView.h; sourceTree = "<group>"; };
 		EB939D10229D662B006088AB /* MERefundDetailHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERefundDetailHeaderView.m; sourceTree = "<group>"; };
 		EB939D12229D6638006088AB /* MERefundDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MERefundDetailHeaderView.xib; sourceTree = "<group>"; };
+		EB98F11322BC8382006DCD47 /* MEJuHuaSuanCoupleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEJuHuaSuanCoupleModel.h; sourceTree = "<group>"; };
+		EB98F11422BC8382006DCD47 /* MEJuHuaSuanCoupleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEJuHuaSuanCoupleModel.m; sourceTree = "<group>"; };
 		EB9F946422977F400049CFFD /* MEChooseTerminalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEChooseTerminalView.h; sourceTree = "<group>"; };
 		EB9F946522977F400049CFFD /* MEChooseTerminalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEChooseTerminalView.m; sourceTree = "<group>"; };
 		EB9F946722979CBC0049CFFD /* MEChooseTerminalVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEChooseTerminalVC.h; sourceTree = "<group>"; };
@@ -4259,6 +4262,8 @@
 				368E0678221A9FB400B125DE /* MEJDCoupleModel.m */,
 				3694C4882277F5DD00CF11C5 /* MERelationIdModel.h */,
 				3694C4892277F5DD00CF11C5 /* MERelationIdModel.m */,
+				EB98F11322BC8382006DCD47 /* MEJuHuaSuanCoupleModel.h */,
+				EB98F11422BC8382006DCD47 /* MEJuHuaSuanCoupleModel.m */,
 			);
 			path = Couple;
 			sourceTree = "<group>";
@@ -7031,6 +7036,7 @@
 				366BC966221F9D300078F6AD /* MEJDCouponMoneyModel.m in Sources */,
 				36472AF321C8E15C00CC3E48 /* JXCategoryIndicatorView.m in Sources */,
 				3694C48A2277F5DD00CF11C5 /* MERelationIdModel.m in Sources */,
+				EB98F11522BC8382006DCD47 /* MEJuHuaSuanCoupleModel.m in Sources */,
 				367C05CB218FE3C60088C087 /* MENewBaoQiangCell.m in Sources */,
 				363D8E842146891D00D746DF /* MESkuBuyContentCell.m in Sources */,
 				36F5E825222F68F1000B0241 /* TInputController.m in Sources */,

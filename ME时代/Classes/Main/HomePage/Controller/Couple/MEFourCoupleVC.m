@@ -298,12 +298,22 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([scrollView isEqual:self.collectionView]) {
-        if (scrollView.contentOffset.y >= 150) {
-            self.siftView.hidden = NO;
-            self.isTop = YES;
+        if (_arrAdv.count > 0) {
+            if (scrollView.contentOffset.y >= 150) {
+                self.siftView.hidden = NO;
+                self.isTop = YES;
+            }else {
+                self.siftView.hidden = YES;
+                self.isTop = NO;
+            }
         }else {
-            self.siftView.hidden = YES;
-            self.isTop = NO;
+            if (scrollView.contentOffset.y >= 40) {
+                self.siftView.hidden = NO;
+                self.isTop = YES;
+            }else {
+                self.siftView.hidden = YES;
+                self.isTop = NO;
+            }
         }
     }
 }
@@ -339,7 +349,10 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(SCREEN_WIDTH, 190);
+    if (_arrAdv.count > 0) {
+        return CGSizeMake(SCREEN_WIDTH, 190);
+    }
+    return CGSizeMake(SCREEN_WIDTH, 40);
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -497,7 +510,7 @@
             NSString *str = [url stringByAppendingString:rid];
             ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
             webVC.showProgress = YES;
-            webVC.title = @"618狂欢主会场";
+            webVC.title = @"活动主会场";
             [webVC loadURL:[NSURL URLWithString:str]];
             [self.navigationController pushViewController:webVC animated:YES];
         }
@@ -543,7 +556,11 @@
     }
     //jiagedown  jiagenomal  jiageup
     [siftBtn setTag:tag];
-    [siftBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:-70];
+    if ([title isEqualToString:@"优惠券"]) {
+        [siftBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:-95];
+    }else {
+        [siftBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:-70];
+    }
     [siftBtn addTarget:self action:@selector(siftBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     siftBtn.backgroundColor = [UIColor whiteColor];
     
@@ -563,7 +580,6 @@
         _collectionView.delegate = self;
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.alwaysBounceVertical = YES;
-        
     }
     return _collectionView;
 }
@@ -609,7 +625,7 @@
     if (!_siftView) {
         _siftView = [[UIView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, 40)];
         _siftView.backgroundColor = [UIColor whiteColor];
-        NSArray *titles = @[@"综合",@"佣金",@"销量",@"价格"];
+        NSArray *titles = @[@"综合",@"优惠券",@"销量",@"价格"];
         CGFloat itemW = SCREEN_WIDTH / titles.count;
         for (int i = 0; i < titles.count; i++) {
             UIButton *siftBtn = [self createSiftButtomWithTitle:titles[i] tag:100+i];

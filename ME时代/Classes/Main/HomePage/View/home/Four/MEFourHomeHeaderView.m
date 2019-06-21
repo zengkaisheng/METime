@@ -180,24 +180,23 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             if(homeVC){
                 MEBaseVC *vc = [[MEBaseVC alloc] init];
                 vc.title = @"详情";
-                NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[model.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
                 
-                UITextView *tv = [[UITextView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
-                tv.attributedText = attributedString;
-                tv.editable = NO;
-                [vc.view addSubview:tv];
+                UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
+                [webView loadHTMLString:model.content baseURL:nil];
+                [vc.view addSubview:webView];
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
-        }
-            break;
-        case 6:
-        {
-            
         }
             break;
         case 8:
         {
             [self toTaoBaoActivityWithUrl:kMeUnNilStr(model.ad_url)];
+        }
+            break;
+        case 13:
+        {//跳拼多多推荐商品列表
+            MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithUrl:[NSString stringWithFormat:@"%@?ad_id=%@",MEIPcommonGetRecommendGoodsLit,model.ad_id]];
+            [homeVC.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:
@@ -245,7 +244,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             NSString *str = [url stringByAppendingString:rid];
             ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
             webVC.showProgress = YES;
-            webVC.title = @"618狂欢主会场";
+            webVC.title = @"活动主会场";
             [webVC loadURL:[NSURL URLWithString:str]];
             [homeVC.navigationController pushViewController:webVC animated:YES];
         }
@@ -333,8 +332,8 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
                 break;
             case METhridHomeHeaderViewActiveJuHuaSuanType:
             {
-//                MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchGoodGoodsType];
-//                [homeVC.navigationController pushViewController:vc animated:YES];
+                MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchJuHSType];
+                [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case METhridHomeHeaderViewActiveBigJuanType:

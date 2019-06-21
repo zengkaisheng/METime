@@ -329,8 +329,8 @@
 + (void)postFetchProductsWithCategoryId:(NSString *)categoryId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //新优选获取banner图（5-30）
 + (void)postFetchYouxianBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
-//新优选获取banner图(新)
-+ (void)postFetchYouxianBannerNewWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//平拍特卖获取banner图(新)
++ (void)postFetchSpecialSalesBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
 
 

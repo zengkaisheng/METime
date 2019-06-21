@@ -22,6 +22,7 @@
 #import "MEAdModel.h"
 #import "MEServiceDetailsVC.h"
 #import "ZLWebViewVC.h"
+#import "MECoupleMailVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?10:7.5)*kMeFrameScaleX())
 
@@ -116,7 +117,7 @@
     });
     dispatch_group_async(group, queue, ^{
         kMeWEAKSELF
-        [MEPublicNetWorkTool postFetchYouxianBannerNewWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+        [MEPublicNetWorkTool postFetchYouxianBannerWithsuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             id data = responseObject.data;
             if ([data isKindOfClass:[NSDictionary class]]) {
@@ -224,13 +225,24 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        if (_filterArr.count > 1) {
-            return CGSizeMake(SCREEN_WIDTH, 223*kMeFrameScaleY() + 46);
+        if (_banner_images.count > 0) {
+            if (_filterArr.count > 1) {
+                return CGSizeMake(SCREEN_WIDTH, 223*kMeFrameScaleY() + 46);
+            }else {
+                return CGSizeMake(SCREEN_WIDTH, 223*kMeFrameScaleY());
+            }
         }else {
-            return CGSizeMake(SCREEN_WIDTH, 223*kMeFrameScaleY());
+            if (_filterArr.count > 1) {
+                return CGSizeMake(SCREEN_WIDTH, 73*kMeFrameScaleY() + 46);
+            }else {
+                return CGSizeMake(SCREEN_WIDTH, 73*kMeFrameScaleY());
+            }
         }
     }
-    return CGSizeMake(SCREEN_WIDTH, 167);
+    if (_banner_midddle_images.count > 0) {
+        return CGSizeMake(SCREEN_WIDTH, 167);
+    }
+    return CGSizeMake(0, 0);
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -240,9 +252,11 @@
             MENewFilterGoodsTopHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsTopHeaderView class]) forIndexPath:indexPath];
             [header setUIWithBackgroundImage:kMeUnNilStr(_top_banner_image) bannerImage:_banner_images];
             NSMutableArray *titles = [[NSMutableArray alloc] init];
-            for (int i = 0; i < _filterArr.count; i++) {
-                MEFilterMainModel *model = _filterArr[i];
-                [titles addObject:model.category_name];
+            if (_filterArr.count > 0) {
+                for (int i = 0; i < _filterArr.count; i++) {
+                    MEFilterMainModel *model = _filterArr[i];
+                    [titles addObject:model.category_name];
+                }
             }
             [header setUIWithTitleArray:titles.copy];
             [header reloadTitleViewWithIndex:_selectedIndex];
@@ -347,12 +361,10 @@
         {
             MEBaseVC *vc = [[MEBaseVC alloc] init];
             vc.title = @"详情";
-            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[model.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-
-            UITextView *tv = [[UITextView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
-            tv.attributedText = attributedString;
-            tv.editable = NO;
-            [vc.view addSubview:tv];
+            
+            UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
+            [webView loadHTMLString:model.content baseURL:nil];
+            [vc.view addSubview:webView];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -364,6 +376,12 @@
         case 8:
         {
             [self toTaoBaoActivityWithUrl:kMeUnNilStr(model.ad_url)];
+        }
+            break;
+        case 13:
+        {//跳拼多多推荐商品列表
+            MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithUrl:[NSString stringWithFormat:@"%@?ad_id=%@",MEIPcommonGetRecommendGoodsLit,model.ad_id]];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:
@@ -407,7 +425,7 @@
             NSString *str = [url stringByAppendingString:rid];
             ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
             webVC.showProgress = YES;
-            webVC.title = @"618狂欢主会场";
+            webVC.title = @"活动主会场";
             [webVC loadURL:[NSURL URLWithString:str]];
             [self.navigationController pushViewController:webVC animated:YES];
         }

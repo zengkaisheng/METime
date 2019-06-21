@@ -281,6 +281,7 @@
                 <outlet property="consSdHeight" destination="Fgm-Rh-C30" id="7dx-g0-t4C"/>
                 <outlet property="consSockRate" destination="qKW-Vc-wGC" id="eNU-4U-r3V"/>
                 <outlet property="consTitleHeight" destination="u2x-wR-6ar" id="FKS-EY-IGe"/>
+                <outlet property="endTimeLbl" destination="NaS-MC-vXc" id="tgI-65-t7l"/>
                 <outlet property="lblExpress" destination="TL4-NA-vmL" id="fn4-4J-Ldf"/>
                 <outlet property="lblHour" destination="dmp-ci-30p" id="Jbj-DW-fhJ"/>
                 <outlet property="lblMinite" destination="tT4-8h-9Wr" id="Ig7-mb-GTP"/>

@@ -366,7 +366,7 @@ const static CGFloat kImgStore = 50;
             NSString *str = [kMeUnNilStr(_homeModel.right_bottom_img.ad_url) stringByAppendingString:rid];
             ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
             webVC.showProgress = YES;
-            webVC.title = @"618狂欢主会场";
+            webVC.title = @"活动主会场";
             [webVC loadURL:[NSURL URLWithString:str]];
             [self.navigationController pushViewController:webVC animated:YES];
         }

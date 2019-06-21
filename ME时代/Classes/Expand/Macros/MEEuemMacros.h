@@ -218,7 +218,7 @@ typedef enum : NSUInteger {
 }  MEOrderTypeNetStyle;
 
 
-//type:1:9.9、2：时尚潮流、3人气爆款、4大额券、5特惠、6好货、7好券直播、8品牌
+//type:1:9.9、2：时尚潮流、3人气爆款、4大额券、5特惠、6好货、7好券直播、8品牌、9聚划算
 typedef enum : NSUInteger {
     MECouponSearch99BuyType = 1,
     MECouponSearchShiShangType = 2,
@@ -228,6 +228,7 @@ typedef enum : NSUInteger {
     MECouponSearchTopBuyType = 6,
     MECouponSearchGoodJuanType = 7,
     MECouponSearchPinPaiType = 8,
+    MECouponSearchJuHSType = 9,
 }  MECouponSearchType;
 
 //用户类型

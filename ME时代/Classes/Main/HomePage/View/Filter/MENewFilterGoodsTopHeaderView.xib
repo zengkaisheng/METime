@@ -56,7 +56,7 @@
                 <outlet property="titleButtonView" destination="IUr-aa-4wP" id="aTU-Jq-EOv"/>
                 <outlet property="titleViewConsHeight" destination="CvU-c7-u4U" id="MMP-XL-Ctv"/>
             </connections>
-            <point key="canvasLocation" x="-1652" y="97"/>
+            <point key="canvasLocation" x="-2457" y="91"/>
         </collectionReusableView>
     </objects>
 </document>

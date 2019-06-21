@@ -201,6 +201,8 @@
 #define MEIPcommonTaobaokeGetDgMaterialOptional @"common/taobaoke/dgMaterialOptional"
 //推广券信息查询
 #define MEIPcommonTaobaokeGetTbkCouponGet @"common/taobaoke/tbkCouponGet"
+//聚划算列表
+#define MEIPcommonTaobaokeGetTbkJuItemsSearch @"common/taobaoke/tbkJuItemsSearch"
 
 
 //查找用户渠道
@@ -660,6 +662,8 @@
 #define MEIPcommonGetYouxianBanner @"common/ad/getYouxianBanner"
 //获取新优选banner图（新）
 #define MEIPcommonGetYouxianBannerNew @"common/ad/getYouxianBannerNew"
+//获取聚划算banner图
+#define MEIPcommonGetSpecialSalsesBanner @"common/ad/specialSalsesBanner"
 /*********************************************/
 
 /*********************************************/

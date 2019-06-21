@@ -10,6 +10,7 @@
 #import "MECoupleModel.h"
 #import "MEJDCoupleModel.h"
 #import "MEPinduoduoCoupleModel.h"
+#import "MEJuHuaSuanCoupleModel.h"
 
 @interface MECoupleMailCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *imgPic;
@@ -126,6 +127,31 @@
     }
     NSString *strPrice = [NSString stringWithFormat:@"%.2f",price];
     _lblJuanPrice.text =[NSString stringWithFormat:@"¥%@", strPrice];
+}
+
+- (void)setJuHSWithModel:(MEJuHuaSuanCoupleModel *)model {
+    [_imgPic sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.pic_url_for_w_l)]] placeholderImage:kImgPlaceholder];
+    _lblTitle.text = kMeUnNilStr(model.title);
+    _lblSale.text = @"";
+//    [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.volume)];
+    //原价
+    _lblOrigalPrice.text =[NSString stringWithFormat:@"原价¥%@",@(kMeUnNilStr(model.orig_price).floatValue)];
+    //卷后价
+    NSString *fstr = [NSString stringWithFormat:@"卷后¥%.1f",kMeUnNilStr(model.act_price).floatValue];
+    NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
+    NSUInteger secondLoc = [[faString string] rangeOfString:@"¥"].location;
+    
+    NSRange range = NSMakeRange(0, secondLoc+1);
+    [faString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"PingFang-SC-Regular" size:11] range:range];
+    _lblJuanPrice.attributedText = faString;
+    //卷价格
+    _imgJuan.hidden = NO;
+    _lblJuan.hidden = NO;
+    _lblTitle.numberOfLines = 1;
+    _lblJuan.text =[NSString stringWithFormat:@"0元券"];
+    _lblOrigalPrice.hidden = NO;
+    _lblSale.hidden = NO;
+    _lblMaterSale.hidden = YES;
 }
 
 @end

@@ -177,12 +177,10 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             if(homeVC){
                 MEBaseVC *vc = [[MEBaseVC alloc] init];
                 vc.title = @"详情";
-                NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[model.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
                 
-                UITextView *tv = [[UITextView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
-                tv.attributedText = attributedString;
-                tv.editable = NO;
-                [vc.view addSubview:tv];
+                UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
+                [webView loadHTMLString:model.content baseURL:nil];
+                [vc.view addSubview:webView];
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
         }
@@ -242,7 +240,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             NSString *str = [url stringByAppendingString:rid];
             ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
             webVC.showProgress = YES;
-            webVC.title = @"618狂欢主会场";
+            webVC.title = @"活动主会场";
             [webVC loadURL:[NSURL URLWithString:str]];
             [homeVC.navigationController pushViewController:webVC animated:YES];
         }

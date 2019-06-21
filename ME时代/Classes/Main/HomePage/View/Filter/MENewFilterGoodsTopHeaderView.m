@@ -29,7 +29,14 @@
 
 - (void)setUIWithBackgroundImage:(NSString *)bgImage bannerImage:(nonnull NSArray *)bannerImages {
     
-    kSDLoadImg(_BGImageV,kMeUnNilStr(bgImage));
+    if (bannerImages.count <= 0) {
+        _sdView.hidden = YES;
+        kSDLoadImg(_BGImageV,kMeUnNilStr(bgImage));
+    }else {
+        _sdView.hidden = NO;
+        kSDLoadImg(_BGImageV,kMeUnNilStr(bgImage));
+    }
+    
     _sdView.contentMode = UIViewContentModeScaleAspectFill;
     _sdView.clipsToBounds = YES;
     _sdView.delegate = self;

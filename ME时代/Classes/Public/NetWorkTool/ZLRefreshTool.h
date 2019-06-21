@@ -56,6 +56,7 @@
 @property (nonatomic,assign) BOOL isGet;
 @property (nonatomic,assign) BOOL isFilter;
 @property (nonatomic,assign) BOOL isJD;
+@property (nonatomic,assign) BOOL isJuHS;
 
 
 - (instancetype ) initWithContentView:(UIScrollView *)scrollView url:(NSString *)url;

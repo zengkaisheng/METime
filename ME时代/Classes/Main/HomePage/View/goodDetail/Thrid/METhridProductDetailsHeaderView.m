@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIView *viewForStock;
 @property (strong, nonatomic) NSTimer *timer;
 @property (weak, nonatomic) IBOutlet UILabel *lblRate;
+@property (weak, nonatomic) IBOutlet UILabel *endTimeLbl;
 
 @end
 
@@ -144,6 +145,11 @@
                     int minute = (int)(timeout-days*24*3600-hours*3600)/60;
                     int second = timeout-days*24*3600-hours*3600-minute*60;
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        if (days > 0) {
+                            self.endTimeLbl.text = [NSString stringWithFormat:@"距离结束还剩%d天",days];
+                        }else {
+                            self.endTimeLbl.text = @"距离结束时间";
+                        }
                         if (hours<10) {
                             self.lblHour.text = [NSString stringWithFormat:@"0%d",hours];
                         }else{

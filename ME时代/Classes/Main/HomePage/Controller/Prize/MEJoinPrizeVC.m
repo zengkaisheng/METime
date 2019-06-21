@@ -16,8 +16,9 @@
 #import "MECheckAllPrizePeopleVC.h"
 #import "METhridProductDetailsVC.h"
 
-@interface MEJoinPrizeVC ()<UITableViewDelegate,UITableViewDataSource>
-
+@interface MEJoinPrizeVC ()<UITableViewDelegate,UITableViewDataSource>{
+    NSString *_imgUrl;
+}
 @property (nonatomic, copy) NSString *activityId;
 @property (nonatomic, strong) MEPrizeDetailsModel *model;
 @property (nonatomic, strong) UITableView *tableView;
@@ -45,7 +46,17 @@
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.headerView;
     [self requestNetWork];
+    [self getShareCode];
     [self.view addSubview:self.bottomView];
+}
+
+- (void)getShareCode{
+    kMeWEAKSELF
+    [MEPublicNetWorkTool getUserGetCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        strongSelf->_imgUrl = kMeUnNilStr(responseObject.data);
+    } failure:^(id object) {
+    }];
 }
 
 - (void)requestNetWork {
@@ -101,6 +112,32 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
+- (void)shareActionWithIndex:(NSInteger)index {
+    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+    NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+    baseUrl = [@"http" stringByAppendingString:baseUrl];
+    
+    //https://test.meshidai.com/cjsrc/newAuth.html?id=21&fid=88086&img=xxx.jpg
+    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@cjsrc/newAuth.html?id=%@&fid=%@&img=%@",baseUrl,_activityId,kMeUnNilStr(kCurrentUser.uid),_imgUrl];
+    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+    
+    shareTool.shareTitle = self.model.title;
+    shareTool.shareDescriptionBody = @"好友邀请您免费抽奖！";
+    shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.model.image]]];
+//    kMeGetAssetImage(@"icon-wgvilogo");
+    //    UMSocialPlatformType_WechatSession      = 1, //微信聊天
+    //    UMSocialPlatformType_WechatTimeLine     = 2,//微信朋友圈
+    [shareTool shareWebPageToPlatformType:index+1 success:^(id data) {
+        NSLog(@"分享成功%@",data);
+        [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+        [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+    } failure:^(NSError *error) {
+        NSLog(@"分享失败%@",error);
+        [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+    }];
+}
+
 //查看图文详情
 - (void)checkDetails {
     kMeWEAKSELF
@@ -181,7 +218,13 @@
                 [strongSelf checkAllPrizePeopleWithType:3];
             };
             cell.indexBlock = ^(NSInteger index) {
+                kMeSTRONGSELF
                 //0邀请好友 1分享到朋友圈
+                if (index) {
+                    [strongSelf shareActionWithIndex:1];
+                }else {
+                    [strongSelf shareActionWithIndex:0];
+                }
             };
             return cell;
         }
