@@ -42,14 +42,16 @@
 
 - (void)requestNetWork{
     kMeWEAKSELF
-    [MEPublicNetWorkTool postFetchSpecialSalesBannerWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+    [MEPublicNetWorkTool postFetchYouxianBannerWithsuccessBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         id data = responseObject.data;
-        if ([data isKindOfClass:[NSArray class]]) {
-            strongSelf->_banner_images = [MEAdModel mj_objectArrayWithKeyValuesArray:data];
-            [strongSelf.collectionView reloadData];
+        if ([data isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dict = (NSDictionary *)data;
+            strongSelf->_banner_images = [MEAdModel mj_objectArrayWithKeyValuesArray:dict[@"banner_middle"]];
+        }else {
+            strongSelf->_banner_images = [NSArray array];
         }
-        
+        [strongSelf.collectionView reloadData];
     } failure:^(id object) {
     }];
 }
@@ -133,6 +135,19 @@
 //banner图点击跳转
 - (void)cycleScrollViewDidSelectItemWithModel:(MEAdModel *)model {
     
+    if (model.is_need_login == 1) {
+        if(![MEUserInfoModel isLogin]){
+            kMeWEAKSELF
+            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                kMeSTRONGSELF
+                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+            } failHandler:^(id object) {
+                return;
+            }];
+            return;
+        }
+    }
+    
     switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
         case 1:
         {
@@ -178,7 +193,7 @@
             break;
         case 13:
         {//跳拼多多推荐商品列表
-            MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithUrl:[NSString stringWithFormat:@"%@?ad_id=%@",MEIPcommonGetRecommendGoodsLit,model.ad_id]];
+            MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;

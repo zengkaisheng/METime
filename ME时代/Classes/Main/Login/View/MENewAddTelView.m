@@ -148,11 +148,11 @@
 }
 
 - (IBAction)messageErrorAction:(id)sender {
-    [MEFillInvationCodeVC presentFillInvationCodeVCWithPhone:kMeUnNilStr(_tfNumber.text) captcha:kMeUnNilStr(_tfCaptcha.text) Code:@"" SuccessHandler:^(id object) {
-        [self hideWithBlock:self.finishBlock isSucess:true];
-    } failHandler:^(id object) {
-        
-    }];
+//    [MEFillInvationCodeVC presentFillInvationCodeVCWithPhone:kMeUnNilStr(_tfNumber.text) captcha:kMeUnNilStr(_tfCaptcha.text) Code:@"" SuccessHandler:^(id object) {
+//        [self hideWithBlock:self.finishBlock isSucess:true];
+//    } failHandler:^(id object) {
+//        
+//    }];
 }
 - (IBAction)messageRightAction:(id)sender {
     kMeWEAKSELF

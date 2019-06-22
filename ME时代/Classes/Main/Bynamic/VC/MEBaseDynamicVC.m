@@ -27,6 +27,7 @@
     //1 动态 2 每日爆款 3宣传素材
     NSInteger _type;
     NSString *_imgUrl;
+    NSString *_shareText;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -220,25 +221,18 @@
     
     MEBynamicHomeModel *model = self.refresh.arrData[index];
     
-    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-    NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
-    baseUrl = [@"http" stringByAppendingString:baseUrl];
-    
-    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@article.html?id=%@&img=%@",baseUrl,model.idField,_imgUrl];
-//    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
-    
-    shareTool.shareTitle = model.title;
-    shareTool.shareDescriptionBody = model.content;
-    shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
-    
-    [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
-        NSLog(@"分享成功%@",data);
-        [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-        [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-    } failure:^(NSError *error) {
-        NSLog(@"分享失败%@",error);
-        [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-    }];
+    if (model.skip_type == 1) {
+        kMeWEAKSELF
+        [MEPublicNetWorkTool postGoodsEncodeWithProductrId:[NSString stringWithFormat:@"%ld",model.product_id] successBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            strongSelf->_shareText = kMeUnNilStr(responseObject.data[@"share_text"]);
+            [strongSelf showShareViewWithModel:model];
+        } failure:^(id object) {
+        }];
+    }else {
+        _shareText = model.goods_title;
+        [self showShareViewWithModel:model];
+    }
     /*
      MEBynamicHomeModel *model = self.refresh.arrData[index];
      UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
@@ -295,6 +289,27 @@
      */
 }
 
+- (void)showShareViewWithModel:(MEBynamicHomeModel*)model {
+    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+    NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+    baseUrl = [@"http" stringByAppendingString:baseUrl];
+    
+    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@article.html?id=%@&img=%@&text=%@",baseUrl,model.idField,_imgUrl,_shareText];
+    //    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+    
+    shareTool.shareTitle = model.title;
+    shareTool.shareDescriptionBody = model.content;
+    shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
+    
+    [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
+        NSLog(@"分享成功%@",data);
+        [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+        [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+    } failure:^(NSError *error) {
+        NSLog(@"分享失败%@",error);
+        [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+    }];
+}
 
 - (void)shareAction{
     MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];

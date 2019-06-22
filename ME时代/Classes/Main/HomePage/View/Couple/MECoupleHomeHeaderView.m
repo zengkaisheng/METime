@@ -60,8 +60,15 @@
     _sdView.contentMode = UIViewContentModeScaleAspectFill;
     _sdView.clipsToBounds = YES;
     _sdView.imageURLStringsGroup = arrImage;
+    
+    if (Model.count <= 0) {
+        _sdView.hidden = YES;
+        _consSdViewHeight.constant = 0;
+    }else {
+        _sdView.hidden = NO;
+        _consSdViewHeight.constant = 150*kMeFrameScaleY();
+    }
 }
-
 
 - (void)initSD{
     _sdView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
@@ -119,6 +126,18 @@
     if(homevc){
         MEAdModel *model = _Model[index];
         
+        if (model.is_need_login == 1) {
+            if(![MEUserInfoModel isLogin]){
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    [strongSelf cycleScrollView:strongSelf->_sdView didSelectItemAtIndex:index];
+                } failHandler:^(id object) {
+                    return;
+                }];
+                return;
+            }
+        }
         if (kMeUnNilStr(model.keywork).length > 0) {
             if (_isTbk) {
                 MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] init];
@@ -154,6 +173,18 @@
 
 }
 
++ (CGFloat)getViewHeightWithisTKb:(BOOL)isTbk hasSdView:(BOOL)hasSdView {
+    if(isTbk){
+        CGFloat height = 0;
+        CGFloat sdHeight = (hasSdView?1:0.05)*150 *kMeFrameScaleX();
+        CGFloat imageW = (SCREEN_WIDTH - 12)/2;
+        CGFloat imageH = (imageW * 178)/364;
+        height = sdHeight + (imageH*2) +8;
+        return height;
+    }else{
+        return 150 *kMeFrameScaleX();;
+    }
+}
 
 
 

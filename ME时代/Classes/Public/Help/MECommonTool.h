@@ -45,9 +45,8 @@
 //检查版本
 + (void)checkVersion;
 + (void)newCheckVersion;
-+ (void)getUIPasteboardContent;
 //获取粘贴板优惠券信息
-+ (void)getUIPasteboardCouponData;
++ (void)getUIPasteboardContent;
 
 + (void)postAuthRegId;
 

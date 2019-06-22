@@ -104,83 +104,123 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getUnMeaasge) name:kUnMessage object:nil];
 }
 
-- (void)loadData{
-    kMeWEAKSELF
-    [MEPublicNetWorkTool getUserGetUserWithSuccessBlock:^(ZLRequestResponse *responseObject) {
-        NSLog(@"%@",kCurrentUser.uid);
-        kMeSTRONGSELF
-        switch (kCurrentUser.user_type) {
-            case 1:{
-                //B
-//                strongSelf->_arrtype = @[@[@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
-                
-                strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHometixian),@(MeHomejuanyngjing),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
-                strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
-            }
-                break;
-            case 2:{
-                //
-//                strongSelf->_arrtype = @[@[@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
-                strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomepinpaigli),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
-                strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
-            }
-                break;
-            case 4:{
-                //C
-//                strongSelf->_arrtype = @[@[@(MeMyDistribution),@(MeMyExchange),@(MeMyAppointment),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply)]];
-                strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyAppointment),@(MeMyExchange),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide)]];
-                strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
-            }
-                break;
-            case 3:{
-                //B
-//                strongSelf->_arrtype = @[@[@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor),@(MeAILEI)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
-                
-                if (kCurrentUser.audit.is_radar == 1) {
-                    strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeAILEI),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
-                    strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
-                }else if (kCurrentUser.audit.is_radar == 2) {
-                    strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeHometuigcode)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
-                    strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
-                }
-                
-            }
-                break;
-            case 5:{
-                //clerk
-//                                strongSelf->_arrtype = @[@[@(MeMyDistribution),@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor),@(MeAILEI)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
-                if (kCurrentUser.audit.is_radar == 1) {
-                    strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomemeiodu),@(MeHomeCorderall),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomeyuyue),@(MeHometixian),@(MeHomejuanyngjing),@(MeAILEI),@(Mehomeyongjitongji),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
-                    strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
-                }else if (kCurrentUser.audit.is_radar == 2) {
-                    strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomemeiodu),@(MeHomeCorderall),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomeyuyue),@(MeHometixian),@(MeHomejuanyngjing),@(Mehomeyongjitongji),@(MeHometuigcode)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
-                    strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
-                }
-            }
-                
-                break;
-            default:{
-                strongSelf->_arrtype = @[];
-                strongSelf->_arrtypeTitle = @[];
+- (void)showHUD {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];;
+    hud.mode = MBProgressHUDModeIndeterminate;
+    // 隐藏时候从父控件中移除
+    hud.removeFromSuperViewOnHide = YES;
+    // 1秒之后再消失
+    [hud hideAnimated:YES afterDelay:1.5];
+}
 
-            }
-                break;
-        }
-        if (kCurrentUser.user_type > 3) {
-            [strongSelf.headerView reloadUIWithUserInfo];
-            strongSelf.tableView.tableHeaderView = strongSelf.headerView;
-        }else {
-            [strongSelf.headerCodeView reloadUIWithUserInfo];
-            strongSelf.tableView.tableHeaderView = strongSelf.headerCodeView;
-        }
-        
-        [strongSelf.tableView reloadData];
-        [strongSelf.tableView.mj_header endRefreshing];
-    } failure:^(id object) {
-        kMeSTRONGSELF
-        [strongSelf.tableView.mj_header endRefreshing];
-    }];
+- (void)loadData{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];;
+    hud.mode = MBProgressHUDModeIndeterminate;
+    // 隐藏时候从父控件中移除
+    hud.removeFromSuperViewOnHide = YES;
     
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    kMeWEAKSELF
+    dispatch_group_async(group, queue, ^{
+        [MEPublicNetWorkTool getUserGetUserWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+            NSLog(@"%@",kCurrentUser.uid);
+            kMeSTRONGSELF
+            switch (kCurrentUser.user_type) {
+                case 1:{
+                    //B
+                    //                strongSelf->_arrtype = @[@[@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
+                    
+                    strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHometixian),@(MeHomejuanyngjing),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
+                    strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                }
+                    break;
+                case 2:{
+                    //
+                    //                strongSelf->_arrtype = @[@[@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
+                    strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomepinpaigli),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
+                    strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                }
+                    break;
+                case 4:{
+                    //C
+                    //                strongSelf->_arrtype = @[@[@(MeMyDistribution),@(MeMyExchange),@(MeMyAppointment),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply)]];
+                    strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyAppointment),@(MeMyExchange),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide)]];
+                    strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
+                }
+                    break;
+                case 3:{
+                    //B
+                    //                strongSelf->_arrtype = @[@[@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor),@(MeAILEI)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
+                    
+                    if (kCurrentUser.audit.is_radar == 1) {
+                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeAILEI),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
+                        strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                    }else if (kCurrentUser.audit.is_radar == 2) {
+                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeHometuigcode)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
+                        strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
+                    }
+                    
+                }
+                    break;
+                case 5:{
+                    //clerk
+                    //                                strongSelf->_arrtype = @[@[@(MeMyDistribution),@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor),@(MeAILEI)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
+                    if (kCurrentUser.audit.is_radar == 1) {
+                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomemeiodu),@(MeHomeCorderall),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomeyuyue),@(MeHometixian),@(MeHomejuanyngjing),@(MeAILEI),@(Mehomeyongjitongji),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
+                        strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                    }else if (kCurrentUser.audit.is_radar == 2) {
+                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomemeiodu),@(MeHomeCorderall),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomeyuyue),@(MeHometixian),@(MeHomejuanyngjing),@(Mehomeyongjitongji),@(MeHometuigcode)],@[@(MeMyAppointment),@(MeMyExchange),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide)]];
+                        strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
+                    }
+                }
+                    
+                    break;
+                default:{
+                    strongSelf->_arrtype = @[];
+                    strongSelf->_arrtypeTitle = @[];
+                    
+                }
+                    break;
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
+    dispatch_group_async(group, queue, ^{
+        [MEPublicNetWorkTool getUserInvitationCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+            kCurrentUser.invite_code = kMeUnNilStr(responseObject.data);
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
+    dispatch_group_notify(group, queue, ^{
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            kMeSTRONGSELF
+            [hud hideAnimated:YES];
+            if (strongSelf->_arrtypeTitle.count<=0 && strongSelf->_arrtype.count<=0) {
+                kNoticeUserLogout
+            }
+            if (kCurrentUser.user_type > 3) {
+                [strongSelf.headerView reloadUIWithUserInfo];
+                strongSelf.tableView.tableHeaderView = strongSelf.headerView;
+            }else {
+                [strongSelf.headerCodeView reloadUIWithUserInfo];
+                strongSelf.tableView.tableHeaderView = strongSelf.headerCodeView;
+            }
+            
+            [strongSelf.tableView reloadData];
+            [strongSelf.tableView.mj_header endRefreshing];
+        });
+    });
 }
 
 #pragma mark - tableView deleagte and sourcedata

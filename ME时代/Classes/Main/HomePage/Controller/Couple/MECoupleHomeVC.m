@@ -114,8 +114,25 @@
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
             dispatch_async(dispatch_get_main_queue(), ^{
                 kMeSTRONGSELF
+                UIView *tableHeaderView = strongSelf.tableView.tableHeaderView;
+                CGRect frame = tableHeaderView.frame;
+                [tableHeaderView removeFromSuperview];
+                strongSelf.tableView.tableHeaderView = nil;
+
                 [strongSelf->_headerView setUiWithModel:strongSelf->_arrAdv isTKb:strongSelf->_isTBk];
-                [strongSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:0];
+                if (strongSelf->_arrAdv.count <= 0) {
+//                    strongSelf->_headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MECoupleHomeHeaderView getViewHeightWithisTKb:strongSelf->_isTBk hasSdView:NO]);
+                    frame.size.height = [MECoupleHomeHeaderView getViewHeightWithisTKb:strongSelf->_isTBk hasSdView:NO];// 新高度
+                }else {
+//                    strongSelf->_headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MECoupleHomeHeaderView getViewHeightWithisTKb:strongSelf->_isTBk hasSdView:YES]);
+                    frame.size.height = [MECoupleHomeHeaderView getViewHeightWithisTKb:strongSelf->_isTBk hasSdView:YES];// 新高度
+                }
+                
+                tableHeaderView.frame = frame;
+                strongSelf.tableView.tableHeaderView = tableHeaderView;
+                
+                [strongSelf.tableView reloadData];
+//                [strongSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:0];
             });
         });
 }
@@ -158,23 +175,7 @@
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if(section == 0){
-        return [UIView new];
-    }
-    CGFloat imageh = (SCREEN_WIDTH*80)/750;
-    UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goodgoods"]];
-    img.frame = CGRectMake(0, 0, SCREEN_WIDTH, imageh);
-    return img;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if(section == 0){
-        return 0.1;
-    }
-    return (SCREEN_WIDTH*80)/750;
-}
-
+#pragma mark --TableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
@@ -185,6 +186,23 @@
     }else{
         return 1;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if(section == 0){
+        return 0.1;
+    }
+    return (SCREEN_WIDTH*80)/750;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if(section == 0){
+        return [UIView new];
+    }
+    CGFloat imageh = (SCREEN_WIDTH*80)/750;
+    UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goodgoods"]];
+    img.frame = CGRectMake(0, 0, SCREEN_WIDTH, imageh);
+    return img;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -272,7 +290,7 @@
 - (MECoupleHomeHeaderView *)headerView{
     if(!_headerView){
         _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MECoupleHomeHeaderView" owner:nil options:nil] lastObject];
-        _headerView.frame =CGRectMake(0, 0, SCREEN_WIDTH, [MECoupleHomeHeaderView getViewHeightWithisTKb:_isTBk]);
+        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MECoupleHomeHeaderView getViewHeightWithisTKb:_isTBk]);
         [_headerView setUiWithModel:@[] isTKb:_isTBk];
     }
     return _headerView;

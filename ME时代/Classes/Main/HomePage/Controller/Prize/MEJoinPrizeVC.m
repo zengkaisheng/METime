@@ -174,6 +174,11 @@
     }
     
     MECheckAllPrizePeopleVC *vc = [[MECheckAllPrizePeopleVC alloc] initWithType:type count:count activityId:self.model.idField];
+    kMeWEAKSELF
+    vc.reloadBlock = ^{
+        kMeSTRONGSELF
+        [strongSelf requestNetWork];
+    };
     [self.navigationController pushViewController:vc animated:YES];
 }
 

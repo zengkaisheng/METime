@@ -12,7 +12,7 @@
 
 - (instancetype)initWithQuery:(NSString *)query;
 - (instancetype)initWithType:(MECouponSearchType)type;
-- (instancetype)initWithUrl:(NSString *)url;
+- (instancetype)initWithAdId:(NSString *)adId;
 
 @property (nonatomic,copy) NSString *titleStr;
 

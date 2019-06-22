@@ -1799,6 +1799,22 @@
         kMeCallBlock(failure,error);
     }];
 }
+//是否显示优选me的banner和分类是否显示
++ (void)postGetYouxuanAdGoodsShowWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{};
+    NSString *url = kGetApiWithUrl(MEIPcommonGetYouxuanAdGoodsShow);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
 
 + (void)postFetchYouxianBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"tool":@"1",
@@ -2236,18 +2252,44 @@
 
 + (void)getUserGetUserWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSString *url = kGetApiWithUrl(MEIPcommonGetUser);
-    MBProgressHUD *HUD = [self commitWithHUD:@""];
+//    MBProgressHUD *HUD = [self commitWithHUD:@""];
     [THTTPManager getWithParameter:@{@"token":kMeUnNilStr(kCurrentUser.token),@"uid":kMeUnNilStr(kCurrentUser.uid)} strUrl:url success:^(ZLRequestResponse *responseObject) {
-        [HUD hideAnimated:YES];
+//        [HUD hideAnimated:YES];
         [kCurrentUser setterWithDict:responseObject.data];
         [kCurrentUser save];
         kMeCallBlock(successBlock,responseObject);
     } failure:^(id error) {
         if([error isKindOfClass:[ZLRequestResponse class]]){
             ZLRequestResponse *res = (ZLRequestResponse*)error;
-            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
         }else{
-            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
+            });
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
++ (void)getUserInvitationCodeWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{
+                          @"token":kMeUnNilStr(kCurrentUser.token),
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonGetInvitationCode);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
+            });
         }
         kMeCallBlock(failure,error);
     }];
@@ -2897,6 +2939,49 @@
         kMeCallBlock(failure,error);
     }];
 }
+//通过邀请码查询上级信息
++ (void)postGetCodeMsgWithInvitationCode:(NSString *)code  successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{
+                          @"invitation_code":kMeUnNilStr(code),
+                          @"token":kMeUnNilStr(kCurrentUser.token)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPGetCodeMsg);
+    MBProgressHUD *HUD = [self commitWithHUD:@"信息获取中..."];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+         [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
+//邀请码绑定关系
++ (void)postGetBindingParentWithInvitationCode:(NSString *)code  successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{
+                          @"invitation_code":kMeUnNilStr(code),
+                          @"token":kMeUnNilStr(kCurrentUser.token)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPGetBindingParent);
+    MBProgressHUD *HUD = [self commitWithHUD:@"正在绑定..."];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
 
 + (void)postGetAPPVersionWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSString *url = kGetApiWithUrl(MEIPGetAPPVersion);
@@ -3065,6 +3150,28 @@
         //        [MEShowViewTool SHOWHUDWITHHUD:HUD test:@"兑换成功"];
         kMeCallBlock(successBlock,responseObject);
     } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//查看全部总数
++ (void)postPrizeJoinUserCountWithActivityId:(NSString *)activityId lookType:(NSString *)lookType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"activity_id":activityId,
+                          @"look_type":lookType
+                          };
+    NSString *url = kGetApiWithUrl(MEIPCommonPrizeJoinUserCount);
+//    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+//        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        MBProgressHUD *HUD = [self commitWithHUD:@""];
         if([error isKindOfClass:[ZLRequestResponse class]]){
             ZLRequestResponse *res = (ZLRequestResponse*)error;
             [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];

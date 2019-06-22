@@ -17,12 +17,13 @@
     NSString *_queryStr;
     MECouponSearchType _type;
     NSInteger _material_id;
-    NSString *_url;
+    NSString *_ad_id;
 }
 
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property (nonatomic, strong) ZLRefreshTool         *refresh;
 @property (nonatomic, assign) BOOL isMater;
+@property (nonatomic, assign) BOOL isPDD;
 
 @end
 
@@ -36,9 +37,10 @@
     return self;
 }
 
-- (instancetype)initWithUrl:(NSString *)url{//拼多多推荐商品
+- (instancetype)initWithAdId:(NSString *)adId{//拼多多推荐商品
     if(self = [super init]){
-        _url = url;
+        _ad_id = adId;
+        _isPDD = YES;
         _isMater = YES;
     }
     return self;
@@ -117,7 +119,7 @@
             self.title = kMeUnNilStr(self.titleStr);
         }else{
            self.title = str;
-            if (_url) {
+            if (self.isPDD) {
                 self.title = @"推荐商品";
             }
         }
@@ -138,11 +140,13 @@
         if (_type == MECouponSearchJuHSType) {
             return @{@"need_free_shipment":@"true",
                      @"need_prepay":@"true",
-                     @"include_good_rate":@"true",
-                     @"tk_rate":@"tk_rate_des"
+                     @"include_good_rate":@"true"
                      };
         }
-        if (_url.length > 0) {
+        if (self.isPDD) {
+            if (_ad_id.length > 0) {
+                return @{@"ad_id":_ad_id};
+            }
             return @{};
         }
         if (_material_id != 0) {
@@ -159,19 +163,18 @@
     if(![data isKindOfClass:[NSArray class]]){
         return;
     }
-    if (_url.length > 0) {
+    if (self.isPDD) {
         [self.refresh.arrData addObjectsFromArray:[MEPinduoduoCoupleModel mj_objectArrayWithKeyValuesArray:data]];
     }else {
         [self.refresh.arrData addObjectsFromArray:[MECoupleModel mj_objectArrayWithKeyValuesArray:data]];
     }
 }
 
-
 #pragma mark- CollectionView Delegate And DataSource
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if(_isMater){
-        if (_url.length > 0) {
+        if (self.isPDD) {
             MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
             MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc] initWithPinduoudoModel:model];
             [self.navigationController pushViewController:vc animated:YES];
@@ -193,7 +196,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MECoupleMailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MECoupleMailCell class]) forIndexPath:indexPath];
-    if (_url.length > 0) {
+    if (self.isPDD) {
         MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
         [cell setpinduoduoUIWithModel:model];
     }else {
@@ -202,7 +205,6 @@
     }
     return cell;
 }
-
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return CGSizeMake(kMECoupleMailCellWdith, kMECoupleMailCellHeight);
@@ -243,8 +245,8 @@
     if(!_refresh){
         NSString *str = MEIPcommonTaobaokeGetCoupon;
         if(_isMater){
-            if (_url.length > 0) {
-                str = _url;
+            if (self.isPDD) {
+                str = MEIPcommonGetRecommendGoodsLit;
             }else {
 //                if (_type == MECouponSearchJuHSType) {
 //                    str = MEIPcommonTaobaokeGetTbkJuItemsSearch;
@@ -257,7 +259,7 @@
         _refresh = [[ZLRefreshTool alloc]initWithContentView:self.collectionView url:kGetApiWithUrl(str)];
         _refresh.delegate = self;
         if(_isMater){
-            if (_url.length > 0) {
+            if (self.isPDD) {
                 _refresh.isPinduoduoCoupleMater = YES;
                 _refresh.isFilter = YES;
             }else {

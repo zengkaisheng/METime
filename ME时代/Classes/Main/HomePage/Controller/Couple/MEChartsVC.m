@@ -194,7 +194,11 @@
     }
     //jiagedown  jiagenomal  jiageup
     [siftBtn setTag:tag];
-    [siftBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:-70];
+    if ([title isEqualToString:@"优惠券"]) {
+        [siftBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:-95];
+    }else {
+        [siftBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:-70];
+    }
     [siftBtn addTarget:self action:@selector(siftBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     siftBtn.backgroundColor = [UIColor whiteColor];
     
@@ -206,7 +210,7 @@
     if (!_siftView) {
         _siftView = [[UIView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight + 1, SCREEN_WIDTH, 39)];
         _siftView.backgroundColor = [UIColor whiteColor];
-        NSArray *titles = @[@"综合",@"佣金",@"销量",@"价格"];
+        NSArray *titles = @[@"综合",@"优惠券",@"销量",@"价格"];
         CGFloat itemW = SCREEN_WIDTH / titles.count;
         for (int i = 0; i < titles.count; i++) {
             UIButton *siftBtn = [self createSiftButtomWithTitle:titles[i] tag:100+i];

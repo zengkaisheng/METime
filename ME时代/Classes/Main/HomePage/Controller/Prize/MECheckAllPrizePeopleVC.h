@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECheckAllPrizePeopleVC : MEBaseVC
 
+@property (nonatomic,copy) kMeBasicBlock reloadBlock;
 - (instancetype)initWithType:(NSInteger)type count:(NSInteger)count activityId:(NSInteger)activityId;
 
 @end

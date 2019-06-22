@@ -124,6 +124,8 @@ static NSString *kTokenKey = @"kTokenKey";
 //邀请码，体验店以上才显示
 @property (nonatomic, copy) NSString *invite_code;
 
+@property (nonatomic, assign) NSInteger is_invitation;
+
 //个人中心C端
 //@property (nonatomic, assign) NSInteger admin_team;
 //@property (nonatomic, assign) CGFloat ratio_money;

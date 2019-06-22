@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEFillInvationCodeVC : MEBaseVC
 
-+ (void)presentFillInvationCodeVCWithPhone:(NSString *)phone captcha:(NSString *)captcha Code:(NSString *)codeStr SuccessHandler:(kMeObjBlock)blockSuccess failHandler:(kMeObjBlock)blockFail;
++ (void)presentFillInvationCodeVCWithSuccessHandler:(kMeObjBlock)blockSuccess failHandler:(kMeObjBlock)blockFail;
 
 @property (strong, nonatomic) kMeObjBlock blockSuccess;
 @property (strong, nonatomic) kMeObjBlock blockFail;

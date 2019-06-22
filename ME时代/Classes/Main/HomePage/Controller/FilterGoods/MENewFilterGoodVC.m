@@ -34,6 +34,7 @@
     NSArray *_banner_midddle_images;
     NSString *_category_id;
     NSInteger _selectedIndex;
+    BOOL _is_show;
 }
 
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -56,6 +57,7 @@
     _banner_images = [NSArray array];
     _banner_midddle_images = [NSArray array];
     _category_id = @"";
+    _is_show = NO;
     _selectedIndex = 0;
     
     [self.view addSubview:self.collectionView];
@@ -148,9 +150,21 @@
             dispatch_semaphore_signal(semaphore);
         }];
     });
+    //控制原商品显示隐藏
+    dispatch_group_async(group, queue, ^{
+        kMeWEAKSELF//category_id
+        [MEPublicNetWorkTool postGetYouxuanAdGoodsShowWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            strongSelf->_is_show = [responseObject.data[@"is_show"] integerValue]==1?YES:NO;
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
     
     kMeWEAKSELF
     dispatch_group_notify(group, queue, ^{
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -193,7 +207,10 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (section == 0) {
-        return _productArr.count;
+        if (_is_show) {
+            return _productArr.count;
+        }
+        return 0;
     }
     return self.refresh.arrData.count;
 }
@@ -225,32 +242,45 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        if (_banner_images.count > 0) {
-            if (_filterArr.count > 1) {
-                return CGSizeMake(SCREEN_WIDTH, 223*kMeFrameScaleY() + 46);
+        if (_is_show) {
+            if (_banner_images.count > 0) {
+                if (_filterArr.count > 1) {
+                    return CGSizeMake(SCREEN_WIDTH, 243*kMeFrameScaleY() + 46);
+                }else {
+                    return CGSizeMake(SCREEN_WIDTH, 243*kMeFrameScaleY());
+                }
             }else {
-                return CGSizeMake(SCREEN_WIDTH, 223*kMeFrameScaleY());
+                if (_filterArr.count > 1) {
+                    return CGSizeMake(SCREEN_WIDTH, 92*kMeFrameScaleY() + 46);
+                }else {
+                    return CGSizeMake(0, 0);
+                }
             }
         }else {
-            if (_filterArr.count > 1) {
-                return CGSizeMake(SCREEN_WIDTH, 73*kMeFrameScaleY() + 46);
-            }else {
-                return CGSizeMake(SCREEN_WIDTH, 73*kMeFrameScaleY());
-            }
+            return CGSizeMake(0, 0);
         }
     }
-    if (_banner_midddle_images.count > 0) {
-        return CGSizeMake(SCREEN_WIDTH, 167);
+    
+    if (_is_show) {
+        return CGSizeMake(SCREEN_WIDTH, 167*kMeFrameScaleY());
+    }else {
+        if (_banner_midddle_images.count > 0) {
+            return CGSizeMake(SCREEN_WIDTH, (167+92)*kMeFrameScaleY());
+        }else {
+            return CGSizeMake(SCREEN_WIDTH, 92*kMeFrameScaleY());
+        }
     }
-    return CGSizeMake(0, 0);
+//    return CGSizeMake(SCREEN_WIDTH, 92*kMeFrameScaleY());
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
      UICollectionReusableView *headerView = nil;
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        if (indexPath.section == 0) {
+//        if (indexPath.section == 0) {
             MENewFilterGoodsTopHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsTopHeaderView class]) forIndexPath:indexPath];
-            [header setUIWithBackgroundImage:kMeUnNilStr(_top_banner_image) bannerImage:_banner_images];
+        
+        if (indexPath.section == 0) {
+            [header setUIWithBackgroundImage:kMeUnNilStr(_top_banner_image) bannerImage:kMeUnArr(_banner_images) hasTop:_is_show isTop:YES];
             NSMutableArray *titles = [[NSMutableArray alloc] init];
             if (_filterArr.count > 0) {
                 for (int i = 0; i < _filterArr.count; i++) {
@@ -264,23 +294,28 @@
             header.titleSelectedIndexBlock = ^(NSInteger index) {
                 [weakSelf reloadProductsWithIndex:index isTop:NO];
             };
-            header.selectedIndexBlock = ^(NSInteger index) {
-                kMeSTRONGSELF
-                MEAdModel *model = strongSelf->_banner_images[index];
-                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
-            };
-            headerView = header;
-        }else if (indexPath.section == 1) {
-            MENewFilterGoodsMiddleBannerView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsMiddleBannerView class]) forIndexPath:indexPath];
-            [header setUIWithImages:_banner_midddle_images];
-            kMeWEAKSELF
+        }else {
+            [header setUIWithBackgroundImage:kMeUnNilStr(_top_banner_image) bannerImage:kMeUnArr(_banner_midddle_images) hasTop:_is_show isTop:NO];
+            [header setUIWithTitleArray:@[]];
+        }
+        kMeWEAKSELF
             header.selectedIndexBlock = ^(NSInteger index) {
                 kMeSTRONGSELF
                 MEAdModel *model = strongSelf->_banner_midddle_images[index];
                 [strongSelf cycleScrollViewDidSelectItemWithModel:model];
             };
             headerView = header;
-        }
+//        }else if (indexPath.section == 1) {
+//            MENewFilterGoodsMiddleBannerView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsMiddleBannerView class]) forIndexPath:indexPath];
+//            [header setUIWithImages:_banner_midddle_images];
+//            kMeWEAKSELF
+//            header.selectedIndexBlock = ^(NSInteger index) {
+//                kMeSTRONGSELF
+//                MEAdModel *model = strongSelf->_banner_midddle_images[index];
+//                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+//            };
+//            headerView = header;
+//        }
     }
     return headerView;
 }
@@ -293,9 +328,13 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-//    if (section == 0) {
-//        return UIEdgeInsetsMake(kMEGoodsMargin*1.5, kMEGoodsMargin*1.5, kMEGoodsMargin*1.5, kMEGoodsMargin*1.5);
-//    }
+    if (section == 0 ) {
+        if (!_is_show) {
+            return UIEdgeInsetsMake(0, kMEGoodsMargin, 0, kMEGoodsMargin);
+        }else {
+            return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin);
+        }
+    }
     return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin);
 }
 
@@ -315,21 +354,34 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([scrollView isEqual:self.collectionView]) {
-        if (_filterArr.count > 1) {
-            
-            if (scrollView.contentOffset.y >= 223*kMeFrameScaleY()-kMeStatusBarHeight) {
-                self.navView.hidden = NO;
+        if (_is_show) {
+            if (_filterArr.count > 1) {
+                if (scrollView.contentOffset.y >= 243*kMeFrameScaleY()-kMeStatusBarHeight) {
+                    self.navView.hidden = NO;
+                }else {
+                    self.navView.hidden = YES;
+                }
             }else {
                 self.navView.hidden = YES;
             }
-        }else {
-            self.navView.hidden = YES;
         }
     }
 }
 //banner图点击跳转
 - (void)cycleScrollViewDidSelectItemWithModel:(MEAdModel *)model {
     
+    if (model.is_need_login == 1) {
+        if(![MEUserInfoModel isLogin]){
+            kMeWEAKSELF
+            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                kMeSTRONGSELF
+                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+            } failHandler:^(id object) {
+                return;
+            }];
+            return;
+        }
+    }
     switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
         case 1:
         {
@@ -380,7 +432,7 @@
             break;
         case 13:
         {//跳拼多多推荐商品列表
-            MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithUrl:[NSString stringWithFormat:@"%@?ad_id=%@",MEIPcommonGetRecommendGoodsLit,model.ad_id]];
+            MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;

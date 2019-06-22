@@ -77,6 +77,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (_todayData.count == 0 && self.refresh.arrData.count == 0) {
+        self.refresh.showFailView = YES;
+    }else {
+        self.refresh.showFailView = NO;
+    }
     if (section == 0) {
         return _todayData.count;
     }
@@ -104,6 +109,22 @@
         [strongSelf.navigationController pushViewController:vc animated:YES];
     };
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MEPrizeListModel *model;
+    if (indexPath.section == 0) {
+        model = _todayData[indexPath.row];
+    }else {
+        model = self.refresh.arrData[indexPath.row];
+    }
+    MEJoinPrizeVC *vc = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",model.idField]];
+    kMeWEAKSELF
+    vc.finishBlock = ^{
+        kMeSTRONGSELF
+        [strongSelf.refresh reload];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -161,8 +182,11 @@
         _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPCommonPrizeHistory)];
         _refresh.delegate = self;
         _refresh.isDataInside = YES;
-        _refresh.showFailView = NO;
-        //        _refresh.showMaskView = YES;
+        _refresh.showFailView = YES;
+//        _refresh.showMaskView = YES;
+        [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
+            failView.lblOfNodata.text = @"敬请期待";
+        }];
     }
     return _refresh;
 }

@@ -7,11 +7,13 @@
 //
 
 #import "MEWxLoginVC.h"
-#import "MENewAddTelView.h"
+#import "MEAddTelView.h"
 #import "MEWxAuthModel.h"
 #import "JPUSHService.h"
 #import "AppDelegate.h"
 #import "MECompandNoticeVC.h"
+
+#import "MEFillInvationCodeVC.h"
 
 @interface MEWxLoginVC (){
     BOOL _isNewUser;
@@ -21,7 +23,7 @@
 @property (assign, nonatomic) BOOL isShowCancel;
 @property (weak, nonatomic) IBOutlet UIButton *btnWxLogin;
 @property (weak, nonatomic) IBOutlet UIButton *btnReturn;
-@property (strong, nonatomic) MENewAddTelView *addTelVIew;
+@property (strong, nonatomic) MEAddTelView *addTelVIew;
 
 @end
 
@@ -154,9 +156,23 @@
 //判断是否已经绑定手机号
 - (void)inJuicAddPhone:(BOOL)isAadd{
     if(isAadd){
-        [self loginSuccess];
+        [self showInvitationCodeView:kCurrentUser.is_invitation == 1?NO:YES];
     }else{
         [self.addTelVIew show];
+    }
+}
+
+- (void)showInvitationCodeView:(BOOL)needShow {
+    if (needShow) {
+        kMeWEAKSELF
+        [MEFillInvationCodeVC presentFillInvationCodeVCWithSuccessHandler:^(id object) {
+            kMeSTRONGSELF
+            [strongSelf loginSuccess];
+        } failHandler:^(id object) {
+             [MEUserInfoModel logout];
+        }];
+    }else {
+        [self loginSuccess];
     }
 }
 
@@ -179,18 +195,19 @@
     [kMeApplication registerForRemoteNotifications];
 }
 
-- (MENewAddTelView *)addTelVIew{
+- (MEAddTelView *)addTelVIew{
     if(!_addTelVIew){
-        _addTelVIew = [[[NSBundle mainBundle]loadNibNamed:@"MENewAddTelView" owner:nil options:nil] lastObject];
+        _addTelVIew = [[[NSBundle mainBundle]loadNibNamed:@"MEAddTelView" owner:nil options:nil] lastObject];
         _addTelVIew.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         kMeWEAKSELF
         _addTelVIew.finishBlock = ^(BOOL sucess) {
             kMeSTRONGSELF
             if(sucess){//确认无误
-                [strongSelf loginSuccess];
+                [strongSelf showInvitationCodeView:YES];
             }else{//信息错误
-                //                [kCurrentUser removeFromLocalData];
-                //                [strongSelf loginFail];
+                [MEUserInfoModel logout];
+//                                [kCurrentUser removeFromLocalData];
+//                                [strongSelf loginFail];
             }
         };
     }

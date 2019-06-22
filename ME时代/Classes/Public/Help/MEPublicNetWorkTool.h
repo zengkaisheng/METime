@@ -329,8 +329,10 @@
 + (void)postFetchProductsWithCategoryId:(NSString *)categoryId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //新优选获取banner图（5-30）
 + (void)postFetchYouxianBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
-//平拍特卖获取banner图(新)
+//品牌特卖获取banner图(新)
 + (void)postFetchSpecialSalesBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//是否显示优选me的banner和分类是否显示
++ (void)postGetYouxuanAdGoodsShowWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
 
 
@@ -390,6 +392,8 @@
 + (void)getUserCountListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取用户信息
 + (void)getUserGetUserWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取用户的邀请码
++ (void)getUserInvitationCodeWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //一键已读
 + (void)getUseAllReadedInfoWithType:(NSInteger)type SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //首页获取未读的推送信息
@@ -455,6 +459,10 @@
 + (void)postaddPhoneWithPhone:(NSString *)phone code:(NSString*)code invate:(NSString*)invate successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //修改手机号
 + (void)posteditPhoneWithPhone:(NSString *)phone code:(NSString*)code new_phone:(NSString*)new_phone successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//通过邀请码查询上级信息
++ (void)postGetCodeMsgWithInvitationCode:(NSString *)code  successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//邀请码绑定关系
++ (void)postGetBindingParentWithInvitationCode:(NSString *)code  successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取赠送小程序的到期时间
 + (void)postExpMiniprogramAtWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //APP分享成功
@@ -491,6 +499,8 @@
 + (void)postCheckPrizeContentWithActivityId:(NSString *)activityId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //领取抽奖商品
 + (void)postCreatePrizeOrderWithAttrModel:(MEMakeOrderAttrModel *)attrModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//查看全部总数
++ (void)postPrizeJoinUserCountWithActivityId:(NSString *)activityId lookType:(NSString *)lookType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
 
 

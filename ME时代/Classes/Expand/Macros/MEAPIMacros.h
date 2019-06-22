@@ -11,7 +11,7 @@
 
 #warning -mustNotes 上线一定要注释/海报分享产品分享
 
-#define TestVersion
+//#define TestVersion
 
 //域名 develop
 #ifdef TestVersion
@@ -535,6 +535,9 @@
 //获取用户信息
 #define MEIPcommonGetUser @"common/user/getUser"
 
+//获取用户的邀请码
+#define MEIPcommonGetInvitationCode @"common/user/getInvitationCode"
+
 //获客图文-海报
 #define MEIPcommonposterspostersVisitList @"common/posters/postersVisitList"
 //获客图文-文章
@@ -592,7 +595,8 @@
 #define MEIPCommonPrizeJoinUserList @"common/prize/prizeJoinUserList"
 //领取抽奖商品
 #define MEIPCommonPrizeCreateOrder @"common/prize/createOrder"
-
+//查看全部总数
+#define MEIPCommonPrizeJoinUserCount @"common/prize/prizeJoinUserCount"
 /*********************************************/
 
 /*********************************************/
@@ -657,6 +661,8 @@
 #define MEIPcommonAddressDelAddres @"common/address/delAddress"
 //搜索产品
 #define MEIPcommonFindGoods @"common/goods/findGoods"
+//是否显示优选me的banner和分类是否显示
+#define MEIPcommonGetYouxuanAdGoodsShow @"common/web/getYouxuanAdGoodsShow"
 
 //获取新优选banner图
 #define MEIPcommonGetYouxianBanner @"common/ad/getYouxianBanner"
@@ -682,6 +688,11 @@
 #define MEIPaddPhone @"weapp/user/addPhone"
 //修改手机号
 #define MEIPeditPhone @"app/user/editPhone"
+
+//通过邀请码查询上级信息
+#define MEIPGetCodeMsg @"common/user/getCodeMsg"
+//邀请码绑定关系
+#define MEIPGetBindingParent @"common/user/bindingParent"
 
 #define MEIPAddShare @"app/user/addShare"
 //获取权益

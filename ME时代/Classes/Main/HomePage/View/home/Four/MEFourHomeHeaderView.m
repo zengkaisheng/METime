@@ -195,7 +195,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             break;
         case 13:
         {//跳拼多多推荐商品列表
-            MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithUrl:[NSString stringWithFormat:@"%@?ad_id=%@",MEIPcommonGetRecommendGoodsLit,model.ad_id]];
+            MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
             [homeVC.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -344,8 +344,17 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
                 break; 
             case METhridHomeHeaderViewActiveSignInType:
             {
-                MEPrizeListVC *prizeVC = [[MEPrizeListVC alloc] init];
-                [homeVC.navigationController pushViewController:prizeVC animated:YES];
+                if([MEUserInfoModel isLogin]){
+                    MEPrizeListVC *prizeVC = [[MEPrizeListVC alloc] init];
+                    [homeVC.navigationController pushViewController:prizeVC animated:YES];
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        MEPrizeListVC *prizeVC = [[MEPrizeListVC alloc] init];
+                        [homeVC.navigationController pushViewController:prizeVC animated:YES];
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }   
             }
                 break;
             default:

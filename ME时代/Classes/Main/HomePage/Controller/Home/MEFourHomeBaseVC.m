@@ -23,11 +23,14 @@
 #import "MEFourHomeTopHeaderView.h"
 #import "MEFourHomeGoodGoodFilterHeaderView.h"
 #import "MEFourHomeGoodGoodMainHeaderView.h"
+#import "MESpecialSaleHeaderView.h"
 
 #import "METhridProductDetailsVC.h"
 #import "MEHomeAddRedeemcodeVC.h"
 #import "MECoupleMailDetalVC.h"
 #import "ZLWebViewVC.h"
+#import "MEServiceDetailsVC.h"
+#import "MECoupleMailVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?10:7.5)*kMeFrameScaleX())
 #define kMEThridHomeNavViewHeight (((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 129 : 107))
@@ -41,6 +44,7 @@ const static CGFloat kImgStore = 50;
     MEStoreModel *_stroeModel;
     MEHomeRecommendAndSpreebuyModel *_spreebugmodel;
     NSArray *_arrDicParm;
+    NSArray *_arrPPTM;
 }
 
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -68,6 +72,7 @@ const static CGFloat kImgStore = 50;
     self.navBarHidden = YES;
     [self.view addSubview:self.collectionView];
     _arrHot = [NSArray array];
+    _arrPPTM = [NSArray array];
     _homeModel = [METhridHomeModel new];
     
     [self.refresh addRefreshView];
@@ -200,8 +205,23 @@ const static CGFloat kImgStore = 50;
         }];
     });
     
+    dispatch_group_async(group, queue, ^{
+        [MEPublicNetWorkTool postFetchSpecialSalesBannerWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            id data = responseObject.data;
+            if ([data isKindOfClass:[NSArray class]]) {
+                strongSelf->_arrPPTM = [MEAdModel mj_objectArrayWithKeyValuesArray:data];
+            }else {
+                strongSelf->_arrPPTM = [NSArray array];
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
     
     dispatch_group_notify(group, queue, ^{
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -271,7 +291,7 @@ const static CGFloat kImgStore = 50;
     //    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     kMeWEAKSELF
     if([MEUserInfoModel isLogin]){
-        [weakSelf checkRelationId];
+        [weakSelf checkRelationIdWithUrl:nil];
     }else {
         [MELoginVC presentLoginVCWithSuccessHandler:^(id object) {
             kMeSTRONGSELF
@@ -280,24 +300,118 @@ const static CGFloat kImgStore = 50;
     }
 }
 
-- (void)checkRelationId {
-    if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
-        [self obtainTaoBaoAuthorize];
-    }else{
-        if (kMeUnNilStr(_homeModel.right_bottom_img.ad_url).length > 0) {
-            NSString *rid = [NSString stringWithFormat:@"&relationId=%@",kCurrentUser.relation_id];
-            NSString *str = [kMeUnNilStr(_homeModel.right_bottom_img.ad_url) stringByAppendingString:rid];
+//banner图点击跳转
+- (void)cycleScrollViewDidSelectItemWithModel:(MEAdModel *)model {
+    
+    if (model.is_need_login == 1) {
+        if(![MEUserInfoModel isLogin]){
+            kMeWEAKSELF
+            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                kMeSTRONGSELF
+                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+            } failHandler:^(id object) {
+                return;
+            }];
+            return;
+        }
+    }
+    switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
+        case 1:
+        {
+            METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        case 2:
+        {
+            MEServiceDetailsVC *dvc = [[MEServiceDetailsVC alloc]initWithId:model.product_id];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        case 3:
+        {
             ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
             webVC.showProgress = YES;
-            webVC.title = @"活动主会场";
-            [webVC loadURL:[NSURL URLWithString:str]];
+            [webVC loadURL:[NSURL URLWithString:kMeUnNilStr(model.ad_url)]];
             [self.navigationController pushViewController:webVC animated:YES];
         }
+            break;
+        case 4:
+        {
+            NSURL *URL = [NSURL URLWithString:kMeUnNilStr(model.ad_url)];
+            [[UIApplication sharedApplication] openURL:URL];
+        }
+            break;
+        case 5:
+        {
+            MEBaseVC *vc = [[MEBaseVC alloc] init];
+            vc.title = @"详情";
+            
+            UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
+            [webView loadHTMLString:model.content baseURL:nil];
+            [vc.view addSubview:webView];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 6:
+        {
+            
+        }
+            break;
+        case 8:
+        {
+            [self toTaoBaoActivityWithUrl:kMeUnNilStr(model.ad_url)];
+        }
+            break;
+        case 13:
+        {//跳拼多多推荐商品列表
+            MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:@""];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+//618活动
+- (void)toTaoBaoActivityWithUrl:(NSString *)url{
+    kMeWEAKSELF
+    if([MEUserInfoModel isLogin]){
+        [weakSelf checkRelationIdWithUrl:url];
+    }else {
+        [MELoginVC presentLoginVCWithSuccessHandler:^(id object) {
+            kMeSTRONGSELF
+            [strongSelf toTaoBaoActivityWithUrl:url];
+        } failHandler:nil];
+    }
+}
+
+- (void)checkRelationIdWithUrl:(NSString *)url {
+    if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
+        [self obtainTaoBaoAuthorizeWithUrl:url];
+    }else{
+        NSString *str;
+        if (url.length > 0) {
+            NSString *rid = [NSString stringWithFormat:@"&relationId=%@",kCurrentUser.relation_id];
+            str = [url stringByAppendingString:rid];
+        }else {
+            if (kMeUnNilStr(_homeModel.right_bottom_img.ad_url).length > 0) {
+                NSString *rid = [NSString stringWithFormat:@"&relationId=%@",kCurrentUser.relation_id];
+                str = [kMeUnNilStr(_homeModel.right_bottom_img.ad_url) stringByAppendingString:rid];
+            }
+        }
+        
+        ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+        webVC.showProgress = YES;
+        webVC.title = @"活动主会场";
+        [webVC loadURL:[NSURL URLWithString:str]];
+        [self.navigationController pushViewController:webVC animated:YES];
     }
 }
 
 //获取淘宝授权
-- (void)obtainTaoBaoAuthorize {
+- (void)obtainTaoBaoAuthorizeWithUrl:(NSString *)url {
     NSString *str = @"https://oauth.taobao.com/authorize?response_type=code&client_id=25425439&redirect_uri=http://test.meshidai.com/src/taobaoauthorization.html&view=wap";
     ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
     webVC.showProgress = YES;
@@ -305,7 +419,7 @@ const static CGFloat kImgStore = 50;
     [webVC loadURL:[NSURL URLWithString:str]];
     kMeWEAKSELF
     webVC.authorizeBlock = ^{
-        [weakSelf checkRelationId];
+        [weakSelf checkRelationIdWithUrl:url];
     };
     [self.navigationController pushViewController:webVC animated:YES];
 }
@@ -313,14 +427,14 @@ const static CGFloat kImgStore = 50;
 #pragma mark- CollectionView Delegate And DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     if (_type == 0) {
-        return 6;
+        return 7;
     }
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (_type == 0) {
-        if (section == 0 || section == 2 || section == 3 || section == 4) {
+        if (section == 0 || section == 2 || section == 3 || section == 4 || section == 5) {
             return 0;
         }else if (section == 1) {
             return 1;
@@ -357,7 +471,7 @@ const static CGFloat kImgStore = 50;
                 }
             }
         }
-        if (indexPath.section == 5) {
+        if (indexPath.section == 6) {
             MECoupleModel *model = self.refresh.arrData[indexPath.row];
             MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
             [self.navigationController pushViewController:vc animated:YES];
@@ -387,14 +501,20 @@ const static CGFloat kImgStore = 50;
         if (section == 0) {
             return CGSizeMake(SCREEN_WIDTH, [MEFourHomeHeaderView getViewHeight]);
         }else if (section == 2) {
+            if (_arrPPTM.count > 0) {
+                return CGSizeMake(SCREEN_WIDTH, 100*kMeFrameScaleY());
+            }else {
+                return CGSizeMake(0, 0);
+            }
+        }else if (section == 3) {
             if(_spreebugmodel){
                 return CGSizeMake(SCREEN_WIDTH, kMEFourHomeTopHeaderViewHeight);
             }else{
                 return CGSizeMake(0, 0.1);;
             }
-        }else if (section == 3) {
-            return CGSizeMake(SCREEN_WIDTH, [MEFourHomeGoodGoodFilterHeaderView getCellHeight]);
         }else if (section == 4) {
+            return CGSizeMake(SCREEN_WIDTH, [MEFourHomeGoodGoodFilterHeaderView getCellHeight]);
+        }else if (section == 5) {
             CGFloat height = 51;
             if (_arrHot.count > 0) {
                 height += 135 * _arrHot.count;
@@ -427,15 +547,26 @@ const static CGFloat kImgStore = 50;
                 
                 headerView = header;
             }else if (indexPath.section == 2) {
+                MESpecialSaleHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MESpecialSaleHeaderView class]) forIndexPath:indexPath];
+                [header setUIWithBannerImage:_arrPPTM];
+                kMeWEAKSELF
+                header.selectedIndexBlock = ^(NSInteger index) {
+                    kMeSTRONGSELF
+                    MEAdModel *model = strongSelf->_arrPPTM[index];
+                    [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+                };
+                headerView = header;
+            }
+            else if (indexPath.section == 3) {
                 MEFourHomeTopHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeTopHeaderView class]) forIndexPath:indexPath];
                 if(_spreebugmodel){
                     [header setUiWithModel:_spreebugmodel];
                 }
                 headerView = header;
-            }else if (indexPath.section == 3) {
+            }else if (indexPath.section == 4) {
                 MEFourHomeGoodGoodFilterHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodFilterHeaderView class]) forIndexPath:indexPath];
                 headerView = header;
-            }else if (indexPath.section == 4) {
+            }else if (indexPath.section == 5) {
                 MEFourHomeGoodGoodMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) forIndexPath:indexPath];
                 [header setupUIWithArray:_arrHot];
                 headerView = header;
@@ -447,7 +578,7 @@ const static CGFloat kImgStore = 50;
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     if (_type == 0) {
-        if (section != 5) {
+        if (section != 6) {
             return UIEdgeInsetsMake(0, 0, 0, 0);
         }
     }
@@ -473,6 +604,7 @@ const static CGFloat kImgStore = 50;
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeTopHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeTopHeaderView class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeGoodGoodFilterHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodFilterHeaderView class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class])];
+        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MESpecialSaleHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MESpecialSaleHeaderView class])];
         
         _collectionView.backgroundColor = kMEf5f4f4;
         _collectionView.dataSource = self;

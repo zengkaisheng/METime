@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy)kMeIndexBlock selectedIndexBlock; //banner图点击下标
 @property (nonatomic,copy)kMeIndexBlock titleSelectedIndexBlock;
 
-- (void)setUIWithBackgroundImage:(NSString *)bgImage bannerImage:(NSArray *)bannerImages;
+- (void)setUIWithBackgroundImage:(NSString *)bgImage bannerImage:(NSArray *)bannerImages hasTop:(BOOL)hasTop isTop:(BOOL)isTop;
 
 - (void)setUIWithTitleArray:(NSArray *)titles;
 

@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLbl;
 @property (weak, nonatomic) IBOutlet UIButton *automicBtn;
 @property (weak, nonatomic) IBOutlet UIButton *prizeBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *headerImgV;
 
 @end
 
@@ -33,6 +34,9 @@
 }
 
 - (void)setUIWithModel:(MEPrizeListModel *)model {
+    kSDLoadImg(_headerImgV, kMeUnNilStr(model.image));
+    _sdView.hidden = YES;
+    
     _sdView.contentMode = UIViewContentModeScaleAspectFill;
     _sdView.clipsToBounds = YES;
     _sdView.delegate = self;
@@ -44,6 +48,7 @@
     _titleLbl.text = model.title;
     _countLbl.text = [NSString stringWithFormat:@"份数%ld",(long)model.total];
     _timeLbl.text = [NSString stringWithFormat:@"开奖时间 %@",model.open_time];
+    
     if (model.status == 1) {
         _automicBtn.hidden = NO;
     }else if (model.status == 2) {

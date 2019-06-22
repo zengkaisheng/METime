@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *BGImageV;
 @property (weak, nonatomic) IBOutlet UIView *titleButtonView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleViewConsHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sdViewConsHeight;
 
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
 
@@ -27,33 +28,47 @@
     // Initialization code
 }
 
-- (void)setUIWithBackgroundImage:(NSString *)bgImage bannerImage:(nonnull NSArray *)bannerImages {
-    
-    if (bannerImages.count <= 0) {
-        _sdView.hidden = YES;
-        kSDLoadImg(_BGImageV,kMeUnNilStr(bgImage));
+- (void)setUIWithBackgroundImage:(NSString *)bgImage bannerImage:(nonnull NSArray *)bannerImages hasTop:(BOOL)hasTop isTop:(BOOL)isTop{
+    if ([kMeUnNilStr(bgImage) length] <= 0) {
+        _BGImageV.image = [UIImage imageNamed:@"184"];
     }else {
-        _sdView.hidden = NO;
         kSDLoadImg(_BGImageV,kMeUnNilStr(bgImage));
     }
     
-    _sdView.contentMode = UIViewContentModeScaleAspectFill;
-    _sdView.clipsToBounds = YES;
-    _sdView.delegate = self;
-    
-    __block NSMutableArray *arrImage =[NSMutableArray array];
-    [bannerImages enumerateObjectsUsingBlock:^(MEAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        [arrImage addObject:kMeUnNilStr(model.ad_img)];
-    }];
-    _sdView.imageURLStringsGroup = arrImage;
-    
-    if (arrImage.count <= 1) {
-        _sdView.infiniteLoop = NO;
-        _sdView.autoScroll = NO;
+    if (bannerImages.count <= 0) {
+        _sdView.hidden = YES;
     }else {
-        _sdView.infiniteLoop = YES;
-        _sdView.autoScroll = YES;
-        _sdView.autoScrollTimeInterval = 4;
+        _sdView.hidden = NO;
+        _sdView.contentMode = UIViewContentModeScaleAspectFill;
+        _sdView.clipsToBounds = YES;
+        _sdView.delegate = self;
+        
+        __block NSMutableArray *arrImage =[NSMutableArray array];
+        [bannerImages enumerateObjectsUsingBlock:^(MEAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            [arrImage addObject:kMeUnNilStr(model.ad_img)];
+        }];
+        _sdView.imageURLStringsGroup = arrImage;
+        
+        if (arrImage.count <= 1) {
+            _sdView.infiniteLoop = NO;
+            _sdView.autoScroll = NO;
+        }else {
+            _sdView.infiniteLoop = YES;
+            _sdView.autoScroll = YES;
+            _sdView.autoScrollTimeInterval = 4;
+        }
+        
+        if (isTop) {
+            _sdViewConsHeight.constant = 150*kMeFrameScaleY();
+            _BGImageV.hidden = NO;
+        }else {
+            if (hasTop) {
+                _BGImageV.hidden = YES;
+            }else {
+                _BGImageV.hidden = NO;
+            }
+            _sdViewConsHeight.constant = 167*kMeFrameScaleY();
+        }
     }
 }
 

@@ -63,14 +63,21 @@ static MEUserInfoModel *shareUser;
     [MEUserInfoModel removeCodingForKey:kUserInfoKey];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kcheckFirstBuy];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    shareUser = nil;
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:kTokenKey];
     [[NSUserDefaults standardUserDefaults]synchronize];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
             
         } seq:0];
+       
     });
+    if ([kCurrentUser.tag length] > 0) {
+        [JPUSHService deleteTags:[NSSet setWithObject:kCurrentUser.tag] completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
+            
+        } seq:0];
+    }
+    
+    shareUser = nil;
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.unMessageCount=0;
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;

@@ -41,6 +41,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [MECommonTool initAppSomeThing];
     
+    if ([kCurrentUser.mobile length] <= 0 || kCurrentUser.is_invitation != 1) {
+        [MEUserInfoModel logout];
+    }
+    
 #pragma mark - init IM sdk
     [[TUIKit sharedInstance] initKit:sdkAppid accountType:sdkAccountType withConfig:[TUIKitConfig defaultConfig]];
     if([MEUserInfoModel isLogin] && kMeUnNilStr(kCurrentUser.tls_data.tls_id).length && kMeUnNilStr(kCurrentUser.tls_data.user_tls_key).length){
@@ -429,10 +433,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     kNoticeUnNoticeMessage
-    [MECommonTool getUIPasteboardContent];
+    
     NSString *frist = [[NSUserDefaults standardUserDefaults] objectForKey:kMEAppVersion];
     if(kMeUnNilStr(frist).length){
-        [MECommonTool getUIPasteboardCouponData];
+        [MECommonTool getUIPasteboardContent];
     }
     if ([MEUserInfoModel isLogin]) {
         [[TIMManager sharedInstance] doForeground:^() {

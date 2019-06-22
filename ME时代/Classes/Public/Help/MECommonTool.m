@@ -525,8 +525,8 @@
     if(str.length){
         [MEPublicNetWorkTool postGoodsEncodeWithStr:str successBlock:^(ZLRequestResponse *responseObject) {
             if([responseObject.data isKindOfClass:[NSDictionary class]]){
-                NSString *product_id = kMeUnNilStr(responseObject.data[@"product_id"]);
-                NSString *uid = kMeUnNilStr(responseObject.data[@"uid"]);
+                NSString *product_id = [NSString stringWithFormat:@"%@",kMeUnNilNumber(responseObject.data[@"product_id"])];
+                NSString *uid = [NSString stringWithFormat:@"%@",kMeUnNilNumber(responseObject.data[@"uid"])];
                 NSInteger isVaile = [responseObject.data[@"state"] integerValue];
                 if(isVaile){
                     HDAlertView *alertView = [HDAlertView alertViewWithTitle:@"提示" andMessage:@"有来自好友的商品分享"];
@@ -553,69 +553,55 @@
 //                    [aler addButtonWithTitle:@"取消" block:nil];
 //                    [aler show];
                 }else{
-                    HDAlertView *alertView = [HDAlertView alertViewWithTitle:@"提示" andMessage:@"有来自好友的商品分享,该链接已失效"];
-                    alertView.isSupportRotating = YES;
-                    [alertView addButtonWithTitle:@"确定" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
-                        pasteboard.string = @"";
-                    }];
-                    [alertView show];
+//                    HDAlertView *alertView = [HDAlertView alertViewWithTitle:@"提示" andMessage:@"有来自好友的商品分享,该链接已失效"];
+//                    alertView.isSupportRotating = YES;
+//                    [alertView addButtonWithTitle:@"确定" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
+//                        pasteboard.string = @"";
+//                    }];
+//                    [alertView show];
 //                    MEAlertView *aler = [[MEAlertView alloc] initWithTitle:@"提示" message:@"有来自好友的商品分享,该链接已失效"];
 //                    [aler addButtonWithTitle:@"确定" block:^{
 //                        pasteboard.string = @"";
 //                    }];
 //                    [aler show];
-                }
-            }
-        } failure:^(id object) {
-            
-        }];
-    }
-}
-
-+ (void)getUIPasteboardCouponData {
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    NSString *str = kMeUnNilStr([pasteboard string]);
-    
-    if(str.length) {
-        [MEPublicNetWorkTool postPasteboardCouponDataWithQueryStr:str successBlock:^(ZLRequestResponse *responseObject) {
-            if([responseObject.data isKindOfClass:[NSDictionary class]]){
-                NSArray *map_data = responseObject.data[@"tbk_dg_material_optional_response"][@"result_list"][@"map_data"];
-                if (map_data.count > 0) {
-                    pasteboard.string = @"";
-                    // 取到tabbarcontroller
-                    METabBarVC *tabBarController = ( METabBarVC*)kMeCurrentWindow.rootViewController;
-                    // 取到navigationcontroller
-                    MENavigationVC *nav = (MENavigationVC *)tabBarController.selectedViewController;
-                    UIViewController * baseVC = (UIViewController *)nav.visibleViewController;
-                    //搜索弹窗
-                    [MEIntelligentSearchView ShowWithTitle:str tapBlock:^(NSInteger index) {
-                        switch (index) {
-                            case 0://淘宝
-                            {
-                                MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] init];
-                                searchHomeVC.keyWords = str;
-                                [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
+                    NSInteger hasConpons = [responseObject.data[@"has_conpons"] integerValue];
+                    if (hasConpons == 1) {
+                        // 取到tabbarcontroller
+                        METabBarVC *tabBarController = ( METabBarVC*)kMeCurrentWindow.rootViewController;
+                        // 取到navigationcontroller
+                        MENavigationVC *nav = (MENavigationVC *)tabBarController.selectedViewController;
+                        UIViewController * baseVC = (UIViewController *)nav.visibleViewController;
+                        //搜索弹窗
+                        [MEIntelligentSearchView ShowWithTitle:str tapBlock:^(NSInteger index) {
+                            pasteboard.string = @"";
+                            switch (index) {
+                                case 0://淘宝
+                                {
+                                    MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] init];
+                                    searchHomeVC.keyWords = str;
+                                    [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
+                                }
+                                    break;
+                                case 1://拼多多
+                                {
+                                    MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:1];
+                                    searchHomeVC.keyWords = str;
+                                    [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
+                                }
+                                    break;
+                                case 2://京东
+                                {
+                                    MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:2];
+                                    searchHomeVC.keyWords = str;
+                                    [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
+                                }
+                                default:
+                                    break;
                             }
-                                break;
-                            case 1://拼多多
-                            {
-                                MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:1];
-                                searchHomeVC.keyWords = str;
-                                [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
-                            }
-                                break;
-                            case 2://京东
-                            {
-                                MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:2];
-                                searchHomeVC.keyWords = str;
-                                [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
-                            }
-                            default:
-                                break;
-                        }
-                    } cancelBlock:^{
-                        
-                    } superView:kMeCurrentWindow];
+                        } cancelBlock:^{
+                            
+                        } superView:kMeCurrentWindow];
+                    }
                 }
             }
         } failure:^(id object) {

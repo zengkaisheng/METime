@@ -40,13 +40,13 @@
     [self.view addSubview:self.countLbl];
     switch (_type) {
         case 1://多少人参与
-            self.countLbl.text = [NSString stringWithFormat:@"共有%ld人参与",_count];
+            self.countLbl.text = [NSString stringWithFormat:@"共有%ld人参与",(long)_count];
             break;
         case 2://多少人中奖
-            self.countLbl.text = [NSString stringWithFormat:@"共有%ld位幸运儿",_count];
+            self.countLbl.text = [NSString stringWithFormat:@"共有%ld位幸运儿",(long)_count];
             break;
         case 3://多少人被邀请
-            self.countLbl.text = [NSString stringWithFormat:@"共邀请%ld好友参与",_count];
+            self.countLbl.text = [NSString stringWithFormat:@"共邀请%ld好友参与",(long)_count];
             break;
         default:
             break;
@@ -55,8 +55,25 @@
     [self.refresh addRefreshView];
 }
 
+- (void)requestNetWork {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postPrizeJoinUserCountWithActivityId:[NSString stringWithFormat:@"%ld",(long)_activityId] lookType:[NSString stringWithFormat:@"%ld",(long)_type] successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        strongSelf->_count = [responseObject.data integerValue];
+        strongSelf->_countLbl.text = [NSString stringWithFormat:@"共有%ld人参与",(long)strongSelf->_count];
+//        if (strongSelf.reloadBlock) {
+//            strongSelf.reloadBlock();
+//        }
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+    }];
+}
 #pragma mark - RefreshToolDelegate
 - (NSDictionary *)requestParameter{
+    if(self.refresh.pageIndex == 1){
+        [self requestNetWork];
+    }
     return @{@"token":kMeUnNilStr(kCurrentUser.token),@"activity_id":@(_activityId),@"look_type":@(_type)};
 }
 
@@ -136,6 +153,7 @@
         _refresh.delegate = self;
         _refresh.showMaskView = YES;
         _refresh.isDataInside = YES;
+        _refresh.numOfsize = @(50);
     }
     return _refresh;
 }

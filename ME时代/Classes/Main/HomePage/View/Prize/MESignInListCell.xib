@@ -21,35 +21,37 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4qv-ap-QgA">
                         <rect key="frame" x="14" y="0.0" width="347" height="302.5"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFh-Mt-Xgs" customClass="SDCycleScrollView">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFh-Mt-Xgs" customClass="SDCycleScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="347" height="213"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5eI-Fx-ICP">
-                                        <rect key="frame" x="262" y="183" width="75" height="20"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="75" id="FiP-zb-UJ2"/>
-                                            <constraint firstAttribute="height" constant="20" id="qAC-5l-DW6"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="自动开奖" image="icon_box">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="3"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="213" id="FoK-K4-2qS"/>
-                                    <constraint firstAttribute="trailing" secondItem="5eI-Fx-ICP" secondAttribute="trailing" constant="10" id="M5q-YC-iba"/>
-                                    <constraint firstAttribute="bottom" secondItem="5eI-Fx-ICP" secondAttribute="bottom" constant="10" id="wIN-St-FvM"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WWw-5s-XrR">
+                                <rect key="frame" x="0.0" y="0.0" width="347" height="213"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="213" id="zt5-zy-Au4"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5eI-Fx-ICP">
+                                <rect key="frame" x="262" y="183" width="75" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="FiP-zb-UJ2"/>
+                                    <constraint firstAttribute="height" constant="20" id="qAC-5l-DW6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="自动开奖" image="icon_box">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSp-Bu-Wth">
                                 <rect key="frame" x="15" y="227" width="44.5" height="16"/>
                                 <constraints>
@@ -99,13 +101,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ZHF-s2-jMm" secondAttribute="trailing" constant="15" id="3Lm-LN-m0t"/>
+                            <constraint firstItem="WWw-5s-XrR" firstAttribute="leading" secondItem="4qv-ap-QgA" secondAttribute="leading" id="D2J-Cj-wKz"/>
                             <constraint firstItem="fqP-eo-PyR" firstAttribute="top" secondItem="loz-R9-7Ny" secondAttribute="bottom" constant="6" id="FMq-qD-OL1"/>
+                            <constraint firstItem="ZHF-s2-jMm" firstAttribute="top" secondItem="5eI-Fx-ICP" secondAttribute="bottom" constant="40" id="JTG-R7-elH"/>
                             <constraint firstAttribute="trailing" secondItem="bFh-Mt-Xgs" secondAttribute="trailing" id="JZ4-ar-GdI"/>
                             <constraint firstItem="bFh-Mt-Xgs" firstAttribute="leading" secondItem="4qv-ap-QgA" secondAttribute="leading" id="Kbt-Nw-QKo"/>
+                            <constraint firstAttribute="trailing" secondItem="5eI-Fx-ICP" secondAttribute="trailing" constant="10" id="OfI-u1-1ZF"/>
+                            <constraint firstItem="WWw-5s-XrR" firstAttribute="top" secondItem="4qv-ap-QgA" secondAttribute="top" id="SVG-ZP-8W2"/>
                             <constraint firstItem="bFh-Mt-Xgs" firstAttribute="top" secondItem="4qv-ap-QgA" secondAttribute="top" id="YMs-36-dzg"/>
                             <constraint firstItem="fqP-eo-PyR" firstAttribute="leading" secondItem="4qv-ap-QgA" secondAttribute="leading" constant="15" id="Yfg-c2-nK9"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fqP-eo-PyR" secondAttribute="trailing" constant="15" id="Za4-au-6zI"/>
                             <constraint firstItem="ZHF-s2-jMm" firstAttribute="top" secondItem="bFh-Mt-Xgs" secondAttribute="bottom" constant="30" id="dDf-lc-WpL"/>
+                            <constraint firstAttribute="trailing" secondItem="WWw-5s-XrR" secondAttribute="trailing" id="i4F-W2-bFe"/>
                             <constraint firstItem="loz-R9-7Ny" firstAttribute="leading" secondItem="4qv-ap-QgA" secondAttribute="leading" constant="15" id="kle-ep-IP8"/>
                             <constraint firstItem="kSp-Bu-Wth" firstAttribute="leading" secondItem="4qv-ap-QgA" secondAttribute="leading" constant="15" id="mGG-hc-8vS"/>
                             <constraint firstItem="kSp-Bu-Wth" firstAttribute="top" secondItem="bFh-Mt-Xgs" secondAttribute="bottom" constant="14" id="tea-J4-UfQ"/>
@@ -130,6 +137,7 @@
             <connections>
                 <outlet property="automicBtn" destination="5eI-Fx-ICP" id="vxy-rh-4Cy"/>
                 <outlet property="countLbl" destination="loz-R9-7Ny" id="arI-E8-ntO"/>
+                <outlet property="headerImgV" destination="WWw-5s-XrR" id="TWZ-D1-VNo"/>
                 <outlet property="prizeBtn" destination="ZHF-s2-jMm" id="1fZ-Ee-vwN"/>
                 <outlet property="sdView" destination="bFh-Mt-Xgs" id="gHe-f7-Q4e"/>
                 <outlet property="timeLbl" destination="fqP-eo-PyR" id="5jP-Gd-CBX"/>

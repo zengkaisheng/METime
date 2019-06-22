@@ -54,21 +54,24 @@
     NSArray *array = model.inviteLog;
     if (array.count > 0) {
         _enptyImgView.hidden = YES;
-        NSInteger count = array.count>4?4:array.count;
+        NSInteger count = model.inviteNum>4?4:array.count;
         CGFloat width = (SCREEN_WIDTH - 46)/4;
         for (int i = 0; i < count; i++) {
-            MEPrizeLogModel *logModel = array[i];
+            
             UIView *view;
-            if (i == 3) {
-                view = [self createViewWithImage:@"icon_prizeMore" title:@"查看全部" frame:CGRectMake(width * i, 25, width, 54)];
-                UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-                btn.frame = view.frame;
-                [btn addTarget:self action:@selector(checkAllAction) forControlEvents:UIControlEventTouchUpInside];
-                [_headerPicView addSubview:view];
-                [_headerPicView addSubview:btn];
-            }else {
+            if (i < array.count) {
+                MEPrizeLogModel *logModel = array[i];
                 view = [self createViewWithImage:logModel.header_pic title:logModel.name frame:CGRectMake(width * i, 25, width, 54)];
                 [_headerPicView addSubview:view];
+            }else {
+                if (i == 3 && model.inviteNum > 4) {
+                    view = [self createViewWithImage:@"icon_prizeMore" title:@"查看全部" frame:CGRectMake(width * i, 25, width, 54)];
+                    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+                    btn.frame = view.frame;
+                    [btn addTarget:self action:@selector(checkAllAction) forControlEvents:UIControlEventTouchUpInside];
+                    [_headerPicView addSubview:view];
+                    [_headerPicView addSubview:btn];
+                }
             }
         }
     }else {
@@ -82,7 +85,11 @@
     UIImageView *imgV = [[UIImageView alloc] init];
     imgV.frame = CGRectMake((frame.size.width - 32)/2, 0, 32, 32);
     imgV.layer.cornerRadius = 16;
-    kSDLoadImg(imgV, image);
+    if ([title isEqualToString:@"查看全部"]) {
+        imgV.image = [UIImage imageNamed:image];
+    }else {
+        kSDLoadImg(imgV, image);
+    }
     [view addSubview:imgV];
     
     UILabel *nameLbl = [[UILabel alloc] init];
