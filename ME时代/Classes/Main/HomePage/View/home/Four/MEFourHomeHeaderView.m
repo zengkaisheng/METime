@@ -14,7 +14,8 @@
 #import "MEServiceDetailsVC.h"
 #import "MEMidelButton.h"
 //#import "MEProductListVC.h"
-#import "MECoupleHomeVC.h"
+//#import "MECoupleHomeVC.h"
+#import "MENewCoupleHomeVC.h"
 //#import "METhridRushSpikeVC.h"
 //#import "MEFilterVC.h"
 #import "MEJDCoupleHomeVC.h"
@@ -306,7 +307,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
                 break;
             case METhridHomeHeaderViewActiveTbcouponType:
             {
-                MECoupleHomeVC *vc= [[MECoupleHomeVC alloc]initWithIsTbK:YES];
+                MENewCoupleHomeVC *vc= [[MENewCoupleHomeVC alloc]initWithIsTbK:YES];
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;

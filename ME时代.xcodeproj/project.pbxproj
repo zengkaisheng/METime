@@ -1027,6 +1027,11 @@
 		EB737C2522BA350F0027A714 /* MEJoinPrizeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB737C2322BA350F0027A714 /* MEJoinPrizeCell.xib */; };
 		EB737C2922BA44090027A714 /* MEJoinPrizePeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB737C2722BA44090027A714 /* MEJoinPrizePeopleCell.m */; };
 		EB737C2A22BA44090027A714 /* MEJoinPrizePeopleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB737C2822BA44090027A714 /* MEJoinPrizePeopleCell.xib */; };
+		EB73831222C0C05500D02C01 /* MENewCoupleHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB73831122C0C05500D02C01 /* MENewCoupleHomeVC.m */; };
+		EB73831622C0C98D00D02C01 /* MENewCoupleHomeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB73831422C0C98D00D02C01 /* MENewCoupleHomeHeaderView.m */; };
+		EB73831722C0C98D00D02C01 /* MENewCoupleHomeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB73831522C0C98D00D02C01 /* MENewCoupleHomeHeaderView.xib */; };
+		EB73831B22C0D19000D02C01 /* MENewCoupleHomeMainHeaderViewl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB73831922C0D19000D02C01 /* MENewCoupleHomeMainHeaderViewl.m */; };
+		EB73831C22C0D19000D02C01 /* MENewCoupleHomeMainHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB73831A22C0D19000D02C01 /* MENewCoupleHomeMainHeaderView.xib */; };
 		EB7E83FE229CCF9300C9E14C /* MERefundOrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7E83FD229CCF9300C9E14C /* MERefundOrderListVC.m */; };
 		EB7E8401229CE78900C9E14C /* MEApplyRefundVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7E8400229CE78900C9E14C /* MEApplyRefundVC.m */; };
 		EB7E8405229D233E00C9E14C /* MERefundModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7E8404229D233E00C9E14C /* MERefundModel.m */; };
@@ -2870,6 +2875,14 @@
 		EB737C2622BA44090027A714 /* MEJoinPrizePeopleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEJoinPrizePeopleCell.h; sourceTree = "<group>"; };
 		EB737C2722BA44090027A714 /* MEJoinPrizePeopleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEJoinPrizePeopleCell.m; sourceTree = "<group>"; };
 		EB737C2822BA44090027A714 /* MEJoinPrizePeopleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEJoinPrizePeopleCell.xib; sourceTree = "<group>"; };
+		EB73831022C0C05500D02C01 /* MENewCoupleHomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MENewCoupleHomeVC.h; sourceTree = "<group>"; };
+		EB73831122C0C05500D02C01 /* MENewCoupleHomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MENewCoupleHomeVC.m; sourceTree = "<group>"; };
+		EB73831322C0C98D00D02C01 /* MENewCoupleHomeHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MENewCoupleHomeHeaderView.h; sourceTree = "<group>"; };
+		EB73831422C0C98D00D02C01 /* MENewCoupleHomeHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MENewCoupleHomeHeaderView.m; sourceTree = "<group>"; };
+		EB73831522C0C98D00D02C01 /* MENewCoupleHomeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MENewCoupleHomeHeaderView.xib; sourceTree = "<group>"; };
+		EB73831822C0D19000D02C01 /* MENewCoupleHomeMainHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MENewCoupleHomeMainHeaderView.h; sourceTree = "<group>"; };
+		EB73831922C0D19000D02C01 /* MENewCoupleHomeMainHeaderViewl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MENewCoupleHomeMainHeaderViewl.m; sourceTree = "<group>"; };
+		EB73831A22C0D19000D02C01 /* MENewCoupleHomeMainHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MENewCoupleHomeMainHeaderView.xib; sourceTree = "<group>"; };
 		EB7E83FC229CCF9300C9E14C /* MERefundOrderListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERefundOrderListVC.h; sourceTree = "<group>"; };
 		EB7E83FD229CCF9300C9E14C /* MERefundOrderListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERefundOrderListVC.m; sourceTree = "<group>"; };
 		EB7E83FF229CE78900C9E14C /* MEApplyRefundVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEApplyRefundVC.h; sourceTree = "<group>"; };
@@ -4199,6 +4212,12 @@
 				EB737C0F22BA15380027A714 /* MESpecialSaleHeaderView.h */,
 				EB737C1022BA15380027A714 /* MESpecialSaleHeaderView.m */,
 				EB737C1122BA15380027A714 /* MESpecialSaleHeaderView.xib */,
+				EB73831322C0C98D00D02C01 /* MENewCoupleHomeHeaderView.h */,
+				EB73831422C0C98D00D02C01 /* MENewCoupleHomeHeaderView.m */,
+				EB73831522C0C98D00D02C01 /* MENewCoupleHomeHeaderView.xib */,
+				EB73831822C0D19000D02C01 /* MENewCoupleHomeMainHeaderView.h */,
+				EB73831922C0D19000D02C01 /* MENewCoupleHomeMainHeaderViewl.m */,
+				EB73831A22C0D19000D02C01 /* MENewCoupleHomeMainHeaderView.xib */,
 			);
 			path = Couple;
 			sourceTree = "<group>";
@@ -4216,6 +4235,8 @@
 				36A1A99C21D3236100A38DEC /* MECouponSearchVC.m */,
 				36B77BB121DDE6E000B4A207 /* MECoupleHomeVC.h */,
 				36B77BB221DDE6E100B4A207 /* MECoupleHomeVC.m */,
+				EB73831022C0C05500D02C01 /* MENewCoupleHomeVC.h */,
+				EB73831122C0C05500D02C01 /* MENewCoupleHomeVC.m */,
 				36B77BCD21DE05CE00B4A207 /* MECoupleHomeMainGoodGoodsCell.h */,
 				36B77BCE21DE05CE00B4A207 /* MECoupleHomeMainGoodGoodsCell.m */,
 				36B77BCF21DE05CE00B4A207 /* MECoupleHomeMainGoodGoodsCell.xib */,
@@ -6593,6 +6614,7 @@
 				36F10ABA224E6D7A0006E5C1 /* normalize.css in Resources */,
 				369BDBE3224B613A00F3D056 /* MEAddGoodBasicCell.xib in Resources */,
 				36F18B5D2243222A00C036FD /* MEStoreApplyView.xib in Resources */,
+				EB73831722C0C98D00D02C01 /* MENewCoupleHomeHeaderView.xib in Resources */,
 				36F65407221E78AD00502864 /* MECouponOrderSectionView.xib in Resources */,
 				360EE7EC21F5746E0048490E /* METhridHomeTimeSecionView.xib in Resources */,
 				3628E81921C1121D00D5405B /* MEClerkStatisticHeaderView.xib in Resources */,
@@ -6698,6 +6720,7 @@
 				3652600A216F2F32003E3CB4 /* MEStoreDetailHeaderView.xib in Resources */,
 				360EE7FB21F599980048490E /* MERushBuyContentCell.xib in Resources */,
 				36021ADC214B7E9F001B8DAF /* MEServiceDetailsBottomView.xib in Resources */,
+				EB73831C22C0D19000D02C01 /* MENewCoupleHomeMainHeaderView.xib in Resources */,
 				EB21E74C22B7B12700F48DF5 /* MEFeedBackVC.xib in Resources */,
 				363A6C0721E1A25F008B303B /* MEClerksSortCell.xib in Resources */,
 				360AF11421AFD7220039AB79 /* MEVisterDetailCell.xib in Resources */,
@@ -6952,6 +6975,7 @@
 				368ABE0621FB199A005FC0C9 /* MECompandNoticeVC.m in Sources */,
 				3670E474224B183700875058 /* MEGoodManngerCell.m in Sources */,
 				36F19EC4224C736900AD2E56 /* MEGoodManngerAddSpecModel.m in Sources */,
+				EB73831222C0C05500D02C01 /* MENewCoupleHomeVC.m in Sources */,
 				360338DA225F152600588760 /* MEAiCustomerDataModel.m in Sources */,
 				36F5E80E222F68F1000B0241 /* TSwitchCell.m in Sources */,
 				3628E7FB21C0F93B00D5405B /* MEGetCaseCell.m in Sources */,
@@ -7350,6 +7374,7 @@
 				3683F7BE21CBAF22008139B0 /* MEGiftVC.m in Sources */,
 				367EF27B21FB122B001766BD /* METhridRushSpikeVC.m in Sources */,
 				36FFE965217DD89C00010AED /* MEEnlargeTouchButton.m in Sources */,
+				EB73831622C0C98D00D02C01 /* MENewCoupleHomeHeaderView.m in Sources */,
 				36021AF8214BA108001B8DAF /* MEAppointmentMakeOrderVC.m in Sources */,
 				36526008216F2F28003E3CB4 /* MEStoreDetailHeaderView.m in Sources */,
 				36F4C0A62255DDCC005E2713 /* MEPAVistorVC.m in Sources */,
@@ -7521,6 +7546,7 @@
 				EB33F2FB22B2338200765E2A /* MEFourHomeGoodGoodMainHeaderView.m in Sources */,
 				3694C48D22781EFE00CF11C5 /* MECouponBtModel.m in Sources */,
 				36F5E82E222F68F1000B0241 /* TAddC2CController.m in Sources */,
+				EB73831B22C0D19000D02C01 /* MENewCoupleHomeMainHeaderViewl.m in Sources */,
 				366D1CC821B4FEC00004295E /* MESNewHomeActiveVC.m in Sources */,
 				36F5E84A222F68F1000B0241 /* TUIKit.m in Sources */,
 				3600346321AE816900BAF337 /* MEVisterTodyCell.m in Sources */,

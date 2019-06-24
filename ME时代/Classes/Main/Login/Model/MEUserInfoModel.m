@@ -71,7 +71,7 @@ static MEUserInfoModel *shareUser;
         } seq:0];
        
     });
-    if ([kCurrentUser.tag length] > 0) {
+    if ([shareUser.tag length] > 0) {
         [JPUSHService deleteTags:[NSSet setWithObject:kCurrentUser.tag] completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
             
         } seq:0];

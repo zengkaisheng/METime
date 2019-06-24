@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="MENewCoupleHomeMainHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="221"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuf-Nb-biU">
+                    <rect key="frame" x="4" y="4" width="312" height="217"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="todayBuys" translatesAutoresizingMaskIntoConstraints="NO" id="TOz-gg-8Tc">
+                            <rect key="frame" x="0.0" y="0.0" width="312" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="ZXw-Pi-RvG"/>
+                            </constraints>
+                        </imageView>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bxR-vy-vDF">
+                            <rect key="frame" x="12" y="50" width="288" height="167"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="d94-8Q-cEe">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaU-5w-DfW">
+                            <rect key="frame" x="0.0" y="0.0" width="312" height="50"/>
+                            <connections>
+                                <action selector="tapAction:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="Tax-zS-1Ci"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="bxR-vy-vDF" secondAttribute="bottom" id="1kM-uj-tI9"/>
+                        <constraint firstItem="kaU-5w-DfW" firstAttribute="top" secondItem="TOz-gg-8Tc" secondAttribute="top" id="3he-1r-p2q"/>
+                        <constraint firstAttribute="trailing" secondItem="bxR-vy-vDF" secondAttribute="trailing" constant="12" id="FdY-lT-JRQ"/>
+                        <constraint firstItem="TOz-gg-8Tc" firstAttribute="leading" secondItem="nuf-Nb-biU" secondAttribute="leading" id="So5-68-rI8"/>
+                        <constraint firstItem="kaU-5w-DfW" firstAttribute="trailing" secondItem="TOz-gg-8Tc" secondAttribute="trailing" id="W7K-zz-a7k"/>
+                        <constraint firstItem="bxR-vy-vDF" firstAttribute="top" secondItem="TOz-gg-8Tc" secondAttribute="bottom" id="bST-oi-mgc"/>
+                        <constraint firstItem="TOz-gg-8Tc" firstAttribute="top" secondItem="nuf-Nb-biU" secondAttribute="top" id="fYP-E1-eOQ"/>
+                        <constraint firstItem="bxR-vy-vDF" firstAttribute="leading" secondItem="nuf-Nb-biU" secondAttribute="leading" constant="12" id="h7L-dQ-OgC"/>
+                        <constraint firstAttribute="trailing" secondItem="TOz-gg-8Tc" secondAttribute="trailing" id="si1-yi-wxU"/>
+                        <constraint firstItem="kaU-5w-DfW" firstAttribute="bottom" secondItem="TOz-gg-8Tc" secondAttribute="bottom" id="sus-5x-yh0"/>
+                        <constraint firstItem="kaU-5w-DfW" firstAttribute="leading" secondItem="TOz-gg-8Tc" secondAttribute="leading" id="w5a-mc-slb"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.96078431372549022" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="nuf-Nb-biU" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="4" id="7F8-dx-h2m"/>
+                <constraint firstItem="nuf-Nb-biU" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="4" id="WUD-DS-mRv"/>
+                <constraint firstAttribute="trailing" secondItem="nuf-Nb-biU" secondAttribute="trailing" constant="4" id="vBR-8y-hVe"/>
+                <constraint firstAttribute="bottom" secondItem="nuf-Nb-biU" secondAttribute="bottom" id="zoQ-BX-lfG"/>
+            </constraints>
+            <connections>
+                <outlet property="collectionView" destination="bxR-vy-vDF" id="LyO-kT-9EZ"/>
+                <outlet property="consImageHeight" destination="ZXw-Pi-RvG" id="g7s-mL-0ZO"/>
+                <outlet property="imgPic" destination="TOz-gg-8Tc" id="niw-1O-1zz"/>
+            </connections>
+            <point key="canvasLocation" x="-382" y="121"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="todayBuys" width="366" height="50"/>
+    </resources>
+</document>

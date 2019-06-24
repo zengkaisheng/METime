@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEFourHomeExchangeCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imgPic;
+@property (nonatomic,assign)CGFloat padding;
 
 @end
 

@@ -67,7 +67,7 @@
 - (void)invationCodeTFCodeTextDidChange:(UITextField *)textField{
     if(textField.text.length > kLimitVerficationNum){
         textField.text = [textField.text substringWithRange:NSMakeRange(0,kLimitVerficationNum + 1)];
-        
+        //18816766199
         kMeWEAKSELF
         [MEPublicNetWorkTool postGetCodeMsgWithInvitationCode:textField.text successBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
@@ -89,6 +89,8 @@
                     [MECommonTool showMessage:kMeUnNilStr(responseObject.message) view:kMeCurrentWindow];
                 }
             }else {
+                [strongSelf->_confirmBtn.layer.sublayers.firstObject removeFromSuperlayer];
+                
                 strongSelf->_lineView.backgroundColor = [UIColor colorWithHexString:@"#CCCCCC"];
                 strongSelf->_confirmBtn.backgroundColor = [UIColor colorWithHexString:@"#CCCCCC"];
                 strongSelf->_headerView.hidden = YES;
@@ -100,6 +102,12 @@
             
         }];
     }else {
+        if (textField.text.length == 5) {
+            if (_confirmBtn.layer.sublayers.count > 1) {
+                [_confirmBtn.layer.sublayers.firstObject removeFromSuperlayer];
+            }
+        }
+        
         _lineView.backgroundColor = [UIColor colorWithHexString:@"#CCCCCC"];
         _headerView.hidden = YES;
         _confirmBtnConsTop.constant = 26;
@@ -111,6 +119,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self.view endEditing:YES];
+    [self invationCodeTFCodeTextDidChange:_invationCodeTF];
     return YES;
 }
 
@@ -118,6 +127,11 @@
     [self.view endEditing:YES];
 }
 
+- (IBAction)codeAction:(id)sender {
+    _invationCodeTF.text = @"000000";
+    [self.view endEditing:YES];
+    [self invationCodeTFCodeTextDidChange:_invationCodeTF];
+}
 
 - (IBAction)sureAction:(id)sender {
     if ([self.invationCodeTF.text length] <= 0) {

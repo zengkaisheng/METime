@@ -21,9 +21,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    [self.navigationItem.backBarButtonItem setCustomView:[UIView new]];
-    self.navigationItem.leftBarButtonItem = nil;
-    self.navigationItem.hidesBackButton = YES;
+//    [self.navigationItem.backBarButtonItem setCustomView:[UIView new]];
+//    self.navigationItem.leftBarButtonItem = nil;
+//    self.navigationItem.hidesBackButton = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -31,7 +31,7 @@
     [self.view endEditing:YES];
     [self.navigationController setNavigationBarHidden:self.navBarHidden animated:YES];
     [MobClick beginLogPageView:NSStringFromClass([self class])];
-    [self initBackButton];
+//    [self initBackButton];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -45,29 +45,29 @@
     }
 }
 
-- (void)initBackButton {
-    if([self.navigationController.viewControllers count] == 2){
-        [self.navigationController.navigationBar addSubview:self.backButton];
-    }
-}
+//- (void)initBackButton {
+//    if([self.navigationController.viewControllers count] == 2){
+//        [self.navigationController.navigationBar addSubview:self.backButton];
+//    }
+//}
 
 - (void)backButtonPressed {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Getter/Setter
-- (UIButton *)backButton {
-    if(!_backButton) {
-        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        backButton.frame = CGRectMake(0, 0, 44, 44);
-        [backButton setImage:[UIImage imageNamed:@"inc-xz"] forState:UIControlStateNormal];
-        backButton.imageEdgeInsets = UIEdgeInsetsMake(0, 9, 0, 0);
-        [backButton addTarget:self action:@selector(backButtonPressed)
-             forControlEvents:UIControlEventTouchUpInside];
-        _backButton = backButton;
-    }
-    return _backButton;
-}
+//- (UIButton *)backButton {
+//    if(!_backButton) {
+//        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        backButton.frame = CGRectMake(0, 0, 44, 44);
+//        [backButton setImage:[UIImage imageNamed:@"inc-xz"] forState:UIControlStateNormal];
+//        backButton.imageEdgeInsets = UIEdgeInsetsMake(0, 9, 0, 0);
+//        [backButton addTarget:self action:@selector(backButtonPressed)
+//             forControlEvents:UIControlEventTouchUpInside];
+//        _backButton = backButton;
+//    }
+//    return _backButton;
+//}
 
 - (void)dealloc{
     NSLog(@"dealloc");

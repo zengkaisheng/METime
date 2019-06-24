@@ -31,9 +31,13 @@
                 <constraint firstAttribute="bottom" secondItem="qxa-mz-RU0" secondAttribute="bottom" id="q5S-1b-9b3"/>
             </constraints>
             <connections>
+                <outlet property="consBottom" destination="q5S-1b-9b3" id="Hss-Xc-rvE"/>
+                <outlet property="consLeading" destination="DGI-l4-w99" id="hon-PU-ZHQ"/>
+                <outlet property="consTop" destination="QfB-MM-62o" id="6da-et-xAL"/>
+                <outlet property="consTrailing" destination="0Ow-sS-qTy" id="ENZ-dx-oLL"/>
                 <outlet property="imgPic" destination="qxa-mz-RU0" id="tZ7-Jr-p5i"/>
             </connections>
-            <point key="canvasLocation" x="132.80000000000001" y="154.72263868065968"/>
+            <point key="canvasLocation" x="-191" y="127"/>
         </collectionViewCell>
     </objects>
     <resources>

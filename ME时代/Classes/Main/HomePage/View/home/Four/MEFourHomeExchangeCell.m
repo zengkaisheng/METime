@@ -8,11 +8,24 @@
 
 #import "MEFourHomeExchangeCell.h"
 
+@interface MEFourHomeExchangeCell ()
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *consTrailing;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *consLeading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *consTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *consBottom;
+
+@end
+
 @implementation MEFourHomeExchangeCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+}
+
+- (void)setPadding:(CGFloat)padding {
+    _padding = padding;
+    _consLeading.constant = _consTop.constant = _consBottom.constant = _consTrailing.constant = padding;
 }
 
 @end

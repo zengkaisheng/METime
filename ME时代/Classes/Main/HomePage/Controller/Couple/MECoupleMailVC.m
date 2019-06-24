@@ -138,9 +138,7 @@
 //    return @{@"r":@"Port/index",@"type":@"total",@"appkey":@"58de5a1fe2",@"v":@"2"};
     if(_isMater){
         if (_type == MECouponSearchJuHSType) {
-            return @{@"need_free_shipment":@"true",
-                     @"need_prepay":@"true",
-                     @"include_good_rate":@"true"
+            return @{@"is_ju_goods":@"1",
                      };
         }
         if (self.isPDD) {

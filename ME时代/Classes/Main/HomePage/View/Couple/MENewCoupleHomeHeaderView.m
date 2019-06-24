@@ -1,13 +1,13 @@
 //
-//  MECoupleHomeHeaderView.m
+//  MENewCoupleHomeHeaderView.m
 //  ME时代
 //
-//  Created by hank on 2019/1/3.
-//  Copyright © 2019 hank. All rights reserved.
+//  Created by gao lei on 2019/6/24.
+//  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MECoupleHomeHeaderView.h"
-#import "MECoupleHomeVC.h"
+#import "MENewCoupleHomeHeaderView.h"
+#import "MENewCoupleHomeVC.h"
 #import "MECoupleMailVC.h"
 #import "MECoupleFilterVC.h"
 #import "MEAdModel.h"
@@ -15,7 +15,7 @@
 #import "MEPinduoduoCouponSearchDataVC.h"
 #import "MEFourCouponSearchHomeVC.h"
 
-@interface MECoupleHomeHeaderView ()<SDCycleScrollViewDelegate>{
+@interface MENewCoupleHomeHeaderView ()<SDCycleScrollViewDelegate>{
     NSArray *_Model;
     BOOL _isTbk;
 }
@@ -26,13 +26,13 @@
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *arrImag;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *arrBtn;
 
-
 @end
 
-@implementation MECoupleHomeHeaderView
+@implementation MENewCoupleHomeHeaderView
 
-- (void)awakeFromNib{
+- (void)awakeFromNib {
     [super awakeFromNib];
+    // Initialization code
     self.backgroundColor = kMEf5f4f4;
     _consSdViewHeight.constant = 150 *kMeFrameScaleX();
     [self initSD];
@@ -83,7 +83,7 @@
 
 //人气爆款
 - (IBAction)haoJuanAction:(UIButton *)sender {
-    MECoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MECoupleHomeVC class] targetResponderView:self];
+    MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchGoodGoodsType];
         [homevc.navigationController pushViewController:vc animated:YES];
@@ -91,24 +91,24 @@
 }
 //特惠
 - (IBAction)topBuyAction:(UIButton *)sender {
-    MECoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MECoupleHomeVC class] targetResponderView:self];
+    MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTeHuiType];
         [homevc.navigationController pushViewController:vc animated:YES];
     }
-
+    
 }
 //时尚
 - (IBAction)shishangAction:(UIButton *)sender {
-    MECoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MECoupleHomeVC class] targetResponderView:self];
+    MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchShiShangType];
         [homevc.navigationController pushViewController:vc animated:YES];
     }
 }
-//好券分类
+//分类
 - (IBAction)teHuiAction:(UIButton *)sender {
-    MECoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MECoupleHomeVC class] targetResponderView:self];
+    MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleFilterVC *vc = [[MECoupleFilterVC alloc]init];
         [homevc.navigationController pushViewController:vc animated:YES];
@@ -122,7 +122,7 @@
     if(index>_Model.count){
         return;
     }
-    MECoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MECoupleHomeVC class] targetResponderView:self];
+    MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){
         MEAdModel *model = _Model[index];
         
@@ -149,13 +149,13 @@
                 [homevc.navigationController pushViewController:searchHomeVC animated:YES];
             }
         }
-//        if(_isTbk){
-//            MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithQuery:kMeUnNilStr(model.keywork)];
-//            [homevc.navigationController pushViewController:vc animated:YES];
-//        }else{
-//            MEPinduoduoCouponSearchDataVC *vc = [[MEPinduoduoCouponSearchDataVC alloc]initWithQuery:kMeUnNilStr(model.keywork)];
-//            [homevc.navigationController pushViewController:vc animated:YES];
-//        }
+        //        if(_isTbk){
+        //            MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithQuery:kMeUnNilStr(model.keywork)];
+        //            [homevc.navigationController pushViewController:vc animated:YES];
+        //        }else{
+        //            MEPinduoduoCouponSearchDataVC *vc = [[MEPinduoduoCouponSearchDataVC alloc]initWithQuery:kMeUnNilStr(model.keywork)];
+        //            [homevc.navigationController pushViewController:vc animated:YES];
+        //        }
     }
 }
 
@@ -170,7 +170,7 @@
     }else{
         return 150 *kMeFrameScaleX();;
     }
-
+    
 }
 
 + (CGFloat)getViewHeightWithisTKb:(BOOL)isTbk hasSdView:(BOOL)hasSdView {
@@ -185,7 +185,5 @@
         return 150 *kMeFrameScaleX();;
     }
 }
-
-
 
 @end

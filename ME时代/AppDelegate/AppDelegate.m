@@ -125,9 +125,11 @@
             [JPUSHService setAlias:kMeUnNilStr(kCurrentUser.uid) completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
                 
             } seq:0];
-            [JPUSHService setTags:[NSSet setWithObject:kMeUnNilStr(kCurrentUser.tag)] completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
-                
-            } seq:0];
+            if (kMeUnNilStr(kCurrentUser.tag).length > 0) {
+                [JPUSHService setTags:[NSSet setWithObject:kMeUnNilStr(kCurrentUser.tag)] completion:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) {
+                    
+                } seq:0];
+            }
         });
     }
     self.window = [[UIWindow alloc] init];

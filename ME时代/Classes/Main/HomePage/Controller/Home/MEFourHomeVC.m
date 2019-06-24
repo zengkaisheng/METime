@@ -18,7 +18,7 @@
 #import "MENavigationVC.h"
 #import "METhridProductDetailsVC.h"
 #import "MEFourHomeBaseVC.h"
-#import "MECoupleHomeVC.h"
+//#import "MECoupleHomeVC.h"
 #import "MEJDCoupleHomeVC.h"
 
 #import "MEFourCouponSearchHomeVC.h"
