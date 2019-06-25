@@ -162,7 +162,7 @@
 + (CGFloat)getViewHeightWithisTKb:(BOOL)isTbk{
     if(isTbk){
         CGFloat height = 0;
-        CGFloat sdHeight = 150 *kMeFrameScaleX();
+        CGFloat sdHeight = 150 *kMeFrameScaleY();
         CGFloat imageW = (SCREEN_WIDTH - 12)/2;
         CGFloat imageH = (imageW * 178)/364;
         height = sdHeight + (imageH*2) +8;
@@ -176,13 +176,13 @@
 + (CGFloat)getViewHeightWithisTKb:(BOOL)isTbk hasSdView:(BOOL)hasSdView {
     if(isTbk){
         CGFloat height = 0;
-        CGFloat sdHeight = (hasSdView?1:0.05)*150 *kMeFrameScaleX();
+        CGFloat sdHeight = (hasSdView?1:0.05)*150*kMeFrameScaleY();
         CGFloat imageW = (SCREEN_WIDTH - 12)/2;
         CGFloat imageH = (imageW * 178)/364;
         height = sdHeight + (imageH*2) +8;
         return height;
     }else{
-        return 150 *kMeFrameScaleX();;
+        return 150 *kMeFrameScaleY();;
     }
 }
 

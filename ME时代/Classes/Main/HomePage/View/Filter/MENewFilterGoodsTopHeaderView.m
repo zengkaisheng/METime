@@ -29,6 +29,11 @@
 }
 
 - (void)setUIWithBackgroundImage:(NSString *)bgImage bannerImage:(nonnull NSArray *)bannerImages hasTop:(BOOL)hasTop isTop:(BOOL)isTop{
+    if (hasTop && isTop) {
+        _BGImageV.hidden = NO;
+    }else {
+        _BGImageV.hidden = YES;
+    }
     if ([kMeUnNilStr(bgImage) length] <= 0) {
         _BGImageV.image = [UIImage imageNamed:@"184"];
     }else {

@@ -73,7 +73,7 @@
     METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTopBuyType];
-        vc.titleStr = @"今日热卖专场";
+        vc.titleStr = @"今日热卖榜";
         [homevc.navigationController pushViewController:vc animated:YES];
     }
 }

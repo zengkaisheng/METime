@@ -20,6 +20,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectionStyle = 0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -307,6 +307,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
                 break;
             case METhridHomeHeaderViewActiveTbcouponType:
             {
+//                MECoupleHomeVC *vc= [[MECoupleHomeVC alloc]initWithIsTbK:YES];
                 MENewCoupleHomeVC *vc= [[MENewCoupleHomeVC alloc]initWithIsTbK:YES];
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
@@ -339,7 +340,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
                 break;
             case METhridHomeHeaderViewActiveBigJuanType:
             {
-                MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchGoodGoodsType];
+                MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchBigJuanType];
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break; 

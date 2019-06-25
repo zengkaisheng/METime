@@ -34,7 +34,7 @@
     self.sort = @"";
     
     if (self.isHot) {
-        self.title = @"今日热卖专场";
+        self.title = @"今日热卖榜";
         self.tableView.frame = CGRectMake(0, kMeNavBarHeight + 1, SCREEN_WIDTH, SCREEN_HEIGHT - kMeNavBarHeight - 1);
     }else {
         [self.view addSubview:self.siftView];

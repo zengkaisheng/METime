@@ -55,7 +55,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ss-Ia-z5z">
-                        <rect key="frame" x="141" y="113" width="69" height="15"/>
+                        <rect key="frame" x="141" y="113" width="44" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="EDo-J6-7ai"/>
                         </constraints>
@@ -106,7 +106,7 @@
                     <constraint firstAttribute="bottom" secondItem="HMN-8D-9sY" secondAttribute="bottom" constant="10" id="dCn-4x-mJ5"/>
                     <constraint firstItem="4ss-Ia-z5z" firstAttribute="leading" secondItem="HMN-8D-9sY" secondAttribute="trailing" constant="11.5" id="eHr-Em-Lct"/>
                     <constraint firstItem="HMN-8D-9sY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="esv-TR-ypZ"/>
-                    <constraint firstItem="UFb-hi-UTc" firstAttribute="leading" secondItem="4ss-Ia-z5z" secondAttribute="trailing" constant="85" id="lPr-EP-3Tt"/>
+                    <constraint firstItem="UFb-hi-UTc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4ss-Ia-z5z" secondAttribute="trailing" constant="8" id="lPr-EP-3Tt"/>
                     <constraint firstAttribute="trailing" secondItem="UFb-hi-UTc" secondAttribute="trailing" constant="10" id="mYM-h2-dom"/>
                     <constraint firstItem="4ss-Ia-z5z" firstAttribute="top" secondItem="ZvP-42-Xsh" secondAttribute="bottom" constant="18" id="pWJ-Fg-CxE"/>
                     <constraint firstItem="HMN-8D-9sY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="vxN-WN-jVu"/>

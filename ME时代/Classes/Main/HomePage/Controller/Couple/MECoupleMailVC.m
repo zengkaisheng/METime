@@ -74,29 +74,29 @@
         NSString *str = @"";
         switch (_type) {
             case MECouponSearch99BuyType:{
-                str = @"9块9专场";
+                str = @"9块9包邮";
             }
                 break;
             case MECouponSearchShiShangType:{
-                str = @"时尚潮流专场";
+                str = @"时尚潮流";
                 _material_id = 4093;
             }
                 break;
             case MECouponSearchTopBuyType:{
-                str = @"人气爆款专场";
+                str = @"今日热卖榜";
             }
                 break;
             case MECouponSearchBigJuanType:{
-                str = @"大额券专场";
+                str = @"大额优惠券";
             }
                 break;
             case MECouponSearchTeHuiType:{
-                str = @"超值特惠专场";
+                str = @"超值特惠";
             }
                 break;
             case MECouponSearchGoodGoodsType:{
-                str = @"大额优惠券";//@"精选好物专场";@"人气爆款专场"
-                _material_id = 9660;
+                str = @"人气爆款";//@"人气爆款专场"
+//                _material_id = 9660;
             }
                 break;
             case MECouponSearchGoodJuanType:{
@@ -120,7 +120,7 @@
         }else{
            self.title = str;
             if (self.isPDD) {
-                self.title = @"推荐商品";
+                self.title = @"拼多多";
             }
         }
     }else{
@@ -138,8 +138,7 @@
 //    return @{@"r":@"Port/index",@"type":@"total",@"appkey":@"58de5a1fe2",@"v":@"2"};
     if(_isMater){
         if (_type == MECouponSearchJuHSType) {
-            return @{@"is_ju_goods":@"1",
-                     };
+            return @{@"is_ju_goods":@"1"};
         }
         if (self.isPDD) {
             if (_ad_id.length > 0) {
@@ -178,8 +177,14 @@
             [self.navigationController pushViewController:vc animated:YES];
         }else {
             MECoupleModel *model = self.refresh.arrData[indexPath.row];
-            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
-            [self.navigationController pushViewController:vc animated:YES];
+            if(kMeUnNilStr(model.coupon_id).length){
+                MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
+                [self.navigationController pushViewController:dvc animated:YES];
+            }else{
+                MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
+                model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
     }else{
         MECoupleModel *model = self.refresh.arrData[indexPath.row];

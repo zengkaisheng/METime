@@ -9,9 +9,9 @@
 #ifndef MEAPIMacros_h
 #define MEAPIMacros_h
 
-#warning -mustNotes 上线一定要注释/海报分享产品分享
+//#warning -mustNotes 上线一定要注释/海报分享产品分享
 
-#define TestVersion
+//#define TestVersion
 
 //域名 develop
 #ifdef TestVersion
