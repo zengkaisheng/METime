@@ -31,14 +31,18 @@ NSString *const kServerError = @"服务器无法连接";
              case AFNetworkReachabilityStatusUnknown:
                 _isError = YES;
                 [strongSelf showNetErrorMessage];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kMEGetNetStatus object:@{@"net":@"unknown"}];
                 break;
              case AFNetworkReachabilityStatusNotReachable:
                 [strongSelf showNetErrorMessage];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kMEGetNetStatus object:@{@"net":@"notReachable"}];
                 _isError = YES;
                 break;
              case AFNetworkReachabilityStatusReachableViaWWAN:
+                [[NSNotificationCenter defaultCenter] postNotificationName:kMEGetNetStatus object:@{@"net":@"cell"}];
                  break;
              case AFNetworkReachabilityStatusReachableViaWiFi:
+                [[NSNotificationCenter defaultCenter] postNotificationName:kMEGetNetStatus object:@{@"net":@"wifi"}];
                  break;
              default:
                  break;

@@ -11,7 +11,7 @@
 
 //#warning -mustNotes 上线一定要注释/海报分享产品分享
 
-//#define TestVersion
+#define TestVersion
 
 //域名 develop
 #ifdef TestVersion
@@ -204,6 +204,8 @@
 //聚划算列表
 #define MEIPcommonTaobaokeGetTbkJuItemsSearch @"common/taobaoke/tbkJuItemsSearch"
 
+//猜你喜欢
+#define MEIPcommonTaobaokeGetGuessLike @"common/taobaoke/guessLike"
 
 //查找用户渠道
 #define MEIPcommonTaobaokecheckMemberRelation @"common/taobaoke/checkMemberRelation"

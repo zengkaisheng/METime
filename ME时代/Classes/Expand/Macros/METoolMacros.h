@@ -269,6 +269,9 @@ NS_INLINE NSString *kMeFilePathAtDocumentWithName(NSString *fileNAme){
 //判断是否完成首单Key
 #define kcheckFirstBuy  @"checkFirstBuy"
 
+//获取网络状态
+#define kMEGetNetStatus  @"getNetStatus"
+
 //自提订单搜索历史记录
 #define kMESelfExtraceSearchVCSearchHistoriesCachePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"kMESelfExtraceSearchVC.plist"]
 

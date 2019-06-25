@@ -66,7 +66,7 @@
         if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
             strongSelf.model = [MEPrizeDetailsModel mj_objectWithKeyValues:responseObject.data];
             [strongSelf.headerView setUIWithModel:strongSelf.model];
-            if (strongSelf.model.wholucky == 1) {
+            if (strongSelf.model.join_type == 3) {
                 [strongSelf.moreBtn setTitle:@"立即领取" forState:UIControlStateNormal];
             }else {
                 [strongSelf.moreBtn setTitle:@"参与更多抽奖" forState:UIControlStateNormal];
@@ -103,7 +103,7 @@
 }
 
 - (void)moreBtnAction {
-    if (self.model.wholucky == 1) {
+    if (self.model.join_type == 3) {
         METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:self.model.product_id];
         details.isReceivePrize = YES;
         details.activity_id = _activityId;

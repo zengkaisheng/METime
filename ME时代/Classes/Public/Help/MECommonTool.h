@@ -59,4 +59,7 @@
 
 + (NSString *)getImagePath:(UIImage *)Image filename:(NSString*)filaname;
 + (NSString *)getNoCompressImagePath:(UIImage *)Image filename:(NSString*)filaname;
+
+//获取ip地址
++ (NSString *)getIpAddresses;
 @end

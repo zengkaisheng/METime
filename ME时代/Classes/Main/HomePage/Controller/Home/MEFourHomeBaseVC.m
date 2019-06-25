@@ -45,6 +45,7 @@ const static CGFloat kImgStore = 50;
     MEHomeRecommendAndSpreebuyModel *_spreebugmodel;
     NSArray *_arrDicParm;
     NSArray *_arrPPTM;
+    NSString *_net;
 }
 
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -55,6 +56,10 @@ const static CGFloat kImgStore = 50;
 @end
 
 @implementation MEFourHomeBaseVC
+
+- (void)dealloc {
+    kNSNotificationCenterDealloc
+}
 
 - (instancetype)initWithType:(NSInteger)type {
     if (self = [super init]) {
@@ -74,6 +79,7 @@ const static CGFloat kImgStore = 50;
     _arrHot = [NSArray array];
     _arrPPTM = [NSArray array];
     _homeModel = [METhridHomeModel new];
+    _net = @"";
     
     [self.refresh addRefreshView];
     self.collectionView.mj_header.backgroundColor = [UIColor colorWithHexString:@"#E52E26"];
@@ -88,6 +94,12 @@ const static CGFloat kImgStore = 50;
     if (_type == 0) {
         [self.view addSubview:self.imgStore];
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNetWork:) name:kMEGetNetStatus object:nil];
+}
+
+- (void)getNetWork:(NSNotification *)notifi {
+    NSDictionary *dic = (NSDictionary *)notifi.object;
+    _net = dic[@"net"];
 }
 
 - (void)setSdBackgroundColorWithIndex:(NSInteger)index{
@@ -257,6 +269,13 @@ const static CGFloat kImgStore = 50;
             [self getNetWork];
         }
     }
+//    if (_type == 2) {
+//        return @{@"os":@"ios",
+//                 @"ip":[NSString stringWithFormat:@"%s",[[MECommonTool getIpAddresses] UTF8String]],
+//                 @"ua":@"Safari/525.13",
+//                 @"net":@"wifi"
+//                 };
+//    }
     NSDictionary *dic = _arrDicParm[_type];
 //    NSLog(@"---------%@",dic);
     return dic;
@@ -627,7 +646,11 @@ const static CGFloat kImgStore = 50;
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.collectionView url:kGetApiWithUrl(MEIPcommonTaobaokeGetDgMaterialOptional)];
+        NSString *str = MEIPcommonTaobaokeGetDgMaterialOptional;
+//        if(_type == 2){
+//            str = MEIPcommonTaobaokeGetGuessLike;
+//        }
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.collectionView url:kGetApiWithUrl(str)];
         _refresh.delegate = self;
         _refresh.isCoupleMater = YES;
         _refresh.isPinduoduoCoupleMater = NO;
