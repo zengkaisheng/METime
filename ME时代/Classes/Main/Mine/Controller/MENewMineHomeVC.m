@@ -216,10 +216,10 @@
             [hud hideAnimated:YES];
             kCurrentUser.invite_code = strongSelf->_invite_code;
             [kCurrentUser save];
-            if (strongSelf->_arrtypeTitle.count<=0 && strongSelf->_arrtype.count<=0) {
+            if (strongSelf->_arrtypeTitle.count <=0 && strongSelf->_arrtype.count<=0) {
                 kNoticeUserLogout
             }
-            if (kCurrentUser.user_type > 3) {
+            if (kCurrentUser.user_type < 3) {
                 [strongSelf.headerView reloadUIWithUserInfo];
                 strongSelf.tableView.tableHeaderView = strongSelf.headerView;
             }else {

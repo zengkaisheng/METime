@@ -87,13 +87,12 @@
         kMeSTRONGSELF
         MBProgressHUD *HUD = [[MBProgressHUD alloc] init];
         if([responseObject isKindOfClass:[ZLRequestResponse class]]){
-            ZLRequestResponse *res = (ZLRequestResponse*)responseObject;
-            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:@"参与成功"];
             if (strongSelf.finishBlock) {
                 strongSelf.finishBlock();
             }
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [strongSelf.navigationController popViewControllerAnimated:YES];
+                [strongSelf requestNetWork];
             });
         }
     } failure:^(id object) {

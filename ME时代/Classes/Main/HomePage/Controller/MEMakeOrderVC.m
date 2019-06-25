@@ -121,7 +121,7 @@
                 if(_goodModel.is_seckill==1){
                     allPrice = [kMeUnNilStr(_goodModel.psmodel.seckill_price) floatValue] * _goodModel.buynum;
                 }else{
-                    allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum;
+                    allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum + [kMeUnNilStr(_goodModel.postage) floatValue];
                 }
             }
             _arrType = @[@(MEMakrOrderCellMessage)];
@@ -300,6 +300,9 @@
     MEMakeOrderAttrModel *model = [[MEMakeOrderAttrModel alloc]initWithGoodDetailModel:_goodModel];
     model.remark = kMeUnNilStr(_strMeaasge);
     model.user_address = @(_addressModel.address_id).description;
+    if (model.share_id.length <= 0) {
+        model.share_id = @"0";
+    }
     
     if (self.isReceivePrize) {
         model.activity_id = self.activity_id;

@@ -102,7 +102,7 @@
     kMeWEAKSELF
     cell.tapBlock = ^{
         kMeSTRONGSELF
-        MEJoinPrizeVC *vc = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",model.idField]];
+        MEJoinPrizeVC *vc = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.idField]];
         vc.finishBlock = ^{
             [strongSelf.refresh reload];
         };
