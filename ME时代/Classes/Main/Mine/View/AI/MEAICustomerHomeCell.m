@@ -30,7 +30,8 @@
 - (void)setUiWithAddModel:(MEAICustomerHomeModel *)model{
     kSDLoadImg(_imgPic, kMeUnNilStr(model.header_pic));
     _lblTitle.text = kMeUnNilStr(model.nick_name);
-    _lblSubtitle.text = kMeUnNilStr(model.comunication).length?[NSString stringWithFormat:@"%@小时前跟进",model.comunication]:@"还未跟进";
+    _lblSubtitle.text = model.comunication_text;
+//    kMeUnNilStr(model.comunication).length?[NSString stringWithFormat:@"%@小时前跟进",model.comunication]:@"还未跟进";
     if(kMeUnNilStr(model.created_at).length){
          _lblTime.text = [model.created_at substringToIndex:10];
     }else{
@@ -41,7 +42,8 @@
 - (void)setSearchUiWithAddModel:(MEAICustomerHomeModel *)model{
     kSDLoadImg(_imgPic, kMeUnNilStr(model.header_pic));
     _lblTitle.text = kMeUnNilStr(model.nick_name);
-    _lblSubtitle.text = kMeUnNilStr(model.comunication).length?[NSString stringWithFormat:@"%@小时前跟进",model.comunication]:@"还未跟进";
+    _lblSubtitle.text = model.comunication_text;
+//    kMeUnNilStr(model.comunication).length?[NSString stringWithFormat:@"%@小时前跟进",model.comunication]:@"还未跟进";
     if(kMeUnNilStr(model.predict_bargain).length){
         _lblTime.text = [model.created_at substringToIndex:10];
     }else{

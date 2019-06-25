@@ -25,7 +25,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    NSArray *titles = @[@"综合",@"优惠券",@"销量",@"价格"];
+    NSArray *titles = @[@"综合",@"佣金",@"销量",@"价格"];
     CGFloat itemW = SCREEN_WIDTH / titles.count;
     for (int i = 0; i < titles.count; i++) {
         UIButton *siftBtn = [self createSiftButtomWithTitle:titles[i] tag:100+i];

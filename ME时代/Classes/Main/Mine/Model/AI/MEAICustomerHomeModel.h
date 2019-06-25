@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * comunication;
 @property (nonatomic, assign) NSInteger count_type;
 @property (nonatomic, strong) NSString * header_pic;
+@property (nonatomic, strong) NSString * comunication_text;
 //最后活跃时间
 //@property (nonatomic, strong) NSString * maxcreatedAt;
 @property (nonatomic, strong) NSString * nick_name;

@@ -15,6 +15,7 @@
 @interface MENewMineHomeVC ()<UITableViewDelegate,UITableViewDataSource>{
     NSArray *_arrtype;
     NSArray *_arrtypeTitle;
+    NSString *_invite_code;
 }
 
 @property (nonatomic, strong) UITableView           *tableView;
@@ -32,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navBarHidden = YES;
+    _invite_code = @"";
     [self.view addSubview:self.tableView];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
     [self.tableView.mj_header beginRefreshing];
@@ -191,9 +193,15 @@
         }];
     });
     
+    dispatch_barrier_sync(queue, ^{
+        
+    });
+    
     dispatch_group_async(group, queue, ^{
+        kMeWEAKSELF
         [MEPublicNetWorkTool getUserInvitationCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
-            kCurrentUser.invite_code = kMeUnNilStr(responseObject.data);
+            kMeSTRONGSELF
+            strongSelf->_invite_code = kMeUnNilStr(responseObject.data);
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             dispatch_semaphore_signal(semaphore);
@@ -206,6 +214,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             kMeSTRONGSELF
             [hud hideAnimated:YES];
+            kCurrentUser.invite_code = strongSelf->_invite_code;
+            [kCurrentUser save];
             if (strongSelf->_arrtypeTitle.count<=0 && strongSelf->_arrtype.count<=0) {
                 kNoticeUserLogout
             }
