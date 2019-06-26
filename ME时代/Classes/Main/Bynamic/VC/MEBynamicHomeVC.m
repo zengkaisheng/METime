@@ -25,7 +25,7 @@
 
 
 @interface MEBynamicHomeVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>{
-//<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate,JXCategoryViewDelegate>{
+
 //    NSInteger _comentIndex;
     NSArray *_arrType;
     //1 动态 2 每日爆款 3宣传素材

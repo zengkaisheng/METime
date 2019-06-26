@@ -33,7 +33,7 @@
     _consTitleHeight.constant = titleHeight>17?titleHeight:17;
 //    [_lblTitle setAtsWithStr:str lineGap:0];
     _lblTitle.text = nil;
-    _lblTitle.lineBreakMode = UILineBreakModeCharacterWrap;
+    _lblTitle.lineBreakMode = NSLineBreakByCharWrapping;
     _lblTitle.attributedText = [str attributeWithRangeOfString:[NSString stringWithFormat:@"%@:",kMeUnNilStr(model.nick_name)] color:kME466889];
     
 }

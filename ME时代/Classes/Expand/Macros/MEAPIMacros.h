@@ -11,7 +11,7 @@
 
 //#warning -mustNotes 上线一定要注释/海报分享产品分享
 
-//#define TestVersion
+#define TestVersion
 
 //域名 develop
 #ifdef TestVersion
@@ -225,6 +225,17 @@
 
 //获取优惠券Banner
 #define MEIPcommonGetConponsBanner @"common/ad/getConponsBanner"
+
+/*********************************************/
+
+
+/*********************************************/
+#pragma makr - bargain
+
+//砍价商品列表
+#define MEIPcommonGetBarginGoodsList @"common/bargin/barginGoodsList"
+//我的砍价列表
+#define MEIPcommonGetMyBarginList @"common/bargin/myBarginList"
 
 /*********************************************/
 

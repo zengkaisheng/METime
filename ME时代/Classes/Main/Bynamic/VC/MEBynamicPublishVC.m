@@ -139,7 +139,7 @@ const static CGFloat MEBynamicPublishVCTextHeight = 135;
                 NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                              encoding:NSUTF8StringEncoding];
                 NSString *visable = strongSelf->_isVisable?@"1":@"2";
-                [MEPublicNetWorkTool postdynamicVotingCommentWithConten:content images:jsonString terminal:[NSString stringWithFormat:@"%ld",strongSelf->_selectedTerminal] onlyClerkView:visable successBlock:^(ZLRequestResponse *responseObject) {
+                [MEPublicNetWorkTool postdynamicVotingCommentWithConten:content images:jsonString terminal:[NSString stringWithFormat:@"%ld",(long)strongSelf->_selectedTerminal] onlyClerkView:visable successBlock:^(ZLRequestResponse *responseObject) {
                     kMeSTRONGSELF
                     kMeCallBlock(strongSelf.publishSucessBlock);
                     [strongSelf.navigationController popViewControllerAnimated:YES];
@@ -217,7 +217,7 @@ const static CGFloat MEBynamicPublishVCTextHeight = 135;
                         PHAsset *phAsset = assets[i];
                         if (phAsset.mediaType == PHAssetMediaTypeImage) {
                             UIImage *image = photos[i];
-                            NSDictionary *info = infos[i];
+//                            NSDictionary *info = infos[i];
                             MEBynamicPublishGridModel *model = [MEBynamicPublishGridModel modelWithImage:image isAdd:NO];
                             NSString *filename = [phAsset valueForKey:@"filename"];
 //                            NSURL *url = [info valueForKey:@"PHImageFileURLKey"];

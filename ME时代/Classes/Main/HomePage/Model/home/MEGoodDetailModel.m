@@ -38,7 +38,7 @@ MEModelObjectClassInArrayWithDic((@{@"spec" : [MEGoodDetailSpecModel class],@"pr
 
 - (NSString*)rudeTip{
     if(self.restrict_num!=0){
-        return [NSString stringWithFormat:@"限时秒杀(每人限购%ld件,超出的部分按原价购买)",self.restrict_num];
+        return [NSString stringWithFormat:@"限时秒杀(每人限购%ld件,超出的部分按原价购买)",(long)self.restrict_num];
     }else{
         return @"";
     }

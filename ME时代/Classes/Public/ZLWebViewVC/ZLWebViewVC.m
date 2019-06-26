@@ -203,7 +203,6 @@
 
         kMeWEAKSELF
         self.jsContext[@"onRelationIdSuccess"] = ^(){
-            
             NSArray<JSValue *> *args = [JSContext currentArguments];
             NSString *session = args[0].toString;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -215,7 +214,6 @@
             
             [MEPublicNetWorkTool postTaobaokePublisherInfoSaveWithSession:session successBlock:^(ZLRequestResponse *responseObject) {
                 kMeSTRONGSELF
-                
                 MERelationIdModel *relation_idmodel = [MERelationIdModel mj_objectWithKeyValues:responseObject.data];
                 NSString *relation_id = kMeUnNilStr(relation_idmodel.relation_id);
                 if(kMeUnNilStr(relation_id).length == 0 || [relation_id isEqualToString:@"0"]){
@@ -233,8 +231,13 @@
                     [strongSelf.navigationController popViewControllerAnimated:YES];
                 }
             } failure:^(id object) {
-                
             }];
+        };
+        
+        self.jsContext[@"openProductDetail"] = ^(){
+            NSArray<JSValue *> *args = [JSContext currentArguments];
+            NSString *session = args[0].toString;
+            NSLog(@"session:%@",session);
         };
     }
 }

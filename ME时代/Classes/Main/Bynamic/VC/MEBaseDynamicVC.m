@@ -223,7 +223,7 @@
     
     if (model.skip_type == 1) {
         kMeWEAKSELF
-        [MEPublicNetWorkTool postGoodsEncodeWithProductrId:[NSString stringWithFormat:@"%ld",model.product_id] successBlock:^(ZLRequestResponse *responseObject) {
+        [MEPublicNetWorkTool postGoodsEncodeWithProductrId:[NSString stringWithFormat:@"%ld",(long)model.product_id] successBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             strongSelf->_shareText = kMeUnNilStr(responseObject.data[@"share_text"]);
             [strongSelf showShareViewWithModel:model];

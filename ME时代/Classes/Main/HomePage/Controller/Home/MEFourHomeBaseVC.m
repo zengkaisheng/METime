@@ -32,6 +32,8 @@
 #import "MEServiceDetailsVC.h"
 #import "MECoupleMailVC.h"
 
+#import "MEBargainListVC.h"
+
 #define kMEGoodsMargin ((IS_iPhoneX?10:7.5)*kMeFrameScaleX())
 #define kMEThridHomeNavViewHeight (((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 129 : 107))
 
@@ -72,7 +74,8 @@ const static CGFloat kImgStore = 50;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kMEf5f4f4;
-    _arrDicParm = @[@{@"type":@"3"},@{@"material_id":@"3756"},@{@"material_id":@"3786"},@{@"material_id":@"3767"},@{@"material_id":@"3763"},@{@"material_id":@"3760"}];
+    _arrDicParm = @[@{@"material_id":@"9660"},@{@"material_id":@"3756"},@{@"material_id":@"3786"},@{@"material_id":@"3767"},@{@"material_id":@"3763"},@{@"material_id":@"3760"}];
+    //@[@{@"type":@"3"},@{@"material_id":@"3756"},@{@"material_id":@"3786"},@{@"material_id":@"3767"},@{@"material_id":@"3763"},@{@"material_id":@"3760"}];
     
     self.navBarHidden = YES;
     [self.view addSubview:self.collectionView];
@@ -307,6 +310,15 @@ const static CGFloat kImgStore = 50;
 }
 
 - (void)toStore{
+    MEBargainListVC *bargainVC = [[MEBargainListVC alloc] init];
+    [self.navigationController pushViewController:bargainVC animated:YES];
+    return;
+//    //
+//    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+//    webVC.showProgress = YES;
+//    [webVC loadURL:[NSURL URLWithString:@"http://test.meshidai.com/jump.html"]];
+//    [self.navigationController pushViewController:webVC animated:YES];
+//    return;
     //    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     kMeWEAKSELF
     if([MEUserInfoModel isLogin]){

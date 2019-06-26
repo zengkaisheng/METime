@@ -56,6 +56,7 @@
 - (instancetype)initWithModel:(MECoupleModel *)model{
     if(self = [super init]){
         _detailModel = model;
+        _detailId = model.num_iid;
     }
     return self;
 }
@@ -83,10 +84,30 @@
             self.tableView.tableHeaderView = self.headerView;
             [self.headerView setUIWithModel:_detailModel];
             [self.tableView reloadData];
+            [self requestCoupleDetailNetWork];
         }else{
             [self requestNetWork];
         }
     }
+}
+
+- (void)requestCoupleDetailNetWork{
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postCoupleDetailWithProductrId:_detailId successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if([responseObject.data isKindOfClass:[NSDictionary class]]){
+            NSArray *arr= responseObject.data[@"tbk_item_info_get_response"][@"results"][@"n_tbk_item"];
+            if([arr isKindOfClass:[NSArray class]] && arr.count){
+                strongSelf->_detailModel = [MECoupleModel mj_objectWithKeyValues:arr[0]];
+                strongSelf->_detailModel.min_ratio = strongSelf->_min_ratio;
+                strongSelf->_detailModel.coupon_amount = strongSelf->_coupon_amount;
+            }else{
+                strongSelf->_detailModel = [MECoupleModel new];
+            }
+        }
+        [strongSelf.tableView reloadData];
+    } failure:^(id object) {
+    }];
 }
 
 - (void)requestPinduoduoNetWork{

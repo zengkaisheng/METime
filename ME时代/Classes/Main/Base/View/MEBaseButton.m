@@ -106,9 +106,7 @@
             rect.origin.x = 0;
             rect.origin.y = 0;
             break;
-        default:{
-            
-        }
+        default:
             break;
     }
     UIView *line = [[UIView alloc] initWithFrame:rect];

@@ -44,7 +44,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEImageCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEImageCell class]) forIndexPath:indexPath];
     if(_type == MEMainStoreStyle){
-        NSString *str = [NSString stringWithFormat:@"http://images.meshidai.com/store1_%02ld-min.png",indexPath.row+1];
+        NSString *str = [NSString stringWithFormat:@"http://images.meshidai.com/store1_%02d-min.png",indexPath.row+1];
         kSDLoadImg(cell.imagePic, str);
     }else{
          kSDLoadImg(cell.imagePic, @"http://images.meshidai.com/vvip-min.png");
