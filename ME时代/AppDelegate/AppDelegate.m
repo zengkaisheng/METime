@@ -29,7 +29,12 @@
 #import "MEGuideVC.h"
 #import "MEAppointmentDetailVC.h"
 #import "MEArticleDetailVC.h"
+#import "MECoupleMailDetalVC.h"
+#import "MEJDCoupleMailDetalVC.h"
 #import "MEArticelModel.h"
+#import "MECoupleModel.h"
+#import "MEPinduoduoCoupleModel.h"
+#import "MEJDCoupleModel.h"
 
 @interface AppDelegate ()<WXApiDelegate,UNUserNotificationCenterDelegate,JPUSHRegisterDelegate>
 
@@ -472,13 +477,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         //        NSString *type = contentDic[@"type"];
         //        NSInteger msg_id = [contentDic[@"msg_id"] integerValue];
         NSString *strType = kMeUnNilStr(model.type);
-        if([strType isEqualToString:@"1"] || [strType isEqualToString:@"2"]|| [strType isEqualToString:@"3"]|| [strType isEqualToString:@"7"]|| [strType isEqualToString:@"9"]|| [strType isEqualToString:@"10"]|| [strType isEqualToString:@"11"]|| [strType isEqualToString:@"12"]|| [strType isEqualToString:@"16"]){
+        if([strType isEqualToString:@"1"] || [strType isEqualToString:@"2"]|| [strType isEqualToString:@"3"]|| [strType isEqualToString:@"7"]|| [strType isEqualToString:@"9"]|| [strType isEqualToString:@"10"]|| [strType isEqualToString:@"11"]|| [strType isEqualToString:@"12"]|| [strType isEqualToString:@"16"]|| [strType isEqualToString:@"17"]|| [strType isEqualToString:@"18"]|| [strType isEqualToString:@"19"]){
             //1跳商品  2跳订单详情 3更新 4B店铺访问 5C店铺访问 7预约管理 8投票
             //跳url 9
             //跳动态 10
-            //跳文章 11
+            //跳文章 11t
             //跳营销活动 12
             //16兑换码商品审核不通过
+            //17淘宝
+            //18拼多多
+            //19京东
             HDAlertView *alertView = [HDAlertView alertViewWithTitle:@"提示" andMessage:messageStr];
             alertView.isSupportRotating = YES;
             [alertView addButtonWithTitle:@"取消" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
@@ -521,7 +529,49 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 }else if([strType isEqualToString:@"12"]){
                     [baseVC.navigationController popToRootViewControllerAnimated:YES];
                     tabBarController.selectedIndex = 2;
-                }else{
+                }else if([strType isEqualToString:@"17"]){
+//                    MECoupleModel *TBmodel = [[MECoupleModel alloc] init];
+//                    TBmodel.min_ratio = model.min_ratio;
+//                    MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.tbk_num_iids couponId:kMeUnNilStr(model.tbk_coupon_id) couponurl:kMeUnNilStr(model.tbk_coupon_share_url) Model:TBmodel];
+//                    [baseVC.navigationController pushViewController:vc animated:YES];
+                }else if([strType isEqualToString:@"18"]){
+//                    MEPinduoduoCoupleModel *PDDModel = [[MEPinduoduoCoupleModel alloc] init];
+//                    PDDModel.goods_id = model.ddk_goods_id;
+//                    PDDModel.min_ratio = model.min_ratio;
+//                    MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:PDDModel];
+//                    vc.isDynamic = YES;
+//                   [baseVC.navigationController pushViewController:vc animated:YES];
+                }else if([strType isEqualToString:@"19"]){
+//                    MEJDCoupleModel *JDModel = [[MEJDCoupleModel alloc] init];
+//                    JDModel.materialUrl = model.jd_material_url;
+//
+//                    CouponContentInfo *couponInfoModel = [CouponContentInfo new];
+//                    couponInfoModel.link = model.jd_link;
+//                    couponInfoModel.discount = model.discount;
+//                    couponInfoModel.useStartTime = model.useStartTime;
+//                    couponInfoModel.useEndTime = model.useEndTime;
+//
+//                    CouponInfo *couponInfo = [CouponInfo new];
+//                    couponInfo.couponList = @[couponInfoModel];
+//
+//                    JDModel.couponInfo = couponInfo;
+//
+//                    ImageInfo *imgInfo = [ImageInfo new];
+//                    imgInfo.imageList = model.imageList;
+//                    JDModel.imageInfo = imgInfo;
+//
+//                    JDModel.skuName = model.skuName;
+//
+//                    PriceInfo *priceInfo = [PriceInfo new];
+//                    priceInfo.price = model.price;
+//                    JDModel.priceInfo = priceInfo;
+//                    JDModel.min_ratio = model.min_ratio;
+//
+//                    MEJDCoupleMailDetalVC *vc = [[MEJDCoupleMailDetalVC alloc]initWithModel:JDModel];
+//                    vc.isDynamic = YES;
+//                    [baseVC.navigationController pushViewController:vc animated:YES];
+                }
+                else{
                     
                 }
             }];

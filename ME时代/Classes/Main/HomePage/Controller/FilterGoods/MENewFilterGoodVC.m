@@ -332,10 +332,10 @@
         if (!_is_show) {
             return UIEdgeInsetsMake(0, kMEGoodsMargin, 0, kMEGoodsMargin);
         }else {
-            return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin);
+            return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin+2, kMEGoodsMargin, kMEGoodsMargin+2);
         }
     }
-    return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin);
+    return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin+2, kMEGoodsMargin, kMEGoodsMargin+2);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
@@ -525,7 +525,14 @@
         lineView.indicatorLineViewColor =  kMEPink;
         lineView.indicatorLineViewHeight = 1;
         
-//        _categoryView.titles = @[];
+        NSMutableArray *titles = [[NSMutableArray alloc] init];
+        if (_filterArr.count > 0) {
+            for (int i = 0; i < _filterArr.count; i++) {
+                MEFilterMainModel *model = _filterArr[i];
+                [titles addObject:model.category_name];
+            }
+        }
+        _categoryView.titles = titles;
         _categoryView.indicators = @[lineView];
         _categoryView.delegate = self;
         _categoryView.backgroundColor = [UIColor whiteColor];

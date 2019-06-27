@@ -232,7 +232,18 @@
             NSString *str = [NSString stringWithFormat:@"分享购买最低%.2f佣金",_detailModel.min_ratio];
             [_btnShare setTitle:str forState:UIControlStateNormal];
         }else {
-            NSString *str = [NSString stringWithFormat:@"分享购买最低%.2f佣金",_detailModel.commissionInfo.commission* _detailModel.percent];
+            CouponContentInfo *couponInfoModel = [CouponContentInfo new];
+            if(kMeUnArr(_detailModel.couponInfo.couponList).count>0){
+                couponInfoModel = _detailModel.couponInfo.couponList[0];
+            }
+            ////卷后价
+            CGFloat oPrice = [kMeUnNilStr(_detailModel.priceInfo.price) floatValue];
+            CGFloat dPrice = [kMeUnNilStr(couponInfoModel.discount) floatValue];
+            CGFloat price =  oPrice- dPrice;
+            if(price<0){
+                price = 0;
+            }
+            NSString *str = [NSString stringWithFormat:@"分享购买最低%.2f佣金",price*_detailModel.commissionInfo.commissionShare/100* _detailModel.percent];
             [_btnShare setTitle:str forState:UIControlStateNormal];
         }
         _btnShare.titleLabel.font = kMeFont(15);

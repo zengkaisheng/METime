@@ -155,8 +155,14 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if(_isTBk){
         MECoupleModel *model = self.refresh.arrData[indexPath.row];
-        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
-        [self.navigationController pushViewController:vc animated:YES];
+        if(kMeUnNilStr(model.coupon_id).length){
+            MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }else{
+            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
+            model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }else{
         MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
         MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:model];
@@ -245,7 +251,7 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     if (section == 4) {
-        return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin);
+        return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin+2, kMEGoodsMargin, kMEGoodsMargin+2);
     }
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }

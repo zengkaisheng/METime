@@ -50,6 +50,12 @@
     [self.headerView setUIWithDictionary:self.bannerInfo];
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
+    
+    self.tableView.mj_footer.backgroundColor = [UIColor whiteColor];
+    
+    MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableView.mj_footer;
+    footer.stateLabel.text = @"没有更多了！\n快去发起新砍价吧~";
+    footer.stateLabel.numberOfLines = 2;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -129,20 +135,22 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
     headerView.backgroundColor = [UIColor whiteColor];
     
-    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 17, 84, 15)];
-    titleLbl.font = [UIFont systemFontOfSize:11];
-    titleLbl.textColor = kME666666;
-    
-    NSString *fstr = @"我的砍价(2个)";
+    NSString *fstr = [NSString stringWithFormat:@"我的砍价(%ld个)",(long)self.refresh.arrData.count];
     NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
     NSUInteger secondLoc = [[faString string] rangeOfString:@"("].location;
     
-    NSRange range = NSMakeRange(0, secondLoc+1);
-    [faString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"PingFang-SC-Medium" size:15] range:range];
-    [faString addAttribute:NSForegroundColorAttributeName value:kME333333 range:range];
+    NSRange range = NSMakeRange(secondLoc, fstr.length - secondLoc);
+    [faString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:range];
+    [faString addAttribute:NSForegroundColorAttributeName value:kME666666 range:range];
+    CGFloat width = [fstr boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 15 - 100, 15) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.width;
+    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, width, 44)];
+    titleLbl.font = [UIFont systemFontOfSize:15];
+    titleLbl.textColor = kME333333;
+    titleLbl.attributedText = faString;
     [headerView addSubview:titleLbl];
     
     UIButton *ruleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    ruleBtn.frame = CGRectMake(SCREEN_WIDTH - 90, 0, 90, 44);
     [ruleBtn setTitle:@"使用规则" forState:UIControlStateNormal];
     [ruleBtn setTitleColor:kME333333 forState:UIControlStateNormal];
     [ruleBtn.titleLabel setFont:[UIFont systemFontOfSize:11]];
@@ -150,6 +158,10 @@
     [ruleBtn setButtonImageTitleStyle:ButtonImageTitleStyleLeft padding:3];
     [ruleBtn addTarget:self action:@selector(ruleBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:ruleBtn];
+    
+    UIView *line = [self createLineView];
+    line.frame = CGRectMake(0, 43, SCREEN_WIDTH, 1);
+    [headerView addSubview:line];
     return headerView;
 }
 
@@ -404,12 +416,12 @@
     if(!_refresh){
         _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonGetBarginGoodsList)];
         _refresh.delegate = self;
-//        _refresh.isDataInside = YES;
         _refresh.isBargain = YES;
-        [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
-            failView.backgroundColor = [UIColor whiteColor];
-            failView.lblOfNodata.text = @"没有砍价商品";
-        }];
+        _refresh.showFailView = NO;
+//        [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
+//            failView.backgroundColor = [UIColor whiteColor];
+//            failView.lblOfNodata.text = @"没有砍价商品";
+//        }];
     }
     return _refresh;
 }

@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblJuan;
 @property (weak, nonatomic) IBOutlet UIImageView *imgJuan;
 @property (weak, nonatomic) IBOutlet UILabel *lblMaterSale;
+@property (weak, nonatomic) IBOutlet UIImageView *imgCommission;
+@property (weak, nonatomic) IBOutlet UILabel *lblCommission;
 
 @end
 
@@ -38,6 +40,7 @@
     [_imgPic sd_setImageWithURL:[NSURL URLWithString:kMeUnNilStr(model.pict_url)] placeholderImage:kImgPlaceholder];
     _lblTitle.text = kMeUnNilStr(model.title);
     _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.volume)];
+    /*
     //原价
     _lblOrigalPrice.text =[NSString stringWithFormat:@"原价¥%@",@(kMeUnNilStr(model.zk_final_price).floatValue)];
     //卷后价
@@ -49,6 +52,14 @@
     NSRange range = NSMakeRange(0, secondLoc+1);
     [faString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"PingFang-SC-Regular" size:11] range:range];
     _lblJuanPrice.attributedText = faString;
+    */
+    //new
+    NSString *fstr = [NSString stringWithFormat:@"¥%@",@(kMeUnNilStr(model.zk_final_price).floatValue)];
+    NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
+    [faString addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, fstr.length)];
+    _lblOrigalPrice.attributedText = faString;
+    _lblJuanPrice.text = [NSString stringWithFormat:@"¥%.1f",kMeUnNilStr(model.truePrice).floatValue];
+    
     //卷价格
     if(kMeUnNilStr(model.coupon_info).length){
         _imgJuan.hidden = NO;
@@ -67,6 +78,7 @@
         _lblSale.hidden = NO;
         _lblMaterSale.hidden = YES;
     }
+    _lblCommission.text = [NSString stringWithFormat:@"预估佣金￥%.2f",model.min_ratio];
 }
 
 - (void)setpinduoduoUIWithModel:(MEPinduoduoCoupleModel *)model{
@@ -79,6 +91,7 @@
     [_imgPic sd_setImageWithURL:[NSURL URLWithString:kMeUnNilStr(model.goods_thumbnail_url)] placeholderImage:kImgPlaceholder];
     _lblTitle.text = kMeUnNilStr(model.goods_name);
     _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.sold_quantity)];
+    /*
     _lblOrigalPrice.text = [NSString stringWithFormat:@"原价¥%@", [MECommonTool changeformatterWithFen:@(model.min_group_price)]];
      _lblJuan.text =[NSString stringWithFormat:@"%@元券",[MECommonTool changeformatterWithFen:@(model.coupon_discount)]];
 //    _lblJuanPrice.text =[NSString stringWithFormat:@"¥%@", [MECommonTool changeformatterWithFen:@(model.min_group_price-model.coupon_discount)]];
@@ -90,6 +103,16 @@
     NSRange range = NSMakeRange(0, secondLoc+1);
     [faString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"PingFang-SC-Regular" size:11] range:range];
     _lblJuanPrice.attributedText = faString;
+    */
+    _lblJuan.text =[NSString stringWithFormat:@"%@元券",[MECommonTool changeformatterWithFen:@(model.coupon_discount)]];
+    //new
+    NSString *fstr = [NSString stringWithFormat:@"¥%@", [MECommonTool changeformatterWithFen:@(model.min_group_price)]];
+    NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
+    [faString addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, fstr.length)];
+    _lblOrigalPrice.attributedText = faString;
+    _lblJuanPrice.text = [NSString stringWithFormat:@"¥%@", [MECommonTool changeformatterWithFen:@(model.min_group_price-model.coupon_discount)]];
+    
+    _lblCommission.text = [NSString stringWithFormat:@"预估佣金￥%@",[MECommonTool changeformatterWithFen:@(model.min_ratio)]];
 }
 
 - (void)setJDUIWithModel:(MEJDCoupleModel *)model{
@@ -112,7 +135,9 @@
     [_imgPic sd_setImageWithURL:[NSURL URLWithString:str] placeholderImage:kImgPlaceholder];
     _lblTitle.text = kMeUnNilStr(model.skuName);
     _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.comments)];
+    /*
     _lblOrigalPrice.text = [NSString stringWithFormat:@"原价¥%@",kMeUnNilStr(model.priceInfo.price)];
+     */
     CouponContentInfo *couponInfoModel = [CouponContentInfo new];
     if(kMeUnArr(model.couponInfo.couponList).count>0){
         couponInfoModel = model.couponInfo.couponList[0];
@@ -126,7 +151,17 @@
         price = 0;
     }
     NSString *strPrice = [NSString stringWithFormat:@"%.2f",price];
+    /*
     _lblJuanPrice.text =[NSString stringWithFormat:@"¥%@", strPrice];
+    */
+    //new
+    NSString *fstr = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.priceInfo.price)];
+    NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
+    [faString addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, fstr.length)];
+    _lblOrigalPrice.attributedText = faString;
+    _lblJuanPrice.text = [NSString stringWithFormat:@"¥%@", strPrice];
+    
+    _lblCommission.text = [NSString stringWithFormat:@"预估佣金￥%.2f",price*model.commissionInfo.commissionShare/100* model.percent];
 }
 
 - (void)setJuHSWithModel:(MEJuHuaSuanCoupleModel *)model {

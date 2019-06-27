@@ -157,6 +157,13 @@
                                 <action selector="rightDownloadAction:" destination="-1" eventType="touchUpInside" id="aLj-I0-WIR"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_weiChat" translatesAutoresizingMaskIntoConstraints="NO" id="aYq-27-ySA">
+                            <rect key="frame" x="176.5" y="1" width="22" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="1Cu-2J-F08"/>
+                                <constraint firstAttribute="width" constant="22" id="bNZ-4a-g5E"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -175,8 +182,10 @@
                         <constraint firstItem="gvs-Zq-EvJ" firstAttribute="leading" secondItem="V5f-bA-aXo" secondAttribute="trailing" constant="30" id="j3k-8P-ECk"/>
                         <constraint firstItem="3wE-Vw-iC7" firstAttribute="leading" secondItem="gvs-Zq-EvJ" secondAttribute="trailing" constant="30" id="qPs-dI-5RL"/>
                         <constraint firstItem="V5f-bA-aXo" firstAttribute="top" secondItem="VL4-sv-lUs" secondAttribute="top" constant="31" id="qrc-HX-kvb"/>
+                        <constraint firstItem="aYq-27-ySA" firstAttribute="centerX" secondItem="VL4-sv-lUs" secondAttribute="centerX" id="tCH-v0-UeZ"/>
                         <constraint firstAttribute="width" secondItem="VL4-sv-lUs" secondAttribute="height" multiplier="375:238" id="tI8-AM-8N3"/>
                         <constraint firstItem="kUr-5p-AYq" firstAttribute="centerX" secondItem="3wE-Vw-iC7" secondAttribute="centerX" id="u1k-h8-cdk"/>
+                        <constraint firstItem="aYq-27-ySA" firstAttribute="top" secondItem="VL4-sv-lUs" secondAttribute="top" constant="1" id="yiv-02-Xwy"/>
                     </constraints>
                 </view>
             </subviews>
@@ -207,5 +216,6 @@
         <image name="icon-rrqcdatuud" width="10" height="18"/>
         <image name="icon-uxjy" width="375" height="294"/>
         <image name="icon_download" width="11" height="11"/>
+        <image name="icon_weiChat" width="22" height="22"/>
     </resources>
 </document>

@@ -49,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CommissionInfo : MEBaseModel
 
 @property (nonatomic, assign) CGFloat commission;
+@property (nonatomic, assign) NSInteger commissionShare;
 
 @end
 

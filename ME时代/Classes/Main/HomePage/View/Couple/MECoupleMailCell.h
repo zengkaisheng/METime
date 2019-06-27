@@ -12,7 +12,7 @@
 @class MEJDCoupleModel;
 @class MEJuHuaSuanCoupleModel;
 
-#define kMECoupleMailCellHeight (kMECoupleMailCellWdith +93)
+#define kMECoupleMailCellHeight (kMECoupleMailCellWdith + 103)
 #define kMECoupleMailCellWdith ((SCREEN_WIDTH - 30)/2)
 #define kMEMargin (5)
 

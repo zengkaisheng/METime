@@ -169,8 +169,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MECoupleModel *model = self.refresh.arrData[indexPath.row];
-    MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
-    [self.navigationController pushViewController:vc animated:YES];
+    if(kMeUnNilStr(model.coupon_id).length){
+        MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
+        [self.navigationController pushViewController:dvc animated:YES];
+    }else{
+        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
+        model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 //cell分割线与屏幕等宽，两个方法同时添加iOS 10有效
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -50,8 +50,14 @@ const static CGFloat kMargin = 4;
     MECoupleModel *model = _arrModel[indexPath.row];
     MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){
-        MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
-        [homevc.navigationController pushViewController:dvc animated:YES];
+        if(kMeUnNilStr(model.coupon_id).length){
+            MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
+            [homevc.navigationController pushViewController:dvc animated:YES];
+        }else{
+            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
+            model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
+            [homevc.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 

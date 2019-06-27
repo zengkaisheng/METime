@@ -313,7 +313,7 @@ const static CGFloat kImgStore = 50;
     MEBargainListVC *bargainVC = [[MEBargainListVC alloc] init];
     [self.navigationController pushViewController:bargainVC animated:YES];
     return;
-//    //
+
 //    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
 //    webVC.showProgress = YES;
 //    [webVC loadURL:[NSURL URLWithString:@"http://test.meshidai.com/jump.html"]];
@@ -625,7 +625,7 @@ const static CGFloat kImgStore = 50;
             return UIEdgeInsetsMake(0, 0, 0, 0);
         }
     }
-    return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin, kMEGoodsMargin);
+    return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin+2, kMEGoodsMargin, kMEGoodsMargin+2);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{

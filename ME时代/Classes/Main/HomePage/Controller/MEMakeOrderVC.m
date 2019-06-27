@@ -119,7 +119,7 @@
                 allPrice = [kMeUnNilStr(_goodModel.money) floatValue];
             }else{
                 if(_goodModel.is_seckill==1){
-                    allPrice = [kMeUnNilStr(_goodModel.psmodel.seckill_price) floatValue] * _goodModel.buynum;
+                    allPrice = [kMeUnNilStr(_goodModel.psmodel.seckill_price) floatValue] * _goodModel.buynum  + [kMeUnNilStr(_goodModel.postage) floatValue];
                 }else{
                     allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum + [kMeUnNilStr(_goodModel.postage) floatValue];
                 }
