@@ -363,6 +363,16 @@
 /***************************************/
 
 
+/***************************************/
+#pragma mark - Question
+
+//常见问题列表
++ (void)postGetQuestionListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//常见问题详情
++ (void)postGetQuestionDetailWithQuestionId:(NSInteger)questionId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+/***************************************/
+
+
 
 
 /***************************************/

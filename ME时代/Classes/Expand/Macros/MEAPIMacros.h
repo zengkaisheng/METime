@@ -685,6 +685,18 @@
 #define MEIPcommonGetSpecialSalsesBanner @"common/ad/specialSalsesBanner"
 /*********************************************/
 
+
+/*********************************************/
+#pragma makr - question
+//获取常见问题列表
+#define MEIPcommonGetQuestionList @"common/problem/problem"
+//获取常见问题详情
+#define MEIPcommonGetQuestionDetail @"common/problem/problemDetail"
+
+/*********************************************/
+
+
+
 /*********************************************/
 #pragma makr - aboutUser
 //新手指南G

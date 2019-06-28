@@ -32,8 +32,6 @@
 #import "MEServiceDetailsVC.h"
 #import "MECoupleMailVC.h"
 
-#import "MEBargainListVC.h"
-
 #define kMEGoodsMargin ((IS_iPhoneX?10:7.5)*kMeFrameScaleX())
 #define kMEThridHomeNavViewHeight (((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 129 : 107))
 
@@ -310,10 +308,6 @@ const static CGFloat kImgStore = 50;
 }
 
 - (void)toStore{
-    MEBargainListVC *bargainVC = [[MEBargainListVC alloc] init];
-    [self.navigationController pushViewController:bargainVC animated:YES];
-    return;
-
 //    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
 //    webVC.showProgress = YES;
 //    [webVC loadURL:[NSURL URLWithString:@"http://test.meshidai.com/jump.html"]];

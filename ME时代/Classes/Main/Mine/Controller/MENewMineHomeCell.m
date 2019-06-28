@@ -53,6 +53,7 @@
 #import "MEDistributionOrderMainVC.h"
 #import "MENewMineCellHeaderView.h"
 #import "MeHomeNewGuideVC.h"
+#import "MECommonQuestionVC.h"
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
     MEClientTypeStyle _type;
@@ -276,8 +277,11 @@
             [homeVc.navigationController pushViewController:brandVC animated:YES];
         }
             break;
-            
-            
+        case MeHomeCommonQuestion:{
+            MECommonQuestionVC *questionVC = [[MECommonQuestionVC alloc]init];
+            [homeVc.navigationController pushViewController:questionVC animated:YES];
+        }
+            break;
         default:
             break;
     }

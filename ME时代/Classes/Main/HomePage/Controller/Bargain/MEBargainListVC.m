@@ -24,8 +24,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ZLRefreshTool *refresh;
 
-@property (nonatomic, strong) UIButton *signInBtn; //签到
-@property (nonatomic, strong) UIButton *bargainNewBtn; //
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, assign) BOOL isToday;
 @property (nonatomic, strong) NSDictionary *bannerInfo;
@@ -50,30 +48,6 @@
     [self.headerView setUIWithDictionary:self.bannerInfo];
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
-    
-    self.tableView.mj_footer.backgroundColor = [UIColor whiteColor];
-    
-    MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableView.mj_footer;
-    footer.stateLabel.text = @"没有更多了！\n快去发起新砍价吧~";
-    footer.stateLabel.numberOfLines = 2;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController.navigationBar addSubview:self.signInBtn];
-    [self.navigationController.navigationBar addSubview:self.bargainNewBtn];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if (self.signInBtn) {
-        [self.signInBtn removeFromSuperview];
-        self.signInBtn = nil;
-    }
-    if (self.bargainNewBtn) {
-        [self.bargainNewBtn removeFromSuperview];
-        self.bargainNewBtn = nil;
-    }
 }
 
 #pragma mark - RefreshToolDelegate
@@ -172,14 +146,6 @@
 }
 
 #pragma Action
-- (void)signInBtnAction {
-    NSLog(@"点击了签到按钮");
-}
-
-- (void)bargainNewBtnAction {
-    NSLog(@"点击了砍价按钮");
-}
-
 - (void)ruleBtnAction {
     NSLog(@"点击了使用规则按钮");
 }
@@ -208,6 +174,8 @@
         self.refresh.url = kGetApiWithUrl(MEIPcommonGetMyBarginList);
         self.tableView.tableHeaderView = [UIView new];
     }
+    [self.refresh.arrData removeAllObjects];
+    [self.tableView reloadData];
     [self.refresh reload];
 }
 
@@ -349,26 +317,6 @@
 }
 
 #pragma setter&&getter
-- (UIButton *)signInBtn {
-    if (!_signInBtn) {
-        _signInBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _signInBtn.frame = CGRectMake(SCREEN_WIDTH - 88 - 5, 0, 44, 44);
-        [_signInBtn setImage:[UIImage imageNamed:@"icon_signIn"] forState:UIControlStateNormal];
-        [_signInBtn addTarget:self action:@selector(signInBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _signInBtn;
-}
-
-- (UIButton *)bargainNewBtn {
-    if (!_bargainNewBtn) {
-        _bargainNewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _bargainNewBtn.frame = CGRectMake(SCREEN_WIDTH - 44 - 10, 0, 44, 44);
-        [_bargainNewBtn setImage:[UIImage imageNamed:@"icon_newBargain"] forState:UIControlStateNormal];
-        [_bargainNewBtn addTarget:self action:@selector(bargainNewBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _bargainNewBtn;
-}
-
 - (UIView *)bottomView {
     if (!_bottomView) {
         _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 49, SCREEN_WIDTH, 49)];
@@ -417,11 +365,11 @@
         _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonGetBarginGoodsList)];
         _refresh.delegate = self;
         _refresh.isBargain = YES;
-        _refresh.showFailView = NO;
-//        [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
-//            failView.backgroundColor = [UIColor whiteColor];
-//            failView.lblOfNodata.text = @"没有砍价商品";
-//        }];
+//        _refresh.showFailView = NO;
+        [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
+            failView.backgroundColor = [UIColor whiteColor];
+            failView.lblOfNodata.text = @"没有砍价商品";
+        }];
     }
     return _refresh;
 }

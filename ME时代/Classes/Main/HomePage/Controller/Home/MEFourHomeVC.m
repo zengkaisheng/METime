@@ -22,6 +22,9 @@
 #import "MEJDCoupleHomeVC.h"
 
 #import "MEFourCouponSearchHomeVC.h"
+
+#import "MEBargainListVC.h"
+
 @interface MEFourHomeVC ()<UIScrollViewDelegate>{
     METhridHomeModel *_homeModel;
     MEStoreModel *_stroeModel;
@@ -171,6 +174,9 @@
         kMeWEAKSELF
         _navView.searchBlock = ^{
             kMeSTRONGSELF
+            MEBargainListVC *bargainVC = [[MEBargainListVC alloc] init];
+            [strongSelf.navigationController pushViewController:bargainVC animated:YES];
+            return;
             [strongSelf searchCoupon];
         };
         _navView.selectIndexBlock = ^(NSInteger index) {
