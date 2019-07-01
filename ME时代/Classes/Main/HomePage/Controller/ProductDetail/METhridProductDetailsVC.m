@@ -34,6 +34,7 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
 
 @interface METhridProductDetailsVC ()<UITableViewDelegate,UITableViewDataSource>{
     NSInteger _detailsId;
+    NSInteger _bargainId;
     NSArray *_arrTitle;
     kpurchaseViewType _selectType;
     NSString *_customId;
@@ -69,6 +70,14 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
 - (instancetype)initWithId:(NSInteger)detailsId{
     if(self = [super init]){
         _detailsId = detailsId;
+    }
+    return self;
+}
+
+- (instancetype)initWithId:(NSInteger)detailsId bargainId:(NSInteger)bargainId{
+    if(self = [super init]){
+        _detailsId = detailsId;
+        _bargainId = bargainId;
     }
     return self;
 }
@@ -171,6 +180,7 @@ kTDWebViewCellDidFinishLoadNotificationMethod
                 vc.uid = kMeUnNilStr(strongSelf.uid);
                 vc.isReceivePrize = strongSelf.isReceivePrize;
                 vc.activity_id = strongSelf.activity_id;
+                vc.bargainId = _bargainId;
                 [strongSelf.navigationController pushViewController:vc animated:YES];
             }
                 break;
@@ -409,7 +419,7 @@ kTDWebViewCellDidFinishLoadNotificationMethod
 - (MEProductDetailsBottomView *)bottomView{
     if(!_bottomView){
         _bottomView = [[[NSBundle mainBundle]loadNibNamed:@"MEProductDetailsBottomView" owner:nil options:nil] lastObject];
-        if (self.isReceivePrize) {
+        if (self.isReceivePrize || _bargainId!=0) {
             _bottomView.btnGift.hidden = NO;
             [_bottomView.btnGift setTitle:@"立即领取" forState:UIControlStateNormal];
         }else {

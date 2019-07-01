@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblHour;
 @property (weak, nonatomic) IBOutlet UILabel *lblMinite;
 @property (weak, nonatomic) IBOutlet UILabel *lblSecond;
+@property (weak, nonatomic) IBOutlet UILabel *endLbl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bargainConsWidth;
 
 @end
 
@@ -32,6 +34,7 @@
     // Initialization code
     self.selectionStyle = 0;
     _timeView.hidden = YES;
+    _endLbl.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -42,6 +45,7 @@
 
 - (void)setUIWithModel:(MEBargainListModel *)model {
     _timeView.hidden = YES;
+    _endLbl.hidden = YES;
     _subTitleLbl.hidden = NO;
     _countLbl.hidden = NO;
     
@@ -50,22 +54,63 @@
     _subTitleLbl.text = [NSString stringWithFormat:@"砍成免费领%@",model.title];
     _countLbl.text = [NSString stringWithFormat:@"已有%ld人领取",(long)model.finish_bargin_num];
     _priceLbl.text = [NSString stringWithFormat:@"价值%@元",model.amount_money];
+    
+    NSString *content = [NSString stringWithFormat:@"砍价%.2f元得",[model.product_price floatValue] - [model.amount_money floatValue]];
+    CGFloat width = [content boundingRectWithSize:CGSizeMake(100, 32) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.width;
+    [_bargainBtn setTitle:[NSString stringWithFormat:@"砍价%.2f元得",[model.product_price floatValue] - [model.amount_money floatValue]] forState:UIControlStateNormal];
+    _bargainConsWidth.constant = width+24;
 }
 
 - (void)setMyBargainUIWithModel:(MEMyBargainListModel *)model {
-    _timeView.hidden = NO;
-    _subTitleLbl.hidden = YES;
-    _countLbl.hidden = YES;
-    
     kSDLoadImg(_headerPic, model.images);
     _titleLbl.text = model.title;
-    _priceLbl.text = [NSString stringWithFormat:@"还差%@元",model.amount_money];
-    [self downSecondHandle:model.end_time];
+    _subTitleLbl.hidden = YES;
+    
+    if (model.bargin_status == 1) {//未结束
+        _timeView.hidden = NO;
+        _endLbl.hidden = YES;
+        _countLbl.hidden = YES;
+        [self downSecondHandle:model.end_time];
+        
+        if (model.status == 1) {//砍价中
+            _priceLbl.text = [NSString stringWithFormat:@"还差%@元",model.amount_money];
+            [_bargainBtn setTitle:@"继续砍价" forState:UIControlStateNormal];
+        }else if (model.status == 2) {//砍价成功
+            _priceLbl.text = @"砍价成功";
+            [_bargainBtn setTitle:@"立即领取" forState:UIControlStateNormal];
+        }else if (model.status == 3) {
+            _priceLbl.text = @"砍价成功";
+            [_bargainBtn setTitle:@"已兑换" forState:UIControlStateNormal];
+        }
+    }else if (model.bargin_status == 2) {//已结束
+        _timeView.hidden = YES;
+        _endLbl.hidden = NO;
+        _countLbl.hidden = NO;
+        if (model.status == 1) {
+            _countLbl.text = [NSString stringWithFormat:@"只差%.2f元就成功了",[model.amount_money floatValue] - [model.money floatValue]];
+            [_bargainBtn setTitle:@"重砍一个" forState:UIControlStateNormal];
+            _priceLbl.text = @"砍价失败";
+        }else if (model.status == 2) {
+            _priceLbl.text = @"砍价成功";
+            [_bargainBtn setTitle:@"立即领取" forState:UIControlStateNormal];
+        }else if (model.status == 3) {
+            _priceLbl.text = @"砍价成功";
+            [_bargainBtn setTitle:@"已兑换" forState:UIControlStateNormal];
+        }
+    }
 }
 
 - (IBAction)bargainAction:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    NSInteger index = 0;
+    if ([btn.titleLabel.text isEqualToString:@"已兑换"]) {
+        return;
+    }
+    if ([btn.titleLabel.text isEqualToString:@"重砍一个"]) {
+        index = 1;
+    }
     if (self.tapBlock) {
-        self.tapBlock();
+        self.tapBlock(index);
     }
 }
 

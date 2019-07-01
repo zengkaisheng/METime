@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MEIntelligentSearchView : UIView
 
 + (void)ShowWithTitle:(NSString *)title tapBlock:(kMeIndexBlock)tapBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView;
-- (instancetype)initWithTitle:(NSString *)title superView:(UIView*)superView;
+//- (instancetype)initWithTitle:(NSString *)title superView:(UIView*)superView;
 
 @end
 

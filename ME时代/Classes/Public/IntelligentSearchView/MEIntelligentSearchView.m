@@ -8,9 +8,6 @@
 
 #import "MEIntelligentSearchView.h"
 
-#define ImgtopMargin (100*kMeFrameScaleY())
-#define BtnTopMargin (20*kMeFrameScaleY())
-
 #define BGViewWidth (256*(kMeFrameScaleY()>1?kMeFrameScaleY():1))
 #define BGViewHeight (310*(kMeFrameScaleY()>1?kMeFrameScaleY():1))
 

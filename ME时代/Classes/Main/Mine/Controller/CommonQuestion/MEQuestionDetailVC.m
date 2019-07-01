@@ -29,7 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.title = @"常见问题";
     [self.navigationController.navigationBar addSubview:self.rightBtn];
     
     [self createImageViewWithImage:@"icon_question" frame:CGRectMake(15, kMeNavBarHeight + 25, 18, 18)];

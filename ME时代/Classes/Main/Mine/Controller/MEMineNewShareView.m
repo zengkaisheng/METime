@@ -11,6 +11,7 @@
 @interface MEMineNewShareView (){
  
 }
+@property (weak, nonatomic) IBOutlet UILabel *invitationCodeLbl;
 
 //code WH
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consImgCodeW;
@@ -50,8 +51,8 @@
     _conHh.constant = 50* kMeFrameScaleX();
     _imgHeader.cornerRadius = (50* kMeFrameScaleX())/2;
     _imgHeader.clipsToBounds = YES;
-    _consNameTop.constant = 50* kMeFrameScaleX();
-    _consLevTop.constant = 10* kMeFrameScaleX();
+    _consNameTop.constant = 24* kMeFrameScaleX();
+    _consLevTop.constant = 13* kMeFrameScaleX();
     if(kMeFrameScaleX()<1){
         _consCodeR.constant = 5;
         _consHeaderL.constant = 5;
@@ -69,6 +70,7 @@
     kSDLoadImg(_imgHeader, kMeUnNilStr(kCurrentUser.header_pic));
     _lblName.text = kMeUnNilStr(kCurrentUser.name);
     _lblLevel.text = kMeUnNilStr(levStr);
+    _invitationCodeLbl.text = kMeUnNilStr(kCurrentUser.invite_code);
 }
 
 + (CGFloat)getViewHeight{

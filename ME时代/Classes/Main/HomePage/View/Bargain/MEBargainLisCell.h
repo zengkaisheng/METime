@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEBargainLisCell : UITableViewCell
 
-@property (nonatomic,copy) kMeBasicBlock tapBlock;
+@property (nonatomic,copy) kMeIndexBlock tapBlock;
 
 - (void)setUIWithModel:(MEBargainListModel *)model;
 

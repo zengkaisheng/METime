@@ -514,6 +514,21 @@
 /***************************************/
 
 
+
+/***************************************/
+#pragma mark - Bargin
+//砍价
++ (void)postBargainWithBargainId:(NSString *)bargainId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//砍价商品详情
++ (void)postBargainDetailWithBargainId:(NSString *)bargainId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//查看更多砍价帮
++ (void)postGetAllBarginLogWithBargainId:(NSString *)bargainId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//领取砍价商品
++ (void)postCreateBargainOrderWithAttrModel:(MEMakeOrderAttrModel *)attrModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+/***************************************/
+
+
+
 /***************************************/
 #pragma mark - auth
 //添加极光注册id

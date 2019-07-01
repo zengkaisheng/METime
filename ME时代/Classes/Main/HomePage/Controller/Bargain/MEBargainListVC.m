@@ -17,6 +17,7 @@
 #import "MEServiceDetailsVC.h"
 #import "ZLWebViewVC.h"
 #import "MECoupleMailVC.h"
+#import "MEBargainDetailVC.h"
 
 @interface MEBargainListVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -48,10 +49,20 @@
     [self.headerView setUIWithDictionary:self.bannerInfo];
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
+    [self showHud];
+}
+
+- (void)showHud {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
+    hud.userInteractionEnabled = YES;
+    [hud hideAnimated:YES afterDelay:1.5];
 }
 
 #pragma mark - RefreshToolDelegate
 - (NSDictionary *)requestParameter{
+    if (self.isToday) {
+        return @{@"token":kMeUnNilStr(kCurrentUser.token),@"tool":@"1"};
+    }
     return @{@"token":kMeUnNilStr(kCurrentUser.token)};
 }
 
@@ -78,15 +89,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEBargainLisCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEBargainLisCell class]) forIndexPath:indexPath];
-    cell.tapBlock = ^{
-        
-    };
     if (self.isToday) {
         MEBargainListModel *model = self.refresh.arrData[indexPath.row];
         [cell setUIWithModel:model];
+        kMeWEAKSELF
+        cell.tapBlock = ^(NSInteger index) {
+            kMeSTRONGSELF
+            [strongSelf postBargainWithBargainId:model.idField  myList:NO];
+        };
     }else {
         MEMyBargainListModel *model = self.refresh.arrData[indexPath.row];
         [cell setMyBargainUIWithModel:model];
+        kMeWEAKSELF
+        cell.tapBlock = ^(NSInteger index) {
+            kMeSTRONGSELF
+            if (index == 1) {
+                UIButton *btn = [[UIButton alloc] init];
+                btn.tag = 100;
+                [strongSelf bottomBtnAction:btn];
+            }else {
+                [strongSelf postBargainWithBargainId:model.bargin_id  myList:YES];
+            }
+        };
     }
     return cell;
 }
@@ -140,12 +164,21 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    MECoupleModel *model = self.refresh.arrData[indexPath.row];
-//    MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
-//    [self.navigationController pushViewController:vc animated:YES];
+    if (self.isToday) {
+        MEBargainListModel *model = self.refresh.arrData[indexPath.row];
+        [self postBargainWithBargainId:model.idField  myList:NO];
+    }else {
+        MEMyBargainListModel *model = self.refresh.arrData[indexPath.row];
+        [self postBargainWithBargainId:model.bargin_id  myList:YES];
+    }
 }
 
 #pragma Action
+- (void)postBargainWithBargainId:(NSInteger)bargainId  myList:(BOOL)isMyList{
+    MEBargainDetailVC *vc = [[MEBargainDetailVC alloc] initWithBargainId:bargainId  myList:isMyList];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)ruleBtnAction {
     NSLog(@"点击了使用规则按钮");
 }

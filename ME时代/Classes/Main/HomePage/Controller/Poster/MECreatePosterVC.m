@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnShare;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consCodeH;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consCodeW;
+@property (weak, nonatomic) IBOutlet UILabel *invitationCodeLbl;
 
 @property (strong, nonatomic) UIImage *imgShare;
 @end
@@ -68,17 +69,18 @@
     if(IS_iPhoneX){
         _consImgTop.constant = (70 * kMeFrameScaleX()) + kMeNavBarHeight;
     }else{
-        _consImgTop.constant = (35 * kMeFrameScaleX()) + kMeNavBarHeight;
+        _consImgTop.constant = (38 * kMeFrameScaleX()) + kMeNavBarHeight;
     }
     CGFloat RLMargin = 66 * kMeFrameScaleX();
     _consImgR.constant = RLMargin;
     _consImgL.constant = RLMargin;
     CGFloat imgWdith = SCREEN_WIDTH - (RLMargin *2);
-    _consImgHeight.constant = ((152 * imgWdith)/102);
-    _consViewHeight.constant = 66 * kMeFrameScaleX();
-    _consCodeH.constant = 47* kMeFrameScaleX();
-    _consCodeW.constant = 47* kMeFrameScaleX();
+    _consImgHeight.constant = ((180 * imgWdith)/122);
+    _consViewHeight.constant = 74 * kMeFrameScaleX();
+    _consCodeH.constant = 50* kMeFrameScaleX();
+    _consCodeW.constant = 50* kMeFrameScaleX();
     _consBtnheight.constant = 49 * kMeFrameScaleX();
+    _invitationCodeLbl.text = kMeUnNilStr(kCurrentUser.invite_code);
     kMeWEAKSELF
     if(_isActive){
         [_imgposter sd_setImageWithURL:[NSURL URLWithString:kMeUnNilStr(_activeModel.image)] placeholderImage:kImgPlaceholder completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {

@@ -20,4 +20,6 @@
 //来自好友分享
 @property(nonatomic, copy) NSString *uid;
 
+@property(nonatomic, assign) NSInteger bargainId;
+
 @end

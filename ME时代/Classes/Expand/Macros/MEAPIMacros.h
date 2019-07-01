@@ -236,7 +236,14 @@
 #define MEIPcommonGetBarginGoodsList @"common/bargin/barginGoodsList"
 //我的砍价列表
 #define MEIPcommonGetMyBarginList @"common/bargin/myBarginList"
-
+//砍价
+#define MEIPcommonGetBargin @"common/bargin/bargin"
+//砍价详情
+#define MEIPcommonGetMemberBarginDetail @"common/bargin/memberBarginDetail"
+//砍价详情
+#define MEIPcommonGetAllBarginLog @"common/bargin/getAllBarginLog"
+//领取砍价商品
+#define MEIPCommonPrizeCreateBargainOrder @"common/order/barginOrder"
 /*********************************************/
 
 

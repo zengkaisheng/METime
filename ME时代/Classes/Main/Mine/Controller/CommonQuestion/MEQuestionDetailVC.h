@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEQuestionDetailVC : MEBaseVC
 
-@property (nonatomic, copy) NSString *titleStr;
 - (instancetype)initWithQuestionId:(NSInteger)questionId;
 
 @end
