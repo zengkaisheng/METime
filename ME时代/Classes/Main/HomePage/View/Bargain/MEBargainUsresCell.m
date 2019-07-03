@@ -11,6 +11,7 @@
 
 @interface MEBargainUsresCell ()
 @property (weak, nonatomic) IBOutlet UIView *BGView;
+@property (weak, nonatomic) IBOutlet UIButton *checkMoreBtn;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @end
 
@@ -37,9 +38,14 @@
     }
     
     if (model.bargin_user.count == 3) {
-        _bottomView.hidden = NO;
+        [_checkMoreBtn setTitle:@"查看更多" forState:UIControlStateNormal];
+        [_checkMoreBtn setImage:[UIImage imageNamed:@"icon_arrow_red"] forState:UIControlStateNormal];
+        [_checkMoreBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:7];
+        _checkMoreBtn.enabled = YES;
     }else {
-        _bottomView.hidden = YES;
+        [_checkMoreBtn setTitle:@"人多力量大,快喊小伙伴们来帮忙" forState:UIControlStateNormal];
+        [_checkMoreBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        _checkMoreBtn.enabled = NO;
     }
     for (int i = 0; i < model.bargin_user.count; i++) {
         MEBargainUserModel *subModel = model.bargin_user[i];
@@ -115,15 +121,11 @@
 }
 
 + (CGFloat)getCellHeightWithArray:(NSArray *)array showMore:(BOOL)isShow {
-    CGFloat height = 54;
+    CGFloat height = 54+47;
     if (array.count <= 0) {
-        return height + 10;
+        return 0;
     }else {
-        if (array.count == 3) {
-            height += 49 * 3 + 47;
-        }else {
-            height += 49 * array.count;
-        }
+        height += 49 * array.count;
     }
     return height;
 }

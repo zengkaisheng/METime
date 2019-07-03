@@ -50,12 +50,21 @@
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
     [self showHud];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reload) name:kBargainReloadOrder object:nil];
+}
+
+- (void)dealloc {
+    kNSNotificationCenterDealloc
+}
+
+- (void)reload {
+    [self.refresh reload];
 }
 
 - (void)showHud {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
     hud.userInteractionEnabled = YES;
-    [hud hideAnimated:YES afterDelay:1.5];
+    [hud hideAnimated:YES afterDelay:2.0];
 }
 
 #pragma mark - RefreshToolDelegate
@@ -74,7 +83,7 @@
     MENetListModel *nlModel = [MENetListModel mj_objectWithKeyValues:info];
     if (self.isToday) {
         self.banners = [MEAdModel mj_objectArrayWithKeyValuesArray:info[@"top_banner"]];
-        self.bannerInfo = @{@"today_finish_bargin_total":[NSString stringWithFormat:@"%ld",[info[@"today_finish_bargin_total"] integerValue]],@"top_banner":self.banners};
+        self.bannerInfo = @{@"today_finish_bargin_total":[NSString stringWithFormat:@"%ld",(long)[info[@"today_finish_bargin_total"] integerValue]],@"top_banner":self.banners,@"type":@"1"};
         [self.headerView setUIWithDictionary:self.bannerInfo];
         [self.refresh.arrData addObjectsFromArray:[MEBargainListModel mj_objectArrayWithKeyValuesArray:nlModel.data]];
     }else {
@@ -209,6 +218,7 @@
     }
     [self.refresh.arrData removeAllObjects];
     [self.tableView reloadData];
+    [self showHud];
     [self.refresh reload];
 }
 

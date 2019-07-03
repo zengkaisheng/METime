@@ -220,6 +220,7 @@
 /*********************************************/
 
 
+
 /*********************************************/
 #pragma makr - coupon
 
@@ -229,9 +230,10 @@
 /*********************************************/
 
 
+
+
 /*********************************************/
 #pragma makr - bargain
-
 //砍价商品列表
 #define MEIPcommonGetBarginGoodsList @"common/bargin/barginGoodsList"
 //我的砍价列表
@@ -245,6 +247,22 @@
 //领取砍价商品
 #define MEIPCommonPrizeCreateBargainOrder @"common/order/barginOrder"
 /*********************************************/
+
+
+
+
+/*********************************************/
+#pragma makr - Group
+//拼团商品列表
+#define MEIPcommonGetGroupList @"common/marketing/groupList"
+//拼团商品详情
+#define MEIPcommonGetGroupInfo @"common/marketing/groupInfo"
+//获取拼团的人员信息
+#define MEIPcommonGetGroupUser @"common/marketing/getGroupUser"
+
+/*********************************************/
+
+
 
 
 /*********************************************/

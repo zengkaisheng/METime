@@ -49,9 +49,12 @@
     }
 //    kSDLoadImg(_headerPic, @"");
 //    _topLbl.text = @"某某砍价成功了致青春期男孩";
-    
-    NSString *fstr = [NSString stringWithFormat:@"%@ 人今日成功砍价",kMeUnNilStr(dic[@"today_finish_bargin_total"])];
-//    [NSString stringWithFormat:@"%@ 人今日成功砍价",kMeUnNilStr(model.truePrice).floatValue];
+    NSString *fstr = @"";
+    if ([kMeUnNilStr(dic[@"type"]) intValue] == 1) {//砍价
+        fstr = [NSString stringWithFormat:@"%@ 人今日砍价成功",kMeUnNilStr(dic[@"today_finish_bargin_total"])];
+    }else if ([kMeUnNilStr(dic[@"type"]) intValue] == 2) {//拼团
+        fstr = [NSString stringWithFormat:@"%@ 人今日拼团成功",kMeUnNilStr(dic[@"today_finish_bargin_total"])];
+    }
     NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
     NSUInteger secondLoc = [[faString string] rangeOfString:@" "].location;
     

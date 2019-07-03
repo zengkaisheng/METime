@@ -22,6 +22,7 @@ const static CGFloat kMEProductDetailsBottomViewHeight  = 50;
 //@property (nonatomic, assign) BOOL isGift;
 @property (weak, nonatomic) IBOutlet UIButton *btnGift;
 
+@property (nonatomic, assign) BOOL isGroup;//是否拼团
 
 @property (nonatomic, strong) MEGoodDetailModel *model;
 //是秒杀 秒杀

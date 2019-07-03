@@ -13,12 +13,14 @@
 #import "MEStoreHomeVC.h"
 #import "MEMidelButton.h"
 #import "MEGoodDetailModel.h"
+#import "MEGroupDetailVC.h"
 
 @interface MEProductDetailsBottomView(){
     NSString *_paoductIdEndoceStr;
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consPurchaseWdith;
 @property (weak, nonatomic) IBOutlet MEMidelButton *btnShare;
+@property (weak, nonatomic) IBOutlet UIButton *btnBuy;
 
 
 @end
@@ -32,19 +34,27 @@
 }
 
 - (IBAction)homeAction:(UIButton *)sender {
-    METhridProductDetailsVC *detailVC = (METhridProductDetailsVC *)[MECommonTool getVCWithClassWtihClassName:[METhridProductDetailsVC class] targetResponderView:self];
-    if(detailVC){
-        detailVC.tabBarController.selectedIndex = 0;
-        [detailVC.navigationController popToRootViewControllerAnimated:YES];
-//        MEHomePageVC *homeVC = (MEHomePageVC *)[MECommonTool getClassWtihClassName:[MEHomePageVC class] targetVC:detailVC];
-//        if(homeVC){
-//            [detailVC.navigationController popToViewController:homeVC animated:YES];
-//        }else{
-//            MEStoreHomeVC *shomeVC = (MEStoreHomeVC *)[MECommonTool getClassWtihClassName:[MEStoreHomeVC class] targetVC:detailVC];
-//            if(shomeVC){
-//                [detailVC.navigationController popToViewController:shomeVC animated:YES];
-//            }
-//        }
+    if (self.isGroup) {
+        MEGroupDetailVC *detailVC = (MEGroupDetailVC *)[MECommonTool getVCWithClassWtihClassName:[MEGroupDetailVC class] targetResponderView:self];
+        if(detailVC){
+            detailVC.tabBarController.selectedIndex = 0;
+            [detailVC.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }else {
+        METhridProductDetailsVC *detailVC = (METhridProductDetailsVC *)[MECommonTool getVCWithClassWtihClassName:[METhridProductDetailsVC class] targetResponderView:self];
+        if(detailVC){
+            detailVC.tabBarController.selectedIndex = 0;
+            [detailVC.navigationController popToRootViewControllerAnimated:YES];
+            //        MEHomePageVC *homeVC = (MEHomePageVC *)[MECommonTool getClassWtihClassName:[MEHomePageVC class] targetVC:detailVC];
+            //        if(homeVC){
+            //            [detailVC.navigationController popToViewController:homeVC animated:YES];
+            //        }else{
+            //            MEStoreHomeVC *shomeVC = (MEStoreHomeVC *)[MECommonTool getClassWtihClassName:[MEStoreHomeVC class] targetVC:detailVC];
+            //            if(shomeVC){
+            //                [detailVC.navigationController popToViewController:shomeVC animated:YES];
+            //            }
+            //        }
+        }
     }
 }
 - (IBAction)shareWxFriendAction:(UIButton *)sender {
@@ -234,5 +244,13 @@
     kMeCallBlock(self.buyBlock);
 }
 
+- (void)setIsGroup:(BOOL)isGroup {
+    _isGroup = isGroup;
+    if (isGroup) {
+        [_btnBuy setTitle:@"立即拼团" forState:UIControlStateNormal];
+    }else {
+        [_btnBuy setTitle:@"立即购买" forState:UIControlStateNormal];
+    }
+}
 
 @end

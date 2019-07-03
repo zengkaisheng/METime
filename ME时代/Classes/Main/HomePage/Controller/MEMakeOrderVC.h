@@ -21,5 +21,6 @@
 @property(nonatomic, copy) NSString *uid;
 
 @property(nonatomic, assign) NSInteger bargainId;
+@property(nonatomic, copy) NSString *reducePrice;
 
 @end

@@ -40,7 +40,7 @@
     [self addSubview:self.bgView];
     
     UIButton *cancelBtn = [self createButtonWithImage:@"qaj"];
-    cancelBtn.frame = CGRectMake((SCREEN_WIDTH-44)/2, CGRectGetMaxY(self.bgView.frame)+3, 44, 44);
+    cancelBtn.frame = CGRectMake((SCREEN_WIDTH-44)/2, CGRectGetMaxY(self.bgView.frame)+16, 44, 44);
     [self.maskView addSubview:cancelBtn];
     //标题
     UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(13, 22, BGViewWidth-26, 17)];

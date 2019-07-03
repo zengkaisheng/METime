@@ -206,8 +206,8 @@
                 [strongSelf showInvitationCodeView:YES];
             }else{//信息错误
                 [MEUserInfoModel logout];
-//                                [kCurrentUser removeFromLocalData];
-//                                [strongSelf loginFail];
+//           [kCurrentUser removeFromLocalData];
+//           [strongSelf loginFail];
             }
         };
     }

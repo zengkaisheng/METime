@@ -53,11 +53,11 @@
     _titleLbl.text = model.title;
     _subTitleLbl.text = [NSString stringWithFormat:@"砍成免费领%@",model.title];
     _countLbl.text = [NSString stringWithFormat:@"已有%ld人领取",(long)model.finish_bargin_num];
-    _priceLbl.text = [NSString stringWithFormat:@"价值%@元",model.amount_money];
+    _priceLbl.text = [NSString stringWithFormat:@"价值%@元",model.product_price];
     
     NSString *content = [NSString stringWithFormat:@"砍价%.2f元得",[model.product_price floatValue] - [model.amount_money floatValue]];
     CGFloat width = [content boundingRectWithSize:CGSizeMake(100, 32) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.width;
-    [_bargainBtn setTitle:[NSString stringWithFormat:@"砍价%.2f元得",[model.product_price floatValue] - [model.amount_money floatValue]] forState:UIControlStateNormal];
+    [_bargainBtn setTitle:content forState:UIControlStateNormal];
     _bargainConsWidth.constant = width+24;
 }
 
@@ -70,17 +70,20 @@
         _timeView.hidden = NO;
         _endLbl.hidden = YES;
         _countLbl.hidden = YES;
-        [self downSecondHandle:model.end_time];
+        [self downSecondHandle:[NSString stringWithFormat:@"%ld",model.over_time]];
         
         if (model.status == 1) {//砍价中
-            _priceLbl.text = [NSString stringWithFormat:@"还差%@元",model.amount_money];
+            _priceLbl.text = [NSString stringWithFormat:@"还差%.2f元",[model.amount_money floatValue] - [model.money floatValue]];
             [_bargainBtn setTitle:@"继续砍价" forState:UIControlStateNormal];
         }else if (model.status == 2) {//砍价成功
             _priceLbl.text = @"砍价成功";
             [_bargainBtn setTitle:@"立即领取" forState:UIControlStateNormal];
         }else if (model.status == 3) {
             _priceLbl.text = @"砍价成功";
-            [_bargainBtn setTitle:@"已兑换" forState:UIControlStateNormal];
+            [_bargainBtn setTitle:@"已领取" forState:UIControlStateNormal];
+        }else if (model.status == 4) {
+            _priceLbl.text = @"砍价失败";
+            [_bargainBtn setTitle:@"重砍一个" forState:UIControlStateNormal];
         }
     }else if (model.bargin_status == 2) {//已结束
         _timeView.hidden = YES;
@@ -95,7 +98,11 @@
             [_bargainBtn setTitle:@"立即领取" forState:UIControlStateNormal];
         }else if (model.status == 3) {
             _priceLbl.text = @"砍价成功";
-            [_bargainBtn setTitle:@"已兑换" forState:UIControlStateNormal];
+            [_bargainBtn setTitle:@"已领取" forState:UIControlStateNormal];
+        }else if (model.status == 4) {
+            _countLbl.text = [NSString stringWithFormat:@"只差%.2f元就成功了",[model.amount_money floatValue] - [model.money floatValue]];
+            _priceLbl.text = @"砍价失败";
+            [_bargainBtn setTitle:@"重砍一个" forState:UIControlStateNormal];
         }
     }
 }
@@ -124,18 +131,18 @@
 
 -(void)downSecondHandle:(NSString *)aTimeString{
     
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    NSDate *endDate = [self timeWithTimeIntervalString:kMeUnNilStr(aTimeString)]; //结束时间
-    NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
-    NSDate *startDate = [NSDate date];
-    NSString* dateString = [dateFormatter stringFromDate:startDate];
-    NSLog(@"现在的时间 === %@",dateString);
-    NSTimeInterval timeInterval =[endDate_tomorrow timeIntervalSinceDate:startDate];
+//    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//
+//    NSDate *endDate = [self timeWithTimeIntervalString:kMeUnNilStr(aTimeString)]; //结束时间
+//    NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
+//    NSDate *startDate = [NSDate date];
+//    NSString* dateString = [dateFormatter stringFromDate:startDate];
+//    NSLog(@"现在的时间 === %@",dateString);
+//    NSTimeInterval timeInterval =[endDate_tomorrow timeIntervalSinceDate:startDate];
     
     if (_timer==nil) {
-        __block int timeout = timeInterval; //倒计时时间
+        __block int timeout = [aTimeString intValue]; //倒计时时间
         
         if (timeout!=0) {
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);

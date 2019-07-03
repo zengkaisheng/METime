@@ -31,14 +31,14 @@
                                 <color key="textColor" red="0.99607843137254903" green="0.32549019607843138" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1B0-bT-6Th">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_redFlash_left" translatesAutoresizingMaskIntoConstraints="NO" id="1B0-bT-6Th">
                                 <rect key="frame" x="52" y="19.5" width="88" height="13"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" id="a06-WW-McH"/>
                                     <constraint firstAttribute="height" constant="13" id="gbN-2n-xrX"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7bG-GI-zfU">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_redFlash_right" translatesAutoresizingMaskIntoConstraints="NO" id="7bG-GI-zfU">
                                 <rect key="frame" x="205" y="19.5" width="88" height="13"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" id="4ls-j2-Rao"/>
@@ -51,7 +51,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8dt-IG-271">
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="47"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="查看更多 &gt;">
+                                        <state key="normal" title="查看更多" image="icon_arrow_red">
                                             <color key="titleColor" red="0.99607843137254903" green="0.32549019607843138" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -99,8 +99,14 @@
             <connections>
                 <outlet property="BGView" destination="ibT-QP-hKL" id="BLb-bx-jdm"/>
                 <outlet property="bottomView" destination="Y3B-rL-6H0" id="RC2-b8-Qq9"/>
+                <outlet property="checkMoreBtn" destination="8dt-IG-271" id="2Gc-cT-2Ba"/>
             </connections>
             <point key="canvasLocation" x="-434" y="33"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_arrow_red" width="6" height="11"/>
+        <image name="icon_redFlash_left" width="87" height="13"/>
+        <image name="icon_redFlash_right" width="87" height="14"/>
+    </resources>
 </document>

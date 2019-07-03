@@ -55,14 +55,28 @@
     kSDLoadImg(_headerImgV, model.header_pic);
     _nameLbl.text = model.nick_name;
     _contentLbl.text = [NSString stringWithFormat:@"想要此产品，一起砍价%.2f元领取吧~",[model.product_price floatValue] - [model.amount_money floatValue]];
-    
+    if (IS_IPHONE_4S || IS_IPHONE_5 || IS_iPhone5S) {
+        _contentLbl.font = [UIFont boldSystemFontOfSize:16];
+    }else if (IS_IPHONE_6) {
+        _contentLbl.font = [UIFont boldSystemFontOfSize:17];
+    }else {
+        _contentLbl.font = [UIFont boldSystemFontOfSize:18];
+    }
     kSDLoadImg(_productImageView, model.images);
     _productTitleLbl.text = model.title;
     _productCountLbl.text = [NSString stringWithFormat:@"已有%ld人领取",(long)model.finish_bargin_num];
     _productPriceLbl.text = [NSString stringWithFormat:@"价值%@元",model.product_price];
+    if (IS_IPHONE_4S || IS_IPHONE_5 || IS_iPhone5S) {
+        _contentLbl.font = [UIFont boldSystemFontOfSize:13];
+    }else if (IS_IPHONE_6) {
+        _contentLbl.font = [UIFont boldSystemFontOfSize:14];
+    }else {
+        _contentLbl.font = [UIFont boldSystemFontOfSize:16];
+    }
+    [self downSecondHandle:[NSString stringWithFormat:@"%ld",model.over_time]];
     
-    [self downSecondHandle:model.end_time];
-//    [_shareButton setBackgroundImage:[UIImage imageNamed:@"bargainShareBtnImg"] forState:UIControlStateNormal];
+    [_shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_shareButton setBackgroundImage:[UIImage imageNamed:@"bargainShareBtnImg"] forState:UIControlStateNormal];
     
     if (model.status == 1) {//砍价中
         NSString *message = [NSString stringWithFormat:@"已砍%@元,完成%.1f%%,只差%.2f元!",model.money,[model.money floatValue]/[model.amount_money floatValue]*100,[model.amount_money floatValue] - [model.money floatValue]];
@@ -97,9 +111,9 @@
         [attriStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FEF200"] range:range1];
         _messageLbl.attributedText = attriStr;
         
-        [_shareButton setTitle:@"已兑换" forState:UIControlStateNormal];
-        [_shareButton setBackgroundImage:nil forState:UIControlStateNormal];
-        [_shareButton setBackgroundColor:kME666666];
+        [_shareButton setTitle:@"已领取" forState:UIControlStateNormal];
+        [_shareButton setTitleColor:kME999999 forState:UIControlStateNormal];
+        [_shareButton setBackgroundImage:[UIImage imageNamed:@"bargainShareBtnImg_gray"] forState:UIControlStateNormal];
     }else if (model.status == 4) {
         NSString *message = [NSString stringWithFormat:@"砍价失败，还差%.2f元，就成功啦!",[model.amount_money floatValue] - [model.money floatValue]];
         
@@ -205,18 +219,18 @@
 
 -(void)downSecondHandle:(NSString *)aTimeString{
     
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    NSDate *endDate = [self timeWithTimeIntervalString:kMeUnNilStr(aTimeString)]; //结束时间
-    NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
-    NSDate *startDate = [NSDate date];
-    NSString* dateString = [dateFormatter stringFromDate:startDate];
-    NSLog(@"现在的时间 === %@",dateString);
-    NSTimeInterval timeInterval =[endDate_tomorrow timeIntervalSinceDate:startDate];
+//    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//
+//    NSDate *endDate = [self timeWithTimeIntervalString:kMeUnNilStr(aTimeString)]; //结束时间
+//    NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
+//    NSDate *startDate = [NSDate date];
+//    NSString* dateString = [dateFormatter stringFromDate:startDate];
+//    NSLog(@"现在的时间 === %@",dateString);
+//    NSTimeInterval timeInterval =[endDate_tomorrow timeIntervalSinceDate:startDate];
     
     if (_timer==nil) {
-        __block int timeout = timeInterval; //倒计时时间
+        __block int timeout = [aTimeString intValue]; //倒计时时间
         
         if (timeout!=0) {
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);

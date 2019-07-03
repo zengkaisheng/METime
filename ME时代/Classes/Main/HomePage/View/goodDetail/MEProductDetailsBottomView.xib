@@ -143,6 +143,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="btnBuy" destination="lku-Ca-G37" id="Ttr-Ta-S6L"/>
                 <outlet property="btnGift" destination="1fk-GY-Ik6" id="6bm-hx-QNB"/>
                 <outlet property="btnShare" destination="0B0-9w-x5u" id="qaO-jh-RBh"/>
                 <outlet property="consPurchaseWdith" destination="BDN-NY-25B" id="h8o-gz-sFe"/>

@@ -17,6 +17,8 @@
 #import "MECoupleFilterVC.h"
 #import "MEFourHomeVC.h"
 
+#import "MEGroupListVC.h"
+
 @interface METhridHomeNavView ()<JXCategoryViewDelegate>{
     CGFloat _top;
     CGFloat _touchArea;
@@ -165,7 +167,8 @@
 //    METhridHomeVC *homeVC = (METhridHomeVC *)[MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
     MEFourHomeVC *homeVC = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
     if(homeVC){
-        MENoticeVC *svc = [[MENoticeVC alloc]init];
+//        MENoticeVC *svc = [[MENoticeVC alloc]init];
+        MEGroupListVC *svc = [[MEGroupListVC alloc] init];
         [homeVC.navigationController pushViewController:svc animated:YES];
     }
 }

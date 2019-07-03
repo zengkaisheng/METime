@@ -178,9 +178,14 @@ kTDWebViewCellDidFinishLoadNotificationMethod
                 //生成订单
                 MEMakeOrderVC *vc = [[MEMakeOrderVC alloc]initWithIsinteral:NO goodModel:strongSelf->_model];
                 vc.uid = kMeUnNilStr(strongSelf.uid);
-                vc.isReceivePrize = strongSelf.isReceivePrize;
-                vc.activity_id = strongSelf.activity_id;
-                vc.bargainId = _bargainId;
+                if (strongSelf.isReceivePrize) {
+                    vc.isReceivePrize = strongSelf.isReceivePrize;
+                    vc.activity_id = strongSelf.activity_id;
+                }
+                if (strongSelf->_bargainId > 0) {
+                    vc.bargainId = strongSelf->_bargainId;
+                    vc.reducePrice = strongSelf.reducePrice;
+                }
                 [strongSelf.navigationController pushViewController:vc animated:YES];
             }
                 break;

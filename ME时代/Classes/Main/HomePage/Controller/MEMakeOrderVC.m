@@ -115,21 +115,27 @@
             allPrice = [kMeUnNilStr(_goodModel.postage) floatValue];
             _arrData = @[@""];
         }else {
-            if(self.isProctComd){
-                allPrice = [kMeUnNilStr(_goodModel.money) floatValue];
-            }else{
-                if(_goodModel.is_seckill==1){
-                    allPrice = [kMeUnNilStr(_goodModel.psmodel.seckill_price) floatValue] * _goodModel.buynum  + [kMeUnNilStr(_goodModel.postage) floatValue];
-                }else{
-                    allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum + [kMeUnNilStr(_goodModel.postage) floatValue];
-                }
-            }
-            _arrType = @[@(MEMakrOrderCellMessage)];
-            if ([self->_goodModel.skus containsString:@"到店领取"]) {
-                NSString *msg = [NSString stringWithFormat:@"%@ %@",kMeUnNilStr(kCurrentUser.name),kMeUnNilStr(kCurrentUser.mobile)];
-                _arrData = @[msg];
-            }else {
+            if (self.bargainId > 0) {
+                _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPreferential)];
+                allPrice = [kMeUnNilStr(_goodModel.money) floatValue] - [kMeUnNilStr(self.reducePrice) floatValue] + [kMeUnNilStr(_goodModel.postage) floatValue];
                 _arrData = @[@""];
+            }else {
+                if(self.isProctComd){
+                    allPrice = [kMeUnNilStr(_goodModel.money) floatValue];
+                }else{
+                    if(_goodModel.is_seckill==1){
+                        allPrice = [kMeUnNilStr(_goodModel.psmodel.seckill_price) floatValue] * _goodModel.buynum  + [kMeUnNilStr(_goodModel.postage) floatValue];
+                    }else{
+                        allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum + [kMeUnNilStr(_goodModel.postage) floatValue];
+                    }
+                }
+                _arrType = @[@(MEMakrOrderCellMessage)];
+                if ([self->_goodModel.skus containsString:@"到店领取"]) {
+                    NSString *msg = [NSString stringWithFormat:@"%@ %@",kMeUnNilStr(kCurrentUser.name),kMeUnNilStr(kCurrentUser.mobile)];
+                    _arrData = @[msg];
+                }else {
+                    _arrData = @[@""];
+                }
             }
         }
         _lblAllPrice.text = [NSString stringWithFormat:@"%.2f",allPrice];
@@ -171,6 +177,13 @@
             if (indexPath.row == 2) {
                 MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
                 [cell setAmount:[NSString stringWithFormat:@"%.2f",[kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum]];
+                return cell;
+            }
+        }
+        if (self.bargainId > 0) {
+            if (indexPath.row == 2) {
+                MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
+                [cell setAmount:[NSString stringWithFormat:@"%.2f",[kMeUnNilStr(self.reducePrice) floatValue]]];
                 return cell;
             }
         }
@@ -305,7 +318,7 @@
     }
     
     if (self.bargainId > 0) {
-        model.bargain_id = [NSString stringWithFormat:@"%ld",self.bargainId];
+        model.bargin_id = [NSString stringWithFormat:@"%ld",self.bargainId];
         model.order_type = @"13";
         kMeWEAKSELF
         [MEPublicNetWorkTool postCreateBargainOrderWithAttrModel:model successBlock:^(ZLRequestResponse *responseObject) {
@@ -315,7 +328,7 @@
             CGFloat postage = [postageStr floatValue];
             if(postage<=0){
                 MEPayStatusVC *svc = [[MEPayStatusVC alloc]initWithSucessConfireBlock:^{
-                    kNoticeReloadPrizeOrder
+                    kNoticeReloadBargainOrder
                     METhridProductDetailsVC *vc = (METhridProductDetailsVC *)[MECommonTool getClassWtihClassName:[METhridProductDetailsVC class] targetVC:strongSelf];
                     if(vc){
                         [strongSelf.navigationController popToViewController:vc animated:YES];
@@ -335,7 +348,7 @@
                     if(!isSucess){
                         [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
                     }else {
-                        kNoticeReloadPrizeOrder
+                        kNoticeReloadBargainOrder
                     }
                 } failure:^(id object) {
                     

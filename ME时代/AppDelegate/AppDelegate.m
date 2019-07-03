@@ -150,7 +150,7 @@
     [self.window makeKeyAndVisible];
     [MECommonTool newCheckVersion];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getImUnread) name:TUIKitNotification_TIMRefreshListener object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onForceOffline:) name:TUIKitNotification_TIMUserStatusListener object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onForceOffline:) name:TUIKitNotification_TIMUserStatusListener object:nil];
     
     [MECommonTool postAuthRegId];
     //

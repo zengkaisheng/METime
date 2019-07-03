@@ -3234,6 +3234,58 @@
 
 
 /***************************************/
+#pragma mark - Group
+//砍价商品详情
++ (void)postGroupDetailWithProductId:(NSString *)productId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"product_id":productId,
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonGetGroupInfo);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
+        }else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
+            });
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//获取拼团的人员信息
++ (void)postGetGroupUsersWithProductId:(NSString *)productId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"product_id":productId,
+                          @"pageSize":@"10"
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonGetGroupUser);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
+        }else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
+            });
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
+/***************************************/
+
+
+
+/***************************************/
 #pragma mark - Bargin
 //砍价
 + (void)postBargainWithBargainId:(NSString *)bargainId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{

@@ -516,6 +516,16 @@
 
 
 /***************************************/
+#pragma mark - Group
+//砍价商品详情
++ (void)postGroupDetailWithProductId:(NSString *)productId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取拼团的人员信息
++ (void)postGetGroupUsersWithProductId:(NSString *)productId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+/***************************************/
+
+
+
+/***************************************/
 #pragma mark - Bargin
 //砍价
 + (void)postBargainWithBargainId:(NSString *)bargainId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;

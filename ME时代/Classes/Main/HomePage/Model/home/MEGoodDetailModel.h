@@ -110,6 +110,18 @@
 
 @property (nonatomic,assign) NSInteger value;
 
+
+//拼团相关
+@property (nonatomic, assign) CGFloat day;
+@property (nonatomic, strong) NSString * end_time;
+@property (nonatomic, strong) NSString * group_desc;
+@property (nonatomic, strong) NSString * group_num;
+@property (nonatomic, assign) NSInteger over_time;
+@property (nonatomic, strong) NSString * red_packet;
+@property (nonatomic, strong) NSString * start_time;
+@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, strong) NSString * image_url;
+
 @end
 
 

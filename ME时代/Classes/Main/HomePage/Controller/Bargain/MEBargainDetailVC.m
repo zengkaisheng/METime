@@ -35,11 +35,28 @@
     return self;
 }
 
+- (void)dealloc {
+    kNSNotificationCenterDealloc
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"砍价";
     self.view.backgroundColor = [UIColor colorWithHexString:@"#E63831"];
+    
+    if (self.isMyList) {
+        [self requestNetWorkWithbargainDetail];
+    }else {
+        [self requestNetWorkWithBargain];
+    }
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reload) name:kBargainReloadOrder object:nil];
+}
+
+- (void)reload {
+    if (self.tableView) {
+        [self.tableView removeFromSuperview];
+    }
     if (self.isMyList) {
         [self requestNetWorkWithbargainDetail];
     }else {
@@ -52,52 +69,21 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
     hud.userInteractionEnabled = YES;
     
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
     kMeWEAKSELF
-    dispatch_group_async(group, queue, ^{
-        kMeWEAKSELF
-        [MEPublicNetWorkTool postBargainWithBargainId:[NSString stringWithFormat:@"%ld",(long)self.bargainId] successBlock:^(ZLRequestResponse *responseObject) {
-            kMeSTRONGSELF
-            if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *dict = (NSDictionary *)responseObject.data;
+    [MEPublicNetWorkTool postBargainWithBargainId:[NSString stringWithFormat:@"%ld",(long)self.bargainId] successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        [hud hideAnimated:YES];
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dict = (NSDictionary *)responseObject.data;
+            if ([dict[@"type"] intValue] != 3) {
                 [strongSelf showBargainSuccessViewWithMoney:kMeUnNilStr(dict[@"money"])];
             }
-            dispatch_semaphore_signal(semaphore);
-        } failure:^(id object) {
-            dispatch_semaphore_signal(semaphore);
-        }];
-    });
-    
-    dispatch_group_async(group, queue, ^{
-        kMeWEAKSELF
-        [MEPublicNetWorkTool postBargainDetailWithBargainId:[NSString stringWithFormat:@"%ld",(long)self.bargainId] successBlock:^(ZLRequestResponse *responseObject) {
-            kMeSTRONGSELF
-            if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
-                strongSelf.detailModel = [MEBargainDetailModel mj_objectWithKeyValues:responseObject.data];
-            }else {
-                strongSelf.detailModel = nil;
-            }
-             dispatch_semaphore_signal(semaphore);
-        } failure:^(id object) {
-            kMeSTRONGSELF
-            strongSelf.detailModel = nil;
-             dispatch_semaphore_signal(semaphore);
-        }];
-    });
-    
-    dispatch_group_notify(group, queue, ^{
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            kMeSTRONGSELF
-            [hud hideAnimated:YES];
-            [strongSelf.view addSubview:strongSelf.tableView];
-            [strongSelf.tableView reloadData];
-        });
-    });
+            [strongSelf requestNetWorkWithbargainDetail];
+        }
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 - (void)requestNetWorkWithbargainDetail{
@@ -109,7 +95,6 @@
         kMeSTRONGSELF
         if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
             strongSelf.detailModel = [MEBargainDetailModel mj_objectWithKeyValues:responseObject.data];
-            
         }else {
             strongSelf.detailModel = nil;
         }
@@ -133,6 +118,29 @@
         
         [strongSelf.tableView reloadData];
     } failure:^(id object) {
+    }];
+}
+
+- (void)shareAction {
+    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+    NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+    baseUrl = [@"http" stringByAppendingString:baseUrl];
+    
+    //https://test.meshidai.com/dist/newAuth.html?id=7&uid=xxx
+    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@dist/newAuth.html?id=%ld&uid=%@",baseUrl,(long)_detailModel.bargin_id,kMeUnNilStr(kCurrentUser.uid)];
+    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+    
+    shareTool.shareTitle = self.detailModel.title;
+    shareTool.shareDescriptionBody = @"好友邀请您免费拿！";
+    shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.detailModel.images]]];
+
+    [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
+        NSLog(@"分享成功%@",data);
+        [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+        [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+    } failure:^(NSError *error) {
+        NSLog(@"分享失败%@",error);
+        [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
     }];
 }
 
@@ -161,7 +169,7 @@
         switch (index) {
             case 0://规则
             {
-                [strongSelf showBargainRuleViewWithTitle:@"1、注册、分享、邀请好友，产生都 获得不同的美事\n2、使用美豆可以在兑换区兑换产品\n3、不同产品的美豆兑换比不一样\n4、兑换流程为：进入我的美豆，点击兑换商品，开始兑换。\n1、注册、分享、邀请好友，产生都 获得不同的美事\n2、使用美豆可以在兑换区兑换产品\n3、不同产品的美豆兑换比不一样\n4、兑换流程为：进入我的美豆，点击兑换商品，开始兑换。\n1、注册、分享、邀请好友，产生都 获得不同的美事\n2、使用美豆可以在兑换区兑换产品\n3、不同产品的美豆兑换比不一样\n4、兑换流程为：进入我的美豆，点击兑换商品，开始兑换。"];
+                [strongSelf showBargainRuleViewWithTitle:self.detailModel.rule];
             }
                 break;
             case 1://商品详情
@@ -172,12 +180,13 @@
                 break;
             case 2://分享
             {
-                
+                [strongSelf shareAction];
             }
                 break;
             case 3://砍价成功 立即领取
             {
-                METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:self.detailModel.product_id bargainId:self.detailModel.bargin_id];
+                METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:strongSelf.detailModel.product_id bargainId:strongSelf.detailModel.bargin_id];
+                details.reducePrice = strongSelf.detailModel.amount_money;
                 [self.navigationController pushViewController:details animated:YES];
             }
                 break;

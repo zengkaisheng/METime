@@ -75,8 +75,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rkg-yX-09M">
                     <rect key="frame" x="0.0" y="145" width="375" height="40"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0   人今日成功砍价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpb-9w-6gS">
-                            <rect key="frame" x="131.5" y="11" width="112" height="18"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0人今日成功" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpb-9w-6gS">
+                            <rect key="frame" x="150" y="11" width="75.5" height="18"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="18" id="LAD-te-nD0"/>
                             </constraints>
@@ -85,14 +85,14 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_witheFlash_left" translatesAutoresizingMaskIntoConstraints="NO" id="i9S-xJ-SO7">
-                            <rect key="frame" x="92.5" y="12.5" width="32" height="15"/>
+                            <rect key="frame" x="111" y="12.5" width="32" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="32" id="0yl-eo-ODd"/>
                                 <constraint firstAttribute="height" constant="15" id="cpp-wk-vKs"/>
                             </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_witheFlash_right" translatesAutoresizingMaskIntoConstraints="NO" id="lgS-O0-5cK">
-                            <rect key="frame" x="250.5" y="12.5" width="32" height="15"/>
+                            <rect key="frame" x="232.5" y="12.5" width="32" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="15" id="pDb-dN-vL6"/>
                                 <constraint firstAttribute="width" constant="32" id="sEM-13-m9q"/>

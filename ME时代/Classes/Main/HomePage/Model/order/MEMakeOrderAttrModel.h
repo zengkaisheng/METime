@@ -28,7 +28,7 @@
 
 @property (nonatomic, copy) NSString *activity_id;
 
-@property (nonatomic, copy) NSString *bargain_id;
+@property (nonatomic, copy) NSString *bargin_id;
 
 @property (nonatomic, assign) NSInteger is_store_get;
 

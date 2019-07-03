@@ -73,6 +73,18 @@ NS_INLINE CGFloat device_version(){
 //是否ios9以上系统
 #define kIsIOS9 (device_version() >=9.0)
 
+// IPHONE_4S
+#define IS_IPHONE_4S ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
+
+// IPHONE_5
+#define IS_IPHONE_5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+
+// IPHONE_6
+#define IS_IPHONE_6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+
+// IPHONE_6_PLUS
+#define IS_IPHONE_6_PLUS ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(1125, 2001), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size)) : NO)
+
 #define IS_iPhone5S ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #define IS_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
@@ -257,6 +269,11 @@ NS_INLINE NSString *kMeFilePathAtDocumentWithName(NSString *fileNAme){
 #define kPrizeReloadOrder @"kPrizeReloadOrder"
 #define kNoticeReloadPrizeOrder [[NSNotificationCenter defaultCenter] postNotificationName:kPrizeReloadOrder object:nil];
 #define kPrizeReloadOrderReload   [[NSNotificationCenter defaultCenter]addObserver:self.refresh selector:@selector(reload) name:kPrizeReloadOrder object:nil];
+
+//通知刷新砍价活动
+#define kBargainReloadOrder @"kBargainReloadOrder"
+#define kNoticeReloadBargainOrder [[NSNotificationCenter defaultCenter] postNotificationName:kBargainReloadOrder object:nil];
+//#define kBargainReloadOrderReload [[NSNotificationCenter defaultCenter]addObserver:self.refresh selector:@selector(reload) name:kBargainReloadOrder object:nil];
 
 //通知用户刷新融云信息
 #define kUnMessage @"kUnMessage"

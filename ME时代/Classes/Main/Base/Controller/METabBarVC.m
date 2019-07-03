@@ -29,6 +29,7 @@
 
 #import "MENewFilterGoodVC.h"
 #import "MEFourHomeVC.h"
+#import "MEFillInvationCodeVC.h"
 
 @interface METabBarVC ()<UITabBarControllerDelegate>
 
