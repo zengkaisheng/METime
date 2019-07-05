@@ -60,7 +60,6 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="剩余时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOa-ES-0Fe">
                                         <rect key="frame" x="259" y="63" width="45" height="11"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="2Xi-AA-NJ2"/>
                                             <constraint firstAttribute="height" constant="11" id="iez-zc-GzK"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>

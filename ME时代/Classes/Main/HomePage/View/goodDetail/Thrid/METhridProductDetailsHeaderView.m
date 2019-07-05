@@ -110,7 +110,6 @@
     return date;
 }
 
-
 -(void)downSecondHandle:(NSString *)aTimeString{
     
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];

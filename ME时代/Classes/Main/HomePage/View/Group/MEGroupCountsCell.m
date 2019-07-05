@@ -33,9 +33,10 @@
 }
 
 - (void)setUIWithModel:(MEGoodDetailModel *)model{
-    _allCountLbl.text = [NSString stringWithFormat:@"%@人",model.sales];
-    [self downSecondHandle:model.end_time];
-    _groupNumberLbl.text = [NSString stringWithFormat:@"%@人",model.group_num];
+    _allCountLbl.text = [NSString stringWithFormat:@"%@人",kMeUnNilStr(model.group_total)];
+    _groupNumberLbl.text = [NSString stringWithFormat:@"%@人",kMeUnNilStr(model.finish_group_total)];
+    
+    [self downSecondHandle:kMeUnNilStr(model.end_time) nowTime:kMeUnNilStr(model.now)];
 }
 
 - (NSDate *)timeWithTimeIntervalString:(NSString *)timeString
@@ -46,14 +47,14 @@
     return date;
 }
 
--(void)downSecondHandle:(NSString *)aTimeString{
+-(void)downSecondHandle:(NSString *)aTimeString nowTime:(NSString *)nowTime{
     
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     NSDate *endDate = [self timeWithTimeIntervalString:kMeUnNilStr(aTimeString)]; //结束时间
     NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
-    NSDate *startDate = [NSDate date];
+    NSDate *startDate = [self timeWithTimeIntervalString:kMeUnNilStr(nowTime)]; //开始时间;
     NSString* dateString = [dateFormatter stringFromDate:startDate];
     NSLog(@"现在的时间 === %@",dateString);
     NSTimeInterval timeInterval = [endDate_tomorrow timeIntervalSinceDate:startDate];

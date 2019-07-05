@@ -49,31 +49,32 @@
     _subTitleLbl.hidden = NO;
     _countLbl.hidden = NO;
     
-    kSDLoadImg(_headerPic, model.images);
-    _titleLbl.text = model.title;
-    _subTitleLbl.text = [NSString stringWithFormat:@"砍成免费领%@",model.title];
-    _countLbl.text = [NSString stringWithFormat:@"已有%ld人领取",(long)model.finish_bargin_num];
-    _priceLbl.text = [NSString stringWithFormat:@"价值%@元",model.product_price];
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.images));
+    _titleLbl.text = kMeUnNilStr(model.title);
+    _subTitleLbl.text = [NSString stringWithFormat:@"砍成免费领%@",kMeUnNilStr(model.title)];
+    _countLbl.text = [NSString stringWithFormat:@"已有%@人领取",kMeUnNilNumber(@(model.finish_bargin_num))];
+    _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price)];
     
-    NSString *content = [NSString stringWithFormat:@"砍价%.2f元得",[model.product_price floatValue] - [model.amount_money floatValue]];
+    NSString *content = [NSString stringWithFormat:@"砍价%.2f元得",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
     CGFloat width = [content boundingRectWithSize:CGSizeMake(100, 32) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.width;
     [_bargainBtn setTitle:content forState:UIControlStateNormal];
     _bargainConsWidth.constant = width+24;
 }
 
 - (void)setMyBargainUIWithModel:(MEMyBargainListModel *)model {
-    kSDLoadImg(_headerPic, model.images);
-    _titleLbl.text = model.title;
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.images));
+    _titleLbl.text = kMeUnNilStr(model.title);
     _subTitleLbl.hidden = YES;
+    _bargainConsWidth.constant = 83;
     
     if (model.bargin_status == 1) {//未结束
         _timeView.hidden = NO;
         _endLbl.hidden = YES;
         _countLbl.hidden = YES;
-        [self downSecondHandle:[NSString stringWithFormat:@"%ld",model.over_time]];
+        [self downSecondHandle:[NSString stringWithFormat:@"%@",kMeUnNilNumber(@(model.over_time))]];
         
         if (model.status == 1) {//砍价中
-            _priceLbl.text = [NSString stringWithFormat:@"还差%.2f元",[model.amount_money floatValue] - [model.money floatValue]];
+            _priceLbl.text = [NSString stringWithFormat:@"还差%.2f元",[kMeUnNilStr(model.amount_money) floatValue] - [kMeUnNilStr(model.money) floatValue]];
             [_bargainBtn setTitle:@"继续砍价" forState:UIControlStateNormal];
         }else if (model.status == 2) {//砍价成功
             _priceLbl.text = @"砍价成功";
@@ -90,7 +91,7 @@
         _endLbl.hidden = NO;
         _countLbl.hidden = NO;
         if (model.status == 1) {
-            _countLbl.text = [NSString stringWithFormat:@"只差%.2f元就成功了",[model.amount_money floatValue] - [model.money floatValue]];
+            _countLbl.text = [NSString stringWithFormat:@"只差%.2f元就成功了",[kMeUnNilStr(model.amount_money) floatValue] - [kMeUnNilStr(model.money) floatValue]];
             [_bargainBtn setTitle:@"重砍一个" forState:UIControlStateNormal];
             _priceLbl.text = @"砍价失败";
         }else if (model.status == 2) {
@@ -100,7 +101,7 @@
             _priceLbl.text = @"砍价成功";
             [_bargainBtn setTitle:@"已领取" forState:UIControlStateNormal];
         }else if (model.status == 4) {
-            _countLbl.text = [NSString stringWithFormat:@"只差%.2f元就成功了",[model.amount_money floatValue] - [model.money floatValue]];
+            _countLbl.text = [NSString stringWithFormat:@"只差%.2f元就成功了",[kMeUnNilStr(model.amount_money) floatValue] - [kMeUnNilStr(model.money) floatValue]];
             _priceLbl.text = @"砍价失败";
             [_bargainBtn setTitle:@"重砍一个" forState:UIControlStateNormal];
         }

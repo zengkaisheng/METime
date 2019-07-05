@@ -19,6 +19,7 @@
 
 //#import "MEProductDetailsVC.h"
 #import "METhridProductDetailsVC.h"
+#import "MEGroupProductDetailVC.h"
 
 #import "MEMineExchangeDetailVC.h"
 
@@ -126,7 +127,11 @@
                     if(_goodModel.is_seckill==1){
                         allPrice = [kMeUnNilStr(_goodModel.psmodel.seckill_price) floatValue] * _goodModel.buynum  + [kMeUnNilStr(_goodModel.postage) floatValue];
                     }else{
-                        allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum + [kMeUnNilStr(_goodModel.postage) floatValue];
+                        if ([kMeUnNilStr(_goodModel.group_price) length] > 0) {
+                            allPrice = [kMeUnNilStr(_goodModel.group_price) floatValue] * _goodModel.buynum + [kMeUnNilStr(_goodModel.postage) floatValue];
+                        }else {
+                            allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum + [kMeUnNilStr(_goodModel.postage) floatValue];
+                        }
                     }
                 }
                 _arrType = @[@(MEMakrOrderCellMessage)];
@@ -317,8 +322,8 @@
         model.share_id = @"0";
     }
     
-    if (self.bargainId > 0) {
-        model.bargin_id = [NSString stringWithFormat:@"%ld",self.bargainId];
+    if (self.bargainId > 0) {//砍价
+        model.bargin_id = [NSString stringWithFormat:@"%ld",(long)self.bargainId];
         model.order_type = @"13";
         kMeWEAKSELF
         [MEPublicNetWorkTool postCreateBargainOrderWithAttrModel:model successBlock:^(ZLRequestResponse *responseObject) {
@@ -358,7 +363,7 @@
             //下单
         }];
     }else {
-        if (self.isReceivePrize) {
+        if (self.isReceivePrize) {//抽奖
             model.activity_id = self.activity_id;
             model.order_type = @"14";
             kMeWEAKSELF
@@ -399,7 +404,7 @@
                 //下单
             }];
         }else {
-            if(_isInteral){
+            if(_isInteral){//积分兑换
                 //积分
                 model.order_type = @"4";
                 //有运费需要支付
@@ -449,36 +454,87 @@
                 }];
             }else{
                 kMeWEAKSELF
-                model.order_type = _goodModel.is_seckill==1? @"9":@"1";
-                if(_goodModel.product_type == 15){
-                    model.order_type = @"15";
-                }
-                if(_goodModel.product_type == 16){
-                    model.order_type = @"16";
-                }
-                if ([self->_goodModel.skus containsString:@"到店领取"]) {
-                    model.is_store_get = 1;
-                }
-                model.uid = kMeUnNilStr(self.uid);
-                [MEPublicNetWorkTool postCreateOrderWithAttrModel:model successBlock:^(ZLRequestResponse *responseObject) {
-                    kMeSTRONGSELF
-                    strongSelf->_order_sn = responseObject.data[@"order_sn"];
-                    [MEPublicNetWorkTool postPayOrderWithOrder_sn:kMeUnNilStr(strongSelf->_order_sn) successBlock:^(ZLRequestResponse *responseObject) {
+                if ([kMeUnNilStr(_goodModel.group_price) length] > 0) {//拼团
+                    model.order_type = @"7";
+                    kMeWEAKSELF
+                    [MEPublicNetWorkTool postCreateGroupOrderWithAttrModel:model successBlock:^(ZLRequestResponse *responseObject) {
                         kMeSTRONGSELF
-                        PAYPRE
-                        strongSelf->_isPayError= NO;
-                        MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-                        CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum);
-                        BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(f).description];
-                        if(!isSucess){
-                            [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
+                        strongSelf->_order_sn = responseObject.data[@"order_sn"];
+                        NSString *postageStr = responseObject.data[@"order_amount"];
+                        CGFloat postage = [postageStr floatValue];
+                        if(postage<=0){
+                            MEPayStatusVC *svc = [[MEPayStatusVC alloc]initWithSucessConfireBlock:^{
+                                MEGroupProductDetailVC *vc = (MEGroupProductDetailVC *)[MECommonTool getClassWtihClassName:[MEGroupProductDetailVC class] targetVC:strongSelf];
+                                if(vc){
+                                    [strongSelf.navigationController popToViewController:vc animated:YES];
+                                }else{
+                                    [strongSelf.navigationController popToViewController:strongSelf animated:YES];
+                                }
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                    kNoticeGroupOrderReload
+                                });
+                            }];
+                            [strongSelf.navigationController pushViewController:svc animated:YES];
+                        }else{
+                            [MEPublicNetWorkTool postPayOrderWithOrder_sn:kMeUnNilStr(strongSelf->_order_sn) successBlock:^(ZLRequestResponse *responseObject) {
+                                kMeSTRONGSELF
+                                PAYPRE
+                                strongSelf->_isPayError= NO;
+                                MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
+                                //CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum);
+                                BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(postage).description];
+                                if(!isSucess){
+                                    [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
+                                }else {
+                                    MEGroupProductDetailVC *vc = (MEGroupProductDetailVC *)[MECommonTool getClassWtihClassName:[MEGroupProductDetailVC class] targetVC:strongSelf];
+                                    if(vc){
+                                        [strongSelf.navigationController popToViewController:vc animated:YES];
+                                    }else{
+                                        [strongSelf.navigationController popToViewController:strongSelf animated:YES];
+                                    }
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                        kNoticeGroupOrderReload
+                                    });
+                                }
+                            } failure:^(id object) {
+                                
+                            }];
                         }
+                    } failure:^(id object) {
+                        //下单
+                    }];
+                }else {
+                    model.order_type = _goodModel.is_seckill==1? @"9":@"1";
+                    if(_goodModel.product_type == 15){
+                        model.order_type = @"15";
+                    }
+                    if(_goodModel.product_type == 16){
+                        model.order_type = @"16";
+                    }
+                    if ([self->_goodModel.skus containsString:@"到店领取"]) {
+                        model.is_store_get = 1;
+                    }
+                    model.uid = kMeUnNilStr(self.uid);
+                    [MEPublicNetWorkTool postCreateOrderWithAttrModel:model successBlock:^(ZLRequestResponse *responseObject) {
+                        kMeSTRONGSELF
+                        strongSelf->_order_sn = responseObject.data[@"order_sn"];
+                        [MEPublicNetWorkTool postPayOrderWithOrder_sn:kMeUnNilStr(strongSelf->_order_sn) successBlock:^(ZLRequestResponse *responseObject) {
+                            kMeSTRONGSELF
+                            PAYPRE
+                            strongSelf->_isPayError= NO;
+                            MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
+                            CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum);
+                            BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(f).description];
+                            if(!isSucess){
+                                [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
+                            }
+                        } failure:^(id object) {
+                            
+                        }];
                     } failure:^(id object) {
                         
                     }];
-                } failure:^(id object) {
-                    
-                }];
+                }
             }
         }
     }

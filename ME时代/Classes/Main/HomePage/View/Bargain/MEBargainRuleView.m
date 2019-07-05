@@ -24,7 +24,7 @@
 @implementation MEBargainRuleView
 
 - (void)dealloc{
-    NSLog(@"MEBargainSuccessView dealloc");
+    NSLog(@"MEBargainRuleView dealloc");
 }
 
 - (instancetype)initWithTitle:(NSString *)title superView:(UIView*)superView{
@@ -103,7 +103,7 @@
 }
 
 #pragma mark - Public API
-+ (void)ShowBargainRuleViewWithTitle:(NSString *)title cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView {
++ (void)showBargainRuleViewWithTitle:(NSString *)title cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView {
     MEBargainRuleView *view = [[MEBargainRuleView alloc]initWithTitle:title superView:superView];
     view.cancelBlock = cancelBlock;
     view.superView = superView;

@@ -544,7 +544,7 @@ const static CGFloat kImgStore = 50;
                 return CGSizeMake(0, 0);
             }
         }else if (section == 3) {
-            if(_spreebugmodel){
+            if(_spreebugmodel.recommend_goods && _spreebugmodel.spreebuy_goods){
                 return CGSizeMake(SCREEN_WIDTH, kMEFourHomeTopHeaderViewHeight);
             }else{
                 return CGSizeMake(0, 0.1);;
@@ -596,7 +596,7 @@ const static CGFloat kImgStore = 50;
             }
             else if (indexPath.section == 3) {
                 MEFourHomeTopHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeTopHeaderView class]) forIndexPath:indexPath];
-                if(_spreebugmodel){
+                if(_spreebugmodel.recommend_goods && _spreebugmodel.spreebuy_goods){
                     [header setUiWithModel:_spreebugmodel];
                 }
                 headerView = header;

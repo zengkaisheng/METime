@@ -12,9 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEGroupUsersCell : UITableViewCell
 
-- (void)setUIWithArray:(NSArray *)array;
+@property (nonatomic, copy) kMeIndexBlock indexBlock;
+@property (nonatomic, copy) kMeBasicBlock checkMoreBlock;
+- (void)setUIWithArray:(NSArray *)array count:(NSString *)count;
 + (CGFloat)getHeightWithArray:(NSArray *)array;
 
 @end
 
 NS_ASSUME_NONNULL_END
+ 

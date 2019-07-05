@@ -169,7 +169,7 @@
         switch (index) {
             case 0://规则
             {
-                [strongSelf showBargainRuleViewWithTitle:self.detailModel.rule];
+                [strongSelf showBargainRuleViewWithTitle:kMeUnNilStr(self.detailModel.rule)];
             }
                 break;
             case 1://商品详情
@@ -185,8 +185,8 @@
                 break;
             case 3://砍价成功 立即领取
             {
-                METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:strongSelf.detailModel.product_id bargainId:strongSelf.detailModel.bargin_id];
-                details.reducePrice = strongSelf.detailModel.amount_money;
+                METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc] initWithId:strongSelf.detailModel.product_id bargainId:strongSelf.detailModel.bargin_id];
+                details.reducePrice = kMeUnNilStr(strongSelf.detailModel.amount_money);
                 [self.navigationController pushViewController:details animated:YES];
             }
                 break;
@@ -210,14 +210,14 @@
 }
 
 - (void)showBargainSuccessViewWithMoney:(NSString *)money {
-    [MEBargainSuccessView ShowBargainSuccessWithTitle:[NSString stringWithFormat:@"您已砍%@元，人多力量大，快喊小伙伴来帮忙~",money] shareBlock:^{
+    [MEBargainSuccessView showBargainSuccessWithTitle:[NSString stringWithFormat:@"您已砍%@元，人多力量大，快喊小伙伴来帮忙~",money] shareBlock:^{
         NSLog(@"点击了分享按钮");
     } cancelBlock:^{
     } superView:kMeCurrentWindow];
 }
 
 - (void)showBargainRuleViewWithTitle:(NSString *)title {
-    [MEBargainRuleView ShowBargainRuleViewWithTitle:title cancelBlock:^{
+    [MEBargainRuleView showBargainRuleViewWithTitle:title cancelBlock:^{
     } superView:kMeCurrentWindow];
 }
 

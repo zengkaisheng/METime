@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEBargainSuccessView : UIView
 
-+ (void)ShowBargainSuccessWithTitle:(NSString *)title shareBlock:(kMeBasicBlock)shareBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView;
++ (void)showBargainSuccessWithTitle:(NSString *)title shareBlock:(kMeBasicBlock)shareBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView;
 
 @end
 

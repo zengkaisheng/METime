@@ -60,7 +60,11 @@
             if(model.is_seckill==1){
                 _lblPrice.text = kMeUnNilStr(model.psmodel.seckill_price);
             }else{
-                _lblPrice.text = kMeUnNilStr(model.psmodel.goods_price);
+                if ([kMeUnNilStr(model.group_price) length] > 0) {
+                    _lblPrice.text = kMeUnNilStr(model.group_price);
+                }else {
+                    _lblPrice.text = kMeUnNilStr(model.psmodel.goods_price);
+                }
             }
         }
         _lblPrice.hidden = NO;

@@ -13,7 +13,7 @@
 #import "MEStoreHomeVC.h"
 #import "MEMidelButton.h"
 #import "MEGoodDetailModel.h"
-#import "MEGroupDetailVC.h"
+#import "MEGroupProductDetailVC.h"
 
 @interface MEProductDetailsBottomView(){
     NSString *_paoductIdEndoceStr;
@@ -35,7 +35,7 @@
 
 - (IBAction)homeAction:(UIButton *)sender {
     if (self.isGroup) {
-        MEGroupDetailVC *detailVC = (MEGroupDetailVC *)[MECommonTool getVCWithClassWtihClassName:[MEGroupDetailVC class] targetResponderView:self];
+        MEGroupProductDetailVC *detailVC = (MEGroupProductDetailVC *)[MECommonTool getVCWithClassWtihClassName:[MEGroupProductDetailVC class] targetResponderView:self];
         if(detailVC){
             detailVC.tabBarController.selectedIndex = 0;
             [detailVC.navigationController popToRootViewControllerAnimated:YES];
@@ -247,9 +247,9 @@
 - (void)setIsGroup:(BOOL)isGroup {
     _isGroup = isGroup;
     if (isGroup) {
-        [_btnBuy setTitle:@"立即拼团" forState:UIControlStateNormal];
+        _btnShare.hidden = YES;
     }else {
-        [_btnBuy setTitle:@"立即购买" forState:UIControlStateNormal];
+        _btnShare.hidden = ![WXApi isWXAppInstalled];
     }
 }
 

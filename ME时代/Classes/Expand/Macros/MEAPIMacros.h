@@ -259,6 +259,8 @@
 #define MEIPcommonGetGroupInfo @"common/marketing/groupInfo"
 //获取拼团的人员信息
 #define MEIPcommonGetGroupUser @"common/marketing/getGroupUser"
+//生成拼团订单
+#define MEIPCommonCreateGroupOrder @"common/marketing/createGroupOrder"
 
 /*********************************************/
 

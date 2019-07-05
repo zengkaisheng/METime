@@ -31,6 +31,8 @@
 #import "MEFourCoupleVC.h"
 #import "MEPrizeListVC.h"
 #import "MESpecialSaleVC.h"
+#import "MEBargainListVC.h"
+#import "MEGroupListVC.h"
 
 typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     //    METhridHomeHeaderViewActiveNewType = 0,
@@ -42,8 +44,9 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     METhridHomeHeaderViewActivePingPaiTeMaiType = 4,
     METhridHomeHeaderViewActiveJuHuaSuanType = 5,
     METhridHomeHeaderViewActiveBigJuanType = 6,
-    METhridHomeHeaderViewActiveSignInType = 7
-    
+    METhridHomeHeaderViewActiveSignInType = 7,
+    METhridHomeHeaderViewActiveBargainType = 8,
+    METhridHomeHeaderViewActiveGroupType = 9
 };
 
 @interface MEFourHomeHeaderView ()<SDCycleScrollViewDelegate>
@@ -357,6 +360,36 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
                         
                     }];
                 }   
+            }
+                break;
+            case METhridHomeHeaderViewActiveBargainType:
+            {
+                if([MEUserInfoModel isLogin]){
+                    MEBargainListVC *bargainVC = [[MEBargainListVC alloc] init];
+                    [homeVC.navigationController pushViewController:bargainVC animated:YES];
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        MEBargainListVC *bargainVC = [[MEBargainListVC alloc] init];
+                        [homeVC.navigationController pushViewController:bargainVC animated:YES];
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }
+            }
+                break;
+            case METhridHomeHeaderViewActiveGroupType:
+            {
+                if([MEUserInfoModel isLogin]){
+                    MEGroupListVC *groupVC = [[MEGroupListVC alloc] init];
+                    [homeVC.navigationController pushViewController:groupVC animated:YES];
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        MEGroupListVC *groupVC = [[MEGroupListVC alloc] init];
+                        [homeVC.navigationController pushViewController:groupVC animated:YES];
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }
             }
                 break;
             default:

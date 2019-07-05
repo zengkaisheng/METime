@@ -121,6 +121,10 @@
 @property (nonatomic, strong) NSString * start_time;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, strong) NSString * image_url;
+@property (nonatomic, strong) NSString * now;
+@property (nonatomic, strong) NSString * group_total;
+@property (nonatomic, strong) NSString * finish_group_total;
+@property (nonatomic, strong) NSString * group_price;
 
 @end
 

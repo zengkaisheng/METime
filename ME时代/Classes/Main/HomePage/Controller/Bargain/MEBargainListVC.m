@@ -29,6 +29,7 @@
 @property (nonatomic, assign) BOOL isToday;
 @property (nonatomic, strong) NSDictionary *bannerInfo;
 @property (nonatomic, strong) NSArray *banners;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -58,13 +59,18 @@
 }
 
 - (void)reload {
+    [self showHud];
     [self.refresh reload];
 }
 
 - (void)showHud {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
-    hud.userInteractionEnabled = YES;
-    [hud hideAnimated:YES afterDelay:2.0];
+    self.hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
+    self.hud.userInteractionEnabled = YES;
+    [self.hud hideAnimated:YES afterDelay:2.0];
+}
+
+- (void)hideHUD {
+    [self.hud hideAnimated:YES];
 }
 
 #pragma mark - RefreshToolDelegate
@@ -89,6 +95,7 @@
     }else {
         [self.refresh.arrData addObjectsFromArray:[MEMyBargainListModel mj_objectArrayWithKeyValuesArray:nlModel.data]];
     }
+    [self hideHUD];
 }
 
 #pragma mark -- UITableviewDelegate

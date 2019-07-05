@@ -268,6 +268,7 @@
                 <outlet property="daysLblConsWidth" destination="tjK-cQ-xeH" id="gmW-3g-y1R"/>
                 <outlet property="hourLbl" destination="ufP-bZ-nxs" id="JKE-7R-3fz"/>
                 <outlet property="minuteLbl" destination="4r8-4V-D0T" id="bhC-5J-wuo"/>
+                <outlet property="orangeView" destination="WPf-7z-eYZ" id="zRt-CS-EQv"/>
                 <outlet property="origanPriceLbl" destination="eiI-gh-R0t" id="TGQ-4y-qzE"/>
                 <outlet property="priceLbl" destination="w4f-Fh-Zaz" id="Toj-0o-mM7"/>
                 <outlet property="sdView" destination="P2g-ZW-hVj" id="ffw-1E-VSo"/>

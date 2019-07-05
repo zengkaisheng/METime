@@ -27,10 +27,13 @@
 @property (nonatomic, strong) NSString * channel;
 
 @property (nonatomic, copy) NSString *activity_id;
-
+//砍价相关
 @property (nonatomic, copy) NSString *bargin_id;
 
 @property (nonatomic, assign) NSInteger is_store_get;
+//拼团相关
+@property (nonatomic, assign) NSInteger group_id;
+@property (nonatomic, assign) NSInteger group_sn;
 
 //来自好友的分享
 @property (nonatomic, strong) NSString *uid;

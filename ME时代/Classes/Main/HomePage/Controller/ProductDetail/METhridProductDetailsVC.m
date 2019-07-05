@@ -424,7 +424,7 @@ kTDWebViewCellDidFinishLoadNotificationMethod
 - (MEProductDetailsBottomView *)bottomView{
     if(!_bottomView){
         _bottomView = [[[NSBundle mainBundle]loadNibNamed:@"MEProductDetailsBottomView" owner:nil options:nil] lastObject];
-        if (self.isReceivePrize || _bargainId!=0) {
+        if (self.isReceivePrize || _bargainId != 0) {
             _bottomView.btnGift.hidden = NO;
             [_bottomView.btnGift setTitle:@"立即领取" forState:UIControlStateNormal];
         }else {

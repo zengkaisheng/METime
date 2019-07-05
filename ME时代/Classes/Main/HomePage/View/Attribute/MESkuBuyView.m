@@ -50,6 +50,7 @@
                 strongSelf->_goodModel.spec_ids = str;
                 MEPriceAndStockModel *psmodel = [MEPriceAndStockModel mj_objectWithKeyValues:responseObject.data];
                 strongSelf->_goodModel.psmodel = psmodel;
+                strongSelf->_goodModel.group_price = psmodel.group_price;
                 NSMutableArray *arrSpcName = [NSMutableArray array];
                 [kMeUnArr(strongSelf->_goodModel.spec) enumerateObjectsUsingBlock:^(MEGoodDetailSpecModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {\
                     kMeSTRONGSELF
@@ -152,6 +153,7 @@
     //确定
     cell.confirmBlock = ^{
         kMeSTRONGSELF
+        NSLog(@"price:%@",strongSelf->_goodModel.group_price);
         [strongSelf hide:^{
             if ([kMeUnNilStr(strongSelf->_goodModel.psmodel.can_buy.status) integerValue] == 0) {
                 [MEShowViewTool showMessage:kMeUnNilStr(strongSelf->_goodModel.psmodel.can_buy.tips) view:kMeCurrentWindow];

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEBargainRuleView : UIView
 
-+ (void)ShowBargainRuleViewWithTitle:(NSString *)title cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView;
++ (void)showBargainRuleViewWithTitle:(NSString *)title cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView;
 
 @end
 

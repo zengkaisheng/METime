@@ -120,7 +120,7 @@
 }
 
 #pragma mark - Public API
-+ (void)ShowBargainSuccessWithTitle:(NSString *)title shareBlock:(kMeBasicBlock)shareBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView{
++ (void)showBargainSuccessWithTitle:(NSString *)title shareBlock:(kMeBasicBlock)shareBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView{
     MEBargainSuccessView *view = [[MEBargainSuccessView alloc]initWithTitle:title superView:superView];
     view.shareBlock = shareBlock;
     view.cancelBlock = cancelBlock;

@@ -11,7 +11,7 @@
 #import "MEGroupListCell.h"
 #import "MEGroupListModel.h"
 #import "MEAdModel.h"
-#import "MEGroupDetailVC.h"
+#import "MEGroupProductDetailVC.h"
 
 #import "METhridProductDetailsVC.h"
 #import "MEServiceDetailsVC.h"
@@ -56,7 +56,7 @@
     }
     NSDictionary *info = (NSDictionary *)data;
     MENetListModel *nlModel = [MENetListModel mj_objectWithKeyValues:info];
-    self.banners = [MEAdModel mj_objectArrayWithKeyValuesArray:info[@"top_banner"]];
+    self.banners = [MEAdModel mj_objectArrayWithKeyValuesArray:kMeUnArr(info[@"top_banner"])];
     self.bannerInfo = @{@"today_finish_bargin_total":[NSString stringWithFormat:@"%ld",[info[@"finish_group_total"] integerValue]],@"top_banner":self.banners,@"type":@"2"};
     [self.headerView setUIWithDictionary:self.bannerInfo];
     [self.refresh.arrData addObjectsFromArray:[MEGroupListModel mj_objectArrayWithKeyValuesArray:nlModel.data]];
@@ -70,7 +70,6 @@
     MEGroupListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEGroupListCell class]) forIndexPath:indexPath];
     MEGroupListModel *model = self.refresh.arrData[indexPath.row];
     [cell setUIWithModel:model];
-    
     return cell;
 }
 
@@ -80,7 +79,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MEGroupListModel *model = self.refresh.arrData[indexPath.row];
-    MEGroupDetailVC *vc = [[MEGroupDetailVC alloc] initWithProductId:model.product_id];
+    MEGroupProductDetailVC *vc = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -102,13 +101,13 @@
     switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
         case 1:
         {
-            METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+            METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc] initWithId:model.product_id];
             [self.navigationController pushViewController:dvc animated:YES];
         }
             break;
         case 2:
         {
-            MEServiceDetailsVC *dvc = [[MEServiceDetailsVC alloc]initWithId:model.product_id];
+            MEServiceDetailsVC *dvc = [[MEServiceDetailsVC alloc] initWithId:model.product_id];
             [self.navigationController pushViewController:dvc animated:YES];
         }
             break;

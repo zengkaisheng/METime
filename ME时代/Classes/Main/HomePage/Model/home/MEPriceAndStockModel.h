@@ -26,6 +26,8 @@
 @property (nonatomic, strong) MECanBuyModel *can_buy;
 //美豆相关
 @property (nonatomic, strong) NSString * integral_lines;
+//拼团相关
+@property (nonatomic, strong) NSString * group_price;
 @end
 
 

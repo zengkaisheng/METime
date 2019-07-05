@@ -88,7 +88,11 @@ const static CGFloat kMinCellWidth = 50;
         if(_goodModel.is_seckill==1){
             _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(_goodModel.psmodel.seckill_price)];
         }else{
-            _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(_goodModel.psmodel.goods_price)];
+            if ([kMeUnNilStr(_goodModel.group_price) length] > 0) {
+                _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(_goodModel.group_price)];
+            }else {
+                _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(_goodModel.psmodel.goods_price)];
+            }
         }
     }
     _lblStock.text =[NSString stringWithFormat:@"库存:%@",kMeUnNilStr(_goodModel.psmodel.stock)];
@@ -142,7 +146,7 @@ const static CGFloat kMinCellWidth = 50;
         strongSelf->_goodModel.spec_ids = str;
         MEPriceAndStockModel *model = [MEPriceAndStockModel mj_objectWithKeyValues:responseObject.data];
         strongSelf->_goodModel.psmodel = model;
-        
+        strongSelf->_goodModel.group_price = model.group_price;
         
         MEGoodDetailSpecModel *obj = kMeUnArr(strongSelf->_goodModel.spec)[indexPath.section];
         //老参数

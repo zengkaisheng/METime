@@ -33,15 +33,15 @@
 }
 
 - (void)setUIWithModel:(MEGroupListModel *)model {
-    kSDLoadImg(_headerPic, model.image_url);
-    _titleLbl.text = model.title;
-    _numberLbl.text = [NSString stringWithFormat:@"%@人团",model.group_num];
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.image_url));
+    _titleLbl.text = kMeUnNilStr(model.title);
+    _numberLbl.text = [NSString stringWithFormat:@"%@人团",kMeUnNilStr(model.group_num)];
     
-    NSString *faStr = [NSString stringWithFormat:@"拼团价￥%@ ￥%@",model.money,model.market_price];
+    NSString *faStr = [NSString stringWithFormat:@"拼团价￥%@ ￥%@",kMeUnNilStr(model.money),kMeUnNilStr(model.market_price)];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:faStr];
     NSUInteger secondLoc = [faStr rangeOfString:@" "].location;
     
-    [string addAttribute:NSForegroundColorAttributeName value:kME999999 range:NSMakeRange(secondLoc, faStr.length-secondLoc)];
+    [string addAttribute:NSForegroundColorAttributeName value:kME999999 range:NSMakeRange(secondLoc+1, faStr.length-secondLoc-1)];
     [string addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(secondLoc+1, faStr.length-secondLoc-1)];
     _priceLbl.attributedText = string;
 }

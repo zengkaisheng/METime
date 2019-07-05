@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLblConsHeight;
 @property (weak, nonatomic) IBOutlet UILabel *countLbl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *daysLblConsWidth;
+@property (weak, nonatomic) IBOutlet UIView *orangeView;
 
 @property (strong, nonatomic) NSTimer *timer;
 
@@ -43,6 +44,10 @@
     _sdView.backgroundColor = [UIColor clearColor];
     _sdView.placeholderImage = kImgBannerPlaceholder;
     _sdView.currentPageDotColor = kMEPink;
+    
+    _orangeView.frame = CGRectMake(0, SCREEN_WIDTH, SCREEN_WIDTH, 51);
+    CAGradientLayer *btnLayer = [self getLayerWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) colors:@[(__bridge id)[UIColor colorWithRed:254/255.0 green:83/255.0 blue:55/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:255/255.0 green:111/255.0 blue:87/255.0 alpha:1.0].CGColor] locations:@[@(0.0),@(1.0)] frame:_orangeView.layer.bounds];
+    [_orangeView.layer insertSublayer:btnLayer atIndex:0];
 }
 #pragma mark - SDCycleScrollViewDelegate
 
@@ -58,8 +63,12 @@
     _titleLblConsHeight.constant = titleHeight>19?titleHeight:19;
     [_titleLbl setAtsWithStr:kMeUnNilStr(model.title) lineGap:0];
     
-    NSString *priceStr = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.money)];
-    NSRange range = [priceStr rangeOfString:[NSString stringWithFormat:@"%d",kMeUnNilStr(model.money).intValue]];
+    NSString *price = kMeUnNilStr(model.money);
+    if ([kMeUnNilStr(model.group_price) length] > 0) {
+        price = kMeUnNilStr(model.group_price);
+    }
+    NSString *priceStr = [NSString stringWithFormat:@"¥%@",price];
+    NSRange range = [priceStr rangeOfString:[NSString stringWithFormat:@"%d",price.intValue]];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:priceStr];
     [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:NSMakeRange(0, 1)];
     [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:NSMakeRange(range.location+range.length, priceStr.length-range.location-range.length)];
@@ -67,9 +76,19 @@
     
     NSString *commStr = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.market_price)];
     [_origanPriceLbl setLineStrWithStr:commStr];
-    _countLbl.text = [NSString stringWithFormat:@"%@人团",model.group_num];
+    _countLbl.text = [NSString stringWithFormat:@"%@人团",kMeUnNilStr(model.group_num)];
     
-    [self downSecondHandle:model.end_time];
+    [self downSecondHandle:kMeUnNilStr(model.end_time) nowTime:kMeUnNilStr(model.now)];
+}
+
+- (CAGradientLayer *)getLayerWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint colors:(NSArray *)colors locations:(NSArray *)locations frame:(CGRect)frame {
+    CAGradientLayer *layer = [CAGradientLayer layer];
+    layer.startPoint = startPoint;//（0，0）表示从左上角开始变化。默认值是(0.5,0.0)表示从x轴为中间，y为顶端的开始变化
+    layer.endPoint = endPoint;//（1，1）表示到右下角变化结束。默认值是(0.5,1.0)  表示从x轴为中间，y为低端的结束变化
+    layer.colors = colors;
+    layer.locations = locations;//渐变颜色的区间分布，locations的数组长度和color一致，这个值一般不用管它，默认是nil，会平均分布
+    layer.frame = frame;
+    return layer;
 }
 
 - (NSDate *)timeWithTimeIntervalString:(NSString *)timeString
@@ -80,15 +99,14 @@
     return date;
 }
 
-
--(void)downSecondHandle:(NSString *)aTimeString{
+-(void)downSecondHandle:(NSString *)aTimeString nowTime:(NSString *)nowTime{
     
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     NSDate *endDate = [self timeWithTimeIntervalString:kMeUnNilStr(aTimeString)]; //结束时间
     NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
-    NSDate *startDate = [NSDate date];
+    NSDate *startDate = [self timeWithTimeIntervalString:kMeUnNilStr(nowTime)]; //开始时间;
     NSString* dateString = [dateFormatter stringFromDate:startDate];
     NSLog(@"现在的时间 === %@",dateString);
     NSTimeInterval timeInterval = [endDate_tomorrow timeIntervalSinceDate:startDate];

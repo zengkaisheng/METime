@@ -1,5 +1,5 @@
 //
-//  MEGroupDetailVC.h
+//  MEGroupProductDetailVC.h
 //  ME时代
 //
 //  Created by gao lei on 2019/7/2.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MEGroupDetailVC : MEBaseVC
+@interface MEGroupProductDetailVC : MEBaseVC
 
 - (instancetype)initWithProductId:(NSInteger)productId;
 //来自好友分享

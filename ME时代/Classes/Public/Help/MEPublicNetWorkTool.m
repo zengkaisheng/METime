@@ -3280,6 +3280,25 @@
         kMeCallBlock(failure,error);
     }];
 }
+//生成拼团订单
++ (void)postCreateGroupOrderWithAttrModel:(MEMakeOrderAttrModel *)attrModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = [attrModel mj_keyValues];
+    NSString *url = kGetApiWithUrl(MEIPCommonCreateGroupOrder);
+    MBProgressHUD *HUD = [self commitWithHUD:@"生成订单中..."];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+//        [MEShowViewTool SHOWHUDWITHHUD:HUD test:@"兑换成功"];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
 
 /***************************************/
 

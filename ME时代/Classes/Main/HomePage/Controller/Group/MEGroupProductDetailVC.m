@@ -1,12 +1,12 @@
 //
-//  MEGroupDetailVC.m
+//  MEGroupProductDetailVC.m
 //  ME时代
 //
 //  Created by gao lei on 2019/7/2.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MEGroupDetailVC.h"
+#import "MEGroupProductDetailVC.h"
 #import "MEGoodDetailModel.h"
 #import "MEGroupUserContentModel.h"
 #import "MEShoppingCartAttrModel.h"
@@ -21,6 +21,8 @@
 #import "METhridProductDetailsSelectSkuCell.h"
 
 #import "MEMakeOrderVC.h"
+#import "MEShowGroupUserListView.h"
+#import "MEGroupDetailsVC.h"
 
 typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
     kpurchaseSelectSkuViewType,//选择规格
@@ -28,7 +30,7 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
     kpurchaseViewShoppingType,
 };
 
-@interface MEGroupDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface MEGroupProductDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *_arrTitle;
     kpurchaseViewType _selectType;
@@ -43,10 +45,11 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
 @property (strong, nonatomic) TDWebViewCell *webCell;
 @property (nonatomic, assign) NSInteger productId;
 @property (nonatomic, strong) NSArray *groupUsers;
+@property (nonatomic, copy) NSString *count;
 
 @end
 
-@implementation MEGroupDetailVC
+@implementation MEGroupProductDetailVC
 
 - (instancetype)initWithProductId:(NSInteger)productId {
     if (self = [super init]) {
@@ -62,6 +65,7 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
         [_purchaseView.layer removeAllAnimations];
     }
     kTDWebViewCellDidFinishLoadNotificationCancel
+    kNSNotificationCenterDealloc
 }
 
 - (void)viewDidLoad {
@@ -71,9 +75,27 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
     self.view.backgroundColor = kMEf5f4f4;
     _arrTitle = @[@"",@"商品详情"];
     _error = NO;
+    _count = @"0";
     self.groupUsers = [NSArray array];
     
     [self requestNetWorkWithGroupDetail];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showGroupDetailsVC) name:kGroupOrderReload object:nil];
+}
+
+- (void)showGroupDetailsVC {
+    MEGroupDetailsVC *vc = [[MEGroupDetailsVC alloc] initWithModel:self.model];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)showGroupUserListView {
+    kMeWEAKSELF
+    [MEShowGroupUserListView showGroupUserListViewWithArray:kMeUnArr(_groupUsers) selectedBlock:^(NSInteger index) {
+        kMeSTRONGSELF
+        MEGroupUserContentModel *contentModel = strongSelf.groupUsers[index];
+        MEGroupDetailsVC *vc = [[MEGroupDetailsVC alloc] initWithModel:strongSelf.model];
+        [strongSelf.navigationController pushViewController:vc animated:YES];
+    } cancelBlock:^{
+    } superView:self.view];
 }
 
 #pragma mark -- networking
@@ -108,6 +130,7 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
                 if ([data[@"data"] isKindOfClass:[NSArray class]]) {
                     NSArray *users = (NSArray *)data[@"data"];
                     strongSelf.groupUsers = [MEGroupUserContentModel mj_objectArrayWithKeyValuesArray:users];
+                    strongSelf.count = [NSString stringWithFormat:@"%@",data[@"count"]];
                 }
             }
             dispatch_semaphore_signal(semaphore);
@@ -129,6 +152,28 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
             }
         });
     });
+}
+
+- (void)requestGroupUserList {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
+    hud.label.text = @"";
+    hud.userInteractionEnabled = YES;
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetGroupUsersWithProductId:[NSString stringWithFormat:@"%ld",(long)self.productId] successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        [hud hideAnimated:YES];
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *data = (NSDictionary *)responseObject.data;
+            if ([data[@"data"] isKindOfClass:[NSArray class]]) {
+                NSArray *users = (NSArray *)data[@"data"];
+                strongSelf.groupUsers = [MEGroupUserContentModel mj_objectArrayWithKeyValuesArray:users];
+                strongSelf.count = [NSString stringWithFormat:@"%@",data[@"count"]];
+            }
+        }
+        [strongSelf showGroupUserListView];
+    } failure:^(id object) {
+        [hud hideAnimated:YES];
+    }];
 }
 
 - (void)setUIWIthModel:(MEGoodDetailModel *)model{
@@ -220,7 +265,19 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
             {
                 if (self.groupUsers.count > 0) {
                     MEGroupUsersCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEGroupUsersCell class]) forIndexPath:indexPath];
-                    [cell setUIWithArray:self.groupUsers];
+                    [cell setUIWithArray:self.groupUsers count:self.count];
+                    kMeWEAKSELF
+                    cell.indexBlock = ^(NSInteger index) {
+                        kMeSTRONGSELF
+                        MEGroupUserContentModel *contentModel = strongSelf.groupUsers[index];
+                        MEGroupDetailsVC *vc = [[MEGroupDetailsVC alloc] initWithModel:strongSelf.model];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+
+                    };
+                    cell.checkMoreBlock = ^{
+                        kMeSTRONGSELF
+                        [strongSelf requestGroupUserList];
+                    };
                     return cell;
                 }
             }
@@ -339,9 +396,9 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
 - (MEProductDetailsBottomView *)bottomView{
     if(!_bottomView){
         _bottomView = [[[NSBundle mainBundle]loadNibNamed:@"MEProductDetailsBottomView" owner:nil options:nil] lastObject];
-        _bottomView.btnGift.hidden = YES;
+        _bottomView.btnGift.hidden = NO;
         _bottomView.isGroup = YES;
-        [_bottomView.btnGift setTitle:@"立即抢购" forState:UIControlStateNormal];
+        [_bottomView.btnGift setTitle:@"立即拼团" forState:UIControlStateNormal];
         _bottomView.model = _model;
         kMeWEAKSELF
         _bottomView.buyBlock = ^{
@@ -350,11 +407,11 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
         };
         _bottomView.addShopcartBlock = ^{
             kMeSTRONGSELF
-            if(strongSelf.model.product_type == 15||strongSelf.model.product_type == 16){
-                [MEShowViewTool showMessage:@"该商品不支持加入购物车" view:kMeCurrentWindow];
-            }else{
-                [strongSelf showBuyViewWithTypy:kpurchaseViewShoppingType];
-            }
+//            if(strongSelf.model.product_type == 15||strongSelf.model.product_type == 16){
+//                [MEShowViewTool showMessage:@"该商品不支持加入购物车" view:kMeCurrentWindow];
+//            }else{
+//                [strongSelf showBuyViewWithTypy:kpurchaseViewShoppingType];
+//            }
         };
         _bottomView.customBlock = ^{
             kMeSTRONGSELF

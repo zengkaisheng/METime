@@ -521,6 +521,8 @@
 + (void)postGroupDetailWithProductId:(NSString *)productId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取拼团的人员信息
 + (void)postGetGroupUsersWithProductId:(NSString *)productId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//生成拼团订单
++ (void)postCreateGroupOrderWithAttrModel:(MEMakeOrderAttrModel *)attrModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
 
 

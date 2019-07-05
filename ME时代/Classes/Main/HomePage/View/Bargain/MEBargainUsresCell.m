@@ -89,23 +89,23 @@
     subView.tag = tag;
     //头像
     UIImageView *headerPic = [[UIImageView alloc] initWithFrame:CGRectMake(18, 0, 36, 36)];
-    kSDLoadImg(headerPic, userModel.header_pic);
+    kSDLoadImg(headerPic, kMeUnNilStr(userModel.header_pic));
     headerPic.layer.cornerRadius = 18;
     [subView addSubview:headerPic];
     //name
     UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(headerPic.frame)+9, 9, frame.size.width-CGRectGetMaxX(headerPic.frame)-9-100-18, 13)];
-    nameLbl.text = userModel.nick_name;
+    nameLbl.text = kMeUnNilStr(userModel.nick_name);
     nameLbl.font = [UIFont systemFontOfSize:13];
     [subView addSubview:nameLbl];
     //content
     UILabel *contentLbl = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(headerPic.frame)+9, 9+13+4, 130, 11)];
-    contentLbl.text = userModel.tip;
+    contentLbl.text = kMeUnNilStr(userModel.tip);
     contentLbl.font = [UIFont systemFontOfSize:11];
     contentLbl.textColor = kME999999;
     [subView addSubview:contentLbl];
     //content
     UILabel *priceLbl = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width-18-100, 11, 100, 15)];
-    priceLbl.text = [NSString stringWithFormat:@"砍掉%@元",userModel.bargin_money];
+    priceLbl.text = [NSString stringWithFormat:@"砍掉%@元",kMeUnNilStr(userModel.bargin_money)];
     priceLbl.font = [UIFont systemFontOfSize:15];
     priceLbl.textColor = [UIColor colorWithHexString:@"#FE5337"];
     priceLbl.textAlignment = NSTextAlignmentRight;
