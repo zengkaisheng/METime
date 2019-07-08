@@ -50,6 +50,9 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal" title="去开团" backgroundImage="icon_bargainBtnImage"/>
+                        <connections>
+                            <action selector="groupAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="M6K-yT-8fN"/>
+                        </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_groupPersion" translatesAutoresizingMaskIntoConstraints="NO" id="Djw-ge-oMA">
                         <rect key="frame" x="117.5" y="51" width="11" height="11"/>

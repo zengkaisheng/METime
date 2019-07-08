@@ -10,6 +10,7 @@
 
 @interface MEPreferentialCell ()
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UILabel *amountLbl;
 
 @end
@@ -30,6 +31,11 @@
 }
 
 - (void)setAmount:(NSString *)amount {
+    _amountLbl.text = [NSString stringWithFormat:@"¥%@",amount.length==0?@"0.0":amount];
+}
+
+- (void)setTitle:(NSString *)title amount:(NSString *)amount {
+    _titleLbl.text = title.length>0?title:@"已优惠金额";
     _amountLbl.text = [NSString stringWithFormat:@"¥%@",amount.length==0?@"0.0":amount];
 }
 

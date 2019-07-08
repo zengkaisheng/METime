@@ -48,6 +48,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="amountLbl" destination="2x9-VM-biL" id="Ugt-aa-lAr"/>
+                <outlet property="titleLbl" destination="HQD-EZ-Gts" id="fxE-rF-z8N"/>
             </connections>
             <point key="canvasLocation" x="-217" y="27"/>
         </tableViewCell>

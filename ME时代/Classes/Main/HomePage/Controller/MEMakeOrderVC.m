@@ -20,6 +20,7 @@
 //#import "MEProductDetailsVC.h"
 #import "METhridProductDetailsVC.h"
 #import "MEGroupProductDetailVC.h"
+#import "MEGroupOrderDetailVC.h"
 
 #import "MEMineExchangeDetailVC.h"
 
@@ -127,7 +128,7 @@
                     if(_goodModel.is_seckill==1){
                         allPrice = [kMeUnNilStr(_goodModel.psmodel.seckill_price) floatValue] * _goodModel.buynum  + [kMeUnNilStr(_goodModel.postage) floatValue];
                     }else{
-                        if ([kMeUnNilStr(_goodModel.group_price) length] > 0) {
+                        if (_goodModel.isGroup) {
                             allPrice = [kMeUnNilStr(_goodModel.group_price) floatValue] * _goodModel.buynum + [kMeUnNilStr(_goodModel.postage) floatValue];
                         }else {
                             allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum + [kMeUnNilStr(_goodModel.postage) floatValue];
@@ -135,6 +136,9 @@
                     }
                 }
                 _arrType = @[@(MEMakrOrderCellMessage)];
+                if (_goodModel.isGroup) {
+                    _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPostage)];
+                }
                 if ([self->_goodModel.skus containsString:@"到店领取"]) {
                     NSString *msg = [NSString stringWithFormat:@"%@ %@",kMeUnNilStr(kCurrentUser.name),kMeUnNilStr(kCurrentUser.mobile)];
                     _arrData = @[msg];
@@ -189,6 +193,13 @@
             if (indexPath.row == 2) {
                 MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
                 [cell setAmount:[NSString stringWithFormat:@"%.2f",[kMeUnNilStr(self.reducePrice) floatValue]]];
+                return cell;
+            }
+        }
+        if (_goodModel.isGroup) {
+            if (indexPath.row == 2) {
+                MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
+                [cell setTitle:@"运费" amount:[NSString stringWithFormat:@"%@",kMeUnNilStr(_goodModel.postage)]];
                 return cell;
             }
         }
@@ -247,11 +258,20 @@
                     [strongSelf.navigationController popToViewController:strongSelf animated:YES];
                 }
             }else{
-                METhridProductDetailsVC *vc = (METhridProductDetailsVC *)[MECommonTool getClassWtihClassName:[METhridProductDetailsVC class] targetVC:strongSelf];
-                if(vc){
-                    [strongSelf.navigationController popToViewController:vc animated:YES];
-                }else{
-                    [strongSelf.navigationController popToViewController:strongSelf animated:YES];
+                if (strongSelf->_goodModel.isGroup) {
+                    MEGroupProductDetailVC *vc = (MEGroupProductDetailVC *)[MECommonTool getClassWtihClassName:[MEGroupProductDetailVC class] targetVC:strongSelf];
+                    if(vc){
+                        [strongSelf.navigationController popToViewController:vc animated:YES];
+                    }else{
+                        [strongSelf.navigationController popToViewController:strongSelf animated:YES];
+                    }
+                }else {
+                    METhridProductDetailsVC *vc = (METhridProductDetailsVC *)[MECommonTool getClassWtihClassName:[METhridProductDetailsVC class] targetVC:strongSelf];
+                    if(vc){
+                        [strongSelf.navigationController popToViewController:vc animated:YES];
+                    }else{
+                        [strongSelf.navigationController popToViewController:strongSelf animated:YES];
+                    }
                 }
             }
         }];
@@ -275,8 +295,13 @@
                 }];
             } CheckOrderBlock:^{
                 kMeSTRONGSELF
-                MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:MEAllNeedPayOrder orderGoodsSn:kMeUnNilStr(strongSelf->_order_sn)];
-                [strongSelf.navigationController pushViewController:vc animated:YES];
+                if (strongSelf->_goodModel.isGroup) {
+                    MEGroupOrderDetailVC *vc = [[MEGroupOrderDetailVC alloc] initWithOrderSn:kMeUnNilStr(strongSelf->_order_sn)];
+                    [strongSelf.navigationController pushViewController:vc animated:YES];
+                }else {
+                    MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:MEAllNeedPayOrder orderGoodsSn:kMeUnNilStr(strongSelf->_order_sn)];
+                    [strongSelf.navigationController pushViewController:vc animated:YES];
+                }
             }];
             [self.navigationController pushViewController:svc animated:YES];
         }
@@ -454,7 +479,7 @@
                 }];
             }else{
                 kMeWEAKSELF
-                if ([kMeUnNilStr(_goodModel.group_price) length] > 0) {//拼团
+                if (_goodModel.isGroup > 0) {//拼团
                     model.order_type = @"7";
                     kMeWEAKSELF
                     [MEPublicNetWorkTool postCreateGroupOrderWithAttrModel:model successBlock:^(ZLRequestResponse *responseObject) {
@@ -471,7 +496,7 @@
                                     [strongSelf.navigationController popToViewController:strongSelf animated:YES];
                                 }
                                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                    kNoticeGroupOrderReload
+//                                    [[NSNotificationCenter defaultCenter] postNotificationName:kGroupOrderReload object:nil userInfo:@{@"order_sn":strongSelf->_order_sn}];
                                 });
                             }];
                             [strongSelf.navigationController pushViewController:svc animated:YES];
@@ -486,14 +511,8 @@
                                 if(!isSucess){
                                     [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
                                 }else {
-                                    MEGroupProductDetailVC *vc = (MEGroupProductDetailVC *)[MECommonTool getClassWtihClassName:[MEGroupProductDetailVC class] targetVC:strongSelf];
-                                    if(vc){
-                                        [strongSelf.navigationController popToViewController:vc animated:YES];
-                                    }else{
-                                        [strongSelf.navigationController popToViewController:strongSelf animated:YES];
-                                    }
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                        kNoticeGroupOrderReload
+//                                         [[NSNotificationCenter defaultCenter] postNotificationName:kGroupOrderReload object:nil userInfo:@{@"order_sn":strongSelf->_order_sn}];
                                     });
                                 }
                             } failure:^(id object) {

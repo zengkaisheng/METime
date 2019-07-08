@@ -10,6 +10,7 @@
 
 @class MEOrderGoodModel;
 @class MERefundGoodModel;
+@class MEGroupOrderModel;
 
 static const CGFloat kMEMyChildOrderContentCellHeight = 120;
 
@@ -19,4 +20,7 @@ static const CGFloat kMEMyChildOrderContentCellHeight = 120;
 - (void)setSelfUIWithModel:(MEOrderGoodModel *)model extractStatus:(NSString *)status;
 
 - (void)setUIWithRefundModel:(MERefundGoodModel *)model;
+
+- (void)setUIWithGroupModel:(MEGroupOrderModel *)model;
+
 @end

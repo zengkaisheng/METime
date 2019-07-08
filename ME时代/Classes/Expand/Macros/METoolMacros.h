@@ -277,7 +277,7 @@ NS_INLINE NSString *kMeFilePathAtDocumentWithName(NSString *fileNAme){
 
 //通知弹出拼团详情
 #define kGroupOrderReload @"kGroupOrderReload"
-#define kNoticeGroupOrderReload [[NSNotificationCenter defaultCenter] postNotificationName:kGroupOrderReload object:nil];
+//#define kNoticeGroupOrderReload [[NSNotificationCenter defaultCenter] postNotificationName:kGroupOrderReload object:nil];
 
 //通知用户刷新融云信息
 #define kUnMessage @"kUnMessage"

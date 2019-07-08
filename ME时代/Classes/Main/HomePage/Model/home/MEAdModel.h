@@ -32,4 +32,7 @@
 @property (nonatomic, assign) NSInteger tool;
 @property (nonatomic, assign) NSInteger type;
 
+@property (nonatomic, assign) NSInteger bargain_id;  //砍价活动
+@property (nonatomic, assign) NSInteger activity_id; //签到活动
+
 @end

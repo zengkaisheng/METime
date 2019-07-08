@@ -130,6 +130,7 @@
             <connections>
                 <outlet property="btnCancelOrder" destination="23x-kk-gEn" id="9sm-0c-qz5"/>
                 <outlet property="btnPay" destination="fpo-qQ-Vyh" id="SqU-N0-rug"/>
+                <outlet property="btnPayConsWidth" destination="hk2-LE-QfW" id="pt0-Zs-1fZ"/>
                 <outlet property="consTableViewHeight" destination="JDT-1R-UQg" id="nEw-aB-7BV"/>
                 <outlet property="lblOrderNum" destination="1iJ-Yz-unS" id="i4o-yv-FDv"/>
                 <outlet property="refundImgV" destination="yOM-qN-jfA" id="plt-4P-cco"/>

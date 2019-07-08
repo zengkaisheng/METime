@@ -54,6 +54,11 @@
 #import "MENewMineCellHeaderView.h"
 #import "MeHomeNewGuideVC.h"
 #import "MECommonQuestionVC.h"
+
+#import "MEBargainListVC.h"
+#import "MEMyBargainListVC.h"
+#import "MEMyGroupOrderVC.h"
+
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
     MEClientTypeStyle _type;
@@ -280,6 +285,20 @@
         case MeHomeCommonQuestion:{
             MECommonQuestionVC *questionVC = [[MECommonQuestionVC alloc]init];
             [homeVc.navigationController pushViewController:questionVC animated:YES];
+        }
+            break;
+        case MeMyBargain:{
+            MEMyBargainListVC *bargainVC = [[MEMyBargainListVC alloc]init];
+            bargainVC.callBackBlock = ^{
+                MEBargainListVC *listVC = [[MEBargainListVC alloc] init];
+                [homeVc.navigationController pushViewController:listVC animated:YES];
+            };
+            [homeVc.navigationController pushViewController:bargainVC animated:YES];
+        }
+            break;
+        case MeMyGroup:{
+            MEMyGroupOrderVC *groupVC = [[MEMyGroupOrderVC alloc]init];
+            [homeVc.navigationController pushViewController:groupVC animated:YES];
         }
             break;
         default:

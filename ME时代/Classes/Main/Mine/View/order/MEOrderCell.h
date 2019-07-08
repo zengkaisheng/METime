@@ -10,6 +10,7 @@
 
 @class MEOrderModel;
 @class MERefundModel;
+@class MEGroupOrderModel;
 
 const static CGFloat kMEOrderCellNeedPayBtnHeight = 95.5;
 const static CGFloat kMEOrderCellNoPayedBtnHeight = 52;
@@ -24,8 +25,11 @@ const static CGFloat kMEOrderCellNoPayedBtnHeight = 52;
 + (CGFloat)getCellSelfHeightWithModel:(MEOrderModel *)model;
 @property (nonatomic, copy) kMeBasicBlock touchBlock;
 @property (nonatomic, copy) kMeBasicBlock cancelOrderBlock;
-
+//退款
 - (void)setUIWithRefundModel:(MERefundModel *)model;
 + (CGFloat)getCellHeightWithRefundModel:(MERefundModel *)model;
+//拼团
+- (void)setUIWithGroupModel:(MEGroupOrderModel *)model;
++ (CGFloat)getCellHeightWithGroupModel:(MEGroupOrderModel *)model;
 
 @end

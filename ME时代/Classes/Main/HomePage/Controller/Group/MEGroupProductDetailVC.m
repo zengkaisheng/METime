@@ -22,7 +22,9 @@
 
 #import "MEMakeOrderVC.h"
 #import "MEShowGroupUserListView.h"
-#import "MEGroupDetailsVC.h"
+#import "MEGroupOrderDetailsVC.h"
+
+#import "MECreateGroupShareVC.h"
 
 typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
     kpurchaseSelectSkuViewType,//选择规格
@@ -46,6 +48,7 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
 @property (nonatomic, assign) NSInteger productId;
 @property (nonatomic, strong) NSArray *groupUsers;
 @property (nonatomic, copy) NSString *count;
+@property (nonatomic, assign) BOOL isSelf;
 
 @end
 
@@ -76,14 +79,16 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
     _arrTitle = @[@"",@"商品详情"];
     _error = NO;
     _count = @"0";
+    self.isSelf = YES;
     self.groupUsers = [NSArray array];
     
     [self requestNetWorkWithGroupDetail];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showGroupDetailsVC) name:kGroupOrderReload object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showGroupDetailsVC:) name:kGroupOrderReload object:nil];
 }
 
-- (void)showGroupDetailsVC {
-    MEGroupDetailsVC *vc = [[MEGroupDetailsVC alloc] initWithModel:self.model];
+- (void)showGroupDetailsVC:(NSNotification *)notifi {
+    NSDictionary *info = (NSDictionary *)notifi.userInfo;
+    MEGroupOrderDetailsVC *vc = [[MEGroupOrderDetailsVC alloc] initWithOrderSn:kMeUnNilStr(info[@"order_sn"])];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -92,8 +97,9 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
     [MEShowGroupUserListView showGroupUserListViewWithArray:kMeUnArr(_groupUsers) selectedBlock:^(NSInteger index) {
         kMeSTRONGSELF
         MEGroupUserContentModel *contentModel = strongSelf.groupUsers[index];
-        MEGroupDetailsVC *vc = [[MEGroupDetailsVC alloc] initWithModel:strongSelf.model];
-        [strongSelf.navigationController pushViewController:vc animated:YES];
+        strongSelf.model.group_id = contentModel.uid;
+        strongSelf.model.group_sn = [contentModel.group_sn integerValue];
+        [strongSelf showBuyViewWithTypy:kpurchaseViewBuyType];
     } cancelBlock:^{
     } superView:self.view];
 }
@@ -207,6 +213,7 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
                 break;
             case kpurchaseViewBuyType:{
                 //生成订单
+                strongSelf->_model.isGroup = YES;
                 MEMakeOrderVC *vc = [[MEMakeOrderVC alloc]initWithIsinteral:NO goodModel:strongSelf->_model];
                 vc.uid = kMeUnNilStr(strongSelf.uid);
                 [strongSelf.navigationController pushViewController:vc animated:YES];
@@ -270,9 +277,11 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
                     cell.indexBlock = ^(NSInteger index) {
                         kMeSTRONGSELF
                         MEGroupUserContentModel *contentModel = strongSelf.groupUsers[index];
-                        MEGroupDetailsVC *vc = [[MEGroupDetailsVC alloc] initWithModel:strongSelf.model];
-                        [strongSelf.navigationController pushViewController:vc animated:YES];
-
+                        strongSelf.model.group_id = contentModel.uid;
+                        strongSelf.model.group_sn = [contentModel.group_sn integerValue];
+                        [strongSelf showBuyViewWithTypy:kpurchaseViewBuyType];
+//                        MECreateGroupShareVC *shareVC = [[MECreateGroupShareVC alloc] initWithModel:strongSelf->_model];
+//                        [strongSelf.navigationController pushViewController:shareVC animated:YES];
                     };
                     cell.checkMoreBlock = ^{
                         kMeSTRONGSELF
@@ -354,6 +363,8 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0 && indexPath.row==2){
         [self showBuyViewWithTypy:kpurchaseSelectSkuViewType];
+        self.model.group_id = 0;
+        self.model.group_sn = 0;
     }
 }
 
@@ -403,6 +414,9 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
         kMeWEAKSELF
         _bottomView.buyBlock = ^{
             kMeSTRONGSELF
+            strongSelf.isSelf = YES;
+            strongSelf.model.group_id = 0;
+            strongSelf.model.group_sn = 0;
             [strongSelf showBuyViewWithTypy:kpurchaseViewBuyType];
         };
         _bottomView.addShopcartBlock = ^{

@@ -1,15 +1,15 @@
 //
-//  MEGroupDetailsVC.m
+//  MEGroupOrderDetailsVC.m
 //  ME时代
 //
 //  Created by gao lei on 2019/7/4.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MEGroupDetailsVC.h"
-#import "MEGoodDetailModel.h"
+#import "MEGroupOrderDetailsVC.h"
+#import "MEGroupOrderDetailModel.h"
 
-@interface MEGroupDetailsVC ()
+@interface MEGroupOrderDetailsVC ()
 @property (weak, nonatomic) IBOutlet UIImageView *productImage;
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UILabel *numberLbl;
@@ -18,7 +18,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *groupBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageTopCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleConsHeight;
-@property (nonatomic, strong) MEGoodDetailModel *model;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnConsTop;
+@property (nonatomic, strong) MEGroupOrderDetailModel *model;
+
+@property (nonatomic, copy) NSString *orderSn;
 
 @property (nonatomic, copy) NSString *hoursStr;
 @property (nonatomic, copy) NSString *minuteStr;
@@ -28,11 +31,11 @@
 
 @end
 
-@implementation MEGroupDetailsVC
+@implementation MEGroupOrderDetailsVC
 
-- (instancetype)initWithModel:(MEGoodDetailModel*)model {
+- (instancetype)initWithOrderSn:(NSString *)orderSn {
     if (self = [super init]) {
-        _model = model;
+        _orderSn = orderSn;
     }
     return self;
 }
@@ -41,63 +44,94 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"拼购详情";
-    
-    kSDLoadImg(_productImage, self.model.image_url);
+
     _imageTopCons.constant = kMeNavBarHeight+15;
-    NSString *title = kMeUnNilStr(self.model.title);
+    
+    _groupBtn.frame = CGRectMake(15, CGRectGetMaxY(_timeLbl.frame)+109, SCREEN_WIDTH-30, 49);
+    CAGradientLayer *btnLayer = [self getLayerWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) colors:@[(__bridge id)[UIColor colorWithRed:254/255.0 green:83/255.0 blue:55/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:253/255.0 green:139/255.0 blue:15/255.0 alpha:1.0].CGColor] locations:@[@(0.0),@(1.0)] frame:_groupBtn.layer.bounds];
+    [_groupBtn.layer insertSublayer:btnLayer atIndex:0];
+    
+    [self requestNetWorkWithGroupOrderDetail];
+}
+
+#pragma mark -- networking
+- (void)requestNetWorkWithGroupOrderDetail{
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGroupOrderDetailWithOrderSn:kMeUnNilStr(self.orderSn) successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            strongSelf.model = [MEGroupOrderDetailModel mj_objectWithKeyValues:responseObject.data];
+        }else {
+            strongSelf.model = nil;
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        }
+        [strongSelf reloadUI];
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+    }];
+}
+
+- (void)reloadUI {
+    kSDLoadImg(_productImage, kMeUnNilStr(self.model.image_url));
+    
+    NSString *title = kMeUnNilStr(self.model.order_goods.product_name);
     _titleLbl.text = title;
     CGFloat titleHeight = [NSAttributedString heightForAtsWithStr:kMeUnNilStr(title) font:[UIFont systemFontOfSize:14] width:(SCREEN_WIDTH - 156-17) lineH:0 maxLine:0];
     _titleConsHeight.constant = titleHeight>19?titleHeight:19;
     
     _numberLbl.text = [NSString stringWithFormat:@"%@人团",kMeUnNilStr(self.model.group_num)];
     
-    NSString *faStr = [NSString stringWithFormat:@"拼团价￥%@ ￥%@",kMeUnNilStr(self.model.group_price),kMeUnNilStr(self.model.market_price)];
+    NSString *faStr = [NSString stringWithFormat:@"拼团价￥%@ ￥%@",kMeUnNilStr(self.model.goods_spec.group_price),kMeUnNilStr(self.model.goods_spec.goods_price)];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:faStr];
     NSUInteger firstLoc = [faStr rangeOfString:@" "].location;
-    
     [string addAttribute:NSForegroundColorAttributeName value:kME999999 range:NSMakeRange(firstLoc, faStr.length-firstLoc)];
     [string addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(firstLoc+1, faStr.length-firstLoc-1)];
     _priceLbl.attributedText = string;
     
-    NSString *timeStr = @"还差1人拼团成功，剩余00:00:00";
-    NSMutableAttributedString *timeAtt = [[NSMutableAttributedString alloc] initWithString:timeStr];
-    NSUInteger secondLoc = [timeStr rangeOfString:@"余"].location;
-    [timeAtt addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FF0000"] range:NSMakeRange(secondLoc+1, timeStr.length-secondLoc-1)];
-    _timeLbl.attributedText = timeAtt;
-    
-    _groupBtn.frame = CGRectMake(15, CGRectGetMaxY(_timeLbl.frame)+109, SCREEN_WIDTH-30, 49);
-    CAGradientLayer *btnLayer = [self getLayerWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) colors:@[(__bridge id)[UIColor colorWithRed:254/255.0 green:83/255.0 blue:55/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:253/255.0 green:139/255.0 blue:15/255.0 alpha:1.0].CGColor] locations:@[@(0.0),@(1.0)] frame:_groupBtn.layer.bounds];
-    [_groupBtn.layer insertSublayer:btnLayer atIndex:0];
+    [self downSecondHandle:kMeUnNilStr(self.model.over_time)];
     
     CGFloat itemW = 50;
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-(itemW*2+20*(2-1)))/2, CGRectGetMaxY(_timeLbl.frame)+16, itemW*2+20*(2-1), 53)];
-    for (int i = 0; i < 2; i++) {
-        UIImageView *imageV = [self createImageViewWithImage:@"image" frame:CGRectMake((itemW+20)*i, 3, itemW, itemW)];
-        if (i == 0) {
-            UILabel *topLbl = [[UILabel alloc] initWithFrame:CGRectMake(itemW-17, -3, 20, 20)];
-            topLbl.text = @"团长";
-            topLbl.textColor = [UIColor whiteColor];
-            topLbl.font = [UIFont systemFontOfSize:8];
-            topLbl.textAlignment = NSTextAlignmentCenter;
-            topLbl.layer.cornerRadius = 10;
-            topLbl.layer.masksToBounds = YES;
-            topLbl.backgroundColor = [UIColor colorWithHexString:@"#FD809E"];
-            [imageV addSubview:topLbl];
+    NSInteger count = kMeUnNilStr(self.model.group_num).integerValue;
+    NSInteger line = count/5+(count%5==0?0:1);
+    CGFloat bgWidth = count/5>0?(itemW*5+20*4):(itemW*count+20*(count-1));
+    CGFloat bgheight = 53+(line-1)*(itemW+20);
+    _btnConsTop.constant += (line-1)*(itemW+20);
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-bgWidth)/2, CGRectGetMaxY(_timeLbl.frame)+16, bgWidth, bgheight)];
+    for (int i = 0; i < count; i++) {
+        if (i < self.model.groupMember.count) {
+            MEGroupMemberModel *memberModel = self.model.groupMember[i];
+            UIImageView *imageV = [self createImageViewWithImage:kMeUnNilStr(memberModel.header_pic) frame:CGRectMake((itemW+20)*(i%5), 3+(i/5)*(itemW+20), itemW, itemW)];
+            [bgView addSubview:imageV];
+            if (i == 0) {
+                UILabel *topLbl = [[UILabel alloc] initWithFrame:CGRectMake(itemW-17, 0, 20, 20)];
+                topLbl.text = @"团长";
+                topLbl.textColor = [UIColor whiteColor];
+                topLbl.font = [UIFont systemFontOfSize:8];
+                topLbl.textAlignment = NSTextAlignmentCenter;
+                topLbl.layer.cornerRadius = 10;
+                topLbl.layer.masksToBounds = YES;
+                topLbl.backgroundColor = [UIColor colorWithHexString:@"#FD809E"];
+                [bgView addSubview:topLbl];
+            }
+        }else {
+            UIImageView *imageV = [self createImageViewWithImage:@"icon_groupWait" frame:CGRectMake((itemW+20)*(i%5), 3+(i/5)*(itemW+20), itemW, itemW)];
+            [bgView addSubview:imageV];
         }
-        [bgView addSubview:imageV];
     }
     [self.view addSubview:bgView];
 }
 
 - (UIImageView *)createImageViewWithImage:(NSString *)image frame:(CGRect)frame {
     UIImageView *imgV = [[UIImageView alloc] initWithFrame:frame];
-    if ([image hasPrefix:@"http"]) {
+    if ([image containsString:@"http"]) {
         kSDLoadImg(imgV, image);
+        imgV.backgroundColor = [UIColor colorWithHexString:@"#A1A1A1"];
     }else {
         imgV.image = [UIImage imageNamed:image];
     }
-    imgV.backgroundColor = [UIColor colorWithHexString:@"#A1A1A1"];
     imgV.layer.cornerRadius = frame.size.width/2.0;
+    imgV.layer.masksToBounds = YES;
     return imgV;
 }
 
@@ -112,6 +146,7 @@
 }
 
 - (IBAction)groupBtnAction:(id)sender {
+    
 }
 
 - (NSDate *)timeWithTimeIntervalString:(NSString *)timeString
@@ -146,7 +181,11 @@
                     dispatch_source_cancel(_timer);
                     _timer = nil;
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        self.timeLbl.text = @"剩余00:00:00";
+                        NSString *timeStr = [NSString stringWithFormat:@"还差%ld人拼团成功，剩余00:00:00",self.model.need_num];
+                        NSMutableAttributedString *timeAtt = [[NSMutableAttributedString alloc] initWithString:timeStr];
+                        NSUInteger secondLoc = [timeStr rangeOfString:@"余"].location;
+                        [timeAtt addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FF0000"] range:NSMakeRange(secondLoc+1, timeStr.length-secondLoc-1)];
+                        self.timeLbl.attributedText = timeAtt;
                     });
                 }else{
                     int days = (int)(timeout/(3600*24));
@@ -171,7 +210,11 @@
                         }else{
                             self.secondStr = [NSString stringWithFormat:@"%d",second];
                         }
-                        self.timeLbl.text = [NSString stringWithFormat:@"剩余%@:%@:%@",self.hoursStr,self.minuteStr,self.secondStr];
+                        NSString *timeStr = [NSString stringWithFormat:@"还差%ld人拼团成功，剩余%@:%@:%@",self.model.need_num,self.hoursStr,self.minuteStr,self.secondStr];
+                        NSMutableAttributedString *timeAtt = [[NSMutableAttributedString alloc] initWithString:timeStr];
+                        NSUInteger secondLoc = [timeStr rangeOfString:@"余"].location;
+                        [timeAtt addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FF0000"] range:NSMakeRange(secondLoc+1, timeStr.length-secondLoc-1)];
+                        self.timeLbl.attributedText = timeAtt;
                     });
                     timeout--;
                 }

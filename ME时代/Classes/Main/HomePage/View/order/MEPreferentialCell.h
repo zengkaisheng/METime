@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setAmount:(NSString *)amount;
 
+- (void)setTitle:(NSString *)title amount:(NSString *)amount;
+
 @end
 
 NS_ASSUME_NONNULL_END

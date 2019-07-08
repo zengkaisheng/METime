@@ -255,12 +255,16 @@
 #pragma makr - Group
 //拼团商品列表
 #define MEIPcommonGetGroupList @"common/marketing/groupList"
-//拼团商品详情
+//拼团活动详情
 #define MEIPcommonGetGroupInfo @"common/marketing/groupInfo"
 //获取拼团的人员信息
 #define MEIPcommonGetGroupUser @"common/marketing/getGroupUser"
 //生成拼团订单
 #define MEIPCommonCreateGroupOrder @"common/marketing/createGroupOrder"
+//获取拼团订单列表
+#define MEIPCommonGetGroupOrder @"common/marketing/getGroupOrder"
+//获取拼团订单详情
+#define MEIPCommonGetGroupOrderDetail @"common/marketing/getGroupOrderDetail"
 
 /*********************************************/
 

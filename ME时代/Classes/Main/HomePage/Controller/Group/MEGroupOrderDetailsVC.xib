@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MEGroupDetailsVC">
             <connections>
+                <outlet property="btnConsTop" destination="cIO-Vq-3pu" id="p8A-10-3qD"/>
                 <outlet property="groupBtn" destination="Oua-d5-Uty" id="sJC-n9-g5Q"/>
                 <outlet property="imageTopCons" destination="fJW-Bb-MwH" id="3Zg-RL-Jge"/>
                 <outlet property="numberLbl" destination="uyQ-Tf-lP5" id="Rzy-yz-qph"/>
@@ -75,7 +76,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="49" id="0My-cc-dR7"/>
                     </constraints>
-                    <state key="normal" title="我要参团">
+                    <state key="normal" title="邀请好友拼团">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -118,7 +119,7 @@
                 <constraint firstItem="uyQ-Tf-lP5" firstAttribute="leading" secondItem="8OY-h3-ZSC" secondAttribute="trailing" constant="8" id="vKx-xW-beh"/>
                 <constraint firstItem="hzd-OR-T4j" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="wzF-OQ-a0j"/>
             </constraints>
-            <point key="canvasLocation" x="-492" y="112"/>
+            <point key="canvasLocation" x="-863" y="105"/>
         </view>
     </objects>
     <resources>

@@ -3235,7 +3235,7 @@
 
 /***************************************/
 #pragma mark - Group
-//砍价商品详情
+//拼团商品详情
 + (void)postGroupDetailWithProductId:(NSString *)productId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
                           @"product_id":productId,
@@ -3288,6 +3288,26 @@
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
         [HUD hideAnimated:YES];
 //        [MEShowViewTool SHOWHUDWITHHUD:HUD test:@"兑换成功"];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//拼购订单详情
++ (void)postGroupOrderDetailWithOrderSn:(NSString *)orderSn successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"order_sn":orderSn,
+                          };
+    NSString *url = kGetApiWithUrl(MEIPCommonGetGroupOrderDetail);
+    MBProgressHUD *HUD = [self commitWithHUD:@"获取详情中..."];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
         kMeCallBlock(successBlock,responseObject);
     } failure:^(id error) {
         if([error isKindOfClass:[ZLRequestResponse class]]){

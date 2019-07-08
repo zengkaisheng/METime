@@ -11,19 +11,24 @@
 #import "MEMyChildOrderContentCell.h"
 #import "MEMyOrderVC.h"
 #import "MEMyOrderDetailVC.h"
-//#import "MELogisticsVC.h"
+#import "MELogisticsVC.h"
 #import "MEMySelfExtractionOrderVC.h"
 
 #import "MEApplyRefundVC.h"
 #import "MERefundModel.h"
+#import "MEGroupOrderModel.h"
+#import "ZLWebViewVC.h"
+#import "MEGroupOrderDetailVC.h"
 
 @interface MEOrderCell ()<UITableViewDelegate,UITableViewDataSource>{
     NSArray *_arrType;
     MEOrderModel *_model;
     MERefundModel *_refundModel;
+    MEGroupOrderModel *_groupModel;
     MEOrderStyle _type;
     //yes 未自提
     BOOL _isSelf;
+    BOOL _isGroup;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *lblOrderNum;
@@ -33,7 +38,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consTableViewHeight;
 @property (weak, nonatomic) IBOutlet UIImageView *refundImgV;
 @property (weak, nonatomic) IBOutlet UILabel *refundLbl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnPayConsWidth;
 
+@property (nonatomic, strong) UIButton *logisticsBtn;
 
 @end
 
@@ -53,6 +60,8 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [UIView new];
+    [self.contentView addSubview:self.logisticsBtn];
+    self.logisticsBtn.hidden = YES;
     // Initialization code
 }
 
@@ -152,26 +161,82 @@
     [self.tableView reloadData];
 }
 
+- (void)setUIWithGroupModel:(MEGroupOrderModel *)model {
+    _isGroup = YES;
+    _refundImgV.hidden = YES;
+    _refundLbl.hidden = YES;
+    
+    _consTableViewHeight.constant =  136;
+    _groupModel = model;
+    
+    _btnCancelOrder.hidden = NO;
+    [_btnCancelOrder setTitleColor:[UIColor colorWithHexString:@"#FF88A4"] forState:UIControlStateNormal];
+    [_btnCancelOrder.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    
+    _btnPay.layer.borderColor = kME333333.CGColor;
+    _btnPay.layer.borderWidth = 1;
+    _btnPay.layer.cornerRadius = 4;
+    _btnPay.layer.masksToBounds = YES;
+    _btnPay.backgroundColor = [UIColor whiteColor];
+    [_btnPay setTitle:@"查看详情" forState:UIControlStateNormal];
+    [_btnPay setTitleColor:kME333333 forState:UIControlStateNormal];
+    [_btnPay.titleLabel setFont:[UIFont fontWithName:@"PingFang-SC-Regular" size:14]];
+    _btnPayConsWidth.constant = 80;
+    
+    switch ([model.order_status integerValue]) {
+        case 10://进行中
+        {
+            [_btnCancelOrder setTitle:@"拼团中" forState:UIControlStateNormal];
+            self.logisticsBtn.hidden = YES;
+        }
+            break;
+        case 11://完成
+        {
+            [_btnCancelOrder setTitle:@"拼团成功" forState:UIControlStateNormal];
+            self.logisticsBtn.hidden = NO;
+        }
+            break;
+        case 12://失败
+        {
+            [_btnCancelOrder setTitle:@"拼团失败" forState:UIControlStateNormal];
+            self.logisticsBtn.hidden = YES;
+        }
+            break;
+        default:
+            break;
+    }
+    _lblOrderNum.text = kMeUnNilStr(model.order_sn);
+    [self.tableView reloadData];
+}
+
 #pragma mark - tableView deleagte and sourcedata
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (_type == MEAllRefundOrder) {
         return kMeUnArr(_refundModel.order_goods).count;
+    }else {
+        if (_isGroup) {
+            return 1;
+        }
     }
     return kMeUnArr(_model.children).count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MEMyChildOrderContentCell *cell=[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEMyChildOrderContentCell class]) forIndexPath:indexPath];
+    MEMyChildOrderContentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEMyChildOrderContentCell class]) forIndexPath:indexPath];
     if (_type == MEAllRefundOrder) {
         MERefundGoodModel *goodModel = kMeUnArr(_refundModel.order_goods)[indexPath.row];
         [cell setUIWithRefundModel:goodModel];
     }else {
-        MEOrderGoodModel *model = kMeUnArr(_model.children)[indexPath.row];
-        if(_isSelf){
-            [cell setSelfUIWithModel:model extractStatus:_model.get_status];
-        }else{
-            [cell setUIWithModel:model];
+        if (_isGroup) {
+            [cell setUIWithGroupModel:_groupModel];
+        }else {
+            MEOrderGoodModel *model = kMeUnArr(_model.children)[indexPath.row];
+            if(_isSelf){
+                [cell setSelfUIWithModel:model extractStatus:_model.get_status];
+            }else{
+                [cell setUIWithModel:model];
+            }
         }
     }
     return cell;
@@ -189,10 +254,25 @@
         [orderVC.navigationController pushViewController:vc animated:YES];
     }else{
         MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
-        MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
-        [orderVC.navigationController pushViewController:vc animated:YES];
+        if (_isGroup) {
+            MEGroupOrderDetailVC *vc = [[MEGroupOrderDetailVC alloc] initWithOrderSn:kMeUnNilStr(_groupModel.order_sn)];
+            [orderVC.navigationController pushViewController:vc animated:YES];
+        }else {
+            MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
+            [orderVC.navigationController pushViewController:vc animated:YES];
+        }
     }
-
+}
+//查看物流
+- (void)checkLogisticAction {
+    if (_groupModel.express_detail.count > 0) {
+        MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
+        ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+        webVC.showProgress = YES;
+        MEGroupOrderExpressModel *model = _groupModel.express_detail[0];
+        [webVC loadURL:[NSURL URLWithString:kMeUnNilStr(model.express_url)]];
+        [orderVC.navigationController pushViewController:webVC animated:YES];
+    }
 }
 
 - (IBAction)payAction:(UIButton *)sender {
@@ -203,27 +283,34 @@
         }
         return;
     }
-    
     MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
-    if(orderVC){
-        if(_type==MEAllNeedPayOrder){
-            MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
-            [orderVC.navigationController pushViewController:vc animated:YES];
-        }else if (_type == MEAllNeedDeliveryOrder){
-            MEApplyRefundVC *applyVC = [[MEApplyRefundVC alloc] initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
-            [orderVC.navigationController pushViewController:applyVC animated:YES];
-        }else if (_type == MEAllFinishOrder){
-//            MELogisticsVC*vc  = [[MELogisticsVC alloc]initWithOrderGoodsSn:kMeUnNilStr(_model.order_sn)];
-//            [orderVC.navigationController pushViewController:vc animated:YES];
-        }else{
-            
+    if (_isGroup) {
+        MEGroupOrderDetailVC *vc = [[MEGroupOrderDetailVC alloc] initWithOrderSn:kMeUnNilStr(_groupModel.order_sn)];
+        [orderVC.navigationController pushViewController:vc animated:YES];
+    }else {
+        if(orderVC){
+            if(_type==MEAllNeedPayOrder){
+                MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
+                [orderVC.navigationController pushViewController:vc animated:YES];
+            }else if (_type == MEAllNeedDeliveryOrder){
+                MEApplyRefundVC *applyVC = [[MEApplyRefundVC alloc] initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
+                [orderVC.navigationController pushViewController:applyVC animated:YES];
+            }else if (_type == MEAllFinishOrder){
+                //            MELogisticsVC*vc  = [[MELogisticsVC alloc]initWithOrderGoodsSn:kMeUnNilStr(_model.order_sn)];
+                //            [orderVC.navigationController pushViewController:vc animated:YES];
+            }else{
+                
+            }
         }
     }
 }
 
 - (IBAction)cancelOrderAction:(UIButton *)sender {
+    if (_isGroup) {
+        return;
+    }
     if (_type == MEAllRefundOrder) {
-        NSLog(@"点击了删除订单");
+//        NSLog(@"点击了删除订单");
         return;
     }
     MEAlertView *aler = [[MEAlertView alloc] initWithTitle:@"" message:@"确定要取消该订单吗?"];
@@ -261,6 +348,27 @@
     CGFloat height;
     height = (kMEMyChildOrderContentCellHeight * kMeUnArr(model.order_goods).count) + kMEOrderCellNeedPayBtnHeight;
     return height;
+}
+
++ (CGFloat)getCellHeightWithGroupModel:(MEGroupOrderModel *)model {
+    return 136+89;
+}
+
+- (UIButton *)logisticsBtn {
+    if (!_logisticsBtn) {
+        _logisticsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _logisticsBtn.frame = CGRectMake(SCREEN_WIDTH-15-80-10-80, 182, 80, 30);
+        _logisticsBtn.layer.borderColor = kME333333.CGColor;
+        _logisticsBtn.layer.borderWidth = 1;
+        _logisticsBtn.layer.cornerRadius = 4;
+        _logisticsBtn.layer.masksToBounds = YES;
+        _logisticsBtn.backgroundColor = [UIColor whiteColor];
+        [_logisticsBtn setTitle:@"查看物流" forState:UIControlStateNormal];
+        [_logisticsBtn setTitleColor:kME333333 forState:UIControlStateNormal];
+        [_logisticsBtn.titleLabel setFont:[UIFont fontWithName:@"PingFang-SC-Regular" size:14]];
+        [_logisticsBtn addTarget:self action:@selector(checkLogisticAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _logisticsBtn;
 }
 
 @end

@@ -51,6 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger tool;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) NSInteger is_need_login;//0 不需要登录 1 需要登录
+@property (nonatomic, assign) NSInteger bargain_id;  //砍价活动
+@property (nonatomic, assign) NSInteger activity_id; //签到活动
+
 
 @end
 

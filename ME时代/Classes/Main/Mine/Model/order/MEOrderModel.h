@@ -31,14 +31,21 @@
 @property (nonatomic, assign) NSInteger product_type;
 @property (nonatomic, strong) NSString * refund_sn;
 @property (nonatomic, strong) NSString * refund_status;
-@property (nonatomic, assign) NSInteger shareId;
-@property (nonatomic, assign) NSInteger storeId;
+@property (nonatomic, assign) NSInteger share_id;
+@property (nonatomic, assign) NSInteger store_id;
 @property (nonatomic, assign) NSInteger uid;
 @property (nonatomic, strong) NSString * updated_at;
 
 
 @property (nonatomic, strong) NSString *integral_lines;
 @property (nonatomic, strong) NSString *order_type;
+//拼团相关
+@property (nonatomic, assign) NSInteger address_edit;
+@property (nonatomic, strong) NSString * channel;
+@property (nonatomic, assign) NSInteger is_export;
+@property (nonatomic, assign) NSInteger share_uid;
+@property (nonatomic, assign) NSInteger warehouse_id;
+
 @end
 
 

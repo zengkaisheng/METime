@@ -37,6 +37,14 @@
     _titleLbl.text = kMeUnNilStr(model.title);
     _numberLbl.text = [NSString stringWithFormat:@"%@人团",kMeUnNilStr(model.group_num)];
     
+    if (IS_IPHONE_4S||IS_IPHONE_5||IS_iPhone5S) {
+        _priceLbl.font = [UIFont systemFontOfSize:11];
+    }else if (IS_IPHONE_6) {
+        _priceLbl.font = [UIFont systemFontOfSize:13];
+    }else {
+        _priceLbl.font = [UIFont systemFontOfSize:15];
+    }
+    
     NSString *faStr = [NSString stringWithFormat:@"拼团价￥%@ ￥%@",kMeUnNilStr(model.money),kMeUnNilStr(model.market_price)];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:faStr];
     NSUInteger secondLoc = [faStr rangeOfString:@" "].location;
@@ -44,6 +52,9 @@
     [string addAttribute:NSForegroundColorAttributeName value:kME999999 range:NSMakeRange(secondLoc+1, faStr.length-secondLoc-1)];
     [string addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(secondLoc+1, faStr.length-secondLoc-1)];
     _priceLbl.attributedText = string;
+}
+- (IBAction)groupAction:(id)sender {
+    kMeCallBlock(self.groupBlock);
 }
 
 @end

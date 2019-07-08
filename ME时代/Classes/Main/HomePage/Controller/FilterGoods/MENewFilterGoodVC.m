@@ -24,6 +24,10 @@
 #import "ZLWebViewVC.h"
 #import "MECoupleMailVC.h"
 
+#import "MEBargainDetailVC.h"
+#import "MEGroupProductDetailVC.h"
+#import "MEJoinPrizeVC.h"
+
 #define kMEGoodsMargin ((IS_iPhoneX?10:7.5)*kMeFrameScaleX())
 
 @interface MENewFilterGoodVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,RefreshToolDelegate,JXCategoryViewDelegate>{
@@ -434,6 +438,57 @@
         {//跳拼多多推荐商品列表
             MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
             [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 14:
+        {//跳砍价活动详情
+            if([MEUserInfoModel isLogin]){
+                MEBargainDetailVC *bargainVC = [[MEBargainDetailVC alloc] initWithBargainId:model.bargain_id myList:NO];
+                [self.navigationController pushViewController:bargainVC animated:YES];
+            }else {
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    MEBargainDetailVC *bargainVC = [[MEBargainDetailVC alloc] initWithBargainId:model.bargain_id myList:NO];
+                    [strongSelf.navigationController pushViewController:bargainVC animated:YES];
+                } failHandler:^(id object) {
+                    
+                }];
+            }
+        }
+            break;
+        case 15:
+        {//跳拼团活动详情
+            if([MEUserInfoModel isLogin]){
+                MEGroupProductDetailVC *groupVC = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+                [self.navigationController pushViewController:groupVC animated:YES];
+            }else {
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    MEGroupProductDetailVC *groupVC = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+                    [strongSelf.navigationController pushViewController:groupVC animated:YES];
+                } failHandler:^(id object) {
+                    
+                }];
+            }
+        }
+            break;
+        case 16:
+        {//跳签到活动详情
+            if([MEUserInfoModel isLogin]){
+                MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",model.activity_id]];
+                [self.navigationController pushViewController:prizeVC animated:YES];
+            }else {
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",model.activity_id]];
+                    [strongSelf.navigationController pushViewController:prizeVC animated:YES];
+                } failHandler:^(id object) {
+                    
+                }];
+            }
         }
             break;
         default:

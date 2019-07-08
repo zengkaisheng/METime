@@ -9,8 +9,11 @@
 #import "MEBaseVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@class MEGoodDetailModel;
 
 @interface MECreateGroupShareVC : MEBaseVC
+
+- (instancetype)initWithModel:(MEGoodDetailModel *)model;
 
 @end
 

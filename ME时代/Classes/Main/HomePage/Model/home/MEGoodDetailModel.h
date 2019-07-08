@@ -125,6 +125,10 @@
 @property (nonatomic, strong) NSString * group_total;
 @property (nonatomic, strong) NSString * finish_group_total;
 @property (nonatomic, strong) NSString * group_price;
+//拼团订单相关
+@property (nonatomic, assign) NSInteger group_id;
+@property (nonatomic, assign) NSInteger group_sn;
+@property (nonatomic, assign) BOOL isGroup;
 
 @end
 

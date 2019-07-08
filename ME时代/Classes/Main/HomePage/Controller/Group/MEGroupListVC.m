@@ -18,6 +18,9 @@
 #import "ZLWebViewVC.h"
 #import "MECoupleMailVC.h"
 
+#import "MEBargainDetailVC.h"
+#import "MEJoinPrizeVC.h"
+
 @interface MEGroupListVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
 @property (nonatomic, strong) MEBargainHeaderView *headerView;
@@ -57,7 +60,7 @@
     NSDictionary *info = (NSDictionary *)data;
     MENetListModel *nlModel = [MENetListModel mj_objectWithKeyValues:info];
     self.banners = [MEAdModel mj_objectArrayWithKeyValuesArray:kMeUnArr(info[@"top_banner"])];
-    self.bannerInfo = @{@"today_finish_bargin_total":[NSString stringWithFormat:@"%ld",[info[@"finish_group_total"] integerValue]],@"top_banner":self.banners,@"type":@"2"};
+    self.bannerInfo = @{@"today_group_total":[NSString stringWithFormat:@"%ld",[info[@"today_group_total"] integerValue]],@"top_banner":self.banners,@"type":@"2"};
     [self.headerView setUIWithDictionary:self.bannerInfo];
     [self.refresh.arrData addObjectsFromArray:[MEGroupListModel mj_objectArrayWithKeyValuesArray:nlModel.data]];
 }
@@ -70,6 +73,12 @@
     MEGroupListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEGroupListCell class]) forIndexPath:indexPath];
     MEGroupListModel *model = self.refresh.arrData[indexPath.row];
     [cell setUIWithModel:model];
+    kMeWEAKSELF
+    cell.groupBlock = ^{
+        kMeSTRONGSELF
+        MEGroupProductDetailVC *vc = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+        [strongSelf.navigationController pushViewController:vc animated:YES];
+    };
     return cell;
 }
 
@@ -150,6 +159,57 @@
         {//跳拼多多推荐商品列表
             MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
             [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 14:
+        {//跳砍价活动详情
+            if([MEUserInfoModel isLogin]){
+                MEBargainDetailVC *bargainVC = [[MEBargainDetailVC alloc] initWithBargainId:model.bargain_id myList:NO];
+                [self.navigationController pushViewController:bargainVC animated:YES];
+            }else {
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    MEBargainDetailVC *bargainVC = [[MEBargainDetailVC alloc] initWithBargainId:model.bargain_id myList:NO];
+                    [strongSelf.navigationController pushViewController:bargainVC animated:YES];
+                } failHandler:^(id object) {
+                    
+                }];
+            }
+        }
+            break;
+        case 15:
+        {//跳拼团活动详情
+            if([MEUserInfoModel isLogin]){
+                MEGroupProductDetailVC *groupVC = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+                [self.navigationController pushViewController:groupVC animated:YES];
+            }else {
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    MEGroupProductDetailVC *groupVC = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+                    [strongSelf.navigationController pushViewController:groupVC animated:YES];
+                } failHandler:^(id object) {
+                    
+                }];
+            }
+        }
+            break;
+        case 16:
+        {//跳签到活动详情
+            if([MEUserInfoModel isLogin]){
+                MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.activity_id]];
+                [self.navigationController pushViewController:prizeVC animated:YES];
+            }else {
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.activity_id]];
+                    [strongSelf.navigationController pushViewController:prizeVC animated:YES];
+                } failHandler:^(id object) {
+                    
+                }];
+            }
         }
             break;
         default:

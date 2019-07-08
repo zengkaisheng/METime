@@ -57,7 +57,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 58;
+    return 66;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -74,7 +74,7 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 41, SCREEN_WIDTH, (self.dataSource.count>3?3:self.dataSource.count)*66) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEGroupUserContentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEGroupUserContentCell class])];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableFooterView = [UIView new];
         _tableView.backgroundColor = kMEf5f4f4;
         _tableView.delegate = self;
