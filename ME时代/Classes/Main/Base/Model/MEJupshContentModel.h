@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *idField;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, assign) NSInteger msg_id;
+@property (nonatomic, copy) NSString *content;
 
 
 @end

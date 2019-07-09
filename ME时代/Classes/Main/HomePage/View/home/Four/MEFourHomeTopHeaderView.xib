@@ -80,6 +80,10 @@
                             <color key="textColor" red="0.90588235289999997" green="0.25490196079999999" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5M9-x2-G90" customClass="SDCycleScrollView">
+                            <rect key="frame" x="0.0" y="0.0" width="159" height="137"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -88,6 +92,7 @@
                         <constraint firstItem="lzs-He-Hay" firstAttribute="leading" secondItem="3N0-vf-TYs" secondAttribute="trailing" constant="1" id="E8D-0x-LuH"/>
                         <constraint firstItem="lzs-He-Hay" firstAttribute="top" secondItem="XCr-ZV-bBS" secondAttribute="top" constant="26" id="E8f-re-LxB"/>
                         <constraint firstItem="oTv-jK-C5n" firstAttribute="top" secondItem="XCr-ZV-bBS" secondAttribute="top" constant="12" id="EuV-TH-jNv"/>
+                        <constraint firstItem="5M9-x2-G90" firstAttribute="top" secondItem="XCr-ZV-bBS" secondAttribute="top" id="GLg-rc-oVU"/>
                         <constraint firstItem="3Uz-m8-izd" firstAttribute="leading" secondItem="XCr-ZV-bBS" secondAttribute="leading" constant="15" id="JCa-cR-XxS"/>
                         <constraint firstAttribute="bottom" secondItem="3Uz-m8-izd" secondAttribute="bottom" constant="25" id="JYs-fy-Kd9"/>
                         <constraint firstItem="WGo-1N-SQC" firstAttribute="top" secondItem="sLd-L9-yAr" secondAttribute="bottom" constant="5" id="LwJ-x6-dlt"/>
@@ -97,8 +102,11 @@
                         <constraint firstItem="WGo-1N-SQC" firstAttribute="leading" secondItem="XCr-ZV-bBS" secondAttribute="leading" constant="15" id="eri-55-voO"/>
                         <constraint firstItem="orl-cu-T0E" firstAttribute="leading" secondItem="XCr-ZV-bBS" secondAttribute="leading" constant="15" id="fzr-eq-l7z"/>
                         <constraint firstItem="lzs-He-Hay" firstAttribute="leading" secondItem="orl-cu-T0E" secondAttribute="trailing" constant="1" id="hhP-vr-xb9"/>
+                        <constraint firstItem="oTv-jK-C5n" firstAttribute="leading" secondItem="5M9-x2-G90" secondAttribute="trailing" id="k3L-w9-SZW"/>
                         <constraint firstAttribute="trailing" secondItem="lzs-He-Hay" secondAttribute="trailing" constant="13" id="ksY-OB-t6O"/>
                         <constraint firstItem="orl-cu-T0E" firstAttribute="top" secondItem="WGo-1N-SQC" secondAttribute="bottom" constant="3" id="qPg-kD-Jod"/>
+                        <constraint firstItem="5M9-x2-G90" firstAttribute="leading" secondItem="XCr-ZV-bBS" secondAttribute="leading" id="r5I-za-QY5"/>
+                        <constraint firstAttribute="bottom" secondItem="5M9-x2-G90" secondAttribute="bottom" id="tz4-kg-j5H"/>
                         <constraint firstAttribute="trailing" secondItem="oTv-jK-C5n" secondAttribute="trailing" id="v2h-O2-ACJ"/>
                         <constraint firstItem="3N0-vf-TYs" firstAttribute="leading" secondItem="XCr-ZV-bBS" secondAttribute="leading" constant="15" id="yDT-1K-OvQ"/>
                     </constraints>
@@ -161,17 +169,24 @@
                             <color key="textColor" red="0.90588235289999997" green="0.25490196079999999" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rhu-cQ-7p2" customClass="SDCycleScrollView">
+                            <rect key="frame" x="1" y="0.0" width="159" height="137"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="hOP-II-wMe" firstAttribute="top" secondItem="zBw-Vt-07F" secondAttribute="top" constant="26" id="ALg-eE-VGM"/>
                         <constraint firstItem="KyW-Ln-AaQ" firstAttribute="leading" secondItem="zBw-Vt-07F" secondAttribute="leading" constant="15" id="BZb-tF-Fey"/>
                         <constraint firstAttribute="trailing" secondItem="qxk-CT-Kgn" secondAttribute="trailing" id="DRG-2W-0Op"/>
+                        <constraint firstAttribute="bottom" secondItem="rhu-cQ-7p2" secondAttribute="bottom" id="FaT-p1-ySL"/>
                         <constraint firstItem="hOP-II-wMe" firstAttribute="leading" secondItem="Rl7-Ki-gd9" secondAttribute="trailing" constant="1" id="H28-eG-xgu"/>
                         <constraint firstItem="Nja-oO-Tv9" firstAttribute="leading" secondItem="zBw-Vt-07F" secondAttribute="leading" constant="15" id="JOW-h9-wDl"/>
+                        <constraint firstItem="rhu-cQ-7p2" firstAttribute="leading" secondItem="zBw-Vt-07F" secondAttribute="leading" constant="1" id="JYc-si-rsr"/>
                         <constraint firstItem="Nja-oO-Tv9" firstAttribute="top" secondItem="zBw-Vt-07F" secondAttribute="top" constant="24" id="KQ4-wb-4lR"/>
                         <constraint firstItem="qxk-CT-Kgn" firstAttribute="top" secondItem="zBw-Vt-07F" secondAttribute="top" constant="12" id="LkH-jI-KXy"/>
                         <constraint firstAttribute="bottom" secondItem="qxk-CT-Kgn" secondAttribute="bottom" constant="12" id="MGs-D1-YR1"/>
+                        <constraint firstAttribute="trailing" secondItem="rhu-cQ-7p2" secondAttribute="trailing" id="PKo-lH-DVD"/>
                         <constraint firstAttribute="bottom" secondItem="4dz-bI-Wsa" secondAttribute="bottom" constant="25" id="frX-u9-V6w"/>
                         <constraint firstAttribute="trailing" secondItem="hOP-II-wMe" secondAttribute="trailing" constant="13" id="gCd-MJ-tW3"/>
                         <constraint firstItem="Q12-ep-XIj" firstAttribute="top" secondItem="Rl7-Ki-gd9" secondAttribute="bottom" constant="3" id="jZY-Lh-o9h"/>
@@ -179,6 +194,7 @@
                         <constraint firstItem="4dz-bI-Wsa" firstAttribute="leading" secondItem="zBw-Vt-07F" secondAttribute="leading" constant="15" id="kYb-6S-EtJ"/>
                         <constraint firstItem="KyW-Ln-AaQ" firstAttribute="top" secondItem="Nja-oO-Tv9" secondAttribute="bottom" constant="5" id="mM4-kV-sC2"/>
                         <constraint firstItem="hOP-II-wMe" firstAttribute="leading" secondItem="Nja-oO-Tv9" secondAttribute="trailing" constant="1" id="mU6-2e-0aC"/>
+                        <constraint firstItem="rhu-cQ-7p2" firstAttribute="top" secondItem="zBw-Vt-07F" secondAttribute="top" id="oGC-d4-4DK"/>
                         <constraint firstItem="Rl7-Ki-gd9" firstAttribute="leading" secondItem="zBw-Vt-07F" secondAttribute="leading" constant="15" id="oLH-qc-esT"/>
                         <constraint firstItem="Q12-ep-XIj" firstAttribute="leading" secondItem="zBw-Vt-07F" secondAttribute="leading" constant="15" id="rO1-ey-6pj"/>
                         <constraint firstItem="Rl7-Ki-gd9" firstAttribute="top" secondItem="KyW-Ln-AaQ" secondAttribute="bottom" constant="5" id="uSO-CO-bmG"/>
@@ -209,10 +225,12 @@
                 <outlet property="lblSDesc" destination="Rl7-Ki-gd9" id="Keo-b4-00I"/>
                 <outlet property="lblSPrice" destination="Q12-ep-XIj" id="JgE-tz-vci"/>
                 <outlet property="lblStitle" destination="KyW-Ln-AaQ" id="qaS-fM-NAo"/>
+                <outlet property="sdViewLeft" destination="5M9-x2-G90" id="wYr-rd-iSd"/>
+                <outlet property="sdViewRight" destination="rhu-cQ-7p2" id="OA1-h5-LtL"/>
                 <outlet property="viewForF" destination="XCr-ZV-bBS" id="dWC-gW-PbS"/>
                 <outlet property="viewForS" destination="zBw-Vt-07F" id="nWi-kM-DrX"/>
             </connections>
-            <point key="canvasLocation" x="-376" y="150"/>
+            <point key="canvasLocation" x="-506" y="123"/>
         </collectionReusableView>
     </objects>
     <resources>

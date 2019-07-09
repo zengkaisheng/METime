@@ -41,7 +41,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kMEf5f4f4;
-    self.title = @"抽奖活动";
+    self.title = @"签到活动";
     
     [self.view addSubview:self.tableView];
     self.tableView.tableHeaderView = self.headerView;

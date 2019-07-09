@@ -35,6 +35,7 @@
 #import "MEBargainDetailVC.h"
 #import "MEGroupProductDetailVC.h"
 #import "MEJoinPrizeVC.h"
+#import "MEHomeOptionsModel.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?10:7.5)*kMeFrameScaleX())
 #define kMEThridHomeNavViewHeight (((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 129 : 107))
@@ -50,6 +51,7 @@ const static CGFloat kImgStore = 50;
     NSArray *_arrDicParm;
     NSArray *_arrPPTM;
     NSString *_net;
+    NSArray *_optionsArray;
 }
 
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -83,6 +85,7 @@ const static CGFloat kImgStore = 50;
     [self.view addSubview:self.collectionView];
     _arrHot = [NSArray array];
     _arrPPTM = [NSArray array];
+    _optionsArray = [NSArray array];
     _homeModel = [METhridHomeModel new];
     _net = @"";
     
@@ -149,8 +152,8 @@ const static CGFloat kImgStore = 50;
     });
 }
 
-- (void)setHeaderViewUIWithModel:(METhridHomeModel *)model stroeModel:(MEStoreModel *)storemodel {
-    [self.headerView setUIWithModel:model stroeModel:storemodel];
+- (void)setHeaderViewUIWithModel:(METhridHomeModel *)model stroeModel:(MEStoreModel *)storemodel optionsArray:(NSArray *)options{
+    [self.headerView setUIWithModel:model stroeModel:storemodel optionsArray:options];
 }
 
 - (void)reloadData {
@@ -223,6 +226,22 @@ const static CGFloat kImgStore = 50;
     });
     
     dispatch_group_async(group, queue, ^{
+        [MEPublicNetWorkTool postFourHomeOptionsWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            if ([responseObject.data isKindOfClass:[NSArray class]]) {
+                strongSelf->_optionsArray = [MEHomeOptionsModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+            }else{
+                strongSelf->_optionsArray = [NSArray array];
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            kMeSTRONGSELF
+            strongSelf->_arrHot = [NSArray array];
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
+    dispatch_group_async(group, queue, ^{
         [MEPublicNetWorkTool postFetchSpecialSalesBannerWithsuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             id data = responseObject.data;
@@ -238,6 +257,7 @@ const static CGFloat kImgStore = 50;
     });
     
     dispatch_group_notify(group, queue, ^{
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -591,7 +611,7 @@ const static CGFloat kImgStore = 50;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (_type == 0) {
         if (section == 0) {
-            return CGSizeMake(SCREEN_WIDTH, [MEFourHomeHeaderView getViewHeight]);
+            return CGSizeMake(SCREEN_WIDTH, [MEFourHomeHeaderView getViewHeightWithOptionsArray:_optionsArray]);
         }else if (section == 2) {
             if (_arrPPTM.count > 0) {
                 return CGSizeMake(SCREEN_WIDTH, 100*kMeFrameScaleY());
@@ -599,7 +619,7 @@ const static CGFloat kImgStore = 50;
                 return CGSizeMake(0, 0);
             }
         }else if (section == 3) {
-            if(_spreebugmodel.recommend_goods && _spreebugmodel.spreebuy_goods){
+            if(_spreebugmodel.recommend_left && _spreebugmodel.recommend_right){
                 return CGSizeMake(SCREEN_WIDTH, kMEFourHomeTopHeaderViewHeight);
             }else{
                 return CGSizeMake(0, 0.1);;
@@ -623,7 +643,7 @@ const static CGFloat kImgStore = 50;
         if (_type == 0) {
             if (indexPath.section == 0) {
                 MEFourHomeHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeHeaderView class]) forIndexPath:indexPath];
-                [header setUIWithModel:_homeModel stroeModel:_stroeModel];
+                [header setUIWithModel:_homeModel stroeModel:_stroeModel optionsArray:_optionsArray];
                 if(header.sdView){
                     [header.sdView makeScrollViewScrollToIndex:0];
                 }
@@ -651,8 +671,19 @@ const static CGFloat kImgStore = 50;
             }
             else if (indexPath.section == 3) {
                 MEFourHomeTopHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeTopHeaderView class]) forIndexPath:indexPath];
-                if(_spreebugmodel.recommend_goods && _spreebugmodel.spreebuy_goods){
+                if(_spreebugmodel.recommend_left && _spreebugmodel.recommend_right){
                     [header setUiWithModel:_spreebugmodel];
+                    kMeWEAKSELF
+                    header.leftBlock = ^{
+                        kMeSTRONGSELF
+                        MEAdModel *model = strongSelf->_spreebugmodel.recommend_left;
+                        [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+                    };
+                    header.rightBlock = ^{
+                        kMeSTRONGSELF
+                        MEAdModel *model = strongSelf->_spreebugmodel.recommend_right;
+                        [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+                    };
                 }
                 headerView = header;
             }else if (indexPath.section == 4) {

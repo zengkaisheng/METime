@@ -247,6 +247,9 @@
 + (void)postThridHomehomegetRecommendWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取推荐产品和抢购产品
 + (void)postThridHomeRecommendAndSpreebuyWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//APP首页各入口选项
++ (void)postFourHomeOptionsWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
 
 

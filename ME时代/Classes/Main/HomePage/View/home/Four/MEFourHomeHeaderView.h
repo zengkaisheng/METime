@@ -23,9 +23,9 @@ const static CGFloat kMEThridHomeHeaderViewHeight = 423;
 @interface MEFourHomeHeaderView : UICollectionReusableView
 
 //+ (CGFloat)getViewHeightWithModel:(METhridHomeModel *)model;
-+ (CGFloat)getViewHeight;
++ (CGFloat)getViewHeightWithOptionsArray:(NSArray *)options;
 //- (void)setUIWithModel:(METhridHomeModel *)model;
-- (void)setUIWithModel:(METhridHomeModel *)model stroeModel:(MEStoreModel *)storemodel;
+- (void)setUIWithModel:(METhridHomeModel *)model stroeModel:(MEStoreModel *)storemodel optionsArray:(NSArray *)options;
 @property (nonatomic,copy)kMeIndexBlock scrollToIndexBlock;
 @property (nonatomic,copy) kMeTextBlock activityBlock;
 @property (nonatomic,copy) kMeBasicBlock reloadBlock;

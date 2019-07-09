@@ -11,7 +11,7 @@
 
 //#warning -mustNotes 上线一定要注释/海报分享产品分享
 
-#define TestVersion
+//#define TestVersion
 
 //域名 develop
 #ifdef TestVersion
@@ -391,6 +391,9 @@
 #define MEIPcommonhomegetRecommend @"common/home/getRecommend"
 //获取推荐产品和抢购产品
 #define MEIPcommonhomegetRecommendAndSpreebuy @"common/home/recommendAndSpreebuy"
+
+//APP首页各入口选项
+#define MEIPcommonGetHomeOptions @"common/home/getHomeOptions"
 /*********************************************/
 
 

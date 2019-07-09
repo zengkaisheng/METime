@@ -1033,6 +1033,7 @@
 		EB6F126022CB488500619D4D /* MEGroupListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6F125E22CB488500619D4D /* MEGroupListCell.m */; };
 		EB6F126122CB488500619D4D /* MEGroupListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6F125F22CB488500619D4D /* MEGroupListCell.xib */; };
 		EB6F126422CB674B00619D4D /* MEGroupProductDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6F126322CB674B00619D4D /* MEGroupProductDetailVC.m */; };
+		EB71640E22D48D770060D58F /* MEHomeOptionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB71640D22D48D770060D58F /* MEHomeOptionsModel.m */; };
 		EB73454822B8849C00FA0D84 /* MEFourSearchCouponNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB73454722B8849C00FA0D84 /* MEFourSearchCouponNavView.m */; };
 		EB73454B22B8BC4100FA0D84 /* MEPrizeListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB73454A22B8BC4100FA0D84 /* MEPrizeListVC.m */; };
 		EB73454F22B8C08100FA0D84 /* MESignInListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB73454D22B8C08100FA0D84 /* MESignInListCell.m */; };
@@ -2933,6 +2934,11 @@
 		EB6F125F22CB488500619D4D /* MEGroupListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEGroupListCell.xib; sourceTree = "<group>"; };
 		EB6F126222CB674B00619D4D /* MEGroupProductDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEGroupProductDetailVC.h; sourceTree = "<group>"; };
 		EB6F126322CB674B00619D4D /* MEGroupProductDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEGroupProductDetailVC.m; sourceTree = "<group>"; };
+		EB7163F722D441AB0060D58F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		EB7163F922D441B40060D58F /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
+		EB7163FB22D441BE0060D58F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		EB71640C22D48D770060D58F /* MEHomeOptionsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEHomeOptionsModel.h; sourceTree = "<group>"; };
+		EB71640D22D48D770060D58F /* MEHomeOptionsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEHomeOptionsModel.m; sourceTree = "<group>"; };
 		EB73454622B8849C00FA0D84 /* MEFourSearchCouponNavView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFourSearchCouponNavView.h; sourceTree = "<group>"; };
 		EB73454722B8849C00FA0D84 /* MEFourSearchCouponNavView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFourSearchCouponNavView.m; sourceTree = "<group>"; };
 		EB73454922B8BC4100FA0D84 /* MEPrizeListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEPrizeListVC.h; sourceTree = "<group>"; };
@@ -3727,6 +3733,8 @@
 				36008A6A21B60CF30007BB46 /* MESNewHomeStyle.m */,
 				3604EF1921BF9BCA0000DBDE /* MEAdvModel.h */,
 				3604EF1A21BF9BCA0000DBDE /* MEAdvModel.m */,
+				EB71640C22D48D770060D58F /* MEHomeOptionsModel.h */,
+				EB71640D22D48D770060D58F /* MEHomeOptionsModel.m */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -6240,6 +6248,9 @@
 		84447336751BD928A9C3E059 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EB7163FB22D441BE0060D58F /* libc++.tbd */,
+				EB7163F922D441B40060D58F /* libz.1.2.5.tbd */,
+				EB7163F722D441AB0060D58F /* libsqlite3.tbd */,
 				36FFD84F2143C6870094D781 /* WebKit.framework */,
 				365151AC214129110044C763 /* LocalAuthentication.framework */,
 				365151AA2141290A0044C763 /* CoreLocation.framework */,
@@ -6713,6 +6724,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -7059,7 +7073,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ME时代/Pods-ME时代-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ME时代/Pods-ME时代-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/PYSearch/PYSearch/PYSearch.bundle",
@@ -7078,7 +7092,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ME时代/Pods-ME时代-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ME时代/Pods-ME时代-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -7845,6 +7859,7 @@
 				3611F30C225DE6DE00F9883D /* MEAiCustomerDetailCell.m in Sources */,
 				36F5E852222F68F1000B0241 /* ImageViewController.m in Sources */,
 				36F561462241D8B20070519E /* MEBdataVC.m in Sources */,
+				EB71640E22D48D770060D58F /* MEHomeOptionsModel.m in Sources */,
 				36E284E122375465009F1563 /* MEBrandAbilityVisterCell.m in Sources */,
 				36F43DD0216C942100FBA16E /* BankTransferAccountsVC.m in Sources */,
 				36F5E83D222F68F1000B0241 /* TAddMemberController.m in Sources */,
@@ -8043,6 +8058,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ME时代/Classes/Frameworks/TIMSDK",
+					"$(PROJECT_DIR)/ME时代/Classes/Frameworks/MOBLink/MobLink",
+					"$(PROJECT_DIR)/ME时代/Classes/Frameworks/MOBLink/Required",
+					"$(PROJECT_DIR)/ME时代/Classes/Frameworks/MobLink/SDK/Required",
+					"$(PROJECT_DIR)/ME时代/Classes/Frameworks/MobLink/SDK/MobLinkPro",
 				);
 				GCC_PREFIX_HEADER = "./ME时代/MEPrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
@@ -8100,6 +8119,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ME时代/Classes/Frameworks/TIMSDK",
+					"$(PROJECT_DIR)/ME时代/Classes/Frameworks/MOBLink/MobLink",
+					"$(PROJECT_DIR)/ME时代/Classes/Frameworks/MOBLink/Required",
+					"$(PROJECT_DIR)/ME时代/Classes/Frameworks/MobLink/SDK/Required",
+					"$(PROJECT_DIR)/ME时代/Classes/Frameworks/MobLink/SDK/MobLinkPro",
 				);
 				GCC_PREFIX_HEADER = "./ME时代/MEPrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (

@@ -220,6 +220,10 @@
                                 <action selector="activeAction:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="aW3-27-v80"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EoD-fc-USO">
+                            <rect key="frame" x="0.0" y="0.0" width="392" height="184"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -228,6 +232,7 @@
                         <constraint firstAttribute="trailing" secondItem="oBE-3o-93z" secondAttribute="trailing" id="2iB-W4-ZDL"/>
                         <constraint firstItem="ZR6-Ho-cgd" firstAttribute="leading" secondItem="5Yf-lT-aFo" secondAttribute="trailing" id="2id-ut-kmu"/>
                         <constraint firstAttribute="bottom" secondItem="oBE-3o-93z" secondAttribute="bottom" id="4Jl-l2-hDh"/>
+                        <constraint firstAttribute="bottom" secondItem="EoD-fc-USO" secondAttribute="bottom" id="4mU-XF-COd"/>
                         <constraint firstItem="vOQ-lJ-TYn" firstAttribute="width" secondItem="mbS-XB-k61" secondAttribute="width" id="6AE-Yd-Iqr"/>
                         <constraint firstItem="erW-TJ-V7c" firstAttribute="leading" secondItem="oid-XO-uly" secondAttribute="leading" id="7Hd-fd-qeI"/>
                         <constraint firstAttribute="bottom" secondItem="vOQ-lJ-TYn" secondAttribute="bottom" id="7sh-Lw-LhV"/>
@@ -250,6 +255,7 @@
                         <constraint firstItem="mbS-XB-k61" firstAttribute="height" secondItem="5Yf-lT-aFo" secondAttribute="height" id="Tte-RA-76r"/>
                         <constraint firstItem="cdJ-CD-tA0" firstAttribute="leading" secondItem="ZR6-Ho-cgd" secondAttribute="trailing" id="Vzn-se-U9I"/>
                         <constraint firstAttribute="bottom" secondItem="R2j-oT-WLM" secondAttribute="bottom" id="XVp-RS-jcV"/>
+                        <constraint firstItem="EoD-fc-USO" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" id="YZH-zn-aes"/>
                         <constraint firstItem="vOQ-lJ-TYn" firstAttribute="top" secondItem="cdJ-CD-tA0" secondAttribute="bottom" constant="-5" id="dWt-H8-ql0"/>
                         <constraint firstItem="ZR6-Ho-cgd" firstAttribute="height" secondItem="5Yf-lT-aFo" secondAttribute="height" id="fRN-Qv-iFe"/>
                         <constraint firstItem="oBE-3o-93z" firstAttribute="top" secondItem="3zw-5Z-PFS" secondAttribute="bottom" constant="-5" id="fga-lj-6y4"/>
@@ -259,12 +265,14 @@
                         <constraint firstItem="3zw-5Z-PFS" firstAttribute="height" secondItem="cdJ-CD-tA0" secondAttribute="height" id="ixp-1F-j6f"/>
                         <constraint firstItem="R2j-oT-WLM" firstAttribute="top" secondItem="erW-TJ-V7c" secondAttribute="bottom" constant="-5" id="kAm-4S-3VO"/>
                         <constraint firstItem="erW-TJ-V7c" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" constant="5" id="l8r-qV-3Qe"/>
+                        <constraint firstItem="EoD-fc-USO" firstAttribute="leading" secondItem="oid-XO-uly" secondAttribute="leading" id="lDR-TQ-8gm"/>
                         <constraint firstItem="mbS-XB-k61" firstAttribute="width" secondItem="R2j-oT-WLM" secondAttribute="width" id="mG6-7f-OmH"/>
                         <constraint firstItem="3zw-5Z-PFS" firstAttribute="width" secondItem="oBE-3o-93z" secondAttribute="width" id="mqi-JV-kdr"/>
                         <constraint firstItem="5Yf-lT-aFo" firstAttribute="leading" secondItem="erW-TJ-V7c" secondAttribute="trailing" id="oWT-lI-Tdv"/>
                         <constraint firstItem="3zw-5Z-PFS" firstAttribute="leading" secondItem="cdJ-CD-tA0" secondAttribute="trailing" id="qUu-wA-rkq"/>
                         <constraint firstItem="oBE-3o-93z" firstAttribute="width" secondItem="vOQ-lJ-TYn" secondAttribute="width" id="rRz-Gq-MdZ"/>
                         <constraint firstItem="3zw-5Z-PFS" firstAttribute="width" secondItem="cdJ-CD-tA0" secondAttribute="width" id="rSd-Le-nm6"/>
+                        <constraint firstAttribute="trailing" secondItem="EoD-fc-USO" secondAttribute="trailing" id="ra3-s3-bjG"/>
                         <constraint firstItem="3zw-5Z-PFS" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" constant="5" id="tRj-zv-wQ8"/>
                         <constraint firstItem="5Yf-lT-aFo" firstAttribute="top" secondItem="oid-XO-uly" secondAttribute="top" constant="5" id="v24-fY-arH"/>
                         <constraint firstItem="R2j-oT-WLM" firstAttribute="leading" secondItem="oid-XO-uly" secondAttribute="leading" id="yah-XR-Wsq"/>
@@ -301,9 +309,10 @@
                 <outlet property="imgStore" destination="SZG-cb-hkV" id="hhC-Nn-B7T"/>
                 <outlet property="lblStoreDesc" destination="WjF-ji-dSW" id="1MP-vb-J5V"/>
                 <outlet property="lblStoreName" destination="VwY-tQ-Lq0" id="v4E-9o-kH5"/>
+                <outlet property="optionsView" destination="EoD-fc-USO" id="G20-fz-AXc"/>
                 <outlet property="sdView" destination="cYg-Sw-ORt" id="Dcv-lo-9Xx"/>
             </connections>
-            <point key="canvasLocation" x="-1694" y="60"/>
+            <point key="canvasLocation" x="-1694.4000000000001" y="59.820089955022496"/>
         </collectionReusableView>
     </objects>
     <resources>

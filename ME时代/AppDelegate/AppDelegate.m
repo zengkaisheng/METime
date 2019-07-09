@@ -161,21 +161,7 @@
 
 #pragma mark - 友盟分享的回调
 #pragma mark 这里判断是否发起的请求为微信支付
-
-
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    if ([url.absoluteString containsString:@"metimes://group:8888/groupDetail"]) {
-        METabBarVC *tabBarController = ( METabBarVC*)self.window.rootViewController;
-        // 取到navigationcontroller
-        MENavigationVC *nav = (MENavigationVC *)tabBarController.selectedViewController;
-        UIViewController * baseVC = (UIViewController *)nav.visibleViewController;
-        
-        NSArray *subArr = [url.absoluteString componentsSeparatedByString:@"="];
-        NSString *orderSn = [NSString stringWithFormat:@"%@",subArr.lastObject];
-        MEGroupOrderDetailsVC *detailVC = [[MEGroupOrderDetailsVC alloc] initWithOrderSn:kMeUnNilStr(orderSn)];
-        [baseVC.navigationController pushViewController:detailVC animated:YES];
-        return YES;
-    }
     
     return [[UMSocialManager defaultManager] handleOpenURL:url];
     //用WXApi的方法调起微信客户端的支付页面
@@ -193,6 +179,18 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
     NSLog(@"url =%@",url);
+    if ([url.absoluteString containsString:@"metimes://group:8888/groupDetail"]) {
+        METabBarVC *tabBarController = ( METabBarVC*)self.window.rootViewController;
+        // 取到navigationcontroller
+        MENavigationVC *nav = (MENavigationVC *)tabBarController.selectedViewController;
+        UIViewController * baseVC = (UIViewController *)nav.visibleViewController;
+        
+        NSArray *subArr = [url.absoluteString componentsSeparatedByString:@"="];
+        NSString *orderSn = [NSString stringWithFormat:@"%@",subArr.lastObject];
+        MEGroupOrderDetailsVC *detailVC = [[MEGroupOrderDetailsVC alloc] initWithOrderSn:kMeUnNilStr(orderSn)];
+        [baseVC.navigationController pushViewController:detailVC animated:YES];
+        return YES;
+    }
 #pragma mark 支付宝的回调之后的方法
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
@@ -481,7 +479,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 #pragma mark - JPushAction
 
 - (void)dealJPushActionWithDic:(NSDictionary *)userInfo{
-    NSLog(@"%@",userInfo);
+    NSLog(@"JPush.userInfo:%@",userInfo);
     kNoticeUnNoticeMessage
     NSDictionary *dict =  kMeUnDic(userInfo)[@"aps"];
     if([dict count]){
@@ -545,48 +543,54 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                     [baseVC.navigationController popToRootViewControllerAnimated:YES];
                     tabBarController.selectedIndex = 2;
                 }else if([strType isEqualToString:@"17"]){
-//                    MECoupleModel *TBmodel = [[MECoupleModel alloc] init];
-//                    TBmodel.min_ratio = model.min_ratio;
-//                    MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.tbk_num_iids couponId:kMeUnNilStr(model.tbk_coupon_id) couponurl:kMeUnNilStr(model.tbk_coupon_share_url) Model:TBmodel];
-//                    [baseVC.navigationController pushViewController:vc animated:YES];
+                    NSDictionary *content = [self dictionaryWithJsonString:model.content];
+                    MECoupleModel *TBmodel = [[MECoupleModel alloc] init];
+                    TBmodel.min_ratio = [kMeUnNilStr(content[@"min_ratio"]) floatValue];
+                    MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:[NSString stringWithFormat:@"%@",content[@"tbk_num_iids"]] couponId:kMeUnNilStr(content[@"tbk_coupon_id"]) couponurl:kMeUnNilStr(content[@"tbk_coupon_share_url"]) Model:TBmodel];
+                    [baseVC.navigationController pushViewController:vc animated:YES];
                 }else if([strType isEqualToString:@"18"]){
-//                    MEPinduoduoCoupleModel *PDDModel = [[MEPinduoduoCoupleModel alloc] init];
-//                    PDDModel.goods_id = model.ddk_goods_id;
-//                    PDDModel.min_ratio = model.min_ratio;
-//                    MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:PDDModel];
-//                    vc.isDynamic = YES;
-//                   [baseVC.navigationController pushViewController:vc animated:YES];
+                    NSDictionary *content = [self dictionaryWithJsonString:model.content];
+                    MEPinduoduoCoupleModel *PDDModel = [[MEPinduoduoCoupleModel alloc] init];
+                    PDDModel.goods_id = [NSString stringWithFormat:@"%@",content[@"ddk_goods_id"]];
+                    PDDModel.min_ratio = [kMeUnNilStr(content[@"min_ratio"]) floatValue];
+                    MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:PDDModel];
+                   [baseVC.navigationController pushViewController:vc animated:YES];
                 }else if([strType isEqualToString:@"19"]){
-//                    MEJDCoupleModel *JDModel = [[MEJDCoupleModel alloc] init];
-//                    JDModel.materialUrl = model.jd_material_url;
-//
-//                    CouponContentInfo *couponInfoModel = [CouponContentInfo new];
-//                    couponInfoModel.link = model.jd_link;
-//                    couponInfoModel.discount = model.discount;
-//                    couponInfoModel.useStartTime = model.useStartTime;
-//                    couponInfoModel.useEndTime = model.useEndTime;
-//
-//                    CouponInfo *couponInfo = [CouponInfo new];
-//                    couponInfo.couponList = @[couponInfoModel];
-//
-//                    JDModel.couponInfo = couponInfo;
-//
-//                    ImageInfo *imgInfo = [ImageInfo new];
-//                    imgInfo.imageList = model.imageList;
-//                    JDModel.imageInfo = imgInfo;
-//
-//                    JDModel.skuName = model.skuName;
-//
-//                    PriceInfo *priceInfo = [PriceInfo new];
-//                    priceInfo.price = model.price;
-//                    JDModel.priceInfo = priceInfo;
-//                    JDModel.min_ratio = model.min_ratio;
-//
-//                    MEJDCoupleMailDetalVC *vc = [[MEJDCoupleMailDetalVC alloc]initWithModel:JDModel];
-//                    vc.isDynamic = YES;
-//                    [baseVC.navigationController pushViewController:vc animated:YES];
-                }
-                else{
+                    NSDictionary *content = [self dictionaryWithJsonString:model.content];
+                    NSLog(@"content:%@",content);
+                    MEJDCoupleModel *JDModel = [[MEJDCoupleModel alloc] init];
+                    JDModel.materialUrl = kMeUnNilStr(content[@"jd_material_url"]);
+
+                    CouponContentInfo *couponInfoModel = [CouponContentInfo new];
+                    couponInfoModel.link = kMeUnNilStr(content[@"jd_link"]);
+                    couponInfoModel.discount = [NSString stringWithFormat:@"%@",content[@"discount"]];
+                    couponInfoModel.useStartTime = [NSString stringWithFormat:@"%@",content[@"useStartTime"]];
+                    couponInfoModel.useEndTime = [NSString stringWithFormat:@"%@",content[@"useEndTime"]];
+
+                    CouponInfo *couponInfo = [CouponInfo new];
+                    couponInfo.couponList = @[couponInfoModel];
+
+                    JDModel.couponInfo = couponInfo;
+
+                    ImageInfo *imgInfo = [ImageInfo new];
+                    NSString *images = kMeUnNilStr(content[@"imageList"]);
+                    NSArray *imageList = [NSJSONSerialization JSONObjectWithData:[images dataUsingEncoding:NSUTF8StringEncoding]
+                                                                         options:NSJSONReadingAllowFragments
+                                                                           error:nil];;
+                    imgInfo.imageList = kMeUnArr(imageList);
+                    JDModel.imageInfo = imgInfo;
+
+                    JDModel.skuName = kMeUnNilStr(content[@"skuName"]);
+
+                    PriceInfo *priceInfo = [PriceInfo new];
+                    priceInfo.price = [NSString stringWithFormat:@"%@",content[@"price"]];
+                    JDModel.priceInfo = priceInfo;
+                    JDModel.min_ratio = [kMeUnNilStr(content[@"min_ratio"]) floatValue];
+
+                    MEJDCoupleMailDetalVC *vc = [[MEJDCoupleMailDetalVC alloc]initWithModel:JDModel];
+                    vc.isDynamic = YES;
+                    [baseVC.navigationController pushViewController:vc animated:YES];
+                }else{
                     
                 }
             }];
@@ -595,6 +599,23 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     }
 }
 
-
+- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString
+{
+    if (jsonString == nil) {
+        return nil;
+    }
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if(err)
+    {
+        NSLog(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dic;
+}
 
 @end

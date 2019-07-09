@@ -24,6 +24,8 @@
         self.remark = @"";
         self.user_address = @"";
         self.channel = @"app";
+        self.group_id = model.group_id;
+        self.group_sn = model.group_sn;
     }
     return self;
 }

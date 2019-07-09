@@ -25,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kMEf6f6f6;
-    self.title = @"抽奖活动";
+    self.title = @"签到活动";
     _todayData = [[NSArray alloc] init];
     
     [self.view addSubview:self.tableView];
@@ -185,7 +185,10 @@
         _refresh.showFailView = YES;
 //        _refresh.showMaskView = YES;
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
-            failView.lblOfNodata.text = @"敬请期待";
+//            failView.lblOfNodata.text = @"敬请期待";
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lookForward"]];
+            imgView.frame = CGRectMake(0, 0, failView.frame.size.width, failView.frame.size.height);
+            [failView addSubview:imgView];
         }];
     }
     return _refresh;

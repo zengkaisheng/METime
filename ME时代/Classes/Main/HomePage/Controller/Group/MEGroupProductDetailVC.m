@@ -137,6 +137,7 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
             kMeSTRONGSELF
             strongSelf->_model = [MEGoodDetailModel mj_objectWithKeyValues:responseObject.data];
             strongSelf->_model.buynum = 1;
+            strongSelf->_model.isGroup = YES;
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             kMeSTRONGSELF

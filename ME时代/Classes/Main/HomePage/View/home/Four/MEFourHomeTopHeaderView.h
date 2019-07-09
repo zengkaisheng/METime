@@ -16,6 +16,8 @@ const static CGFloat kMEFourHomeTopHeaderViewHeight = 142;
 
 @interface MEFourHomeTopHeaderView : UICollectionReusableView
 
+@property (nonatomic,copy)kMeBasicBlock leftBlock;
+@property (nonatomic,copy)kMeBasicBlock rightBlock;
 - (void)setUiWithModel:(MEHomeRecommendAndSpreebuyModel *)model;
 
 @end

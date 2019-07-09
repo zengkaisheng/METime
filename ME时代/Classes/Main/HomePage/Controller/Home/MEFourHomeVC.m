@@ -85,7 +85,7 @@
 - (void)userLogout{
     [self.navView setRead:YES];
     _stroeModel = nil;
-    [self.choseVC setHeaderViewUIWithModel:_homeModel stroeModel:_stroeModel];
+    [self.choseVC setHeaderViewUIWithModel:_homeModel stroeModel:_stroeModel optionsArray:@[]];
 }
 
 - (void)userLogin{

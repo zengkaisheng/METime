@@ -1442,6 +1442,25 @@
         kMeCallBlock(failure,error);
     }];
 }
+//APP首页各入口选项
++ (void)postFourHomeOptionsWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSString *url = kGetApiWithUrl(MEIPcommonGetHomeOptions);
+    [THTTPManager postWithParameter:nil strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
+            });
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
 
 //获取首页推荐产品(2019-04-30)
 + (void)postThridHomehomegetRecommendWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{

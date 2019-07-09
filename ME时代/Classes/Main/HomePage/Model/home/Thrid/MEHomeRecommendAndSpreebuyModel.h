@@ -8,13 +8,18 @@
 
 #import "MEBaseModel.h"
 #import "MEGoodModel.h"
-
+#import "MEAdModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MEHomeRecommendAndSpreebuyModel : MEBaseModel
 
 @property (nonatomic, strong) MEGoodModel * recommend_goods;
 @property (nonatomic, strong) MEGoodModel * spreebuy_goods;
+
+//新3.4.3
+@property (nonatomic, strong) MEAdModel * recommend_left;
+@property (nonatomic, strong) MEAdModel * recommend_right;
+
 
 
 @end

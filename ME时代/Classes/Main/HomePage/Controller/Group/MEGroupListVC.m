@@ -281,8 +281,11 @@
         _refresh.isBargain = YES;
         //        _refresh.showFailView = NO;
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
-            failView.backgroundColor = [UIColor whiteColor];
-            failView.lblOfNodata.text = @"没有拼团商品";
+//            failView.backgroundColor = [UIColor whiteColor];
+//            failView.lblOfNodata.text = @"没有拼团商品";
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lookForward"]];
+            imgView.frame = CGRectMake(0, 0, failView.frame.size.width, failView.frame.size.height);
+            [failView addSubview:imgView];
         }];
     }
     return _refresh;

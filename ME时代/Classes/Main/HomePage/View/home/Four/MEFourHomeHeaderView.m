@@ -37,6 +37,7 @@
 #import "MEBargainDetailVC.h"
 #import "MEGroupProductDetailVC.h"
 #import "MEJoinPrizeVC.h"
+#import "MEHomeOptionsModel.h"
 
 typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     //    METhridHomeHeaderViewActiveNewType = 0,
@@ -57,6 +58,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
 {
     METhridHomeModel *_model;
     MEStoreModel *_storeModel;
+    NSArray *_optionsArray;
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consSdHeight;
 
@@ -64,6 +66,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
 @property (weak, nonatomic) IBOutlet UILabel *lblStoreName;
 @property (weak, nonatomic) IBOutlet UILabel *lblStoreDesc;
 @property (weak, nonatomic) IBOutlet UIButton *btnShare;
+@property (weak, nonatomic) IBOutlet UIView *optionsView;
 @property (strong, nonatomic) MEAddTbView *addTbVIew;
 @end
 
@@ -172,6 +175,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             if(homeVC){
                 ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
                 webVC.showProgress = YES;
+                webVC.title = kMeUnNilStr(model.ad_name);
                 [webVC loadURL:[NSURL URLWithString:kMeUnNilStr(model.ad_url)]];
                 [homeVC.navigationController pushViewController:webVC animated:YES];
             }
@@ -317,9 +321,10 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     }];
 }
 
-- (void)setUIWithModel:(METhridHomeModel *)model stroeModel:(MEStoreModel *)storemodel{
+- (void)setUIWithModel:(METhridHomeModel *)model stroeModel:(MEStoreModel *)storemodel optionsArray:(NSArray *)options{
     _model = model;
     _storeModel = storemodel;
+    _optionsArray = options;
     __block NSMutableArray *arrImage = [NSMutableArray array];
     [kMeUnArr(model.top_banner) enumerateObjectsUsingBlock:^(METhridHomeAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         [arrImage addObject:kMeUnNilStr(model.ad_img)];
@@ -340,6 +345,147 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
         _lblStoreDesc.text = @"33302156";
     }
     
+    for (UIView *view in self.optionsView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    CGFloat itemW = 0.0;
+    NSInteger lineCount = 0;
+    NSInteger count = options.count;
+    NSInteger line = 0;
+    if (options.count <= 5) {
+        lineCount = options.count;
+        line = 1;
+    }else {
+        lineCount = ceil(options.count/2.0);
+        line = 2;
+    }
+    itemW = SCREEN_WIDTH/lineCount;
+    CGFloat itemH = 92;
+    
+    for (int i = 0; i < count; i++) {
+        MEHomeOptionsModel *model = _optionsArray[i];
+        UIButton *btn = [self createBtnWithModel:model frame:CGRectMake(itemW*(i%lineCount), (itemH-5)*(i/lineCount), itemW, itemH)];
+        [self.optionsView addSubview:btn];
+    }
+}
+
+- (UIButton *)createBtnWithModel:(MEHomeOptionsModel *)model frame:(CGRect)frame{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:kMeUnNilStr(model.title) forState:UIControlStateNormal];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [btn setTitleColor:kME333333 forState:UIControlStateNormal];
+    btn.frame = frame;
+    btn.tag = model.type;
+    btn.titleEdgeInsets = UIEdgeInsetsMake(30, 0, -30, 0);
+    [btn addTarget:self action:@selector(optionsBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIImageView *imageV = [[UIImageView alloc] init];
+    imageV.frame = CGRectMake((frame.size.width-42)/2, 21, 42, 42);
+    kSDLoadImg(imageV, kMeUnNilStr(model.logo));
+    [btn addSubview:imageV];
+    [btn sendSubviewToBack:imageV];
+    
+    return btn;
+}
+
+- (void)optionsBtnAction:(UIButton *)sender {
+//    NSLog(@"tag:%ld",sender.tag);
+    MEFourHomeVC *homeVC = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+    if(homeVC){
+        switch (sender.tag) {
+            case 5:
+            {//超值特惠
+                MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTeHuiType];
+                vc.titleStr = @"超值特惠专场";
+                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 1:
+            {
+                MENewCoupleHomeVC *vc= [[MENewCoupleHomeVC alloc]initWithIsTbK:YES];
+                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 2:
+            {
+                MEFourCoupleVC *vc = [[MEFourCoupleVC alloc] initWithIsJD:NO];
+                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 3:
+            {
+                MEFourCoupleVC *vc = [[MEFourCoupleVC alloc] initWithIsJD:YES];
+                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 4:
+            {
+                MESpecialSaleVC *vc = [[MESpecialSaleVC alloc] init];
+                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 6:
+            {
+                MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchJuHSType];
+                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 7:
+            {
+                MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchBigJuanType];
+                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 8:
+            {
+                if([MEUserInfoModel isLogin]){
+                    MEPrizeListVC *prizeVC = [[MEPrizeListVC alloc] init];
+                    [homeVC.navigationController pushViewController:prizeVC animated:YES];
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        MEPrizeListVC *prizeVC = [[MEPrizeListVC alloc] init];
+                        [homeVC.navigationController pushViewController:prizeVC animated:YES];
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }
+            }
+                break;
+            case 9:
+            {
+                if([MEUserInfoModel isLogin]){
+                    MEBargainListVC *bargainVC = [[MEBargainListVC alloc] init];
+                    [homeVC.navigationController pushViewController:bargainVC animated:YES];
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        MEBargainListVC *bargainVC = [[MEBargainListVC alloc] init];
+                        [homeVC.navigationController pushViewController:bargainVC animated:YES];
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }
+            }
+                break;
+            case 10:
+            {
+                if([MEUserInfoModel isLogin]){
+                    MEGroupListVC *groupVC = [[MEGroupListVC alloc] init];
+                    [homeVC.navigationController pushViewController:groupVC animated:YES];
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        MEGroupListVC *groupVC = [[MEGroupListVC alloc] init];
+                        [homeVC.navigationController pushViewController:groupVC animated:YES];
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }
+            }
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 - (IBAction)activeAction:(MEMidelMiddelImageButton *)sender {
@@ -463,9 +609,17 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
 }
 
 
-+ (CGFloat)getViewHeight{
++ (CGFloat)getViewHeightWithOptionsArray:(NSArray *)options{
     CGFloat height = kMEThridHomeHeaderViewHeight - kSdHeight;
     height+=(kSdHeight*kMeFrameScaleX());
+    height-=184;
+    NSInteger line = 0;
+    if (options.count <= 5) {
+        line = 1;
+    }else {
+        line = 2;
+    }
+    height+=92*line;
     return height;
 }
 
