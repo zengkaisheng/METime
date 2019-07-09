@@ -122,6 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger uid;
 @property (nonatomic, strong) NSString * updated_at;
 @property (nonatomic, strong) NSString * warehouse_ids;
+@property (nonatomic, strong) NSString * actual_money;
 
 @property (nonatomic, strong) MEGroupOrderGoodSpecModel *goods_spec;
 

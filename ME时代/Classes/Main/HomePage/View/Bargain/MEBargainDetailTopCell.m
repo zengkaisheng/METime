@@ -93,24 +93,24 @@
         
         [_shareButton setTitle:@"分享好友，一起砍价" forState:UIControlStateNormal];
     }else if (model.status == 2) {//砍价成功
-        NSString *message = [NSString stringWithFormat:@"恭喜您，砍价成功，已获得价值%@元礼品!",kMeUnNilStr(model.amount_money)];
-        
-        NSMutableAttributedString *attriStr = [[NSMutableAttributedString alloc] initWithString:message];
-        NSRange range1 = [message rangeOfString:kMeUnNilStr(model.amount_money)];
-        [attriStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:19] range:range1];
-        [attriStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FEF200"] range:range1];
-        _messageLbl.attributedText = attriStr;
-        
+//        NSString *message = [NSString stringWithFormat:@"恭喜您，砍价成功，已获得价值%@元礼品!",kMeUnNilStr(model.amount_money)];
+//
+//        NSMutableAttributedString *attriStr = [[NSMutableAttributedString alloc] initWithString:message];
+//        NSRange range1 = [message rangeOfString:kMeUnNilStr(model.amount_money)];
+//        [attriStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:19] range:range1];
+//        [attriStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FEF200"] range:range1];
+//        _messageLbl.attributedText = attriStr;
+        _messageLbl.text = @"恭喜您，砍价成功";
         [_shareButton setTitle:@"立即领取" forState:UIControlStateNormal];
     }else if (model.status == 3) {
-        NSString *message = [NSString stringWithFormat:@"恭喜您，砍价成功，已获得价值%@元礼品!",kMeUnNilStr(model.amount_money)];
-        
-        NSMutableAttributedString *attriStr = [[NSMutableAttributedString alloc] initWithString:message];
-        NSRange range1 = [message rangeOfString:kMeUnNilStr(model.amount_money)];
-        [attriStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:19] range:range1];
-        [attriStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FEF200"] range:range1];
-        _messageLbl.attributedText = attriStr;
-        
+//        NSString *message = [NSString stringWithFormat:@"恭喜您，砍价成功，已获得价值%@元礼品!",kMeUnNilStr(model.amount_money)];
+//
+//        NSMutableAttributedString *attriStr = [[NSMutableAttributedString alloc] initWithString:message];
+//        NSRange range1 = [message rangeOfString:kMeUnNilStr(model.amount_money)];
+//        [attriStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:19] range:range1];
+//        [attriStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FEF200"] range:range1];
+//        _messageLbl.attributedText = attriStr;
+        _messageLbl.text = @"恭喜您，砍价成功";
         [_shareButton setTitle:@"已领取" forState:UIControlStateNormal];
         [_shareButton setTitleColor:kME999999 forState:UIControlStateNormal];
         [_shareButton setBackgroundImage:[UIImage imageNamed:@"bargainShareBtnImg_gray"] forState:UIControlStateNormal];

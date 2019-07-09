@@ -8,6 +8,7 @@
 
 #import "MEGroupOrderDetailsVC.h"
 #import "MEGroupOrderDetailModel.h"
+#import "MECreateGroupShareVC.h"
 
 @interface MEGroupOrderDetailsVC ()
 @property (weak, nonatomic) IBOutlet UIImageView *productImage;
@@ -89,7 +90,20 @@
     [string addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(firstLoc+1, faStr.length-firstLoc-1)];
     _priceLbl.attributedText = string;
     
-    [self downSecondHandle:kMeUnNilStr(self.model.over_time)];
+    if ([self.model.order_status intValue] == 10) {
+        [self downSecondHandle:kMeUnNilStr(self.model.over_time)];
+//        _groupBtn.frame = CGRectMake(15, CGRectGetMaxY(_timeLbl.frame)+109, SCREEN_WIDTH-30, 49);
+//        CAGradientLayer *btnLayer = [self getLayerWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) colors:@[(__bridge id)[UIColor colorWithRed:254/255.0 green:83/255.0 blue:55/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:253/255.0 green:139/255.0 blue:15/255.0 alpha:1.0].CGColor] locations:@[@(0.0),@(1.0)] frame:_groupBtn.layer.bounds];
+//        [_groupBtn.layer insertSublayer:btnLayer atIndex:0];
+        _groupBtn.hidden = NO;
+    }else {
+        self.timeLbl.text = @"该拼团活动已结束";
+//        _groupBtn.frame = CGRectMake(15, CGRectGetMaxY(_timeLbl.frame)+109, SCREEN_WIDTH-30, 49);
+//        CAGradientLayer *btnLayer = [self getLayerWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) colors:@[(__bridge id)[UIColor grayColor].CGColor,(__bridge id)[UIColor grayColor].CGColor] locations:@[@(0.0),@(1.0)] frame:_groupBtn.layer.bounds];
+//        [_groupBtn.layer insertSublayer:btnLayer atIndex:0];
+        _groupBtn.hidden = YES;
+    }
+
     
     CGFloat itemW = 50;
     NSInteger count = kMeUnNilStr(self.model.group_num).integerValue;
@@ -146,7 +160,8 @@
 }
 
 - (IBAction)groupBtnAction:(id)sender {
-    
+    MECreateGroupShareVC *shareVC = [[MECreateGroupShareVC alloc] initWithModel:self.model];
+    [self.navigationController pushViewController:shareVC animated:YES];
 }
 
 - (NSDate *)timeWithTimeIntervalString:(NSString *)timeString

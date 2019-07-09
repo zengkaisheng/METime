@@ -7,7 +7,8 @@
 //
 
 #import "MECreateGroupShareVC.h"
-#import "MEGoodDetailModel.h"
+#import "MEGroupOrderDetailModel.h"
+#import <CoreImage/CoreImage.h>
 
 @interface MECreateGroupShareVC ()
 @property (weak, nonatomic) IBOutlet UIImageView *headerPic;
@@ -21,13 +22,13 @@
 @property (weak, nonatomic) IBOutlet UIView *shadowView;
 
 @property (strong, nonatomic) UIImage *imgShare;
-@property (nonatomic, strong) MEGoodDetailModel *model;
+@property (nonatomic, strong) MEGroupOrderDetailModel *model;
 
 @end
 
 @implementation MECreateGroupShareVC
 
-- (instancetype)initWithModel:(MEGoodDetailModel *)model {
+- (instancetype)initWithModel:(MEGroupOrderDetailModel *)model {
     if (self = [super init]) {
         _model = model;
     }
@@ -51,9 +52,26 @@
 
 - (void)setUpUI {
     kSDLoadImg(_productImageView, kMeUnNilStr(self.model.image_url));
-    _productNameLbl.text = kMeUnNilStr(self.model.title);
-    _productPriceLbl.text = kMeUnNilStr(self.model.group_price);
+    _productNameLbl.text = kMeUnNilStr(self.model.order_goods.product_name);
+    _productPriceLbl.text = kMeUnNilStr(self.model.order_goods.product_amount);
     
+//    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+    NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+    baseUrl = [@"http" stringByAppendingString:baseUrl];
+    
+    //创建过滤器
+    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    //过滤器恢复默认
+    [filter setDefaults];
+    //给过滤器添加数据
+    NSString *shareUrl = [NSString stringWithFormat:@"%@assembledist/newAuth.html?id=%@",baseUrl,self.model.order_sn];
+    //将NSString格式转化成NSData格式
+    NSData *data = [shareUrl dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    [filter setValue:data forKeyPath:@"inputMessage"];
+    //获取二维码过滤器生成的二维码
+    CIImage *image = [filter outputImage];
+    //将获取到的二维码添加到imageview上
+    self.codeImageView.image =[UIImage imageWithCIImage:image];
 }
 
 - (void)addShadowToView:(UIView *)theView withColor:(UIColor *)theColor {
@@ -72,7 +90,6 @@
     if([WXApi isWXAppInstalled]){
         MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
         shareTool.shareImage = self.imgShare;
-        shareTool.posterId = @(_model.product_id).description;
         [shareTool showShareView:kShareImageContentType success:^(id data) {
             NSLog(@"分享成功%@",data);
         } failure:^(NSError *error) {

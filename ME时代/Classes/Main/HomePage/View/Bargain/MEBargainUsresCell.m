@@ -40,7 +40,7 @@
     if (model.bargin_user.count == 3) {
         [_checkMoreBtn setTitle:@"查看更多" forState:UIControlStateNormal];
         [_checkMoreBtn setImage:[UIImage imageNamed:@"icon_arrow_red"] forState:UIControlStateNormal];
-        [_checkMoreBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:7];
+        [_checkMoreBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:-123];
         _checkMoreBtn.enabled = YES;
     }else {
         [_checkMoreBtn setTitle:@"人多力量大,快喊小伙伴们来帮忙" forState:UIControlStateNormal];

@@ -11,6 +11,7 @@
 #import "MEOrderModel.h"
 #import "MEAppointDetailModel.h"
 #import "MERefundModel.h"
+#import "MEGroupOrderDetailModel.h"
 
 @interface MEOrderDetailContentCell(){
     NSArray *_arrAppointType;
@@ -72,12 +73,17 @@
     kSDLoadImg(_imgPic, MELoadQiniuImagesWithUrl(kMeUnNilStr(model.product_image)));
     _lblTitle.text = kMeUnNilStr(model.product_name);
     _lblSku.text = [NSString stringWithFormat:@"规格:%@ 数量:%@",kMeUnNilStr(model.order_spec_name),@(model.product_number)];
-//    _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.product_amount)];
-//    _imgPic.image = [UIImage imageNamed:@"home99juan"];
-//    _lblTitle.text = @"ME时代会员脸部深层清洁按摩护理护理护理...";
-//    _lblSku.text = @"规格：100ml+50g 数量：1";
-//    _lblPrice.text = @"￥198.00";
     _lblAppointStatus.hidden = YES;
+}
+
+- (void)setUIWithGroupModel:(MEGroupOrderDetailModel *)model {
+    _bgVHeightConstraints.constant = 155;
+    _imgVWidthConstraints.constant = 120;
+    kSDLoadImg(_imgPic, kMeUnNilStr(model.image_url));
+    _lblTitle.text = kMeUnNilStr(model.order_goods.product_name);
+    _lblSku.text = [NSString stringWithFormat:@"规格:%@ 数量:%@",kMeUnNilStr(model.order_goods.order_spec_name),@(model.order_goods.product_number)];
+    _lblAppointStatus.hidden = YES;
+    _lblPrice.text = [NSString stringWithFormat:@"¥%@",model.order_goods.product_amount];
 }
 
 - (void)setIsApplyRefund:(BOOL)isApplyRefund {

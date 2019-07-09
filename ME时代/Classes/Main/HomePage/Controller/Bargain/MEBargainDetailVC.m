@@ -127,7 +127,7 @@
     baseUrl = [@"http" stringByAppendingString:baseUrl];
     
     //https://test.meshidai.com/dist/newAuth.html?id=7&uid=xxx
-    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@dist/newAuth.html?id=%ld&uid=%@",baseUrl,(long)_detailModel.bargin_id,kMeUnNilStr(kCurrentUser.uid)];
+    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@bargaindist/newAuth.html?id=%ld&uid=%@",baseUrl,(long)_detailModel.bargin_id,kMeUnNilStr(kCurrentUser.uid)];
     NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
     
     shareTool.shareTitle = self.detailModel.title;
@@ -210,8 +210,10 @@
 }
 
 - (void)showBargainSuccessViewWithMoney:(NSString *)money {
+    kMeWEAKSELF
     [MEBargainSuccessView showBargainSuccessWithTitle:[NSString stringWithFormat:@"您已砍%@元，人多力量大，快喊小伙伴来帮忙~",money] shareBlock:^{
-        NSLog(@"点击了分享按钮");
+        kMeSTRONGSELF
+        [strongSelf shareAction];
     } cancelBlock:^{
     } superView:kMeCurrentWindow];
 }

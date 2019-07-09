@@ -19,4 +19,6 @@ const static CGFloat kMEMyOrderDetailCellHeight = 49;
 
 - (void)setUIWithRefundDetail:(NSString *)desc;
 
+- (void)setGroupUIWithInfo:(NSDictionary *)info;
+
 @end

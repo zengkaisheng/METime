@@ -18,6 +18,7 @@
 #import "MERefundModel.h"
 #import "MEGroupOrderModel.h"
 #import "ZLWebViewVC.h"
+#import "MEMyGroupOrderVC.h"
 #import "MEGroupOrderDetailVC.h"
 
 @interface MEOrderCell ()<UITableViewDelegate,UITableViewDataSource>{
@@ -182,24 +183,28 @@
     [_btnPay setTitleColor:kME333333 forState:UIControlStateNormal];
     [_btnPay.titleLabel setFont:[UIFont fontWithName:@"PingFang-SC-Regular" size:14]];
     _btnPayConsWidth.constant = 80;
+    self.logisticsBtn.hidden = YES;
     
     switch ([model.order_status integerValue]) {
+        case 3:
+            self.logisticsBtn.hidden = NO;
+            break;
+        case 4:
+            self.logisticsBtn.hidden = NO;
+            break;
         case 10://进行中
         {
             [_btnCancelOrder setTitle:@"拼团中" forState:UIControlStateNormal];
-            self.logisticsBtn.hidden = YES;
         }
             break;
         case 11://完成
         {
             [_btnCancelOrder setTitle:@"拼团成功" forState:UIControlStateNormal];
-            self.logisticsBtn.hidden = NO;
         }
             break;
         case 12://失败
         {
             [_btnCancelOrder setTitle:@"拼团失败" forState:UIControlStateNormal];
-            self.logisticsBtn.hidden = YES;
         }
             break;
         default:
@@ -220,6 +225,13 @@
         }
     }
     return kMeUnArr(_model.children).count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (_isGroup) {
+        return 135;
+    }
+    return kMEMyChildOrderContentCellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -253,11 +265,12 @@
         MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initSelfWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
         [orderVC.navigationController pushViewController:vc animated:YES];
     }else{
-        MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
         if (_isGroup) {
+            MEMyGroupOrderVC *orderVC = (MEMyGroupOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyGroupOrderVC class] targetResponderView:self];
             MEGroupOrderDetailVC *vc = [[MEGroupOrderDetailVC alloc] initWithOrderSn:kMeUnNilStr(_groupModel.order_sn)];
             [orderVC.navigationController pushViewController:vc animated:YES];
         }else {
+            MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
             MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
             [orderVC.navigationController pushViewController:vc animated:YES];
         }
@@ -266,12 +279,15 @@
 //查看物流
 - (void)checkLogisticAction {
     if (_groupModel.express_detail.count > 0) {
-        MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
-        ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
-        webVC.showProgress = YES;
-        MEGroupOrderExpressModel *model = _groupModel.express_detail[0];
-        [webVC loadURL:[NSURL URLWithString:kMeUnNilStr(model.express_url)]];
-        [orderVC.navigationController pushViewController:webVC animated:YES];
+        MEMyGroupOrderVC *orderVC = (MEMyGroupOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyGroupOrderVC class] targetResponderView:self];
+        if (orderVC) {
+            ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+            webVC.showProgress = YES;
+            webVC.title = @"物流信息";
+            MEGroupOrderExpressModel *model = _groupModel.express_detail[0];
+            [webVC loadURLString:kMeUnNilStr(model.express_url)];
+            [orderVC.navigationController pushViewController:webVC animated:YES];
+        }
     }
 }
 
@@ -283,11 +299,14 @@
         }
         return;
     }
-    MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
     if (_isGroup) {
-        MEGroupOrderDetailVC *vc = [[MEGroupOrderDetailVC alloc] initWithOrderSn:kMeUnNilStr(_groupModel.order_sn)];
-        [orderVC.navigationController pushViewController:vc animated:YES];
+        MEMyGroupOrderVC *orderVC = (MEMyGroupOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyGroupOrderVC class] targetResponderView:self];
+        if (orderVC) {
+            MEGroupOrderDetailVC *vc = [[MEGroupOrderDetailVC alloc] initWithOrderSn:kMeUnNilStr(_groupModel.order_sn)];
+            [orderVC.navigationController pushViewController:vc animated:YES];
+        }
     }else {
+        MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
         if(orderVC){
             if(_type==MEAllNeedPayOrder){
                 MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
@@ -351,7 +370,7 @@
 }
 
 + (CGFloat)getCellHeightWithGroupModel:(MEGroupOrderModel *)model {
-    return 136+89;
+    return 136+87;
 }
 
 - (UIButton *)logisticsBtn {

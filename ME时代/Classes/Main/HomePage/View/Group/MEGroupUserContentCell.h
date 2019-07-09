@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEGroupUserContentCell : UITableViewCell
 
+@property (nonatomic, copy) kMeBasicBlock groupBlock;
 - (void)setUIWithModel:(MEGroupUserContentModel *)model;
 
 @end

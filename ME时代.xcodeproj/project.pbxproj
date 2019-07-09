@@ -944,6 +944,8 @@
 		EB28BE1E22CDDEBE00C92EC2 /* MEGroupUserContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28BE1C22CDDEBE00C92EC2 /* MEGroupUserContentCell.m */; };
 		EB28BE1F22CDDEBE00C92EC2 /* MEGroupUserContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB28BE1D22CDDEBE00C92EC2 /* MEGroupUserContentCell.xib */; };
 		EB294E4622C4CF1A0073EB8F /* MECommonQuestionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB294E4522C4CF1A0073EB8F /* MECommonQuestionVC.m */; };
+		EB296E9722D3176300C2E52E /* MEGroupOrderDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB296E9622D3176300C2E52E /* MEGroupOrderDetailHeaderView.m */; };
+		EB296E9B22D317E900C2E52E /* MEGroupOrderDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB296E9A22D317E900C2E52E /* MEGroupOrderDetailHeaderView.xib */; };
 		EB2D18A822BA535B00DAB646 /* MEWaitPublishPrizeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2D18A622BA535B00DAB646 /* MEWaitPublishPrizeCell.m */; };
 		EB2D18A922BA535B00DAB646 /* MEWaitPublishPrizeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB2D18A722BA535B00DAB646 /* MEWaitPublishPrizeCell.xib */; };
 		EB2D18AD22BA6A9800DAB646 /* MEPublishPrizeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2D18AB22BA6A9800DAB646 /* MEPublishPrizeCell.m */; };
@@ -2780,6 +2782,9 @@
 		EB28BE1D22CDDEBE00C92EC2 /* MEGroupUserContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEGroupUserContentCell.xib; sourceTree = "<group>"; };
 		EB294E4422C4CF1A0073EB8F /* MECommonQuestionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECommonQuestionVC.h; sourceTree = "<group>"; };
 		EB294E4522C4CF1A0073EB8F /* MECommonQuestionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECommonQuestionVC.m; sourceTree = "<group>"; };
+		EB296E9522D3176300C2E52E /* MEGroupOrderDetailHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEGroupOrderDetailHeaderView.h; sourceTree = "<group>"; };
+		EB296E9622D3176300C2E52E /* MEGroupOrderDetailHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEGroupOrderDetailHeaderView.m; sourceTree = "<group>"; };
+		EB296E9A22D317E900C2E52E /* MEGroupOrderDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEGroupOrderDetailHeaderView.xib; sourceTree = "<group>"; };
 		EB2D18A522BA535B00DAB646 /* MEWaitPublishPrizeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEWaitPublishPrizeCell.h; sourceTree = "<group>"; };
 		EB2D18A622BA535B00DAB646 /* MEWaitPublishPrizeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEWaitPublishPrizeCell.m; sourceTree = "<group>"; };
 		EB2D18A722BA535B00DAB646 /* MEWaitPublishPrizeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEWaitPublishPrizeCell.xib; sourceTree = "<group>"; };
@@ -6490,6 +6495,9 @@
 				EB28BE1122CD9C5400C92EC2 /* MEGroupUserListCell.h */,
 				EB28BE1222CD9C5400C92EC2 /* MEGroupUserListCell.m */,
 				EB28BE1322CD9C5400C92EC2 /* MEGroupUserListCell.xib */,
+				EB296E9522D3176300C2E52E /* MEGroupOrderDetailHeaderView.h */,
+				EB296E9622D3176300C2E52E /* MEGroupOrderDetailHeaderView.m */,
+				EB296E9A22D317E900C2E52E /* MEGroupOrderDetailHeaderView.xib */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -6907,6 +6915,7 @@
 				360EE7EC21F5746E0048490E /* METhridHomeTimeSecionView.xib in Resources */,
 				EB75D69922CC826500DE646B /* MEGroupUsersCell.xib in Resources */,
 				3628E81921C1121D00D5405B /* MEClerkStatisticHeaderView.xib in Resources */,
+				EB296E9B22D317E900C2E52E /* MEGroupOrderDetailHeaderView.xib in Resources */,
 				EB6F125522CB46F900619D4D /* MENewCoupleHomeHeaderView.xib in Resources */,
 				36E3D1D92171C9590033B192 /* MEExpireTipView.xib in Resources */,
 				366D5B00214A0CA40021C1BB /* MEMakeOrderCell.xib in Resources */,
@@ -7256,6 +7265,7 @@
 				3628E7D121C0A65C00D5405B /* MEClerkSearchDataVC.m in Sources */,
 				36472B0521C8E15C00CC3E48 /* JXCategoryCollectionView.m in Sources */,
 				369BDBE7224B66DC00F3D056 /* MEAddGoodAssembleCell.m in Sources */,
+				EB296E9722D3176300C2E52E /* MEGroupOrderDetailHeaderView.m in Sources */,
 				EB6F124C22CB46F900619D4D /* MECoupleHomeHeaderView.m in Sources */,
 				364B64F52174341F00094027 /* MEActiveVC.m in Sources */,
 				36FEEBD7214CEFB400060209 /* MEAlertView.m in Sources */,

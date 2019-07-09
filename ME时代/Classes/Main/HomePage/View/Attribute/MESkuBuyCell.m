@@ -88,7 +88,7 @@ const static CGFloat kMinCellWidth = 50;
         if(_goodModel.is_seckill==1){
             _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(_goodModel.psmodel.seckill_price)];
         }else{
-            if ([kMeUnNilStr(_goodModel.group_price) length] > 0) {
+            if (_goodModel.isGroup) {
                 _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(_goodModel.group_price)];
             }else {
                 _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(_goodModel.psmodel.goods_price)];

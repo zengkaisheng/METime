@@ -51,6 +51,9 @@
     
     [self downSecondHandle:kMeUnNilStr(model.over_time)];
 }
+- (IBAction)groupAction:(id)sender {
+    kMeCallBlock(self.groupBlock);
+}
 
 - (NSDate *)timeWithTimeIntervalString:(NSString *)timeString
 {

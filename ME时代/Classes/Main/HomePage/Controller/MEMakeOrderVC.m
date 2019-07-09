@@ -236,7 +236,6 @@
 }
 
 #pragma mark - Pay
-
 - (void)WechatSuccess:(NSNotification *)noti{
     [self payResultWithNoti:[noti object] result:WXPAY_SUCCESSED];
 }
@@ -265,6 +264,9 @@
                     }else{
                         [strongSelf.navigationController popToViewController:strongSelf animated:YES];
                     }
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kGroupOrderReload object:nil userInfo:@{@"order_sn":strongSelf->_order_sn}];
+                    });
                 }else {
                     METhridProductDetailsVC *vc = (METhridProductDetailsVC *)[MECommonTool getClassWtihClassName:[METhridProductDetailsVC class] targetVC:strongSelf];
                     if(vc){
@@ -373,8 +375,8 @@
                     PAYPRE
                     strongSelf->_isPayError= NO;
                     MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-                    //CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum);
-                    BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(postage).description];
+                    CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum) +[kMeUnNilStr(strongSelf->_goodModel.postage) floatValue];;
+                    BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(f).description];
                     if(!isSucess){
                         [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
                     }else {
@@ -496,7 +498,7 @@
                                     [strongSelf.navigationController popToViewController:strongSelf animated:YES];
                                 }
                                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                                    [[NSNotificationCenter defaultCenter] postNotificationName:kGroupOrderReload object:nil userInfo:@{@"order_sn":strongSelf->_order_sn}];
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:kGroupOrderReload object:nil userInfo:@{@"order_sn":strongSelf->_order_sn}];
                                 });
                             }];
                             [strongSelf.navigationController pushViewController:svc animated:YES];
@@ -506,14 +508,10 @@
                                 PAYPRE
                                 strongSelf->_isPayError= NO;
                                 MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-                                //CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum);
-                                BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(postage).description];
+                                CGFloat f = [strongSelf->_goodModel.group_price floatValue] * (strongSelf->_goodModel.buynum) +[kMeUnNilStr(strongSelf->_goodModel.postage) floatValue];
+                                BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(f).description];
                                 if(!isSucess){
                                     [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
-                                }else {
-                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                                         [[NSNotificationCenter defaultCenter] postNotificationName:kGroupOrderReload object:nil userInfo:@{@"order_sn":strongSelf->_order_sn}];
-                                    });
                                 }
                             } failure:^(id object) {
                                 
@@ -542,7 +540,7 @@
                             PAYPRE
                             strongSelf->_isPayError= NO;
                             MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-                            CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum);
+                            CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum) +[kMeUnNilStr(strongSelf->_goodModel.postage) floatValue];
                             BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(f).description];
                             if(!isSucess){
                                 [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];

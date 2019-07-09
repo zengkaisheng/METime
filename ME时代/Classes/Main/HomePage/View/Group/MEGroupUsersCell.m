@@ -53,6 +53,11 @@
     MEGroupUserContentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEGroupUserContentCell class]) forIndexPath:indexPath];
     MEGroupUserContentModel *model = self.dataSource[indexPath.row];
     [cell setUIWithModel:model];
+    kMeWEAKSELF
+    cell.groupBlock = ^{
+        kMeSTRONGSELF
+        kMeCallBlock(strongSelf.indexBlock,indexPath.row);
+    };
     return cell;
 }
 

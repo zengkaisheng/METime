@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lblSubTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lblFristBuy;
+@property (weak, nonatomic) IBOutlet UIView *lineView;
 
 @end
 
@@ -26,6 +27,7 @@
     self.selectionStyle = 0;
     _arrTitle = MEOrderSettlmentStyleTitle;
     _arrAppointTitle = MEAppointmentSettlmentStyleTitle;
+    _lineView.hidden = YES;
     // Initialization code
 }
 
@@ -76,6 +78,48 @@
     
     _lblFristBuy.textColor = kME999999;
     _lblFristBuy.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:12];
+}
+
+- (void)setGroupUIWithInfo:(NSDictionary *)info {
+    
+    if ([info[@"type"] intValue] == 0) {
+        _lblTitle.hidden = YES;
+        _lblSubTitle.hidden = YES;
+        _lblFristBuy.hidden = NO;
+        _lineView.hidden = YES;
+        
+        _lblFristBuy.text = [NSString stringWithFormat:@"还差%@人拼团成功",kMeUnNilStr(info[@"content"])];
+        _lblFristBuy.textColor = [UIColor colorWithHexString:@"#FF88A4"];
+    }
+    if ([info[@"type"] intValue] == 1) {
+        _lblTitle.hidden = NO;
+        _lblSubTitle.hidden = NO;
+        _lblFristBuy.hidden = YES;
+        
+        _lblTitle.text = kMeUnNilStr(info[@"title"]);
+        _lblTitle.textColor = kME333333;
+        _lblSubTitle.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(info[@"content"])];
+        _lblSubTitle.textColor = [UIColor colorWithHexString:@"#FF88A4"];
+        _lineView.hidden = NO;
+        if ([info[@"title"] isEqualToString:@"实付金额"]) {
+            _lblTitle.text = @"";
+            NSString *subStr = [NSString stringWithFormat:@"实付金额：¥%@",kMeUnNilStr(info[@"content"])];
+            NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:subStr];
+            NSUInteger location = [subStr rangeOfString:@"："].location;
+            [attStr addAttribute:NSForegroundColorAttributeName value:kME333333 range:NSMakeRange(0, location+1)];
+            _lblSubTitle.attributedText = attStr;
+            _lineView.hidden = YES;
+        }
+    }else if ([info[@"type"] intValue] == 2) {
+        _lblTitle.hidden = YES;
+        _lblSubTitle.hidden = YES;
+        _lblFristBuy.hidden = NO;
+        _lineView.hidden = YES;
+        
+        _lblFristBuy.text = [NSString stringWithFormat:@"%@%@",kMeUnNilStr(info[@"title"]),kMeUnNilStr(info[@"content"])];
+        _lblFristBuy.textColor = kME999999;
+        _lblFristBuy.font = [UIFont systemFontOfSize:14];
+    }
 }
 
 @end

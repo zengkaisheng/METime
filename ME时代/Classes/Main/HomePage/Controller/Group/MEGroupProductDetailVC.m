@@ -25,6 +25,7 @@
 #import "MEGroupOrderDetailsVC.h"
 
 #import "MECreateGroupShareVC.h"
+#import "MEGroupOrderDetailModel.h"
 
 typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
     kpurchaseSelectSkuViewType,//选择规格
@@ -87,9 +88,9 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
 }
 
 - (void)showGroupDetailsVC:(NSNotification *)notifi {
+    
     NSDictionary *info = (NSDictionary *)notifi.userInfo;
-    MEGroupOrderDetailsVC *vc = [[MEGroupOrderDetailsVC alloc] initWithOrderSn:kMeUnNilStr(info[@"order_sn"])];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self requestNetWorkWithGroupOrderDetailWithOrderSn:kMeUnNilStr(info[@"order_sn"])];
 }
 
 - (void)showGroupUserListView {
@@ -105,6 +106,22 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
 }
 
 #pragma mark -- networking
+- (void)requestNetWorkWithGroupOrderDetailWithOrderSn:(NSString *)orderSn{
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGroupOrderDetailWithOrderSn:kMeUnNilStr(orderSn) successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            
+            MEGroupOrderDetailModel *model = [MEGroupOrderDetailModel mj_objectWithKeyValues:responseObject.data];
+            if (model.order_status.intValue == 10) {
+                MEGroupOrderDetailsVC *vc = [[MEGroupOrderDetailsVC alloc] initWithOrderSn:orderSn];
+                [strongSelf.navigationController pushViewController:vc animated:YES];
+            }
+        }
+    } failure:^(id object) {
+    }];
+}
+
 - (void)requestNetWorkWithGroupDetail{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
     hud.label.text = @"获取详情中...";

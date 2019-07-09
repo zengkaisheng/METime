@@ -82,7 +82,11 @@
     MEGroupUserListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEGroupUserListCell class]) forIndexPath:indexPath];
     MEGroupUserContentModel *model = self.dataSource[indexPath.row];
     [cell setUIWithModel:model];
-    
+    kMeWEAKSELF
+    cell.groupBlock = ^{
+        kMeSTRONGSELF
+        kMeCallBlock(strongSelf.selectedBlock,indexPath.row);
+    };
     return cell;
 }
 

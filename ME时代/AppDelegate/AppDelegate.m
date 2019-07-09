@@ -36,6 +36,8 @@
 #import "MEPinduoduoCoupleModel.h"
 #import "MEJDCoupleModel.h"
 
+#import "MEGroupOrderDetailsVC.h"
+
 @interface AppDelegate ()<WXApiDelegate,UNUserNotificationCenterDelegate,JPUSHRegisterDelegate>
 
 @end
@@ -162,6 +164,19 @@
 
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    if ([url.absoluteString containsString:@"metimes://group:8888/groupDetail"]) {
+        METabBarVC *tabBarController = ( METabBarVC*)self.window.rootViewController;
+        // 取到navigationcontroller
+        MENavigationVC *nav = (MENavigationVC *)tabBarController.selectedViewController;
+        UIViewController * baseVC = (UIViewController *)nav.visibleViewController;
+        
+        NSArray *subArr = [url.absoluteString componentsSeparatedByString:@"="];
+        NSString *orderSn = [NSString stringWithFormat:@"%@",subArr.lastObject];
+        MEGroupOrderDetailsVC *detailVC = [[MEGroupOrderDetailsVC alloc] initWithOrderSn:kMeUnNilStr(orderSn)];
+        [baseVC.navigationController pushViewController:detailVC animated:YES];
+        return YES;
+    }
+    
     return [[UMSocialManager defaultManager] handleOpenURL:url];
     //用WXApi的方法调起微信客户端的支付页面
 }

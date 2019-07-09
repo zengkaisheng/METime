@@ -28,7 +28,7 @@
 #import "MEGroupProductDetailVC.h"
 #import "MEJoinPrizeVC.h"
 
-#define kMEGoodsMargin ((IS_iPhoneX?10:7.5)*kMeFrameScaleX())
+#define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
 @interface MENewFilterGoodVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,RefreshToolDelegate,JXCategoryViewDelegate>{
     NSArray *_productArr;//
@@ -249,9 +249,9 @@
         if (_is_show) {
             if (_banner_images.count > 0) {
                 if (_filterArr.count > 1) {
-                    return CGSizeMake(SCREEN_WIDTH, 243*kMeFrameScaleY() + 46);
+                    return CGSizeMake(SCREEN_WIDTH, 223*kMeFrameScaleY() + 46);
                 }else {
-                    return CGSizeMake(SCREEN_WIDTH, 243*kMeFrameScaleY());
+                    return CGSizeMake(SCREEN_WIDTH, 223*kMeFrameScaleY());
                 }
             }else {
                 if (_filterArr.count > 1) {

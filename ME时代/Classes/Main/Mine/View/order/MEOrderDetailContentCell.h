@@ -12,6 +12,7 @@
 @class MEOrderGoodModel;
 @class MEOrderDetailModel;
 @class MERefundGoodModel;
+@class MEGroupOrderDetailModel;
 
 const static CGFloat kMEOrderDetailContentCellHeight = 131;
 
@@ -28,5 +29,8 @@ const static CGFloat kMEOrderDetailContentCellHeight = 131;
 - (void)setUIWithRefundModel:(MERefundGoodModel *)model;
 @property (nonatomic, assign) BOOL isApplyRefund;  //是否申请退款
 @property (nonatomic, assign) BOOL isRefundDetail;  //是否退款详情
+
+//拼团
+- (void)setUIWithGroupModel:(MEGroupOrderDetailModel *)model;
 
 @end

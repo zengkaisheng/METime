@@ -40,6 +40,16 @@
 				<string>metime</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>metimes://group:8888/groupDetail</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>metimes://group:8888/groupDetail</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>55</string>

@@ -52,6 +52,9 @@
     NSDate *date=[dateFormatter dateFromString:timeString];
     return date;
 }
+- (IBAction)groupAction:(id)sender {
+    kMeCallBlock(self.groupBlock);
+}
 
 -(void)downSecondHandle:(NSString *)aTimeString{
     

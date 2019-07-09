@@ -74,6 +74,9 @@
                                 <real key="value" value="12.5"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="groupAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3z3-pv-9Q2"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

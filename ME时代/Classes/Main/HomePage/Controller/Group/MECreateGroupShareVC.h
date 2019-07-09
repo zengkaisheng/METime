@@ -9,11 +9,11 @@
 #import "MEBaseVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@class MEGoodDetailModel;
+@class MEGroupOrderDetailModel;
 
 @interface MECreateGroupShareVC : MEBaseVC
 
-- (instancetype)initWithModel:(MEGoodDetailModel *)model;
+- (instancetype)initWithModel:(MEGroupOrderDetailModel *)model;
 
 @end
 
