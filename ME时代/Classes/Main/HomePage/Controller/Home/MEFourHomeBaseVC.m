@@ -332,11 +332,6 @@ const static CGFloat kImgStore = 50;
 }
 
 - (void)toStore{
-//    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
-//    webVC.showProgress = YES;
-//    [webVC loadURL:[NSURL URLWithString:@"http://test.meshidai.com/jump.html"]];
-//    [self.navigationController pushViewController:webVC animated:YES];
-//    return;
     //    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     kMeWEAKSELF
     if([MEUserInfoModel isLogin]){
@@ -455,16 +450,16 @@ const static CGFloat kImgStore = 50;
         case 16:
         {//跳签到活动详情
             if([MEUserInfoModel isLogin]){
-                MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",model.activity_id]];
+                MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.activity_id]];
                 [self.navigationController pushViewController:prizeVC animated:YES];
             }else {
                 kMeWEAKSELF
                 [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
                     kMeSTRONGSELF
-                    MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",model.activity_id]];
+                    MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.activity_id]];
                     [strongSelf.navigationController pushViewController:prizeVC animated:YES];
                 } failHandler:^(id object) {
-                    
+
                 }];
             }
         }
@@ -560,6 +555,10 @@ const static CGFloat kImgStore = 50;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+//    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+//    webVC.showProgress = YES;
+//    [webVC loadURL:[NSURL URLWithString:@"http://test.meshidai.com/jump.html"]];
+//    [self.navigationController pushViewController:webVC animated:YES];
     if (_type == 0) {
         if (indexPath.section == 1) {
             if(_homeModel && kMeUnNilStr(_homeModel.member_of_the_ritual_image).length){

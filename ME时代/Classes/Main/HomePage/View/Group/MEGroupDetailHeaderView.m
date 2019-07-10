@@ -67,7 +67,7 @@
     if (model.isGroup) {
         price = kMeUnNilStr(model.group_price);
     }
-    NSString *priceStr = [NSString stringWithFormat:@"¥%@",price];
+    NSString *priceStr = [NSString stringWithFormat:@"¥%d",price.intValue];
     NSRange range = [priceStr rangeOfString:[NSString stringWithFormat:@"%d",price.intValue]];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:priceStr];
     [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:NSMakeRange(0, 1)];

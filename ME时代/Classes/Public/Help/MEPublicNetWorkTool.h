@@ -556,6 +556,14 @@
 
 /***************************************/
 #pragma mark - Store
+//点击数统计
++ (void)recordTapActionWithParameter:(NSDictionary *)parameter;
+/***************************************/
+
+
+
+/***************************************/
+#pragma mark - Store
 //app 更新店铺商家信息
 + (void)postStroeFindStoreInfoWithEditModel:(MEBStoreMannagerEditModel*)model successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //app获取店铺商家信息

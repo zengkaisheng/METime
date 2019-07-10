@@ -11,6 +11,16 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "MERelationIdModel.h"
 
+#import "METhridProductDetailsVC.h"
+#import "MECoupleModel.h"
+#import "MECoupleMailDetalVC.h"
+#import "MEPinduoduoCoupleModel.h"
+#import "MEJDCoupleModel.h"
+#import "MEJDCoupleMailDetalVC.h"
+#import "MEBargainDetailVC.h"
+#import "MEGroupProductDetailVC.h"
+#import "MEJoinPrizeVC.h"
+
 @interface ZLWebViewVC ()<UIWebViewDelegate>
 
 @property (nonatomic, strong) NSTimer *fakeProgressTimer;
@@ -202,6 +212,7 @@
         self.jsContext = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
 
         kMeWEAKSELF
+        //淘宝授权
         self.jsContext[@"onRelationIdSuccess"] = ^(){
             NSArray<JSValue *> *args = [JSContext currentArguments];
             NSString *session = args[0].toString;
@@ -233,14 +244,266 @@
             } failure:^(id object) {
             }];
         };
-        
+        //跳转商品详情
         self.jsContext[@"openProductDetail"] = ^(){
+            kMeSTRONGSELF
             NSArray<JSValue *> *args = [JSContext currentArguments];
-            NSString *session = args[0].toString;
-            NSLog(@"session:%@",session);
+            if (args.count > 0) {
+                if ([args[0] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *info = (NSDictionary *)args[0];
+                    NSString *product_id = kMeUnNilStr(info[@"product_id"]);
+                    NSLog(@"product_id:%@",product_id);
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:[product_id integerValue]];
+                        [strongSelf.navigationController pushViewController:dvc animated:YES];
+                    });
+                }
+            }
+        };
+        //跳转淘宝优惠券详情
+        self.jsContext[@"openTbCouponDetail"] = ^(){
+            kMeSTRONGSELF
+            NSArray<JSValue *> *args = [JSContext currentArguments];
+            if (args.count > 0) {
+                if ([args[0] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *info = (NSDictionary *)args[0];
+                    NSLog(@"info:%@",info);
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        MECoupleModel *TBmodel = [[MECoupleModel alloc] init];
+                        TBmodel.min_ratio = [kMeUnNilStr(info[@"min_ratio"]) floatValue];
+                        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:[NSString stringWithFormat:@"%@",info[@"tbk_num_iids"]] couponId:kMeUnNilStr(info[@"tbk_coupon_id"]) couponurl:kMeUnNilStr(info[@"tbk_coupon_share_url"]) Model:TBmodel];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    });
+                }
+            }
+        };
+        //跳转拼多多优惠券详情
+        self.jsContext[@"openPddCouponDetail"] = ^(){
+            kMeSTRONGSELF
+            NSArray<JSValue *> *args = [JSContext currentArguments];
+            if (args.count > 0) {
+                if ([args[0] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *info = (NSDictionary *)args[0];
+                    NSLog(@"info:%@",info);
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        MEPinduoduoCoupleModel *PDDModel = [[MEPinduoduoCoupleModel alloc] init];
+                        PDDModel.goods_id = [NSString stringWithFormat:@"%@",kMeUnNilStr(info[@"ddk_goods_id"])];
+                        CGFloat min_ratio = [kMeUnNilStr(info[@"min_ratio"]) floatValue];
+                        PDDModel.min_ratio = [MECommonTool changeformatterWithFen:@(min_ratio)].floatValue;
+                        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:PDDModel];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    });
+                }
+            }
+        };
+        //跳转京东优惠券详情
+        self.jsContext[@"openJdCouponDetail"] = ^(){
+            kMeSTRONGSELF
+            NSArray<JSValue *> *args = [JSContext currentArguments];
+            if (args.count > 0) {
+                if ([args[0] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *info = (NSDictionary *)args[0];
+                    NSLog(@"info:%@",info);
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        MEJDCoupleModel *JDModel = [[MEJDCoupleModel alloc] init];
+                        JDModel.materialUrl = kMeUnNilStr(info[@"jd_material_url"]);
+                        
+                        CouponContentInfo *couponInfoModel = [CouponContentInfo new];
+                        couponInfoModel.link = kMeUnNilStr(info[@"jd_link"]);
+                        couponInfoModel.discount = [NSString stringWithFormat:@"%@",kMeUnNilStr(info[@"discount"])];
+                        couponInfoModel.useStartTime = [NSString stringWithFormat:@"%@",kMeUnNilStr(info[@"useStartTime"])];
+                        couponInfoModel.useEndTime = [NSString stringWithFormat:@"%@",kMeUnNilStr(info[@"useEndTime"])];
+                        
+                        CouponInfo *couponInfo = [CouponInfo new];
+                        couponInfo.couponList = @[couponInfoModel];
+                        
+                        JDModel.couponInfo = couponInfo;
+                        
+                        ImageInfo *imgInfo = [ImageInfo new];
+                        NSArray *imageList = kMeUnArr(info[@"imageList"]);
+                        
+                        imgInfo.imageList = imageList;
+                        JDModel.imageInfo = imgInfo;
+                        
+                        JDModel.skuName = kMeUnNilStr(info[@"skuName"]);
+                        
+                        PriceInfo *priceInfo = [PriceInfo new];
+                        priceInfo.price = [NSString stringWithFormat:@"%@",kMeUnNilStr(info[@"price"])];
+                        JDModel.priceInfo = priceInfo;
+                        JDModel.min_ratio = [kMeUnNilStr(info[@"min_ratio"]) floatValue];
+                        
+                        MEJDCoupleMailDetalVC *vc = [[MEJDCoupleMailDetalVC alloc]initWithModel:JDModel];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    });
+                }
+            }
+        };
+        //打开分享链接
+        self.jsContext[@"openNativeShareLink"] = ^(){
+            kMeSTRONGSELF
+            NSArray<JSValue *> *args = [JSContext currentArguments];
+            if (args.count > 0) {
+                if ([args[0] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *info = (NSDictionary *)args[0];
+                    NSLog(@"info:%@",info);
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(info[@"shareImage"])]]];
+                        [strongSelf shareWithUrl:kMeUnNilStr(info[@"sharWebpageUrl"]) title:kMeUnNilStr(info[@"shareTitle"]) image:image description:kMeUnNilStr(info[@"shareDescriptionBody"]) type:UMSocialPlatformType_WechatSession];
+                    });
+                }
+            }
+        };
+        //打开分享文本
+        self.jsContext[@"openNativeShareText"] = ^(){
+            kMeSTRONGSELF
+            NSArray<JSValue *> *args = [JSContext currentArguments];
+            if (args.count > 0) {
+                if ([args[0] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *info = (NSDictionary *)args[0];
+                    NSLog(@"info:%@",info);
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [strongSelf shareWithUrl:MEIPShare title:@"一款自买省钱分享赚钱的购物神器！" image:kMeGetAssetImage(@"icon-wgvilogo") description:kMeUnNilStr(info[@"shareContent"]) type:UMSocialPlatformType_WechatTimeLine];
+                    });
+                }
+            }
+        };
+        //打开淘宝活动
+        self.jsContext[@"openTbActivity"] = ^(){
+            kMeSTRONGSELF
+            NSArray<JSValue *> *args = [JSContext currentArguments];
+            if (args.count > 0) {
+                if ([args[0] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *info = (NSDictionary *)args[0];
+                    NSLog(@"info:%@",info);
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [strongSelf openTbActivityWithActivityUrl:kMeUnNilStr(info[@"TBActivityUrl"])];
+                    });
+                }
+            }
+        };
+        //打开砍价活动详情
+        self.jsContext[@"openBargainDetail"] = ^(){
+            kMeSTRONGSELF
+            NSArray<JSValue *> *args = [JSContext currentArguments];
+            if (args.count > 0) {
+                if ([args[0] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *info = (NSDictionary *)args[0];
+                    NSLog(@"info:%@",info);
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        if([MEUserInfoModel isLogin]){
+                            MEBargainDetailVC *bargainVC = [[MEBargainDetailVC alloc] initWithBargainId:[kMeUnNilStr(info[@"bargain_id"]) integerValue] myList:NO];
+                            [strongSelf.navigationController pushViewController:bargainVC animated:YES];
+                        }else {
+                            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                                MEBargainDetailVC *bargainVC = [[MEBargainDetailVC alloc] initWithBargainId:[kMeUnNilStr(info[@"bargain_id"]) integerValue] myList:NO];
+                                [strongSelf.navigationController pushViewController:bargainVC animated:YES];
+                            } failHandler:^(id object) {
+                                
+                            }];
+                        }
+                    });
+                }
+            }
+        };
+        //打开拼团活动详情
+        self.jsContext[@"openGroupInfo"] = ^(){
+            kMeSTRONGSELF
+            NSArray<JSValue *> *args = [JSContext currentArguments];
+            if (args.count > 0) {
+                if ([args[0] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *info = (NSDictionary *)args[0];
+                    NSLog(@"info:%@",info);
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        if([MEUserInfoModel isLogin]){
+                            MEGroupProductDetailVC *groupVC = [[MEGroupProductDetailVC alloc] initWithProductId:[kMeUnNilStr(info[@"product_id"]) integerValue]];
+                            [strongSelf.navigationController pushViewController:groupVC animated:YES];
+                        }else {
+                            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                                MEGroupProductDetailVC *groupVC = [[MEGroupProductDetailVC alloc] initWithProductId:[kMeUnNilStr(info[@"product_id"]) integerValue]];
+                                [strongSelf.navigationController pushViewController:groupVC animated:YES];
+                            } failHandler:^(id object) {
+                            }];
+                        }
+                    });
+                }
+            }
+        };
+        //打开签到活动详情
+        self.jsContext[@"openPrizeDetails"] = ^(){
+            kMeSTRONGSELF
+            NSArray<JSValue *> *args = [JSContext currentArguments];
+            if (args.count > 0) {
+                if ([args[0] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *info = (NSDictionary *)args[0];
+                    NSLog(@"info:%@",info);
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        if([MEUserInfoModel isLogin]){
+                            MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:kMeUnNilStr(info[@"activity_id"])];
+                            [strongSelf.navigationController pushViewController:prizeVC animated:YES];
+                        }else {
+                            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                                MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:kMeUnNilStr(info[@"activity_id"])];
+                                [strongSelf.navigationController pushViewController:prizeVC animated:YES];
+                            } failHandler:^(id object) {
+                            }];
+                        }
+                    });
+                }
+            }
         };
     }
 }
 
+- (void)shareWithUrl:(NSString *)shareUrl title:(NSString *)title image:(UIImage *)image description:(NSString *)description type:(UMSocialPlatformType)type {
+    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+    shareTool.sharWebpageUrl = shareUrl;
+    NSLog(@"%@",MEIPShare);
+    shareTool.shareTitle = title;
+    shareTool.shareDescriptionBody = description;
+    shareTool.shareImage = image;
+    
+    [shareTool shareWebPageToPlatformType:type success:^(id data) {
+        NSLog(@"分享成功%@",data);
+        [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+        [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+    } failure:^(NSError *error) {
+        NSLog(@"分享失败%@",error);
+        [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+    }];
+}
+//淘宝活动
+- (void)openTbActivityWithActivityUrl:(NSString *)activityUrl{
+    kMeWEAKSELF
+    if([MEUserInfoModel isLogin]){
+        [weakSelf checkRelationIdWithUrl:activityUrl];
+    }else {
+        [MELoginVC presentLoginVCWithSuccessHandler:^(id object) {
+            kMeSTRONGSELF
+            [strongSelf openTbActivityWithActivityUrl:activityUrl];
+        } failHandler:nil];
+    }
+}
+
+- (void)checkRelationIdWithUrl:(NSString *)url {
+    if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
+        [self obtainTaoBaoAuthorizeWithUrl:url];
+    }else{
+        NSString *str;
+        if (url.length > 0) {
+            NSString *rid = [NSString stringWithFormat:@"&relationId=%@",kCurrentUser.relation_id];
+            str = [url stringByAppendingString:rid];
+        }
+        [self loadURLString:url];
+    }
+}
+//获取淘宝授权
+- (void)obtainTaoBaoAuthorizeWithUrl:(NSString *)url {
+    NSString *str = @"https://oauth.taobao.com/authorize?response_type=code&client_id=25425439&redirect_uri=http://test.meshidai.com/src/taobaoauthorization.html&view=wap";
+    [self loadURLString:str];
+    kMeWEAKSELF
+    self.authorizeBlock = ^{
+        [weakSelf checkRelationIdWithUrl:url];
+    };
+}
 
 @end

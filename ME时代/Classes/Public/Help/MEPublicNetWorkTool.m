@@ -3597,6 +3597,17 @@
 /***************************************/
 
 #pragma mark - Help
+//点击数统计
++ (void)recordTapActionWithParameter:(NSDictionary *)parameter {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:parameter];
+    [dic setObject:kMeUnNilStr(kCurrentUser.token) forKey:@"token"];
+    NSString *url = kGetApiWithUrl(MEIPGetClickRecord);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        NSLog(@"responseObject:%@",responseObject);
+    } failure:^(id error) {
+        NSLog(@"error:%@",error);
+    }];
+}
 
 + (MBProgressHUD *)commitWithHUD:(NSString *)str{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];

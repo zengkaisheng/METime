@@ -588,7 +588,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                     JDModel.min_ratio = [kMeUnNilStr(content[@"min_ratio"]) floatValue];
 
                     MEJDCoupleMailDetalVC *vc = [[MEJDCoupleMailDetalVC alloc]initWithModel:JDModel];
-                    vc.isDynamic = YES;
                     [baseVC.navigationController pushViewController:vc animated:YES];
                 }else{
                     

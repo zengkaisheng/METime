@@ -732,6 +732,15 @@
 
 
 /*********************************************/
+#pragma makr - record
+//记录点击数
+#define MEIPGetClickRecord @"common/clickrecord/record"
+
+/*********************************************/
+
+
+
+/*********************************************/
 #pragma makr - aboutUser
 //新手指南G
 #define MEIPguidegetList @"common/guide/getList"

@@ -138,6 +138,11 @@
                 return;
             }
         }
+        
+        NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
+        NSString *paramsStr = [NSString convertToJsonData:params];
+        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"1",@"parameter":paramsStr}];
+        
         if (kMeUnNilStr(model.keywork).length > 0) {
             if (_isTbk) {
                 MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] init];

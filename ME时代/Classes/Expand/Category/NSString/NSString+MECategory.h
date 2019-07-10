@@ -27,4 +27,7 @@
 
 //根据高度度求宽度  text 计算的内容  Height 计算的高度 font字体大小
 + (CGFloat)getWidthWithText:(NSString *)text height:(CGFloat)height font:(CGFloat)font;
+
+//字典转JSon
++(NSString *)convertToJsonData:(NSDictionary*)dict;
 @end
