@@ -32,6 +32,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     _lblJuan.adjustsFontSizeToFitWidth = YES;
+    _lblCommission.adjustsFontSizeToFitWidth = YES;
     _consImgHeight.constant = kMECoupleMailCellWdith;
     // Initialization code
 }
@@ -39,7 +40,7 @@
 - (void)setUIWithModel:(MECoupleModel *)model{
     [_imgPic sd_setImageWithURL:[NSURL URLWithString:kMeUnNilStr(model.pict_url)] placeholderImage:kImgPlaceholder];
     _lblTitle.text = kMeUnNilStr(model.title);
-    _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.volume)];
+    _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.volume).length>0?kMeUnNilStr(model.volume):@"0"];
     /*
     //原价
     _lblOrigalPrice.text =[NSString stringWithFormat:@"原价¥%@",@(kMeUnNilStr(model.zk_final_price).floatValue)];
@@ -90,7 +91,7 @@
     _lblTitle.numberOfLines = 1;
     [_imgPic sd_setImageWithURL:[NSURL URLWithString:kMeUnNilStr(model.goods_thumbnail_url)] placeholderImage:kImgPlaceholder];
     _lblTitle.text = kMeUnNilStr(model.goods_name);
-    _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.sold_quantity)];
+    _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.sold_quantity).length>0?kMeUnNilStr(model.sold_quantity):@"0"];
     /*
     _lblOrigalPrice.text = [NSString stringWithFormat:@"原价¥%@", [MECommonTool changeformatterWithFen:@(model.min_group_price)]];
      _lblJuan.text =[NSString stringWithFormat:@"%@元券",[MECommonTool changeformatterWithFen:@(model.coupon_discount)]];

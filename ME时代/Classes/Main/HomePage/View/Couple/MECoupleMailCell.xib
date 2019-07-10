@@ -70,7 +70,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wop-CQ-4Nh">
-                                <rect key="frame" x="10" y="72" width="50" height="16"/>
+                                <rect key="frame" x="13" y="72" width="44" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -92,7 +92,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fy0-3O-8mG">
-                                <rect key="frame" x="68" y="72" width="77" height="16"/>
+                                <rect key="frame" x="71" y="72" width="71" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -102,26 +102,26 @@
                         <constraints>
                             <constraint firstItem="Fy0-3O-8mG" firstAttribute="bottom" secondItem="p3c-9N-gE4" secondAttribute="bottom" id="0Fx-9B-nLM"/>
                             <constraint firstItem="ZcF-1S-j0p" firstAttribute="leading" secondItem="c8F-zH-g5s" secondAttribute="leading" constant="10" id="1WM-Nb-WJe"/>
-                            <constraint firstItem="Wop-CQ-4Nh" firstAttribute="leading" secondItem="Uqd-0U-LDj" secondAttribute="leading" id="39J-27-FdF"/>
+                            <constraint firstItem="Wop-CQ-4Nh" firstAttribute="leading" secondItem="Uqd-0U-LDj" secondAttribute="leading" constant="3" id="39J-27-FdF"/>
                             <constraint firstItem="sYb-tV-yv9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FCp-Ze-yc5" secondAttribute="trailing" constant="5" id="4iW-UD-1qF"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="p3c-9N-gE4" secondAttribute="trailing" constant="5" id="6Yz-fY-aOX"/>
                             <constraint firstItem="Jc0-ff-HGM" firstAttribute="top" secondItem="c8F-zH-g5s" secondAttribute="top" constant="15" id="6d4-Ig-nxT"/>
                             <constraint firstItem="Uqd-0U-LDj" firstAttribute="top" secondItem="ZcF-1S-j0p" secondAttribute="bottom" constant="15" id="8PC-gs-fGa"/>
                             <constraint firstAttribute="trailing" secondItem="sYb-tV-yv9" secondAttribute="trailing" constant="10" id="CsV-OG-HcN"/>
-                            <constraint firstItem="Fy0-3O-8mG" firstAttribute="trailing" secondItem="p3c-9N-gE4" secondAttribute="trailing" id="E1j-fv-7rw"/>
+                            <constraint firstItem="Fy0-3O-8mG" firstAttribute="trailing" secondItem="p3c-9N-gE4" secondAttribute="trailing" constant="-3" id="E1j-fv-7rw"/>
                             <constraint firstItem="ZcF-1S-j0p" firstAttribute="top" secondItem="Jc0-ff-HGM" secondAttribute="bottom" constant="15" id="INi-5A-QPd"/>
                             <constraint firstItem="p3c-9N-gE4" firstAttribute="leading" secondItem="Uqd-0U-LDj" secondAttribute="trailing" constant="8" id="Pue-7P-bVF"/>
                             <constraint firstItem="Fy0-3O-8mG" firstAttribute="top" secondItem="p3c-9N-gE4" secondAttribute="top" id="PyE-DI-Rfc"/>
                             <constraint firstItem="Wop-CQ-4Nh" firstAttribute="bottom" secondItem="Uqd-0U-LDj" secondAttribute="bottom" id="U2y-9B-4eo"/>
                             <constraint firstItem="Jc0-ff-HGM" firstAttribute="leading" secondItem="c8F-zH-g5s" secondAttribute="leading" constant="11" id="Vda-eW-oew"/>
-                            <constraint firstItem="Wop-CQ-4Nh" firstAttribute="trailing" secondItem="Uqd-0U-LDj" secondAttribute="trailing" id="Xif-SC-uXf"/>
+                            <constraint firstItem="Wop-CQ-4Nh" firstAttribute="trailing" secondItem="Uqd-0U-LDj" secondAttribute="trailing" constant="-3" id="Xif-SC-uXf"/>
                             <constraint firstItem="FCp-Ze-yc5" firstAttribute="leading" secondItem="ZcF-1S-j0p" secondAttribute="trailing" constant="3" id="YE1-vq-hsx"/>
                             <constraint firstItem="p3c-9N-gE4" firstAttribute="top" secondItem="FCp-Ze-yc5" secondAttribute="bottom" constant="15" id="eIy-jG-XPu"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jc0-ff-HGM" secondAttribute="trailing" constant="6" id="fDd-sq-92x"/>
                             <constraint firstItem="sYb-tV-yv9" firstAttribute="top" secondItem="c8F-zH-g5s" secondAttribute="top" constant="47" id="gez-vF-Zdf"/>
                             <constraint firstItem="FCp-Ze-yc5" firstAttribute="top" secondItem="ZcF-1S-j0p" secondAttribute="top" constant="6" id="hCy-5u-j6S"/>
                             <constraint firstAttribute="trailing" secondItem="tVi-bm-X46" secondAttribute="trailing" constant="7" id="l88-d0-zUl"/>
-                            <constraint firstItem="Fy0-3O-8mG" firstAttribute="leading" secondItem="p3c-9N-gE4" secondAttribute="leading" id="m40-r2-BZt"/>
+                            <constraint firstItem="Fy0-3O-8mG" firstAttribute="leading" secondItem="p3c-9N-gE4" secondAttribute="leading" constant="3" id="m40-r2-BZt"/>
                             <constraint firstAttribute="height" constant="103" id="mU4-dm-yDB"/>
                             <constraint firstItem="Uqd-0U-LDj" firstAttribute="leading" secondItem="c8F-zH-g5s" secondAttribute="leading" constant="10" id="spf-eN-mUk"/>
                             <constraint firstItem="tVi-bm-X46" firstAttribute="top" secondItem="sYb-tV-yv9" secondAttribute="bottom" constant="7.5" id="twL-b0-sfu"/>

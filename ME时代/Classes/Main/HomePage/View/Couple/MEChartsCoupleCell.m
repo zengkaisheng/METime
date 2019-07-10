@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblJuan;
 @property (weak, nonatomic) IBOutlet UIImageView *imgJuan;
 @property (weak, nonatomic) IBOutlet UILabel *lblMaterSale;
+@property (weak, nonatomic) IBOutlet UILabel *lblCommission;
 
 @end
 
@@ -30,6 +31,7 @@
     [super awakeFromNib];
     // Initialization code
     _lblJuan.adjustsFontSizeToFitWidth = YES;
+    _lblCommission.adjustsFontSizeToFitWidth = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -77,16 +79,20 @@
     _lblTitle.text = kMeUnNilStr(model.title);
     _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.volume)];
     //原价
-    _lblOrigalPrice.text =[NSString stringWithFormat:@"原价¥%@",@(kMeUnNilStr(model.zk_final_price).floatValue)];
-    //卷后价
-    //    _lblJuanPrice.text =[NSString stringWithFormat:@"¥%@",@(kMeUnNilStr(model.truePrice).floatValue)];
-    NSString *fstr = [NSString stringWithFormat:@"卷后¥%.1f",kMeUnNilStr(model.truePrice).floatValue];
+//    _lblOrigalPrice.text =[NSString stringWithFormat:@"原价¥%@",@(kMeUnNilStr(model.zk_final_price).floatValue)];
+    NSString *fstr = [NSString stringWithFormat:@"¥%@",@(kMeUnNilStr(model.zk_final_price).floatValue)];
     NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
-    NSUInteger secondLoc = [[faString string] rangeOfString:@"¥"].location;
-    
-    NSRange range = NSMakeRange(0, secondLoc+1);
-    [faString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"PingFang-SC-Regular" size:11] range:range];
-    _lblJuanPrice.attributedText = faString;
+    [faString addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, fstr.length)];
+    _lblOrigalPrice.attributedText = faString;
+    //卷后价
+        _lblJuanPrice.text =[NSString stringWithFormat:@"¥%@",@(kMeUnNilStr(model.truePrice).floatValue)];
+//    NSString *fstr = [NSString stringWithFormat:@"卷后¥%.1f",kMeUnNilStr(model.truePrice).floatValue];
+//    NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
+//    NSUInteger secondLoc = [[faString string] rangeOfString:@"¥"].location;
+//
+//    NSRange range = NSMakeRange(0, secondLoc+1);
+//    [faString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"PingFang-SC-Regular" size:11] range:range];
+//    _lblJuanPrice.attributedText = faString;
     //卷价格
     if(kMeUnNilStr(model.coupon_info).length){
         _imgJuan.hidden = NO;
@@ -105,6 +111,7 @@
         _lblSale.hidden = NO;
         _lblMaterSale.hidden = YES;
     }
+    _lblCommission.text = [NSString stringWithFormat:@"预估佣金￥%.2f",model.min_ratio];
 }
 
 - (void)setpinduoduoUIWithModel:(MEPinduoduoCoupleModel *)model{

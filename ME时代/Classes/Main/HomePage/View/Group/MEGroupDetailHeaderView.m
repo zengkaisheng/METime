@@ -64,7 +64,7 @@
     [_titleLbl setAtsWithStr:kMeUnNilStr(model.title) lineGap:0];
     
     NSString *price = kMeUnNilStr(model.money);
-    if ([kMeUnNilStr(model.group_price) length] > 0) {
+    if (model.isGroup) {
         price = kMeUnNilStr(model.group_price);
     }
     NSString *priceStr = [NSString stringWithFormat:@"¥%@",price];

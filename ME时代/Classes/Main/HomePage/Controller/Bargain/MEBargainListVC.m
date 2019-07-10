@@ -97,7 +97,13 @@
     if (self.isToday) {
         self.banners = [MEAdModel mj_objectArrayWithKeyValuesArray:info[@"top_banner"]];
         self.bannerInfo = @{@"today_finish_bargin_total":[NSString stringWithFormat:@"%ld",(long)[info[@"today_finish_bargin_total"] integerValue]],@"top_banner":self.banners,@"type":@"1"};
-        [self.headerView setUIWithDictionary:self.bannerInfo];
+        if (self.banners.count > 0) {
+            self.tableView.tableHeaderView = self.headerView;
+            [self.headerView setUIWithDictionary:self.bannerInfo];
+        }else {
+            self.headerView = nil;
+            self.tableView.tableHeaderView = [UIView new];
+        }
         [self.refresh.arrData addObjectsFromArray:[MEBargainListModel mj_objectArrayWithKeyValuesArray:nlModel.data]];
     }else {
         self.bargin_rule = kMeUnNilStr(info[@"bargin_rule"]);
