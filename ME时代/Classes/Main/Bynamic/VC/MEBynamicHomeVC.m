@@ -169,6 +169,7 @@
 }
 */
 - (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index{
+    NSLog(@"index=====%ld",(long)index);
 //    NSInteger currentindex = index+1;
 //    if(currentindex == _type){
 //        return;

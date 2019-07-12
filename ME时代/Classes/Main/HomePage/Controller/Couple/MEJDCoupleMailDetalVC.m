@@ -17,6 +17,7 @@
      MEJDCoupleModel *_detailModel;
     NSString *_Tpwd;
     NSString *_shareTpwd;
+    BOOL _isBuy;
 }
 @property (nonatomic, strong) UITableView           *tableView;
 @property (nonatomic,strong) MECoupleMailHeaderVIew *headerView;
@@ -77,10 +78,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 44;
-    
 }
 
 - (void)buyAction:(UIButton *)btn{
+    if (btn != nil) {
+        _isBuy = YES;
+    }
     if([MEUserInfoModel isLogin]){
         if(kMeUnNilStr(_Tpwd).length){
             [self openTb];
@@ -111,8 +114,27 @@
     }
 }
 
+- (void)recordClickNumberWithParams:(NSDictionary *)params typeStr:(NSString *)typeStr{
+    NSString *paramsStr = [NSString convertToJsonData:params];
+    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":typeStr,@"parameter":paramsStr}];
+}
+
 - (void)shareAction:(UIButton *)btn{
     if([MEUserInfoModel isLogin]){
+        NSString *typeStr;
+        //统计点击数
+        switch (self.recordType) {
+            case 1://首页
+                typeStr = @"20";
+                break;
+            case 3://动态
+                typeStr = @"36";
+                break;
+            default:
+                break;
+        }
+        NSDictionary *params = @{@"skuId":kMeUnNilStr(_detailModel.skuId),@"skuName":kMeUnNilStr(_detailModel.skuName),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+        [self recordClickNumberWithParams:params typeStr:typeStr];
         if(_shareTpwd){
             MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
             shareTool.sharWebpageUrl =kMeUnNilStr(_shareTpwd);
@@ -157,6 +179,33 @@
 }
 
  - (void)openTb{
+     //统计点击数
+     NSString *typeStr;
+     if (_isBuy) {//购买
+         switch (self.recordType) {
+             case 1://首页
+                 typeStr = @"19";
+                 break;
+             case 3://动态
+                 typeStr = @"35";
+                 break;
+             default:
+                 break;
+         }
+     }else {//领券
+         switch (self.recordType) {
+             case 1://首页
+                 typeStr = @"18";
+                 break;
+             case 3://动态
+                 typeStr = @"34";
+                 break;
+             default:
+                 break;
+         }
+     }
+     NSDictionary *params = @{@"skuId":kMeUnNilStr(_detailModel.skuId),@"skuName":kMeUnNilStr(_detailModel.skuName),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+     [self recordClickNumberWithParams:params typeStr:typeStr];
 //     NSString *url = [[NSString stringWithFormat:@"openapp.jdmobile://virtual?params={\"category\":\"jump\",\"des\":\"productDetail\",\"skuId\":\"%@\",\"sourceType\":\"JSHOP_SOURCE_TYPE\",\"sourceValue\":\"JSHOP_SOURCE_VALUE\"}",kMeUnNilStr(_detailModel.skuId)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
      NSString *url = [[NSString stringWithFormat:@"openapp.jdmobile://virtual?params={\"category\":\"jump\",\"des\":\"m\",\"url\":\"%@\"}",kMeUnNilStr(_Tpwd)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
      NSURL * requestURL = [NSURL URLWithString:url];
@@ -192,6 +241,7 @@
         kMeWEAKSELF
         _headerView.getCoupleBlock = ^{
             kMeSTRONGSELF
+            strongSelf->_isBuy = NO;
             [strongSelf buyAction:nil];
         };
     }

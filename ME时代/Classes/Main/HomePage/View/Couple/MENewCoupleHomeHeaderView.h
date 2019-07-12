@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MENewCoupleHomeHeaderView : UICollectionReusableView
 
+@property (nonatomic, assign) NSInteger recordType;
+
 - (void)setUiWithModel:(NSArray *)Model isTKb:(BOOL)isTbk;
 
 + (CGFloat)getViewHeightWithisTKb:(BOOL)isTbk;

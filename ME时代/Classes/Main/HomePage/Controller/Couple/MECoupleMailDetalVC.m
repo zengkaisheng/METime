@@ -34,6 +34,7 @@
     CGFloat _min_ratio;
     NSString *_coupon_amount;
     NSString *_coupon_click_url;
+    BOOL _isBuy;
 }
 
 @property (nonatomic, strong) UITableView           *tableView;
@@ -191,15 +192,18 @@
     });
 }
 
-#pragma mark - tableView deleagte and sourcedata
+- (void)recordClickNumberWithParams:(NSDictionary *)params typeStr:(NSString *)typeStr{
+    NSString *paramsStr = [NSString convertToJsonData:params];
+    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":typeStr,@"parameter":paramsStr}];
+}
 
+#pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if(_pinduoduomodel){
         return _pinduoduoDetailmodel.goods_gallery_urls.count;
     }else{
          return _detailModel.small_images.string.count;
     }
-   
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -212,7 +216,6 @@
         kSDLoadImg(cell.imageView, kMeUnNilStr(_detailModel.small_images.string[indexPath.row]));
         return cell;
     }
-
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -239,6 +242,9 @@
 }
 
 - (void)buyAction:(UIButton *)btn{
+    if (btn != nil) {
+        _isBuy = YES;
+    }
     if([MEUserInfoModel isLogin]){
         if(_pinduoduomodel){
             if(_goods_promotion_url){
@@ -300,6 +306,23 @@
 - (void)shareAction:(UIButton *)btn{
     if([MEUserInfoModel isLogin]){
         if(_pinduoduomodel){
+            NSString *typeStr;
+            //统计点击数
+            switch (self.recordType) {
+                case 1://首页
+                    typeStr = @"24";
+                    break;
+                case 2://优选
+                    typeStr = @"10";
+                    break;
+                case 3://动态
+                    typeStr = @"32";
+                    break;
+                default:
+                    break;
+            }
+            NSDictionary *params = @{@"goods_id":kMeUnNilStr(_pinduoduomodel.goods_id),@"goods_name":kMeUnNilStr(_pinduoduomodel.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+            [self recordClickNumberWithParams:params typeStr:typeStr];
             //拼多多
             if(_sharegoods_promotion_url){
                 MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
@@ -341,6 +364,20 @@
 //                [self openAddTbView];
                 [self obtainTaoBaoAuthorizeWithBuyAction:NO];
             }else{
+                NSString *tbTypeStr;
+                //统计点击数
+                switch (self.recordType) {
+                    case 1://首页
+                        tbTypeStr = @"6";
+                        break;
+                    case 3://动态
+                        tbTypeStr = @"28";
+                        break;
+                    default:
+                        break;
+                }
+                NSDictionary *params = @{@"num_iid":kMeUnNilStr(_detailModel.num_iid),@"item_title":kMeUnNilStr(_detailModel.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+                [self recordClickNumberWithParams:params typeStr:tbTypeStr];
                 //淘宝
                 if(kMeUnNilStr(_Tpwd).length){
                     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
@@ -380,10 +417,11 @@
     [webVC loadURL:[NSURL URLWithString:str]];
     kMeWEAKSELF
     webVC.authorizeBlock = ^{
+        kMeSTRONGSELF
         if (isBuy) {
-            [weakSelf buyAction:nil];
+            [strongSelf buyAction:nil];
         }else {
-            [weakSelf shareAction:nil];
+            [strongSelf shareAction:nil];
         }
     };
     [self.navigationController pushViewController:webVC animated:YES];
@@ -405,6 +443,41 @@
 
 - (void)openTb{
     if(_pinduoduomodel){
+        NSString *typeStr;
+        //统计点击数
+        if (_isBuy) {//购买
+            switch (self.recordType) {
+                case 1://首页
+                    typeStr = @"23";
+                    break;
+                case 2://优选
+                    typeStr = @"9";
+                    break;
+                case 3://动态
+                    typeStr = @"31";
+                    break;
+                default:
+                    break;
+            }
+        }else {//领券
+            switch (self.recordType) {
+                case 1://首页
+                    typeStr = @"22";
+                    break;
+                case 2://优选
+                    typeStr = @"8";
+                    break;
+                case 3://动态
+                    typeStr = @"30";
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        NSDictionary *params = @{@"goods_id":kMeUnNilStr(_pinduoduomodel.goods_id),@"goods_name":kMeUnNilStr(_pinduoduomodel.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+        [self recordClickNumberWithParams:params typeStr:typeStr];
+        
         if ([[UIApplication sharedApplication] canOpenURL: [NSURL URLWithString:@"pinduoduo://"]]) {
             NSString *str = kMeUnNilStr(_goods_promotion_url[@"we_app_web_view_url"]);
             NSString *newUrl = [str stringByReplacingOccurrencesOfString:@"https://mobile.yangkeduo.com/" withString:@"pinduoduo://com.xunmeng.pinduoduo/"];
@@ -415,6 +488,35 @@
             [[UIApplication sharedApplication] openURL:newurl];
         }
     }else{
+        
+        NSString *tbTypeStr;
+        //统计点击数
+        if (!_isBuy) {//领券
+            switch (self.recordType) {
+                case 1://首页
+                    tbTypeStr = @"4";
+                    break;
+                case 3://动态
+                    tbTypeStr = @"26";
+                    break;
+                default:
+                    break;
+            }
+        }else {//购买
+            switch (self.recordType) {
+                case 1://首页
+                    tbTypeStr = @"5";
+                    break;
+                case 3://动态
+                    tbTypeStr = @"27";
+                    break;
+                default:
+                    break;
+            }
+        }
+        NSDictionary *params = @{@"num_iid":kMeUnNilStr(_detailModel.num_iid),@"item_title":kMeUnNilStr(_detailModel.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+        [self recordClickNumberWithParams:params typeStr:tbTypeStr];
+        
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = kMeUnNilStr(_Tpwd);
         NSURL *url = [NSURL URLWithString:@"taobao://"];
@@ -455,6 +557,7 @@
         kMeWEAKSELF
         _headerView.getCoupleBlock = ^{
             kMeSTRONGSELF
+            strongSelf->_isBuy = NO;
             [strongSelf buyAction:nil];
 //            ZLWebViewVC *vc = [[ZLWebViewVC alloc]init];
 //            [vc loadURL:[NSURL URLWithString:kMeUnNilStr(strongSelf->_detailModel.Quan_link)]];

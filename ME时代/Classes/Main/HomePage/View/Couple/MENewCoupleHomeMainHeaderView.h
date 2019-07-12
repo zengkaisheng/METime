@@ -18,6 +18,8 @@ typedef NS_ENUM(NSUInteger, MENewCoupleHomeMainHeaderViewImageType) {
 
 @interface MENewCoupleHomeMainHeaderView : UICollectionReusableView
 
+@property (nonatomic, assign) NSInteger recordType;
+
 - (void)setUIWithArr:(NSArray *)arrModel type:(MENewCoupleHomeMainHeaderViewImageType)type;
 + (CGFloat)getCellHeightWithArr:(NSArray*)arr;
 

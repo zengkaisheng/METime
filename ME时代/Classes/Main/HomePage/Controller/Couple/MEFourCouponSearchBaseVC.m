@@ -18,7 +18,7 @@
 #import "MEJDCoupleModel.h"
 #import "MEJDCoupleMailDetalVC.h"
 
-#define kMEGoodsMargin ((IS_iPhoneX?10:7.5)*kMeFrameScaleX())
+#define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
 @interface MEFourCouponSearchBaseVC ()<UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>
 
@@ -296,8 +296,8 @@
                 MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
                 [self.navigationController pushViewController:dvc animated:YES];
             }else{
-                MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
                 model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
+                MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
                 [self.navigationController pushViewController:vc animated:YES];
             }
         }

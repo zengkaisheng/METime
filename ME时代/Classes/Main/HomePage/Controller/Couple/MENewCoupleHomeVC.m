@@ -20,7 +20,7 @@
 #import "MEFourCouponSearchHomeVC.h"
 #import "MECoupleMailDetalVC.h"
 
-#define kMEGoodsMargin ((IS_iPhoneX?10:7.5)*kMeFrameScaleX())
+#define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
 @interface MENewCoupleHomeVC ()<UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>{
     NSArray *_todayBuy;
@@ -151,21 +151,62 @@
     }
 }
 
+- (void)recordClickNumberWithParams:(NSDictionary *)params typeStr:(NSString *)typeStr{
+    NSString *paramsStr = [NSString convertToJsonData:params];
+    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":typeStr,@"parameter":paramsStr}];
+}
+
 #pragma mark- CollectionView Delegate And DataSource
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if(_isTBk){
         MECoupleModel *model = self.refresh.arrData[indexPath.row];
+        
+        NSString *typeStr;
+        switch (self.recordType) {
+            case 1:
+                typeStr = @"3";
+                break;
+            case 3:
+                typeStr = @"25";
+                break;
+            default:
+                break;
+        }
+        NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+        [self recordClickNumberWithParams:params typeStr:typeStr];
+        
         if(kMeUnNilStr(model.coupon_id).length){
             MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
+            dvc.recordType = self.recordType;
             [self.navigationController pushViewController:dvc animated:YES];
         }else{
-            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
             model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
+            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
+            vc.recordType = self.recordType;
             [self.navigationController pushViewController:vc animated:YES];
         }
     }else{
         MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
         MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:model];
+        vc.recordType = self.recordType;
+        
+        NSString *typeStr;
+        switch (self.recordType) {
+            case 1:
+                typeStr = @"21";
+                break;
+            case 2:
+                typeStr = @"7";
+                break;
+            case 3:
+                typeStr = @"29";
+                break;
+            default:
+                break;
+        }
+        NSDictionary *params = @{@"goods_id":kMeUnNilStr(model.goods_id),@"goods_name":kMeUnNilStr(model.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+        [self recordClickNumberWithParams:params typeStr:typeStr];
+        
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -228,6 +269,7 @@
         if (indexPath.section == 0) {
             MENewCoupleHomeHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewCoupleHomeHeaderView class]) forIndexPath:indexPath];
             [header setUiWithModel:_arrAdv isTKb:_isTBk];
+            header.recordType = self.recordType;
             headerView = header;
         }else {
             MENewCoupleHomeMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewCoupleHomeMainHeaderView class]) forIndexPath:indexPath];
@@ -236,6 +278,7 @@
             }else if (indexPath.section == 2) {
                 [header setUIWithArr:_99BuyBuy type:indexPath.section-1];
             }
+            header.recordType = self.recordType;
              headerView = header;
         }
     }

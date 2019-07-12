@@ -1883,7 +1883,7 @@
 		3683F79B21CB4246008139B0 /* MECoupleMailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECoupleMailVC.h; sourceTree = "<group>"; };
 		3683F79C21CB4246008139B0 /* MECoupleMailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECoupleMailVC.m; sourceTree = "<group>"; };
 		3683F7A721CB7ACC008139B0 /* MECoupleMailDetalVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECoupleMailDetalVC.h; sourceTree = "<group>"; };
-		3683F7A821CB7ACC008139B0 /* MECoupleMailDetalVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECoupleMailDetalVC.m; sourceTree = "<group>"; };
+		3683F7A821CB7ACC008139B0 /* MECoupleMailDetalVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECoupleMailDetalVC.m; sourceTree = "<group>"; wrapsLines = 1; };
 		3683F7B221CBA15B008139B0 /* MEGiftMainContentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEGiftMainContentCell.h; sourceTree = "<group>"; };
 		3683F7B321CBA15B008139B0 /* MEGiftMainContentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEGiftMainContentCell.m; sourceTree = "<group>"; };
 		3683F7B421CBA15B008139B0 /* MEGiftMainContentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEGiftMainContentCell.xib; sourceTree = "<group>"; };
@@ -6725,7 +6725,7 @@
 								enabled = 1;
 							};
 							com.apple.SafariKeychain = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -8086,7 +8086,7 @@
 					"\"$(SRCROOT)/ME时代/Classes/Frameworks/TIMSDK/ImSDK.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "ME时代/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -8147,7 +8147,7 @@
 					"\"$(SRCROOT)/ME时代/Classes/Frameworks/TIMSDK/ImSDK.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "ME时代/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

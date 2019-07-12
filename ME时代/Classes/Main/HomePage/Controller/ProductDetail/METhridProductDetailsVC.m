@@ -440,9 +440,11 @@ kTDWebViewCellDidFinishLoadNotificationMethod
         _bottomView.addShopcartBlock = ^{
             kMeSTRONGSELF
             for (MEGoodDetailSpecModel *model in strongSelf.model.spec) {
-                if ([model.spec_name containsString:@"到店领取"]) {
-                    [MEShowViewTool showMessage:@"该商品不支持加入购物车" view:kMeCurrentWindow];
-                    return;
+                for (MEGoodSpecModel *specModel in model.spec_value) {
+                    if ([specModel.spec_value containsString:@"到店领取"]) {
+                        [MEShowViewTool showMessage:@"到店领取商品不支持加入购物车" view:kMeCurrentWindow];
+                        return;
+                    }
                 }
             }
             if(strongSelf.model.product_type == 15||strongSelf.model.product_type == 16){

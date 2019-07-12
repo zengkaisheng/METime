@@ -45,17 +45,39 @@ const static CGFloat kMargin = 4;
     _collectionView.dataSource = self;
 }
 
+- (void)recordClickNumberWithParams:(NSDictionary *)params typeStr:(NSString *)typeStr{
+    NSString *paramsStr = [NSString convertToJsonData:params];
+    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":typeStr,@"parameter":paramsStr}];
+}
+
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MECoupleModel *model = _arrModel[indexPath.row];
+    
+    NSString *typeStr;
+    switch (self.recordType) {
+        case 1:
+            typeStr = @"3";
+            break;
+        case 3:
+            typeStr = @"25";
+            break;
+        default:
+            break;
+    }
+    NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+    [self recordClickNumberWithParams:params typeStr:typeStr];
+    
     MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){
         if(kMeUnNilStr(model.coupon_id).length){
             MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
+            dvc.recordType = self.recordType;
             [homevc.navigationController pushViewController:dvc animated:YES];
         }else{
-            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
             model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
+            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
+            vc.recordType = self.recordType;
             [homevc.navigationController pushViewController:vc animated:YES];
         }
     }
@@ -127,18 +149,21 @@ const static CGFloat kMargin = 4;
             case kTodayHotImageType:
             {
                 MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTopBuyType];
+                vc.recordType = self.recordType;
                 [homevc.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case k99BuyImageType:
             {
                 MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearch99BuyType];
+                vc.recordType = self.recordType;
                 [homevc.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case kBigJuanImageType:
             {
                 MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchBigJuanType];
+                vc.recordType = self.recordType;
                 [homevc.navigationController pushViewController:vc animated:YES];
             }
                 break;

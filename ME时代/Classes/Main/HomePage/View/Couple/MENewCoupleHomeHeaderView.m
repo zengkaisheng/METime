@@ -86,6 +86,11 @@
     MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchGoodGoodsType];
+        vc.recordType = self.recordType;
+        
+        NSString *paramsStr = [NSString convertToJsonData:@{@"name":@"renqibaokuan"}];
+        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+        
         [homevc.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -94,6 +99,11 @@
     MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTeHuiType];
+        vc.recordType = self.recordType;
+        
+        NSString *paramsStr = [NSString convertToJsonData:@{@"name":@"chaozhitehui"}];
+        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+        
         [homevc.navigationController pushViewController:vc animated:YES];
     }
     
@@ -103,6 +113,11 @@
     MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchShiShangType];
+        vc.recordType = self.recordType;
+        
+        NSString *paramsStr = [NSString convertToJsonData:@{@"name":@"shishangchaoliu"}];
+        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+        
         [homevc.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -111,6 +126,11 @@
     MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleFilterVC *vc = [[MECoupleFilterVC alloc]init];
+        vc.recordType = self.recordType;
+        
+        NSString *paramsStr = [NSString convertToJsonData:@{@"name":@"haojuanfenlei"}];
+        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+        
         [homevc.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -147,10 +167,12 @@
             if (_isTbk) {
                 MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] init];
                 searchHomeVC.keyWords = model.keywork;
+                searchHomeVC.recordType = self.recordType;
                 [homevc.navigationController pushViewController:searchHomeVC animated:YES];
             }else {
                 MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:1];
                 searchHomeVC.keyWords = model.keywork;
+                searchHomeVC.recordType = self.recordType;
                 [homevc.navigationController pushViewController:searchHomeVC animated:YES];
             }
         }

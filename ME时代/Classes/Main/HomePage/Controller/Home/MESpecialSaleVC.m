@@ -21,7 +21,7 @@
 #import "MEGroupProductDetailVC.h"
 #import "MEJoinPrizeVC.h"
 
-#define kMEGoodsMargin ((IS_iPhoneX?10:7.5)*kMeFrameScaleX())
+#define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
 @interface MESpecialSaleVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,RefreshToolDelegate>{
     NSArray *_banner_images;
@@ -76,6 +76,11 @@
     [self.refresh.arrData addObjectsFromArray:[MEPinduoduoCoupleModel mj_objectArrayWithKeyValuesArray:data]];
 }
 
+- (void)recordClickNumberWithParams:(NSDictionary *)params typeStr:(NSString *)typeStr{
+    NSString *paramsStr = [NSString convertToJsonData:params];
+    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":typeStr,@"parameter":paramsStr}];
+}
+
 #pragma mark- CollectionView Delegate And DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -94,6 +99,22 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
+    NSString *typeStr;
+    switch (self.recordType) {
+        case 1:
+            typeStr = @"21";
+            break;
+        case 2:
+            typeStr = @"7";
+            break;
+        case 3:
+            typeStr = @"29";
+            break;
+        default:
+            break;
+    }
+    NSDictionary *params = @{@"goods_id":kMeUnNilStr(model.goods_id),@"goods_name":kMeUnNilStr(model.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+    [self recordClickNumberWithParams:params typeStr:typeStr];
     MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc] initWithPinduoudoModel:model];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -152,6 +173,10 @@
         }
     }
     
+    NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
+    NSString *paramsStr = [NSString convertToJsonData:params];
+    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"1",@"parameter":paramsStr}];
+    
     switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
         case 1:
         {
@@ -198,6 +223,7 @@
         case 13:
         {//跳拼多多推荐商品列表
             MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
+            vc.recordType = self.recordType;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;

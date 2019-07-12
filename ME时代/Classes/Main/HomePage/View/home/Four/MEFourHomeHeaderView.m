@@ -211,6 +211,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
         case 13:
         {//跳拼多多推荐商品列表
             MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
+            vc.recordType = 1;
             [homeVC.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -394,49 +395,95 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
 
 - (void)optionsBtnAction:(UIButton *)sender {
 //    NSLog(@"tag:%ld",sender.tag);
+    NSString *name = @"";
+    switch (sender.tag) {
+        case 5:
+            name = @"chaozhitehui";
+            break;
+        case 1:
+            name = @"taobao";
+            break;
+        case 2:
+            name = @"pingduoduo";
+            break;
+        case 3:
+            name = @"jingdong";
+            break;
+        case 4:
+            name = @"pingpai";
+            break;
+        case 6:
+            name = @"ju";
+            break;
+        case 7:
+            name = @"largecoupon";
+            break;
+        case 8:
+            name = @"singnin";
+            break;
+        case 9:
+            name = @"bargain";
+            break;
+        case 10:
+            name = @"group";
+            break;
+        default:
+            break;
+    }
+    NSDictionary *params = @{@"name":name};
+    NSString *paramsStr = [NSString convertToJsonData:params];
+    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
     MEFourHomeVC *homeVC = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+    
     if(homeVC){
         switch (sender.tag) {
             case 5:
             {//超值特惠
                 MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTeHuiType];
                 vc.titleStr = @"超值特惠专场";
+                vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 1:
             {
                 MENewCoupleHomeVC *vc= [[MENewCoupleHomeVC alloc]initWithIsTbK:YES];
+                vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 2:
             {
                 MEFourCoupleVC *vc = [[MEFourCoupleVC alloc] initWithIsJD:NO];
+                vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 3:
             {
                 MEFourCoupleVC *vc = [[MEFourCoupleVC alloc] initWithIsJD:YES];
+                vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 4:
             {
                 MESpecialSaleVC *vc = [[MESpecialSaleVC alloc] init];
+                vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 6:
             {
                 MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchJuHSType];
+                vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 7:
             {
                 MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchBigJuanType];
+                vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;

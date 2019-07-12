@@ -173,8 +173,8 @@
         MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
         [self.navigationController pushViewController:dvc animated:YES];
     }else{
-        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
         model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
+        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
