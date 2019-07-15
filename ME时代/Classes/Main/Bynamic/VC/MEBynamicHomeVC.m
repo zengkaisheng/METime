@@ -168,8 +168,29 @@
     [self.refresh.arrData addObjectsFromArray:[MEBynamicHomeModel mj_objectArrayWithKeyValuesArray:data]];
 }
 */
+
+- (void)categoryView:(JXCategoryBaseView *)categoryView didSelectedItemAtIndex:(NSInteger)index {
+//    NSLog(@"index=====%ld",(long)index);
+    NSString *typeStr;
+    switch (index) {
+        case 0:
+            typeStr = @"11";
+            break;
+        case 1:
+            typeStr = @"13";
+            break;
+        case 2:
+            typeStr = @"15";
+            break;
+        default:
+            break;
+    }
+    NSDictionary *params = @{@"uid":kMeUnNilStr(kCurrentUser.uid)};
+    [self saveClickRecordsWithType:typeStr params:params];
+}
+
 - (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index{
-    NSLog(@"index=====%ld",(long)index);
+    
 //    NSInteger currentindex = index+1;
 //    if(currentindex == _type){
 //        return;

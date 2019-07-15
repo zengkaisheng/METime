@@ -88,8 +88,7 @@
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchGoodGoodsType];
         vc.recordType = self.recordType;
         
-        NSString *paramsStr = [NSString convertToJsonData:@{@"name":@"renqibaokuan"}];
-        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+        [self saveClickRecordsWithType:@"2" params:@{@"name":@"renqibaokuan"}];
         
         [homevc.navigationController pushViewController:vc animated:YES];
     }
@@ -101,8 +100,7 @@
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTeHuiType];
         vc.recordType = self.recordType;
         
-        NSString *paramsStr = [NSString convertToJsonData:@{@"name":@"chaozhitehui"}];
-        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+        [self saveClickRecordsWithType:@"2" params:@{@"name":@"chaozhitehui"}];
         
         [homevc.navigationController pushViewController:vc animated:YES];
     }
@@ -115,8 +113,7 @@
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchShiShangType];
         vc.recordType = self.recordType;
         
-        NSString *paramsStr = [NSString convertToJsonData:@{@"name":@"shishangchaoliu"}];
-        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+        [self saveClickRecordsWithType:@"2" params:@{@"name":@"shishangchaoliu"}];
         
         [homevc.navigationController pushViewController:vc animated:YES];
     }
@@ -128,13 +125,27 @@
         MECoupleFilterVC *vc = [[MECoupleFilterVC alloc]init];
         vc.recordType = self.recordType;
         
-        NSString *paramsStr = [NSString convertToJsonData:@{@"name":@"haojuanfenlei"}];
-        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+        [self saveClickRecordsWithType:@"2" params:@{@"name":@"haojuanfenlei"}];
         
         [homevc.navigationController pushViewController:vc animated:YES];
     }
 }
 
+- (void)saveClickRecordsWithType:(NSString *)type params:(NSDictionary *)params {
+    NSDate *date = [[NSDate alloc] init];
+    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:params];
+    [tempDic setObject:[date getNowDateFormatterString] forKey:@"created_at"];
+    NSString *paramsStr = [NSString convertToJsonData:tempDic];
+    
+    NSMutableArray *records = [[NSMutableArray alloc] init];
+    if ([kMeUserDefaults objectForKey:kMEGetClickRecord]) {
+        [records addObjectsFromArray:(NSArray *)[kMeUserDefaults objectForKey:kMEGetClickRecord]];
+    }
+    
+    [records addObject:@{@"type":type,@"parameter":paramsStr}];
+    [kMeUserDefaults setObject:records forKey:kMEGetClickRecord];
+    [kMeUserDefaults synchronize];
+}
 
 #pragma mark - SDCycleScrollViewDelegate
 
@@ -160,8 +171,7 @@
         }
         
         NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
-        NSString *paramsStr = [NSString convertToJsonData:params];
-        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"1",@"parameter":paramsStr}];
+        [self saveClickRecordsWithType:@"1" params:params];
         
         if (kMeUnNilStr(model.keywork).length > 0) {
             if (_isTbk) {

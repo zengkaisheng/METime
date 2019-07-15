@@ -254,6 +254,7 @@
 - (void)searchCoupon{
     
     MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:0];
+    searchHomeVC.recordType = 5;
     [self.navigationController pushViewController:searchHomeVC animated:YES];
     
 //    kMeWEAKSELF

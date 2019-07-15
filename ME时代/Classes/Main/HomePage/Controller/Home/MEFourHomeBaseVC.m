@@ -361,8 +361,7 @@ const static CGFloat kImgStore = 50;
     }
     
     NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"1",@"parameter":paramsStr}];
+    [self saveClickRecordsWithType:@"1" params:params];
     
     switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
         case 1:
@@ -580,8 +579,7 @@ const static CGFloat kImgStore = 50;
             MECoupleModel *model = self.refresh.arrData[indexPath.row];
             
             NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title)};
-            NSString *paramsStr = [NSString convertToJsonData:params];
-            [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"3",@"parameter":paramsStr}];
+            [self saveClickRecordsWithType:@"3" params:params];
             
             if(kMeUnNilStr(model.coupon_id).length){
                 MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc] initWithProductrId:kMeUnNilStr(model.num_iid) couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
@@ -598,8 +596,7 @@ const static CGFloat kImgStore = 50;
         MECoupleModel *model = self.refresh.arrData[indexPath.row];
         
         NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title)};
-        NSString *paramsStr = [NSString convertToJsonData:params];
-        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"3",@"parameter":paramsStr}];
+        [self saveClickRecordsWithType:@"3" params:params];
         
         if(kMeUnNilStr(model.coupon_id).length){
             MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];

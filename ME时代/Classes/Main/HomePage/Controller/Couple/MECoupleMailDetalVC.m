@@ -192,11 +192,6 @@
     });
 }
 
-- (void)recordClickNumberWithParams:(NSDictionary *)params typeStr:(NSString *)typeStr{
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":typeStr,@"parameter":paramsStr}];
-}
-
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if(_pinduoduomodel){
@@ -318,11 +313,18 @@
                 case 3://动态
                     typeStr = @"32";
                     break;
+                case 4://推送
+                    typeStr = @"44";
+                    break;
+                case 5://搜索
+                    typeStr = @"56";
+                    break;
                 default:
                     break;
             }
             NSDictionary *params = @{@"goods_id":kMeUnNilStr(_pinduoduomodel.goods_id),@"goods_name":kMeUnNilStr(_pinduoduomodel.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-            [self recordClickNumberWithParams:params typeStr:typeStr];
+            [self saveClickRecordsWithType:typeStr params:params];
+
             //拼多多
             if(_sharegoods_promotion_url){
                 MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
@@ -373,11 +375,18 @@
                     case 3://动态
                         tbTypeStr = @"28";
                         break;
+                    case 4://推送
+                        tbTypeStr = @"40";
+                        break;
+                    case 5://搜索
+                        tbTypeStr = @"52";
+                        break;
                     default:
                         break;
                 }
                 NSDictionary *params = @{@"num_iid":kMeUnNilStr(_detailModel.num_iid),@"item_title":kMeUnNilStr(_detailModel.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-                [self recordClickNumberWithParams:params typeStr:tbTypeStr];
+                [self saveClickRecordsWithType:tbTypeStr params:params];
+
                 //淘宝
                 if(kMeUnNilStr(_Tpwd).length){
                     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
@@ -456,6 +465,12 @@
                 case 3://动态
                     typeStr = @"31";
                     break;
+                case 4://推送
+                    typeStr = @"43";
+                    break;
+                case 5://搜索
+                    typeStr = @"55";
+                    break;
                 default:
                     break;
             }
@@ -470,13 +485,19 @@
                 case 3://动态
                     typeStr = @"30";
                     break;
+                case 4://推送
+                    typeStr = @"42";
+                    break;
+                case 5://搜索
+                    typeStr = @"54";
+                    break;
                 default:
                     break;
             }
         }
         
         NSDictionary *params = @{@"goods_id":kMeUnNilStr(_pinduoduomodel.goods_id),@"goods_name":kMeUnNilStr(_pinduoduomodel.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-        [self recordClickNumberWithParams:params typeStr:typeStr];
+        [self saveClickRecordsWithType:typeStr params:params];
         
         if ([[UIApplication sharedApplication] canOpenURL: [NSURL URLWithString:@"pinduoduo://"]]) {
             NSString *str = kMeUnNilStr(_goods_promotion_url[@"we_app_web_view_url"]);
@@ -499,6 +520,12 @@
                 case 3://动态
                     tbTypeStr = @"26";
                     break;
+                case 4://推送
+                    tbTypeStr = @"38";
+                    break;
+                case 5://搜索
+                    tbTypeStr = @"50";
+                    break;
                 default:
                     break;
             }
@@ -510,12 +537,18 @@
                 case 3://动态
                     tbTypeStr = @"27";
                     break;
+                case 4://推送
+                    tbTypeStr = @"39";
+                    break;
+                case 5://搜索
+                    tbTypeStr = @"51";
+                    break;
                 default:
                     break;
             }
         }
         NSDictionary *params = @{@"num_iid":kMeUnNilStr(_detailModel.num_iid),@"item_title":kMeUnNilStr(_detailModel.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-        [self recordClickNumberWithParams:params typeStr:tbTypeStr];
+        [self saveClickRecordsWithType:tbTypeStr params:params];
         
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = kMeUnNilStr(_Tpwd);

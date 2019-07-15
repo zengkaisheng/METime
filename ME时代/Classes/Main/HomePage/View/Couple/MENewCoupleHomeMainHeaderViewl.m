@@ -45,11 +45,6 @@ const static CGFloat kMargin = 4;
     _collectionView.dataSource = self;
 }
 
-- (void)recordClickNumberWithParams:(NSDictionary *)params typeStr:(NSString *)typeStr{
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":typeStr,@"parameter":paramsStr}];
-}
-
 #pragma mark - UICollectionViewDelegate,UICollectionViewDataSource
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MECoupleModel *model = _arrModel[indexPath.row];
@@ -65,8 +60,18 @@ const static CGFloat kMargin = 4;
         default:
             break;
     }
-    NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-    [self recordClickNumberWithParams:params typeStr:typeStr];
+    
+    NSDate *date = [[NSDate alloc] init];
+    NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid),@"created_at":[date getNowDateFormatterString]};
+    NSString *paramsStr = [NSString convertToJsonData:params];
+    NSMutableArray *records = [[NSMutableArray alloc] init];
+    if ([kMeUserDefaults objectForKey:kMEGetClickRecord]) {
+        [records addObjectsFromArray:(NSArray *)[kMeUserDefaults objectForKey:kMEGetClickRecord]];
+    }
+    
+    [records addObject:@{@"type":@"1",@"parameter":paramsStr}];
+    [kMeUserDefaults setObject:records forKey:kMEGetClickRecord];
+    [kMeUserDefaults synchronize];
     
     MENewCoupleHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[MENewCoupleHomeVC class] targetResponderView:self];
     if(homevc){

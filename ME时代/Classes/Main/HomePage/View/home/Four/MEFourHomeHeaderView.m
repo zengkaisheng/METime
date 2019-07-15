@@ -131,6 +131,21 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     }
 }
 
+- (void)saveClickRecordsWithType:(NSString *)type params:(NSDictionary *)params {
+    NSDate *date = [[NSDate alloc] init];
+    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:params];
+    [tempDic setObject:[date getNowDateFormatterString] forKey:@"created_at"];
+    NSString *paramsStr = [NSString convertToJsonData:tempDic];
+    
+    NSMutableArray *records = [[NSMutableArray alloc] init];
+    if ([kMeUserDefaults objectForKey:kMEGetClickRecord]) {
+        [records addObjectsFromArray:(NSArray *)[kMeUserDefaults objectForKey:kMEGetClickRecord]];
+    }
+    
+    [records addObject:@{@"type":type,@"parameter":paramsStr}];
+    [kMeUserDefaults setObject:records forKey:kMEGetClickRecord];
+    [kMeUserDefaults synchronize];
+}
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
     kMeCallBlock(_scrollToIndexBlock,index);
@@ -153,8 +168,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
         }
     }
     NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"1",@"parameter":paramsStr}];
+    [self saveClickRecordsWithType:@"1" params:params];
     
     switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
         case 1:
@@ -431,10 +445,9 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             break;
     }
     NSDictionary *params = @{@"name":name};
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+    [self saveClickRecordsWithType:@"2" params:params];
+
     MEFourHomeVC *homeVC = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
-    
     if(homeVC){
         switch (sender.tag) {
             case 5:

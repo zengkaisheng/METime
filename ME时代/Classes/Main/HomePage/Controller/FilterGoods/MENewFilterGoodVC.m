@@ -241,8 +241,7 @@
         MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
         
         NSDictionary *params = @{@"goods_id":kMeUnNilStr(model.goods_id),@"goods_name":kMeUnNilStr(model.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-        NSString *paramsStr = [NSString convertToJsonData:params];
-        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"7",@"parameter":paramsStr}];
+        [self saveClickRecordsWithType:@"7" params:params];
         
         MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc] initWithPinduoudoModel:model];
         vc.recordType = 2;
@@ -394,8 +393,7 @@
     }
     
     NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"1",@"parameter":paramsStr}];
+    [self saveClickRecordsWithType:@"1" params:params];
     
     switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
         case 1:

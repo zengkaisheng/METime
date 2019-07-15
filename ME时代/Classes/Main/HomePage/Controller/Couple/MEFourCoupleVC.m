@@ -318,11 +318,6 @@
     }
 }
 
-- (void)recordClickNumberWithParams:(NSDictionary *)params typeStr:(NSString *)typeStr{
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":typeStr,@"parameter":paramsStr}];
-}
-
 #pragma mark- CollectionView Delegate And DataSource
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -331,7 +326,8 @@
         MEJDCoupleMailDetalVC *vc = [[MEJDCoupleMailDetalVC alloc]initWithModel:model];
         vc.recordType = self.recordType;
         NSDictionary *params = @{@"skuId":kMeUnNilStr(model.skuId),@"skuName":kMeUnNilStr(model.skuName),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-        [self recordClickNumberWithParams:params typeStr:@"17"];
+        [self saveClickRecordsWithType:@"17" params:params];
+
         [self.navigationController pushViewController:vc animated:YES];
     }else{
         MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
@@ -352,7 +348,8 @@
                 break;
         }
         NSDictionary *params = @{@"goods_id":kMeUnNilStr(model.goods_id),@"goods_name":kMeUnNilStr(model.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-        [self recordClickNumberWithParams:params typeStr:typeStr];
+        [self saveClickRecordsWithType:typeStr params:params];
+
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -432,8 +429,7 @@
 - (void)cycleScrollViewDidSelectItemWithModel:(MEAdModel *)model {
     
     NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"1",@"parameter":paramsStr}];
+    [self saveClickRecordsWithType:@"1" params:params];
     
     if (kMeUnNilStr(model.keywork).length > 0) {
         if (_isJD) {
@@ -556,6 +552,7 @@
         index = 2;
     }
     MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:index];
+    searchHomeVC.recordType = 5;
     [self.navigationController pushViewController:searchHomeVC animated:YES];
     
 //    kMeWEAKSELF

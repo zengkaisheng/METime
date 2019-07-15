@@ -14,6 +14,8 @@
  是否隐藏nav
  */
 @property (nonatomic, assign)BOOL navBarHidden;
-@property (nonatomic, assign) NSInteger recordType;//1、首页 2、优选 3、动态
+@property (nonatomic, assign) NSInteger recordType;//1、首页 2、优选 3、动态 4、推送 5、搜索
+
+- (void)saveClickRecordsWithType:(NSString *)type params:(NSDictionary *)params;
 
 @end

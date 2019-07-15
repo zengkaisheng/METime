@@ -735,6 +735,8 @@
 #pragma makr - record
 //记录点击数
 #define MEIPGetClickRecord @"common/clickrecord/record"
+//批量记录点击数
+#define MEIPGetClickRecordAll @"common/clickrecord/recordAll"
 
 /*********************************************/
 

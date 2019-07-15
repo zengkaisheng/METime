@@ -114,11 +114,6 @@
     }
 }
 
-- (void)recordClickNumberWithParams:(NSDictionary *)params typeStr:(NSString *)typeStr{
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":typeStr,@"parameter":paramsStr}];
-}
-
 - (void)shareAction:(UIButton *)btn{
     if([MEUserInfoModel isLogin]){
         NSString *typeStr;
@@ -130,11 +125,18 @@
             case 3://动态
                 typeStr = @"36";
                 break;
+            case 4://推送
+                typeStr = @"48";
+                break;
+            case 5://搜索
+                typeStr = @"60";
+                break;
             default:
                 break;
         }
         NSDictionary *params = @{@"skuId":kMeUnNilStr(_detailModel.skuId),@"skuName":kMeUnNilStr(_detailModel.skuName),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-        [self recordClickNumberWithParams:params typeStr:typeStr];
+        [self saveClickRecordsWithType:typeStr params:params];
+
         if(_shareTpwd){
             MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
             shareTool.sharWebpageUrl =kMeUnNilStr(_shareTpwd);
@@ -189,6 +191,12 @@
              case 3://动态
                  typeStr = @"35";
                  break;
+             case 4://推送
+                 typeStr = @"47";
+                 break;
+             case 5://搜索
+                 typeStr = @"59";
+                 break;
              default:
                  break;
          }
@@ -200,12 +208,19 @@
              case 3://动态
                  typeStr = @"34";
                  break;
+             case 4://推送
+                 typeStr = @"46";
+                 break;
+             case 5://搜索
+                 typeStr = @"58";
+                 break;
              default:
                  break;
          }
      }
      NSDictionary *params = @{@"skuId":kMeUnNilStr(_detailModel.skuId),@"skuName":kMeUnNilStr(_detailModel.skuName),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-     [self recordClickNumberWithParams:params typeStr:typeStr];
+     [self saveClickRecordsWithType:typeStr params:params];
+
 //     NSString *url = [[NSString stringWithFormat:@"openapp.jdmobile://virtual?params={\"category\":\"jump\",\"des\":\"productDetail\",\"skuId\":\"%@\",\"sourceType\":\"JSHOP_SOURCE_TYPE\",\"sourceValue\":\"JSHOP_SOURCE_VALUE\"}",kMeUnNilStr(_detailModel.skuId)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
      NSString *url = [[NSString stringWithFormat:@"openapp.jdmobile://virtual?params={\"category\":\"jump\",\"des\":\"m\",\"url\":\"%@\"}",kMeUnNilStr(_Tpwd)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
      NSURL * requestURL = [NSURL URLWithString:url];

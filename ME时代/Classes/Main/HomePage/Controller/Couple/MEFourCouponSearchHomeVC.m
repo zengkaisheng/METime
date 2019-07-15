@@ -54,6 +54,7 @@
     [self.scrollView addSubview:self.TBVC.view];
     [self.scrollView addSubview:self.PDDVC.view];
     [self.scrollView addSubview:self.JDVC.view];
+    self.TBVC.recordType = self.PDDVC.recordType = self.JDVC.recordType = 5;
     [self.view addSubview:self.scrollView];
     
     //1、初始化JXCategoryTitleView

@@ -118,9 +118,9 @@
     return rect.size.width;
 }
 
-+(NSString *)convertToJsonData:(NSDictionary*)dict {
++(NSString *)convertToJsonData:(id)data {
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString;
     if(!jsonData) {
         NSLog(@"%@",error);

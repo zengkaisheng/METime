@@ -3601,9 +3601,11 @@
 + (void)recordTapActionWithParameter:(NSDictionary *)parameter {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:parameter];
     [dic setObject:kMeUnNilStr(kCurrentUser.token) forKey:@"token"];
-    NSString *url = kGetApiWithUrl(MEIPGetClickRecord);
+    NSString *url = kGetApiWithUrl(MEIPGetClickRecordAll);
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
         NSLog(@"responseObject:%@",responseObject);
+        [kMeUserDefaults removeObjectForKey:kMEGetClickRecord];
+        [kMeUserDefaults synchronize];
     } failure:^(id error) {
         NSLog(@"error:%@",error);
     }];

@@ -31,11 +31,26 @@
     [self layoutIfNeeded];
 }
 
+- (void)saveClickRecordsWithType:(NSString *)type params:(NSDictionary *)params {
+    NSDate *date = [[NSDate alloc] init];
+    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:params];
+    [tempDic setObject:[date getNowDateFormatterString] forKey:@"created_at"];
+    NSString *paramsStr = [NSString convertToJsonData:tempDic];
+    
+    NSMutableArray *records = [[NSMutableArray alloc] init];
+    if ([kMeUserDefaults objectForKey:kMEGetClickRecord]) {
+        [records addObjectsFromArray:(NSArray *)[kMeUserDefaults objectForKey:kMEGetClickRecord]];
+    }
+    
+    [records addObject:@{@"type":type,@"parameter":paramsStr}];
+    [kMeUserDefaults setObject:records forKey:kMEGetClickRecord];
+    [kMeUserDefaults synchronize];
+}
+
 //排行
 - (IBAction)phaction:(UIButton *)sender {
     NSDictionary *params = @{@"name":@"paihangbang"};
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+    [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
     MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
@@ -51,8 +66,7 @@
 //超值
 - (IBAction)czaction:(UIButton *)sender {
     NSDictionary *params = @{@"name":@"chaozhitehui"};
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+    [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
     MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
@@ -67,8 +81,7 @@
 //时尚
 - (IBAction)ssaction:(UIButton *)sender {
     NSDictionary *params = @{@"name":@"shishangchaoliu"};
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+    [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
     MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
@@ -82,8 +95,7 @@
 //99
 - (IBAction)niceaction:(UIButton *)sender {
     NSDictionary *params = @{@"name":@"9.9baoyou"};
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+    [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
     MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
@@ -97,8 +109,7 @@
 //今日热卖
 - (IBAction)todayaction:(UIButton *)sender {
     NSDictionary *params = @{@"name":@"jinritemai"};
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+    [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
     MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
@@ -115,8 +126,7 @@
 //好卷分类
 - (IBAction)sortaction:(UIButton *)sender {
     NSDictionary *params = @{@"name":@"haojuanfeilei"};
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"2",@"parameter":paramsStr}];
+    [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
     MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];

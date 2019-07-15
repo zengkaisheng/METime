@@ -292,12 +292,18 @@
         case 0:
         {
             MECoupleModel *model = self.refresh.arrData[indexPath.row];
+            
+            NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title)};
+            [self saveClickRecordsWithType:@"49" params:params];
+            
             if(kMeUnNilStr(model.coupon_id).length){
                 MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
+                dvc.recordType = 5;
                 [self.navigationController pushViewController:dvc animated:YES];
             }else{
                 model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
                 MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
+                vc.recordType = 5;
                 [self.navigationController pushViewController:vc animated:YES];
             }
         }
@@ -305,14 +311,24 @@
         case 1:
         {
             MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
+            
+            NSDictionary *params = @{@"goods_id":kMeUnNilStr(model.goods_id),@"goods_name":kMeUnNilStr(model.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+            [self saveClickRecordsWithType:@"53" params:params];
+            
             MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:model];
+            vc.recordType = 5;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 2:
         {
             MEJDCoupleModel *model = self.refresh.arrData[indexPath.row];
+            
+            NSDictionary *params = @{@"skuId":kMeUnNilStr(model.skuId),@"skuName":kMeUnNilStr(model.skuName),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+            [self saveClickRecordsWithType:@"57" params:params];
+            
             MEJDCoupleMailDetalVC *vc = [[MEJDCoupleMailDetalVC alloc]initWithModel:model];
+            vc.recordType = 5;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;

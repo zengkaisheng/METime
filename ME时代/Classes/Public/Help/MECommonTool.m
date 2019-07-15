@@ -582,6 +582,7 @@
                                 {
                                     MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] init];
                                     searchHomeVC.keyWords = str;
+                                    searchHomeVC.recordType = 5;
                                     [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
                                 }
                                     break;
@@ -589,6 +590,7 @@
                                 {
                                     MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:1];
                                     searchHomeVC.keyWords = str;
+                                    searchHomeVC.recordType = 5;
                                     [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
                                 }
                                     break;
@@ -596,6 +598,7 @@
                                 {
                                     MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:2];
                                     searchHomeVC.keyWords = str;
+                                    searchHomeVC.recordType = 5;
                                     [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
                                 }
                                 default:

@@ -117,7 +117,6 @@
 
 
 #pragma mark - SDCycleScrollViewDelegate
-
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     if(index>_Model.count){
         return;
@@ -139,18 +138,28 @@
             }
         }
         
-        NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
+        NSDate *date = [[NSDate alloc] init];
+        NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork),@"created_at":[date getNowDateFormatterString]};
         NSString *paramsStr = [NSString convertToJsonData:params];
-        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":@"1",@"parameter":paramsStr}];
+        NSMutableArray *records = [[NSMutableArray alloc] init];
+        if ([kMeUserDefaults objectForKey:kMEGetClickRecord]) {
+            [records addObjectsFromArray:(NSArray *)[kMeUserDefaults objectForKey:kMEGetClickRecord]];
+        }
+        
+        [records addObject:@{@"type":@"1",@"parameter":paramsStr}];
+        [kMeUserDefaults setObject:records forKey:kMEGetClickRecord];
+        [kMeUserDefaults synchronize];
         
         if (kMeUnNilStr(model.keywork).length > 0) {
             if (_isTbk) {
                 MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] init];
                 searchHomeVC.keyWords = model.keywork;
+                searchHomeVC.recordType = 5;
                 [homevc.navigationController pushViewController:searchHomeVC animated:YES];
             }else {
                 MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] initWithIndex:1];
                 searchHomeVC.keyWords = model.keywork;
+                searchHomeVC.recordType = 5;
                 [homevc.navigationController pushViewController:searchHomeVC animated:YES];
             }
         }

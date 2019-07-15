@@ -80,6 +80,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUnInfo) name:kUnNoticeMessage object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogout) name:kUserLogout object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogin) name:kUserLogin object:nil];
+    
+    [self requestNetWorhWithClickRecord];
+}
+
+- (void)requestNetWorhWithClickRecord {
+    
+    NSArray *records = [kMeUserDefaults objectForKey:kMEGetClickRecord];
+    if (records.count > 0) {
+//        NSLog(@"record:%@",records);
+        NSString *paramsStr = [NSString convertToJsonData:records];
+        [MEPublicNetWorkTool recordTapActionWithParameter:@{@"parameter":paramsStr}];
+    }
 }
 
 - (void)userLogout{
@@ -154,6 +166,7 @@
 
 - (void)searchCoupon{
     MEFourCouponSearchHomeVC *searchHomeVC = [[MEFourCouponSearchHomeVC alloc] init];
+    searchHomeVC.recordType = 5;
     [self.navigationController pushViewController:searchHomeVC animated:YES];
     
 //    MECouponSearchVC *searchViewController = [MECouponSearchVC searchViewControllerWithHotSearches:@[] searchBarPlaceholder:@"搜索优惠券" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {

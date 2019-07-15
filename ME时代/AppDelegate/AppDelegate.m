@@ -546,14 +546,24 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                     NSDictionary *content = [self dictionaryWithJsonString:model.content];
                     MECoupleModel *TBmodel = [[MECoupleModel alloc] init];
                     TBmodel.min_ratio = [kMeUnNilStr(content[@"min_ratio"]) floatValue];
+                    
+                    NSDictionary *params = @{@"num_iid":kMeUnNilStr(TBmodel.num_iid),@"item_title":kMeUnNilStr(TBmodel.title)};
+                    [self saveClickRecordsWithType:@"37" params:params];
+                    
                     MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:[NSString stringWithFormat:@"%@",content[@"tbk_num_iids"]] couponId:kMeUnNilStr(content[@"tbk_coupon_id"]) couponurl:kMeUnNilStr(content[@"tbk_coupon_share_url"]) Model:TBmodel];
+                    vc.recordType = 4;
                     [baseVC.navigationController pushViewController:vc animated:YES];
                 }else if([strType isEqualToString:@"18"]){
                     NSDictionary *content = [self dictionaryWithJsonString:model.content];
                     MEPinduoduoCoupleModel *PDDModel = [[MEPinduoduoCoupleModel alloc] init];
                     PDDModel.goods_id = [NSString stringWithFormat:@"%@",content[@"ddk_goods_id"]];
                     PDDModel.min_ratio = [kMeUnNilStr(content[@"min_ratio"]) floatValue];
+                    
+                    NSDictionary *params = @{@"goods_id":kMeUnNilStr(PDDModel.goods_id),@"goods_name":kMeUnNilStr(PDDModel.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+                    [self saveClickRecordsWithType:@"41" params:params];
+                    
                     MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:PDDModel];
+                    vc.recordType = 4;
                    [baseVC.navigationController pushViewController:vc animated:YES];
                 }else if([strType isEqualToString:@"19"]){
                     NSDictionary *content = [self dictionaryWithJsonString:model.content];
@@ -587,7 +597,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                     JDModel.priceInfo = priceInfo;
                     JDModel.min_ratio = [kMeUnNilStr(content[@"min_ratio"]) floatValue];
 
+                    NSDictionary *params = @{@"skuId":kMeUnNilStr(JDModel.skuId),@"skuName":kMeUnNilStr(JDModel.skuName),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+                    [self saveClickRecordsWithType:@"45" params:params];
+                    
                     MEJDCoupleMailDetalVC *vc = [[MEJDCoupleMailDetalVC alloc]initWithModel:JDModel];
+                    vc.recordType = 4;
                     [baseVC.navigationController pushViewController:vc animated:YES];
                 }else{
                     
@@ -615,6 +629,23 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         return nil;
     }
     return dic;
+}
+
+- (void)saveClickRecordsWithType:(NSString *)type params:(NSDictionary *)params {
+    NSDate *date = [[NSDate alloc] init];
+    
+    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:params];
+    [tempDic setObject:[date getNowDateFormatterString] forKey:@"created_at"];
+    
+    NSString *paramsStr = [NSString convertToJsonData:[tempDic copy]];
+    NSMutableArray *records = [[NSMutableArray alloc] init];
+    if ([kMeUserDefaults objectForKey:kMEGetClickRecord]) {
+        [records addObjectsFromArray:(NSArray *)[kMeUserDefaults objectForKey:kMEGetClickRecord]];
+    }
+    
+    [records addObject:@{@"type":type,@"parameter":paramsStr}];
+    [kMeUserDefaults setObject:records forKey:kMEGetClickRecord];
+    [kMeUserDefaults synchronize];
 }
 
 @end

@@ -1071,6 +1071,7 @@
 		EB782FE722CF485D00D0A165 /* MEMyGroupOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB782FE622CF485D00D0A165 /* MEMyGroupOrderVC.m */; };
 		EB782FEA22CF487F00D0A165 /* MEMyGroupOrderContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB782FE922CF487F00D0A165 /* MEMyGroupOrderContentVC.m */; };
 		EB782FED22CF4F7400D0A165 /* MEGroupOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB782FEC22CF4F7400D0A165 /* MEGroupOrderModel.m */; };
+		EB784BDE22DC1D50006AA1C1 /* NSDate+DateFormatterString.m in Sources */ = {isa = PBXBuildFile; fileRef = EB784BDD22DC1D50006AA1C1 /* NSDate+DateFormatterString.m */; };
 		EB7E83FE229CCF9300C9E14C /* MERefundOrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7E83FD229CCF9300C9E14C /* MERefundOrderListVC.m */; };
 		EB7E8401229CE78900C9E14C /* MEApplyRefundVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7E8400229CE78900C9E14C /* MEApplyRefundVC.m */; };
 		EB7E8405229D233E00C9E14C /* MERefundModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7E8404229D233E00C9E14C /* MERefundModel.m */; };
@@ -3003,6 +3004,8 @@
 		EB782FE922CF487F00D0A165 /* MEMyGroupOrderContentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEMyGroupOrderContentVC.m; sourceTree = "<group>"; };
 		EB782FEB22CF4F7400D0A165 /* MEGroupOrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEGroupOrderModel.h; sourceTree = "<group>"; };
 		EB782FEC22CF4F7400D0A165 /* MEGroupOrderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEGroupOrderModel.m; sourceTree = "<group>"; };
+		EB784BDC22DC1D50006AA1C1 /* NSDate+DateFormatterString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+DateFormatterString.h"; sourceTree = "<group>"; };
+		EB784BDD22DC1D50006AA1C1 /* NSDate+DateFormatterString.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DateFormatterString.m"; sourceTree = "<group>"; };
 		EB7E83FC229CCF9300C9E14C /* MERefundOrderListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERefundOrderListVC.h; sourceTree = "<group>"; };
 		EB7E83FD229CCF9300C9E14C /* MERefundOrderListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERefundOrderListVC.m; sourceTree = "<group>"; };
 		EB7E83FF229CE78900C9E14C /* MEApplyRefundVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEApplyRefundVC.h; sourceTree = "<group>"; };
@@ -5222,6 +5225,7 @@
 		36D66F13213F8BC2000476FF /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				EB784BD822DC1C80006AA1C1 /* NSDate */,
 				36371551218ACE7E0057E59F /* UIButton */,
 				EB6D02992151D9060053B19E /* NSArray */,
 				366D5B1E214A4EFB0021C1BB /* UITextView */,
@@ -6581,6 +6585,15 @@
 			path = Prize;
 			sourceTree = "<group>";
 		};
+		EB784BD822DC1C80006AA1C1 /* NSDate */ = {
+			isa = PBXGroup;
+			children = (
+				EB784BDC22DC1D50006AA1C1 /* NSDate+DateFormatterString.h */,
+				EB784BDD22DC1D50006AA1C1 /* NSDate+DateFormatterString.m */,
+			);
+			path = NSDate;
+			sourceTree = "<group>";
+		};
 		EB7E83FB229CCF3600C9E14C /* RefundVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -7816,6 +7829,7 @@
 				36FEEBD9214CEFB400060209 /* MEMidelButton.m in Sources */,
 				36021ADA214B7E95001B8DAF /* MEServiceDetailsBottomView.m in Sources */,
 				36472B0621C8E15C00CC3E48 /* JXCategoryIndicatorParamsModel.m in Sources */,
+				EB784BDE22DC1D50006AA1C1 /* NSDate+DateFormatterString.m in Sources */,
 				363007172148BFD300C88264 /* MEDistributionTeamVC.m in Sources */,
 				369BDBF5224B815900F3D056 /* MEAddGoodVC.m in Sources */,
 				36FD63FF213FAB0E009743C5 /* NSMutableAttributedString+MESize.m in Sources */,

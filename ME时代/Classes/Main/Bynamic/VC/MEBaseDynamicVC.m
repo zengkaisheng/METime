@@ -165,7 +165,12 @@
         {//淘宝
             MECoupleModel *TBmodel = [[MECoupleModel alloc] init];
             TBmodel.min_ratio = model.min_ratio;
+            
+            NSDictionary *params = @{@"num_iid":kMeUnNilStr(TBmodel.num_iid),@"item_title":kMeUnNilStr(TBmodel.title)};
+            [self saveClickRecordsWithType:@"25" params:params];
+            
             MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.tbk_num_iids couponId:kMeUnNilStr(model.tbk_coupon_id) couponurl:kMeUnNilStr(model.tbk_coupon_share_url) Model:TBmodel];
+            vc.recordType = 3;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -176,6 +181,10 @@
             PDDModel.min_ratio = model.min_ratio;
             MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:PDDModel];
             vc.isDynamic = YES;
+            vc.recordType = 3;
+            NSDictionary *params = @{@"goods_id":kMeUnNilStr(PDDModel.goods_id),@"goods_name":kMeUnNilStr(PDDModel.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+            [self saveClickRecordsWithType:@"29" params:params];
+            
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -207,8 +216,12 @@
             JDModel.priceInfo = priceInfo;
             JDModel.min_ratio = model.min_ratio;
             
+            NSDictionary *params = @{@"skuId":kMeUnNilStr(JDModel.skuId),@"skuName":kMeUnNilStr(JDModel.skuName),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+            [self saveClickRecordsWithType:@"33" params:params];
+            
             MEJDCoupleMailDetalVC *vc = [[MEJDCoupleMailDetalVC alloc]initWithModel:JDModel];
             vc.isDynamic = YES;
+            vc.recordType = 3;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -233,6 +246,22 @@
         _shareText = model.goods_title;
         [self showShareViewWithModel:model];
     }
+    NSString *typeStr;
+    switch (_type) {
+        case 1:
+            typeStr = @"12";
+            break;
+        case 2:
+            typeStr = @"14";
+            break;
+        case 3:
+            typeStr = @"16";
+            break;
+        default:
+            break;
+    }
+    NSDictionary *params = @{@"uid":kMeUnNilStr(kCurrentUser.uid)};
+    [self saveClickRecordsWithType:typeStr params:params];
     /*
      MEBynamicHomeModel *model = self.refresh.arrData[index];
      UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];

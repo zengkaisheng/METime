@@ -293,6 +293,9 @@ NS_INLINE NSString *kMeFilePathAtDocumentWithName(NSString *fileNAme){
 //获取网络状态
 #define kMEGetNetStatus  @"getNetStatus"
 
+//统计点击率
+#define kMEGetClickRecord  @"getClickRecord"
+
 //自提订单搜索历史记录
 #define kMESelfExtraceSearchVCSearchHistoriesCachePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"kMESelfExtraceSearchVC.plist"]
 

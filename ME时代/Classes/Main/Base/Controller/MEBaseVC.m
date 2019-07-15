@@ -55,6 +55,23 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)saveClickRecordsWithType:(NSString *)type params:(NSDictionary *)params {
+    NSDate *date = [[NSDate alloc] init];
+    
+    NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:params];
+    [tempDic setObject:[date getNowDateFormatterString] forKey:@"created_at"];
+    
+    NSString *paramsStr = [NSString convertToJsonData:[tempDic copy]];
+    NSMutableArray *records = [[NSMutableArray alloc] init];
+    if ([kMeUserDefaults objectForKey:kMEGetClickRecord]) {
+        [records addObjectsFromArray:(NSArray *)[kMeUserDefaults objectForKey:kMEGetClickRecord]];
+    }
+    
+    [records addObject:@{@"type":type,@"parameter":paramsStr}];
+    [kMeUserDefaults setObject:records forKey:kMEGetClickRecord];
+    [kMeUserDefaults synchronize];
+}
+
 #pragma mark - Getter/Setter
 //- (UIButton *)backButton {
 //    if(!_backButton) {

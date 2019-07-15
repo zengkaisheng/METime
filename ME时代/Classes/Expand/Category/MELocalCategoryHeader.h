@@ -32,5 +32,6 @@
 #import "NSObject+MEDebugDescription.h"
 #import "UIImage+MEGIF.h"
 #import "UIButton+ImageTitleStyle.h"
+#import "NSDate+DateFormatterString.h"
 
 #endif /* MELocalCategoryHeader_h */

@@ -167,11 +167,6 @@
     }
 }
 
-- (void)recordClickNumberWithParams:(NSDictionary *)params typeStr:(NSString *)typeStr{
-    NSString *paramsStr = [NSString convertToJsonData:params];
-    [MEPublicNetWorkTool recordTapActionWithParameter:@{@"type":typeStr,@"parameter":paramsStr}];
-}
-
 #pragma mark- CollectionView Delegate And DataSource
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if(_isMater){
@@ -194,7 +189,7 @@
                     break;
             }
             NSDictionary *params = @{@"goods_id":kMeUnNilStr(model.goods_id),@"goods_name":kMeUnNilStr(model.goods_name),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-            [self recordClickNumberWithParams:params typeStr:typeStr];
+            [self saveClickRecordsWithType:typeStr params:params];
             
             [self.navigationController pushViewController:vc animated:YES];
         }else {
@@ -212,7 +207,7 @@
                     break;
             }
             NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
-            [self recordClickNumberWithParams:params typeStr:typeStr];
+            [self saveClickRecordsWithType:typeStr params:params];
             
             if(kMeUnNilStr(model.coupon_id).length){
                 MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
