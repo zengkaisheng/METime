@@ -30,4 +30,7 @@
 
 //数据转JSon
 +(NSString *)convertToJsonData:(id)dict;
+//json转字典
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
+
 @end

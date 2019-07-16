@@ -249,10 +249,11 @@
             kMeSTRONGSELF
             NSArray<JSValue *> *args = [JSContext currentArguments];
             if (args.count > 0) {
-                if ([args[0] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *info = (NSDictionary *)args[0];
+                NSString *session = args[0].toString;
+                NSDictionary *info = [NSString dictionaryWithJsonString:session];
+                NSLog(@"info:%@",info);
+                if ([info.allKeys count] > 0) {
                     NSString *product_id = kMeUnNilStr(info[@"product_id"]);
-                    NSLog(@"product_id:%@",product_id);
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:[product_id integerValue]];
                         [strongSelf.navigationController pushViewController:dvc animated:YES];
@@ -265,14 +266,27 @@
             kMeSTRONGSELF
             NSArray<JSValue *> *args = [JSContext currentArguments];
             if (args.count > 0) {
-                if ([args[0] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *info = (NSDictionary *)args[0];
-                    NSLog(@"info:%@",info);
+                NSString *session = args[0].toString;
+                NSDictionary *info = [NSString dictionaryWithJsonString:session];
+                NSLog(@"info:%@",info);
+                if ([info.allKeys count] > 0) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        MECoupleModel *TBmodel = [[MECoupleModel alloc] init];
+                        MECoupleModel *TBmodel = [MECoupleModel mj_objectWithKeyValues:info];
                         TBmodel.min_ratio = [kMeUnNilStr(info[@"min_ratio"]) floatValue];
-                        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:[NSString stringWithFormat:@"%@",info[@"tbk_num_iids"]] couponId:kMeUnNilStr(info[@"tbk_coupon_id"]) couponurl:kMeUnNilStr(info[@"tbk_coupon_share_url"]) Model:TBmodel];
-                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                        TBmodel.num_iid = kMeUnNilStr(info[@"tbk_num_iids"]);
+                        TBmodel.coupon_id = kMeUnNilStr(info[@"tbk_coupon_id"]);
+                        TBmodel.coupon_share_url = kMeUnNilStr(info[@"tbk_coupon_share_url"]);
+                        
+                        if([kMeUnNilStr(info[@"tbk_coupon_id"]) length] > 0){
+                            MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc] initWithProductrId:[NSString stringWithFormat:@"%@",kMeUnNilStr(info[@"tbk_num_iids"])] couponId:kMeUnNilStr(info[@"tbk_coupon_id"]) couponurl:kMeUnNilStr(info[@"tbk_coupon_share_url"]) Model:TBmodel];
+//                            dvc.recordType = 1;
+                            [strongSelf.navigationController pushViewController:dvc animated:YES];
+                        }else{
+                            TBmodel.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(info[@"tbk_coupon_share_url"])];//;
+                            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:TBmodel];
+//                            vc.recordType = 1;
+                            [strongSelf.navigationController pushViewController:vc animated:YES];
+                        }
                     });
                 }
             }
@@ -282,15 +296,16 @@
             kMeSTRONGSELF
             NSArray<JSValue *> *args = [JSContext currentArguments];
             if (args.count > 0) {
-                if ([args[0] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *info = (NSDictionary *)args[0];
-                    NSLog(@"info:%@",info);
+                NSString *session = args[0].toString;
+                NSDictionary *info = [NSString dictionaryWithJsonString:session];
+                NSLog(@"info:%@",info);
+                if ([info.allKeys count] > 0) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         MEPinduoduoCoupleModel *PDDModel = [[MEPinduoduoCoupleModel alloc] init];
                         PDDModel.goods_id = [NSString stringWithFormat:@"%@",kMeUnNilStr(info[@"ddk_goods_id"])];
                         CGFloat min_ratio = [kMeUnNilStr(info[@"min_ratio"]) floatValue];
-                        PDDModel.min_ratio = [MECommonTool changeformatterWithFen:@(min_ratio)].floatValue;
-                        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:PDDModel];
+                        PDDModel.min_ratio = min_ratio;
+                        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc] initWithPinduoudoModel:PDDModel];
                         [strongSelf.navigationController pushViewController:vc animated:YES];
                     });
                 }
@@ -301,9 +316,10 @@
             kMeSTRONGSELF
             NSArray<JSValue *> *args = [JSContext currentArguments];
             if (args.count > 0) {
-                if ([args[0] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *info = (NSDictionary *)args[0];
-                    NSLog(@"info:%@",info);
+                NSString *session = args[0].toString;
+                NSDictionary *info = [NSString dictionaryWithJsonString:session];
+                NSLog(@"info:%@",info);
+                if ([info.allKeys count] > 0) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         MEJDCoupleModel *JDModel = [[MEJDCoupleModel alloc] init];
                         JDModel.materialUrl = kMeUnNilStr(info[@"jd_material_url"]);
@@ -320,8 +336,9 @@
                         JDModel.couponInfo = couponInfo;
                         
                         ImageInfo *imgInfo = [ImageInfo new];
-                        NSArray *imageList = kMeUnArr(info[@"imageList"]);
-                        
+                        NSArray *imageList = [NSJSONSerialization JSONObjectWithData:[kMeUnNilStr(info[@"imageList"]) dataUsingEncoding:NSUTF8StringEncoding]
+                                                                             options:NSJSONReadingAllowFragments
+                                                                               error:nil];
                         imgInfo.imageList = imageList;
                         JDModel.imageInfo = imgInfo;
                         
@@ -343,9 +360,10 @@
             kMeSTRONGSELF
             NSArray<JSValue *> *args = [JSContext currentArguments];
             if (args.count > 0) {
-                if ([args[0] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *info = (NSDictionary *)args[0];
-                    NSLog(@"info:%@",info);
+                NSString *session = args[0].toString;
+                NSDictionary *info = [NSString dictionaryWithJsonString:session];
+                NSLog(@"info:%@",info);
+                if ([info.allKeys count] > 0) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(info[@"shareImage"])]]];
                         [strongSelf shareWithUrl:kMeUnNilStr(info[@"sharWebpageUrl"]) title:kMeUnNilStr(info[@"shareTitle"]) image:image description:kMeUnNilStr(info[@"shareDescriptionBody"]) type:UMSocialPlatformType_WechatSession];
@@ -358,9 +376,10 @@
             kMeSTRONGSELF
             NSArray<JSValue *> *args = [JSContext currentArguments];
             if (args.count > 0) {
-                if ([args[0] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *info = (NSDictionary *)args[0];
-                    NSLog(@"info:%@",info);
+                NSString *session = args[0].toString;
+                NSDictionary *info = [NSString dictionaryWithJsonString:session];
+                NSLog(@"info:%@",info);
+                if ([info.allKeys count] > 0) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [strongSelf shareWithUrl:MEIPShare title:@"一款自买省钱分享赚钱的购物神器！" image:kMeGetAssetImage(@"icon-wgvilogo") description:kMeUnNilStr(info[@"shareContent"]) type:UMSocialPlatformType_WechatTimeLine];
                     });
@@ -372,9 +391,10 @@
             kMeSTRONGSELF
             NSArray<JSValue *> *args = [JSContext currentArguments];
             if (args.count > 0) {
-                if ([args[0] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *info = (NSDictionary *)args[0];
-                    NSLog(@"info:%@",info);
+                NSString *session = args[0].toString;
+                NSDictionary *info = [NSString dictionaryWithJsonString:session];
+                NSLog(@"info:%@",info);
+                if ([info.allKeys count] > 0) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [strongSelf openTbActivityWithActivityUrl:kMeUnNilStr(info[@"TBActivityUrl"])];
                     });
@@ -386,9 +406,10 @@
             kMeSTRONGSELF
             NSArray<JSValue *> *args = [JSContext currentArguments];
             if (args.count > 0) {
-                if ([args[0] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *info = (NSDictionary *)args[0];
-                    NSLog(@"info:%@",info);
+                NSString *session = args[0].toString;
+                NSDictionary *info = [NSString dictionaryWithJsonString:session];
+                NSLog(@"info:%@",info);
+                if ([info.allKeys count] > 0) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         if([MEUserInfoModel isLogin]){
                             MEBargainDetailVC *bargainVC = [[MEBargainDetailVC alloc] initWithBargainId:[kMeUnNilStr(info[@"bargain_id"]) integerValue] myList:NO];
@@ -410,9 +431,10 @@
             kMeSTRONGSELF
             NSArray<JSValue *> *args = [JSContext currentArguments];
             if (args.count > 0) {
-                if ([args[0] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *info = (NSDictionary *)args[0];
-                    NSLog(@"info:%@",info);
+                NSString *session = args[0].toString;
+                NSDictionary *info = [NSString dictionaryWithJsonString:session];
+                NSLog(@"info:%@",info);
+                if ([info.allKeys count] > 0) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         if([MEUserInfoModel isLogin]){
                             MEGroupProductDetailVC *groupVC = [[MEGroupProductDetailVC alloc] initWithProductId:[kMeUnNilStr(info[@"product_id"]) integerValue]];
@@ -433,9 +455,10 @@
             kMeSTRONGSELF
             NSArray<JSValue *> *args = [JSContext currentArguments];
             if (args.count > 0) {
-                if ([args[0] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *info = (NSDictionary *)args[0];
-                    NSLog(@"info:%@",info);
+                NSString *session = args[0].toString;
+                NSDictionary *info = [NSString dictionaryWithJsonString:session];
+                NSLog(@"info:%@",info);
+                if ([info.allKeys count] > 0) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         if([MEUserInfoModel isLogin]){
                             MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:kMeUnNilStr(info[@"activity_id"])];

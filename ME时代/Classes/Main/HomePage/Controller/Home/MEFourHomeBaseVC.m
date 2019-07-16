@@ -562,7 +562,7 @@ const static CGFloat kImgStore = 50;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 //    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
 //    webVC.showProgress = YES;
-//    [webVC loadURL:[NSURL URLWithString:@"http://test.meshidai.com/jump.html"]];
+//    [webVC loadURL:[NSURL URLWithString:@"http://test.meshidai.com/jump/index.html?activity_id=34"]];
 //    [self.navigationController pushViewController:webVC animated:YES];
     if (_type == 0) {
         if (indexPath.section == 1) {
@@ -577,10 +577,10 @@ const static CGFloat kImgStore = 50;
         }
         if (indexPath.section == 6) {
             MECoupleModel *model = self.refresh.arrData[indexPath.row];
-            
+
             NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title)};
             [self saveClickRecordsWithType:@"3" params:params];
-            
+
             if(kMeUnNilStr(model.coupon_id).length){
                 MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc] initWithProductrId:kMeUnNilStr(model.num_iid) couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
                 dvc.recordType = 1;
@@ -594,10 +594,10 @@ const static CGFloat kImgStore = 50;
         }
     }else {
         MECoupleModel *model = self.refresh.arrData[indexPath.row];
-        
+
         NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title)};
         [self saveClickRecordsWithType:@"3" params:params];
-        
+
         if(kMeUnNilStr(model.coupon_id).length){
             MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
             dvc.recordType = 1;
