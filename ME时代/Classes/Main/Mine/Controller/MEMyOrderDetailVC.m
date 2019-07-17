@@ -86,7 +86,7 @@
         if(strongSelf->_isSelf==YES &&
            strongSelf->_detaliModel.store_get &&
            strongSelf->_detaliModel.store_get.get_status==MEOSelfNotExtractionrderStyle)
-        {
+        {   
             strongSelf.tableView.tableFooterView = strongSelf.bottomSelfExtractView;
         }
         [strongSelf.view addSubview:strongSelf.tableView];

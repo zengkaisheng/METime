@@ -52,28 +52,8 @@
     
     self.view.backgroundColor = kMEf5f4f4;
     _currentIndex = 0;
-    _arrDicParm = @[@{@"type":@"3"},@{@"material_id":@"3756"},@{@"material_id":@"3786"},@{@"material_id":@"3767"},@{@"material_id":@"3763"},@{@"material_id":@"3760"}];
-    
-    self.scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMEThridHomeNavViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEThridHomeNavViewHeight)];
-    self.scrollview.delegate = self;
-    self.scrollview.pagingEnabled = YES;
-    self.scrollview.contentSize = CGSizeMake(SCREEN_WIDTH * _arrDicParm.count,  SCREEN_HEIGHT-kMeTabBarHeight-kMEThridHomeNavViewHeight);//
-    self.scrollview.bounces = NO;
-    self.scrollview.showsVerticalScrollIndicator = NO;
-    self.scrollview.showsHorizontalScrollIndicator = NO;
-    [self.scrollview addSubview:self.choseVC.view];
-    [self.scrollview addSubview:self.specialSaleVC.view];
-    [self.scrollview addSubview:self.guessVC.view];
-    [self.scrollview addSubview:self.ladiesVC.view];
-    [self.scrollview addSubview:self.cosmeticsVC.view];
-    [self.scrollview addSubview:self.pregnantVC.view];
-
-    [self.view addSubview:self.scrollview];
-    
-    self.navView.backgroundColor = [UIColor colorWithHexString:@"#E52E26"];
-    [self.view addSubview:self.navView];
-    self.navView.categoryView.contentScrollView = self.scrollview;
-    self.navBarHidden = YES;
+//    _arrDicParm = @[@{@"type":@"3"},@{@"material_id":@"3756"},@{@"material_id":@"3786"},@{@"material_id":@"3767"},@{@"material_id":@"3763"},@{@"material_id":@"3760"}];
+    [self requestMaterialData];
     
     [self getRushGood];
     [self getUnInfo];
@@ -82,6 +62,64 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogin) name:kUserLogin object:nil];
     
     [self requestNetWorhWithClickRecord];
+}
+
+- (void)requestMaterialData {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetMaterialWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSArray class]]) {
+            strongSelf->_arrDicParm = [NSArray arrayWithArray:(NSArray *)responseObject.data];
+        }else {
+            strongSelf->_arrDicParm = [[NSArray alloc] init];
+        }
+        [strongSelf setUpUI];
+    } failure:^(id object) {
+        
+    }];
+}
+
+- (void)setUpUI {
+    self.scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMEThridHomeNavViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEThridHomeNavViewHeight)];
+    self.scrollview.delegate = self;
+    self.scrollview.pagingEnabled = YES;
+    self.scrollview.contentSize = CGSizeMake(SCREEN_WIDTH * _arrDicParm.count,  SCREEN_HEIGHT-kMeTabBarHeight-kMEThridHomeNavViewHeight);//
+    self.scrollview.bounces = NO;
+    self.scrollview.showsVerticalScrollIndicator = NO;
+    self.scrollview.showsHorizontalScrollIndicator = NO;
+//    [self.scrollview addSubview:self.choseVC.view];
+//    [self.scrollview addSubview:self.specialSaleVC.view];
+//    [self.scrollview addSubview:self.guessVC.view];
+//    [self.scrollview addSubview:self.ladiesVC.view];
+//    [self.scrollview addSubview:self.cosmeticsVC.view];
+//    [self.scrollview addSubview:self.pregnantVC.view];
+    for (int i = 0; i < _arrDicParm.count; i++) {
+        MEFourHomeBaseVC *VC = [[MEFourHomeBaseVC alloc] initWithType:i materialArray:_arrDicParm];
+        VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        VC.view.frame = CGRectMake(SCREEN_WIDTH*i,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEThridHomeNavViewHeight);
+        [self addChildViewController:VC];
+        if (i == 0) {
+            kMeWEAKSELF
+            VC.changeColorBlock = ^(id object) {
+                kMeSTRONGSELF
+                if (strongSelf->_contentOffSetX <= SCREEN_WIDTH) {
+                    if ([object isKindOfClass:[UIColor class]]) {
+                        UIColor *color = (UIColor *)object;
+                        strongSelf.navView.backgroundColor = color;
+                    }
+                }
+            };
+        }
+        [self.scrollview addSubview:VC.view];
+    }
+    
+    [self.view addSubview:self.scrollview];
+    
+    self.navView.backgroundColor = [UIColor colorWithHexString:@"#E52E26"];
+    [self.navView setMaterArray:_arrDicParm];
+    [self.view addSubview:self.navView];
+    self.navView.categoryView.contentScrollView = self.scrollview;
+    self.navBarHidden = YES;
 }
 
 - (void)requestNetWorhWithClickRecord {
@@ -97,7 +135,13 @@
 - (void)userLogout{
     [self.navView setRead:YES];
     _stroeModel = nil;
-    [self.choseVC setHeaderViewUIWithModel:_homeModel stroeModel:_stroeModel optionsArray:@[]];
+//    [self.choseVC setHeaderViewUIWithModel:_homeModel stroeModel:_stroeModel optionsArray:@[]];
+    [self.choseVC reloadData];
+    [self.specialSaleVC reloadData];
+    [self.guessVC reloadData];
+    [self.ladiesVC reloadData];
+    [self.cosmeticsVC reloadData];
+    [self.pregnantVC reloadData];
 }
 
 - (void)userLogin{
@@ -201,7 +245,7 @@
     }
     return _navView;
 }
-
+/*
 - (MEFourHomeBaseVC *)choseVC {
     if (!_choseVC) {
         _choseVC = [[MEFourHomeBaseVC alloc] initWithType:0];
@@ -271,6 +315,6 @@
     }
     return _pregnantVC;
 }
-
+*/
 
 @end

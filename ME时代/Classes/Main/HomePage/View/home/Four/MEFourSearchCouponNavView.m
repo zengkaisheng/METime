@@ -140,7 +140,7 @@
 
 - (UIButton *)cancelBtn{
     if(!_cancelBtn){
-        _cancelBtn = [MEView btnWithFrame:CGRectMake(self.searchTF.right+10, self.searchTF.top, 32, 32) Img:nil title:@"取消" target:self Action:@selector(cancelBtnAction)];
+        _cancelBtn = [MEView btnWithFrame:CGRectMake(self.searchTF.right, self.searchTF.top, 46, 36) Img:nil title:@"取消" target:self Action:@selector(cancelBtnAction)];
         [_cancelBtn setTitleColor:kMEPink forState:UIControlStateNormal];
         _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     }

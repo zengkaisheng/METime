@@ -45,7 +45,7 @@
     _lblJuanedPrice.text =[NSString stringWithFormat:@"¥%.1f",kMeUnNilStr(model.truePrice).floatValue];
     //卷价格
     _lblJuan.text =[NSString stringWithFormat:@"%@元券",kMeUnNilStr(model.couponPrice)];
-    _lblTime.text =[NSString stringWithFormat:@"有效时间%@~%@",kMeUnNilStr(model.coupon_start_time),kMeUnNilStr(model.coupon_end_time)];
+    _lblTime.text =[NSString stringWithFormat:@"有效时间:%@~%@",kMeUnNilStr(model.coupon_start_time),kMeUnNilStr(model.coupon_end_time)];
 }
 
 - (void)setPinduoduoUIWithModel:(MEPinduoduoCoupleInfoModel *)model{

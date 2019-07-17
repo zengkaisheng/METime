@@ -92,6 +92,19 @@
     self.viewForUnread.hidden = read;
 }
 
+- (void)setMaterArray:(NSArray *)materArray {
+    if (materArray.count <= 0) {
+        return;
+    }
+    NSMutableArray *titleArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < materArray.count; i++) {
+        NSDictionary *dic = materArray[i];
+        NSString *title = dic[@"title"];
+        [titleArray addObject:title];
+    }
+    self.categoryView.titles = [titleArray copy];
+}
+
 - (void)searchProduct{
     kMeCallBlock(_searchBlock);
 //    METhridHomeVC *homeVC = (METhridHomeVC *)[MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];

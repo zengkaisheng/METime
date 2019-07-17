@@ -293,7 +293,7 @@
         {
             MECoupleModel *model = self.refresh.arrData[indexPath.row];
             
-            NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title)};
+            NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
             [self saveClickRecordsWithType:@"49" params:params];
             
             if(kMeUnNilStr(model.coupon_id).length){

@@ -309,9 +309,8 @@ static void *XFWkwebBrowserContext = &XFWkwebBrowserContext;
         if (@available(iOS 9.0, *)) {
             Configuration.allowsAirPlayForMediaPlayback = YES;
         } else {
-            // Fallback on earlier versions
+            Configuration.allowsInlineMediaPlayback = YES;
         }
-        Configuration.allowsInlineMediaPlayback = YES;
         Configuration.selectionGranularity = YES;
         Configuration.processPool = [[WKProcessPool alloc] init];
         WKUserContentController * UserContentController = [[WKUserContentController alloc]init];

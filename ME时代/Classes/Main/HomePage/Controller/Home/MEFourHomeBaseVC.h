@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) kMeObjBlock changeColorBlock;//颜色改变
 @property (nonatomic, copy) kMeTextBlock changeStoreBlock;//改变小店
 
-- (instancetype)initWithType:(NSInteger)type;
+- (instancetype)initWithType:(NSInteger)type materialArray:(NSArray *)materialArray;
 
 - (void)setHeaderViewUIWithModel:(METhridHomeModel *)model stroeModel:(MEStoreModel *)storemodel optionsArray:(NSArray *)array;
 

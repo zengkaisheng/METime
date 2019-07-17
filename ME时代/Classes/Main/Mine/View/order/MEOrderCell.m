@@ -187,29 +187,51 @@
     
     switch ([model.order_status integerValue]) {
         case 3:
+        {
+            [_btnCancelOrder setTitle:@"待收货" forState:UIControlStateNormal];
             self.logisticsBtn.hidden = NO;
+        }
             break;
         case 4:
+        {
+            [_btnCancelOrder setTitle:@"已完成" forState:UIControlStateNormal];
             self.logisticsBtn.hidden = NO;
+        }
+            break;
+        case 7:
+        {
+            [_btnCancelOrder setTitle:@"退款中" forState:UIControlStateNormal];
+            self.logisticsBtn.hidden = YES;
+        }
+            break;
+        case 8:
+        {
+            [_btnCancelOrder setTitle:@"已退款" forState:UIControlStateNormal];
+            self.logisticsBtn.hidden = YES;
+        }
             break;
         case 10://进行中
         {
             [_btnCancelOrder setTitle:@"拼团中" forState:UIControlStateNormal];
+            self.logisticsBtn.hidden = YES;
         }
             break;
         case 11://完成
         {
             [_btnCancelOrder setTitle:@"拼团成功" forState:UIControlStateNormal];
+            self.logisticsBtn.hidden = NO;
         }
             break;
         case 12://失败
         {
             [_btnCancelOrder setTitle:@"拼团失败" forState:UIControlStateNormal];
+            self.logisticsBtn.hidden = YES;
         }
             break;
         default:
             break;
     }
+    [_btnCancelOrder setTitle:kMeUnNilStr(model.order_status_name) forState:UIControlStateNormal];
     _lblOrderNum.text = kMeUnNilStr(model.order_sn);
     [self.tableView reloadData];
 }
@@ -271,8 +293,14 @@
             [orderVC.navigationController pushViewController:vc animated:YES];
         }else {
             MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
-            MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
-            [orderVC.navigationController pushViewController:vc animated:YES];
+            MEOrderGoodModel *model = kMeUnArr(_model.children)[indexPath.row];
+            if (model.product_type == 7) {
+                MEGroupOrderDetailVC *vc = [[MEGroupOrderDetailVC alloc] initWithOrderSn:kMeUnNilStr(_model.order_sn)];
+                [orderVC.navigationController pushViewController:vc animated:YES];
+            }else {
+                MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
+                [orderVC.navigationController pushViewController:vc animated:YES];
+            }
         }
     }
 }

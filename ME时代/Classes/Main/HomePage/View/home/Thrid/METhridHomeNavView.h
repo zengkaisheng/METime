@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,copy) kMeBasicBlock searchBlock;
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
 
+- (void)setMaterArray:(NSArray *)materArray;
+
 @end
 
 NS_ASSUME_NONNULL_END

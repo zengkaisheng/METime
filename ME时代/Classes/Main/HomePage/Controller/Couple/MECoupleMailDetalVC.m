@@ -181,13 +181,20 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             kMeSTRONGSELF
             [MBProgressHUD hideHUDForView:strongSelf.view];
-            [strongSelf->_detailModel resetModelWithModel:strongSelf->_couponInfoModel];
-            strongSelf->_detailModel.coupon_click_url = [NSString stringWithFormat:@"https:%@",strongSelf->_couponurl];
-            [strongSelf.view addSubview:strongSelf.tableView];
-            [strongSelf.view addSubview:strongSelf.bottomView];
-            strongSelf.tableView.tableHeaderView = strongSelf.headerView;
-            [strongSelf.headerView setUIWithModel:strongSelf->_detailModel];
-            [strongSelf.tableView reloadData];
+            if (strongSelf->_couponInfoModel) {
+                [strongSelf->_detailModel resetModelWithModel:strongSelf->_couponInfoModel];
+                strongSelf->_detailModel.coupon_click_url = [NSString stringWithFormat:@"https:%@",strongSelf->_couponurl];
+                [strongSelf.view addSubview:strongSelf.tableView];
+                [strongSelf.view addSubview:strongSelf.bottomView];
+                strongSelf.tableView.tableHeaderView = strongSelf.headerView;
+                [strongSelf.headerView setUIWithModel:strongSelf->_detailModel];
+                [strongSelf.tableView reloadData];
+            }else {
+                [MECommonTool showMessage:@"优惠券不存在" view:strongSelf.view];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [strongSelf.navigationController popViewControllerAnimated:YES];
+                });
+            }
         });
     });
 }

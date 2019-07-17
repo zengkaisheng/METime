@@ -356,6 +356,8 @@
 
 /*********************************************/
 #pragma makr - home
+//获取淘宝客首页导航分类
+#define MEIPcommonGetMaterial @"common/taobaoke/getMaterial"
 
 //兑换审核状态
 #define MEIPcommonredeemgetStatus @"common/redeemcode/getStatus"

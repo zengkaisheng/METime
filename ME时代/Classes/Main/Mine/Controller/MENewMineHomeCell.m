@@ -58,6 +58,7 @@
 #import "MEBargainListVC.h"
 #import "MEMyBargainListVC.h"
 #import "MEMyGroupOrderVC.h"
+#import "MEFeedBackVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -299,6 +300,11 @@
         case MeMyGroup:{
             MEMyGroupOrderVC *groupVC = [[MEMyGroupOrderVC alloc]init];
             [homeVc.navigationController pushViewController:groupVC animated:YES];
+        }
+            break;
+        case MeMyFeedBack:{
+            MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc]init];
+            [homeVc.navigationController pushViewController:feedbackVC animated:YES];
         }
             break;
         default:

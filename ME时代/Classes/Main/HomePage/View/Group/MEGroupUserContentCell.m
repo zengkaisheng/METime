@@ -43,8 +43,8 @@
     kSDLoadImg(_headerPic, kMeUnNilStr(model.header_pic));
     _nameLbl.text = [NSString stringWithFormat:@"%@人",kMeUnNilStr(model.name)];
     
-    NSString *numberStr = [NSString stringWithFormat:@"还差%@人拼成",kMeUnNilStr(model.num)];
-    NSRange range = [numberStr rangeOfString:[NSString stringWithFormat:@"%@人",kMeUnNilStr(model.num)]];
+    NSString *numberStr = [NSString stringWithFormat:@"还差%ld人拼成",kMeUnNilStr(model.num).intValue];
+    NSRange range = [numberStr rangeOfString:[NSString stringWithFormat:@"%ld人",kMeUnNilStr(model.num).intValue]];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:numberStr];
     [attStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FF0000"] range:range];
     _numberLbl.attributedText = attStr;

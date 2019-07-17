@@ -67,9 +67,10 @@ const static CGFloat kImgStore = 50;
     kNSNotificationCenterDealloc
 }
 
-- (instancetype)initWithType:(NSInteger)type {
+- (instancetype)initWithType:(NSInteger)type  materialArray:(NSArray *)materialArray{
     if (self = [super init]) {
         _type = type;
+        _arrDicParm = [materialArray copy];
     }
     return self;
 }
@@ -78,7 +79,7 @@ const static CGFloat kImgStore = 50;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kMEf5f4f4;
-    _arrDicParm = @[@{@"material_id":@"9660"},@{@"material_id":@"3756"},@{@"material_id":@"3786"},@{@"material_id":@"3767"},@{@"material_id":@"3763"},@{@"material_id":@"3760"}];
+//    _arrDicParm = @[@{@"material_id":@"9660"},@{@"material_id":@"3756"},@{@"material_id":@"3786"},@{@"material_id":@"3767"},@{@"material_id":@"3763"},@{@"material_id":@"3760"}];
     //@[@{@"type":@"3"},@{@"material_id":@"3756"},@{@"material_id":@"3786"},@{@"material_id":@"3767"},@{@"material_id":@"3763"},@{@"material_id":@"3760"}];
     
     self.navBarHidden = YES;
@@ -578,7 +579,7 @@ const static CGFloat kImgStore = 50;
         if (indexPath.section == 6) {
             MECoupleModel *model = self.refresh.arrData[indexPath.row];
 
-            NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title)};
+            NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
             [self saveClickRecordsWithType:@"3" params:params];
 
             if(kMeUnNilStr(model.coupon_id).length){
@@ -595,7 +596,7 @@ const static CGFloat kImgStore = 50;
     }else {
         MECoupleModel *model = self.refresh.arrData[indexPath.row];
 
-        NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title)};
+        NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
         [self saveClickRecordsWithType:@"3" params:params];
 
         if(kMeUnNilStr(model.coupon_id).length){

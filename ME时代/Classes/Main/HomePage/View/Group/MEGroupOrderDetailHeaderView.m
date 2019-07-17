@@ -26,21 +26,35 @@
 }
 
 - (void)setUIWithModel:(MEGroupOrderDetailModel *)model {
-    switch ([kMeUnNilStr(model.order_status) integerValue]) {
-        case 10:
-            _orderStatus.text = @"订单状态：拼团进行中";
-//            _timeLbl.text = @"若拼单失败，款项将在7个工作日内退回到微信余额";
-            break;
-        case 11:
-            _orderStatus.text = @"订单状态：拼团成功";
-            break;
-        case 12:
-            _orderStatus.text = @"订单状态：拼团失败";
-//            _timeLbl.text = @"款项将在7个工作日内退回到微信余额";
-            break;
-        default:
-            break;
-    }
+    
+//    switch ([kMeUnNilStr(model.order_status) integerValue]) {
+//        case 3:
+//            _orderStatus.text = @"订单状态：待收货";
+//            break;
+//        case 4:
+//            _orderStatus.text = @"订单状态：已完成";
+//            break;
+//        case 7:
+//            _orderStatus.text = @"订单状态：退款中";
+//            break;
+//        case 8:
+//            _orderStatus.text = @"订单状态：已退款";
+//            break;
+//        case 10:
+//            _orderStatus.text = @"订单状态：拼团进行中";
+////            _timeLbl.text = @"若拼单失败，款项将在7个工作日内退回到微信余额";
+//            break;
+//        case 11:
+//            _orderStatus.text = @"订单状态：拼团成功";
+//            break;
+//        case 12:
+//            _orderStatus.text = @"订单状态：拼团失败";
+////            _timeLbl.text = @"款项将在7个工作日内退回到微信余额";
+//            break;
+//        default:
+//            break;
+//    }
+    _orderStatus.text = [NSString stringWithFormat:@"订单状态：%@",kMeUnNilStr(model.order_status_name)];
     _timeLbl.text = kMeUnNilStr(model.desc);
     
     _nameLbl.text = kMeUnNilStr(model.address.name);

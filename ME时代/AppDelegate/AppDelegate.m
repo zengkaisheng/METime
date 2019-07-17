@@ -543,18 +543,18 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                     [baseVC.navigationController popToRootViewControllerAnimated:YES];
                     tabBarController.selectedIndex = 2;
                 }else if([strType isEqualToString:@"17"]){
-                    NSDictionary *content = [self dictionaryWithJsonString:model.content];
+                    NSDictionary *content = [NSString dictionaryWithJsonString:kMeUnNilStr(model.content)];
                     MECoupleModel *TBmodel = [[MECoupleModel alloc] init];
                     TBmodel.min_ratio = [kMeUnNilStr(content[@"min_ratio"]) floatValue];
                     
-                    NSDictionary *params = @{@"num_iid":kMeUnNilStr(TBmodel.num_iid),@"item_title":kMeUnNilStr(TBmodel.title)};
+                    NSDictionary *params = @{@"num_iid":kMeUnNilStr(TBmodel.num_iid),@"item_title":kMeUnNilStr(TBmodel.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
                     [self saveClickRecordsWithType:@"37" params:params];
                     
                     MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithProductrId:[NSString stringWithFormat:@"%@",content[@"tbk_num_iids"]] couponId:kMeUnNilStr(content[@"tbk_coupon_id"]) couponurl:kMeUnNilStr(content[@"tbk_coupon_share_url"]) Model:TBmodel];
                     vc.recordType = 4;
                     [baseVC.navigationController pushViewController:vc animated:YES];
                 }else if([strType isEqualToString:@"18"]){
-                    NSDictionary *content = [self dictionaryWithJsonString:model.content];
+                    NSDictionary *content = [NSString dictionaryWithJsonString:kMeUnNilStr(model.content)];
                     MEPinduoduoCoupleModel *PDDModel = [[MEPinduoduoCoupleModel alloc] init];
                     PDDModel.goods_id = [NSString stringWithFormat:@"%@",content[@"ddk_goods_id"]];
                     PDDModel.min_ratio = [kMeUnNilStr(content[@"min_ratio"]) floatValue];
@@ -566,7 +566,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                     vc.recordType = 4;
                    [baseVC.navigationController pushViewController:vc animated:YES];
                 }else if([strType isEqualToString:@"19"]){
-                    NSDictionary *content = [self dictionaryWithJsonString:model.content];
+                    NSDictionary *content = [NSString dictionaryWithJsonString:kMeUnNilStr(model.content)];
                     NSLog(@"content:%@",content);
                     MEJDCoupleModel *JDModel = [[MEJDCoupleModel alloc] init];
                     JDModel.materialUrl = kMeUnNilStr(content[@"jd_material_url"]);
@@ -610,25 +610,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
             [alertView show];
         }
     }
-}
-
-- (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString
-{
-    if (jsonString == nil) {
-        return nil;
-    }
-    
-    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *err;
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                        options:NSJSONReadingMutableContainers
-                                                          error:&err];
-    if(err)
-    {
-        NSLog(@"json解析失败：%@",err);
-        return nil;
-    }
-    return dic;
 }
 
 - (void)saveClickRecordsWithType:(NSString *)type params:(NSDictionary *)params {

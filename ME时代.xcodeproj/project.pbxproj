@@ -6475,6 +6475,7 @@
 				EB6F123522CB46F800619D4D /* MECoupleFileCell.m */,
 				EB6F123322CB46F800619D4D /* MECoupleMailHeaderVIew.h */,
 				EB6F121A22CB46F800619D4D /* MECoupleMailHeaderVIew.m */,
+				EB6F122D22CB46F800619D4D /* MECoupleMailHeaderVIew.xib */,
 				EB6F121C22CB46F800619D4D /* MeCoupleFilterLeftCell.h */,
 				EB6F123222CB46F800619D4D /* MeCoupleFilterLeftCell.m */,
 				EB6F121E22CB46F800619D4D /* MECoupleFilterNavView.h */,
@@ -6482,7 +6483,6 @@
 				EB6F123422CB46F800619D4D /* MECoupleFilterNavView.xib */,
 				EB6F123122CB46F800619D4D /* MECoupleFilterHederView.h */,
 				EB6F121D22CB46F800619D4D /* MECoupleFilterHederView.m */,
-				EB6F122D22CB46F800619D4D /* MECoupleMailHeaderVIew.xib */,
 			);
 			path = Couple;
 			sourceTree = "<group>";
