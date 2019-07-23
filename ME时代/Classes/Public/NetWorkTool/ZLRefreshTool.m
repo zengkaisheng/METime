@@ -106,6 +106,10 @@ NSUInteger const kSizeNum = 10;
                 [MBProgressHUD hideHUD];
                 return;
             }
+            if (kMeUnObjectIsEmpty(responseObject.data)) {
+                [MBProgressHUD hideHUD];
+                return;
+            }
             if(strongSelf->_showMaskView&&strongSelf->_pageIndex==1){
                 [MBProgressHUD hideHUDForView:kMeCurrentWindow];
             }

@@ -107,6 +107,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="buyBtn" destination="lRD-k1-OZ3" id="toa-fp-i0y"/>
                 <outlet property="imgPic" destination="CVo-2V-bxK" id="w32-ac-dgK"/>
                 <outlet property="lblPrice" destination="VjN-lM-kVO" id="Wb5-cx-ePt"/>
                 <outlet property="lblSubTitle" destination="ftJ-TE-I04" id="amH-Tt-47J"/>

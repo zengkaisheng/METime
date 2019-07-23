@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblSubTitle;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblPrice;
+@property (weak, nonatomic) IBOutlet UIButton *buyBtn;
 
 @end
 
@@ -51,6 +52,45 @@
     
     _lblPrice.attributedText = aString;
     
+    if (model.type == 5) {
+//        switch (model.type) {
+//            case 1:
+//            {//未参加
+//                [_prizeBtn setTitle:@"参加抽奖" forState:UIControlStateNormal];
+//                [_prizeBtn setBackgroundColor:[UIColor colorWithHexString:@"#F03D38"]];
+//            }
+//                break;
+//            case 2:
+//            {//等待开奖
+//                [_prizeBtn setTitle:@"等待开奖" forState:UIControlStateNormal];
+//                [_prizeBtn setBackgroundColor:[UIColor colorWithHexString:@"#F03D38"]];
+//            }
+//                break;
+//            case 3:
+//            {//中奖(待领取)
+//                [_prizeBtn setTitle:@"领取奖品" forState:UIControlStateNormal];
+//                [_prizeBtn setBackgroundColor:[UIColor colorWithHexString:@"#F03D38"]];
+//            }
+//                break;
+//            case 4:
+//            {//未中奖
+//                [_prizeBtn setTitle:@"已结束" forState:UIControlStateNormal];
+//                [_prizeBtn setBackgroundColor:[UIColor colorWithHexString:@"#EEEEEE"]];
+//            }
+//                break;
+//            case 5:
+//            {//已领取
+//                [_prizeBtn setTitle:@"已领取" forState:UIControlStateNormal];
+//                [_prizeBtn setBackgroundColor:[UIColor colorWithHexString:@"#EEEEEE"]];
+//            }
+//                break;
+//            default:
+//                break;
+//        }
+        [_buyBtn setTitle:@"立即签到" forState:UIControlStateNormal];
+    }else {
+        [_buyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
+    }
 //    [_lblUnderLinePrice setLineStrWithStr:commStr];
 }
 - (IBAction)buyAction:(id)sender {

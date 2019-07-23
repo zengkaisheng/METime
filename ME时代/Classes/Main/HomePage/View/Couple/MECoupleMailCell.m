@@ -91,7 +91,7 @@
     _lblTitle.numberOfLines = 1;
     [_imgPic sd_setImageWithURL:[NSURL URLWithString:kMeUnNilStr(model.goods_thumbnail_url)] placeholderImage:kImgPlaceholder];
     _lblTitle.text = kMeUnNilStr(model.goods_name);
-    _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.sold_quantity).length>0?kMeUnNilStr(model.sold_quantity):@"0"];
+    _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.sales_tip).length>0?kMeUnNilStr(model.sales_tip):@"0"];
     /*
     _lblOrigalPrice.text = [NSString stringWithFormat:@"原价¥%@", [MECommonTool changeformatterWithFen:@(model.min_group_price)]];
      _lblJuan.text =[NSString stringWithFormat:@"%@元券",[MECommonTool changeformatterWithFen:@(model.coupon_discount)]];
@@ -135,7 +135,7 @@
     
     [_imgPic sd_setImageWithURL:[NSURL URLWithString:str] placeholderImage:kImgPlaceholder];
     _lblTitle.text = kMeUnNilStr(model.skuName);
-    _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.comments)];
+    _lblSale.text = [NSString stringWithFormat:@"%@评论",kMeUnNilStr(model.comments).length>0?kMeUnNilStr(model.comments):@"0"];
     /*
     _lblOrigalPrice.text = [NSString stringWithFormat:@"原价¥%@",kMeUnNilStr(model.priceInfo.price)];
      */

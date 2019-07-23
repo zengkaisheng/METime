@@ -111,6 +111,26 @@
 
             }];
         }
+    }else if (self.isGroup) {
+        MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+        NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+        baseUrl = [@"http" stringByAppendingString:baseUrl];
+        
+        //https://test.meshidai.com/dist/newAuth.html?id=7&uid=xxx
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@collage/newAuth.html?id=%ld&uid=%@&inviteCode=%@",baseUrl,(long)_model.product_id,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(kCurrentUser.invite_code)];
+        NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+        
+        shareTool.shareTitle = self.model.title;
+        shareTool.shareDescriptionBody = @"好友邀请您拼团！";
+        shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.model.images]]];
+        
+        [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+            [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+            [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+        } failure:^(NSError *error) {
+            [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+            
+        }];
     }else{
         
 #ifdef TestVersion
@@ -246,11 +266,7 @@
 
 - (void)setIsGroup:(BOOL)isGroup {
     _isGroup = isGroup;
-    if (isGroup) {
-        _btnShare.hidden = YES;
-    }else {
-        _btnShare.hidden = ![WXApi isWXAppInstalled];
-    }
+    _btnShare.hidden = ![WXApi isWXAppInstalled];
 }
 
 @end

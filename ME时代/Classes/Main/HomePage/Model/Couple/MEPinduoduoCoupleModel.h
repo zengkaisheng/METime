@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic, assign) CGFloat min_normal_price;
 @property (nonatomic, assign) CGFloat min_group_price;
 @property (nonatomic, assign) CGFloat min_ratio;
+@property (nonatomic, copy) NSString *sales_tip;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -105,6 +105,12 @@
         case 3:
             typeStr = @"29";
             break;
+        case 4:
+            typeStr = @"41";
+            break;
+        case 5:
+            typeStr = @"53";
+            break;
         default:
             break;
     }
@@ -112,6 +118,7 @@
     [self saveClickRecordsWithType:typeStr params:params];
 
     MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc] initWithPinduoudoModel:model];
+    vc.recordType = self.recordType;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -213,6 +220,12 @@
         case 8:
         {
             [self toTaoBaoActivityWithUrl:kMeUnNilStr(model.ad_url)];
+        }
+            break;
+        case 12://秒杀商品
+        {
+            METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+            [self.navigationController pushViewController:dvc animated:YES];
         }
             break;
         case 13:

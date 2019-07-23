@@ -34,6 +34,15 @@
     _consImgHeight.constant = SCREEN_WIDTH;
     _consSubViewW.constant = 100 * kMeFrameScaleX();
     
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(copyTitleAction)];
+    _lblTitle.userInteractionEnabled = YES;
+    [_lblTitle addGestureRecognizer:longPress];
+}
+
+- (void)copyTitleAction {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = kMeUnNilStr(_lblTitle.text);
+    [MEShowViewTool showMessage:@"标题复制成功" view:self];
 }
 
 - (void)setUIWithModel:(MECoupleModel *)model{

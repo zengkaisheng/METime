@@ -20,6 +20,8 @@
 #import "MECoupleModel.h"
 #import "MEJDCoupleModel.h"
 #import "MEJDCoupleMailDetalVC.h"
+#import "MECoupleMailVC.h"
+#import "ZLWebViewVC.h"
 
 @interface MEBaseDynamicVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 {
@@ -223,6 +225,25 @@
             vc.isDynamic = YES;
             vc.recordType = 3;
             [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 5:
+        {
+            if (model.ad_url) {
+                ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+                webVC.showProgress = YES;
+                [webVC loadURL:[NSURL URLWithString:kMeUnNilStr(model.ad_url)]];
+                [self.navigationController pushViewController:webVC animated:YES];
+            }
+        }
+            break;
+        case 6:
+        {
+            if (model.ad_id) {
+                MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
+                vc.recordType = 3;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
             break;
         default:

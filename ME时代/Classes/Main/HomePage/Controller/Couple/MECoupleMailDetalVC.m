@@ -17,6 +17,8 @@
 #import "MEPinduoduoCoupleInfoModel.h"
 #import "MEAddTbView.h"
 
+#import "MEShareCouponVC.h"
+
 #define MECoupleMailDetalVCbottomViewHeight 50
 
 @interface MECoupleMailDetalVC ()<UITableViewDelegate,UITableViewDataSource>{
@@ -101,10 +103,15 @@
         if([responseObject.data isKindOfClass:[NSDictionary class]]){
             NSArray *arr= responseObject.data[@"tbk_item_info_get_response"][@"results"][@"n_tbk_item"];
             if([arr isKindOfClass:[NSArray class]] && arr.count){
-                strongSelf->_detailModel = [MECoupleModel mj_objectWithKeyValues:arr[0]];
-                strongSelf->_detailModel.min_ratio = strongSelf->_min_ratio;
-                strongSelf->_detailModel.coupon_amount = strongSelf->_coupon_amount;
-                strongSelf->_detailModel.coupon_click_url = strongSelf->_coupon_click_url;
+                MECoupleModel *model = [MECoupleModel mj_objectWithKeyValues:arr[0]];
+                strongSelf->_detailModel.nick = model.nick;
+                strongSelf->_detailModel.num_iid = model.num_iid;
+                strongSelf->_detailModel.seller_id = model.seller_id;
+                strongSelf->_detailModel.user_type = model.user_type;
+                strongSelf->_detailModel.small_images = model.small_images;
+//                strongSelf->_detailModel.min_ratio = strongSelf->_min_ratio;
+//                strongSelf->_detailModel.coupon_amount = strongSelf->_coupon_amount;
+//                strongSelf->_detailModel.coupon_click_url = strongSelf->_coupon_click_url;
             }else{
                 strongSelf->_detailModel = [MECoupleModel new];
             }
@@ -334,16 +341,18 @@
 
             //拼多多
             if(_sharegoods_promotion_url){
-                MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-                shareTool.sharWebpageUrl = _sharegoods_promotion_url[@"we_app_web_view_short_url"];
-                shareTool.shareTitle = kMeUnNilStr(_pinduoduomodel.goods_name);
-                shareTool.shareDescriptionBody = kMeUnNilStr(_pinduoduomodel.goods_name);;
-                shareTool.shareImage = _headerView.imgPic.image;
-                [shareTool showShareView:kShareWebPageContentType success:^(id data) {
-                    NSLog(@"分享成功%@",data);
-                } failure:^(NSError *error) {
-                    
-                }];
+//                MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+//                shareTool.sharWebpageUrl = _sharegoods_promotion_url[@"we_app_web_view_short_url"];
+//                shareTool.shareTitle = kMeUnNilStr(_pinduoduomodel.goods_name);
+//                shareTool.shareDescriptionBody = kMeUnNilStr(_pinduoduomodel.goods_name);;
+//                shareTool.shareImage = _headerView.imgPic.image;
+//                [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+//                    NSLog(@"分享成功%@",data);
+//                } failure:^(NSError *error) {
+//
+//                }];
+                MEShareCouponVC *shareVC = [[MEShareCouponVC alloc] initWithPDDModel:_pinduoduoDetailmodel codeword:_sharegoods_promotion_url[@"we_app_web_view_short_url"]];
+                [self.navigationController pushViewController:shareVC animated:YES];
             }else{
                 NSString *goodId = [NSString stringWithFormat:@"[%@]",kMeUnNilStr(_pinduoduomodel.goods_id)];
                 kMeWEAKSELF
@@ -353,16 +362,18 @@
                     if(arr && arr.count){
                         strongSelf->_sharegoods_promotion_url = arr[0];
                     }
-                    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:strongSelf];
-                    shareTool.sharWebpageUrl = strongSelf->_sharegoods_promotion_url[@"we_app_web_view_short_url"];
-                    shareTool.shareTitle = kMeUnNilStr(strongSelf->_pinduoduomodel.goods_name);
-                    shareTool.shareDescriptionBody = kMeUnNilStr(strongSelf->_pinduoduomodel.goods_name);;
-                    shareTool.shareImage = strongSelf->_headerView.imgPic.image;
-                    [shareTool showShareView:kShareWebPageContentType success:^(id data) {
-                        NSLog(@"分享成功%@",data);
-                    } failure:^(NSError *error) {
-                        
-                    }];
+//                    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:strongSelf];
+//                    shareTool.sharWebpageUrl = strongSelf->_sharegoods_promotion_url[@"we_app_web_view_short_url"];
+//                    shareTool.shareTitle = kMeUnNilStr(strongSelf->_pinduoduomodel.goods_name);
+//                    shareTool.shareDescriptionBody = kMeUnNilStr(strongSelf->_pinduoduomodel.goods_name);;
+//                    shareTool.shareImage = strongSelf->_headerView.imgPic.image;
+//                    [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+//                        NSLog(@"分享成功%@",data);
+//                    } failure:^(NSError *error) {
+//
+//                    }];
+                    MEShareCouponVC *shareVC = [[MEShareCouponVC alloc] initWithPDDModel:strongSelf->_pinduoduoDetailmodel codeword:strongSelf->_sharegoods_promotion_url[@"we_app_web_view_short_url"]];
+                    [strongSelf.navigationController pushViewController:shareVC animated:YES];
                     
                 } failure:^(id object) {
                     
@@ -396,9 +407,11 @@
 
                 //淘宝
                 if(kMeUnNilStr(_Tpwd).length){
-                    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                    pasteboard.string = kMeUnNilStr(_Tpwd);
-                    [MEShowViewTool showMessage:@"分享口令复制成功,请发给朋友" view:self.view];
+//                    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//                    pasteboard.string = kMeUnNilStr(_Tpwd);
+//                    [MEShowViewTool showMessage:@"分享口令复制成功,请发给朋友" view:self.view];
+                    MEShareCouponVC *shareVC = [[MEShareCouponVC alloc] initWithTBModel:_detailModel codeword:_Tpwd];
+                    [self.navigationController pushViewController:shareVC animated:YES];
                 }else{
                     kMeWEAKSELF
                     NSString *rid = [NSString stringWithFormat:@"&relationId=%@",kCurrentUser.relation_id];
@@ -406,9 +419,11 @@
                     [MEPublicNetWorkTool postTaobaokeGetTpwdWithTitle:kMeUnNilStr(_detailModel.title) url:str logo:kMeUnNilStr(_detailModel.pict_url) successBlock:^(ZLRequestResponse *responseObject) {
                         kMeSTRONGSELF
                         strongSelf->_Tpwd = kMeUnNilStr(responseObject.data[@"tbk_tpwd_create_response"][@"data"][@"model"]);
-                        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-                        pasteboard.string = kMeUnNilStr(strongSelf->_Tpwd);
-                        [MEShowViewTool showMessage:@"分享口令复制成功,请发给朋友" view:strongSelf.view];
+//                        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//                        pasteboard.string = kMeUnNilStr(strongSelf->_Tpwd);
+//                        [MEShowViewTool showMessage:@"分享口令复制成功,请发给朋友" view:strongSelf.view];
+                        MEShareCouponVC *shareVC = [[MEShareCouponVC alloc] initWithTBModel:strongSelf->_detailModel codeword:strongSelf->_Tpwd];
+                        [strongSelf.navigationController pushViewController:shareVC animated:YES];
                     } failure:^(id object) {
                         
                     }];

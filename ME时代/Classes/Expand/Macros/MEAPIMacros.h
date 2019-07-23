@@ -389,6 +389,8 @@
 //获取APP首页标题
 #define MEIPcommonGetAppHomeTitle @"getAppHomeTitle"
 
+//获取首页推荐产品（商品、砍价、拼团、秒杀）2019-7-23
+#define MEIPcommonhomeGetHomeRecommend @"common/home/getHomeRecommend"
 //获取首页推荐产品(2019-04-30)
 #define MEIPcommonhomegetRecommend @"common/home/getRecommend"
 //获取推荐产品和抢购产品

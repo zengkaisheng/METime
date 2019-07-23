@@ -443,6 +443,12 @@
             [self toTaoBaoActivityWithUrl:kMeUnNilStr(model.ad_url)];
         }
             break;
+        case 12://秒杀商品
+        {
+            METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
         case 13:
         {//跳拼多多推荐商品列表
             MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];

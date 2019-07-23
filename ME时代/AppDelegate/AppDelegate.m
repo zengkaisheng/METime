@@ -37,6 +37,7 @@
 #import "MEJDCoupleModel.h"
 
 #import "MEGroupOrderDetailsVC.h"
+#import "MEGroupProductDetailVC.h"
 
 @interface AppDelegate ()<WXApiDelegate,UNUserNotificationCenterDelegate,JPUSHRegisterDelegate>
 
@@ -188,6 +189,17 @@
         NSArray *subArr = [url.absoluteString componentsSeparatedByString:@"="];
         NSString *orderSn = [NSString stringWithFormat:@"%@",subArr.lastObject];
         MEGroupOrderDetailsVC *detailVC = [[MEGroupOrderDetailsVC alloc] initWithOrderSn:kMeUnNilStr(orderSn)];
+        [baseVC.navigationController pushViewController:detailVC animated:YES];
+        return YES;
+    }else if ([url.absoluteString containsString:@"metimes://group:8888/groupProductDetail"]) {
+        METabBarVC *tabBarController = ( METabBarVC*)self.window.rootViewController;
+        // 取到navigationcontroller
+        MENavigationVC *nav = (MENavigationVC *)tabBarController.selectedViewController;
+        UIViewController * baseVC = (UIViewController *)nav.visibleViewController;
+        
+        NSArray *subArr = [url.absoluteString componentsSeparatedByString:@"="];
+        NSString *product_id = [NSString stringWithFormat:@"%@",subArr.lastObject];
+        MEGroupProductDetailVC *detailVC = [[MEGroupProductDetailVC alloc] initWithProductId:[product_id integerValue]];
         [baseVC.navigationController pushViewController:detailVC animated:YES];
         return YES;
     }

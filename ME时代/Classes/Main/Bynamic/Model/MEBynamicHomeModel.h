@@ -65,6 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * tbk_coupon_share_url;
 //拼多多
 @property (nonatomic, strong) NSString * ddk_goods_id;
+
 //京东
 @property (nonatomic, strong) NSString * jd_material_url;
 @property (nonatomic, strong) NSString * jd_link;
@@ -75,6 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * useStartTime;
 @property (nonatomic, strong) NSString * useEndTime;
 
+@property (nonatomic, copy) NSString * ad_url; //活动链接
+@property (nonatomic, copy) NSString * ad_id; //拼多多列表
 
 @end
 

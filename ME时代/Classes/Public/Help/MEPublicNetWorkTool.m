@@ -1480,6 +1480,22 @@
     }];
 }
 
+//获取首页推荐产品（商品、砍价、拼团、秒杀）2019-7-23
++ (void)postFourGetHomeRecommendWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{};
+    NSString *url = kGetApiWithUrl(MEIPcommonhomeGetHomeRecommend);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        //        if([error isKindOfClass:[ZLRequestResponse class]]){
+        //            ZLRequestResponse *res = (ZLRequestResponse*)error;
+        //            [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+        //        }else{
+        //            [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
+        //        }
+        kMeCallBlock(failure,error);
+    }];
+}
 //获取首页推荐产品(2019-04-30)
 + (void)postThridHomehomegetRecommendWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{};

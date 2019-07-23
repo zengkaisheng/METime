@@ -25,6 +25,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *endLbl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bargainConsWidth;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewConsLeading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewConsTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewConsTrailing;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnConsHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnConsWidth;
+
 @end
 
 @implementation MEBargainLisCell
@@ -48,12 +55,13 @@
     _endLbl.hidden = YES;
     _subTitleLbl.hidden = NO;
     _countLbl.hidden = NO;
+    _bgViewConsTop.constant = _bgViewConsLeading.constant = _bgViewConsTrailing.constant = 0;
     
     kSDLoadImg(_headerPic, kMeUnNilStr(model.images));
     _titleLbl.text = kMeUnNilStr(model.title);
     _subTitleLbl.text = [NSString stringWithFormat:@"砍成免费领%@",kMeUnNilStr(model.title)];
     _countLbl.text = [NSString stringWithFormat:@"已有%@人领取",kMeUnNilNumber(@(model.finish_bargin_num))];
-    _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price)];
+    _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price).length>0?kMeUnNilStr(model.product_price):@"0"];
     
     NSString *content = [NSString stringWithFormat:@"砍价%.2f元得",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
     CGFloat width = [content boundingRectWithSize:CGSizeMake(100, 32) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.width;
@@ -61,11 +69,40 @@
     _bargainConsWidth.constant = width+24;
 }
 
+- (void)setHomeUIWithModel:(MEBargainListModel *)model {
+    _timeView.hidden = YES;
+    _endLbl.hidden = YES;
+    _subTitleLbl.hidden = NO;
+    _countLbl.hidden = NO;
+    _bgViewConsLeading.constant = _bgViewConsTrailing.constant = 10.0;
+    _bgViewConsTop.constant = 5.0;
+    _bgView.cornerRadius = 10.0;
+    
+    kSDLoadImg(_headerPic, MELoadQiniuImagesWithUrl(kMeUnNilStr(model.images)));
+    _titleLbl.text = kMeUnNilStr(model.title);
+    _subTitleLbl.text = [NSString stringWithFormat:@"砍成免费领%@",kMeUnNilStr(model.title)];
+    _countLbl.text = [NSString stringWithFormat:@"已有%@人领取",kMeUnNilNumber(@(model.finish_bargin_num))];
+    _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price).length>0?kMeUnNilStr(model.product_price):@"0"];
+//    _priceLbl.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:17];
+    _priceLbl.textColor = [UIColor colorWithHexString:@"#EA3982"];
+    
+    NSString *content = [NSString stringWithFormat:@"砍价%.2f元得",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
+    CGFloat width = [content boundingRectWithSize:CGSizeMake(100, 32) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.width;
+    [_bargainBtn setTitle:content forState:UIControlStateNormal];
+    _bargainConsWidth.constant = width+12;
+    [_bargainBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [_bargainBtn setBackgroundColor:[UIColor colorWithHexString:@"#EA3982"]];
+    _bargainBtn.cornerRadius = 5.0;
+    _btnConsHeight.constant = 30;
+}
+
 - (void)setMyBargainUIWithModel:(MEMyBargainListModel *)model {
     kSDLoadImg(_headerPic, kMeUnNilStr(model.images));
     _titleLbl.text = kMeUnNilStr(model.title);
     _subTitleLbl.hidden = YES;
     _bargainConsWidth.constant = 83;
+    _bgViewConsTop.constant = _bgViewConsLeading.constant = _bgViewConsTrailing.constant = 0;
+    _bgView.cornerRadius = 0.0;
     
     if (model.bargin_status == 1) {//未结束
         _timeView.hidden = NO;

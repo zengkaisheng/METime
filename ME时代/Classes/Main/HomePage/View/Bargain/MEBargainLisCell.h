@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setMyBargainUIWithModel:(MEMyBargainListModel *)model;
 
+- (void)setHomeUIWithModel:(MEBargainListModel *)model;
+
 @end
 
 NS_ASSUME_NONNULL_END

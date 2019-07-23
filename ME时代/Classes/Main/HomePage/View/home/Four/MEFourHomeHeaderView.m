@@ -222,6 +222,14 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             [self toTaoBaoActivityWithUrl:kMeUnNilStr(model.ad_url)];
         }
             break;
+        case 12://秒杀商品
+        {
+            METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+            if (homeVC) {
+                [homeVC.navigationController pushViewController:dvc animated:YES];
+            }
+        }
+            break;
         case 13:
         {//跳拼多多推荐商品列表
             MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
@@ -459,49 +467,49 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             }
                 break;
             case 1:
-            {
+            {//淘宝
                 MENewCoupleHomeVC *vc= [[MENewCoupleHomeVC alloc]initWithIsTbK:YES];
                 vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 2:
-            {
+            {//拼多多
                 MEFourCoupleVC *vc = [[MEFourCoupleVC alloc] initWithIsJD:NO];
                 vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 3:
-            {
+            {//京东
                 MEFourCoupleVC *vc = [[MEFourCoupleVC alloc] initWithIsJD:YES];
                 vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 4:
-            {
+            {//品牌特卖
                 MESpecialSaleVC *vc = [[MESpecialSaleVC alloc] init];
                 vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 6:
-            {
+            {//聚划算
                 MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchJuHSType];
                 vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 7:
-            {
+            {//大额优惠券
                 MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchBigJuanType];
                 vc.recordType = 1;
                 [homeVC.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 8:
-            {
+            {//每日签到
                 if([MEUserInfoModel isLogin]){
                     MEPrizeListVC *prizeVC = [[MEPrizeListVC alloc] init];
                     [homeVC.navigationController pushViewController:prizeVC animated:YES];
@@ -516,7 +524,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             }
                 break;
             case 9:
-            {
+            {//砍价
                 if([MEUserInfoModel isLogin]){
                     MEBargainListVC *bargainVC = [[MEBargainListVC alloc] init];
                     [homeVC.navigationController pushViewController:bargainVC animated:YES];
@@ -531,7 +539,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             }
                 break;
             case 10:
-            {
+            {//拼团
                 if([MEUserInfoModel isLogin]){
                     MEGroupListVC *groupVC = [[MEGroupListVC alloc] init];
                     [homeVC.navigationController pushViewController:groupVC animated:YES];

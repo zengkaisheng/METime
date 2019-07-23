@@ -228,6 +228,7 @@ NSString *const kServerError = @"服务器无法连接";
     [types unionSet:manager.responseSerializer.acceptableContentTypes];
     manager.responseSerializer.acceptableContentTypes = types;
     [manager.requestSerializer setValue:@"IOS" forHTTPHeaderField:@"clientsystem"];
+    [manager.requestSerializer setValue:@"1" forHTTPHeaderField:@"tool"];
     [manager.requestSerializer setValue:kMEAppVersion forHTTPHeaderField:@"clientversion"];
 }
 

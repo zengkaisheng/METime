@@ -14,6 +14,16 @@
 #import "MEFourHomeVC.h"
 #import "METhridProductDetailsVC.h"
 
+#import "MEGroupListModel.h"
+#import "MEGroupListCell.h"
+#import "MEGroupProductDetailVC.h"
+#import "MEBargainListModel.h"
+#import "MEBargainLisCell.h"
+#import "MEBargainDetailVC.h"
+#import "MEHomeRecommendModel.h"
+
+#import "MEJoinPrizeVC.h"
+
 @interface MEFourHomeGoodGoodMainHeaderView ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *_arrHot;
@@ -32,6 +42,8 @@
     // Initialization code
     
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([METhridHomeGoodGoodMainCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class])];
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEGroupListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEGroupListCell class])];
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEBargainLisCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEBargainLisCell class])];
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([METhridHomeCommondSectionView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:NSStringFromClass([METhridHomeCommondSectionView class])];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.showsVerticalScrollIndicator = NO;
@@ -46,20 +58,97 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    METhridHomeGoodGoodMainCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class]) forIndexPath:indexPath];
-    MEGoodModel *model = _arrHot[indexPath.row];
-    [cell setUIWithModel:model];
-    kMeWEAKSELF
-    cell.buyBlock = ^{
-        kMeSTRONGSELF
-        MEGoodModel *model = strongSelf->_arrHot[indexPath.row];
-        METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
-        if (homevc) {
-            [homevc.navigationController pushViewController:details animated:YES];
+    MEHomeRecommendModel *model = _arrHot[indexPath.row];
+    switch (model.type) {
+        case 1:
+        {
+            METhridHomeGoodGoodMainCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class]) forIndexPath:indexPath];
+            MEGoodModel *goodModel = [MEGoodModel mj_objectWithKeyValues:model.mj_keyValues];
+            [cell setUIWithModel:goodModel];
+            kMeWEAKSELF
+            cell.buyBlock = ^{
+                kMeSTRONGSELF
+                METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                if (homevc) {
+                    [homevc.navigationController pushViewController:details animated:YES];
+                }
+            };
+            return cell;
         }
-    };
-    return cell;
+            break;
+        case 2:
+        {
+            MEBargainLisCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEBargainLisCell class]) forIndexPath:indexPath];
+            MEBargainListModel *bargainModel = [MEBargainListModel mj_objectWithKeyValues:model.mj_keyValues];
+            bargainModel.product_price = model.money;
+            [cell setHomeUIWithModel:bargainModel];
+            kMeWEAKSELF
+            cell.tapBlock = ^(NSInteger index) {
+                kMeSTRONGSELF
+                MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.product_id myList:NO];
+                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                if (homevc) {
+                    [homevc.navigationController pushViewController:details animated:YES];
+                }
+            };
+            return cell;
+        }
+            break;
+        case 3:
+        {
+            MEGroupListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEGroupListCell class]) forIndexPath:indexPath];
+            MEGroupListModel *groupModel = [MEGroupListModel mj_objectWithKeyValues:model.mj_keyValues];
+            [cell setHomeUIWithModel:groupModel];
+            kMeWEAKSELF
+            cell.groupBlock = ^{
+                kMeSTRONGSELF
+                MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                if (homevc) {
+                    [homevc.navigationController pushViewController:details animated:YES];
+                }
+            };
+            return cell;
+        }
+            break;
+        case 4:
+        {
+            METhridHomeGoodGoodMainCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class]) forIndexPath:indexPath];
+            MEGoodModel *goodModel = [MEGoodModel mj_objectWithKeyValues:model.mj_keyValues];
+            [cell setUIWithModel:goodModel];
+            kMeWEAKSELF
+            cell.buyBlock = ^{
+                kMeSTRONGSELF
+                METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                if (homevc) {
+                    [homevc.navigationController pushViewController:details animated:YES];
+                }
+            };
+            return cell;
+        }
+            break;
+        case 5:
+        {
+            METhridHomeGoodGoodMainCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class]) forIndexPath:indexPath];
+            MEGoodModel *goodModel = [MEGoodModel mj_objectWithKeyValues:model.mj_keyValues];
+            [cell setUIWithModel:goodModel];
+            kMeWEAKSELF
+            cell.buyBlock = ^{
+                kMeSTRONGSELF
+                METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                if (homevc) {
+                    [homevc.navigationController pushViewController:details animated:YES];
+                }
+            };
+            return cell;
+        }
+        default:
+            break;
+    }
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -67,11 +156,51 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MEGoodModel *model = _arrHot[indexPath.row];
-    METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+    MEHomeRecommendModel *model = _arrHot[indexPath.row];
     MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
-    if (homevc) {
-        [homevc.navigationController pushViewController:details animated:YES];
+    switch (model.type) {
+        case 1:
+        {
+            METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.ids];
+            if (homevc) {
+                [homevc.navigationController pushViewController:details animated:YES];
+            }
+        }
+            break;
+        case 2:
+        {
+            MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.ids myList:NO];
+            if (homevc) {
+                [homevc.navigationController pushViewController:details animated:YES];
+            }
+        }
+            break;
+        case 3:
+        {
+            MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+            if (homevc) {
+                [homevc.navigationController pushViewController:details animated:YES];
+            }
+        }
+            break;
+        case 4:
+        {
+            METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.ids];
+            if (homevc) {
+                [homevc.navigationController pushViewController:details animated:YES];
+            }
+        }
+            break;
+        case 5:
+        {
+            MEJoinPrizeVC *details = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.ids]];
+            if (homevc) {
+                [homevc.navigationController pushViewController:details animated:YES];
+            }
+        }
+            break;
+        default:
+            break;
     }
 }
 

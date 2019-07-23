@@ -438,7 +438,7 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
             [strongSelf showBuyViewWithTypy:kpurchaseViewBuyType];
         };
         _bottomView.addShopcartBlock = ^{
-            kMeSTRONGSELF
+//            kMeSTRONGSELF
 //            if(strongSelf.model.product_type == 15||strongSelf.model.product_type == 16){
 //                [MEShowViewTool showMessage:@"该商品不支持加入购物车" view:kMeCurrentWindow];
 //            }else{
@@ -446,7 +446,7 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
 //            }
         };
         _bottomView.customBlock = ^{
-            kMeSTRONGSELF
+//            kMeSTRONGSELF
             if([MEUserInfoModel isLogin]){
 //                [strongSelf toCustom];
             }else{

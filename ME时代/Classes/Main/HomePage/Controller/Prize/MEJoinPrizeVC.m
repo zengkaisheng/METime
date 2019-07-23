@@ -183,7 +183,10 @@
 
 #pragma mark -- UITableviewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (self.model.status == 1) {//未开奖
+//    if (self.model.status == 1) {//未开奖
+//        return 2;
+//    }
+    if (self.model.join_type == 1 || self.model.join_type == 2) {
         return 2;
     }
     return 1;//已开奖
@@ -191,58 +194,165 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     kMeWEAKSELF
-    if (self.model.status == 2) {
-        MEPublishPrizeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPublishPrizeCell class]) forIndexPath:indexPath];
-        [cell setUIWithModel:self.model];
-        cell.checkAllBlock = ^(NSInteger index) {
-            kMeSTRONGSELF
-            if (index == 0) {
-                //查看所有中奖人
-                [strongSelf checkAllPrizePeopleWithType:2];
-            }else if (index == 1) {
-                //查看所有参与人
-                [strongSelf checkAllPrizePeopleWithType:1];
+//    if (self.model.status == 2) {
+//        MEPublishPrizeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPublishPrizeCell class]) forIndexPath:indexPath];
+//        [cell setUIWithModel:self.model];
+//        cell.checkAllBlock = ^(NSInteger index) {
+//            kMeSTRONGSELF
+//            if (index == 0) {
+//                //查看所有中奖人
+//                [strongSelf checkAllPrizePeopleWithType:2];
+//            }else if (index == 1) {
+//                //查看所有参与人
+//                [strongSelf checkAllPrizePeopleWithType:1];
+//            }
+//        };
+//        cell.checkDetailBlock = ^{
+//           //查看图文详情
+//            kMeSTRONGSELF
+//            [strongSelf checkDetails];
+//        };
+//        return cell;
+//    }
+    switch (self.model.join_type) {
+        case 1:
+        {//未参加
+            if (indexPath.row == 0) {
+                MEJoinPrizeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEJoinPrizeCell class]) forIndexPath:indexPath];
+                cell.joinBlock = ^{
+                    //参加抽奖
+                    kMeSTRONGSELF
+                    [strongSelf joinPrize];
+                };
+                return cell;
             }
-        };
-        cell.checkDetailBlock = ^{
-           //查看图文详情
-            kMeSTRONGSELF
-            [strongSelf checkDetails];
-        };
-        return cell;
-    }
-    //未开奖
-    if (self.model.join_type == 2) {//参加
-        if (indexPath.row == 0) {
-            MEWaitPublishPrizeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEWaitPublishPrizeCell class]) forIndexPath:indexPath];
+        }
+            break;
+        case 2:
+        {//等待开奖
+            if (indexPath.row == 0) {
+                MEWaitPublishPrizeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEWaitPublishPrizeCell class]) forIndexPath:indexPath];
+                [cell setUIWithModel:self.model];
+                cell.checkBlock = ^{
+                    kMeSTRONGSELF
+                    //查看全部邀请
+                    [strongSelf checkAllPrizePeopleWithType:3];
+                };
+                cell.indexBlock = ^(NSInteger index) {
+                    kMeSTRONGSELF
+                    //0邀请好友 1分享到朋友圈
+                    if (index) {
+                        [strongSelf shareActionWithIndex:1];
+                    }else {
+                        [strongSelf shareActionWithIndex:0];
+                    }
+                };
+                return cell;
+            }
+        }
+            break;
+        case 3:
+        {//中奖未领取
+            MEPublishPrizeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPublishPrizeCell class]) forIndexPath:indexPath];
             [cell setUIWithModel:self.model];
-            cell.checkBlock = ^{
+            cell.checkAllBlock = ^(NSInteger index) {
                 kMeSTRONGSELF
-                //查看全部邀请
-                [strongSelf checkAllPrizePeopleWithType:3];
-            };
-            cell.indexBlock = ^(NSInteger index) {
-                kMeSTRONGSELF
-                //0邀请好友 1分享到朋友圈
-                if (index) {
-                    [strongSelf shareActionWithIndex:1];
-                }else {
-                    [strongSelf shareActionWithIndex:0];
+                if (index == 0) {
+                    //查看所有中奖人
+                    [strongSelf checkAllPrizePeopleWithType:2];
+                }else if (index == 1) {
+                    //查看所有参与人
+                    [strongSelf checkAllPrizePeopleWithType:1];
                 }
             };
-            return cell;
-        }
-    }else {//未参加
-        if (indexPath.row == 0) {
-            MEJoinPrizeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEJoinPrizeCell class]) forIndexPath:indexPath];
-            cell.joinBlock = ^{
-                //参加抽奖
+            cell.checkDetailBlock = ^{
+                //查看图文详情
                 kMeSTRONGSELF
-                [strongSelf joinPrize];
+                [strongSelf checkDetails];
             };
             return cell;
         }
+            break;
+        case 4:
+        {//未中奖
+            MEPublishPrizeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPublishPrizeCell class]) forIndexPath:indexPath];
+            [cell setUIWithModel:self.model];
+            cell.checkAllBlock = ^(NSInteger index) {
+                kMeSTRONGSELF
+                if (index == 0) {
+                    //查看所有中奖人
+                    [strongSelf checkAllPrizePeopleWithType:2];
+                }else if (index == 1) {
+                    //查看所有参与人
+                    [strongSelf checkAllPrizePeopleWithType:1];
+                }
+            };
+            cell.checkDetailBlock = ^{
+                //查看图文详情
+                kMeSTRONGSELF
+                [strongSelf checkDetails];
+            };
+            return cell;
+        }
+            break;
+        case 5:
+        {//中奖已领取
+            MEPublishPrizeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPublishPrizeCell class]) forIndexPath:indexPath];
+            [cell setUIWithModel:self.model];
+            cell.checkAllBlock = ^(NSInteger index) {
+                kMeSTRONGSELF
+                if (index == 0) {
+                    //查看所有中奖人
+                    [strongSelf checkAllPrizePeopleWithType:2];
+                }else if (index == 1) {
+                    //查看所有参与人
+                    [strongSelf checkAllPrizePeopleWithType:1];
+                }
+            };
+            cell.checkDetailBlock = ^{
+                //查看图文详情
+                kMeSTRONGSELF
+                [strongSelf checkDetails];
+            };
+            return cell;
+        }
+            break;
+        default:
+            return [UITableViewCell new];
+            break;
     }
+    //未开奖
+//    if (self.model.join_type == 2) {//参加
+//        if (indexPath.row == 0) {
+//            MEWaitPublishPrizeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEWaitPublishPrizeCell class]) forIndexPath:indexPath];
+//            [cell setUIWithModel:self.model];
+//            cell.checkBlock = ^{
+//                kMeSTRONGSELF
+//                //查看全部邀请
+//                [strongSelf checkAllPrizePeopleWithType:3];
+//            };
+//            cell.indexBlock = ^(NSInteger index) {
+//                kMeSTRONGSELF
+//                //0邀请好友 1分享到朋友圈
+//                if (index) {
+//                    [strongSelf shareActionWithIndex:1];
+//                }else {
+//                    [strongSelf shareActionWithIndex:0];
+//                }
+//            };
+//            return cell;
+//        }
+//    }else {//未参加
+//        if (indexPath.row == 0) {
+//            MEJoinPrizeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEJoinPrizeCell class]) forIndexPath:indexPath];
+//            cell.joinBlock = ^{
+//                //参加抽奖
+//                kMeSTRONGSELF
+//                [strongSelf joinPrize];
+//            };
+//            return cell;
+//        }
+//    }
     MEJoinPrizePeopleCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEJoinPrizePeopleCell class]) forIndexPath:indexPath];
     [cell setUIWithModel:self.model];
     cell.checkAllBlock = ^{
@@ -259,18 +369,29 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.model.status == 2) {
-        return (kMEPublishPrizeCellHeight - (self.model.prizeLog.count<=0?71:0))*kMeFrameScaleY();
-    }
-    if (self.model.join_type == 2) {
+    if (self.model.join_type == 1) {
+        if (indexPath.row == 0) {
+            return kMEJoinPrizeCellHeight;
+        }
+    }else if (self.model.join_type == 2) {
         if (indexPath.row == 0) {
             return kMEWaitPublishPrizeCellHeight;
         }
     }else {
-        if (indexPath.row == 0) {
-            return kMEJoinPrizeCellHeight;
-        }
+        return (kMEPublishPrizeCellHeight - (self.model.prizeLog.count<=0?71:0))*kMeFrameScaleY();
     }
+//    if (self.model.status == 2) {
+//        return (kMEPublishPrizeCellHeight - (self.model.prizeLog.count<=0?71:0))*kMeFrameScaleY();
+//    }
+//    if (self.model.join_type == 2) {
+//        if (indexPath.row == 0) {
+//            return kMEWaitPublishPrizeCellHeight;
+//        }
+//    }else {
+//        if (indexPath.row == 0) {
+//            return kMEJoinPrizeCellHeight;
+//        }
+//    }
     return kMEJoinPrizePeopleCellHeight;
 }
 

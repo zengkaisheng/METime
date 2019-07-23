@@ -10,6 +10,7 @@
 #import "MEJDCoupleModel.h"
 #import "MECoupleMailHeaderVIew.h"
 #import "MECoupleMailDetalImageCell.h"
+#import "MEShareCouponVC.h"
 
 #define MEJDCoupleMailDetalVCbottomViewHeight 50
 
@@ -138,16 +139,18 @@
         [self saveClickRecordsWithType:typeStr params:params];
 
         if(_shareTpwd){
-            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-            shareTool.sharWebpageUrl =kMeUnNilStr(_shareTpwd);
-            shareTool.shareTitle = kMeUnNilStr(_detailModel.skuName);
-            shareTool.shareDescriptionBody = kMeUnNilStr(_detailModel.skuName);
-            shareTool.shareImage = _headerView.imgPic.image;
-            [shareTool showShareView:kShareWebPageContentType success:^(id data) {
-                NSLog(@"分享成功%@",data);
-            } failure:^(NSError *error) {
-
-            }];
+//            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+//            shareTool.sharWebpageUrl =kMeUnNilStr(_shareTpwd);
+//            shareTool.shareTitle = kMeUnNilStr(_detailModel.skuName);
+//            shareTool.shareDescriptionBody = kMeUnNilStr(_detailModel.skuName);
+//            shareTool.shareImage = _headerView.imgPic.image;
+//            [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+//                NSLog(@"分享成功%@",data);
+//            } failure:^(NSError *error) {
+//
+//            }];
+            MEShareCouponVC *shareVC = [[MEShareCouponVC alloc] initWithJDModel:_detailModel codeword:kMeUnNilStr(_shareTpwd)];
+            [self.navigationController pushViewController:shareVC animated:YES];
         }else{
             CouponContentInfo *couponInfoModel = [CouponContentInfo new];
             if(kMeUnArr(_detailModel.couponInfo.couponList).count>0){
@@ -157,16 +160,18 @@
             [MEPublicNetWorkTool postJDPromotionUrlGenerateWithUid:kCurrentUser.uid materialUrl:kMeUnNilStr(_detailModel.materialUrl) couponUrl:kMeUnNilStr(couponInfoModel.link) successBlock:^(ZLRequestResponse *responseObject) {
                 kMeSTRONGSELF
                 strongSelf->_shareTpwd = responseObject.data[@"shortURL"];
-                MEShareTool *shareTool = [MEShareTool me_instanceForTarget:strongSelf];
-                shareTool.sharWebpageUrl = strongSelf->_shareTpwd;
-                shareTool.shareTitle = kMeUnNilStr(strongSelf->_detailModel.skuName);
-                shareTool.shareDescriptionBody = kMeUnNilStr(strongSelf->_detailModel.skuName);
-                shareTool.shareImage = strongSelf->_headerView.imgPic.image;
-                [shareTool showShareView:kShareWebPageContentType success:^(id data) {
-                    NSLog(@"分享成功%@",data);
-                } failure:^(NSError *error) {
-                    
-                }];
+//                MEShareTool *shareTool = [MEShareTool me_instanceForTarget:strongSelf];
+//                shareTool.sharWebpageUrl = strongSelf->_shareTpwd;
+//                shareTool.shareTitle = kMeUnNilStr(strongSelf->_detailModel.skuName);
+//                shareTool.shareDescriptionBody = kMeUnNilStr(strongSelf->_detailModel.skuName);
+//                shareTool.shareImage = strongSelf->_headerView.imgPic.image;
+//                [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+//                    NSLog(@"分享成功%@",data);
+//                } failure:^(NSError *error) {
+//
+//                }];
+                MEShareCouponVC *shareVC = [[MEShareCouponVC alloc] initWithJDModel:strongSelf->_detailModel codeword:kMeUnNilStr(strongSelf->_shareTpwd)];
+                [strongSelf.navigationController pushViewController:shareVC animated:YES];
             } failure:^(id object) {
                 
             }];

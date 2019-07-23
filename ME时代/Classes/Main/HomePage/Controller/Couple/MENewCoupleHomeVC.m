@@ -164,6 +164,12 @@
             case 3:
                 typeStr = @"25";
                 break;
+            case 4:
+                typeStr = @"37";
+                break;
+            case 5:
+                typeStr = @"49";
+                break;
             default:
                 break;
         }
@@ -195,6 +201,12 @@
                 break;
             case 3:
                 typeStr = @"29";
+                break;
+            case 4:
+                typeStr = @"41";
+                break;
+            case 5:
+                typeStr = @"53";
                 break;
             default:
                 break;

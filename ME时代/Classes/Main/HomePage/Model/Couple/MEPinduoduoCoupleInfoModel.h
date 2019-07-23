@@ -68,6 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat servPct;
 //已售卖件数
 @property (nonatomic, assign) NSInteger sold_quantity;
+@property (nonatomic, copy) NSString *sales_tip;
+@property (nonatomic, assign) CGFloat min_ratio;
 
 @end
 

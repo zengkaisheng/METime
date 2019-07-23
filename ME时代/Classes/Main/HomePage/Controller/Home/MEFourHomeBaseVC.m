@@ -36,6 +36,7 @@
 #import "MEGroupProductDetailVC.h"
 #import "MEJoinPrizeVC.h"
 #import "MEHomeOptionsModel.h"
+#import "MEHomeRecommendModel.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 #define kMEThridHomeNavViewHeight (((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 129 : 107))
@@ -195,10 +196,10 @@ const static CGFloat kImgStore = 50;
     
     
     dispatch_group_async(group, queue, ^{
-        [MEPublicNetWorkTool postThridHomehomegetRecommendWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        [MEPublicNetWorkTool postFourGetHomeRecommendWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             if ([responseObject.data isKindOfClass:[NSArray class]]) {
-                strongSelf->_arrHot = [MEGoodModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+                strongSelf->_arrHot = [MEHomeRecommendModel mj_objectArrayWithKeyValuesArray:responseObject.data];
             }else{
                 strongSelf->_arrHot = [NSArray array];
             }
@@ -208,6 +209,19 @@ const static CGFloat kImgStore = 50;
             strongSelf->_arrHot = [NSArray array];
             dispatch_semaphore_signal(semaphore);
         }];
+//        [MEPublicNetWorkTool postThridHomehomegetRecommendWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+//            kMeSTRONGSELF
+//            if ([responseObject.data isKindOfClass:[NSArray class]]) {
+//                strongSelf->_arrHot = [MEGoodModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+//            }else{
+//                strongSelf->_arrHot = [NSArray array];
+//            }
+//            dispatch_semaphore_signal(semaphore);
+//        } failure:^(id object) {
+//            kMeSTRONGSELF
+//            strongSelf->_arrHot = [NSArray array];
+//            dispatch_semaphore_signal(semaphore);
+//        }];
     });
     
     dispatch_group_async(group, queue, ^{
@@ -410,6 +424,12 @@ const static CGFloat kImgStore = 50;
         case 8:
         {
             [self toTaoBaoActivityWithUrl:kMeUnNilStr(model.ad_url)];
+        }
+            break;
+        case 12://秒杀商品
+        {
+            METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+            [self.navigationController pushViewController:dvc animated:YES];
         }
             break;
         case 13:

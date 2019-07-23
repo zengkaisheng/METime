@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * num_iid;
 @property (nonatomic, strong) NSString * pic_url;
 @property (nonatomic, strong) NSString * price;
+@property (nonatomic, strong) NSString * pay_price;
 @property (nonatomic, assign) NSInteger ratio_status;
 @property (nonatomic, strong) NSString * settle_money;
 @property (nonatomic, assign) NSInteger status;

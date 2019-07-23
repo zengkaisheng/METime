@@ -54,7 +54,7 @@
     _lblTitle.text = kMeUnNilStr(model.item_title);
     _lblTime.text = [NSString stringWithFormat:@"下单时间:%@",kMeUnNilStr(model.create_time)];
     
-    _lblPrice.text =  [NSString stringWithFormat:@"消费金额¥%@",kMeUnNilStr(model.price)];
+    _lblPrice.text =  [NSString stringWithFormat:@"消费金额¥%@",kMeUnNilStr(model.pay_price)];
     _lblCommission.text = [NSString stringWithFormat:@"佣金估计¥%@",kMeUnNilStr(model.expected_money)];
     _lblStatus.text = kMeUnNilStr(model.status_name);
 }

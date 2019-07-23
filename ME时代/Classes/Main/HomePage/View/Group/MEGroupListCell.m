@@ -15,6 +15,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *numberLbl;
 @property (weak, nonatomic) IBOutlet UILabel *priceLbl;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewConsTrailing;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewConsLeading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewConsTop;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UIButton *groupBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnConsHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnConsWidth;
+
 @end
 
 
@@ -33,6 +41,9 @@
 }
 
 - (void)setUIWithModel:(MEGroupListModel *)model {
+    _bgViewConsTop.constant = _bgViewConsLeading.constant = _bgViewConsTrailing.constant = 0.0;
+    _bgView.cornerRadius = 0.0;
+    
     kSDLoadImg(_headerPic, kMeUnNilStr(model.image_url));
     _titleLbl.text = kMeUnNilStr(model.title);
     _numberLbl.text = [NSString stringWithFormat:@"%@人团",kMeUnNilStr(model.group_num)];
@@ -53,6 +64,41 @@
     [string addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(secondLoc+1, faStr.length-secondLoc-1)];
     _priceLbl.attributedText = string;
 }
+
+- (void)setHomeUIWithModel:(MEGroupListModel *)model {
+    _bgViewConsTop.constant = 5.0;
+    _bgViewConsLeading.constant = _bgViewConsTrailing.constant = 10.0;
+    _bgView.cornerRadius = 10.0;
+    
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.image_url));
+    _titleLbl.text = kMeUnNilStr(model.title);
+    _numberLbl.text = [NSString stringWithFormat:@"%@人团",kMeUnNilStr(model.group_num)];
+    
+    if (IS_IPHONE_4S||IS_IPHONE_5||IS_iPhone5S) {
+        _priceLbl.font = [UIFont systemFontOfSize:11];
+    }else if (IS_IPHONE_6) {
+        _priceLbl.font = [UIFont systemFontOfSize:13];
+    }else {
+        _priceLbl.font = [UIFont systemFontOfSize:15];
+    }
+    
+    _priceLbl.text = [NSString stringWithFormat:@"拼团价￥%@",kMeUnNilStr(model.money)];
+    _priceLbl.font = [UIFont systemFontOfSize:15];
+    _priceLbl.textColor = [UIColor colorWithHexString:@"#EA3982"];
+//    NSString *faStr = [NSString stringWithFormat:@"拼团价￥%@ ￥%@",kMeUnNilStr(model.money),kMeUnNilStr(model.market_price)];
+//    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:faStr];
+//    NSUInteger secondLoc = [faStr rangeOfString:@" "].location;
+//
+//    [string addAttribute:NSForegroundColorAttributeName value:kME999999 range:NSMakeRange(secondLoc+1, faStr.length-secondLoc-1)];
+//    [string addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(secondLoc+1, faStr.length-secondLoc-1)];
+//    _priceLbl.attributedText = string;
+    [_groupBtn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [_groupBtn setBackgroundColor:[UIColor colorWithHexString:@"#EA3982"]];
+    _groupBtn.cornerRadius = 5.0;
+    _btnConsWidth.constant = 75;
+    _btnConsHeight.constant = 30;
+}
+
 - (IBAction)groupAction:(id)sender {
     kMeCallBlock(self.groupBlock);
 }

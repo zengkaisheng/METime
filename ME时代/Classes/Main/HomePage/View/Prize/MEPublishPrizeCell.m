@@ -49,6 +49,9 @@
     }else if (model.join_type == 4) {
         _topImgView.image = [UIImage imageNamed:@"noPrize"];
         _prizeMessageLbl.text = @"未中奖";
+    }else if (model.join_type == 5) {
+        _topImgView.image = [UIImage imageNamed:@"winPrize"];
+        _prizeMessageLbl.text = @"已领取";
     }
     
     for (UIView *view in _headerPicView.subviews) {

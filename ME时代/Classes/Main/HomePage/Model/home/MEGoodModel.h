@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString * market_price;//市场价
 @property (nonatomic, strong) NSString * money;//真实价格
 @property (nonatomic, assign) NSInteger product_id;
+@property (nonatomic, assign) NSInteger product_type;//1商品 7拼团商品 13砍价商品
 @property (nonatomic, strong) NSString * title;
 @property (nonatomic, strong) NSString * desc;
 //推荐
@@ -33,5 +34,8 @@
 @property (nonatomic, strong) NSString * reserve_num;
 
 @property (nonatomic, strong) NSString * time;
+
+@property (nonatomic, strong) NSString * interval_price;
+@property (nonatomic, assign) NSInteger type;
 
 @end
