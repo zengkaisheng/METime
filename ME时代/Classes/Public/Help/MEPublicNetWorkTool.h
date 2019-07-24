@@ -337,6 +337,8 @@
 + (void)postFetchYouxianBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //品牌特卖获取banner图(新)
 + (void)postFetchSpecialSalesBannerWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//首页公告栏
++ (void)postFetchHomeBulletinWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //是否显示优选me的banner和分类是否显示
 + (void)postGetYouxuanAdGoodsShowWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/

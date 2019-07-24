@@ -1109,6 +1109,8 @@
 		EB9BE12422E59D7200D5F6E4 /* MEShareCouponVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9BE12222E59D7200D5F6E4 /* MEShareCouponVC.m */; };
 		EB9BE12522E59D7200D5F6E4 /* MEShareCouponVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9BE12322E59D7200D5F6E4 /* MEShareCouponVC.xib */; };
 		EB9BE12822E6EA8B00D5F6E4 /* MEHomeRecommendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9BE12722E6EA8B00D5F6E4 /* MEHomeRecommendModel.m */; };
+		EB9C09B122E831510076B533 /* MEFourHomeNoticeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C09AF22E831510076B533 /* MEFourHomeNoticeHeaderView.m */; };
+		EB9C09B222E831510076B533 /* MEFourHomeNoticeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9C09B022E831510076B533 /* MEFourHomeNoticeHeaderView.xib */; };
 		EB9F946622977F400049CFFD /* MEChooseTerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F946522977F400049CFFD /* MEChooseTerminalView.m */; };
 		EB9F946922979CBC0049CFFD /* MEChooseTerminalVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F946822979CBC0049CFFD /* MEChooseTerminalVC.m */; };
 		EBABDF9022D2F435001CBF41 /* MEGroupOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EBABDF8F22D2F435001CBF41 /* MEGroupOrderDetailVC.m */; };
@@ -3071,6 +3073,9 @@
 		EB9BE12322E59D7200D5F6E4 /* MEShareCouponVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEShareCouponVC.xib; sourceTree = "<group>"; };
 		EB9BE12622E6EA8B00D5F6E4 /* MEHomeRecommendModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEHomeRecommendModel.h; sourceTree = "<group>"; };
 		EB9BE12722E6EA8B00D5F6E4 /* MEHomeRecommendModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEHomeRecommendModel.m; sourceTree = "<group>"; };
+		EB9C09AE22E831510076B533 /* MEFourHomeNoticeHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFourHomeNoticeHeaderView.h; sourceTree = "<group>"; };
+		EB9C09AF22E831510076B533 /* MEFourHomeNoticeHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFourHomeNoticeHeaderView.m; sourceTree = "<group>"; };
+		EB9C09B022E831510076B533 /* MEFourHomeNoticeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEFourHomeNoticeHeaderView.xib; sourceTree = "<group>"; };
 		EB9F946422977F400049CFFD /* MEChooseTerminalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEChooseTerminalView.h; sourceTree = "<group>"; };
 		EB9F946522977F400049CFFD /* MEChooseTerminalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEChooseTerminalView.m; sourceTree = "<group>"; };
 		EB9F946722979CBC0049CFFD /* MEChooseTerminalVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEChooseTerminalVC.h; sourceTree = "<group>"; };
@@ -6296,6 +6301,9 @@
 				EB33F2FA22B2338200765E2A /* MEFourHomeGoodGoodMainHeaderView.xib */,
 				EB73454622B8849C00FA0D84 /* MEFourSearchCouponNavView.h */,
 				EB73454722B8849C00FA0D84 /* MEFourSearchCouponNavView.m */,
+				EB9C09AE22E831510076B533 /* MEFourHomeNoticeHeaderView.h */,
+				EB9C09AF22E831510076B533 /* MEFourHomeNoticeHeaderView.m */,
+				EB9C09B022E831510076B533 /* MEFourHomeNoticeHeaderView.xib */,
 			);
 			path = Four;
 			sourceTree = "<group>";
@@ -7013,6 +7021,7 @@
 				3630AC4921F6F9BE006C3F8D /* METhridProductDetailsTipCell.xib in Resources */,
 				3659508C21F6ADE200DDA2E5 /* MENewStoreHomeCell.xib in Resources */,
 				EB9BE12522E59D7200D5F6E4 /* MEShareCouponVC.xib in Resources */,
+				EB9C09B222E831510076B533 /* MEFourHomeNoticeHeaderView.xib in Resources */,
 				36F5E844222F68F1000B0241 /* Assets.xcassets in Resources */,
 				36F02A79225F0D0A00408F5B /* MEAiCustomerDataView.xib in Resources */,
 				EB84603322A6421600AA283D /* MENewAddTelView.xib in Resources */,
@@ -7424,6 +7433,7 @@
 				3615B395225DBD9800EA0F02 /* MEAICustomerHomeContentVC.m in Sources */,
 				36E1BF102149010C00E28301 /* MEMineExchangeRudeCell.m in Sources */,
 				3602A19E214247CD004A6E1F /* MEStoreHomeCell.m in Sources */,
+				EB9C09B122E831510076B533 /* MEFourHomeNoticeHeaderView.m in Sources */,
 				36472AFB21C8E15C00CC3E48 /* JXCategoryTitleCell.m in Sources */,
 				36472AFF21C8E15C00CC3E48 /* JXCategoryImageCellModel.m in Sources */,
 				36472B0921C8E15C00CC3E48 /* JXCategoryBaseCell.m in Sources */,

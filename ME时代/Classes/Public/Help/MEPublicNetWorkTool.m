@@ -1900,6 +1900,24 @@
         kMeCallBlock(failure,error);
     }];
 }
+//首页公告栏
++ (void)postFetchHomeBulletinWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"tool":@"1",
+                          @"uid":kMeUnNilStr(kCurrentUser.uid)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonGetHomeBulletin);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
 
 + (void)postGoodsDetailWithGoodsId:(NSInteger)goodsId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"goodsId":@(goodsId),

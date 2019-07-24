@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="MEFourHomeNoticeHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GOu-bf-z62">
+                    <rect key="frame" x="0.0" y="4.5" width="375" height="51"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_notice" translatesAutoresizingMaskIntoConstraints="NO" id="vcz-ca-VRN">
+                            <rect key="frame" x="6" y="8.5" width="34" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="34" id="guZ-K7-Wb2"/>
+                                <constraint firstAttribute="height" constant="34" id="uHX-gZ-3xF"/>
+                            </constraints>
+                        </imageView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pjc-Y6-v1U" customClass="SDCycleScrollView">
+                            <rect key="frame" x="40" y="6.5" width="331" height="19"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="19" id="BLo-Rd-Caj"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S1s-pR-32m" customClass="SDCycleScrollView">
+                            <rect key="frame" x="40" y="25.5" width="331" height="19"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="19" id="eb9-cC-jwD"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="pjc-Y6-v1U" firstAttribute="leading" secondItem="vcz-ca-VRN" secondAttribute="trailing" id="92p-mg-BAn"/>
+                        <constraint firstItem="vcz-ca-VRN" firstAttribute="centerY" secondItem="GOu-bf-z62" secondAttribute="centerY" id="P8M-tk-BJq"/>
+                        <constraint firstItem="pjc-Y6-v1U" firstAttribute="top" secondItem="vcz-ca-VRN" secondAttribute="top" constant="-2" id="YCa-dP-I2S"/>
+                        <constraint firstAttribute="trailing" secondItem="pjc-Y6-v1U" secondAttribute="trailing" constant="4" id="ZPD-bi-UFs"/>
+                        <constraint firstItem="S1s-pR-32m" firstAttribute="leading" secondItem="vcz-ca-VRN" secondAttribute="trailing" id="csc-t1-Rv7"/>
+                        <constraint firstItem="vcz-ca-VRN" firstAttribute="leading" secondItem="GOu-bf-z62" secondAttribute="leading" constant="6" id="fJY-0o-vli"/>
+                        <constraint firstItem="S1s-pR-32m" firstAttribute="top" secondItem="pjc-Y6-v1U" secondAttribute="bottom" id="fsW-JD-ib6"/>
+                        <constraint firstAttribute="trailing" secondItem="S1s-pR-32m" secondAttribute="trailing" constant="4" id="mop-Bz-gSU"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="GOu-bf-z62" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="4.5" id="95z-2T-h7q"/>
+                <constraint firstAttribute="bottom" secondItem="GOu-bf-z62" secondAttribute="bottom" constant="4.5" id="9aG-S5-I4B"/>
+                <constraint firstAttribute="trailing" secondItem="GOu-bf-z62" secondAttribute="trailing" id="M8v-f5-auu"/>
+                <constraint firstItem="GOu-bf-z62" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="dCN-Z8-lfZ"/>
+            </constraints>
+            <connections>
+                <outlet property="leftImageV" destination="vcz-ca-VRN" id="xwk-2a-9P8"/>
+                <outlet property="sdView" destination="pjc-Y6-v1U" id="VgM-Cx-MvV"/>
+                <outlet property="sdView1" destination="S1s-pR-32m" id="Fg4-uN-t8p"/>
+            </connections>
+            <point key="canvasLocation" x="40.799999999999997" y="45.877061469265371"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="icon_notice" width="50" height="49"/>
+    </resources>
+</document>

@@ -381,7 +381,7 @@
         strongSelf.sAddressView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEMakeOrderSelectAddressView getViewHeightWithModel:strongSelf->_addressModel]);
         [strongSelf.sAddressView setUIWithModel:strongSelf->_addressModel];
         strongSelf->_tableView.tableHeaderView = strongSelf.sAddressView;
-        [strongSelf getUserOrderFreightWithAddressId:[NSString stringWithFormat:@"%ld",addressModel.address_id] postage:strongSelf->_origainlPostage productId:[NSString stringWithFormat:@"%ld",strongSelf->_goodModel.product_id]];
+        [strongSelf getUserOrderFreightWithAddressId:[NSString stringWithFormat:@"%ld",(long)addressModel.address_id] postage:strongSelf->_origainlPostage productId:[NSString stringWithFormat:@"%ld",(long)strongSelf->_goodModel.product_id]];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [strongSelf.navigationController popViewControllerAnimated:YES];
         });

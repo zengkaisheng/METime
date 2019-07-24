@@ -17,6 +17,7 @@
 
 
 #import "MEFourHomeHeaderView.h"
+#import "MEFourHomeNoticeHeaderView.h"
 #import "MEFourHomeExchangeCell.h"
 #import "MECoupleMailCell.h"
 #import "MEFourHomeHeaderView.h"
@@ -53,6 +54,8 @@ const static CGFloat kImgStore = 50;
     NSArray *_arrPPTM;
     NSString *_net;
     NSArray *_optionsArray;
+    NSArray *_noticeArray;
+    MEAdModel *_leftBanner;
 }
 
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -88,7 +91,9 @@ const static CGFloat kImgStore = 50;
     _arrHot = [NSArray array];
     _arrPPTM = [NSArray array];
     _optionsArray = [NSArray array];
+    _noticeArray = [NSArray array];
     _homeModel = [METhridHomeModel new];
+    _leftBanner = [MEAdModel new];
     _net = @"";
     
     [self.refresh addRefreshView];
@@ -194,6 +199,30 @@ const static CGFloat kImgStore = 50;
         }];
     });
     
+    dispatch_group_async(group, queue, ^{
+        [MEPublicNetWorkTool postFetchHomeBulletinWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *data = (NSDictionary *)responseObject.data;
+                if ([data[@"left_banner"] isKindOfClass:[NSDictionary class]]) {
+                    strongSelf->_leftBanner = [MEAdModel mj_objectWithKeyValues:data[@"left_banner"]];
+                }else {
+                    strongSelf->_leftBanner = [MEAdModel new];
+                }
+                if ([data[@"bulletin"] isKindOfClass:[NSArray class]]) {
+                    NSArray *bulletin = (NSArray *)data[@"bulletin"];
+                    strongSelf->_noticeArray = [MEAdModel mj_objectArrayWithKeyValuesArray:bulletin];
+                }else {
+                    strongSelf->_noticeArray = [NSArray array];
+                }
+            }else {
+                strongSelf->_noticeArray = [NSArray array];
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
     
     dispatch_group_async(group, queue, ^{
         [MEPublicNetWorkTool postFourGetHomeRecommendWithSuccessBlock:^(ZLRequestResponse *responseObject) {
@@ -272,6 +301,7 @@ const static CGFloat kImgStore = 50;
     });
     
     dispatch_group_notify(group, queue, ^{
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -649,6 +679,12 @@ const static CGFloat kImgStore = 50;
     if (_type == 0) {
         if (section == 0) {
             return CGSizeMake(SCREEN_WIDTH, [MEFourHomeHeaderView getViewHeightWithOptionsArray:_optionsArray]);
+        }else if (section == 1) {
+//            if (_noticeArray.count > 0) {
+                return CGSizeMake(SCREEN_WIDTH, 60);
+//            }else {
+//                return CGSizeMake(0, 0);
+//            }
         }else if (section == 2) {
             if (_arrPPTM.count > 0) {
                 return CGSizeMake(SCREEN_WIDTH, 100*kMeFrameScaleY());
@@ -695,6 +731,16 @@ const static CGFloat kImgStore = 50;
                 };
                 
                 headerView = header;
+            }else if (indexPath.section == 1) {
+                MEFourHomeNoticeHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeNoticeHeaderView class]) forIndexPath:indexPath];
+                [header setUIWithArray:_noticeArray leftBanner:_leftBanner];
+                kMeWEAKSELF
+                header.selectedIndexBlock = ^(NSInteger index) {
+                    kMeSTRONGSELF
+                    MEAdModel *model = strongSelf->_noticeArray[index];
+                    [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+                };
+                headerView = header;
             }else if (indexPath.section == 2) {
                 MESpecialSaleHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MESpecialSaleHeaderView class]) forIndexPath:indexPath];
                 [header setUIWithBannerImage:_arrPPTM];
@@ -705,8 +751,7 @@ const static CGFloat kImgStore = 50;
                     [strongSelf cycleScrollViewDidSelectItemWithModel:model];
                 };
                 headerView = header;
-            }
-            else if (indexPath.section == 3) {
+            }else if (indexPath.section == 3) {
                 MEFourHomeTopHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeTopHeaderView class]) forIndexPath:indexPath];
                 if(_spreebugmodel.recommend_left && _spreebugmodel.recommend_right){
                     [header setUiWithModel:_spreebugmodel];
@@ -761,6 +806,7 @@ const static CGFloat kImgStore = 50;
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeExchangeCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MEFourHomeExchangeCell class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MECoupleMailCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MECoupleMailCell class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeHeaderView class])];
+        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeNoticeHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeNoticeHeaderView class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeTopHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeTopHeaderView class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeGoodGoodFilterHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodFilterHeaderView class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class])];

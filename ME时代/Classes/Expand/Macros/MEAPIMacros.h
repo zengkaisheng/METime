@@ -724,6 +724,8 @@
 #define MEIPcommonGetYouxianBannerNew @"common/ad/getYouxianBannerNew"
 //获取聚划算banner图
 #define MEIPcommonGetSpecialSalsesBanner @"common/ad/specialSalsesBanner"
+//首页公告栏
+#define MEIPcommonGetHomeBulletin @"common/home/getHomeBulletin"
 /*********************************************/
 
 
