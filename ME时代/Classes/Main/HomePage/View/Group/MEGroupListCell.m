@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *groupBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnConsHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnConsWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerPicConsLeading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerPicConsTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerPicConsBottom;
 
 @end
 
@@ -43,6 +46,10 @@
 - (void)setUIWithModel:(MEGroupListModel *)model {
     _bgViewConsTop.constant = _bgViewConsLeading.constant = _bgViewConsTrailing.constant = 0.0;
     _bgView.cornerRadius = 0.0;
+    _headerPicConsTop.constant = 12.0;
+    _headerPicConsLeading.constant = 15.0;
+    _headerPicConsBottom.constant = 12.0;
+    _headerPic.cornerRadius = 0.0;
     
     kSDLoadImg(_headerPic, kMeUnNilStr(model.image_url));
     _titleLbl.text = kMeUnNilStr(model.title);
@@ -69,6 +76,10 @@
     _bgViewConsTop.constant = 5.0;
     _bgViewConsLeading.constant = _bgViewConsTrailing.constant = 10.0;
     _bgView.cornerRadius = 10.0;
+    _headerPicConsTop.constant = 15.0;
+    _headerPicConsLeading.constant = 10.0;
+    _headerPicConsBottom.constant = 17.0;
+    _headerPic.cornerRadius = 4.0;
     
     kSDLoadImg(_headerPic, kMeUnNilStr(model.image_url));
     _titleLbl.text = kMeUnNilStr(model.title);
@@ -83,7 +94,7 @@
     }
     
     _priceLbl.text = [NSString stringWithFormat:@"拼团价￥%@",kMeUnNilStr(model.money)];
-    _priceLbl.font = [UIFont systemFontOfSize:15];
+    _priceLbl.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:15];
     _priceLbl.textColor = [UIColor colorWithHexString:@"#EA3982"];
 //    NSString *faStr = [NSString stringWithFormat:@"拼团价￥%@ ￥%@",kMeUnNilStr(model.money),kMeUnNilStr(model.market_price)];
 //    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:faStr];

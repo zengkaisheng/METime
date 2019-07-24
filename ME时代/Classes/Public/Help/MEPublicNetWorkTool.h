@@ -364,6 +364,9 @@
 //获取默认地址
 + (void)postAddressDefaultAddressWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
+//获取结算页邮费
++ (void)postOrderFreightWithAddressId:(NSString *)addressId postage:(NSString *)postage productId:(NSString *)productId SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
 //获取到店领取的店铺地址
 + (void)postStoreAddressWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/

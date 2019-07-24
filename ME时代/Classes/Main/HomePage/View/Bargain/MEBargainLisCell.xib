@@ -24,7 +24,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xTJ-Uu-chs">
                                 <rect key="frame" x="15" y="12" width="92.5" height="92.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="xTJ-Uu-chs" secondAttribute="height" multiplier="1:1" id="IIc-qp-XGp"/>
                                     <constraint firstAttribute="width" secondItem="xTJ-Uu-chs" secondAttribute="height" multiplier="1:1" id="QgJ-NY-au8"/>
                                 </constraints>
                             </imageView>
@@ -240,6 +239,9 @@
                 <outlet property="countLbl" destination="t8s-Fy-c74" id="XTq-ae-Y5i"/>
                 <outlet property="endLbl" destination="Cpn-Yu-1f3" id="A8U-m9-9Qr"/>
                 <outlet property="headerPic" destination="xTJ-Uu-chs" id="d2u-Ar-b0T"/>
+                <outlet property="headerPicConsBottom" destination="L9I-8b-Gmh" id="Fyj-ef-hTO"/>
+                <outlet property="headerPicConsLeading" destination="kqF-MW-cPO" id="YRQ-hx-C0C"/>
+                <outlet property="headerPicConsTop" destination="JoS-kT-dA7" id="AQ5-kq-LKo"/>
                 <outlet property="lblHour" destination="5Ep-XP-YYh" id="QZd-8G-rId"/>
                 <outlet property="lblMinite" destination="FKZ-NL-29g" id="RaP-o5-aQE"/>
                 <outlet property="lblSecond" destination="en1-eS-nB9" id="7sB-0b-Bse"/>

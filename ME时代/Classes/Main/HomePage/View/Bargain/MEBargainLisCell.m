@@ -31,6 +31,9 @@
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnConsHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnConsWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerPicConsTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerPicConsLeading;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerPicConsBottom;
 
 @end
 
@@ -56,6 +59,11 @@
     _subTitleLbl.hidden = NO;
     _countLbl.hidden = NO;
     _bgViewConsTop.constant = _bgViewConsLeading.constant = _bgViewConsTrailing.constant = 0;
+    _bgView.cornerRadius = 0.0;
+    _headerPicConsTop.constant = 12.0;
+    _headerPicConsLeading.constant = 15.0;
+    _headerPicConsBottom.constant = 12.0;
+    _headerPic.cornerRadius = 0;
     
     kSDLoadImg(_headerPic, kMeUnNilStr(model.images));
     _titleLbl.text = kMeUnNilStr(model.title);
@@ -77,13 +85,17 @@
     _bgViewConsLeading.constant = _bgViewConsTrailing.constant = 10.0;
     _bgViewConsTop.constant = 5.0;
     _bgView.cornerRadius = 10.0;
+    _headerPicConsTop.constant = 15.0;
+    _headerPicConsLeading.constant = 10.0;
+    _headerPicConsBottom.constant = 17.0;
+    _headerPic.cornerRadius = 4;
     
     kSDLoadImg(_headerPic, MELoadQiniuImagesWithUrl(kMeUnNilStr(model.images)));
     _titleLbl.text = kMeUnNilStr(model.title);
     _subTitleLbl.text = [NSString stringWithFormat:@"砍成免费领%@",kMeUnNilStr(model.title)];
     _countLbl.text = [NSString stringWithFormat:@"已有%@人领取",kMeUnNilNumber(@(model.finish_bargin_num))];
     _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price).length>0?kMeUnNilStr(model.product_price):@"0"];
-//    _priceLbl.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:17];
+    _priceLbl.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:15];
     _priceLbl.textColor = [UIColor colorWithHexString:@"#EA3982"];
     
     NSString *content = [NSString stringWithFormat:@"砍价%.2f元得",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
@@ -103,6 +115,10 @@
     _bargainConsWidth.constant = 83;
     _bgViewConsTop.constant = _bgViewConsLeading.constant = _bgViewConsTrailing.constant = 0;
     _bgView.cornerRadius = 0.0;
+    _headerPicConsTop.constant = 12.0;
+    _headerPicConsLeading.constant = 15.0;
+    _headerPicConsBottom.constant = 12.0;
+    _headerPic.cornerRadius = 0;
     
     if (model.bargin_status == 1) {//未结束
         _timeView.hidden = NO;

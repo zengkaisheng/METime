@@ -112,6 +112,9 @@
                 <outlet property="btnConsWidth" destination="TdV-Ru-TQw" id="eGI-nL-f6J"/>
                 <outlet property="groupBtn" destination="fg5-Fr-ows" id="wVF-Sp-8f1"/>
                 <outlet property="headerPic" destination="a2j-5n-ySq" id="Wux-VO-kri"/>
+                <outlet property="headerPicConsBottom" destination="lFO-tB-yoh" id="o2X-1D-q2v"/>
+                <outlet property="headerPicConsLeading" destination="X38-iV-5kK" id="ueU-Sd-uKT"/>
+                <outlet property="headerPicConsTop" destination="YEb-54-pXI" id="x1K-55-LMf"/>
                 <outlet property="numberLbl" destination="Qtn-Vz-KOp" id="yaZ-Aw-doR"/>
                 <outlet property="priceLbl" destination="bJZ-EE-Taz" id="UJx-me-tcl"/>
                 <outlet property="titleLbl" destination="253-Ma-LUu" id="lDW-FV-PJN"/>

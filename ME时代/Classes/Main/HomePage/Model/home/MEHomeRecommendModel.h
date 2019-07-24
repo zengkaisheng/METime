@@ -93,6 +93,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * share_packet;
 //签到
 @property (nonatomic, assign) NSInteger join_number;
+@property (nonatomic, assign) NSInteger join_type;
+@property (nonatomic, assign) NSInteger total;
 @end
 
 NS_ASSUME_NONNULL_END

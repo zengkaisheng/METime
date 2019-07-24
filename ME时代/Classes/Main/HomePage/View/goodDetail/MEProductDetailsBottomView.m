@@ -121,7 +121,7 @@
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
         
         shareTool.shareTitle = self.model.title;
-        shareTool.shareDescriptionBody = @"好友邀请您拼团！";
+        shareTool.shareDescriptionBody = self.model.title;
         shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.model.images]]];
         
         [shareTool showShareView:kShareWebPageContentType success:^(id data) {

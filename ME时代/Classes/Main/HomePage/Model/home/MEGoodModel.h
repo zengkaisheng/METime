@@ -37,5 +37,8 @@
 
 @property (nonatomic, strong) NSString * interval_price;
 @property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) NSInteger join_type;
+@property (nonatomic, strong) NSString * end_time;
+@property (nonatomic, assign) NSInteger total;
 
 @end

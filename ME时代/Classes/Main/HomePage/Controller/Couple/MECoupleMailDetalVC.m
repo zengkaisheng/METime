@@ -128,6 +128,7 @@
         NSArray *arr =  responseObject.data[@"goods_detail_response"][@"goods_details"];
          if(kMeUnArr(arr).count){
              strongSelf->_pinduoduoDetailmodel =[MEPinduoduoCoupleInfoModel mj_objectWithKeyValues:arr[0]];
+             strongSelf->_pinduoduoDetailmodel.min_ratio = strongSelf->_pinduoduomodel.min_ratio;
              [strongSelf.view addSubview:strongSelf.tableView];
              [strongSelf.view addSubview:strongSelf.bottomView];
              strongSelf.tableView.tableHeaderView = strongSelf.headerView;

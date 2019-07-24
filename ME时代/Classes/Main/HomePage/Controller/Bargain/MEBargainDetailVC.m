@@ -82,6 +82,7 @@
         }
     } failure:^(id object) {
         kMeSTRONGSELF
+        [hud hideAnimated:YES];
         [strongSelf.navigationController popViewControllerAnimated:YES];
     }];
 }

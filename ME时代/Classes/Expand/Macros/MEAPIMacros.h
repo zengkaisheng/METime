@@ -702,6 +702,9 @@
 //获取默认地址
 #define MEIPcommonAddressGetdefaultAddress @"common/address/defaultAddress"
 
+//获取结算页邮费
+#define MEIPcommonAddressGetOrderFreight @"common/order/orderFreight"
+
 //获取到店领取的店铺地址
 #define MEIPcommonAddressGetStoreAddress @"common/address/addStoreAddress"
 

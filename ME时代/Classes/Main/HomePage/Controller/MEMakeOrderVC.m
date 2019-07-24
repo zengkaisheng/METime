@@ -37,6 +37,7 @@
     NSString *_order_sn;
     BOOL _isPayError;//防止跳2次错误页面
     NSArray *_arrData;
+    NSString *_origainlPostage;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) MEMakeOrderSelectAddressView *sAddressView;
@@ -60,6 +61,7 @@
         _goodModel = goodModel;
         _isPayError= NO;
         _arrData = [NSArray array];
+        _origainlPostage = goodModel.postage;
         self.isProctComd = NO;
     }
     return self;
@@ -103,6 +105,50 @@
         [strongSelf initSomeThing];
     }];
 }
+//获取用户选择收货地址的邮费
+- (void)getUserOrderFreightWithAddressId:(NSString *)addressId postage:(NSString *)postage productId:(NSString *)productId {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postOrderFreightWithAddressId:addressId postage:postage productId:productId SuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        strongSelf->_goodModel.postage = responseObject.data;
+        [strongSelf changePostage];
+        [strongSelf.tableView reloadData];
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.tableView reloadData];
+    }];
+}
+
+- (void)changePostage {
+    if (_isInteral) {
+        CGFloat allBean = [kMeUnNilStr(_goodModel.psmodel.integral_lines) floatValue] * _goodModel.buynum;
+        _lblAllPrice.text = [NSString stringWithFormat:@"%.2f美豆",allBean];
+    }else {
+        CGFloat allPrice = 0;
+        if (self.isReceivePrize) {
+            allPrice = [kMeUnNilStr(_goodModel.postage) floatValue];
+        }else {
+            if (self.bargainId > 0) {
+                allPrice = [kMeUnNilStr(_goodModel.money) floatValue] - [kMeUnNilStr(self.reducePrice) floatValue] + [kMeUnNilStr(_goodModel.postage) floatValue];
+            }else {
+                if(self.isProctComd){
+                    allPrice = [kMeUnNilStr(_goodModel.money) floatValue];
+                }else{
+                    if(_goodModel.is_seckill==1){
+                        allPrice = [kMeUnNilStr(_goodModel.psmodel.seckill_price) floatValue] * _goodModel.buynum  + [kMeUnNilStr(_goodModel.postage) floatValue];
+                    }else{
+                        if (_goodModel.isGroup) {
+                            allPrice = [kMeUnNilStr(_goodModel.group_price) floatValue] * _goodModel.buynum + [kMeUnNilStr(_goodModel.postage) floatValue];
+                        }else {
+                            allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum + [kMeUnNilStr(_goodModel.postage) floatValue];
+                        }
+                    }
+                }
+            }
+        }
+        _lblAllPrice.text = [NSString stringWithFormat:@"%.2f",allPrice];
+    }
+}
 
 - (void)initSomeThing {
     if(_isInteral){
@@ -113,12 +159,12 @@
     }else{
         CGFloat allPrice = 0;
         if (self.isReceivePrize) {
-            _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPreferential)];
+            _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPreferential),@(MEMakrOrderCellPostage)];
             allPrice = [kMeUnNilStr(_goodModel.postage) floatValue];
             _arrData = @[@""];
         }else {
             if (self.bargainId > 0) {
-                _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPreferential)];
+                _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPreferential),@(MEMakrOrderCellPostage)];
                 allPrice = [kMeUnNilStr(_goodModel.money) floatValue] - [kMeUnNilStr(self.reducePrice) floatValue] + [kMeUnNilStr(_goodModel.postage) floatValue];
                 _arrData = @[@""];
             }else {
@@ -135,10 +181,10 @@
                         }
                     }
                 }
-                _arrType = @[@(MEMakrOrderCellMessage)];
-                if (_goodModel.isGroup) {
-                    _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPostage)];
-                }
+                _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPostage)];
+//                if (_goodModel.isGroup) {
+//                    _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPostage)];
+//                }
                 if ([self->_goodModel.skus containsString:@"到店领取"]) {
                     NSString *msg = [NSString stringWithFormat:@"%@ %@",kMeUnNilStr(kCurrentUser.name),kMeUnNilStr(kCurrentUser.mobile)];
                     _arrData = @[msg];
@@ -167,6 +213,7 @@
         _tableView.tableHeaderView = self.notAddressView;
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WechatSuccess:) name:WX_PAY_RESULT object:nil];
+    [self getUserOrderFreightWithAddressId:[NSString stringWithFormat:@"%ld",(long)_addressModel.address_id] postage:_origainlPostage productId:[NSString stringWithFormat:@"%ld",_goodModel.product_id]];
 }
 
 #pragma mark - UITableViewDelegate
@@ -187,6 +234,10 @@
                 MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
                 [cell setAmount:[NSString stringWithFormat:@"%.2f",[kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum]];
                 return cell;
+            }else if (indexPath.row == 3) {
+                MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
+                [cell setTitle:@"邮费" amount:[NSString stringWithFormat:@"%@",kMeUnNilStr(_goodModel.postage)]];
+                return cell;
             }
         }
         if (self.bargainId > 0) {
@@ -194,15 +245,19 @@
                 MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
                 [cell setAmount:[NSString stringWithFormat:@"%.2f",[kMeUnNilStr(self.reducePrice) floatValue]]];
                 return cell;
-            }
-        }
-        if (_goodModel.isGroup) {
-            if (indexPath.row == 2) {
+            }else if (indexPath.row == 3) {
                 MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
-                [cell setTitle:@"运费" amount:[NSString stringWithFormat:@"%@",kMeUnNilStr(_goodModel.postage)]];
+                [cell setTitle:@"邮费" amount:[NSString stringWithFormat:@"%@",kMeUnNilStr(_goodModel.postage)]];
                 return cell;
             }
         }
+//        if (_goodModel.isGroup) {
+            if (indexPath.row == 2) {
+                MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
+                [cell setTitle:@"邮费" amount:[NSString stringWithFormat:@"%@",kMeUnNilStr(_goodModel.postage)]];
+                return cell;
+            }
+//        }
         // -1 是第一个给详情cell
         MEMakrOrderCellStyle type = [_arrType[indexPath.row-1] integerValue];
         MEMakeOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEMakeOrderCell class]) forIndexPath:indexPath];
@@ -313,7 +368,6 @@
 }
  
 #pragma mark - Private
-
 - (void)selectAddress{
     if ([self->_goodModel.skus containsString:@"到店领取"]) {
         return;
@@ -327,7 +381,10 @@
         strongSelf.sAddressView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEMakeOrderSelectAddressView getViewHeightWithModel:strongSelf->_addressModel]);
         [strongSelf.sAddressView setUIWithModel:strongSelf->_addressModel];
         strongSelf->_tableView.tableHeaderView = strongSelf.sAddressView;
-        [self.navigationController popViewControllerAnimated:YES];
+        [strongSelf getUserOrderFreightWithAddressId:[NSString stringWithFormat:@"%ld",addressModel.address_id] postage:strongSelf->_origainlPostage productId:[NSString stringWithFormat:@"%ld",strongSelf->_goodModel.product_id]];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        });
     };
     [self.navigationController pushViewController:vc animated:YES];
 }
