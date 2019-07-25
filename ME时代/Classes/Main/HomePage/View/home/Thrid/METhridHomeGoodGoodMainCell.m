@@ -41,7 +41,7 @@
         switch (model.join_type) {
             case 1:
             {//未参加
-                [_buyBtn setTitle:@"参加抽奖" forState:UIControlStateNormal];
+                [_buyBtn setTitle:@"立即签到" forState:UIControlStateNormal];
                 [_buyBtn setBackgroundColor:[UIColor colorWithHexString:@"#F03D38"]];
             }
                 break;
@@ -72,7 +72,6 @@
             default:
                 break;
         }
-        [_buyBtn setTitle:@"立即签到" forState:UIControlStateNormal];
     }else {
         [_buyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
         _lblSubTitle.text = kMeUnNilStr(model.desc).length?kMeUnNilStr(model.desc):kMeUnNilStr(model.title);

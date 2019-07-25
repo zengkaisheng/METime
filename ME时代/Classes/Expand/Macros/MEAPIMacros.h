@@ -789,4 +789,23 @@
 
 /*********************************************/
 
+/*********************************************/
+#pragma makr - 测试题
+//删除测试库
+#define MEIPcommonbankdelBank @"common/bank/delBank"
+//添加测试库
+#define MEIPcommonbankaddBank @"common/bank/addBank"
+//测试题库详情
+#define MEIPcommonbanktestBank @"common/bank/testBank"
+//修改测试库
+#define MEIPcommonbankeditBank @"common/bank/editBank"
+//历史测试库
+#define MEIPcommonbankhistoryTest @"common/bank/historyTest"
+//平台测试库
+#define MEIPcommonbankplatformTest @"common/bank/platformTest"
+//测试规则
+#define MEIPcommonbankrule @"common/bank/rule"
+
+/*********************************************/
+
 #endif /* MEAPIMacros_h */

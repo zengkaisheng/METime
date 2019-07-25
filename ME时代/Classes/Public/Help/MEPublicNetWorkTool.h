@@ -23,6 +23,7 @@
 @class MEDynamicGoodApplyModel;
 @class MEAddGoodModel;
 @class MEAiCustomerDataModel;
+@class SSHomeAddTestDecModel;
 
 @interface MEPublicNetWorkTool : NSObject
 
@@ -594,6 +595,19 @@
 //预约取消B端
 + (void)postCancelReserveWithReserveSn:(NSString *)reserve_sn successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
+
+#pragma makr - 测试题
+//删除测试库
++ (void)postgetbankdelBankWithId:(NSString*)pid SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//添加测试库
++ (void)postgetbankaddBankWithModel:(SSHomeAddTestDecModel*)model SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//测试题库详情
++ (void)postgetbanktestBankWithId:(NSString*)pid SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//修改测试库
++ (void)postgetbankeditBankWithModel:(SSHomeAddTestDecModel*)model SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//测试规则
++ (void)postgetbanktestBankruleWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+/*********************************************/
 
 + (MBProgressHUD *)commitWithHUD:(NSString *)str;
 

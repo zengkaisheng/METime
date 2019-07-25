@@ -60,6 +60,8 @@
 #import "MEMyGroupOrderVC.h"
 #import "MEFeedBackVC.h"
 
+#import "MEHomeTestVC.h"
+
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
     MEClientTypeStyle _type;
@@ -305,6 +307,11 @@
         case MeMyFeedBack:{
             MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc]init];
             [homeVc.navigationController pushViewController:feedbackVC animated:YES];
+        }
+            break;
+        case MeHomeTest:{
+            MEHomeTestVC *vc = [[MEHomeTestVC alloc]init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:

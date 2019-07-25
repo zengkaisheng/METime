@@ -86,10 +86,21 @@
             kMeWEAKSELF
             cell.tapBlock = ^(NSInteger index) {
                 kMeSTRONGSELF
-                MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.product_id myList:NO];
-                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
-                if (homevc) {
-                    [homevc.navigationController pushViewController:details animated:YES];
+                if([MEUserInfoModel isLogin]){
+                    MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.ids myList:NO];
+                    MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                    if (homevc) {
+                        [homevc.navigationController pushViewController:details animated:YES];
+                    }
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.ids myList:NO];
+                        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                        if (homevc) {
+                            [homevc.navigationController pushViewController:details animated:YES];
+                        }
+                    } failHandler:^(id object) {
+                    }];
                 }
             };
             return cell;
@@ -103,10 +114,21 @@
             kMeWEAKSELF
             cell.groupBlock = ^{
                 kMeSTRONGSELF
-                MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
-                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
-                if (homevc) {
-                    [homevc.navigationController pushViewController:details animated:YES];
+                if([MEUserInfoModel isLogin]){
+                    MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+                    MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                    if (homevc) {
+                        [homevc.navigationController pushViewController:details animated:YES];
+                    }
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+                        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                        if (homevc) {
+                            [homevc.navigationController pushViewController:details animated:YES];
+                        }
+                    } failHandler:^(id object) {
+                    }];
                 }
             };
             return cell;
@@ -137,10 +159,21 @@
             kMeWEAKSELF
             cell.buyBlock = ^{
                 kMeSTRONGSELF
-                METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
-                if (homevc) {
-                    [homevc.navigationController pushViewController:details animated:YES];
+                if([MEUserInfoModel isLogin]){
+                    MEJoinPrizeVC *details = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.ids]];
+                    MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                    if (homevc) {
+                        [homevc.navigationController pushViewController:details animated:YES];
+                    }
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        MEJoinPrizeVC *details = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.ids]];
+                        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                        if (homevc) {
+                            [homevc.navigationController pushViewController:details animated:YES];
+                        }
+                    } failHandler:^(id object) {
+                    }];
                 }
             };
             return cell;
@@ -169,17 +202,37 @@
             break;
         case 2:
         {
-            MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.ids myList:NO];
-            if (homevc) {
-                [homevc.navigationController pushViewController:details animated:YES];
+            if([MEUserInfoModel isLogin]){
+                MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.ids myList:NO];
+                if (homevc) {
+                    [homevc.navigationController pushViewController:details animated:YES];
+                }
+            }else {
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.ids myList:NO];
+                    if (homevc) {
+                        [homevc.navigationController pushViewController:details animated:YES];
+                    }
+                } failHandler:^(id object) {
+                }];
             }
         }
             break;
         case 3:
         {
-            MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
-            if (homevc) {
-                [homevc.navigationController pushViewController:details animated:YES];
+            if([MEUserInfoModel isLogin]){
+                MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+                if (homevc) {
+                    [homevc.navigationController pushViewController:details animated:YES];
+                }
+            }else {
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+                    if (homevc) {
+                        [homevc.navigationController pushViewController:details animated:YES];
+                    }
+                } failHandler:^(id object) {
+                }];
             }
         }
             break;
@@ -193,9 +246,19 @@
             break;
         case 5:
         {
-            MEJoinPrizeVC *details = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.ids]];
-            if (homevc) {
-                [homevc.navigationController pushViewController:details animated:YES];
+            if([MEUserInfoModel isLogin]){
+                MEJoinPrizeVC *details = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.ids]];
+                if (homevc) {
+                    [homevc.navigationController pushViewController:details animated:YES];
+                }
+            }else {
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    MEJoinPrizeVC *details = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.ids]];
+                    if (homevc) {
+                        [homevc.navigationController pushViewController:details animated:YES];
+                    }
+                } failHandler:^(id object) {
+                }];
             }
         }
             break;

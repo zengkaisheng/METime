@@ -76,6 +76,7 @@
     
     _sdView.infiniteLoop = YES;
     _sdView.autoScroll = YES;
+    [_sdView disableScrollGesture];
     _sdView.autoScrollTimeInterval = 4;
     
     
@@ -92,7 +93,16 @@
     
     _sdView1.infiniteLoop = YES;
     _sdView1.autoScroll = YES;
+    [_sdView1 disableScrollGesture];
     _sdView1.autoScrollTimeInterval = 4;
+    
+    if (array.count < 2) {
+        _sdView.infiniteLoop = NO;
+        _sdView.autoScroll = NO;
+        
+        _sdView1.infiniteLoop = NO;
+        _sdView1.autoScroll = NO;
+    }
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{

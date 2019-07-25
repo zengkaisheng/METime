@@ -21,6 +21,7 @@
 #import "MEDynamicGoodApplyModel.h"
 #import "MEAddGoodModel.h"
 #import "MEAiCustomerDataModel.h"
+#import "MEHomeAddTestDecModel.h"
 
 @implementation MEPublicNetWorkTool
 
@@ -1482,7 +1483,7 @@
 
 //获取首页推荐产品（商品、砍价、拼团、秒杀）2019-7-23
 + (void)postFourGetHomeRecommendWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
-    NSDictionary *dic = @{};
+    NSDictionary *dic = @{@"uid":kMeUnNilStr(kCurrentUser.uid)};
     NSString *url = kGetApiWithUrl(MEIPcommonhomeGetHomeRecommend);
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
         kMeCallBlock(successBlock,responseObject);
@@ -1771,8 +1772,8 @@
 }
 
 + (void)postHomeRecommendWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
-    NSDictionary *dic = @{@"other":@"is_recommend"
-                          ,@"uid":kMeUnNilStr(kCurrentUser.uid)
+    NSDictionary *dic = @{@"other":@"is_recommend",
+                          @"uid":kMeUnNilStr(kCurrentUser.uid)
                           };
     NSString *url = kGetApiWithUrl(MEIPcommonFindGoods);
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
@@ -3669,8 +3670,181 @@
         kMeCallBlock(failure,error);
     }];
 }
-
 /***************************************/
+
+/*********************************************/
+#pragma makr - 测试题
+//删除测试库
++ (void)postgetbankdelBankWithId:(NSString*)pid SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSString *url = kGetApiWithUrl(MEIPcommonbankdelBank);
+    MBProgressHUD *HUD = [self commitWithHUD:@"删除中"];
+    [THTTPManager postWithParameter:@{@"token":kMeUnNilStr(kCurrentUser.token),@"bank_id":kMeUnNilStr(pid)} strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//添加测试库
++ (void)postgetbankaddBankWithModel:(MEHomeAddTestDecModel*)model SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSString *questions = @"";
+    NSError *error = nil;
+    //题目类型 1图片 2文本
+    if(model.type == 1){
+        __block NSMutableArray *arrjson = [NSMutableArray array];
+        [model.questions enumerateObjectsUsingBlock:^(MEHomeAddTestDecContentModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dic = [obj mj_keyValues];
+            [arrjson addObject:dic];
+        }];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrjson
+                                                           options:kNilOptions
+                                                             error:&error];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                     encoding:NSUTF8StringEncoding];
+        questions = jsonString;
+    }else if (model.type == 2){
+        __block NSMutableArray *arrjson = [NSMutableArray array];
+        [model.questions enumerateObjectsUsingBlock:^(MEHomeAddTestDecContentModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dic = [obj mj_keyValues];
+            [arrjson addObject:dic];
+        }];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrjson
+                                                           options:kNilOptions
+                                                             error:&error];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                     encoding:NSUTF8StringEncoding];
+        questions = jsonString;
+    }
+    NSString *answers = @"";
+    __block NSMutableArray *arrjson = [NSMutableArray array];
+    [model.answers enumerateObjectsUsingBlock:^(MEHomeAddTestDecResultModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSDictionary *dic = [obj mj_keyValues];
+        [arrjson addObject:dic];
+    }];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrjson
+                                                       options:kNilOptions
+                                                         error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                 encoding:NSUTF8StringEncoding];
+    answers = jsonString;
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"title":kMeUnNilStr(model.title),
+                          @"desc":kMeUnNilStr(model.desc),
+                          @"image":kMeUnNilStr(model.image),
+                          @"questions":kMeUnNilStr(questions),
+                          @"answers":kMeUnNilStr(answers),
+                          };
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    NSString *url = kGetApiWithUrl(MEIPcommonbankaddBank);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+    
+}
+
+//测试规则
++ (void)postgetbanktestBankruleWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSString *url = kGetApiWithUrl(MEIPcommonbankrule);
+    [THTTPManager postWithParameter:@{@"token":kMeUnNilStr(kCurrentUser.token)} strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        kMeCallBlock(failure,error);
+    }];
+}
+
+//测试题库详情
++ (void)postgetbanktestBankWithId:(NSString*)pid SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSString *url = kGetApiWithUrl(MEIPcommonbanktestBank);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:@{@"token":kMeUnNilStr(kCurrentUser.token),@"bank_id":kMeUnNilStr(pid)} strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(failure,error);
+    }];
+}
+//修改测试库
++ (void)postgetbankeditBankWithModel:(MEHomeAddTestDecModel*)model SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSString *questions = @"";
+    NSError *error = nil;
+    //题目类型 1图片 2文本
+    if(model.type == 1){
+        __block NSMutableArray *arrjson = [NSMutableArray array];
+        [model.questions enumerateObjectsUsingBlock:^(MEHomeAddTestDecContentModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dic = [obj mj_keyValues];
+            [arrjson addObject:dic];
+        }];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrjson
+                                                           options:kNilOptions
+                                                             error:&error];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                     encoding:NSUTF8StringEncoding];
+        questions = jsonString;
+    }else if (model.type == 2){
+        __block NSMutableArray *arrjson = [NSMutableArray array];
+        [model.questions enumerateObjectsUsingBlock:^(MEHomeAddTestDecContentModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDictionary *dic = [obj mj_keyValues];
+            [arrjson addObject:dic];
+        }];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrjson
+                                                           options:kNilOptions
+                                                             error:&error];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                     encoding:NSUTF8StringEncoding];
+        questions = jsonString;
+    }
+    NSString *answers = @"";
+    __block NSMutableArray *arrjson = [NSMutableArray array];
+    [model.answers enumerateObjectsUsingBlock:^(MEHomeAddTestDecResultModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSDictionary *dic = [obj mj_keyValues];
+        [arrjson addObject:dic];
+    }];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arrjson
+                                                       options:kNilOptions
+                                                         error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                 encoding:NSUTF8StringEncoding];
+    answers = jsonString;
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"title":kMeUnNilStr(model.title),
+                          @"desc":kMeUnNilStr(model.desc),
+                          @"image":kMeUnNilStr(model.image),
+                          @"questions":kMeUnNilStr(questions),
+                          @"answers":kMeUnNilStr(answers),
+                          @"id":kMeUnNilStr(model.idField)
+                          };
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    NSString *url = kGetApiWithUrl(MEIPcommonbankeditBank);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+/*********************************************/
 
 #pragma mark - Help
 //点击数统计

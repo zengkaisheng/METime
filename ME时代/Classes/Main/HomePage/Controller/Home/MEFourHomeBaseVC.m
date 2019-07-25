@@ -38,6 +38,7 @@
 #import "MEJoinPrizeVC.h"
 #import "MEHomeOptionsModel.h"
 #import "MEHomeRecommendModel.h"
+#import "MECommonQuestionVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 #define kMEThridHomeNavViewHeight (((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 129 : 107))
@@ -425,6 +426,7 @@ const static CGFloat kImgStore = 50;
         {
             ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
             webVC.showProgress = YES;
+            webVC.title = kMeUnNilStr(model.ad_name);
             [webVC loadURL:[NSURL URLWithString:kMeUnNilStr(model.ad_url)]];
             [self.navigationController pushViewController:webVC animated:YES];
         }
@@ -518,6 +520,12 @@ const static CGFloat kImgStore = 50;
 
                 }];
             }
+        }
+            break;
+        case 17:
+        {//跳常见问题
+            MECommonQuestionVC *questionVC = [[MECommonQuestionVC alloc] init];
+            [self.navigationController pushViewController:questionVC animated:YES];
         }
             break;
         default:
@@ -680,11 +688,11 @@ const static CGFloat kImgStore = 50;
         if (section == 0) {
             return CGSizeMake(SCREEN_WIDTH, [MEFourHomeHeaderView getViewHeightWithOptionsArray:_optionsArray]);
         }else if (section == 1) {
-//            if (_noticeArray.count > 0) {
-                return CGSizeMake(SCREEN_WIDTH, 60);
-//            }else {
-//                return CGSizeMake(0, 0);
-//            }
+            if (_noticeArray.count > 0) {
+                return CGSizeMake(SCREEN_WIDTH, 70);
+            }else {
+                return CGSizeMake(0, 0);
+            }
         }else if (section == 2) {
             if (_arrPPTM.count > 0) {
                 return CGSizeMake(SCREEN_WIDTH, 100*kMeFrameScaleY());
