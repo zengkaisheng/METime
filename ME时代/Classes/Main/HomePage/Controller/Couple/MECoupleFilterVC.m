@@ -141,6 +141,7 @@ UICollectionViewDataSource>
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MECoupleFilterSubModel *model = self.collectionDatas[indexPath.section][indexPath.row];
     MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithQuery:kMeUnNilStr(model.name)];
+    vc.recordType = self.recordType;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -238,6 +239,7 @@ UICollectionViewDataSource>
 - (void)searchCoupon{
     MECouponSearchVC *searchViewController = [MECouponSearchVC searchViewControllerWithHotSearches:@[] searchBarPlaceholder:@"搜索优惠券" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
         MECoupleMailVC *dataVC = [[MECoupleMailVC alloc]initWithQuery:searchText];
+        dataVC.recordType = 5;
         [searchViewController.navigationController pushViewController:dataVC animated:YES];
     }];
     [searchViewController setSearchHistoriesCachePath:kMECouponSearchVCSearchHistoriesCachePath];

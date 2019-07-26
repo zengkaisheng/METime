@@ -171,10 +171,12 @@
     MECoupleModel *model = self.refresh.arrData[indexPath.row];
     if(kMeUnNilStr(model.coupon_id).length){
         MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
+        dvc.recordType = self.recordType;
         [self.navigationController pushViewController:dvc animated:YES];
     }else{
         model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
         MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
+        vc.recordType = self.recordType;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

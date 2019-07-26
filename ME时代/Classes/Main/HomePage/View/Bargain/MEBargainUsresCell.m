@@ -37,7 +37,7 @@
         }
     }
     
-    if (model.bargin_user.count == 3) {
+    if (model.bargin_user.count == 3 && !model.isShowMore) {
         [_checkMoreBtn setTitle:@"查看更多" forState:UIControlStateNormal];
         [_checkMoreBtn setImage:[UIImage imageNamed:@"icon_arrow_red"] forState:UIControlStateNormal];
         [_checkMoreBtn setButtonImageTitleStyle:ButtonImageTitleStyleRight padding:-123];

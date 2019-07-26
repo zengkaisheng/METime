@@ -67,7 +67,7 @@
         [records addObjectsFromArray:(NSArray *)[kMeUserDefaults objectForKey:kMEGetClickRecord]];
     }
     
-    [records addObject:@{@"type":type,@"parameter":paramsStr}];
+    [records addObject:@{@"type":kMeUnNilStr(type),@"parameter":paramsStr}];
     [kMeUserDefaults setObject:records forKey:kMEGetClickRecord];
     [kMeUserDefaults synchronize];
 }

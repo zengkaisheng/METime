@@ -26,11 +26,24 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kMEf5f4f4;
     self.title = @"常见问题";
-    [self.navigationController.navigationBar addSubview:self.rightBtn];
     
     [self.view addSubview:self.tableView];
     [self requestNetWork];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar addSubview:self.rightBtn];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.rightBtn) {
+        [self.rightBtn removeFromSuperview];
+        self.rightBtn = nil;
+    }
+}
+
 #pragma mark -- networking
 - (void)requestNetWork{
     kMeWEAKSELF

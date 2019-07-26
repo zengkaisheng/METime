@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/HomePage/Controller/Couple/MECoupleMailVC.m"
-            timestampString = "585628813.843269"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/HomePage/Controller/Couple/MECoupleHomeMainGoodGoodsCell.m"
+            timestampString = "585805104.248235"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "-collectionView:didSelectItemAtIndexPath:"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-collectionView:cellForItemAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

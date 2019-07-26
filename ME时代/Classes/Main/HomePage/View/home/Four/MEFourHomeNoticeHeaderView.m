@@ -96,7 +96,7 @@
     [_sdView1 disableScrollGesture];
     _sdView1.autoScrollTimeInterval = 4;
     
-    if (array.count < 2) {
+    if (array.count < 3) {
         _sdView.infiniteLoop = NO;
         _sdView.autoScroll = NO;
         

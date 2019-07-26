@@ -236,6 +236,10 @@
         MECoupleModel *model = self.refresh.arrData[indexPath.row];
         MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
         vc.recordType = self.recordType;
+        
+        NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
+        [self saveClickRecordsWithType:@"5" params:params];
+        
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

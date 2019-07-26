@@ -77,8 +77,10 @@
 {
     if (textView.text.length == 0) {
         self.placeholderTextView.hidden = NO;
+        self.textView.backgroundColor = [UIColor clearColor];
     }else{
         self.placeholderTextView.hidden =YES;
+        self.textView.backgroundColor = [UIColor whiteColor];
     }
     kMeCallBlock(self.contenBlock,[textView.text trimSpace]);
 //    //该判断用于联想输入
@@ -103,6 +105,7 @@
 //        _textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
 //        _textView.layer.borderWidth = 0.5;
         _textView.font = [UIFont systemFontOfSize:17];
+        _textView.returnKeyType = UIReturnKeyDone;
         _textView.delegate = self;
     }
     

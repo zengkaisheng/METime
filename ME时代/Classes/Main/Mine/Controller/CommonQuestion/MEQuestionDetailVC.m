@@ -29,7 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.navigationController.navigationBar addSubview:self.rightBtn];
     
     [self createImageViewWithImage:@"icon_question" frame:CGRectMake(15, kMeNavBarHeight + 25, 18, 18)];
     [self createImageViewWithImage:@"icon_answer" frame:CGRectMake(15, kMeNavBarHeight + 75, 18, 18)];
@@ -38,6 +37,20 @@
     [self.view addSubview:self.contentTextView];
     [self requestNetWork];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar addSubview:self.rightBtn];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.rightBtn) {
+        [self.rightBtn removeFromSuperview];
+        self.rightBtn = nil;
+    }
+}
+
 
 #pragma mark -- networking
 - (void)requestNetWork{

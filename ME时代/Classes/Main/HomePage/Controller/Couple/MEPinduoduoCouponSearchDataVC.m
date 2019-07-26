@@ -56,6 +56,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
     MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithPinduoudoModel:model];
+    vc.recordType = 5;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
