@@ -55,7 +55,7 @@
 //    _arrDicParm = @[@{@"type":@"3"},@{@"material_id":@"3756"},@{@"material_id":@"3786"},@{@"material_id":@"3767"},@{@"material_id":@"3763"},@{@"material_id":@"3760"}];
     [self requestMaterialData];
     
-    [self getRushGood];
+//    [self getRushGood];
     [self getUnInfo];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUnInfo) name:kUnNoticeMessage object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogout) name:kUserLogout object:nil];
@@ -120,6 +120,8 @@
     [self.view addSubview:self.navView];
     self.navView.categoryView.contentScrollView = self.scrollview;
     self.navBarHidden = YES;
+    
+    [self getRushGood];
 }
 
 - (void)requestNetWorhWithClickRecord {
@@ -184,7 +186,7 @@
                 }
             } cancelBlock:^{
                 
-            } superView:kMeCurrentWindow];
+            } superView:weakSelf.view];
         }
     } failure:^(id object) {
         

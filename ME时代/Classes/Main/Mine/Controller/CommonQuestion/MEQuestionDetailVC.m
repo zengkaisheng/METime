@@ -12,7 +12,9 @@
 
 @property (nonatomic, assign) NSInteger questionId;
 @property (nonatomic, strong) UIButton *rightBtn;
+@property (nonatomic, strong) UIImageView *questionImgV;
 @property (nonatomic, strong) UILabel *titleLbl;
+@property (nonatomic, strong) UIImageView *answerImgV;
 @property (nonatomic, strong) UITextView *contentTextView;
 
 @end
@@ -30,8 +32,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self createImageViewWithImage:@"icon_question" frame:CGRectMake(15, kMeNavBarHeight + 25, 18, 18)];
-    [self createImageViewWithImage:@"icon_answer" frame:CGRectMake(15, kMeNavBarHeight + 75, 18, 18)];
+    self.questionImgV = [self createImageViewWithImage:@"icon_question" frame:CGRectMake(15, kMeNavBarHeight + 25, 18, 18)];
+    self.answerImgV = [self createImageViewWithImage:@"icon_answer" frame:CGRectMake(15, kMeNavBarHeight + 75, 18, 18)];
+    [self.view addSubview:self.questionImgV];
+    [self.view addSubview:self.answerImgV];
     
     [self.view addSubview:self.titleLbl];
     [self.view addSubview:self.contentTextView];
@@ -59,8 +63,14 @@
         kMeSTRONGSELF
         if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = (NSDictionary *)responseObject.data;
-            strongSelf.titleLbl.text = dic[@"title"];
-            strongSelf.contentTextView.text = dic[@"content"];
+            NSString *titleStr = kMeUnNilStr(dic[@"title"]);
+            strongSelf.titleLbl.text = titleStr;
+            CGFloat height = [titleStr boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 50, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]} context:nil].size.height;
+            
+            strongSelf.titleLbl.frame = CGRectMake(43, kMeNavBarHeight + 25, SCREEN_WIDTH - 50, height);
+            strongSelf.answerImgV.frame = CGRectMake(15, kMeNavBarHeight + 75-18+height, 18, 18);
+            strongSelf.contentTextView.text = kMeUnNilStr(dic[@"content"]);
+            strongSelf.contentTextView.frame = CGRectMake(43, kMeNavBarHeight + 67-18+height, SCREEN_WIDTH - 43 - 19, SCREEN_HEIGHT - 75);
         }
     } failure:^(id object) {
 //        kMeSTRONGSELF
@@ -72,10 +82,10 @@
     [self requestNetWork];
 }
 
-- (void)createImageViewWithImage:(NSString *)image frame:(CGRect)frame {
+- (UIImageView *)createImageViewWithImage:(NSString *)image frame:(CGRect)frame {
     UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
     imgV.frame = frame;
-    [self.view addSubview:imgV];
+    return imgV;
 }
 
 #pragma setter && getter
@@ -93,6 +103,7 @@
     if (!_titleLbl) {
         _titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(43, kMeNavBarHeight + 25, SCREEN_WIDTH - 50, 18)];
         _titleLbl.font = [UIFont systemFontOfSize:17];
+        _titleLbl.numberOfLines = 0;
     }
     return _titleLbl;
 }

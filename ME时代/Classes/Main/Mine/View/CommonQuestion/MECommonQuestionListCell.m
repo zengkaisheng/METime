@@ -50,6 +50,7 @@
     UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, frame.size.width-8-30, 44)];
     titleLbl.text = [NSString stringWithFormat:@"%ld.%@",tag-99,subModel.title];
     titleLbl.font = [UIFont systemFontOfSize:13];
+    titleLbl.numberOfLines = 2;
     [subView addSubview:titleLbl];
     
     UIImageView *rightArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"inco-yytmtmda"]];

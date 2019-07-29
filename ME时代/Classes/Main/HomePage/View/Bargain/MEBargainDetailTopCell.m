@@ -67,11 +67,11 @@
     _productCountLbl.text = [NSString stringWithFormat:@"已有%ld人领取",(long)model.finish_bargin_num];
     _productPriceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price)];
     if (IS_IPHONE_4S || IS_IPHONE_5 || IS_iPhone5S) {
-        _contentLbl.font = [UIFont boldSystemFontOfSize:13];
+        _productPriceLbl.font = [UIFont boldSystemFontOfSize:13];
     }else if (IS_IPHONE_6) {
-        _contentLbl.font = [UIFont boldSystemFontOfSize:14];
+        _productPriceLbl.font = [UIFont boldSystemFontOfSize:14];
     }else {
-        _contentLbl.font = [UIFont boldSystemFontOfSize:16];
+        _productPriceLbl.font = [UIFont boldSystemFontOfSize:16];
     }
     [self downSecondHandle:[NSString stringWithFormat:@"%ld",model.over_time]];
     
