@@ -55,7 +55,7 @@
     }
     self.timeLbl.text = model.updated_at;
     
-    NSString *fstr = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.refund_money)];
+    NSString *fstr = [NSString stringWithFormat:@"¥%@",@(kMeUnNilStr(model.refund_money).floatValue)];
     NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
     NSUInteger secondLoc = [[faString string] rangeOfString:@"."].location;
     

@@ -184,7 +184,7 @@
                 }
             } cancelBlock:^{
                 
-            } superView:weakSelf.view];
+            } superView:kMeCurrentWindow];
         }
     } failure:^(id object) {
         

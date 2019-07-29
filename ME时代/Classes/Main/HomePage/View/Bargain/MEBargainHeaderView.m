@@ -51,9 +51,9 @@
 //    _topLbl.text = @"某某砍价成功了致青春期男孩";
     NSString *fstr = @"";
     if ([kMeUnNilStr(dic[@"type"]) intValue] == 1) {//砍价
-        fstr = [NSString stringWithFormat:@"%@ 人今日砍价成功",kMeUnNilStr(dic[@"today_finish_bargin_total"])];
+        fstr = [NSString stringWithFormat:@"%d 人今日砍价成功",[kMeUnNilStr(dic[@"today_finish_bargin_total"]) intValue]];
     }else if ([kMeUnNilStr(dic[@"type"]) intValue] == 2) {//拼团
-        fstr = [NSString stringWithFormat:@"%@ 人今日拼团成功",kMeUnNilStr(dic[@"today_group_total"])];
+        fstr = [NSString stringWithFormat:@"%d 人今日拼团成功",[kMeUnNilStr(dic[@"today_group_total"]) intValue]];
     }
     NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
     NSUInteger secondLoc = [[faString string] rangeOfString:@" "].location;

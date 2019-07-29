@@ -130,6 +130,7 @@
     [shareTool shareWebPageToPlatformType:index+1 success:^(id data) {
         NSLog(@"分享成功%@",data);
         [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+        
         [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
     } failure:^(NSError *error) {
         NSLog(@"分享失败%@",error);

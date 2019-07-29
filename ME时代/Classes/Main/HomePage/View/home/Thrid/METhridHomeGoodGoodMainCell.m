@@ -42,19 +42,19 @@
             case 1:
             {//未参加
                 [_buyBtn setTitle:@"立即签到" forState:UIControlStateNormal];
-                [_buyBtn setBackgroundColor:[UIColor colorWithHexString:@"#F03D38"]];
+                [_buyBtn setBackgroundColor:[UIColor colorWithHexString:@"#EA3982"]];
             }
                 break;
             case 2:
             {//等待开奖
                 [_buyBtn setTitle:@"等待开奖" forState:UIControlStateNormal];
-                [_buyBtn setBackgroundColor:[UIColor colorWithHexString:@"#F03D38"]];
+                [_buyBtn setBackgroundColor:[UIColor colorWithHexString:@"#EA3982"]];
             }
                 break;
             case 3:
             {//中奖(待领取)
                 [_buyBtn setTitle:@"领取奖品" forState:UIControlStateNormal];
-                [_buyBtn setBackgroundColor:[UIColor colorWithHexString:@"#F03D38"]];
+                [_buyBtn setBackgroundColor:[UIColor colorWithHexString:@"#EA3982"]];
             }
                 break;
             case 4:

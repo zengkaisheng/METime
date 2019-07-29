@@ -77,7 +77,7 @@
     
     [_imgPic sd_setImageWithURL:[NSURL URLWithString:kMeUnNilStr(model.pict_url)] placeholderImage:kImgPlaceholder];
     _lblTitle.text = kMeUnNilStr(model.title);
-    _lblSale.text = [NSString stringWithFormat:@"已售%@",kMeUnNilStr(model.volume)];
+    _lblSale.text = [NSString stringWithFormat:@"已售%d",kMeUnNilStr(model.volume).intValue];
     //原价
 //    _lblOrigalPrice.text =[NSString stringWithFormat:@"原价¥%@",@(kMeUnNilStr(model.zk_final_price).floatValue)];
     NSString *fstr = [NSString stringWithFormat:@"¥%@",@(kMeUnNilStr(model.zk_final_price).floatValue)];

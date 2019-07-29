@@ -11,8 +11,8 @@
 
 const static CGFloat kMEProductCellHeight  = 230;
 #define kMEProductCellWdith ((SCREEN_WIDTH - (15*2))/2)
-#define kMEMargin (7.5)
-
+//#define kMEMargin (7.5)
+#define kMEMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
 @interface MEProductCell : UICollectionViewCell
 

@@ -156,7 +156,7 @@
     _lblJuanPrice.text =[NSString stringWithFormat:@"¥%@", strPrice];
     */
     //new
-    NSString *fstr = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.priceInfo.price)];
+    NSString *fstr = [NSString stringWithFormat:@"¥%@",@(kMeUnNilStr(model.priceInfo.price).floatValue)];
     NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
     [faString addAttribute:NSStrikethroughStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(0, fstr.length)];
     _lblOrigalPrice.attributedText = faString;

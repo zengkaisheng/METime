@@ -58,7 +58,7 @@
 - (void)setUIWithAmount:(NSString *)amount {
     _lblTitle.hidden = YES;
     _lblSubTitle.hidden = YES;
-    NSString *fstr = [NSString stringWithFormat:@"退款金额     ¥ %@",kMeUnNilStr(amount)];
+    NSString *fstr = [NSString stringWithFormat:@"退款金额     ¥ %@",@(kMeUnNilStr(amount).floatValue)];
     NSMutableAttributedString *faString = [[NSMutableAttributedString alloc]initWithString:fstr];
     
     _lblFristBuy.textColor = [UIColor colorWithHexString:@"#CA0D0D"];
@@ -88,7 +88,7 @@
         _lblFristBuy.hidden = NO;
         _lineView.hidden = YES;
         
-        _lblFristBuy.text = [NSString stringWithFormat:@"还差%@人拼团成功",kMeUnNilStr(info[@"content"])];
+        _lblFristBuy.text = [NSString stringWithFormat:@"还差%d人拼团成功",[kMeUnNilStr(info[@"content"]) intValue]];
         _lblFristBuy.textColor = [UIColor colorWithHexString:@"#FF88A4"];
     }
     if ([info[@"type"] intValue] == 1) {
@@ -98,12 +98,12 @@
         
         _lblTitle.text = kMeUnNilStr(info[@"title"]);
         _lblTitle.textColor = kME333333;
-        _lblSubTitle.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(info[@"content"])];
+        _lblSubTitle.text = [NSString stringWithFormat:@"¥%d",[kMeUnNilStr(info[@"content"]) intValue]];
         _lblSubTitle.textColor = [UIColor colorWithHexString:@"#FF88A4"];
         _lineView.hidden = NO;
         if ([info[@"title"] isEqualToString:@"实付金额"]) {
             _lblTitle.text = @"";
-            NSString *subStr = [NSString stringWithFormat:@"实付金额：¥%@",kMeUnNilStr(info[@"content"])];
+            NSString *subStr = [NSString stringWithFormat:@"实付金额：¥%d",[kMeUnNilStr(info[@"content"]) intValue]];
             NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:subStr];
             NSUInteger location = [subStr rangeOfString:@"："].location;
             [attStr addAttribute:NSForegroundColorAttributeName value:kME333333 range:NSMakeRange(0, location+1)];

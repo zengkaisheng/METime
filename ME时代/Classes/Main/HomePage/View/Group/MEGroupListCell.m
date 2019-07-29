@@ -63,7 +63,7 @@
         _priceLbl.font = [UIFont systemFontOfSize:15];
     }
     
-    NSString *faStr = [NSString stringWithFormat:@"拼团价￥%@ ￥%@",kMeUnNilStr(model.money),kMeUnNilStr(model.market_price)];
+    NSString *faStr = [NSString stringWithFormat:@"拼团价￥%@ ￥%@",kMeUnNilStr(model.money).length>0?kMeUnNilStr(model.money):@"0.00",kMeUnNilStr(model.market_price).length>0?kMeUnNilStr(model.market_price):@"0.00"];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:faStr];
     NSUInteger secondLoc = [faStr rangeOfString:@" "].location;
     

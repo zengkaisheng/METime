@@ -81,9 +81,9 @@
     CGFloat titleHeight = [NSAttributedString heightForAtsWithStr:kMeUnNilStr(title) font:[UIFont systemFontOfSize:14] width:(SCREEN_WIDTH - 156-17) lineH:0 maxLine:0];
     _titleConsHeight.constant = titleHeight>19?titleHeight:19;
     
-    _numberLbl.text = [NSString stringWithFormat:@"%@人团",kMeUnNilStr(self.model.group_num)];
+    _numberLbl.text = [NSString stringWithFormat:@"%d人团",kMeUnNilStr(self.model.group_num).intValue];
     
-    NSString *faStr = [NSString stringWithFormat:@"拼团价￥%@ ￥%@",kMeUnNilStr(self.model.goods_spec.group_price),kMeUnNilStr(self.model.goods_spec.goods_price)];
+    NSString *faStr = [NSString stringWithFormat:@"拼团价￥%@ ￥%@",@(kMeUnNilStr(self.model.goods_spec.group_price).floatValue),@(kMeUnNilStr(self.model.goods_spec.goods_price).floatValue)];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:faStr];
     NSUInteger firstLoc = [faStr rangeOfString:@" "].location;
     [string addAttribute:NSForegroundColorAttributeName value:kME999999 range:NSMakeRange(firstLoc, faStr.length-firstLoc)];

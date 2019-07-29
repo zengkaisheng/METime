@@ -67,14 +67,14 @@
     if (model.isGroup) {
         price = kMeUnNilStr(model.group_price);
     }
-    NSString *priceStr = [NSString stringWithFormat:@"¥%d",price.intValue];
-    NSRange range = [priceStr rangeOfString:[NSString stringWithFormat:@"%d",price.intValue]];
+    NSString *priceStr = [NSString stringWithFormat:@"¥%.2f",price.floatValue];
+    NSRange range = [priceStr rangeOfString:[NSString stringWithFormat:@"%.2f",price.floatValue]];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:priceStr];
     [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:NSMakeRange(0, 1)];
     [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:NSMakeRange(range.location+range.length, priceStr.length-range.location-range.length)];
     _priceLbl.attributedText = attStr;
     
-    NSString *commStr = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.market_price)];
+    NSString *commStr = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.market_price).length>0?kMeUnNilStr(model.market_price):@"0.00"];
     [_origanPriceLbl setLineStrWithStr:commStr];
     _countLbl.text = [NSString stringWithFormat:@"%@人团",kMeUnNilStr(model.group_num)];
     

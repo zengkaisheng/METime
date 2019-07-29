@@ -634,7 +634,7 @@
         NSString *yuanString = nil;
         NSInteger moneyInt = ((NSNumber *)money).integerValue;
         if (moneyInt % 100 == 0) {
-            yuanString = [NSString stringWithFormat:@"%d",moneyInt/100];
+            yuanString = [NSString stringWithFormat:@"%ld",moneyInt/100];
         }else if(moneyInt%100%10 == 0){
             yuanString = [NSString stringWithFormat:@"%.1f",moneyInt/100.0];
         }else{

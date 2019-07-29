@@ -42,20 +42,20 @@
     if([MEUserInfoModel isLogin]){
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getUnMeaasge) name:kUnMessage object:nil];
     }
-    NSInteger f = [[[NSUserDefaults standardUserDefaults] objectForKey:kcheckFirstBuy] integerValue];
-    if(f){
-        HDAlertView *alertView = [HDAlertView alertViewWithTitle:@"提示" andMessage:@"您有一次免费预约门店服务的机会"];
-        alertView.isSupportRotating = YES;
-        [alertView addButtonWithTitle:@"取消" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
-        }];
-        kMeWEAKSELF
-        [alertView addButtonWithTitle:@"确定" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
-            kMeSTRONGSELF
-            MEProductListVC *productList = [[MEProductListVC alloc]initWithType:MEGoodsTypeNetServiceStyle];
-            [strongSelf.navigationController pushViewController:productList animated:YES];
-        }];
-        [alertView show];
-    }
+//    NSInteger f = [[[NSUserDefaults standardUserDefaults] objectForKey:kcheckFirstBuy] integerValue];
+//    if(f){
+//        HDAlertView *alertView = [HDAlertView alertViewWithTitle:@"提示" andMessage:@"您有一次免费预约门店服务的机会"];
+//        alertView.isSupportRotating = YES;
+//        [alertView addButtonWithTitle:@"取消" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
+//        }];
+//        kMeWEAKSELF
+//        [alertView addButtonWithTitle:@"确定" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
+//            kMeSTRONGSELF
+//            MEProductListVC *productList = [[MEProductListVC alloc]initWithType:MEGoodsTypeNetServiceStyle];
+//            [strongSelf.navigationController pushViewController:productList animated:YES];
+//        }];
+//        [alertView show];
+//    }
 }
 
 -(void)viewWillAppear:(BOOL)animated {

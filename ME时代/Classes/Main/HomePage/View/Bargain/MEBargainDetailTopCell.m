@@ -79,10 +79,10 @@
     [_shareButton setBackgroundImage:[UIImage imageNamed:@"bargainShareBtnImg"] forState:UIControlStateNormal];
     
     if (model.status == 1) {//砍价中
-        NSString *message = [NSString stringWithFormat:@"已砍%@元,完成%.1f%%,只差%.2f元!",kMeUnNilStr(model.money),[kMeUnNilStr(model.money) floatValue]/[kMeUnNilStr(model.amount_money) floatValue]*100,[kMeUnNilStr(model.amount_money) floatValue] - [kMeUnNilStr(model.money) floatValue]];
+        NSString *message = [NSString stringWithFormat:@"已砍%@元,完成%.1f%%,只差%.2f元!",kMeUnNilStr(model.money).length>0?kMeUnNilStr(model.money):@"0",[kMeUnNilStr(model.money) floatValue]/[kMeUnNilStr(model.amount_money) floatValue]*100,[kMeUnNilStr(model.amount_money) floatValue] - [kMeUnNilStr(model.money) floatValue]];
         
         NSMutableAttributedString *attriStr = [[NSMutableAttributedString alloc] initWithString:message];
-        NSRange range1 = [message rangeOfString:model.money];
+        NSRange range1 = [message rangeOfString:kMeUnNilStr(model.money).length>0?kMeUnNilStr(model.money):@"0"];
         NSRange range2 = [message rangeOfString:[NSString stringWithFormat:@"%.1f",[kMeUnNilStr(model.money) floatValue]/[kMeUnNilStr(model.amount_money) floatValue]*100]];
         [attriStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:19] range:range1];
         [attriStr addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FEF200"] range:range1];
