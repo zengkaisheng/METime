@@ -129,7 +129,7 @@
             allPrice = [kMeUnNilStr(_goodModel.postage) floatValue];
         }else {
             if (self.bargainId > 0) {
-                allPrice = [kMeUnNilStr(_goodModel.money) floatValue] - [kMeUnNilStr(self.reducePrice) floatValue] + [kMeUnNilStr(_goodModel.postage) floatValue];
+                allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] - [kMeUnNilStr(self.reducePrice) floatValue] + [kMeUnNilStr(_goodModel.postage) floatValue];
             }else {
                 if(self.isProctComd){
                     allPrice = [kMeUnNilStr(_goodModel.money) floatValue];

@@ -111,7 +111,11 @@
     //实价
     [_lblRealPriceLine setLineStrWithStr:commStr];
     //购买价
-    _lblRealPrice.text = [NSString stringWithFormat:@"¥%@",@(kMeUnNilStr(model.money).floatValue)];
+    NSString *price = kMeUnNilStr(model.money);
+    if (model.psmodel && model.psmodel.goods_price.length>0) {
+        price = kMeUnNilStr(model.psmodel.goods_price);
+    }
+    _lblRealPrice.text = [NSString stringWithFormat:@"¥%@",@(price.floatValue)];
     
     CGFloat postage = [model.postage floatValue];
     if(postage<=0){
