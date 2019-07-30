@@ -62,6 +62,8 @@
             }else{
                 if (model.isGroup) {
                     _lblPrice.text = kMeUnNilStr(model.group_price);
+                }else if (model.isPrize) {
+                    _lblPrice.text = kMeUnNilStr(model.psmodel.draw_price);
                 }else {
                     _lblPrice.text = kMeUnNilStr(model.psmodel.goods_price);
                 }

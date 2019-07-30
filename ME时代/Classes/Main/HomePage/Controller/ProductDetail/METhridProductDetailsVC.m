@@ -108,6 +108,7 @@ kTDWebViewCellDidFinishLoadNotificationMethod
 
 - (void)setUIWIthModel:(MEGoodDetailModel *)model{
     _model = model;
+    _model.isPrize = self.isReceivePrize;
     _selectType = kpurchaseSelectSkuViewType;
     _type = model.is_seckill;
     [self.view addSubview:self.tableView];

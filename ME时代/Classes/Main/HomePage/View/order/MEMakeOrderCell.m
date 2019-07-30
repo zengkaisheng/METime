@@ -41,6 +41,11 @@ const static CGFloat kTitleWdith = 92;
     if(type == MEMakrOrderCellMessage){
         kMeWEAKSELF
         _txMessage.text = model;
+        if (model.length > 30) {
+            _txMessage.font = [UIFont systemFontOfSize:11];
+        }else {
+            _txMessage.font = [UIFont systemFontOfSize:14];
+        }
         _txMessage.contentBlock = ^(NSString *str) {
             kMeSTRONGSELF
             kMeCallBlock(strongSelf.messageBlock,str);

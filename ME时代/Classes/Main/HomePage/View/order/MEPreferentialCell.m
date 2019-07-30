@@ -31,12 +31,12 @@
 }
 
 - (void)setAmount:(NSString *)amount {
-    _amountLbl.text = [NSString stringWithFormat:@"¥%@",amount.length==0?@"0.0":amount];
+    _amountLbl.text = [NSString stringWithFormat:@"¥%@",amount.floatValue==0?@"0.0":amount];
 }
 
 - (void)setTitle:(NSString *)title amount:(NSString *)amount {
     _titleLbl.text = title.length>0?title:@"已优惠金额";
-    _amountLbl.text = amount.integerValue==0?@"包邮":[NSString stringWithFormat:@"¥%@",amount];
+    _amountLbl.text = amount.floatValue==0?@"包邮":[NSString stringWithFormat:@"¥%@",amount];
 }
 
 @end

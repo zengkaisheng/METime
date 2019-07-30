@@ -130,6 +130,9 @@
 @property (nonatomic, assign) NSInteger group_sn;
 @property (nonatomic, assign) BOOL isGroup;
 
+//签到相关
+@property (nonatomic, strong) NSString * draw_price;
+@property (nonatomic, assign) BOOL isPrize;
 @end
 
 

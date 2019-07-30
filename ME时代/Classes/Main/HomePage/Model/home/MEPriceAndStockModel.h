@@ -28,6 +28,8 @@
 @property (nonatomic, strong) NSString * integral_lines;
 //拼团相关
 @property (nonatomic, strong) NSString * group_price;
+//签到相关
+@property (nonatomic, strong) NSString * draw_price;
 @end
 
 

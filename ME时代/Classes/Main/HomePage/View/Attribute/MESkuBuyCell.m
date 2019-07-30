@@ -90,7 +90,9 @@ const static CGFloat kMinCellWidth = 50;
         }else{
             if (_goodModel.isGroup) {
                 _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(_goodModel.group_price)];
-            }else {
+            }else if (_goodModel.isPrize) {
+                _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(_goodModel.psmodel.draw_price)];
+            } else {
                 _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(_goodModel.psmodel.goods_price)];
             }
         }

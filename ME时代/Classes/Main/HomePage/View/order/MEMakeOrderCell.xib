@@ -60,7 +60,7 @@
                 <outlet property="lblTitle" destination="lmU-Sq-eoC" id="Rdh-gw-uoK"/>
                 <outlet property="txMessage" destination="nAa-io-w3m" id="wgD-FT-CJV"/>
             </connections>
-            <point key="canvasLocation" x="-435" y="48"/>
+            <point key="canvasLocation" x="-435.19999999999999" y="47.676161919040482"/>
         </tableViewCell>
     </objects>
 </document>

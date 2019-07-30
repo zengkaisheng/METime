@@ -126,10 +126,10 @@
     }else {
         CGFloat allPrice = 0;
         if (self.isReceivePrize) {
-            allPrice = [kMeUnNilStr(_goodModel.postage) floatValue];
+            allPrice = [kMeUnNilStr(_goodModel.postage) floatValue] + [kMeUnNilStr(_goodModel.psmodel.draw_price) floatValue] * _goodModel.buynum;
         }else {
             if (self.bargainId > 0) {
-                allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] - [kMeUnNilStr(self.reducePrice) floatValue] + [kMeUnNilStr(_goodModel.postage) floatValue];
+                allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum - [kMeUnNilStr(self.reducePrice) floatValue] + [kMeUnNilStr(_goodModel.postage) floatValue];
             }else {
                 if(self.isProctComd){
                     allPrice = [kMeUnNilStr(_goodModel.money) floatValue];
@@ -159,13 +159,13 @@
     }else{
         CGFloat allPrice = 0;
         if (self.isReceivePrize) {
-            _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPreferential),@(MEMakrOrderCellPostage)];
-            allPrice = [kMeUnNilStr(_goodModel.postage) floatValue];
+            _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPostage)];
+            allPrice = [kMeUnNilStr(_goodModel.postage) floatValue] + [kMeUnNilStr(_goodModel.psmodel.draw_price) floatValue] * _goodModel.buynum;
             _arrData = @[@""];
         }else {
             if (self.bargainId > 0) {
                 _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPreferential),@(MEMakrOrderCellPostage)];
-                allPrice = [kMeUnNilStr(_goodModel.money) floatValue] - [kMeUnNilStr(self.reducePrice) floatValue] + [kMeUnNilStr(_goodModel.postage) floatValue];
+                allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum - [kMeUnNilStr(self.reducePrice) floatValue] + [kMeUnNilStr(_goodModel.postage) floatValue];
                 _arrData = @[@""];
             }else {
                 if(self.isProctComd){
@@ -231,10 +231,6 @@
     }else{
         if (self.isReceivePrize) {
             if (indexPath.row == 2) {
-                MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
-                [cell setAmount:[NSString stringWithFormat:@"%.2f",[kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum]];
-                return cell;
-            }else if (indexPath.row == 3) {
                 MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
                 [cell setTitle:@"邮费" amount:[NSString stringWithFormat:@"%@",kMeUnNilStr(_goodModel.postage)]];
                 return cell;
