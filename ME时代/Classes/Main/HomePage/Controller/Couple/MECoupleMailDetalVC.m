@@ -89,11 +89,58 @@
             self.tableView.tableHeaderView = self.headerView;
             [self.headerView setUIWithModel:_detailModel];
             [self.tableView reloadData];
-            [self requestCoupleDetailNetWork];
+            if (kMeUnNilStr(_detailModel.coupon_end_time).length<=0||![self downSecondHandle:_detailModel.coupon_end_time]) {
+                [MECommonTool showMessage:@"暂无优惠券" view:self.view];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            }else {
+                [self requestCoupleDetailNetWork];
+            }
         }else{
             [self requestNetWork];
         }
     }
+}
+
+- (NSDate *)timeWithTimeIntervalString:(NSString *)timeString
+{
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *date=[dateFormatter dateFromString:timeString];
+    return date;
+}
+
+-(BOOL)downSecondHandle:(NSString *)aTimeString{
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *endTimeStr = [self getTimeFromTimestamp:aTimeString];
+    
+    NSDate *endDate = [self timeWithTimeIntervalString:kMeUnNilStr(endTimeStr)]; //结束时间
+    NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
+    NSDate *startDate = [NSDate date];
+    NSString* dateString = [dateFormatter stringFromDate:startDate];
+    NSLog(@"现在的时间 === %@",dateString);
+    NSTimeInterval timeInterval = [endDate_tomorrow timeIntervalSinceDate:startDate];
+    int timeout = timeInterval;
+    return timeout>0?YES:NO;
+}
+
+#pragma mark ---- 将时间戳转换成时间
+
+- (NSString *)getTimeFromTimestamp:(NSString *)time{
+    //将对象类型的时间转换为NSDate类型
+//    double time =1504667976;
+    NSDate * myDate= [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
+    
+    //设置时间格式
+    NSDateFormatter * formatter=[[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    //将时间转换为字符串
+    NSString *timeStr=[formatter stringFromDate:myDate];
+    
+    return timeStr;
 }
 
 - (void)requestCoupleDetailNetWork{
@@ -128,12 +175,19 @@
         NSArray *arr =  responseObject.data[@"goods_detail_response"][@"goods_details"];
          if(kMeUnArr(arr).count){
              strongSelf->_pinduoduoDetailmodel =[MEPinduoduoCoupleInfoModel mj_objectWithKeyValues:arr[0]];
-             strongSelf->_pinduoduoDetailmodel.min_ratio = strongSelf->_pinduoduomodel.min_ratio;
-             [strongSelf.view addSubview:strongSelf.tableView];
-             [strongSelf.view addSubview:strongSelf.bottomView];
-             strongSelf.tableView.tableHeaderView = strongSelf.headerView;
-             [strongSelf.headerView setPinduoduoUIWithModel:strongSelf->_pinduoduoDetailmodel];
-             [strongSelf.tableView reloadData];
+             if (kMeUnNilStr(strongSelf->_pinduoduoDetailmodel.coupon_end_time).length<=0||![self downSecondHandle:strongSelf->_pinduoduoDetailmodel.coupon_end_time]) {
+                 [MECommonTool showMessage:@"暂无优惠券" view:self.view];
+                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                     [strongSelf.navigationController popViewControllerAnimated:YES];
+                 });
+             }else {
+                 strongSelf->_pinduoduoDetailmodel.min_ratio = strongSelf->_pinduoduomodel.min_ratio;
+                 [strongSelf.view addSubview:strongSelf.tableView];
+                 [strongSelf.view addSubview:strongSelf.bottomView];
+                 strongSelf.tableView.tableHeaderView = strongSelf.headerView;
+                 [strongSelf.headerView setPinduoduoUIWithModel:strongSelf->_pinduoduoDetailmodel];
+                 [strongSelf.tableView reloadData];
+             }
          }else{
             [strongSelf.navigationController popViewControllerAnimated:YES];
          }
@@ -198,7 +252,7 @@
                 [strongSelf.headerView setUIWithModel:strongSelf->_detailModel];
                 [strongSelf.tableView reloadData];
             }else {
-                [MECommonTool showMessage:@"优惠券不存在" view:strongSelf.view];
+                [MECommonTool showMessage:@"暂无优惠券" view:strongSelf.view];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [strongSelf.navigationController popViewControllerAnimated:YES];
                 });

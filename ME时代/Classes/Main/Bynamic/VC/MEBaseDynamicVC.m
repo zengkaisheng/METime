@@ -22,6 +22,9 @@
 #import "MEJDCoupleMailDetalVC.h"
 #import "MECoupleMailVC.h"
 #import "ZLWebViewVC.h"
+#import "MEBargainDetailVC.h"
+#import "MEGroupProductDetailVC.h"
+#import "MEJoinPrizeVC.h"
 
 @interface MEBaseDynamicVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 {
@@ -228,7 +231,7 @@
         }
             break;
         case 5:
-        {
+        {//活动外链
             if (model.ad_url) {
                 ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
                 webVC.showProgress = YES;
@@ -238,12 +241,30 @@
         }
             break;
         case 6:
-        {
+        {//拼多多列表
             if (model.ad_id) {
                 MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
                 vc.recordType = 3;
                 [self.navigationController pushViewController:vc animated:YES];
             }
+        }
+            break;
+        case 7:
+        {//砍价活动
+            MEBargainDetailVC *bargainVC = [[MEBargainDetailVC alloc] initWithBargainId:model.bargain_id myList:NO];
+            [self.navigationController pushViewController:bargainVC animated:YES];
+        }
+            break;
+        case 8:
+        {//拼团活动
+            MEGroupProductDetailVC *groupVC = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+            [self.navigationController pushViewController:groupVC animated:YES];
+        }
+            break;
+        case 9:
+        {//签到活动
+            MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.activity_id]];
+            [self.navigationController pushViewController:prizeVC animated:YES];
         }
             break;
         default:

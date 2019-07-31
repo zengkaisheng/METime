@@ -72,6 +72,9 @@
     _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price).length>0?kMeUnNilStr(model.product_price):@"0"];
     
     NSString *content = [NSString stringWithFormat:@"砍价%.2f元得",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
+    if ([kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue] == 0) {
+        content = @"砍价0元得";
+    }
     CGFloat width = [content boundingRectWithSize:CGSizeMake(100, 32) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.width;
     [_bargainBtn setTitle:content forState:UIControlStateNormal];
     _bargainConsWidth.constant = width+24;

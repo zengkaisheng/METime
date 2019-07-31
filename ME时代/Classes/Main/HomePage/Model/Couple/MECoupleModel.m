@@ -28,7 +28,7 @@
 
 - (NSString *)couponPrice{
     if(!_couponPrice){
-        if(!self.coupon_info){
+        if(!self.coupon_info || self.coupon_info.length <= 0){
             return self.coupon_amount;
         }
         NSRange startRange = [self.coupon_info rangeOfString:@"减"];
@@ -41,9 +41,9 @@
 
 - (NSString *)truePrice{
     if(!_truePrice){
-        if(!self.couponPrice){
-            return @"";
-        }
+//        if(!self.couponPrice){
+//            return @"";
+//        }
         CGFloat price = [self.zk_final_price floatValue] - [self.couponPrice floatValue];
         NSString *strPrice = [NSString stringWithFormat:@"%.2f",price];
         return strPrice;

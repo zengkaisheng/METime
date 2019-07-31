@@ -299,7 +299,7 @@ static void *XFWkwebBrowserContext = &XFWkwebBrowserContext;
         //调用微信支付方法
         //        [self WXPayWithParam:message.body];
     }
-}
+} 
 
 #pragma mark - Setter
 
@@ -308,9 +308,8 @@ static void *XFWkwebBrowserContext = &XFWkwebBrowserContext;
         WKWebViewConfiguration * Configuration = [[WKWebViewConfiguration alloc]init];
         if (@available(iOS 9.0, *)) {
             Configuration.allowsAirPlayForMediaPlayback = YES;
-        } else {
-            Configuration.allowsInlineMediaPlayback = YES;
         }
+        Configuration.allowsInlineMediaPlayback = YES;
         Configuration.selectionGranularity = YES;
         Configuration.processPool = [[WKProcessPool alloc] init];
         WKUserContentController * UserContentController = [[WKUserContentController alloc]init];

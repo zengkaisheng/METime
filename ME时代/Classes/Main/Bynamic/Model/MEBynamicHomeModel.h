@@ -78,6 +78,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString * ad_url; //活动链接
 @property (nonatomic, copy) NSString * ad_id; //拼多多列表
+@property (nonatomic, assign) NSInteger bargain_id;
+@property (nonatomic, assign) NSInteger activity_id;
 
 @end
 

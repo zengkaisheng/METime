@@ -54,7 +54,11 @@
     self.status = model.status;
     kSDLoadImg(_headerImgV, kMeUnNilStr(model.header_pic));
     _nameLbl.text = kMeUnNilStr(model.nick_name);
-    _contentLbl.text = [NSString stringWithFormat:@"想要此产品，一起砍价%.2f元领取吧~",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
+    NSString *balance = [NSString stringWithFormat:@"%.2f",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
+    if ([kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue] == 0) {
+        balance = @"0";
+    }
+    _contentLbl.text = [NSString stringWithFormat:@"想要此产品，一起砍价%@元领取吧~",balance];
     if (IS_IPHONE_4S || IS_IPHONE_5 || IS_iPhone5S) {
         _contentLbl.font = [UIFont boldSystemFontOfSize:16];
     }else if (IS_IPHONE_6) {
