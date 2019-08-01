@@ -40,7 +40,7 @@
     kSDLoadImg(_imgGood, kMeUnNilStr(model.product.images));
     kSDLoadImg(_imgPalyGood, kMeUnNilStr(model.is_index_hot_images_url));
 //    [_lblComPrice setLineStrWithStr:[NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.product.market_price)]];
-    _lblSaled.text = [NSString stringWithFormat:@"销量:%@",kMeUnNilStr(model.sale)];
+    _lblSaled.text = [NSString stringWithFormat:@"销量:%ld",kMeUnNilStr(model.sale).integerValue+model.sell_num];
 //    _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.product.money)];
     _lblDesc.text = kMeUnNilStr(model.product.desc);
     _lblGoodName.text = kMeUnNilStr(model.product.goodtitle);

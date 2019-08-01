@@ -40,5 +40,9 @@
 @property (nonatomic, assign) NSInteger join_type;
 @property (nonatomic, strong) NSString * end_time;
 @property (nonatomic, assign) NSInteger total;
+//秒杀相关
+@property (nonatomic, assign) NSInteger stock;//库存
+@property (nonatomic, assign) NSInteger sell_num;//销量
+@property (nonatomic, assign) NSInteger sales;//虚拟销量
 
 @end

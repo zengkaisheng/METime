@@ -14,6 +14,8 @@ const static CGFloat kMMEThridHomeCommondSectionViewHeight = 51;
 
 @interface METhridHomeCommondSectionView : UITableViewHeaderFooterView
 
+- (void)setUIWithIndex:(NSInteger)index;
+
 @end
 
 NS_ASSUME_NONNULL_END

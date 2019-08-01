@@ -74,7 +74,7 @@
 
 - (void)reloadStockAndSaled:(MEGoodDetailModel *)model{
     _lblStock.text = [NSString stringWithFormat:@"参与数:%@",kMeUnNilStr(model.browse)];
-    _lblSaled.text = [NSString stringWithFormat:@"销量:%@",kMeUnNilStr(model.sales)];
+    _lblSaled.text = [NSString stringWithFormat:@"销量:%ld",kMeUnNilStr(model.sales).integerValue + model.sell_num];
     _lblSelectSku.text = [NSString stringWithFormat:@"已选:数量x%@,规格:%@",@(model.buynum),kMeUnNilStr(model.skus)];
 }
 

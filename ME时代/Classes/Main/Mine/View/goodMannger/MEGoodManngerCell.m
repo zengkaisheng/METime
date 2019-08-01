@@ -37,7 +37,7 @@
     _lblTitle.text = kMeUnNilStr(model.title);
     _lblsort.text = kMeUnNilStr(model.category_name);
     _lblPrice.text = [NSString stringWithFormat:@"¥%@",@(kMeUnNilStr(model.money).floatValue)];
-    _lblSaled.text = [NSString stringWithFormat:@"销量:%@",kMeUnNilStr(model.sales)];
+    _lblSaled.text = [NSString stringWithFormat:@"销量:%ld",kMeUnNilStr(model.sales).integerValue + model.sell_num];
     _lblTime.text =[NSString stringWithFormat:@"创建时间:%@",kMeUnNilStr(model.updated_at)];
 }
 

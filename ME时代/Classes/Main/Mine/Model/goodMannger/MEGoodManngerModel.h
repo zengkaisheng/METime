@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger ratio_store;
 @property (nonatomic, assign) NSInteger reserve_num;
 @property (nonatomic, strong) NSString * sales;
+@property (nonatomic, assign) NSInteger sell_num;
 //@property (nonatomic, strong) NSArray * spec;
 @property (nonatomic, assign) NSInteger state;
 @property (nonatomic, strong) NSString * title;

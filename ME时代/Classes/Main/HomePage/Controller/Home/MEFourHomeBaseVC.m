@@ -196,6 +196,8 @@ const static CGFloat kImgStore = 50;
             strongSelf->_homeModel = [METhridHomeModel mj_objectWithKeyValues:responseObject.data];
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
+            kMeSTRONGSELF
+            strongSelf->_homeModel = nil;
             dispatch_semaphore_signal(semaphore);
         }];
     });
@@ -221,15 +223,36 @@ const static CGFloat kImgStore = 50;
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
+            kMeSTRONGSELF
+            strongSelf->_noticeArray = [NSArray array];
             dispatch_semaphore_signal(semaphore);
         }];
     });
     
     dispatch_group_async(group, queue, ^{
-        [MEPublicNetWorkTool postFourGetHomeRecommendWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        [MEPublicNetWorkTool postFourGetHomeRecommendGoodsAndActivityWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
-            if ([responseObject.data isKindOfClass:[NSArray class]]) {
-                strongSelf->_arrHot = [MEHomeRecommendModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+            if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *data = (NSDictionary *)responseObject.data;
+                NSMutableArray *tempArr = [[NSMutableArray alloc] init];
+                NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
+                [tempDic setObject:@[] forKey:@"activity"];
+                if ([data.allKeys containsObject:@"activity"]) {
+                    if ([data[@"activity"] isKindOfClass:[NSArray class]]) {
+                        [tempDic setObject:[MEHomeRecommendModel mj_objectArrayWithKeyValuesArray:data[@"activity"]] forKey:@"activity"];
+                    }
+                }
+                [tempArr addObject:[tempDic copy]];
+                [tempDic removeAllObjects];
+                [tempDic setObject:@[] forKey:@"goods"];
+                if ([data.allKeys containsObject:@"goods"]) {
+                    if ([data[@"goods"] isKindOfClass:[NSArray class]]) {
+                        [tempDic setObject:[MEHomeRecommendModel mj_objectArrayWithKeyValuesArray:data[@"goods"]] forKey:@"goods"];
+                    }
+                }
+                [tempArr addObject:[tempDic copy]];
+                [tempDic removeAllObjects];
+                strongSelf->_arrHot = [tempArr copy];
             }else{
                 strongSelf->_arrHot = [NSArray array];
             }
@@ -281,7 +304,7 @@ const static CGFloat kImgStore = 50;
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             kMeSTRONGSELF
-            strongSelf->_arrHot = [NSArray array];
+            strongSelf->_optionsArray = [NSArray array];
             dispatch_semaphore_signal(semaphore);
         }];
     });
@@ -706,11 +729,32 @@ const static CGFloat kImgStore = 50;
                 return CGSizeMake(0, 0.1);;
             }
         }else if (section == 4) {
-            return CGSizeMake(SCREEN_WIDTH, [MEFourHomeGoodGoodFilterHeaderView getCellHeight]);
+//            return CGSizeMake(SCREEN_WIDTH, [MEFourHomeGoodGoodFilterHeaderView getCellHeight]);
+            return CGSizeZero;
         }else if (section == 5) {
             CGFloat height = 51;
             if (_arrHot.count > 0) {
-                height += 135 * _arrHot.count;
+                for (int i = 0; i < _arrHot.count; i++) {
+                    NSDictionary *data = _arrHot[i];
+                    if ([data.allKeys containsObject:@"activity"]) {
+                        if ([data[@"activity"] isKindOfClass:[NSArray class]]) {
+                            NSArray *activity = data[@"activity"];
+                            if (activity.count > 0) {
+                                height += 35;
+                                height += activity.count*115;
+                            }
+                        }
+                    }
+                    if ([data.allKeys containsObject:@"goods"]) {
+                        if ([data[@"goods"] isKindOfClass:[NSArray class]]) {
+                            NSArray *goods = data[@"goods"];
+                            if (goods.count > 0) {
+                                height += 42;
+                                height += goods.count * 135;
+                            }
+                        }
+                    }
+                }
             }
             return CGSizeMake(SCREEN_WIDTH, height);
         }

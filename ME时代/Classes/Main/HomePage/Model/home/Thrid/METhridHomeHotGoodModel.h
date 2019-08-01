@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) METhridHomeHotGoodProductModel * product;
 @property (nonatomic, assign) NSInteger product_id;
 @property (nonatomic, copy) NSString * sale;
+@property (nonatomic, assign) NSInteger sell_num;
 
 @end
 

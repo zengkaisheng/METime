@@ -31,26 +31,62 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ThridGoodsL" translatesAutoresizingMaskIntoConstraints="NO" id="Xdh-wj-sVQ">
                     <rect key="frame" x="51" y="19.5" width="44" height="2"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jh9-MW-81e">
+                    <rect key="frame" x="244.5" y="20" width="46" height="1"/>
+                    <color key="backgroundColor" red="1" green="0.47450980390000003" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="WA1-75-EeZ"/>
+                        <constraint firstAttribute="height" constant="1" id="a7P-VW-1Vj"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TAF-HS-J6J">
+                    <rect key="frame" x="85" y="20" width="46" height="1"/>
+                    <color key="backgroundColor" red="1" green="0.47450980392156861" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="IeI-Sq-Gdi"/>
+                        <constraint firstAttribute="width" constant="46" id="uj2-JZ-gfg"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ThridGoods" translatesAutoresizingMaskIntoConstraints="NO" id="N7R-NE-wHe">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="41"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="jk0-pW-xWk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="2uM-8I-0eB"/>
                 <constraint firstItem="1Qs-Db-Cj2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="DoJ-7a-k4Q"/>
+                <constraint firstItem="N7R-NE-wHe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OTa-0q-lhn"/>
+                <constraint firstItem="TAF-HS-J6J" firstAttribute="centerY" secondItem="1Qs-Db-Cj2" secondAttribute="centerY" id="S8l-ck-Lrc"/>
                 <constraint firstItem="1Qs-Db-Cj2" firstAttribute="centerY" secondItem="Xdh-wj-sVQ" secondAttribute="centerY" id="SeI-iB-eM3"/>
+                <constraint firstItem="jh9-MW-81e" firstAttribute="leading" secondItem="1Qs-Db-Cj2" secondAttribute="trailing" constant="26" id="Tow-NK-t1N"/>
                 <constraint firstAttribute="bottom" secondItem="jk0-pW-xWk" secondAttribute="bottom" id="VLn-tT-0WY"/>
+                <constraint firstAttribute="bottom" secondItem="N7R-NE-wHe" secondAttribute="bottom" id="W5y-yh-9Oa"/>
                 <constraint firstAttribute="trailing" secondItem="7Zc-iQ-u3n" secondAttribute="trailing" constant="51" id="WWa-O1-JMJ"/>
                 <constraint firstItem="Xdh-wj-sVQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="51" id="ayg-yD-RZw"/>
                 <constraint firstItem="1Qs-Db-Cj2" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ffd-Me-zb8"/>
+                <constraint firstItem="N7R-NE-wHe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gNu-Ii-Byu"/>
+                <constraint firstItem="jh9-MW-81e" firstAttribute="centerY" secondItem="1Qs-Db-Cj2" secondAttribute="centerY" id="nWH-hQ-Pxq"/>
                 <constraint firstAttribute="trailing" secondItem="jk0-pW-xWk" secondAttribute="trailing" id="qLT-gO-Qkn"/>
                 <constraint firstItem="jk0-pW-xWk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="r8J-ja-wr7"/>
+                <constraint firstAttribute="trailing" secondItem="N7R-NE-wHe" secondAttribute="trailing" id="uEH-Eb-eSZ"/>
+                <constraint firstItem="1Qs-Db-Cj2" firstAttribute="leading" secondItem="TAF-HS-J6J" secondAttribute="trailing" constant="26" id="uiR-5X-Q4X"/>
                 <constraint firstItem="7Zc-iQ-u3n" firstAttribute="centerY" secondItem="1Qs-Db-Cj2" secondAttribute="centerY" id="v9C-Yq-E02"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bgImageV" destination="N7R-NE-wHe" id="oAw-va-jwT"/>
+                <outlet property="leftImageV" destination="Xdh-wj-sVQ" id="FHu-WA-i3U"/>
+                <outlet property="leftView" destination="TAF-HS-J6J" id="EXR-JZ-Xmz"/>
+                <outlet property="rightImageV" destination="7Zc-iQ-u3n" id="lMR-cQ-ohr"/>
+                <outlet property="rightView" destination="jh9-MW-81e" id="b0M-gu-rBF"/>
+                <outlet property="titleLbl" destination="1Qs-Db-Cj2" id="asg-kb-wpw"/>
+            </connections>
             <point key="canvasLocation" x="52" y="64.31784107946028"/>
         </view>
     </objects>
     <resources>
-        <image name="ThridGoodsL" width="44" height="2.5"/>
-        <image name="ThridGoodsR" width="43" height="2.5"/>
+        <image name="ThridGoods" width="375" height="42"/>
+        <image name="ThridGoodsL" width="44" height="2"/>
+        <image name="ThridGoodsR" width="43" height="2"/>
     </resources>
 </document>

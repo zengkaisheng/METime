@@ -1106,6 +1106,8 @@
 		EB81D2C122A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB81D2BF22A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.m */; };
 		EB81D2C222A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB81D2C022A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.xib */; };
 		EB8371C322C4C59B00B57D99 /* MEBargainDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8371C222C4C59B00B57D99 /* MEBargainDetailVC.m */; };
+		EB8421D522F182830026236D /* MEFourHomeActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8421D322F182830026236D /* MEFourHomeActivityCell.m */; };
+		EB8421D622F182830026236D /* MEFourHomeActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB8421D422F182830026236D /* MEFourHomeActivityCell.xib */; };
 		EB84603122A641FE00AA283D /* MENewAddTelView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB84603022A641FE00AA283D /* MENewAddTelView.m */; };
 		EB84603322A6421600AA283D /* MENewAddTelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB84603222A6421600AA283D /* MENewAddTelView.xib */; };
 		EB84603722A6547A00AA283D /* MEFillInvationCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB84603522A6547A00AA283D /* MEFillInvationCodeVC.m */; };
@@ -3090,6 +3092,9 @@
 		EB81D2C022A52EE700299FEE /* MENewFilterGoodsMiddleBannerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MENewFilterGoodsMiddleBannerView.xib; sourceTree = "<group>"; };
 		EB8371C122C4C59B00B57D99 /* MEBargainDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEBargainDetailVC.h; sourceTree = "<group>"; };
 		EB8371C222C4C59B00B57D99 /* MEBargainDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEBargainDetailVC.m; sourceTree = "<group>"; };
+		EB8421D222F182830026236D /* MEFourHomeActivityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFourHomeActivityCell.h; sourceTree = "<group>"; };
+		EB8421D322F182830026236D /* MEFourHomeActivityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFourHomeActivityCell.m; sourceTree = "<group>"; };
+		EB8421D422F182830026236D /* MEFourHomeActivityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEFourHomeActivityCell.xib; sourceTree = "<group>"; };
 		EB84602F22A641FE00AA283D /* MENewAddTelView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MENewAddTelView.h; sourceTree = "<group>"; };
 		EB84603022A641FE00AA283D /* MENewAddTelView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MENewAddTelView.m; sourceTree = "<group>"; };
 		EB84603222A6421600AA283D /* MENewAddTelView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MENewAddTelView.xib; sourceTree = "<group>"; };
@@ -6366,6 +6371,9 @@
 				EB9C09AE22E831510076B533 /* MEFourHomeNoticeHeaderView.h */,
 				EB9C09AF22E831510076B533 /* MEFourHomeNoticeHeaderView.m */,
 				EB9C09B022E831510076B533 /* MEFourHomeNoticeHeaderView.xib */,
+				EB8421D222F182830026236D /* MEFourHomeActivityCell.h */,
+				EB8421D322F182830026236D /* MEFourHomeActivityCell.m */,
+				EB8421D422F182830026236D /* MEFourHomeActivityCell.xib */,
 			);
 			path = Four;
 			sourceTree = "<group>";
@@ -7200,6 +7208,7 @@
 				3652600A216F2F32003E3CB4 /* MEStoreDetailHeaderView.xib in Resources */,
 				EB5ABA2322E94F8700ADF22D /* MEHomeTestAddContentCell.xib in Resources */,
 				360EE7FB21F599980048490E /* MERushBuyContentCell.xib in Resources */,
+				EB8421D622F182830026236D /* MEFourHomeActivityCell.xib in Resources */,
 				36021ADC214B7E9F001B8DAF /* MEServiceDetailsBottomView.xib in Resources */,
 				EB21E74C22B7B12700F48DF5 /* MEFeedBackVC.xib in Resources */,
 				363A6C0721E1A25F008B303B /* MEClerksSortCell.xib in Resources */,
@@ -7269,6 +7278,7 @@
 				3602A17D2142089D004A6E1F /* MEHomeMainCell.m in Sources */,
 				36021AD2214B6476001B8DAF /* MEServiceDetailsHeaderView.m in Sources */,
 				36E284E922375815009F1563 /* MEBrandAbilityAnalysisDataModel.m in Sources */,
+				EB8421D522F182830026236D /* MEFourHomeActivityCell.m in Sources */,
 				EB73454F22B8C08100FA0D84 /* MESignInListCell.m in Sources */,
 				363A6C0621E1A25F008B303B /* MEClerksSortCell.m in Sources */,
 				362C9E5F21BE62F70001AABD /* MEMineNewShareView.m in Sources */,

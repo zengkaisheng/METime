@@ -245,6 +245,8 @@
 //获取通知消息
 + (void)postGetMessageWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
+//获取首页推荐商品/活动2019-7-31
++ (void)postFourGetHomeRecommendGoodsAndActivityWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取首页推荐产品（商品、砍价、拼团、秒杀）2019-7-23
 + (void)postFourGetHomeRecommendWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取首页推荐产品(2019-04-30)

@@ -8,8 +8,51 @@
 
 #import "METhridHomeCommondSectionView.h"
 
+@interface METhridHomeCommondSectionView ()
+@property (weak, nonatomic) IBOutlet UILabel *titleLbl;
+@property (weak, nonatomic) IBOutlet UIImageView *leftImageV;
+@property (weak, nonatomic) IBOutlet UIImageView *rightImageV;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImageV;
+@property (weak, nonatomic) IBOutlet UIView *leftView;
+@property (weak, nonatomic) IBOutlet UIView *rightView;
+
+@end
+
+
 @implementation METhridHomeCommondSectionView
 
+
+- (void)setUIWithIndex:(NSInteger)index {
+    switch (index) {
+        case 0:
+        {
+            _titleLbl.text = @"活动专区";
+            _titleLbl.textColor = [UIColor colorWithHexString:@"#FF7979"];
+            _leftImageV.hidden = _rightImageV.hidden = YES;
+            _leftView.hidden = _rightView.hidden = NO;
+            _bgImageV.hidden = YES;
+        }
+            break;
+        case 1:
+        {
+            _bgImageV.hidden = NO;
+            _leftImageV.hidden = _rightImageV.hidden = YES;
+            _leftView.hidden = _rightView.hidden = YES;
+        }
+            break;
+        case 2:
+        {
+            _titleLbl.text = @"为你推荐";
+            _titleLbl.textColor = [UIColor colorWithHexString:@"#E74192"];
+            _leftImageV.hidden = _rightImageV.hidden = NO;
+            _leftView.hidden = _rightView.hidden = YES;
+            _bgImageV.hidden = YES;
+        }
+            break;
+        default:
+            break;
+    }
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

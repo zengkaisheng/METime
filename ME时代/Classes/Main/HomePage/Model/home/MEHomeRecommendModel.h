@@ -62,7 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * start_time;
 @property (nonatomic, assign) NSInteger state;
 @property (nonatomic, assign) NSInteger status;
-@property (nonatomic, assign) NSInteger stock;
+@property (nonatomic, assign) NSInteger stock;//库存
+@property (nonatomic, assign) NSInteger sell_num;//销量
+@property (nonatomic, assign) NSInteger sales;//虚拟销量
 @property (nonatomic, assign) NSInteger store_id;
 @property (nonatomic, assign) NSInteger store_product_type;
 @property (nonatomic, strong) NSString * tips;
