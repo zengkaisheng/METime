@@ -54,8 +54,6 @@ typedef NS_ENUM(NSUInteger, kpurchaseViewType) {
 @end
 
 
-
-
 @implementation METhridProductDetailsVC
 
 - (void)dealloc{
@@ -108,7 +106,12 @@ kTDWebViewCellDidFinishLoadNotificationMethod
 
 - (void)setUIWIthModel:(MEGoodDetailModel *)model{
     _model = model;
-    _model.isPrize = self.isReceivePrize;
+    if (self.isReceivePrize) {
+        _model.isPrize = self.isReceivePrize;
+    }
+    if (self.activity_id.length > 0) {
+        _model.activity_id = self.activity_id;
+    }
     _selectType = kpurchaseSelectSkuViewType;
     _type = model.is_seckill;
     [self.view addSubview:self.tableView];

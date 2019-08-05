@@ -161,8 +161,8 @@
         _countLbl.hidden = NO;
         if (model.status == 1) {
             _countLbl.text = [NSString stringWithFormat:@"只差%.2f元就成功了",[kMeUnNilStr(model.amount_money) floatValue] - [kMeUnNilStr(model.money) floatValue]];
-            [_bargainBtn setTitle:@"已结束" forState:UIControlStateNormal];
             _priceLbl.text = @"砍价失败";
+            [_bargainBtn setTitle:@"重砍一个" forState:UIControlStateNormal];
         }else if (model.status == 2) {
             _priceLbl.text = @"砍价成功";
             [_bargainBtn setTitle:@"立即领取" forState:UIControlStateNormal];
@@ -172,7 +172,7 @@
         }else if (model.status == 4) {
             _countLbl.text = [NSString stringWithFormat:@"只差%.2f元就成功了",[kMeUnNilStr(model.amount_money) floatValue] - [kMeUnNilStr(model.money) floatValue]];
             _priceLbl.text = @"砍价失败";
-            [_bargainBtn setTitle:@"已结束" forState:UIControlStateNormal];
+            [_bargainBtn setTitle:@"重砍一个" forState:UIControlStateNormal];
         }
     }
 }

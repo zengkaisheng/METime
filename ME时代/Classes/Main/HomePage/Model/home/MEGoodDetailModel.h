@@ -133,6 +133,8 @@
 //签到相关
 @property (nonatomic, strong) NSString * draw_price;
 @property (nonatomic, assign) BOOL isPrize;
+@property (nonatomic, strong) NSString * activity_id;
+
 @end
 
 

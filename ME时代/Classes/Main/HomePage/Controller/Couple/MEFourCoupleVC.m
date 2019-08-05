@@ -388,7 +388,7 @@
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         if (indexPath.section == 0) {
             MEFourCoupleHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourCoupleHeaderView class]) forIndexPath:indexPath];
-            [header setUIWithBannerImage:_arrAdv];
+            [header setUIWithBannerImage:_arrAdv isJD:_isJD];
             if (self.isTop) {
                 [header reloadSiftButtonWithSelectedBtn:self.selectedBtn isUp:self.isUp isTop:self.isTop];
             }
@@ -661,6 +661,9 @@
         _siftView = [[UIView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, 40)];
         _siftView.backgroundColor = [UIColor whiteColor];
         NSArray *titles = @[@"综合",@"佣金",@"销量",@"价格"];
+        if (_isJD) {
+            titles = @[@"综合",@"佣金",@"销量"];
+        }
         CGFloat itemW = SCREEN_WIDTH / titles.count;
         for (int i = 0; i < titles.count; i++) {
             UIButton *siftBtn = [self createSiftButtomWithTitle:titles[i] tag:100+i];

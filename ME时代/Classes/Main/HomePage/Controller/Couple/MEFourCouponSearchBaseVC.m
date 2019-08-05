@@ -465,6 +465,9 @@
         _siftView = [[UIView alloc] initWithFrame:CGRectMake(0, 1, SCREEN_WIDTH, 40)];
         _siftView.backgroundColor = [UIColor whiteColor];
         NSArray *titles = @[@"综合",@"佣金",@"销量",@"价格"];
+        if (_type == 2) {
+            titles = @[@"综合",@"佣金",@"销量"];
+        }
         CGFloat itemW = SCREEN_WIDTH / titles.count;
         for (int i = 0; i < titles.count; i++) {
             UIButton *siftBtn = [self createSiftButtomWithTitle:titles[i] tag:100+i];

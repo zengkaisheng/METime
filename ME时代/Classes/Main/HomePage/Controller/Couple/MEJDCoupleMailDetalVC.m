@@ -323,7 +323,25 @@
         [_btnBuy addTarget:self action:@selector(buyAction:) forControlEvents:UIControlEventTouchUpInside];
         _btnBuy.backgroundColor =[UIColor colorWithHexString:@"F70054"];
         [_btnBuy setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_btnBuy setTitle:@"立即购买" forState:UIControlStateNormal];
+//        [_btnBuy setTitle:@"立即购买" forState:UIControlStateNormal];
+        if (self.isDynamic) {
+            NSString *str = [NSString stringWithFormat:@"立即购买最低%.2f佣金",_detailModel.min_ratio];
+            [_btnBuy setTitle:str forState:UIControlStateNormal];
+        }else {
+            CouponContentInfo *couponInfoModel = [CouponContentInfo new];
+            if(kMeUnArr(_detailModel.couponInfo.couponList).count>0){
+                couponInfoModel = _detailModel.couponInfo.couponList[0];
+            }
+            ////卷后价
+            CGFloat oPrice = [kMeUnNilStr(_detailModel.priceInfo.price) floatValue];
+            CGFloat dPrice = [kMeUnNilStr(couponInfoModel.discount) floatValue];
+            CGFloat price =  oPrice- dPrice;
+            if(price<0){
+                price = 0;
+            }
+            NSString *str = [NSString stringWithFormat:@"立即购买最低%.2f佣金",price*_detailModel.commissionInfo.commissionShare/100* _detailModel.percent];
+            [_btnBuy setTitle:str forState:UIControlStateNormal];
+        }
         _btnBuy.titleLabel.font = kMeFont(15);
     }
     return _btnBuy;

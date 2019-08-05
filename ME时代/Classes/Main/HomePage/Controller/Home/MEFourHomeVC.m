@@ -38,11 +38,11 @@
 
 @property (nonatomic, strong) UIScrollView *scrollview;
 @property (nonatomic, strong) MEFourHomeBaseVC *choseVC;//精选
-@property (nonatomic, strong) MEFourHomeBaseVC *specialSaleVC;//特卖
-@property (nonatomic, strong) MEFourHomeBaseVC *guessVC;//猜你喜欢
-@property (nonatomic, strong) MEFourHomeBaseVC *ladiesVC;//女装
-@property (nonatomic, strong) MEFourHomeBaseVC *cosmeticsVC;//美妆
-@property (nonatomic, strong) MEFourHomeBaseVC *pregnantVC;//母婴
+//@property (nonatomic, strong) MEFourHomeBaseVC *specialSaleVC;//特卖
+//@property (nonatomic, strong) MEFourHomeBaseVC *guessVC;//猜你喜欢
+//@property (nonatomic, strong) MEFourHomeBaseVC *ladiesVC;//女装
+//@property (nonatomic, strong) MEFourHomeBaseVC *cosmeticsVC;//美妆
+//@property (nonatomic, strong) MEFourHomeBaseVC *pregnantVC;//母婴
 
 @end
 
@@ -102,6 +102,7 @@
         [self addChildViewController:VC];
         if (i == 0) {
             kMeWEAKSELF
+            self.choseVC = VC;
             VC.changeColorBlock = ^(id object) {
                 kMeSTRONGSELF
                 if (strongSelf->_contentOffSetX <= SCREEN_WIDTH) {
@@ -141,11 +142,11 @@
     _stroeModel = nil;
 //    [self.choseVC setHeaderViewUIWithModel:_homeModel stroeModel:_stroeModel optionsArray:@[]];
     [self.choseVC reloadData];
-    [self.specialSaleVC reloadData];
-    [self.guessVC reloadData];
-    [self.ladiesVC reloadData];
-    [self.cosmeticsVC reloadData];
-    [self.pregnantVC reloadData];
+//    [self.specialSaleVC reloadData];
+//    [self.guessVC reloadData];
+//    [self.ladiesVC reloadData];
+//    [self.cosmeticsVC reloadData];
+//    [self.pregnantVC reloadData];
 }
 
 - (void)userLogin{
@@ -233,9 +234,9 @@
         kMeWEAKSELF
         _navView.searchBlock = ^{
             kMeSTRONGSELF
-//            [strongSelf searchCoupon];
-            MEOnlineCourseVC *vc = [[MEOnlineCourseVC alloc] init];
-            [strongSelf.navigationController pushViewController:vc animated:YES];
+            [strongSelf searchCoupon];
+//            MEOnlineCourseVC *vc = [[MEOnlineCourseVC alloc] init];
+//            [strongSelf.navigationController pushViewController:vc animated:YES];
         };
         _navView.selectIndexBlock = ^(NSInteger index) {
             kMeSTRONGSELF

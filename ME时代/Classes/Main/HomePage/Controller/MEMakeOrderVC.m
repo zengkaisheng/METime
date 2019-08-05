@@ -58,7 +58,7 @@
 - (instancetype)initWithIsinteral:(BOOL)isInteral goodModel:(MEGoodDetailModel *)goodModel{
     if (self = [super init]){
         _isInteral = isInteral;
-        _goodModel = goodModel;
+        _goodModel = [MEGoodDetailModel mj_objectWithKeyValues:goodModel.mj_keyValues];
         _isPayError= NO;
         _arrData = [NSArray array];
         _origainlPostage = goodModel.postage;

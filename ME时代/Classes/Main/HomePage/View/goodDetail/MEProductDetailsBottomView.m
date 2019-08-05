@@ -70,48 +70,7 @@
 }
 
 - (void)sharAction{
-    if(self.is_clerk_share){
-        if(kCurrentUser.client_type == MEClientTypeClerkStyle){
-            [self getShareEncode];
-        }else{
-#ifdef TestVersion
-        NSString *strAPi = [NSString stringWithFormat:@"https://develop.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),@""];
-
-#else
-        NSString *strAPi = [NSString stringWithFormat:@"https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),@""];
-#endif
-            
-//            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-//            shareTool.sharWebpageUrl = strAPi;
-//            NSLog(@"%@",strAPi);
-//            shareTool.shareTitle = kMeUnNilStr(_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
-//            shareTool.shareDescriptionBody = kMeUnNilStr(_model.desc).length?kMeUnNilStr(_model.desc):kMeUnNilStr(_model.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
-//            shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
-//
-//            [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
-//                NSLog(@"分享成功%@",data);
-//                [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-//                [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-//            } failure:^(NSError *error) {
-//                NSLog(@"分享失败%@",error);
-//                [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-//            }];
-            
-            
-            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-            shareTool.sharWebpageUrl = strAPi;
-            shareTool.shareTitle = kMeUnNilStr(_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
-            shareTool.shareDescriptionBody = kMeUnNilStr(_model.desc).length?kMeUnNilStr(_model.desc):kMeUnNilStr(_model.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
-            shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
-            [shareTool showShareView:kShareWebPageContentType success:^(id data) {
-                [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-                [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-            } failure:^(NSError *error) {
-                [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-
-            }];
-        }
-    }else if (self.isGroup) {
+    if (self.isGroup) {
         MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
         NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
         baseUrl = [@"http" stringByAppendingString:baseUrl];
@@ -129,57 +88,65 @@
             [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
         } failure:^(NSError *error) {
             [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-            
         }];
-    }else{
-        
-#ifdef TestVersion
-        NSString *strAPi = [NSString stringWithFormat:@"https://develop.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),@""];
-        
-#else
-        NSString *strAPi = [NSString stringWithFormat:@"https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),@""];
-#endif
-        
-//        MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-//        shareTool.sharWebpageUrl = strAPi;
-//        NSLog(@"%@",strAPi);
-//        shareTool.shareTitle = kMeUnNilStr(_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
-//        shareTool.shareDescriptionBody = kMeUnNilStr(_model.desc).length?kMeUnNilStr(_model.desc):kMeUnNilStr(_model.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
-//        shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
-//
-//        [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
-//            NSLog(@"分享成功%@",data);
-//            [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-//            [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-//        } failure:^(NSError *error) {
-//            NSLog(@"分享失败%@",error);
-//            [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-//        }];
-        MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-        shareTool.sharWebpageUrl = strAPi;
-        shareTool.shareTitle = kMeUnNilStr(_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
-        shareTool.shareDescriptionBody = kMeUnNilStr(_model.desc).length?kMeUnNilStr(_model.desc):kMeUnNilStr(_model.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
-        shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
-        [shareTool showShareView:kShareWebPageContentType success:^(id data) {
-            [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-            [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-        } failure:^(NSError *error) {
-            [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+    }else {
+        if(self.is_clerk_share){
+            if(kCurrentUser.client_type == MEClientTypeClerkStyle){
+                [self getShareEncode];
+            }else{
+                MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+                NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+                baseUrl = [@"http" stringByAppendingString:baseUrl];
+                
+                //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
+                shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),@""];
+                NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+                
+                shareTool.shareTitle = kMeUnNilStr(_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
+                shareTool.shareDescriptionBody = kMeUnNilStr(_model.desc).length?kMeUnNilStr(_model.desc):kMeUnNilStr(_model.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
+                shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
+                [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+                    [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+                    [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+                } failure:^(NSError *error) {
+                    [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+                    
+                }];
+            }
+        }else{
+            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+            NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+            baseUrl = [@"http" stringByAppendingString:baseUrl];
             
-        }];
+            //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),@""];
+            NSLog(@":%@",shareTool.sharWebpageUrl);
+            
+            shareTool.shareTitle = kMeUnNilStr(_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
+            shareTool.shareDescriptionBody = kMeUnNilStr(_model.desc).length?kMeUnNilStr(_model.desc):kMeUnNilStr(_model.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
+            shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
+            [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+                [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+                [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+            } failure:^(NSError *error) {
+                [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+                
+            }];
+        }
     }
 }
 
 - (void)getShareEncode{
     MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
     if(kMeUnNilStr(_paoductIdEndoceStr).length){
-#ifdef TestVersion
-        NSString *strAPi = [NSString stringWithFormat:@"https://develop.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),kMeUnNilStr(_paoductIdEndoceStr)];
+
+        NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+        baseUrl = [@"http" stringByAppendingString:baseUrl];
         
-#else
-        NSString *strAPi = [NSString stringWithFormat:@"https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),kMeUnNilStr(_paoductIdEndoceStr)];
-#endif
-        shareTool.sharWebpageUrl = strAPi;
+        //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),kMeUnNilStr(_paoductIdEndoceStr)];
+        NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+        
         shareTool.shareTitle = kMeUnNilStr(_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
         shareTool.shareDescriptionBody = kMeUnNilStr(_model.desc).length?kMeUnNilStr(_model.desc):kMeUnNilStr(_model.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
         shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
@@ -190,25 +157,20 @@
             [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
             
         }];
-//        shareTool.shareTitle = kMeUnNilStr(_paoductIdEndoceStr);
-//        [shareTool showShareView:kShareTextContentType success:^(id data) {
-//
-//        } failure:^(NSError *error) {
-//
-//        }];
     }else{
         kMeWEAKSELF
         [MEPublicNetWorkTool postGoodsEncodeWithProductrId:self.productId successBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             strongSelf->_paoductIdEndoceStr = kMeUnNilStr(responseObject.data[@"share_text"]);
-#ifdef TestVersion
-            NSString *strAPi = [NSString stringWithFormat:@"https://develop.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(strongSelf->_productId),kMeUnNilStr(strongSelf.seckilltime),kMeUnNilStr(strongSelf->_paoductIdEndoceStr)];
+
+            NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+            baseUrl = [@"http" stringByAppendingString:baseUrl];
             
-#else
-            NSString *strAPi = [NSString stringWithFormat:@"https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(strongSelf->_productId),kMeUnNilStr(strongSelf.seckilltime),kMeUnNilStr(strongSelf->_paoductIdEndoceStr)];
-#endif
+            //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(strongSelf->_productId),kMeUnNilStr(strongSelf.seckilltime),kMeUnNilStr(strongSelf->_paoductIdEndoceStr)];
+            NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
             
-            shareTool.sharWebpageUrl = strAPi;
+            
             shareTool.shareTitle = kMeUnNilStr(strongSelf->_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
             shareTool.shareDescriptionBody = kMeUnNilStr(strongSelf->_model.desc).length?kMeUnNilStr(strongSelf->_model.desc):kMeUnNilStr(strongSelf->_model.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
             shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
@@ -219,12 +181,6 @@
                 [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
                 
             }];
-//            shareTool.shareTitle = kMeUnNilStr(strongSelf->_paoductIdEndoceStr);
-//            [shareTool showShareView:kShareTextContentType success:^(id data) {
-//
-//            } failure:^(NSError *error) {
-//
-//            }];
         } failure:^(id object) {
             
         }];

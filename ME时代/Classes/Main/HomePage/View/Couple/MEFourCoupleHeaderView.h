@@ -18,7 +18,7 @@ typedef void (^kMeHeaderViewBlock)(NSInteger tag, BOOL isUp);
 @property (nonatomic,copy)kMeIndexBlock selectedIndexBlock; //banner图点击下标
 @property (nonatomic,copy)kMeHeaderViewBlock titleSelectedIndexBlock;
 
-- (void)setUIWithBannerImage:(NSArray *)bannerImages;
+- (void)setUIWithBannerImage:(NSArray *)bannerImages isJD:(BOOL)isJD;
 - (void)reloadSiftButtonWithSelectedBtn:(UIButton *)selectedBtn isUp:(BOOL)isUp isTop:(BOOL)isTop;
 
 @end

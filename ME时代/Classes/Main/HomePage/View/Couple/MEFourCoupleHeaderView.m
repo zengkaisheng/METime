@@ -26,6 +26,10 @@
     [super awakeFromNib];
     // Initialization code
     NSArray *titles = @[@"综合",@"佣金",@"销量",@"价格"];
+    [self setSiftViewWithTitlesArray:titles];
+}
+
+- (void)setSiftViewWithTitlesArray:(NSArray *)titles {
     CGFloat itemW = SCREEN_WIDTH / titles.count;
     for (int i = 0; i < titles.count; i++) {
         UIButton *siftBtn = [self createSiftButtomWithTitle:titles[i] tag:100+i];
@@ -38,7 +42,19 @@
     }
 }
 
-- (void)setUIWithBannerImage:(NSArray *)bannerImages {
+- (void)setUIWithBannerImage:(NSArray *)bannerImages isJD:(BOOL)isJD {
+    for (id obj in _siftView.subviews) {
+        if ([obj isKindOfClass:[UIButton class]]) {
+            UIButton *siftBtn = (UIButton *)obj;
+            [siftBtn removeFromSuperview];
+        }
+    }
+    
+    NSArray *titles = @[@"综合",@"佣金",@"销量",@"价格"];
+    if (isJD) {
+        titles = @[@"综合",@"佣金",@"销量"];
+    }
+    [self setSiftViewWithTitlesArray:titles];
     
     if (bannerImages.count > 0) {
         _sdViewConsHeight.constant = 150;
