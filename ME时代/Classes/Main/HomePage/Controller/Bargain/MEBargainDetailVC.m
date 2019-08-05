@@ -48,7 +48,7 @@
     if (self.isMyList) {
         [self requestNetWorkWithbargainDetail];
     }else {
-        [self requestNetWorkWithBargain];
+        [self requestNetWorkWithBargainAgain:NO];
     }
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reload) name:kBargainReloadOrder object:nil];
 }
@@ -60,17 +60,28 @@
     if (self.isMyList) {
         [self requestNetWorkWithbargainDetail];
     }else {
-        [self requestNetWorkWithBargain];
+        [self requestNetWorkWithBargainAgain:NO];
     }
 }
 
 #pragma mark -- networking
-- (void)requestNetWorkWithBargain{
+- (void)requestNetWorkWithBargainAgain:(BOOL)again{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
     hud.userInteractionEnabled = YES;
+    NSDictionary *dic;
+    if (again) {
+        dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                @"bargin_id":[NSString stringWithFormat:@"%ld",(long)self.bargainId],
+                @"bargain_again":@"1"
+                };
+    }else {
+        dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                              @"bargin_id":[NSString stringWithFormat:@"%ld",(long)self.bargainId],
+                              };
+    }
     
     kMeWEAKSELF
-    [MEPublicNetWorkTool postBargainWithBargainId:[NSString stringWithFormat:@"%ld",(long)self.bargainId] successBlock:^(ZLRequestResponse *responseObject) {
+    [MEPublicNetWorkTool postBargainWithDict:dic successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         [hud hideAnimated:YES];
         if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
@@ -81,9 +92,9 @@
             [strongSelf requestNetWorkWithbargainDetail];
         }
     } failure:^(id object) {
-        kMeSTRONGSELF
+//        kMeSTRONGSELF
         [hud hideAnimated:YES];
-        [strongSelf.navigationController popViewControllerAnimated:YES];
+//        [strongSelf.navigationController popViewControllerAnimated:YES];
     }];
 }
 
@@ -193,7 +204,8 @@
                 break;
             case 4://砍价失败
             {
-                [strongSelf.navigationController popViewControllerAnimated:YES];
+//                [strongSelf.navigationController popViewControllerAnimated:YES];
+                [strongSelf requestNetWorkWithBargainAgain:YES];
             }
                 break;
             default:

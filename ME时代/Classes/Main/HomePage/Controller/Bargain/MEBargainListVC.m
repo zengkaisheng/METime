@@ -133,13 +133,13 @@
         kMeWEAKSELF
         cell.tapBlock = ^(NSInteger index) {
             kMeSTRONGSELF
-            if (index == 1) {
-                UIButton *btn = [[UIButton alloc] init];
-                btn.tag = 100;
-                [strongSelf bottomBtnAction:btn];
-            }else {
+//            if (index == 1) {
+//                UIButton *btn = [[UIButton alloc] init];
+//                btn.tag = 100;
+//                [strongSelf bottomBtnAction:btn];
+//            }else {
                 [strongSelf postBargainWithBargainId:model.bargin_id  myList:YES];
-            }
+//            }
         };
     }
     return cell;

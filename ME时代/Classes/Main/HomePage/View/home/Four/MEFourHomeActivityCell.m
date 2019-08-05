@@ -50,9 +50,30 @@
     _titleLbl.text = kMeUnNilStr(model.title);
     _subTitleLbl.text = kMeUnNilStr(model.desc);
     _countLbl.text = [NSString stringWithFormat:@"已有%@人领取",kMeUnNilNumber(@(model.finish_bargin_num))];
-    _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price).length>0?kMeUnNilStr(model.product_price):@"0"];
+    
+    if (kMeUnNilStr(model.product_price).length > 0) {
+        NSArray *productPrice = [model.product_price componentsSeparatedByString:@"."];
+        if ([productPrice.lastObject intValue] == 0) {
+            _priceLbl.text = [NSString stringWithFormat:@"价值%@元",productPrice.firstObject];
+        }else {
+            _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price)];
+        }
+    }else {
+        _priceLbl.text = @"价值0元";
+    }
     
     NSString *content = [NSString stringWithFormat:@"砍价%.2f元得",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
+    NSString *balance = [NSString stringWithFormat:@"%.2f",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
+    NSArray *balanceArr = [balance componentsSeparatedByString:@"."];
+    if ([balanceArr.lastObject intValue] == 0) {
+        content = [NSString stringWithFormat:@"砍价%@元得",balanceArr.firstObject];
+    }else {
+        content = [NSString stringWithFormat:@"砍价%@元得",balance];
+    }
+    
+//    _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price).length>0?kMeUnNilStr(model.product_price):@"0"];
+//
+//    NSString *content = [NSString stringWithFormat:@"砍价%.2f元得",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
     CGFloat width = [content boundingRectWithSize:CGSizeMake(100, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil].size.width;
     [_avtivityBtn setTitle:content forState:UIControlStateNormal];
     _btnConsWidth.constant = width+10;

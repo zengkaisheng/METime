@@ -69,11 +69,24 @@
     _titleLbl.text = kMeUnNilStr(model.title);
     _subTitleLbl.text = [NSString stringWithFormat:@"砍成免费领%@",kMeUnNilStr(model.title)];
     _countLbl.text = [NSString stringWithFormat:@"已有%@人领取",kMeUnNilNumber(@(model.finish_bargin_num))];
-    _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price).length>0?kMeUnNilStr(model.product_price):@"0"];
+    if (kMeUnNilStr(model.product_price).length > 0) {
+        NSArray *productPrice = [model.product_price componentsSeparatedByString:@"."];
+        if ([productPrice.lastObject intValue] == 0) {
+            _priceLbl.text = [NSString stringWithFormat:@"价值%@元",productPrice.firstObject];
+        }else {
+            _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price)];
+        }
+    }else {
+        _priceLbl.text = @"价值0元";
+    }
     
     NSString *content = [NSString stringWithFormat:@"砍价%.2f元得",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
-    if ([kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue] == 0) {
-        content = @"砍价0元得";
+    NSString *balance = [NSString stringWithFormat:@"%.2f",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
+    NSArray *balanceArr = [balance componentsSeparatedByString:@"."];
+    if ([balanceArr.lastObject intValue] == 0) {
+        content = [NSString stringWithFormat:@"砍价%@元得",balanceArr.firstObject];
+    }else {
+        content = [NSString stringWithFormat:@"砍价%@元得",balance];
     }
     CGFloat width = [content boundingRectWithSize:CGSizeMake(100, 32) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.width;
     [_bargainBtn setTitle:content forState:UIControlStateNormal];
@@ -148,7 +161,7 @@
         _countLbl.hidden = NO;
         if (model.status == 1) {
             _countLbl.text = [NSString stringWithFormat:@"只差%.2f元就成功了",[kMeUnNilStr(model.amount_money) floatValue] - [kMeUnNilStr(model.money) floatValue]];
-            [_bargainBtn setTitle:@"重砍一个" forState:UIControlStateNormal];
+            [_bargainBtn setTitle:@"已结束" forState:UIControlStateNormal];
             _priceLbl.text = @"砍价失败";
         }else if (model.status == 2) {
             _priceLbl.text = @"砍价成功";
@@ -159,7 +172,7 @@
         }else if (model.status == 4) {
             _countLbl.text = [NSString stringWithFormat:@"只差%.2f元就成功了",[kMeUnNilStr(model.amount_money) floatValue] - [kMeUnNilStr(model.money) floatValue]];
             _priceLbl.text = @"砍价失败";
-            [_bargainBtn setTitle:@"重砍一个" forState:UIControlStateNormal];
+            [_bargainBtn setTitle:@"已结束" forState:UIControlStateNormal];
         }
     }
 }
@@ -201,7 +214,7 @@
     if (_timer==nil) {
         __block int timeout = [aTimeString intValue]; //倒计时时间
         
-        if (timeout!=0) {
+        if (timeout>0) {
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
             dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
@@ -246,6 +259,10 @@
                 }
             });
             dispatch_resume(_timer);
+        }else {
+            self.lblHour.text = @"00";
+            self.lblMinite.text = @"00";
+            self.lblSecond.text = @"00";
         }
     }
 }

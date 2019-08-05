@@ -546,7 +546,7 @@
 /***************************************/
 #pragma mark - Bargin
 //砍价
-+ (void)postBargainWithBargainId:(NSString *)bargainId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
++ (void)postBargainWithDict:(NSDictionary *)dict successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //砍价商品详情
 + (void)postBargainDetailWithBargainId:(NSString *)bargainId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //查看更多砍价帮

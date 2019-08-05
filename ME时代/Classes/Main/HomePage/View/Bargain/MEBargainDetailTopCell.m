@@ -54,9 +54,11 @@
     self.status = model.status;
     kSDLoadImg(_headerImgV, kMeUnNilStr(model.header_pic));
     _nameLbl.text = kMeUnNilStr(model.nick_name);
+    
     NSString *balance = [NSString stringWithFormat:@"%.2f",[kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue]];
-    if ([kMeUnNilStr(model.product_price) floatValue] - [kMeUnNilStr(model.amount_money) floatValue] == 0) {
-        balance = @"0";
+    NSArray *balanceArr = [balance componentsSeparatedByString:@"."];
+    if ([balanceArr.lastObject intValue] == 0) {
+        balance = [NSString stringWithFormat:@"%@",balanceArr.firstObject];
     }
     _contentLbl.text = [NSString stringWithFormat:@"想要此产品，一起砍价%@元领取吧~",balance];
     if (IS_IPHONE_4S || IS_IPHONE_5 || IS_iPhone5S) {
@@ -69,7 +71,16 @@
     kSDLoadImg(_productImageView, kMeUnNilStr(model.images));
     _productTitleLbl.text = kMeUnNilStr(model.title);
     _productCountLbl.text = [NSString stringWithFormat:@"已有%ld人领取",(long)model.finish_bargin_num];
-    _productPriceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price)];
+    if (kMeUnNilStr(model.product_price).length > 0) {
+        NSArray *productPrice = [model.product_price componentsSeparatedByString:@"."];
+        if ([productPrice.lastObject intValue] == 0) {
+            _productPriceLbl.text = [NSString stringWithFormat:@"价值%@元",productPrice.firstObject];
+        }else {
+            _productPriceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.product_price)];
+        }
+    }else {
+        _productPriceLbl.text = @"价值0元";
+    }
     if (IS_IPHONE_4S || IS_IPHONE_5 || IS_iPhone5S) {
         _productPriceLbl.font = [UIFont boldSystemFontOfSize:13];
     }else if (IS_IPHONE_6) {
@@ -77,7 +88,7 @@
     }else {
         _productPriceLbl.font = [UIFont boldSystemFontOfSize:16];
     }
-    [self downSecondHandle:[NSString stringWithFormat:@"%ld",model.over_time]];
+    [self downSecondHandle:[NSString stringWithFormat:@"%ld",(long)model.over_time]];
     
     [_shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_shareButton setBackgroundImage:[UIImage imageNamed:@"bargainShareBtnImg"] forState:UIControlStateNormal];
@@ -154,7 +165,7 @@
     if (_timer==nil) {
         __block int timeout = [aTimeString intValue]; //倒计时时间
         
-        if (timeout!=0) {
+        if (timeout>0) {
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
             dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
@@ -199,6 +210,10 @@
                 }
             });
             dispatch_resume(_timer);
+        }else {
+            self.hourLbl.text = @"00";
+            self.minuteLbl.text = @"00";
+            self.secondLbl.text = @"00";
         }
     }
 }

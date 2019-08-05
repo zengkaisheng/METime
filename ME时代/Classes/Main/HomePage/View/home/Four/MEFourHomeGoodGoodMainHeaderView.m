@@ -15,10 +15,8 @@
 #import "METhridProductDetailsVC.h"
 
 #import "MEGroupListModel.h"
-#import "MEGroupListCell.h"
 #import "MEGroupProductDetailVC.h"
 #import "MEBargainListModel.h"
-#import "MEBargainLisCell.h"
 #import "MEBargainDetailVC.h"
 #import "MEHomeRecommendModel.h"
 
@@ -44,8 +42,6 @@
     
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([METhridHomeGoodGoodMainCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class])];
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeActivityCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEFourHomeActivityCell class])];
-    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEGroupListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEGroupListCell class])];
-    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEBargainLisCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEBargainLisCell class])];
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([METhridHomeCommondSectionView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:NSStringFromClass([METhridHomeCommondSectionView class])];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.showsVerticalScrollIndicator = NO;

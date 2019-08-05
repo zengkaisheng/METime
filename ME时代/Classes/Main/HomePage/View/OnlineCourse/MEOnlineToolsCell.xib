@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MEOnlineToolsCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="108"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="107.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nfr-BQ-sau">
+                        <rect key="frame" x="15" y="0.0" width="165" height="43"/>
+                        <color key="backgroundColor" red="0.63137254901960782" green="0.64313725490196072" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="uhl-Zk-jK6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title=" 信息管理" image="icon_messageManage">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="messageManageAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XMK-cL-oA3"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u3Z-Vx-dri">
+                        <rect key="frame" x="195" y="0.0" width="165" height="43"/>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.63921568627450975" blue="0.63921568627450975" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="8aN-iU-efa"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title=" 销售信息" image="icon_salesMessage">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="salesMessageAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Wqv-8I-LDM"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOI-H2-hB3">
+                        <rect key="frame" x="15" y="53" width="165" height="43"/>
+                        <color key="backgroundColor" red="0.41176470588235292" green="0.84313725490196079" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="MFA-zz-JFb"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title=" 客户预约" image="icon_customerAppointment">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="customerAppointmentAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KZh-nB-uEg"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dO2-rZ-Yd6">
+                        <rect key="frame" x="195" y="53" width="165" height="43"/>
+                        <color key="backgroundColor" red="1" green="0.73333333333333328" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="ehT-lf-Uxa"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title=" 客户消费" image="icon_customerConsume">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="customerConsumeAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lUf-1D-ggm"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Nfr-BQ-sau" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="0Zh-yO-ked"/>
+                    <constraint firstItem="u3Z-Vx-dri" firstAttribute="width" secondItem="Nfr-BQ-sau" secondAttribute="width" id="2Yn-x6-U5S"/>
+                    <constraint firstItem="dO2-rZ-Yd6" firstAttribute="top" secondItem="u3Z-Vx-dri" secondAttribute="bottom" constant="10" id="8D4-q0-f9C"/>
+                    <constraint firstItem="Nfr-BQ-sau" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="KcP-t1-FMK"/>
+                    <constraint firstItem="u3Z-Vx-dri" firstAttribute="leading" secondItem="Nfr-BQ-sau" secondAttribute="trailing" constant="15" id="LMX-vZ-e7V"/>
+                    <constraint firstAttribute="trailing" secondItem="u3Z-Vx-dri" secondAttribute="trailing" constant="15" id="LX6-gl-O5v"/>
+                    <constraint firstItem="tOI-H2-hB3" firstAttribute="top" secondItem="Nfr-BQ-sau" secondAttribute="bottom" constant="10" id="QaC-I1-0a1"/>
+                    <constraint firstItem="tOI-H2-hB3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="VHp-bq-4vx"/>
+                    <constraint firstItem="dO2-rZ-Yd6" firstAttribute="width" secondItem="tOI-H2-hB3" secondAttribute="width" id="gog-33-rKZ"/>
+                    <constraint firstAttribute="trailing" secondItem="dO2-rZ-Yd6" secondAttribute="trailing" constant="15" id="n3H-2j-feu"/>
+                    <constraint firstItem="dO2-rZ-Yd6" firstAttribute="leading" secondItem="tOI-H2-hB3" secondAttribute="trailing" constant="15" id="tYu-l6-chb"/>
+                    <constraint firstItem="u3Z-Vx-dri" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="u3r-VN-9SW"/>
+                </constraints>
+            </tableViewCellContentView>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_customerAppointment" width="14" height="14"/>
+        <image name="icon_customerConsume" width="14" height="14"/>
+        <image name="icon_messageManage" width="14" height="14"/>
+        <image name="icon_salesMessage" width="14" height="13"/>
+    </resources>
+</document>

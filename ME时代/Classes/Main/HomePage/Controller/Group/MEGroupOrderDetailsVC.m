@@ -187,7 +187,7 @@
     if (_timer==nil) {
         __block int timeout = [aTimeString intValue]; //倒计时时间
         
-        if (timeout!=0) {
+        if (timeout>0) {
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
             dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
@@ -235,6 +235,12 @@
                 }
             });
             dispatch_resume(_timer);
+        }else {
+            NSString *timeStr = [NSString stringWithFormat:@"还差%ld人拼团成功，剩余00:00:00",self.model.need_num];
+            NSMutableAttributedString *timeAtt = [[NSMutableAttributedString alloc] initWithString:timeStr];
+            NSUInteger secondLoc = [timeStr rangeOfString:@"余"].location;
+            [timeAtt addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#FF0000"] range:NSMakeRange(secondLoc+1, timeStr.length-secondLoc-1)];
+            self.timeLbl.attributedText = timeAtt;
         }
     }
 }

@@ -89,7 +89,7 @@
             self.tableView.tableHeaderView = self.headerView;
             [self.headerView setUIWithModel:_detailModel];
             [self.tableView reloadData];
-            if (kMeUnNilStr(_detailModel.coupon_end_time).length<=0||![self downSecondHandle:_detailModel.coupon_end_time]) {
+            if (kMeUnNilStr(_detailModel.coupon_end_time).length<=0||![self compareWithendTime:_detailModel.coupon_end_time]) {
                 [MECommonTool showMessage:@"暂无优惠券" view:self.view];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popViewControllerAnimated:YES];
@@ -105,9 +105,9 @@
 
 - (NSDate *)timeWithTimeIntervalString:(NSString *)timeString
 {
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date=[dateFormatter dateFromString:timeString];
+    NSDate *date = [dateFormatter dateFromString:timeString];
     return date;
 }
 
@@ -116,8 +116,25 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     NSString *endTimeStr = [self getTimeFromTimestamp:aTimeString];
-    
     NSDate *endDate = [self timeWithTimeIntervalString:kMeUnNilStr(endTimeStr)]; //结束时间
+    
+    NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
+    NSDate *startDate = [NSDate date];
+    NSString* dateString = [dateFormatter stringFromDate:startDate];
+    NSLog(@"现在的时间 === %@",dateString);
+    NSTimeInterval timeInterval = [endDate_tomorrow timeIntervalSinceDate:startDate];
+    int timeout = timeInterval;
+    return timeout>0?YES:NO;
+}
+
+- (BOOL)compareWithendTime:(NSString *)endTime {
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc]init];
+    [dateFormatter1 setDateFormat:@"yyyy-MM-dd"];
+    NSDate *endDate = [dateFormatter dateFromString:kMeUnNilStr(endTime)];//结束时间
+    
     NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
     NSDate *startDate = [NSDate date];
     NSString* dateString = [dateFormatter stringFromDate:startDate];
@@ -136,7 +153,7 @@
     
     //设置时间格式
     NSDateFormatter * formatter=[[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     //将时间转换为字符串
     NSString *timeStr=[formatter stringFromDate:myDate];
     
@@ -174,7 +191,7 @@
         kMeSTRONGSELF
         NSArray *arr =  responseObject.data[@"goods_detail_response"][@"goods_details"];
          if(kMeUnArr(arr).count){
-             strongSelf->_pinduoduoDetailmodel =[MEPinduoduoCoupleInfoModel mj_objectWithKeyValues:arr[0]];
+             strongSelf->_pinduoduoDetailmodel = [MEPinduoduoCoupleInfoModel mj_objectWithKeyValues:arr[0]];
              if (kMeUnNilStr(strongSelf->_pinduoduoDetailmodel.coupon_end_time).length<=0||![self downSecondHandle:strongSelf->_pinduoduoDetailmodel.coupon_end_time]) {
                  [MECommonTool showMessage:@"暂无优惠券" view:self.view];
                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

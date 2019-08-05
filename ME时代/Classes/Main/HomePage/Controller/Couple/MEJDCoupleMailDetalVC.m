@@ -60,42 +60,29 @@
 
 - (NSDate *)timeWithTimeIntervalString:(NSString *)timeString
 {
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date=[dateFormatter dateFromString:timeString];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd  HH:mm:ss"];
+    NSDate *date = [dateFormatter dateFromString:timeString];
     return date;
 }
 
 -(BOOL)downSecondHandle:(NSString *)aTimeString{
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
-    NSString *endTimeStr = [self getTimeFromTimestamp:aTimeString];
+    NSString *endTimeStr = [MECommonTool changeTimeStrWithtime:aTimeString];
+    endTimeStr = [NSString stringWithFormat:@"%@ 23:59:59",endTimeStr];
     
     NSDate *endDate = [self timeWithTimeIntervalString:kMeUnNilStr(endTimeStr)]; //结束时间
     NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
     NSDate *startDate = [NSDate date];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd  HH:mm:ss"];
     NSString* dateString = [dateFormatter stringFromDate:startDate];
     NSLog(@"现在的时间 === %@",dateString);
     NSTimeInterval timeInterval = [endDate_tomorrow timeIntervalSinceDate:startDate];
     int timeout = timeInterval;
     return timeout>0?YES:NO;
-}
-
-#pragma mark ---- 将时间戳转换成时间
-
-- (NSString *)getTimeFromTimestamp:(NSString *)time{
-    //将对象类型的时间转换为NSDate类型
-    //    double time =1504667976;
-    NSDate * myDate= [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
-    
-    //设置时间格式
-    NSDateFormatter * formatter=[[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-    //将时间转换为字符串
-    NSString *timeStr=[formatter stringFromDate:myDate];
-    
-    return timeStr;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

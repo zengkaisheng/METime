@@ -3438,10 +3438,8 @@
 /***************************************/
 #pragma mark - Bargin
 //砍价
-+ (void)postBargainWithBargainId:(NSString *)bargainId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
-    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
-                          @"bargin_id":bargainId,
-                          };
++ (void)postBargainWithDict:(NSDictionary *)dict successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = [dict copy];
     NSString *url = kGetApiWithUrl(MEIPcommonGetBargin);
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
 //        [HUD hideAnimated:YES];

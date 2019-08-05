@@ -57,7 +57,7 @@
     [super viewDidLoad];
     self.title = @"动态";
 //    _type = 1;
-     _arrType = @[@"动态",@"每日爆款",@"宣传素材"];
+    _arrType = @[@"动态",@"每日爆款",@"宣传素材"];
     if(![MEUserInfoModel isLogin]){
         
     }else{
