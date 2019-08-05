@@ -15,6 +15,7 @@
 #import "MEPublishPrizeCell.h"
 #import "MECheckAllPrizePeopleVC.h"
 #import "METhridProductDetailsVC.h"
+#import "MEBargainRuleView.h"
 
 @interface MEJoinPrizeVC ()<UITableViewDelegate,UITableViewDataSource>{
     NSString *_imgUrl;
@@ -24,6 +25,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) MEPrizeHeaderView *headerView;
 @property (nonatomic, strong) UIButton *moreBtn;
+
+@property (nonatomic, strong) UIButton *btnRight;
 
 @property (nonatomic, strong) UIView *bottomView;
 @end
@@ -48,6 +51,8 @@
     [self requestNetWork];
     [self getShareCode];
     [self.view addSubview:self.bottomView];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
 }
 
 - (void)getShareCode{
@@ -180,6 +185,11 @@
         [strongSelf requestNetWork];
     };
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)ruleBtnAction {
+    [MEBargainRuleView showBargainRuleViewWithTitle:self.model.rule cancelBlock:^{
+    } superView:kMeCurrentWindow];
 }
 
 #pragma mark -- UITableviewDelegate
@@ -469,5 +479,18 @@
     }
     return _bottomView;
 }
+
+- (UIButton *)btnRight{
+    if(!_btnRight){
+        _btnRight= [UIButton buttonWithType:UIButtonTypeCustom];
+        [_btnRight setTitle:@"规则" forState:UIControlStateNormal];
+        [_btnRight setTitleColor:kME333333 forState:UIControlStateNormal];
+        _btnRight.frame = CGRectMake(0, 0, 44, 44);
+        _btnRight.titleLabel.font = kMeFont(15);
+        [_btnRight addTarget:self action:@selector(ruleBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _btnRight;
+}
+
 
 @end

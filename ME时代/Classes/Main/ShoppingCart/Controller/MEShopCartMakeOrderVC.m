@@ -19,6 +19,8 @@
 #import "MEPayStatusVC.h"
 #import "MEProductShoppingCartVC.h"
 #import "MEGiftVC.h"
+#import "MEPreferentialCell.h"
+
 @interface MEShopCartMakeOrderVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     BOOL _hasAdress;
@@ -31,6 +33,9 @@
     BOOL _isPayError;//防止跳2次错误页面
     //购物车有秒杀产品
     BOOL _isHasRush;
+    NSString *_ids;
+    NSString *_allPrice;
+    NSString *_postage;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) MEMakeOrderSelectAddressView *sAddressView;
@@ -59,6 +64,8 @@
     [super viewDidLoad];
     self.title = @"生成订单";
     _topMargin.constant = kMeNavBarHeight;
+    _ids = @"";
+    _postage = @"0.0";
     kMeWEAKSELF
     [MEPublicNetWorkTool postAddressDefaultAddressWithsuccessBlock:^(ZLRequestResponse *responseObject) {
         MEAddressModel *model = [MEAddressModel mj_objectWithKeyValues:responseObject.data];
@@ -89,17 +96,23 @@
         if(obj.product_type == 9){
             strongSelf->_isHasRush = YES;
         }
+        strongSelf->_ids = [strongSelf->_ids stringByAppendingFormat:@"%ld,",obj.product_id];
     }];
+    if (_ids.length > 0) {
+        _ids = [_ids substringWithRange:NSMakeRange(0, _ids.length - 1)];
+    }
+    _allPrice = [NSString stringWithFormat:@"%.2f",p];
     _lblAllPrice.text = [NSString stringWithFormat:@"%.2f",p];
 //    CGFloat allPrice = [kMeUnNilStr(_goodModel.psmodel.goods_price) floatValue] * _goodModel.buynum;
 //    _lblAllPrice.text = [NSString stringWithFormat:@"%.2f",allPrice];
     if(_isInteral){
         _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellExhange)];
     }else{
-        _arrType = @[@(MEMakrOrderCellMessage)];
+        _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPostage)];
     }
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEMakeOrderCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEMakeOrderCell class])];
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEMakeOrderHeaderCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEMakeOrderHeaderCell class])];
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPreferentialCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEPreferentialCell class])];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.tableFooterView = [UIView new];
@@ -115,10 +128,27 @@
         _tableView.tableHeaderView = self.notAddressView;
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WechatSuccess:) name:WX_PAY_RESULT object:nil];
+    
+    [self getUserOrderFreightWithAddressId:[NSString stringWithFormat:@"%ld",(long)_addressModel.address_id] productId:_ids];
+}
+
+//获取用户选择收货地址的邮费
+- (void)getUserOrderFreightWithAddressId:(NSString *)addressId productId:(NSString *)productId {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postOrderFreightBWithAddressId:addressId productId:productId SuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        strongSelf->_postage = responseObject.data;
+        
+        strongSelf->_lblAllPrice.text = [NSString stringWithFormat:@"%.2f",strongSelf->_postage.floatValue + strongSelf->_allPrice.floatValue];
+        
+        [strongSelf.tableView reloadData];
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.tableView reloadData];
+    }];
 }
 
 #pragma mark - Pay
-
 - (void)WechatSuccess:(NSNotification *)noti{
     [self payResultWithNoti:[noti object] result:WXPAY_SUCCESSED];
 }
@@ -197,6 +227,11 @@
 //        [cell setUIWithModle:_goodModel];
         return cell;
     }else{
+        if (indexPath.row == 1) {
+            MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
+            [cell setTitle:@"邮费" amount:[NSString stringWithFormat:@"%@",kMeUnNilStr(_postage)]];
+            return cell;
+        }
         MEMakrOrderCellStyle type = [_arrType[indexPath.row] integerValue];
         MEMakeOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEMakeOrderCell class]) forIndexPath:indexPath];
         if(type == MEMakrOrderCellMessage){
@@ -243,6 +278,8 @@
         strongSelf.sAddressView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEMakeOrderSelectAddressView getViewHeightWithModel:strongSelf->_addressModel]);
         [strongSelf.sAddressView setUIWithModel:strongSelf->_addressModel];
         strongSelf->_tableView.tableHeaderView = strongSelf.sAddressView;
+        
+        [strongSelf getUserOrderFreightWithAddressId:[NSString stringWithFormat:@"%ld",(long)strongSelf->_addressModel.address_id] productId:strongSelf->_ids];
         [self.navigationController popViewControllerAnimated:YES];
     };
     [self.navigationController pushViewController:vc animated:YES];

@@ -32,6 +32,7 @@
 
 @interface MEFourCoupleVC ()<UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>{
     NSArray *_arrAdv;
+    BOOL _isNeedReload;
 }
 
 @property (nonatomic, strong)UICollectionView *collectionView;
@@ -67,6 +68,7 @@
     self.isUp = YES;
     self.sort = @"";
     self.isTop = NO;
+    _isNeedReload = NO;
     [self.view addSubview:self.navView];
     
     [self.view addSubview:self.collectionView];
@@ -125,8 +127,8 @@
                     }
                 }
             }else {
+                btn.selected = YES;
                 if (btn.tag != 100) {
-                    btn.selected = YES;
                     if (self.isUp) {
                         [btn setImage:[UIImage imageNamed:@"jiageup"] forState:UIControlStateSelected];
                     }else {
@@ -391,8 +393,13 @@
             [header setUIWithBannerImage:_arrAdv isJD:_isJD];
             if (self.isTop) {
                 [header reloadSiftButtonWithSelectedBtn:self.selectedBtn isUp:self.isUp isTop:self.isTop];
+            }else {
+                if (_isNeedReload) {
+                    [header reloadSiftButtonWithSelectedBtn:self.selectedBtn isUp:self.isUp isTop:YES];
+                    _isNeedReload = NO;
+                }
             }
-            
+        
             kMeWEAKSELF
             header.selectedIndexBlock = ^(NSInteger index) {
                 kMeSTRONGSELF
@@ -403,6 +410,7 @@
                 kMeSTRONGSELF
                 strongSelf.isUp = isUp;
                 strongSelf.isTop = NO;
+                strongSelf->_isNeedReload = YES;
                 for (UIButton *btn in strongSelf.siftView.subviews) {
                     if (btn.tag == tag) {
                         [strongSelf siftBtnAction:btn];

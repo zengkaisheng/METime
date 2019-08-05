@@ -125,11 +125,11 @@
 
 //刷新筛选按钮状态
 - (void)reloadStatusWithSiftButton:(UIButton *)siftBtn {
-    for (UIButton *btn in self.siftView.subviews) {
+    for (UIButton *btn in _siftView.subviews) {
         if (btn.tag == siftBtn.tag) {
             if (self.isTop) {
+                btn.selected = YES;
                 if (btn.tag != 100) {
-                    btn.selected = YES;
                     if (self.isUp) {
                         [btn setImage:[UIImage imageNamed:@"jiageup"] forState:UIControlStateSelected];
                     }else {
@@ -167,7 +167,7 @@
 - (void)reloadSiftButtonWithSelectedBtn:(UIButton *)selectedBtn isUp:(BOOL)isUp isTop:(BOOL)isTop {
     self.isUp = isUp;
     self.isTop = isTop;
-    for (UIButton *btn in self.siftView.subviews) {
+    for (UIButton *btn in _siftView.subviews) {
         if (btn.tag == selectedBtn.tag) {
             [self reloadStatusWithSiftButton:btn];
         }

@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, assign) NSInteger total;
 @property (nonatomic, assign) NSInteger wholucky;
+@property (nonatomic, strong) NSString *rule;
 
 @end
 

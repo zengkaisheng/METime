@@ -2266,6 +2266,31 @@
     }];
 }
 
+//获取购物车结算页邮费
++ (void)postOrderFreightBWithAddressId:(NSString *)addressId productId:(NSString *)productId SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{
+                          @"token":kMeUnNilStr(kCurrentUser.token),
+                          @"address_id":addressId,
+                          @"postage":@"0",
+                          @"product_id":productId,
+                          };
+    
+    NSString *url = kGetApiWithUrl(MEIPcommonAddressGetOrderFreightB);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
 + (void)postStoreAddressWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure {
     NSDictionary *dic = @{
                           @"token":kMeUnNilStr(kCurrentUser.token),

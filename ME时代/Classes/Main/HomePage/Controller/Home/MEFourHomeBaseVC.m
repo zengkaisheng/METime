@@ -258,7 +258,7 @@ const static CGFloat kImgStore = 50;
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             kMeSTRONGSELF
-            strongSelf->_arrHot = [NSArray array];
+            strongSelf->_arrHot = @[@{@"activity":@[]},@{@"goods":@[]}];
             dispatch_semaphore_signal(semaphore);
         }];
 //        [MEPublicNetWorkTool postThridHomehomegetRecommendWithSuccessBlock:^(ZLRequestResponse *responseObject) {

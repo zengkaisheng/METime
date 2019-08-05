@@ -705,6 +705,8 @@
 
 //获取结算页邮费
 #define MEIPcommonAddressGetOrderFreight @"common/order/orderFreight"
+//获取购物车结算页邮费
+#define MEIPcommonAddressGetOrderFreightB @"common/order/orderFreightB"
 
 //获取到店领取的店铺地址
 #define MEIPcommonAddressGetStoreAddress @"common/address/addStoreAddress"
