@@ -9,11 +9,14 @@
 #import "MEAudioCourseBaseVC.h"
 #import "MEOnlineCourseHeaderView.h"
 #import "MEOnlineCourseListCell.h"
-
+#import "MEOnlineCourseListModel.h"
 #import "MECourseListVC.h"
+
+#import "MECourseDetailVC.h"
 
 @interface MEAudioCourseBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     NSInteger _type;
+    NSInteger _index;
     NSArray *_arrDicParm;
 }
 @property (nonatomic, strong) UITableView *tableView;
@@ -24,9 +27,10 @@
 
 @implementation MEAudioCourseBaseVC
 
-- (instancetype)initWithType:(NSInteger)type  materialArray:(NSArray *)materialArray{
+- (instancetype)initWithType:(NSInteger)type index:(NSInteger)index materialArray:(NSArray *)materialArray{
     if (self = [super init]) {
         _type = type;
+        _index = index;
         _arrDicParm = [materialArray copy];
     }
     return self;
@@ -35,16 +39,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if (_index == 0) {
+        self.tableView.tableHeaderView = self.headerView;
+        [self.headerView setUIWithArray:@[] type:1];
+    }
     
-    self.tableView.tableHeaderView = self.headerView;
-    [self.headerView setUIWithModel:@{} type:1];
+    switch (_type) {
+        case 0:
+            self.title = @"在线视频";
+            break;
+        case 1:
+            self.title = @"在线音频";
+            break;
+        case 2:
+            self.title = @"收费频道";
+            break;
+        case 3:
+            self.title = @"免费频道";
+            break;
+        default:
+            break;
+    }
+    
     [self.view addSubview:self.tableView];
     //    [self.refresh addRefreshView];
 }
 #pragma RefreshToolDelegate
 - (NSDictionary *)requestParameter{
     if(self.refresh.pageIndex == 1){
-        if (_type == 0) {
+        if (_index == 0) {
             //            [self getNetWork];
         }
     }
@@ -69,6 +92,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     MEOnlineCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseListCell class]) forIndexPath:indexPath];
+    MEOnlineCourseListModel *model = [[MEOnlineCourseListModel alloc] init];
+    [cell setUIWithModel:model isHomeVC:NO];
     return cell;
 }
 
@@ -77,22 +102,39 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 34;
+    return 41;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 34)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 41)];
     headerView.backgroundColor = [UIColor whiteColor];
     
-    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 8.5, 60, 17)];
+    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 60, 17)];
     titleLbl.font = [UIFont systemFontOfSize:12];
-    titleLbl.text = @"在线课程";
+    switch (_type) {
+        case 0:
+            titleLbl.text = @"在线视频";
+            break;
+        case 1:
+            titleLbl.text = @"在线音频";
+            break;
+        case 2:
+            titleLbl.text = @"收费频道";
+            break;
+        case 3:
+            titleLbl.text = @"免费频道";
+            break;
+        default:
+            break;
+    }
+    
     [headerView addSubview:titleLbl];
     return headerView;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    MECourseDetailVC *vc = [[MECourseDetailVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma setter&&getter
@@ -136,18 +178,27 @@
             kMeSTRONGSELF
             //            MEAdModel *model = strongSelf.banners[index];
             //            [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+            NSInteger type = 0;
             switch (index) {
                 case 102:
                 {
-                    MECourseListVC *vc = [[MECourseListVC alloc] init];
-                    vc.title = [NSString stringWithFormat:@"%@收费",strongSelf.title];
+                    if (strongSelf->_type == 0) {
+                        type = 4;
+                    }else if (strongSelf->_type == 1) {
+                        type = 5;
+                    }
+                    MECourseListVC *vc = [[MECourseListVC alloc] initWithType:type];
                     [strongSelf.navigationController pushViewController:vc animated:YES];
                 }
                     break;
                 case 103:
                 {
-                    MECourseListVC *vc = [[MECourseListVC alloc] init];
-                    vc.title = [NSString stringWithFormat:@"%@免费",strongSelf.title];
+                    if (strongSelf->_type == 0) {
+                        type = 6;
+                    }else if (strongSelf->_type == 1) {
+                        type = 7;
+                    }
+                    MECourseListVC *vc = [[MECourseListVC alloc] initWithType:type];
                     [strongSelf.navigationController pushViewController:vc animated:YES];
                 }
                     break;

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define kMEOnlineConsultCellHeight 77
+#define kMEOnlineConsultCellHeight 73
 
 @interface MEOnlineConsultCell : UITableViewCell
 

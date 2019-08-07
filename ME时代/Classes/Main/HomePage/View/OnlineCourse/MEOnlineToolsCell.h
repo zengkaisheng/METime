@@ -10,11 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define kMEOnlineToolsCellHeight 108
+#define kMEOnlineToolsCellHeight 198
 
 @interface MEOnlineToolsCell : UITableViewCell
 
 @property (nonatomic,copy) kMeIndexBlock selectedBlock;
+
+- (void)setUIWithModel:(id)model;
 
 @end
 

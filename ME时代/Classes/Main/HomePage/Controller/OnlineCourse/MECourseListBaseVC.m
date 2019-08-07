@@ -10,9 +10,11 @@
 
 #import "MEOnlineCourseListCell.h"
 #import "MECourseDetailVC.h"
+#import "MEOnlineCourseListModel.h"
 
 @interface MECourseListBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     NSInteger _type;
+    NSInteger _index;
     NSArray *_arrDicParm;
 }
 @property (nonatomic, strong) UITableView *tableView;
@@ -22,18 +24,49 @@
 
 @implementation MECourseListBaseVC
 
-- (instancetype)initWithType:(NSInteger)type  materialArray:(NSArray *)materialArray{
+- (instancetype)initWithType:(NSInteger)type index:(NSInteger)index materialArray:(NSArray *)materialArray{
     if (self = [super init]) {
         _type = type;
+        _index = index;
         _arrDicParm = [materialArray copy];
     }
     return self;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    switch (_type) {
+        case 0:
+            self.title = @"在线视频";
+            break;
+        case 1:
+            self.title = @"在线音频";
+            break;
+        case 2:
+            self.title = @"收费频道";
+            self.tableView.frame = CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight);
+            break;
+        case 3:
+            self.title = @"免费频道";
+            self.tableView.frame = CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight);
+            break;
+        case 4:
+            self.title = @"视频收费频道";
+            break;
+        case 5:
+            self.title = @"音频收费频道";
+            break;
+        case 6:
+            self.title = @"视频免费频道";
+            break;
+        case 7:
+            self.title = @"音频免费频道";
+            break;
+        default:
+            break;
+    }
+    
     [self.view addSubview:self.tableView];
     //    [self.refresh addRefreshView];
 }
@@ -59,11 +92,13 @@
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //    return self.refresh.arrData.count;
-    return 7;
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEOnlineCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseListCell class]) forIndexPath:indexPath];
+    MEOnlineCourseListModel *model = [[MEOnlineCourseListModel alloc] init];
+    [cell setUIWithModel:model isHomeVC:YES];
     return cell;
 }
 
@@ -72,17 +107,43 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 34;
+    return 41;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 34)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 41)];
     headerView.backgroundColor = [UIColor whiteColor];
     
-    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 8.5, 60, 17)];
+    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 200, 17)];
     titleLbl.font = [UIFont systemFontOfSize:12];
-    NSString *subStr = [self.title substringWithRange:NSMakeRange(0, 2)];
-    titleLbl.text = [NSString stringWithFormat:@"在线%@",subStr];
+    switch (_type) {
+        case 0:
+            titleLbl.text = @"在线视频";
+            break;
+        case 1:
+            titleLbl.text = @"在线音频";
+            break;
+        case 2:
+            titleLbl.text = @"收费频道";
+            break;
+        case 3:
+            titleLbl.text = @"免费频道";
+            break;
+        case 4:
+            titleLbl.text = @"视频收费频道";
+            break;
+        case 5:
+            titleLbl.text = @"音频收费频道";
+            break;
+        case 6:
+            titleLbl.text = @"视频免费频道";
+            break;
+        case 7:
+            titleLbl.text = @"音频免费频道";
+            break;
+        default:
+            break;
+    }
     [headerView addSubview:titleLbl];
     return headerView;
 }

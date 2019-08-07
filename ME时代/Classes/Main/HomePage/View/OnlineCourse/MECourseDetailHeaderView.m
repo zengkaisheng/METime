@@ -15,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLbl;
 @property (weak, nonatomic) IBOutlet UIButton *introduceBtn;
 @property (weak, nonatomic) IBOutlet UIButton *courseListBtn;
-@property (weak, nonatomic) IBOutlet UIButton *commentBtn;
 
 @end
 
@@ -31,31 +30,29 @@
     [self.courseListBtn setTitleColor:normalColor forState:UIControlStateNormal];
     [self.courseListBtn setTitleColor:selectedColor forState:UIControlStateSelected];
     
-    [self.commentBtn setTitleColor:normalColor forState:UIControlStateNormal];
-    [self.commentBtn setTitleColor:selectedColor forState:UIControlStateSelected];
-    
     self.introduceBtn.selected = YES;
     self.courseListBtn.selected = NO;
-    self.commentBtn.selected = NO;
+}
+
+- (void)setUIWithModel:(id)model index:(NSInteger)index {
+    if (index == 0) {
+        self.introduceBtn.selected = YES;
+        self.courseListBtn.selected = NO;
+    }else if (index == 1) {
+        self.introduceBtn.selected = NO;
+        self.courseListBtn.selected = YES;
+    }
 }
 
 - (IBAction)courseIntroduceAction:(id)sender {
     self.introduceBtn.selected = YES;
     self.courseListBtn.selected = NO;
-    self.commentBtn.selected = NO;
     kMeCallBlock(_selectedBlock,0);
 }
 - (IBAction)courseListAction:(id)sender {
     self.introduceBtn.selected = NO;
     self.courseListBtn.selected = YES;
-    self.commentBtn.selected = NO;
     kMeCallBlock(_selectedBlock,1);
-}
-- (IBAction)commentAction:(id)sender {
-    self.introduceBtn.selected = NO;
-    self.courseListBtn.selected = NO;
-    self.commentBtn.selected = YES;
-    kMeCallBlock(_selectedBlock,2);
 }
 
 @end

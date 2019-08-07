@@ -11,9 +11,12 @@
 #import "TDWebViewCell.h"
 #import "MECourseDetailListCell.h"
 #import "MECourseDetailCommentCell.h"
+#import "ViewPagerTitleButton.h"
 
 @interface MECourseDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 
+@property (nonatomic, strong) UIView *customNav;
+@property (nonatomic, strong) UIView *siftView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) MECourseDetailHeaderView *headerView;
 @property (strong, nonatomic) TDWebViewCell *webCell;
@@ -37,7 +40,8 @@
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 20;
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
-    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,@"我就是个测试"] baseURL:nil];
+    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,@"<img src=\"http://images.meshidai.com/2f1022a12c59f66ca99aadc51f4128f2\" alt=\"\" />"] baseURL:nil];
+    [self.tableView reloadData];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 49, SCREEN_WIDTH, 49)];
     bottomView.backgroundColor = [UIColor whiteColor];
@@ -48,7 +52,8 @@
     
     [bottomView addSubview:self.tryBtn];
     [bottomView addSubview:self.buyBtn];
-    
+    [self.view addSubview:self.customNav];
+    [self.view addSubview:self.siftView];
     [self.view addSubview:self.backButton];
 }
 #pragma Action
@@ -64,25 +69,40 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)siftBtnDidClick:(UIButton *)sender {
+    for (ViewPagerTitleButton *btn in self.siftView.subviews) {
+        btn.selected = NO;
+    }
+    sender.selected = YES;
+    self.type = sender.tag - 100;
+    [self.headerView setUIWithModel:@{} index:self.type];
+    [self.tableView reloadData];
+}
+
+- (void)reloadSiftViewWithIndex:(NSInteger)index {
+    for (UIButton *btn in self.siftView.subviews) {
+        if (btn.tag - 100 == index) {
+            btn.selected = YES;
+        }else {
+            btn.selected = NO;
+        }
+    }
+}
+
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //    return self.refresh.arrData.count;
     if (self.type == 0) {
         return 1;
-    }else if (self.type == 1) {
-        return 5;
     }
-    return 3;
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.type == 0) {
         return self.webCell;
-    }else if (self.type == 1) {
-        MECourseDetailListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECourseDetailListCell class]) forIndexPath:indexPath];
-        return cell;
     }
-    MECourseDetailCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECourseDetailCommentCell class]) forIndexPath:indexPath];
+    MECourseDetailListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECourseDetailListCell class]) forIndexPath:indexPath];
     return cell;
 }
 
@@ -93,14 +113,31 @@
         }else{
             return [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
         }
-    }else if (self.type == 1) {
-        return kMECourseDetailListCellHeight;
     }
-    return [MECourseDetailCommentCell getCellHeightWithModel:@[]];
+    return kMECourseDetailListCellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    self.customNav.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:scrollView.mj_offsetY/(kMECourseDetailHeaderViewHeight-41)];
+    self.siftView.hidden = scrollView.mj_offsetY>=(kMECourseDetailHeaderViewHeight-41)?NO:YES;
+}
+
+- (ViewPagerTitleButton *)createButtonWithTitle:(NSString *)title frame:(CGRect)frame tag:(NSInteger)tag{
+    ViewPagerTitleButton *btn = [[ViewPagerTitleButton alloc] init];
+    btn.frame = frame;
+    btn.tag = tag;
+    [btn setTitle:title forState:UIControlStateNormal];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor colorWithHexString:@"#FFA8A8"] forState:UIControlStateSelected];
+    [btn setBackgroundColor:[UIColor whiteColor]];
+    [btn addTarget:self action:@selector(siftBtnDidClick:) forControlEvents:UIControlEventTouchUpInside];
+    return btn;
 }
 
 #pragma setter&&getter
@@ -127,23 +164,8 @@
         _headerView.selectedBlock = ^(NSInteger index) {
             kMeSTRONGSELF
             strongSelf.type = index;
+            [strongSelf reloadSiftViewWithIndex:index];
             [strongSelf.tableView reloadData];
-            switch (index) {
-                case 0:
-            {
-            }
-                    break;
-                case 1:
-            {
-            }
-                    break;
-                case 2:
-            {
-            }
-                    break;
-                default:
-                    break;
-            }
         };
     }
     return _headerView;
@@ -176,24 +198,45 @@
         [_buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_buyBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
         [_buyBtn setBackgroundColor:[UIColor colorWithHexString:@"#FE4B77"]];
-        _buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201, 4.5, 201, 40);
+        _buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201*kMeFrameScaleX(), 4.5, 201*kMeFrameScaleX(), 40);
         _buyBtn.layer.cornerRadius = 20;
         [_buyBtn addTarget:self action:@selector(buyBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _buyBtn;
 }
 
+- (UIView *)customNav {
+    if (!_customNav) {
+        _customNav = [[UIView alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 44)];
+        _customNav.backgroundColor = [UIColor clearColor];
+    }
+    return _customNav;
+}
+
 - (UIButton *)backButton {
     if(!_backButton) {
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        backButton.frame = CGRectMake(0, 20, 44, 44);
-        [backButton setImage:[UIImage imageNamed:@"inc-xz"] forState:UIControlStateNormal];
-        backButton.imageEdgeInsets = UIEdgeInsetsMake(0, 9, 0, 0);
+        backButton.frame = CGRectMake(16, 20, 44, 44);
+        [backButton setImage:[UIImage imageNamed:@"icon-tmda"] forState:UIControlStateNormal];
         [backButton addTarget:self action:@selector(backButtonPressed)
              forControlEvents:UIControlEventTouchUpInside];
         _backButton = backButton;
     }
     return _backButton;
+}
+
+- (UIView *)siftView {
+    if (!_siftView) {
+        _siftView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.customNav.frame), SCREEN_WIDTH, 41)];
+        NSArray *titles = @[@"课程介绍",@"课程列表"];
+        CGFloat itemW = SCREEN_WIDTH/titles.count;
+        for (int i = 0; i < titles.count; i++) {
+            ViewPagerTitleButton *btn = [self createButtonWithTitle:titles[i] frame:CGRectMake(i*itemW, 0, itemW, 41) tag:100+i];
+            [_siftView addSubview:btn];
+        }
+        _siftView.hidden = YES;
+    }
+    return _siftView;
 }
 
 @end

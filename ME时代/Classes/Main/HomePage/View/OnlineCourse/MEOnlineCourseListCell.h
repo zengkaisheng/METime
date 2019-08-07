@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MEOnlineCourseListModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
 #define kMEOnlineCourseListCellHeight 99
 
 @interface MEOnlineCourseListCell : UITableViewCell
+
+- (void)setUIWithModel:(MEOnlineCourseListModel *)model isHomeVC:(BOOL)isHome;
 
 @end
 

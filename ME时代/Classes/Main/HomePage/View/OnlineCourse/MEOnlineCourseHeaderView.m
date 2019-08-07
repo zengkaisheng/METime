@@ -7,6 +7,7 @@
 //
 
 #import "MEOnlineCourseHeaderView.h"
+#import "MEAdModel.h"
 
 @interface MEOnlineCourseHeaderView ()<SDCycleScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -16,28 +17,27 @@
 
 @implementation MEOnlineCourseHeaderView
 
-- (void)setUIWithModel:(id)model type:(NSInteger)type {
+- (void)setUIWithArray:(NSArray *)array type:(NSInteger)type {
     _sdView.contentMode = UIViewContentModeScaleAspectFill;
     _sdView.clipsToBounds = YES;
     _sdView.delegate = self;
     _sdView.infiniteLoop = NO;
     _sdView.autoScroll = NO;
 
-//    NSArray *banners = dic[@"top_banner"];
-//    __block NSMutableArray *arrImage =[NSMutableArray array];
-//    [banners enumerateObjectsUsingBlock:^(MEAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-//        [arrImage addObject:kMeUnNilStr(model.ad_img)];
-//    }];
-//    _sdView.imageURLStringsGroup = arrImage;
-    
-//    if (arrImage.count <= 1) {
+    __block NSMutableArray *arrImage =[NSMutableArray array];
+    [array enumerateObjectsUsingBlock:^(MEAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        [arrImage addObject:kMeUnNilStr(model.ad_img)];
+    }];
+    _sdView.imageURLStringsGroup = arrImage;
+
+    if (arrImage.count <= 1) {
         _sdView.infiniteLoop = NO;
         _sdView.autoScroll = NO;
-//    }else {
-//        _sdView.infiniteLoop = YES;
-//        _sdView.autoScroll = YES;
-//        _sdView.autoScrollTimeInterval = 4;
-//    }
+    }else {
+        _sdView.infiniteLoop = YES;
+        _sdView.autoScroll = YES;
+        _sdView.autoScrollTimeInterval = 4;
+    }
     
     if (type == 0) {
         _bottomView.hidden = YES;

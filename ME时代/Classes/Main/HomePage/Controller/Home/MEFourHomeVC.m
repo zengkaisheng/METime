@@ -234,9 +234,9 @@
         kMeWEAKSELF
         _navView.searchBlock = ^{
             kMeSTRONGSELF
-            [strongSelf searchCoupon];
-//            MEOnlineCourseVC *vc = [[MEOnlineCourseVC alloc] init];
-//            [strongSelf.navigationController pushViewController:vc animated:YES];
+//            [strongSelf searchCoupon];
+            MEOnlineCourseVC *vc = [[MEOnlineCourseVC alloc] init];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
         };
         _navView.selectIndexBlock = ^(NSInteger index) {
             kMeSTRONGSELF

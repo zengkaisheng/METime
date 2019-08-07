@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *sdView;
 @property (nonatomic,copy) kMeIndexBlock selectedBlock;
 
-- (void)setUIWithModel:(id)model type:(NSInteger)type;
+- (void)setUIWithArray:(NSArray *)array type:(NSInteger)type;
 
 @end
 

@@ -17,15 +17,40 @@
 @property (nonatomic, strong) UIButton *btnRight;
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, assign) NSInteger type;
 
 @end
 
 @implementation MEAudioCourseVC
 
+- (instancetype)initWithType:(NSInteger)type {
+    if (self = [super init]) {
+        _type = type;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _arrType = @[@"推荐",@"推荐",@"推荐",@"推荐",@"推荐",@"推荐"];
+    
+    switch (_type) {
+        case 0:
+            self.title = @"在线视频";
+            break;
+        case 1:
+            self.title = @"在线音频";
+            break;
+        case 2:
+            self.title = @"收费频道";
+            break;
+        case 3:
+            self.title = @"免费频道";
+            break;
+        default:
+            break;
+    }
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight)];
     self.scrollView.delegate = self;
@@ -35,8 +60,7 @@
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     for (int i = 0; i < _arrType.count; i++) {
-        MEAudioCourseBaseVC *VC = [[MEAudioCourseBaseVC alloc] initWithType:i materialArray:_arrDicParm];
-        VC.title = self.title;
+        MEAudioCourseBaseVC *VC = [[MEAudioCourseBaseVC alloc] initWithType:self.type index:i materialArray:_arrDicParm];
         VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         VC.view.frame = CGRectMake(SCREEN_WIDTH*i,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
         [self addChildViewController:VC];

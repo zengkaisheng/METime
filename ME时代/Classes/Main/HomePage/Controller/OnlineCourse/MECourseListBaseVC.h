@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECourseListBaseVC : MEBaseVC
 
-- (instancetype)initWithType:(NSInteger)type materialArray:(NSArray *)materialArray;
+- (instancetype)initWithType:(NSInteger)type index:(NSInteger)index materialArray:(NSArray *)materialArray;
 
 @end
 

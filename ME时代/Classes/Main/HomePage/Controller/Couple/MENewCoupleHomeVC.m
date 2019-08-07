@@ -84,9 +84,9 @@
         kMeWEAKSELF
         [MEPublicNetWorkTool postCoupledgMaterialOptionalWithType:MECouponSearchTopBuyType successBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
-            id arrDIc = responseObject.data[@"tbk_dg_material_optional_response"][@"result_list"][@"map_data"];
-            if([arrDIc isKindOfClass:[NSArray class]]){
-                strongSelf->_todayBuy = [MECoupleModel mj_objectArrayWithKeyValuesArray:arrDIc];
+            id arrData = responseObject.data[@"tbk_dg_material_optional_response"][@"result_list"][@"map_data"];
+            if([arrData isKindOfClass:[NSArray class]]){
+                strongSelf->_todayBuy = [MECoupleModel mj_objectArrayWithKeyValuesArray:(NSArray *)arrData];
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
@@ -98,9 +98,9 @@
         kMeWEAKSELF
         [MEPublicNetWorkTool postCoupledgMaterialOptionalWithType:MECouponSearch99BuyType successBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
-            id arrDIc = responseObject.data[@"tbk_dg_material_optional_response"][@"result_list"][@"map_data"];
-            if([arrDIc isKindOfClass:[NSArray class]]){
-                strongSelf->_99BuyBuy = [MECoupleModel mj_objectArrayWithKeyValuesArray:arrDIc];
+            id arrData = responseObject.data[@"tbk_dg_material_optional_response"][@"result_list"][@"map_data"];
+            if([arrData isKindOfClass:[NSArray class]]){
+                strongSelf->_99BuyBuy = [MECoupleModel mj_objectArrayWithKeyValuesArray:(NSArray *)arrData];
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {

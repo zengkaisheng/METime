@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) kMeIndexBlock selectedBlock;
 
+- (void)setUIWithModel:(id)model index:(NSInteger)index;
+
 @end
 
 NS_ASSUME_NONNULL_END

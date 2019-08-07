@@ -7,16 +7,26 @@
 //
 
 #import "MEOnlineCourseVC.h"
-#import "MEOnlineCourseBaseVC.h"
+#import "MEOnlineCourseHeaderView.h"
 
-@interface MEOnlineCourseVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>{
-    NSArray *_arrType;
-    NSArray *_arrDicParm;
-}
+#import "MEOnlineConsultCell.h"
+#import "MEOnlineToolsCell.h"
+#import "MEOnlineCourseRecommentCell.h"
+
+#import "MEAudioCourseVC.h"
+#import "MEOnlineDiagnoseVC.h"
+#import "MEDiagnoseListVC.h"
+#import "MEOnlineCourseHomeModel.h"
+#import "MECourseListBaseVC.h"
+
+@interface MEOnlineCourseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) MEOnlineCourseHeaderView *headerView;
+@property (nonatomic, strong) ZLRefreshTool    *refresh;
+@property (nonatomic, strong) MEOnlineCourseHomeModel *model;
 
 @property (nonatomic, strong) UIButton *btnRight;
-@property (nonatomic, strong) JXCategoryTitleView *categoryView;
-@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end
 
@@ -26,49 +36,234 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"在线课程";
-    _arrType = @[@"推荐",@"推荐",@"推荐",@"推荐",@"推荐",@"推荐"];
-    
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight)];
-    self.scrollView.delegate = self;
-    self.scrollView.pagingEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *_arrType.count, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
-    self.scrollView.bounces = NO;
-    self.scrollView.showsVerticalScrollIndicator = NO;
-    self.scrollView.showsHorizontalScrollIndicator = NO;
-    for (int i = 0; i < _arrType.count; i++) {
-        MEOnlineCourseBaseVC *VC = [[MEOnlineCourseBaseVC alloc] initWithType:i materialArray:_arrDicParm];
-        VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        VC.view.frame = CGRectMake(SCREEN_WIDTH*i,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
-        [self addChildViewController:VC];
-        [self.scrollView addSubview:VC.view];
-    }
-    
-    [self.view addSubview:self.scrollView];
-    
-    //1、初始化JXCategoryTitleView
-    self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeNavBarHeight, SCREEN_WIDTH, kCategoryViewHeight)];
-    JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
-    lineView.indicatorLineWidth = 30 *kMeFrameScaleX();
-    lineView.indicatorLineViewColor = kMEPink;
-    lineView.indicatorLineViewHeight = 2;
-    self.categoryView.indicators = @[lineView];
-    
-    self.categoryView.titles = _arrType;
-    self.categoryView.delegate = self;
-    self.categoryView.titleSelectedColor = kMEPink;
-    self.categoryView.contentScrollView = self.scrollView;
-    self.categoryView.titleColor =  [UIColor colorWithHexString:@"999999"];
-    [self.view addSubview:self.categoryView];
-    self.categoryView.defaultSelectedIndex = 0;
+    self.tableView.tableHeaderView = self.headerView;
+    [self.headerView setUIWithArray:@[] type:0];
+    [self.view addSubview:self.tableView];
+    [self.refresh addRefreshView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
 }
 
-- (void)pushlishAction:(UIButton *)btn{
-   
+#pragma RefreshToolDelegate
+- (NSDictionary *)requestParameter{
+    return @{@"token":kMeUnNilStr(kCurrentUser.token)};
 }
 
-#pragma MARK - Setter
+- (void)handleResponse:(id)data{
+    if(![data isKindOfClass:[NSDictionary class]]){
+        return;
+    }
+    self.model = [MEOnlineCourseHomeModel mj_objectWithKeyValues:data];
+    [self.headerView setUIWithArray:self.model.top_banner type:0];
+    [self.tableView reloadData];
+}
+
+#pragma mark -- Action
+- (void)rightBtnAction{
+    
+}
+
+#pragma mark - tableView deleagte and sourcedata
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 4;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        MEOnlineConsultCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineConsultCell class]) forIndexPath:indexPath];
+        [cell setUIWithModel:@{@"title":@"报告诊断"}];
+        return cell;
+    }else if (indexPath.section == 1) {
+        MEOnlineToolsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineToolsCell class]) forIndexPath:indexPath];
+        [cell setUIWithModel:@[]];
+        cell.selectedBlock = ^(NSInteger index) {
+            switch (index) {
+                case 1:
+                    NSLog(@"运营数据");
+                    break;
+                case 2:
+                    NSLog(@"顾客档案");
+                    break;
+                case 3:
+                    NSLog(@"顾客服务");
+                    break;
+                case 4:
+                    NSLog(@"顾客预约");
+                    break;
+                case 5:
+                    NSLog(@"顾客消费");
+                    break;
+                default:
+                    break;
+            }
+        };
+        return cell;
+    }else if (indexPath.section == 2) {
+        MEOnlineConsultCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineConsultCell class]) forIndexPath:indexPath];
+        [cell setUIWithModel:@{@"title":@"诊断服务",@"price":@"80元/月"}];
+        return cell;
+    }
+    MEOnlineCourseRecommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseRecommentCell class]) forIndexPath:indexPath];
+    [cell setUpUIWithModel:self.model];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        return kMEOnlineConsultCellHeight;
+    }else if (indexPath.section == 1) {
+        return kMEOnlineToolsCellHeight;
+    }else if (indexPath.section == 2) {
+        return 93;
+    }
+    
+    if (kMeUnArr(self.model.onLine_banner).count <= 0 && kMeUnArr(self.model.video_list.data).count <= 0) {
+        return 0;
+    }
+    CGFloat height = 41.0+18.0;
+    if (kMeUnArr(self.model.onLine_banner).count > 0) {
+        height += 120;
+    }
+    if (kMeUnArr(self.model.video_list.data).count > 0) {
+        height += 89*kMeUnArr(self.model.video_list.data).count;
+    }
+    return height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 3) {
+        return 0;
+    }
+    return 41;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 41)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 60, 21)];
+    titleLbl.font = [UIFont systemFontOfSize:15];
+    switch (section) {
+        case 0:
+            titleLbl.text = @"在线诊断";
+            break;
+        case 1:
+            titleLbl.text = @"运营工具";
+            break;
+        case 2:
+            titleLbl.text = @"专家诊断";
+            break;
+        default:
+            break;
+    }
+    [headerView addSubview:titleLbl];
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 2) {
+        return 12;
+    }
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 12)];
+    footerView.backgroundColor = [UIColor whiteColor];
+    return footerView;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        MEOnlineDiagnoseVC *onlineDiagnoseVC = [[MEOnlineDiagnoseVC alloc] init];
+        [self.navigationController pushViewController:onlineDiagnoseVC animated:YES];
+    } else if (indexPath.section == 2) {
+        MEDiagnoseListVC *diagnoseList = [[MEDiagnoseListVC alloc] init];
+        [self.navigationController pushViewController:diagnoseList animated:YES];
+    }
+}
+
+#pragma setter&&getter
+- (UITableView *)tableView{
+    if(!_tableView){
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) style:UITableViewStylePlain];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEOnlineConsultCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEOnlineConsultCell class])];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEOnlineToolsCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEOnlineToolsCell class])];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEOnlineCourseRecommentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEOnlineCourseRecommentCell class])];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+        view.backgroundColor = kMEededed;
+        _tableView.tableFooterView = [UIView new];//view;
+        _tableView.backgroundColor = [UIColor whiteColor];
+    }
+    return _tableView;
+}
+
+- (ZLRefreshTool *)refresh{
+    if(!_refresh){
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonOnlineHomeIndex)];
+        _refresh.delegate = self;
+        _refresh.isDataInside = NO;
+//        _refresh.showMaskView = YES;
+        _refresh.showFailView = NO;
+        
+//        [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
+//            failView.backgroundColor = [UIColor whiteColor];
+//            failView.lblOfNodata.text = @"没有内容";
+//        }];
+    }
+    return _refresh;
+}
+
+- (MEOnlineCourseHeaderView *)headerView{
+    if(!_headerView){
+        _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MEOnlineCourseHeaderView" owner:nil options:nil] lastObject];
+        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMEOnlineCourseHeaderViewHeight);
+        kMeWEAKSELF
+        _headerView.selectedBlock = ^(NSInteger index) {
+            kMeSTRONGSELF
+            //            MEAdModel *model = strongSelf.banners[index];
+            //            [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+            switch (index) {
+                case 100:
+                {
+                    MEAudioCourseVC *vc = [[MEAudioCourseVC alloc] initWithType:0];
+                    [strongSelf.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case 101:
+                {
+                    MEAudioCourseVC *vc = [[MEAudioCourseVC alloc] initWithType:1];
+                    [strongSelf.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case 102:
+                {
+                    MECourseListBaseVC *vc = [[MECourseListBaseVC alloc] initWithType:2 index:0 materialArray:@[]];
+                    [strongSelf.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                case 103:
+                {
+                    MECourseListBaseVC *vc = [[MECourseListBaseVC alloc] initWithType:3 index:0 materialArray:@[]];
+                    [strongSelf.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
+                default:
+                    break;
+            }
+        };
+    }
+    return _headerView;
+}
+
 - (UIButton *)btnRight{
     if(!_btnRight){
         _btnRight= [UIButton buttonWithType:UIButtonTypeCustom];
@@ -79,7 +274,7 @@
         _btnRight.clipsToBounds = YES;
         _btnRight.frame = CGRectMake(0, 0, 30, 30);
         _btnRight.titleLabel.font = kMeFont(15);
-        [_btnRight addTarget:self action:@selector(pushlishAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_btnRight addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnRight;
 }

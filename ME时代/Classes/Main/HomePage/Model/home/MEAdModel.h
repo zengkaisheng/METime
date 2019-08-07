@@ -35,4 +35,8 @@
 @property (nonatomic, assign) NSInteger bargain_id;  //砍价活动
 @property (nonatomic, assign) NSInteger activity_id; //签到活动
 
+//在线课程相关
+@property (nonatomic, assign) NSInteger audio_id;
+@property (nonatomic, assign) NSInteger video_id;
+
 @end

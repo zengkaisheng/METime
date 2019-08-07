@@ -45,28 +45,26 @@
                         <constraint firstAttribute="height" constant="15" id="KbS-KD-LR2"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <nil key="textColor"/>
+                    <color key="textColor" red="1" green="0.6588235294" blue="0.6588235294" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0L-9g-KEQ">
-                    <rect key="frame" x="0.0" y="338" width="90" height="37"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0L-9g-KEQ" customClass="ViewPagerTitleButton">
+                    <rect key="frame" x="0.0" y="338" width="187.5" height="37"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="37" id="Hmw-TZ-4dM"/>
-                        <constraint firstAttribute="width" constant="90" id="cAq-kc-dGM"/>
                     </constraints>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="课程介绍">
-                        <color key="titleColor" red="1" green="0.6588235294117647" blue="0.6588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="1" green="0.6588235294" blue="0.6588235294" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
                         <action selector="courseIntroduceAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="x1L-dQ-xaw"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVw-gd-gYQ">
-                    <rect key="frame" x="142.5" y="338" width="90" height="37"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVw-gd-gYQ" customClass="ViewPagerTitleButton">
+                    <rect key="frame" x="187.5" y="338" width="187.5" height="37"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="37" id="LFO-aR-LWm"/>
-                        <constraint firstAttribute="width" constant="90" id="VN2-Di-y7r"/>
                     </constraints>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="课程列表">
@@ -76,35 +74,21 @@
                         <action selector="courseListAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="4Hw-ps-CuM"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKc-yJ-zVx">
-                    <rect key="frame" x="285" y="338" width="90" height="37"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="37" id="LJL-gK-UBL"/>
-                        <constraint firstAttribute="width" constant="90" id="b9m-Dw-QEq"/>
-                    </constraints>
-                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" title="用户评论">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="commentAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="dJc-tF-eeG"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="ceO-lf-q6d" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="FPg-cA-hJK"/>
-                <constraint firstAttribute="bottom" secondItem="cKc-yJ-zVx" secondAttribute="bottom" constant="4" id="GKo-0p-Owf"/>
                 <constraint firstItem="qgd-gJ-cij" firstAttribute="top" secondItem="ceO-lf-q6d" secondAttribute="bottom" constant="38" id="Gxe-3l-1cw"/>
                 <constraint firstItem="A0L-9g-KEQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IRA-98-Nb3"/>
                 <constraint firstItem="qgd-gJ-cij" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="P0Y-0V-vve" secondAttribute="trailing" constant="5" id="KSB-Jw-2Sd"/>
                 <constraint firstItem="P0Y-0V-vve" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="M8o-ph-RYR"/>
                 <constraint firstAttribute="bottom" secondItem="rVw-gd-gYQ" secondAttribute="bottom" constant="4" id="P6w-wY-qAj"/>
+                <constraint firstItem="rVw-gd-gYQ" firstAttribute="leading" secondItem="A0L-9g-KEQ" secondAttribute="trailing" id="SjW-cm-QtY"/>
                 <constraint firstItem="NdZ-AU-UMg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VLr-07-zR4"/>
                 <constraint firstAttribute="bottom" secondItem="A0L-9g-KEQ" secondAttribute="bottom" constant="4" id="X8Y-q1-8oS"/>
-                <constraint firstItem="rVw-gd-gYQ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="au4-V7-AqJ"/>
+                <constraint firstAttribute="trailing" secondItem="rVw-gd-gYQ" secondAttribute="trailing" id="Y7W-Sb-9n3"/>
+                <constraint firstItem="rVw-gd-gYQ" firstAttribute="width" secondItem="A0L-9g-KEQ" secondAttribute="width" id="bBx-HU-I0G"/>
                 <constraint firstItem="ceO-lf-q6d" firstAttribute="top" secondItem="NdZ-AU-UMg" secondAttribute="bottom" constant="20" id="hct-FB-Hqm"/>
-                <constraint firstAttribute="trailing" secondItem="cKc-yJ-zVx" secondAttribute="trailing" id="kFO-cK-d4Q"/>
                 <constraint firstItem="NdZ-AU-UMg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mEb-Fh-oht"/>
                 <constraint firstAttribute="trailing" secondItem="ceO-lf-q6d" secondAttribute="trailing" constant="15" id="oGj-Gn-dLB"/>
                 <constraint firstAttribute="trailing" secondItem="qgd-gJ-cij" secondAttribute="trailing" constant="15" id="u4h-qy-Jsc"/>
@@ -113,7 +97,6 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="commentBtn" destination="cKc-yJ-zVx" id="Y38-hl-oGl"/>
                 <outlet property="courseListBtn" destination="rVw-gd-gYQ" id="lP1-4w-oeo"/>
                 <outlet property="headerPic" destination="NdZ-AU-UMg" id="5hY-G4-W0a"/>
                 <outlet property="introduceBtn" destination="A0L-9g-KEQ" id="VeF-NK-uHM"/>

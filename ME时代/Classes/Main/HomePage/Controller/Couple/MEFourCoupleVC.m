@@ -253,7 +253,11 @@
             [strongSelf.refresh.arrData removeAllObjects];
             [strongSelf.refresh.arrData addObjectsFromArray:[MEPinduoduoCoupleModel mj_objectArrayWithKeyValuesArray:dataArray]];
             if (strongSelf.isTop) {
-                [strongSelf.collectionView setContentOffset:CGPointMake(0, 150) animated:YES];
+                if (strongSelf->_arrAdv.count > 0) {
+                    [strongSelf.collectionView setContentOffset:CGPointMake(0, 150) animated:YES];
+                }else {
+                    [strongSelf.collectionView setContentOffset:CGPointMake(0, 10) animated:YES];
+                }
             }
             [strongSelf.collectionView reloadData];
         }
@@ -283,7 +287,11 @@
             [strongSelf.refresh.arrData removeAllObjects];
             [strongSelf.refresh.arrData addObjectsFromArray:[MEJDCoupleModel mj_objectArrayWithKeyValuesArray:dicArr]];
             if (strongSelf.isTop) {
-                [strongSelf.collectionView setContentOffset:CGPointMake(0, 150) animated:YES];
+                if (strongSelf->_arrAdv.count > 0) {
+                    [strongSelf.collectionView setContentOffset:CGPointMake(0, 150) animated:YES];
+                }else {
+                    [strongSelf.collectionView setContentOffset:CGPointMake(0, 10) animated:YES];
+                }
             }
             [strongSelf.collectionView reloadData];
         }
@@ -300,6 +308,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([scrollView isEqual:self.collectionView]) {
+        _isNeedReload = YES;
         if (_arrAdv.count > 0) {
             if (scrollView.contentOffset.y >= 150) {
                 self.siftView.hidden = NO;
