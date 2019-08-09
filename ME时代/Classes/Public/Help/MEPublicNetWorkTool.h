@@ -613,6 +613,21 @@
 + (void)postgetbanktestBankruleWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
+
+
+/*********************************************/
+#pragma mark - 在线课程
+//视频
++ (void)postGetVideoDetailWithVideoId:(NSInteger)videoId SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//视频列表
++ (void)postGetVideoListWithIsCharge:(NSInteger)is_charge videoType:(NSString *)videoType keyword:(NSString *)keyword SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//音频
+
+/*********************************************/
+
+
+
 + (MBProgressHUD *)commitWithHUD:(NSString *)str;
 
 @end

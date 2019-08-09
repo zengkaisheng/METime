@@ -50,39 +50,52 @@
     if(kMeUnArr(_detailModel.couponInfo.couponList).count>0){
         couponInfoModel = _detailModel.couponInfo.couponList[0];
     }
-    if (kMeUnNilStr(couponInfoModel.useEndTime).length<=0||![self downSecondHandle:couponInfoModel.useEndTime]) {
-        [MECommonTool showMessage:@"暂无优惠券" view:self.view];
+    if (kMeUnNilStr(couponInfoModel.useEndTime).length<=0||![self downSecondHandle:[NSString stringWithFormat:@"%@",@([couponInfoModel.useEndTime doubleValue]/1000)]]) {
+        [MECommonTool showMessage:@"很抱歉，该优惠券已过期" view:self.view];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.navigationController popViewControllerAnimated:YES];
         });
     }
 }
 
-- (NSDate *)timeWithTimeIntervalString:(NSString *)timeString
-{
+- (NSDate *)timeWithTimeIntervalString:(NSString *)timeString {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd  HH:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date = [dateFormatter dateFromString:timeString];
     return date;
 }
 
 -(BOOL)downSecondHandle:(NSString *)aTimeString{
     
-    NSString *endTimeStr = [MECommonTool changeTimeStrWithtime:aTimeString];
-    endTimeStr = [NSString stringWithFormat:@"%@ 23:59:59",endTimeStr];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
+    NSString *endTimeStr = [self getTimeFromTimestamp:aTimeString];
     NSDate *endDate = [self timeWithTimeIntervalString:kMeUnNilStr(endTimeStr)]; //结束时间
+    
     NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
     NSDate *startDate = [NSDate date];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd  HH:mm:ss"];
     NSString* dateString = [dateFormatter stringFromDate:startDate];
     NSLog(@"现在的时间 === %@",dateString);
     NSTimeInterval timeInterval = [endDate_tomorrow timeIntervalSinceDate:startDate];
     int timeout = timeInterval;
     return timeout>0?YES:NO;
+}
+
+#pragma mark ---- 将时间戳转换成时间
+- (NSString *)getTimeFromTimestamp:(NSString *)time{
+    //将对象类型的时间转换为NSDate类型
+    //    double time =1504667976;
+    NSDate * myDate = [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
+    
+    //设置时间格式
+    NSDateFormatter * formatter=[[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    //将时间转换为字符串
+    NSString *timeStr = [formatter stringFromDate:myDate];
+    
+    return timeStr;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

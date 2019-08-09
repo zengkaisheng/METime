@@ -84,7 +84,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
 
 - (IBAction)shareAction:(id)sender {
     MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-    shareTool.sharWebpageUrl = MEIPShare;
+    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@&inviteCode=%@",MEIPShare,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
     NSLog(@"%@",MEIPShare);
     shareTool.shareTitle = @"一款自买省钱分享赚钱的购物神器！";
     shareTool.shareDescriptionBody = @"包含淘宝、京东、拼多多等平台大额隐藏优惠劵！赶快试一试！";
@@ -105,7 +105,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     }else{
         kMeWEAKSELF
         [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
-            kMeSTRONGSELF
+//            kMeSTRONGSELF
             //            [strongSelf toChat];
         } failHandler:nil];
     }

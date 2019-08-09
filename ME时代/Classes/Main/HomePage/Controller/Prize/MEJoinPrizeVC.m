@@ -123,7 +123,7 @@
     baseUrl = [@"http" stringByAppendingString:baseUrl];
     
     //https://test.meshidai.com/cjsrc/newAuth.html?id=21&fid=88086&img=xxx.jpg
-    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@cjsrc/newAuth.html?id=%@&fid=%@&img=%@",baseUrl,_activityId,kMeUnNilStr(kCurrentUser.uid),_imgUrl];
+    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@cjsrc/newAuth.html?id=%@&fid=%@&img=%@&inviteCode=%@",baseUrl,_activityId,kMeUnNilStr(kCurrentUser.uid),_imgUrl,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
     NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
     
     shareTool.shareTitle = self.model.title;

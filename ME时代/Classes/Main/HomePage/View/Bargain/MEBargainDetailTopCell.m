@@ -142,11 +142,11 @@
     }
 }
 
-- (NSDate *)timeWithTimeIntervalString:(NSString *)timeString
-{
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+- (NSDate *)timeWithTimeIntervalString:(NSString *)timeString {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date=[dateFormatter dateFromString:timeString];
+    NSDate *date = [dateFormatter dateFromString:timeString];
     return date;
 }
 

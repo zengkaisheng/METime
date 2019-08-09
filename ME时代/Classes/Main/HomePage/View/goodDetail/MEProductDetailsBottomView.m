@@ -70,10 +70,10 @@
 }
 
 - (void)sharAction{
+    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+    NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+    baseUrl = [@"http" stringByAppendingString:baseUrl];
     if (self.isGroup) {
-        MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-        NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
-        baseUrl = [@"http" stringByAppendingString:baseUrl];
         
         //https://test.meshidai.com/dist/newAuth.html?id=7&uid=xxx
         shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@collage/newAuth.html?id=%ld&uid=%@&inviteCode=%@",baseUrl,(long)_model.product_id,kMeUnNilStr(kCurrentUser.uid),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
@@ -94,12 +94,9 @@
             if(kCurrentUser.client_type == MEClientTypeClerkStyle){
                 [self getShareEncode];
             }else{
-                MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-                NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
-                baseUrl = [@"http" stringByAppendingString:baseUrl];
                 
                 //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
-                shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),@""];
+                shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),@"",[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
                 NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
                 
                 shareTool.shareTitle = kMeUnNilStr(_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
@@ -110,16 +107,12 @@
                     [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
                 } failure:^(NSError *error) {
                     [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-                    
                 }];
             }
         }else{
-            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-            NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
-            baseUrl = [@"http" stringByAppendingString:baseUrl];
             
             //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
-            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),@""];
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),@"",[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
             NSLog(@":%@",shareTool.sharWebpageUrl);
             
             shareTool.shareTitle = kMeUnNilStr(_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
@@ -130,7 +123,6 @@
                 [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
             } failure:^(NSError *error) {
                 [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-                
             }];
         }
     }
@@ -144,7 +136,7 @@
         baseUrl = [@"http" stringByAppendingString:baseUrl];
         
         //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
-        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),kMeUnNilStr(_paoductIdEndoceStr)];
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(_productId),kMeUnNilStr(self.seckilltime),kMeUnNilStr(_paoductIdEndoceStr),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
         
         shareTool.shareTitle = kMeUnNilStr(_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
@@ -167,9 +159,8 @@
             baseUrl = [@"http" stringByAppendingString:baseUrl];
             
             //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
-            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(strongSelf->_productId),kMeUnNilStr(strongSelf.seckilltime),kMeUnNilStr(strongSelf->_paoductIdEndoceStr)];
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),kMeUnNilStr(strongSelf->_productId),kMeUnNilStr(strongSelf.seckilltime),kMeUnNilStr(strongSelf->_paoductIdEndoceStr),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
             NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
-            
             
             shareTool.shareTitle = kMeUnNilStr(strongSelf->_model.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
             shareTool.shareDescriptionBody = kMeUnNilStr(strongSelf->_model.desc).length?kMeUnNilStr(strongSelf->_model.desc):kMeUnNilStr(strongSelf->_model.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";

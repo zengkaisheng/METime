@@ -13,5 +13,9 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (nonatomic , assign)NSInteger unMessageCount;
+
+/** 横竖屏 */
+@property (nonatomic, assign) UIInterfaceOrientationMask orientationMask;
+
 @end
 

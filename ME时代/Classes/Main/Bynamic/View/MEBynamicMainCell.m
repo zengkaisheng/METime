@@ -111,7 +111,7 @@
             kSDLoadImg(_imgStoreHeader, kMeUnNilStr(model.goods_images));
         }
         
-        NSString *str = kMeUnNilStr(model.goods_title);
+        NSString *str = kMeUnNilStr(model.goods_title).length>0?kMeUnNilStr(model.goods_title):@" ";
         CGFloat titleHeight = [NSAttributedString heightForAtsWithStr:str font:[UIFont systemFontOfSize:12] width:kmainCommentCellStoreWdith lineH:0 maxLine:0]+16;
         _consStoreTitleHeight.constant = titleHeight>57?titleHeight:57;
         [_lblStoreTitle setAtsWithStr:str lineGap:0];

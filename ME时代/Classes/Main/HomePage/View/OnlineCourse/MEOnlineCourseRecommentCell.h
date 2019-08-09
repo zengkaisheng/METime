@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEOnlineCourseRecommentCell : UITableViewCell
 
+@property (nonatomic,copy) kMeIndexBlock selectedBlock;
 - (void)setUpUIWithModel:(MEOnlineCourseHomeModel *)model;
 
 @end

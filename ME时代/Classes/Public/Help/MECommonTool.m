@@ -153,7 +153,7 @@
 }
 
 + (NSString *)changeTimeStrWithtime:(NSString*)timeStampString{
-    NSTimeInterval interval    =[timeStampString doubleValue]/1000;
+    NSTimeInterval interval    = [timeStampString doubleValue]/1000;
     NSDate *date               = [NSDate dateWithTimeIntervalSince1970:interval];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

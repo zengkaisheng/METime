@@ -182,7 +182,7 @@ kTDWebViewCellDidFinishLoadNotificationMethod
 
 - (void)toShare{
     MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@%@",MEIPArticelShare,@(_detailModel.article_id).description];
+    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@%@&inviteCode=%@",MEIPArticelShare,@(_detailModel.article_id).description,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
     shareTool.shareTitle = kMeUnNilStr(_model.title);
     shareTool.shareDescriptionBody = kMeUnNilStr(_model.author);
     shareTool.shareImage = self.imgIcon.image;

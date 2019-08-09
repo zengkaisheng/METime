@@ -90,7 +90,7 @@
             [self.headerView setUIWithModel:_detailModel];
             [self.tableView reloadData];
             if (kMeUnNilStr(_detailModel.coupon_end_time).length<=0||![self compareWithendTime:_detailModel.coupon_end_time]) {
-                [MECommonTool showMessage:@"暂无优惠券" view:self.view];
+                [MECommonTool showMessage:@"很抱歉，该优惠券已过期" view:self.view];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popViewControllerAnimated:YES];
                 });
@@ -102,17 +102,17 @@
         }
     }
 }
-
-- (NSDate *)timeWithTimeIntervalString:(NSString *)timeString
-{
+#pragma mark ---- 判断优惠券是否有效方法
+- (NSDate *)timeWithTimeIntervalString:(NSString *)timeString {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *date = [dateFormatter dateFromString:timeString];
     return date;
 }
 
 -(BOOL)downSecondHandle:(NSString *)aTimeString{
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     NSString *endTimeStr = [self getTimeFromTimestamp:aTimeString];
@@ -120,19 +120,16 @@
     
     NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
     NSDate *startDate = [NSDate date];
-    NSString* dateString = [dateFormatter stringFromDate:startDate];
+    NSString *dateString = [dateFormatter stringFromDate:startDate];
     NSLog(@"现在的时间 === %@",dateString);
     NSTimeInterval timeInterval = [endDate_tomorrow timeIntervalSinceDate:startDate];
     int timeout = timeInterval;
     return timeout>0?YES:NO;
 }
-
+//淘宝优惠券有效期判断方法
 - (BOOL)compareWithendTime:(NSString *)endTime {
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    
-    NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc]init];
-    [dateFormatter1 setDateFormat:@"yyyy-MM-dd"];
     NSDate *endDate = [dateFormatter dateFromString:kMeUnNilStr(endTime)];//结束时间
     
     NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
@@ -145,17 +142,16 @@
 }
 
 #pragma mark ---- 将时间戳转换成时间
-
 - (NSString *)getTimeFromTimestamp:(NSString *)time{
     //将对象类型的时间转换为NSDate类型
 //    double time =1504667976;
-    NSDate * myDate= [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
+    NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
     
     //设置时间格式
-    NSDateFormatter * formatter=[[NSDateFormatter alloc] init];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     //将时间转换为字符串
-    NSString *timeStr=[formatter stringFromDate:myDate];
+    NSString *timeStr = [formatter stringFromDate:myDate];
     
     return timeStr;
 }
@@ -193,7 +189,7 @@
          if(kMeUnArr(arr).count){
              strongSelf->_pinduoduoDetailmodel = [MEPinduoduoCoupleInfoModel mj_objectWithKeyValues:arr[0]];
              if (kMeUnNilStr(strongSelf->_pinduoduoDetailmodel.coupon_end_time).length<=0||![self downSecondHandle:strongSelf->_pinduoduoDetailmodel.coupon_end_time]) {
-                 [MECommonTool showMessage:@"暂无优惠券" view:self.view];
+                 [MECommonTool showMessage:@"很抱歉，该优惠券已过期" view:self.view];
                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                      [strongSelf.navigationController popViewControllerAnimated:YES];
                  });
@@ -206,7 +202,10 @@
                  [strongSelf.tableView reloadData];
              }
          }else{
-            [strongSelf.navigationController popViewControllerAnimated:YES];
+            [MECommonTool showMessage:@"很抱歉，该优惠券已过期" view:self.view];
+             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                 [strongSelf.navigationController popViewControllerAnimated:YES];
+             });
          }
     } failure:^(id object) {
         kMeSTRONGSELF
@@ -269,7 +268,7 @@
                 [strongSelf.headerView setUIWithModel:strongSelf->_detailModel];
                 [strongSelf.tableView reloadData];
             }else {
-                [MECommonTool showMessage:@"暂无优惠券" view:strongSelf.view];
+                [MECommonTool showMessage:@"很抱歉，该优惠券已过期" view:strongSelf.view];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [strongSelf.navigationController popViewControllerAnimated:YES];
                 });
@@ -413,16 +412,7 @@
 
             //拼多多
             if(_sharegoods_promotion_url){
-//                MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-//                shareTool.sharWebpageUrl = _sharegoods_promotion_url[@"we_app_web_view_short_url"];
-//                shareTool.shareTitle = kMeUnNilStr(_pinduoduomodel.goods_name);
-//                shareTool.shareDescriptionBody = kMeUnNilStr(_pinduoduomodel.goods_name);;
-//                shareTool.shareImage = _headerView.imgPic.image;
-//                [shareTool showShareView:kShareWebPageContentType success:^(id data) {
-//                    NSLog(@"分享成功%@",data);
-//                } failure:^(NSError *error) {
-//
-//                }];
+
                 MEShareCouponVC *shareVC = [[MEShareCouponVC alloc] initWithPDDModel:_pinduoduoDetailmodel codeword:_sharegoods_promotion_url[@"we_app_web_view_short_url"]];
                 [self.navigationController pushViewController:shareVC animated:YES];
             }else{
@@ -434,16 +424,7 @@
                     if(arr && arr.count){
                         strongSelf->_sharegoods_promotion_url = arr[0];
                     }
-//                    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:strongSelf];
-//                    shareTool.sharWebpageUrl = strongSelf->_sharegoods_promotion_url[@"we_app_web_view_short_url"];
-//                    shareTool.shareTitle = kMeUnNilStr(strongSelf->_pinduoduomodel.goods_name);
-//                    shareTool.shareDescriptionBody = kMeUnNilStr(strongSelf->_pinduoduomodel.goods_name);;
-//                    shareTool.shareImage = strongSelf->_headerView.imgPic.image;
-//                    [shareTool showShareView:kShareWebPageContentType success:^(id data) {
-//                        NSLog(@"分享成功%@",data);
-//                    } failure:^(NSError *error) {
-//
-//                    }];
+                    
                     MEShareCouponVC *shareVC = [[MEShareCouponVC alloc] initWithPDDModel:strongSelf->_pinduoduoDetailmodel codeword:strongSelf->_sharegoods_promotion_url[@"we_app_web_view_short_url"]];
                     [strongSelf.navigationController pushViewController:shareVC animated:YES];
                     

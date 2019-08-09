@@ -779,7 +779,6 @@
 #define MEIPAddShare @"app/user/addShare"
 //获取权益
 #define MEIPcommonWebGetEquities @"common/web/getEquities"
-
 #define MEIPShare [NSString stringWithFormat:@"%@?code=%@",kGetApiWithUrl(MEIPWechatAuthShare),kMeUnNilStr(kCurrentUser.uid)]
 #define MEIPArticelShare [NSString stringWithFormat:@"%@?code=%@&pid=0&article_id=",kGetApiWithUrl(MEIPWechatAuthArticelShare),kMeUnNilStr(kCurrentUser.uid)]
 #define MEIPposterShare @""
@@ -816,8 +815,16 @@
 #pragma makr - 在线课程
 //在线课堂首页
 #define MEIPcommonOnlineHomeIndex @"common/online/index"
+//视频
+//视频详情
+#define MEIPcommonVideoDetail @"common/video/videoDetail"
+//视频详情
+#define MEIPcommonVideoList @"common/video/videoList"
 
+
+//音频V
 
 /*********************************************/
 
 #endif /* MEAPIMacros_h */
+

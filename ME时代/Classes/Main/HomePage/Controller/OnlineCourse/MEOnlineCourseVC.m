@@ -12,12 +12,14 @@
 #import "MEOnlineConsultCell.h"
 #import "MEOnlineToolsCell.h"
 #import "MEOnlineCourseRecommentCell.h"
+#import "MEAdModel.h"
 
 #import "MEAudioCourseVC.h"
 #import "MEOnlineDiagnoseVC.h"
 #import "MEDiagnoseListVC.h"
 #import "MEOnlineCourseHomeModel.h"
 #import "MECourseListBaseVC.h"
+#import "MECourseDetailVC.h"
 
 @interface MEOnlineCourseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -61,6 +63,42 @@
 #pragma mark -- Action
 - (void)rightBtnAction{
     
+}
+//banner图点击跳转
+- (void)cycleScrollViewDidSelectItemWithModel:(MEAdModel *)model {
+    
+//    if (model.is_need_login == 1) {
+//        if(![MEUserInfoModel isLogin]){
+//            kMeWEAKSELF
+//            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+//                kMeSTRONGSELF
+//                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+//            } failHandler:^(id object) {
+//                return;
+//            }];
+//            return;
+//        }
+//    }
+    
+//    NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
+//    [self saveClickRecordsWithType:@"1" params:params];
+    
+    switch (model.show_type) {//18视频 19音频
+        case 18:
+        {
+            MECourseDetailVC *dvc = [[MECourseDetailVC alloc] initWithId:model.video_id type:0];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        case 19:
+        {
+            MECourseDetailVC *dvc = [[MECourseDetailVC alloc] initWithId:model.audio_id type:1];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - tableView deleagte and sourcedata
@@ -109,6 +147,12 @@
     }
     MEOnlineCourseRecommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseRecommentCell class]) forIndexPath:indexPath];
     [cell setUpUIWithModel:self.model];
+    kMeWEAKSELF
+    cell.selectedBlock = ^(NSInteger index) {
+        kMeSTRONGSELF
+        MEAdModel *model = strongSelf.model.onLine_banner[index];
+        [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+    };
     return cell;
 }
 
@@ -229,35 +273,38 @@
         kMeWEAKSELF
         _headerView.selectedBlock = ^(NSInteger index) {
             kMeSTRONGSELF
-            //            MEAdModel *model = strongSelf.banners[index];
-            //            [strongSelf cycleScrollViewDidSelectItemWithModel:model];
-            switch (index) {
-                case 100:
-                {
-                    MEAudioCourseVC *vc = [[MEAudioCourseVC alloc] initWithType:0];
-                    [strongSelf.navigationController pushViewController:vc animated:YES];
+            if (index < 100) {
+                MEAdModel *model = strongSelf.model.top_banner[index];
+                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+            }else {
+                switch (index) {
+                    case 100:
+                    {
+                        MEAudioCourseVC *vc = [[MEAudioCourseVC alloc] initWithType:0];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                        break;
+                    case 101:
+                    {
+                        MEAudioCourseVC *vc = [[MEAudioCourseVC alloc] initWithType:1];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                        break;
+                    case 102:
+                    {
+                        MECourseListBaseVC *vc = [[MECourseListBaseVC alloc] initWithType:2 index:0 materialArray:@[]];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                        break;
+                    case 103:
+                    {
+                        MECourseListBaseVC *vc = [[MECourseListBaseVC alloc] initWithType:3 index:0 materialArray:@[]];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                        break;
+                    default:
+                        break;
                 }
-                    break;
-                case 101:
-                {
-                    MEAudioCourseVC *vc = [[MEAudioCourseVC alloc] initWithType:1];
-                    [strongSelf.navigationController pushViewController:vc animated:YES];
-                }
-                    break;
-                case 102:
-                {
-                    MECourseListBaseVC *vc = [[MECourseListBaseVC alloc] initWithType:2 index:0 materialArray:@[]];
-                    [strongSelf.navigationController pushViewController:vc animated:YES];
-                }
-                    break;
-                case 103:
-                {
-                    MECourseListBaseVC *vc = [[MECourseListBaseVC alloc] initWithType:3 index:0 materialArray:@[]];
-                    [strongSelf.navigationController pushViewController:vc animated:YES];
-                }
-                    break;
-                default:
-                    break;
             }
         };
     }

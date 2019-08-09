@@ -41,6 +41,8 @@
 #import "MEJoinPrizeVC.h"
 #import "MEBargainDetailVC.h"
 
+#import "LXDAppFluecyMonitor.h"
+
 @interface AppDelegate ()<WXApiDelegate,UNUserNotificationCenterDelegate,JPUSHRegisterDelegate>
 
 @end
@@ -54,6 +56,9 @@
     if ([kCurrentUser.mobile length] <= 0 || kCurrentUser.is_invitation != 1) {
         [MEUserInfoModel logout];
     }
+    
+    // 卡顿监测
+    [[LXDAppFluecyMonitor sharedMonitor] startMonitoring];
     
 #pragma mark - init IM sdk
     [[TUIKit sharedInstance] initKit:sdkAppid accountType:sdkAccountType withConfig:[TUIKitConfig defaultConfig]];
@@ -160,6 +165,12 @@
     [MECommonTool postAuthRegId];
     //
     return YES;
+}
+
+// window中支持的屏幕显示方向
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    return _orientationMask;
 }
 
 #pragma mark - 友盟分享的回调

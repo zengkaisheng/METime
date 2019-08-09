@@ -9,11 +9,18 @@
 #import "MECourseDetailVC.h"
 #import "MECourseDetailHeaderView.h"
 #import "TDWebViewCell.h"
-#import "MECourseDetailListCell.h"
+//#import "MECourseDetailListCell.h"
+#import "MEOnlineCourseListCell.h"
 #import "MECourseDetailCommentCell.h"
 #import "ViewPagerTitleButton.h"
+#import "MECourseVideoPlayVC.h"
 
-@interface MECourseDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+#import "MECourseVideoDetailModel.h"
+#import "MEOnlineCourseListModel.h"
+
+@interface MECourseDetailVC ()<UITableViewDelegate,UITableViewDataSource>{
+    NSInteger _detailsId;
+}
 
 @property (nonatomic, strong) UIView *customNav;
 @property (nonatomic, strong) UIView *siftView;
@@ -21,6 +28,10 @@
 @property (nonatomic, strong) MECourseDetailHeaderView *headerView;
 @property (strong, nonatomic) TDWebViewCell *webCell;
 @property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, strong) MECourseVideoDetailModel *detailModel;
+@property (nonatomic, strong) NSMutableArray *videoList;
+
 @property (nonatomic, strong) UIButton *tryBtn;
 @property (nonatomic, strong) UIButton *buyBtn;
 @property (nonatomic, strong) UIButton *backButton;
@@ -29,19 +40,26 @@
 
 @implementation MECourseDetailVC
 
+- (instancetype)initWithId:(NSInteger)detailsId type:(NSInteger)type {
+    if (self = [super init]) {
+        _detailsId = detailsId;
+        self.type = type;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navBarHidden = YES;
-    
+    self.index = 0;
     self.tableView.tableHeaderView = self.headerView;
     [self.view addSubview:self.tableView];
-    self.type = 0;
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 20;
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
-    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,@"<img src=\"http://images.meshidai.com/2f1022a12c59f66ca99aadc51f4128f2\" alt=\"\" />"] baseURL:nil];
-    [self.tableView reloadData];
+    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,@""] baseURL:nil];
+    /*/<img src=\"http://images.meshidai.com/2f1022a12c59f66ca99aadc51f4128f2\" alt=\"\" />*/
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 49, SCREEN_WIDTH, 49)];
     bottomView.backgroundColor = [UIColor whiteColor];
@@ -55,14 +73,79 @@
     [self.view addSubview:self.customNav];
     [self.view addSubview:self.siftView];
     [self.view addSubview:self.backButton];
+    
+    if (self.type == 0) {
+        [self requestVideoDetailWithNetWork];
+    }else if (self.type == 1) {
+        [self requestAudioDetailWithNetWork];
+    }
 }
+
+- (void)reloadUI {
+    CGFloat width = [UIScreen mainScreen].bounds.size.width - 20;
+    NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
+    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.detailModel.video_detail)] baseURL:nil];
+    if ([kMeUnNilStr(self.detailModel.video_price) intValue]==0 || self.detailModel.is_buy == 1) {//免费
+        self.tryBtn.hidden = YES;
+        [self.buyBtn setTitle:@"立即观看" forState:UIControlStateNormal];
+        self.buyBtn.frame = CGRectMake(30, 4.5, SCREEN_WIDTH-60, 40);
+    }else {
+        self.tryBtn.hidden = NO;
+        [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.video_price)] forState:UIControlStateNormal];
+        self.buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201*kMeFrameScaleX(), 4.5, 201*kMeFrameScaleX(), 40);
+    }
+}
+
+#pragma mark -- Networking
+//视频
+- (void)requestVideoDetailWithNetWork {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetVideoDetailWithVideoId:_detailsId SuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            strongSelf.detailModel = [MECourseVideoDetailModel mj_objectWithKeyValues:responseObject.data];
+            
+            [strongSelf reloadUI];
+        }else{
+            strongSelf.detailModel = nil;
+        }
+        [strongSelf requestVideoListWithNetWork];
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        strongSelf.detailModel = nil;
+    }];
+}
+//视频列表
+- (void)requestVideoListWithNetWork {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetVideoListWithIsCharge:self.detailModel.is_charge videoType:[NSString stringWithFormat:@"%@",@(self.detailModel.video_type)] keyword:@"" SuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *data = (NSDictionary *)responseObject.data;
+            if ([data[@"data"] isKindOfClass:[NSArray class]]) {
+                NSArray *videoList = (NSArray *)data[@"data"];
+                strongSelf.videoList = [MEOnlineCourseListModel mj_objectArrayWithKeyValuesArray:videoList];
+            }
+        }
+        [strongSelf.headerView setUIWithModel:strongSelf.detailModel index:strongSelf.index];
+        [strongSelf.tableView reloadData];
+    } failure:^(id object) {
+    }];
+}
+//音频
+- (void)requestAudioDetailWithNetWork {
+    
+}
+
 #pragma Action
 - (void)tryBtnDidClick {
-    NSLog(@"点击了试听按钮");
+    MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)buyBtnDidClick {
-    NSLog(@"点击了购买按钮");
+    MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)backButtonPressed {
@@ -74,8 +157,8 @@
         btn.selected = NO;
     }
     sender.selected = YES;
-    self.type = sender.tag - 100;
-    [self.headerView setUIWithModel:@{} index:self.type];
+    self.index = sender.tag - 100;
+    [self.headerView setUIWithModel:self.detailModel index:self.index];
     [self.tableView reloadData];
 }
 
@@ -91,34 +174,37 @@
 
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //    return self.refresh.arrData.count;
-    if (self.type == 0) {
+    if (self.index == 0) {
         return 1;
     }
-    return 10;
+    return self.videoList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.type == 0) {
+    if (self.index == 0) {
         return self.webCell;
     }
-    MECourseDetailListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECourseDetailListCell class]) forIndexPath:indexPath];
+    MEOnlineCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseListCell class]) forIndexPath:indexPath];
+    MEOnlineCourseListModel *model = self.videoList[indexPath.row];
+    [cell setUIWithModel:model isHomeVC:NO];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.type == 0) {
+    if (self.index == 0) {
         if(!_webCell){
             return 0;
         }else{
             return [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
         }
     }
-    return kMECourseDetailListCellHeight;
+    return kMEOnlineCourseListCellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    MEOnlineCourseListModel *model = self.videoList[indexPath.row];
+    MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -145,7 +231,7 @@
     if(!_tableView){
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, SCREEN_HEIGHT-20-49) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TDWebViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TDWebViewCell class])];
-        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECourseDetailListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECourseDetailListCell class])];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEOnlineCourseListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEOnlineCourseListCell class])];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECourseDetailCommentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECourseDetailCommentCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -163,7 +249,7 @@
         kMeWEAKSELF
         _headerView.selectedBlock = ^(NSInteger index) {
             kMeSTRONGSELF
-            strongSelf.type = index;
+            strongSelf.index = index;
             [strongSelf reloadSiftViewWithIndex:index];
             [strongSelf.tableView reloadData];
         };
@@ -184,7 +270,7 @@
         [_tryBtn setTitle:@" 试听" forState:UIControlStateNormal];
         [_tryBtn setTitleColor:kME333333 forState:UIControlStateNormal];
         [_tryBtn setImage:[UIImage imageNamed:@"dynamicCommentLike"] forState:UIControlStateNormal];
-        [_tryBtn.titleLabel setFont:[UIFont systemFontOfSize:9]];
+        [_tryBtn.titleLabel setFont:[UIFont systemFontOfSize:11]];
         _tryBtn.frame = CGRectMake(20, 0, 60, 49);
         [_tryBtn addTarget:self action:@selector(tryBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -196,7 +282,7 @@
         _buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_buyBtn setTitle:@"￥100.00购买" forState:UIControlStateNormal];
         [_buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_buyBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_buyBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
         [_buyBtn setBackgroundColor:[UIColor colorWithHexString:@"#FE4B77"]];
         _buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201*kMeFrameScaleX(), 4.5, 201*kMeFrameScaleX(), 40);
         _buyBtn.layer.cornerRadius = 20;
@@ -237,6 +323,13 @@
         _siftView.hidden = YES;
     }
     return _siftView;
+}
+
+- (NSMutableArray *)videoList {
+    if (!_videoList) {
+        _videoList = [[NSMutableArray alloc] init];
+    }
+    return _videoList;
 }
 
 @end

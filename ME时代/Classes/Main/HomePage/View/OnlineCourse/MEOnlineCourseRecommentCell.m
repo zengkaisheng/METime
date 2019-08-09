@@ -63,6 +63,13 @@
     if (indexPath.section == 0) {
         MECourseAdvertisementCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECourseAdvertisementCell class]) forIndexPath:indexPath];
         [cell setUIWithArray:kMeUnArr(self.model.onLine_banner)];
+        kMeWEAKSELF
+        cell.selectedBlock = ^(NSInteger index) {
+            kMeSTRONGSELF
+            if (strongSelf.selectedBlock) {
+                strongSelf.selectedBlock(index);
+            }
+        };
         return cell;
     }
     MEOnlineCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseListCell class]) forIndexPath:indexPath];

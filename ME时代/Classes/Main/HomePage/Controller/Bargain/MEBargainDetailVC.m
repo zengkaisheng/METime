@@ -138,8 +138,8 @@
     NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
     baseUrl = [@"http" stringByAppendingString:baseUrl];
     
-    //https://test.meshidai.com/dist/newAuth.html?id=7&uid=xxx
-    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@bargaindist/newAuth.html?id=%ld&uid=%@",baseUrl,(long)_detailModel.bargin_id,kMeUnNilStr(kCurrentUser.uid)];
+    //https://test.meshidai.com/bargaindist/newAuth.html?id=7&uid=xxx
+    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@bargaindist/newAuth.html?id=%ld&uid=%@&inviteCode=%@",baseUrl,(long)_detailModel.bargin_id,kMeUnNilStr(kCurrentUser.uid),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
     NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
     
     shareTool.shareTitle = self.detailModel.title;

@@ -166,11 +166,11 @@
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = kMeUnNilStr(_textView.text);
 
+    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+    NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+    baseUrl = [@"http" stringByAppendingString:baseUrl];
+    
     if (self.tbModel) {
-        MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-        NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
-        baseUrl = [@"http" stringByAppendingString:baseUrl];
-        
         //https://test.meshidai.com/shopShare/newAuth.html
         shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%.2f&oprice=%@&type=1&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.tbModel.title),kMeUnNilStr(self.tbModel.truePrice).floatValue,@(kMeUnNilStr(self.tbModel.zk_final_price).floatValue),kMeUnNilStr(self.tbModel.pict_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" ",kMeUnNilStr(self.tbModel.couponPrice)];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
@@ -179,17 +179,7 @@
         shareTool.shareDescriptionBody = self.tbModel.title;
         shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(self.tbModel.pict_url)]]];
         
-        [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
-            [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-            [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-        } failure:^(NSError *error) {
-            [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-        }];
     }else if (self.pddModel) {
-        MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-        NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
-        baseUrl = [@"http" stringByAppendingString:baseUrl];
-        
         //https://test.meshidai.com/shopShare/newAuth.html
         shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%@&oprice=%@&type=2&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.pddModel.goods_name),[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price-self.pddModel.coupon_discount)],[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price)],kMeUnNilStr(self.pddModel.goods_thumbnail_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" ",[MECommonTool changeformatterWithFen:@(self.pddModel.coupon_discount)]];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
@@ -198,17 +188,7 @@
         shareTool.shareDescriptionBody = self.pddModel.goods_name;
         shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(self.pddModel.goods_thumbnail_url)]]];
         
-        [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
-            [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-            [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-        } failure:^(NSError *error) {
-            [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-        }];
     }else if (self.jdModel) {
-        MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-        NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
-        baseUrl = [@"http" stringByAppendingString:baseUrl];
-        
         CouponContentInfo *couponInfoModel = [CouponContentInfo new];
         if(kMeUnArr(self.jdModel.couponInfo.couponList).count>0){
             couponInfoModel = self.jdModel.couponInfo.couponList[0];
@@ -235,23 +215,24 @@
         shareTool.shareTitle = self.jdModel.skuName;
         shareTool.shareDescriptionBody = self.jdModel.skuName;
         shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]];
-        
-        [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
-            [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-            [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-        } failure:^(NSError *error) {
-            [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-        }];
     }
+    
+    [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
+        [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+        [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+    } failure:^(NSError *error) {
+        [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+    }];
 }
 - (IBAction)shareToTimeLineAction:(id)sender {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     pasteboard.string = kMeUnNilStr(_textView.text);
+    
+    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+    NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+    baseUrl = [@"http" stringByAppendingString:baseUrl];
+    
     if (self.tbModel) {
-        MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-        NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
-        baseUrl = [@"http" stringByAppendingString:baseUrl];
-        
         //https://test.meshidai.com/shopShare/newAuth.html
         shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%.2f&oprice=%@&type=1&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.tbModel.title),kMeUnNilStr(self.tbModel.truePrice).floatValue,@(kMeUnNilStr(self.tbModel.zk_final_price).floatValue),kMeUnNilStr(self.tbModel.pict_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" ",kMeUnNilStr(self.tbModel.couponPrice)];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
@@ -260,17 +241,7 @@
         shareTool.shareDescriptionBody = self.tbModel.title;
         shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(self.tbModel.pict_url)]]];
         
-        [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatTimeLine success:^(id data) {
-            [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-            [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-        } failure:^(NSError *error) {
-            [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-        }];
     }else if (self.pddModel) {
-        MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-        NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
-        baseUrl = [@"http" stringByAppendingString:baseUrl];
-        
         //https://test.meshidai.com/shopShare/newAuth.html
         shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%@&oprice=%@&type=2&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.pddModel.goods_name),[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price-self.pddModel.coupon_discount)],[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price)],kMeUnNilStr(self.pddModel.goods_thumbnail_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" ",[MECommonTool changeformatterWithFen:@(self.pddModel.coupon_discount)]];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
@@ -279,17 +250,7 @@
         shareTool.shareDescriptionBody = self.pddModel.goods_name;
         shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(self.pddModel.goods_thumbnail_url)]]];
         
-        [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatTimeLine success:^(id data) {
-            [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-            [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-        } failure:^(NSError *error) {
-            [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-        }];
     }else if (self.jdModel) {
-        MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-        NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
-        baseUrl = [@"http" stringByAppendingString:baseUrl];
-        
         CouponContentInfo *couponInfoModel = [CouponContentInfo new];
         if(kMeUnArr(self.jdModel.couponInfo.couponList).count>0){
             couponInfoModel = self.jdModel.couponInfo.couponList[0];
@@ -316,14 +277,14 @@
         shareTool.shareTitle = self.jdModel.skuName;
         shareTool.shareDescriptionBody = self.jdModel.skuName;
         shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]];
-        
-        [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatTimeLine success:^(id data) {
-            [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-            [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-        } failure:^(NSError *error) {
-            [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-        }];
+    
     }
+    [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatTimeLine success:^(id data) {
+        [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+        [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+    } failure:^(NSError *error) {
+        [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+    }];
 }
 
 

@@ -17,6 +17,7 @@
 #import "MECoupleMailDetalVC.h"
 
 #import "MEPinduoduoCoupleModel.h"
+#import "MEPinduoduoCoupleInfoModel.h"
 #import "MECoupleModel.h"
 #import "MEJDCoupleModel.h"
 #import "MEJDCoupleMailDetalVC.h"
@@ -26,6 +27,10 @@
 #import "MEGroupProductDetailVC.h"
 #import "MEJoinPrizeVC.h"
 
+#import "MEShareCouponVC.h"
+#import "MECouponInfo.h"
+#import "MEGoodDetailModel.h"
+
 @interface MEBaseDynamicVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 {
     NSInteger _comentIndex;
@@ -33,6 +38,10 @@
     NSInteger _type;
     NSString *_imgUrl;
     NSString *_shareText;
+    
+    NSString *_Tpwd;
+    MEPinduoduoCoupleInfoModel *_pinduoduoDetailmodel;
+    MEGoodDetailModel *_productModel;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -114,8 +123,8 @@
     [cell setUIWithModel:model];
     kMeWEAKSELF
     cell.shareBlock = ^{
-        kMeSTRONGSELF
-        [strongSelf shareAction];
+//        kMeSTRONGSELF
+//        [strongSelf shareAction];
     };
     cell.LikeBlock = ^{
         kMeSTRONGSELF
@@ -360,45 +369,458 @@
      */
 }
 
-- (void)showShareViewWithModel:(MEBynamicHomeModel*)model {
+//获取淘宝授权
+- (void)obtainTaoBaoAuthorizeWithModel:(MEBynamicHomeModel*)model {
+    NSString *str = @"https://oauth.taobao.com/authorize?response_type=code&client_id=25425439&redirect_uri=http://test.meshidai.com/src/taobaoauthorization.html&view=wap";
+    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
+    webVC.showProgress = YES;
+    webVC.title = @"获取淘宝授权";
+    [webVC loadURL:[NSURL URLWithString:str]];
+    kMeWEAKSELF
+    webVC.authorizeBlock = ^{
+        kMeSTRONGSELF
+        [strongSelf showShareViewWithModel:model];
+    };
+    [self.navigationController pushViewController:webVC animated:YES];
+}
+#pragma mark ---- 判断优惠券是否有效方法
+- (NSDate *)timeWithTimeIntervalString:(NSString *)timeString {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *date = [dateFormatter dateFromString:timeString];
+    return date;
+}
+
+-(BOOL)downSecondHandle:(NSString *)aTimeString{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *endTimeStr = [self getTimeFromTimestamp:aTimeString];
+    NSDate *endDate = [self timeWithTimeIntervalString:kMeUnNilStr(endTimeStr)]; //结束时间
+    
+    NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
+    NSDate *startDate = [NSDate date];
+    NSString* dateString = [dateFormatter stringFromDate:startDate];
+    NSLog(@"现在的时间 === %@",dateString);
+    NSTimeInterval timeInterval = [endDate_tomorrow timeIntervalSinceDate:startDate];
+    int timeout = timeInterval;
+    return timeout>0?YES:NO;
+}
+//淘宝优惠券有效期判断方法
+- (BOOL)compareWithendTime:(NSString *)endTime {
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *endDate = [dateFormatter dateFromString:kMeUnNilStr(endTime)];//结束时间
+    
+    NSDate *endDate_tomorrow = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:([endDate timeIntervalSinceReferenceDate])];
+    NSDate *startDate = [NSDate date];
+    NSString* dateString = [dateFormatter stringFromDate:startDate];
+    NSLog(@"现在的时间 === %@",dateString);
+    NSTimeInterval timeInterval = [endDate_tomorrow timeIntervalSinceDate:startDate];
+    int timeout = timeInterval;
+    return timeout>0?YES:NO;
+}
+#pragma mark ---- 将时间戳转换成时间
+- (NSString *)getTimeFromTimestamp:(NSString *)time{
+    //将对象类型的时间转换为NSDate类型
+    //    double time =1504667976;
+    NSDate * myDate= [NSDate dateWithTimeIntervalSince1970:[time doubleValue]];
+    //设置时间格式
+    NSDateFormatter * formatter=[[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    //将时间转换为字符串
+    NSString *timeStr=[formatter stringFromDate:myDate];
+    
+    return timeStr;
+}
+//获取拼多多优惠券详情
+- (void)requestPinduoduoNetWorkWithPinduoudoModel:(MEPinduoduoCoupleModel*)model{
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postPinDuoduoGoodsDetailWithGoodsId:kMeUnNilStr(model.goods_id) successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        NSArray *arr =  responseObject.data[@"goods_detail_response"][@"goods_details"];
+        if(kMeUnArr(arr).count){
+            strongSelf->_pinduoduoDetailmodel = [MEPinduoduoCoupleInfoModel mj_objectWithKeyValues:arr[0]];
+            if (kMeUnNilStr(strongSelf->_pinduoduoDetailmodel.coupon_end_time).length<=0||![strongSelf downSecondHandle:strongSelf->_pinduoduoDetailmodel.coupon_end_time]) {
+                [MECommonTool showMessage:@"很抱歉，该优惠券已过期" view:strongSelf.view];
+            }else {
+                strongSelf->_pinduoduoDetailmodel.min_ratio = model.min_ratio;
+                [strongSelf sharePDDCouponWithPinduoudoModel:model];
+            }
+        }else{
+            [MECommonTool showMessage:@"很抱歉，暂无优惠券" view:strongSelf.view];
+        }
+    } failure:^(id object) {
+    }];
+}
+//拼多多分享
+- (void)sharePDDCouponWithPinduoudoModel:(MEPinduoduoCoupleModel*)model{
+    //拼多多
+    NSString *goodId = [NSString stringWithFormat:@"[%@]",kMeUnNilStr(model.goods_id)];
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postPromotionUrlGenerateWithUid:kMeUnNilStr(kCurrentUser.uid) goods_id_list:goodId SuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        NSArray *arr = responseObject.data[@"goods_promotion_url_generate_response"][@"goods_promotion_url_list"];
+        if(arr && arr.count){
+            NSDictionary *dict = arr[0];
+            MEShareCouponVC *shareVC = [[MEShareCouponVC alloc] initWithPDDModel:strongSelf->_pinduoduoDetailmodel codeword:dict[@"we_app_web_view_short_url"]];
+            [strongSelf.navigationController pushViewController:shareVC animated:YES];
+        }
+    } failure:^(id object) {
+        
+    }];
+}
+//获取淘宝优惠券详情
+- (void)requestNetWorkWithDetailId:(NSString *)detailId couponId:(NSString *)couponId TBmodel:(MECoupleModel *)TBmodel complationBlock:(kMeObjBlock)complationBlock{
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    [MBProgressHUD showMessage:@"获取详情中" toView:self.view];
+    kMeWEAKSELF
+    __block MECoupleModel *tbModel = TBmodel;
+    __block MECouponInfo *couponInfoModel = [[MECouponInfo alloc] init];
+    dispatch_group_async(group, queue, ^{
+        [MEPublicNetWorkTool postCoupleDetailWithProductrId:detailId successBlock:^(ZLRequestResponse *responseObject) {
+            if([responseObject.data isKindOfClass:[NSDictionary class]]){
+                NSArray *arr= responseObject.data[@"tbk_item_info_get_response"][@"results"][@"n_tbk_item"];
+                if([arr isKindOfClass:[NSArray class]] && arr.count){
+                    tbModel = [MECoupleModel mj_objectWithKeyValues:arr[0]];
+                }else{
+                    tbModel = [MECoupleModel new];
+                }
+                dispatch_semaphore_signal(semaphore);
+            }
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    dispatch_group_async(group, queue, ^{
+        [MEPublicNetWorkTool postCoupleTbkCouponGetWithActivity_id:kMeUnNilStr(couponId) item_id:kMeUnNilStr(detailId) successBlock:^(ZLRequestResponse *responseObject) {
+            couponInfoModel = [MECouponInfo mj_objectWithKeyValues:responseObject.data[@"tbk_coupon_get_response"][@"data"]];
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
+    dispatch_group_notify(group, queue, ^{
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            kMeSTRONGSELF
+            [MBProgressHUD hideHUDForView:strongSelf.view];
+            if (couponInfoModel) {
+                [tbModel resetModelWithModel:couponInfoModel];
+                if (complationBlock) {
+                    complationBlock(tbModel);
+                }
+            }else {
+                [MECommonTool showMessage:@"很抱歉，该优惠券已过期" view:strongSelf.view];
+            }
+        });
+    });
+}
+//自营商品分享
+- (void)sharActionWithOurProductsWithModel:(MEBynamicHomeModel*)model{
     MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
     NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
     baseUrl = [@"http" stringByAppendingString:baseUrl];
-    
-    shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@article.html?id=%@&img=%@&text=%@",baseUrl,model.idField,_imgUrl,_shareText];
-    //    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
-    
-    shareTool.shareTitle = model.title;
-    shareTool.shareDescriptionBody = model.content;
-    shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
-    
-    [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
-        NSLog(@"分享成功%@",data);
-        [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-        [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-    } failure:^(NSError *error) {
-        NSLog(@"分享失败%@",error);
-        [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+    if(_productModel.is_clerk_share){
+        if(kCurrentUser.client_type == MEClientTypeClerkStyle){
+            [self getShareEncodeWithModel:model];
+        }else{
+            
+            //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),[NSString stringWithFormat:@"%@",@(model.product_id)],@"",@"",[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+            
+            shareTool.shareTitle = kMeUnNilStr(_productModel.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
+            shareTool.shareDescriptionBody = kMeUnNilStr(_productModel.desc).length?kMeUnNilStr(_productModel.desc):kMeUnNilStr(_productModel.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
+            shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
+            [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+                [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+                [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+            } failure:^(NSError *error) {
+                [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+            }];
+        }
+    }else{
+        
+        //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),[NSString stringWithFormat:@"%@",@(model.product_id)],@"",@"",[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+        NSLog(@":%@",shareTool.sharWebpageUrl);
+        
+        shareTool.shareTitle = kMeUnNilStr(_productModel.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
+        shareTool.shareDescriptionBody = kMeUnNilStr(_productModel.desc).length?kMeUnNilStr(_productModel.desc):kMeUnNilStr(_productModel.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
+        shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
+        [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+            [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+            [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+        } failure:^(NSError *error) {
+            [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+        }];
+    }
+}
+
+- (void)getShareEncodeWithModel:(MEBynamicHomeModel*)model {
+    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+    kMeWEAKSELF
+    __block NSString *paoductIdEndoceStr = @"";
+    [MEPublicNetWorkTool postGoodsEncodeWithProductrId:[NSString stringWithFormat:@"%@",@(model.product_id)] successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        paoductIdEndoceStr = kMeUnNilStr(responseObject.data[@"share_text"]);
+        
+        NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+        baseUrl = [@"http" stringByAppendingString:baseUrl];
+        
+        //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),[NSString stringWithFormat:@"%@",@(model.product_id)],@"",paoductIdEndoceStr,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+        NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+        
+        shareTool.shareTitle = kMeUnNilStr(strongSelf->_productModel.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
+        shareTool.shareDescriptionBody = kMeUnNilStr(strongSelf->_productModel.desc).length?kMeUnNilStr(strongSelf->_productModel.desc):kMeUnNilStr(strongSelf->_productModel.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
+        shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
+        [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+            [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+            [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+        } failure:^(NSError *error) {
+            [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+        }];
+    } failure:^(id object) {
     }];
 }
 
-- (void)shareAction{
-    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
-    shareTool.sharWebpageUrl = MEIPShare;
-    NSLog(@"%@",MEIPShare);
-    shareTool.shareTitle = @"一款自买省钱分享赚钱的购物神器！";
-    shareTool.shareDescriptionBody = @"包含淘宝、京东、拼多多等平台大额隐藏优惠劵！赶快试一试！";
-    shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
-    
-    [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
-        NSLog(@"分享成功%@",data);
-        [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
-        [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
-    } failure:^(NSError *error) {
-        NSLog(@"分享失败%@",error);
-        [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
-    }];
+- (void)showShareViewWithModel:(MEBynamicHomeModel*)model {
+    switch (model.skip_type) {
+        case 1:
+        {//自营商品
+            if(model.product_id){
+                kMeWEAKSELF
+                [MEPublicNetWorkTool postGoodsDetailWithGoodsId:model.product_id seckillTime:@"" successBlock:^(ZLRequestResponse *responseObject) {
+                    kMeSTRONGSELF
+                    strongSelf->_productModel = [MEGoodDetailModel mj_objectWithKeyValues:responseObject.data];
+                    [strongSelf sharActionWithOurProductsWithModel:model];
+                } failure:^(id object) {
+                }];
+            }
+        }
+            break;
+        case 2:
+        {//淘宝
+            if(kMeUnNilStr(kCurrentUser.relation_id).length == 0 || [kCurrentUser.relation_id isEqualToString:@"0"]){
+                [self obtainTaoBaoAuthorizeWithModel:model];
+            }else{
+                //淘宝
+                MECoupleModel *TBmodel = [[MECoupleModel alloc] init];
+                TBmodel.min_ratio = model.min_ratio;
+                
+                [self requestNetWorkWithDetailId:kMeUnNilStr(model.tbk_num_iids) couponId:kMeUnNilStr(kMeUnNilStr(model.tbk_coupon_id)) TBmodel:TBmodel complationBlock:^(id object) {
+                    kMeWEAKSELF
+                    if ([object isKindOfClass:[MECoupleModel class]]) {
+                        MECoupleModel *tbModel = (MECoupleModel *)object;
+                        NSString *rid = [NSString stringWithFormat:@"&relationId=%@",kCurrentUser.relation_id];
+                        NSString *str = [[NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.tbk_coupon_share_url)] stringByAppendingString:rid];
+                        [MEPublicNetWorkTool postTaobaokeGetTpwdWithTitle:kMeUnNilStr(tbModel.title) url:str logo:kMeUnNilStr(tbModel.pict_url) successBlock:^(ZLRequestResponse *responseObject) {
+                            kMeSTRONGSELF
+                            strongSelf->_Tpwd = kMeUnNilStr(responseObject.data[@"tbk_tpwd_create_response"][@"data"][@"model"]);
+                            MEShareCouponVC *shareVC = [[MEShareCouponVC alloc] initWithTBModel:tbModel codeword:strongSelf->_Tpwd];
+                            [strongSelf.navigationController pushViewController:shareVC animated:YES];
+                            strongSelf->_Tpwd = @"";
+                        } failure:^(id object) {
+                        }];
+                    }
+                }];
+            }
+        }
+            break;
+        case 3:
+        {//拼多多
+            MEPinduoduoCoupleModel *PDDModel = [[MEPinduoduoCoupleModel alloc] init];
+            PDDModel.goods_id = model.ddk_goods_id;
+            PDDModel.min_ratio = model.min_ratio;
+            
+            [self requestPinduoduoNetWorkWithPinduoudoModel:PDDModel];
+        }
+            break;
+        case 4:
+        {//京东
+            
+            MEJDCoupleModel *JDModel = [[MEJDCoupleModel alloc] init];
+            JDModel.materialUrl = model.jd_material_url;
+            
+            CouponContentInfo *couponInfoModel = [CouponContentInfo new];
+            couponInfoModel.link = model.jd_link;
+            couponInfoModel.discount = model.discount;
+            couponInfoModel.useStartTime = model.useStartTime;
+            couponInfoModel.useEndTime = model.useEndTime;
+            
+            CouponInfo *couponInfo = [CouponInfo new];
+            couponInfo.couponList = @[couponInfoModel];
+            
+            JDModel.couponInfo = couponInfo;
+            
+            ImageInfo *imgInfo = [ImageInfo new];
+            imgInfo.imageList = model.imageList;
+            JDModel.imageInfo = imgInfo;
+            
+            JDModel.skuName = model.skuName;
+            
+            PriceInfo *priceInfo = [PriceInfo new];
+            priceInfo.price = model.price;
+            JDModel.priceInfo = priceInfo;
+            JDModel.min_ratio = model.min_ratio;
+            
+            if (kMeUnNilStr(couponInfoModel.useEndTime).length<=0||![self downSecondHandle:[NSString stringWithFormat:@"%@",@([couponInfoModel.useEndTime doubleValue]/1000)]]) {
+                [MECommonTool showMessage:@"很抱歉，该优惠券已过期" view:self.view];
+            }else {
+                kMeWEAKSELF
+                [MEPublicNetWorkTool postJDPromotionUrlGenerateWithUid:kCurrentUser.uid materialUrl:kMeUnNilStr(JDModel.materialUrl) couponUrl:kMeUnNilStr(couponInfoModel.link) successBlock:^(ZLRequestResponse *responseObject) {
+                    kMeSTRONGSELF
+                    strongSelf->_Tpwd = responseObject.data[@"shortURL"];
+                    MEShareCouponVC *shareVC = [[MEShareCouponVC alloc] initWithJDModel:JDModel codeword:kMeUnNilStr(strongSelf->_Tpwd)];
+                    [strongSelf.navigationController pushViewController:shareVC animated:YES];
+                    strongSelf->_Tpwd = @"";
+                } failure:^(id object) {
+                }];
+            }
+        }
+            break;
+        case 5:
+        {//活动外链
+            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+            NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+            baseUrl = [@"http" stringByAppendingString:baseUrl];
+            
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@article.html?id=%@&img=%@&text=%@&inviteCode=%@",baseUrl,model.idField,_imgUrl,_shareText,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            //    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+            
+            shareTool.shareTitle = model.title;
+            shareTool.shareDescriptionBody = model.content;
+            shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
+            
+            [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
+                NSLog(@"分享成功%@",data);
+                [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+                [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+            } failure:^(NSError *error) {
+                NSLog(@"分享失败%@",error);
+                [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+            }];
+        }
+            break;
+        case 6:
+        {//拼多多列表
+            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+            NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+            baseUrl = [@"http" stringByAppendingString:baseUrl];
+            
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@article.html?id=%@&img=%@&text=%@&inviteCode=%@",baseUrl,model.idField,_imgUrl,_shareText,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            //    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+            
+            shareTool.shareTitle = model.title;
+            shareTool.shareDescriptionBody = model.content;
+            shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
+            
+            [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
+                NSLog(@"分享成功%@",data);
+                [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+                [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+            } failure:^(NSError *error) {
+                NSLog(@"分享失败%@",error);
+                [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+            }];
+        }
+            break;
+        case 7:
+        {//砍价活动
+            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+            NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+            baseUrl = [@"http" stringByAppendingString:baseUrl];
+            
+            //https://test.meshidai.com/bargaindist/newAuth.html?id=7&uid=xxx
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@bargaindist/newAuth.html?id=%ld&uid=%@&inviteCode=%@",baseUrl,(long)model.bargain_id,kMeUnNilStr(kCurrentUser.uid),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+            
+            shareTool.shareTitle = model.title;
+            shareTool.shareDescriptionBody = @"好友邀请您免费拿！";
+            shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.goods_images]]];
+            
+            [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+                [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+                [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+            } failure:^(NSError *error) {
+                [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+            }];
+        }
+            break;
+        case 8:
+        {//拼团活动
+            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+            NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+            baseUrl = [@"http" stringByAppendingString:baseUrl];
+            
+            //https://test.meshidai.com/dist/newAuth.html?id=7&uid=xxx
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@collage/newAuth.html?id=%ld&uid=%@&inviteCode=%@",baseUrl,(long)model.product_id,kMeUnNilStr(kCurrentUser.uid),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+            
+            shareTool.shareTitle = model.title;
+            shareTool.shareDescriptionBody = model.title;
+            shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.goods_images]]];
+            
+            [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+                [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+                [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+            } failure:^(NSError *error) {
+                [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+            }];
+        }
+            break;
+        case 9:
+        {//签到活动
+            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+            NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+            baseUrl = [@"http" stringByAppendingString:baseUrl];
+            
+            //https://test.meshidai.com/cjsrc/newAuth.html?id=21&fid=88086&img=xxx.jpg
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@cjsrc/newAuth.html?id=%@&fid=%@&img=%@&inviteCode=%@",baseUrl,[NSString stringWithFormat:@"%ld",(long)model.activity_id],kMeUnNilStr(kCurrentUser.uid),_imgUrl,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+            
+            shareTool.shareTitle = model.title;
+            shareTool.shareDescriptionBody = @"好友邀请您免费抽奖！";
+            shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.goods_images]]];
+            
+            [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+                [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+                [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+            } failure:^(NSError *error) {
+                [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+            }];
+        }
+            break;
+        default:
+            break;
+    }
 }
+
+//- (void)shareAction{
+//    MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+//    shareTool.sharWebpageUrl = MEIPShare;
+//    NSLog(@"%@",MEIPShare);
+//    shareTool.shareTitle = @"一款自买省钱分享赚钱的购物神器！";
+//    shareTool.shareDescriptionBody = @"包含淘宝、京东、拼多多等平台大额隐藏优惠劵！赶快试一试！";
+//    shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
+//
+//    [shareTool shareWebPageToPlatformType:UMSocialPlatformType_WechatSession success:^(id data) {
+//        NSLog(@"分享成功%@",data);
+//        [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+//        [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+//    } failure:^(NSError *error) {
+//        NSLog(@"分享失败%@",error);
+//        [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+//    }];
+//}
 
 - (void)commentAction:(NSInteger)index{
     if(index>self.refresh.arrData.count){

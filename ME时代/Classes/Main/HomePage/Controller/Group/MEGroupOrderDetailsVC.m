@@ -103,7 +103,6 @@
 //        [_groupBtn.layer insertSublayer:btnLayer atIndex:0];
         _groupBtn.hidden = YES;
     }
-
     
     CGFloat itemW = 50;
     NSInteger count = kMeUnNilStr(self.model.group_num).integerValue;
@@ -164,11 +163,11 @@
     [self.navigationController pushViewController:shareVC animated:YES];
 }
 
-- (NSDate *)timeWithTimeIntervalString:(NSString *)timeString
-{
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+- (NSDate *)timeWithTimeIntervalString:(NSString *)timeString {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *date=[dateFormatter dateFromString:timeString];
+    NSDate *date = [dateFormatter dateFromString:timeString];
     return date;
 }
 
