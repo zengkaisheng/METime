@@ -10,4 +10,6 @@
 
 @implementation MEOnlineCourseListModel
 
+MEModelIdToIdField
+
 @end

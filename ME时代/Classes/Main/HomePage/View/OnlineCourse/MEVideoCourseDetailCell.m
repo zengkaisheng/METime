@@ -8,7 +8,8 @@
 
 #import "MEVideoCourseDetailCell.h"
 #import "MECourseListItem.h"
-
+#import "MEOnlineCourseListModel.h"
+#import "MECourseDetailModel.h"
 
 @interface MEVideoCourseDetailCell ()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -19,7 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UILabel *timeLbl;
 @property (weak, nonatomic) IBOutlet UILabel *learnCountLbl;
-@property (weak, nonatomic) IBOutlet UIButton *courseCountLbl;
+@property (weak, nonatomic) IBOutlet UIButton *courseCountBtn;
+@property (weak, nonatomic) IBOutlet UILabel *listTitleLbl;
 
 @end
 
@@ -35,20 +37,26 @@
 
 #pragma mark- CollectionView Delegate And DataSource
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    [_arrModel enumerateObjectsUsingBlock:^(MEOnlineCourseListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        model.isSelected = NO;
+    }];
+    MEOnlineCourseListModel *model = _arrModel[indexPath.row];
+    model.isSelected = YES;
+    [_collectionView reloadData];
+    [_collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
     if(_selectBlock){
         kMeCallBlock(_selectBlock,indexPath.row);
-        return;
     }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 5;
+    return _arrModel.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MECourseListItem *item = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MECourseListItem class]) forIndexPath:indexPath];
-//    MEJDCoupleModel *model = _arrModel[indexPath.row];
-    [item setUIWithModel:indexPath.row];
+    MEOnlineCourseListModel *model = _arrModel[indexPath.row];
+    [item setUIWithModel:model];
     return item;
 }
 
@@ -73,10 +81,22 @@
     [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MECourseListItem class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MECourseListItem class])];
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
+    _collectionView.hidden = YES;
+    _listTitleLbl.hidden = YES;
+    _courseCountBtn.hidden = YES;
 }
 
-- (void)setUIWithArr:(NSArray*)arr{
+- (void)setUIWithArr:(NSArray*)arr model:(MECourseDetailModel *)model{
     _arrModel = kMeUnArr(arr);
+    if (kMeUnNilStr(model.video_name).length > 0) {
+        _titleLbl.text = kMeUnNilStr(model.video_name);
+    }else if (kMeUnNilStr(model.audio_name).length > 0) {
+        _titleLbl.text = kMeUnNilStr(model.audio_name);
+    }
+    
+    _timeLbl.text = kMeUnNilStr(model.updated_at);
+    _learnCountLbl.text = [NSString stringWithFormat:@"%ld次学习",model.browse];
+    [_courseCountBtn setTitle:[NSString stringWithFormat:@"共%ld课",arr.count] forState:UIControlStateNormal];
     [_collectionView reloadData];
 }
 

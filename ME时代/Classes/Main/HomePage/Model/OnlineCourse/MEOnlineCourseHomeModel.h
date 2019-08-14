@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray * onLine_banner;
 @property (nonatomic, strong) MECourseHomeVideoListModel * video_list;
 
+//视/音频首页相关内容
+@property (nonatomic, strong) NSArray * banner;
+@property (nonatomic, strong) MECourseHomeVideoListModel * hot_video;
+
 @end
 
 NS_ASSUME_NONNULL_END

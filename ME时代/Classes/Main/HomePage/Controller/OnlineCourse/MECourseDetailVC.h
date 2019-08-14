@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 //type 0视频 1音频
 - (instancetype)initWithId:(NSInteger)detailsId type:(NSInteger)type;
 
+- (void)reloadData;
+
 @end
 
 NS_ASSUME_NONNULL_END

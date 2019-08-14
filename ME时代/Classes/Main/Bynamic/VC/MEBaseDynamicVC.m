@@ -715,7 +715,7 @@
             MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
             NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
             baseUrl = [@"http" stringByAppendingString:baseUrl];
-            
+            //http://test.meshidai.com/api/article.html?id=%@&img=%@&text=%@&inviteCode=%@
             shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@article.html?id=%@&img=%@&text=%@&inviteCode=%@",baseUrl,model.idField,_imgUrl,_shareText,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
             //    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
             

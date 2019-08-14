@@ -127,8 +127,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="collectionView" destination="y1D-qR-Xlw" id="iKM-85-rBj"/>
-                <outlet property="courseCountLbl" destination="Y98-vM-ehY" id="sdO-kY-Um9"/>
+                <outlet property="courseCountBtn" destination="Y98-vM-ehY" id="Tlj-hO-cE5"/>
                 <outlet property="learnCountLbl" destination="hGr-H2-JPC" id="knk-N7-mke"/>
+                <outlet property="listTitleLbl" destination="KWx-O8-e15" id="NKk-tt-Sed"/>
                 <outlet property="timeLbl" destination="1Ko-ct-GKJ" id="vbf-FE-Rrn"/>
                 <outlet property="titleLbl" destination="e94-Wj-PTK" id="nrv-h5-llc"/>
             </connections>

@@ -7,6 +7,7 @@
 //
 
 #import "MECourseListItem.h"
+#import "MEOnlineCourseListModel.h"
 
 @interface MECourseListItem ()
 @property (weak, nonatomic) IBOutlet UIView *bgView;
@@ -21,8 +22,10 @@
     // Initialization code
 }
 
-- (void)setUIWithModel:(NSInteger)model {
-    if (model%2 == 0) {
+- (void)setUIWithModel:(MEOnlineCourseListModel *)model {
+    _titleLbl.text = kMeUnNilStr(model.video_name);
+    
+    if (model.isSelected) {
         _bgView.backgroundColor = [UIColor whiteColor];
         _bgView.layer.borderColor = [UIColor colorWithHexString:@"#FBB8B8"].CGColor;
         _bgView.layer.borderWidth = 1.0;

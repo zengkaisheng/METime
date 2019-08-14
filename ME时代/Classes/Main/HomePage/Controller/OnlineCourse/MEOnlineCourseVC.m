@@ -43,7 +43,7 @@
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
 }
 
 #pragma RefreshToolDelegate
@@ -66,23 +66,6 @@
 }
 //banner图点击跳转
 - (void)cycleScrollViewDidSelectItemWithModel:(MEAdModel *)model {
-    
-//    if (model.is_need_login == 1) {
-//        if(![MEUserInfoModel isLogin]){
-//            kMeWEAKSELF
-//            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
-//                kMeSTRONGSELF
-//                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
-//            } failHandler:^(id object) {
-//                return;
-//            }];
-//            return;
-//        }
-//    }
-    
-//    NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
-//    [self saveClickRecordsWithType:@"1" params:params];
-    
     switch (model.show_type) {//18视频 19音频
         case 18:
         {
@@ -257,11 +240,6 @@
         _refresh.isDataInside = NO;
 //        _refresh.showMaskView = YES;
         _refresh.showFailView = NO;
-        
-//        [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
-//            failView.backgroundColor = [UIColor whiteColor];
-//            failView.lblOfNodata.text = @"没有内容";
-//        }];
     }
     return _refresh;
 }
@@ -314,7 +292,6 @@
 - (UIButton *)btnRight{
     if(!_btnRight){
         _btnRight= [UIButton buttonWithType:UIButtonTypeCustom];
-        //        [_btnRight setTitle:@"发表" forState:UIControlStateNormal];
         [_btnRight setImage:[UIImage imageNamed:@"icon_push"] forState:UIControlStateNormal];
         [_btnRight setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _btnRight.cornerRadius = 2;

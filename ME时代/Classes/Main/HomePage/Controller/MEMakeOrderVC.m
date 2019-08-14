@@ -338,7 +338,7 @@
                 [MEPublicNetWorkTool postPayOrderWithOrder_sn:kMeUnNilStr(self->_order_sn) successBlock:^(ZLRequestResponse *responseObject) {
                     kMeSTRONGSELF
                     MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-                    CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum);
+                    CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum) + [kMeUnNilStr(strongSelf->_goodModel.postage) floatValue];
                     BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(f).description];
                     if(!isSucess){
                         [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
@@ -428,7 +428,7 @@
                     PAYPRE
                     strongSelf->_isPayError= NO;
                     MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-                    CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum) +[kMeUnNilStr(strongSelf->_goodModel.postage) floatValue];;
+                    CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum) + [kMeUnNilStr(strongSelf->_goodModel.postage) floatValue];
                     BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(f).description];
                     if(!isSucess){
                         [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
@@ -469,8 +469,8 @@
                         PAYPRE
                         strongSelf->_isPayError= NO;
                         MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-                        //CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum);
-                        BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(postage).description];
+                        CGFloat f = [strongSelf->_goodModel.money floatValue] * (strongSelf->_goodModel.buynum) + [kMeUnNilStr(strongSelf->_goodModel.postage) floatValue];
+                        BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:@(f).description];
                         if(!isSucess){
                             [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
                         }else {

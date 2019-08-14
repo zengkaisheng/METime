@@ -10,9 +10,13 @@
 #import "MEOnlineCourseHeaderView.h"
 #import "MEOnlineCourseListCell.h"
 #import "MEOnlineCourseListModel.h"
-#import "MECourseListVC.h"
+#import "MEourseClassifyModel.h"
+#import "MEOnlineCourseHomeModel.h"
+#import "MEAdModel.h"
 
+#import "MECourseListVC.h"
 #import "MECourseDetailVC.h"
+
 
 @interface MEAudioCourseBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     NSInteger _type;
@@ -21,7 +25,8 @@
 }
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) MEOnlineCourseHeaderView *headerView;
-@property (nonatomic, strong) ZLRefreshTool    *refresh;
+@property (nonatomic, strong) ZLRefreshTool *refresh;
+@property (nonatomic, strong) MEOnlineCourseHomeModel *homeModel;
 
 @end
 
@@ -39,17 +44,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    if (_index == 0) {
-        self.tableView.tableHeaderView = self.headerView;
-        [self.headerView setUIWithArray:@[] type:1];
-    }
-    
     switch (_type) {
         case 0:
+        {
             self.title = @"在线视频";
+            if (_index == 0) {
+                [self getVideoHomeListWithNetworking];
+            }else {
+                [self.refresh addRefreshView];
+            }
+        }
             break;
         case 1:
+        {
             self.title = @"在线音频";
+            if (_index == 0) {
+                [self getAudioHomeListWithNetworking];
+            }else {
+                [self.refresh addRefreshView];
+            }
+        }
             break;
         case 2:
             self.title = @"收费频道";
@@ -62,37 +76,95 @@
     }
     
     [self.view addSubview:self.tableView];
-    //    [self.refresh addRefreshView];
 }
 #pragma RefreshToolDelegate
 - (NSDictionary *)requestParameter{
-    if(self.refresh.pageIndex == 1){
-        if (_index == 0) {
-            //            [self getNetWork];
-        }
+    MEourseClassifyModel *model = _arrDicParm[_index];
+    if (_type == 1) {
+        return @{@"token":kMeUnNilStr(kCurrentUser.token),
+                 @"audio_type":@(model.idField)
+                 };
     }
-    //    NSDictionary *dic = _arrDicParm[_type];
-    //    return dic;
-    return nil;
+    return @{@"token":kMeUnNilStr(kCurrentUser.token),
+             @"video_type":@(model.idField)
+             };
 }
 
 - (void)handleResponse:(id)data{
     if(![data isKindOfClass:[NSArray class]]){
         return;
     }
-    //    [self.refresh.arrData addObjectsFromArray:[MECoupleModel mj_objectArrayWithKeyValuesArray:data]];
+    [self.refresh.arrData addObjectsFromArray:[MEOnlineCourseListModel mj_objectArrayWithKeyValuesArray:data]];
+}
+
+#pragma mark ---- Networking
+//视频
+- (void)getVideoHomeListWithNetworking {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetVideoIndexListWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            strongSelf.homeModel = [MEOnlineCourseHomeModel mj_objectWithKeyValues:responseObject.data];
+        }else {
+            strongSelf.homeModel = [[MEOnlineCourseHomeModel alloc] init];;
+        }
+        [strongSelf.headerView setUIWithArray:strongSelf.homeModel.banner type:1];
+        strongSelf.tableView.tableHeaderView = strongSelf.headerView;
+        [strongSelf.refresh.arrData addObjectsFromArray:strongSelf.homeModel.hot_video.data];
+        [strongSelf.tableView reloadData];
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+    }];
+}
+//音频
+- (void)getAudioHomeListWithNetworking {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetAudioIndexListWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            strongSelf.homeModel = [MEOnlineCourseHomeModel mj_objectWithKeyValues:responseObject.data];
+        }else {
+            strongSelf.homeModel = [[MEOnlineCourseHomeModel alloc] init];;
+        }
+        [strongSelf.headerView setUIWithArray:strongSelf.homeModel.banner type:1];
+        strongSelf.tableView.tableHeaderView = strongSelf.headerView;
+        [strongSelf.refresh.arrData addObjectsFromArray:strongSelf.homeModel.hot_video.data];
+        [strongSelf.tableView reloadData];
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+    }];
+}
+
+//banner图点击跳转
+- (void)cycleScrollViewDidSelectItemWithModel:(MEAdModel *)model {
+    switch (model.show_type) {//18视频 19音频
+        case 18:
+        {
+            MECourseDetailVC *dvc = [[MECourseDetailVC alloc] initWithId:model.video_id type:0];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        case 19:
+        {
+            MECourseDetailVC *dvc = [[MECourseDetailVC alloc] initWithId:model.audio_id type:1];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //    return self.refresh.arrData.count;
-    return 3;
+    return self.refresh.arrData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     MEOnlineCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseListCell class]) forIndexPath:indexPath];
-    MEOnlineCourseListModel *model = [[MEOnlineCourseListModel alloc] init];
+    MEOnlineCourseListModel *model = self.refresh.arrData[indexPath.row];
     [cell setUIWithModel:model isHomeVC:NO];
     return cell;
 }
@@ -133,14 +205,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MECourseDetailVC *vc = [[MECourseDetailVC alloc] init];
+    MEOnlineCourseListModel *model = self.refresh.arrData[indexPath.row];
+    MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:_type];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma setter&&getter
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-(_arrDicParm.count<2?1:kCategoryViewHeight)) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEOnlineCourseListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEOnlineCourseListCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -156,14 +229,17 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommongetDynamicList)];
+        NSString *url = kGetApiWithUrl(MEIPcommonVideoList);
+        if (_type == 1) {
+            url = kGetApiWithUrl(MEIPcommonAudioList);
+        }
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:url];
         _refresh.delegate = self;
         _refresh.isDataInside = YES;
         _refresh.showMaskView = YES;
-        
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
             failView.backgroundColor = [UIColor whiteColor];
-            failView.lblOfNodata.text = @"没有内容";
+            failView.lblOfNodata.text = @"暂无相关课程";
         }];
     }
     return _refresh;
@@ -176,34 +252,37 @@
         kMeWEAKSELF
         _headerView.selectedBlock = ^(NSInteger index) {
             kMeSTRONGSELF
-            //            MEAdModel *model = strongSelf.banners[index];
-            //            [strongSelf cycleScrollViewDidSelectItemWithModel:model];
-            NSInteger type = 0;
-            switch (index) {
-                case 102:
-                {
-                    if (strongSelf->_type == 0) {
-                        type = 4;
-                    }else if (strongSelf->_type == 1) {
-                        type = 5;
+            if (index < 100) {
+                MEAdModel *model = strongSelf.homeModel.banner[index];
+                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+            }else {
+                NSInteger type = 0;
+                switch (index) {
+                    case 102:
+                    {
+                        if (strongSelf->_type == 0) {
+                            type = 4;
+                        }else if (strongSelf->_type == 1) {
+                            type = 5;
+                        }
+                        MECourseListVC *vc = [[MECourseListVC alloc] initWithType:type];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
                     }
-                    MECourseListVC *vc = [[MECourseListVC alloc] initWithType:type];
-                    [strongSelf.navigationController pushViewController:vc animated:YES];
-                }
-                    break;
-                case 103:
-                {
-                    if (strongSelf->_type == 0) {
-                        type = 6;
-                    }else if (strongSelf->_type == 1) {
-                        type = 7;
+                        break;
+                    case 103:
+                    {
+                        if (strongSelf->_type == 0) {
+                            type = 6;
+                        }else if (strongSelf->_type == 1) {
+                            type = 7;
+                        }
+                        MECourseListVC *vc = [[MECourseListVC alloc] initWithType:type];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
                     }
-                    MECourseListVC *vc = [[MECourseListVC alloc] initWithType:type];
-                    [strongSelf.navigationController pushViewController:vc animated:YES];
+                        break;
+                    default:
+                        break;
                 }
-                    break;
-                default:
-                    break;
             }
         };
     }

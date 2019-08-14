@@ -7,7 +7,7 @@
 //
 
 #import "MECourseDetailHeaderView.h"
-#import "MECourseVideoDetailModel.h"
+#import "MECourseDetailModel.h"
 
 @interface MECourseDetailHeaderView ()
 @property (weak, nonatomic) IBOutlet UIImageView *headerPic;
@@ -35,7 +35,7 @@
     self.courseListBtn.selected = NO;
 }
 
-- (void)setUIWithModel:(MECourseVideoDetailModel *)model index:(NSInteger)index {
+- (void)setUIWithModel:(MECourseDetailModel *)model index:(NSInteger)index {
     if (index == 0) {
         self.introduceBtn.selected = YES;
         self.courseListBtn.selected = NO;
@@ -44,10 +44,17 @@
         self.courseListBtn.selected = YES;
     }
     kSDLoadImg(_headerPic, kMeUnNilStr(model.images_url));
-    _titleLbl.text = kMeUnNilStr(model.video_name);
+    
+    if (kMeUnNilStr(model.video_name).length > 0) {
+        _titleLbl.text = kMeUnNilStr(model.video_name);
+        _priceLbl.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.video_price)];
+    }else if (kMeUnNilStr(model.audio_name).length > 0) {
+        _titleLbl.text = kMeUnNilStr(model.audio_name);
+        _priceLbl.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.audio_price)];
+    }
+    
     _learnCountLbl.text = [NSString stringWithFormat:@"%@次学习",@(model.browse)];
-    _priceLbl.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.video_price)];
-    _priceLbl.hidden = [kMeUnNilStr(model.video_price) intValue]==0?YES:NO;
+    _priceLbl.hidden = model.is_charge==2?YES:NO;
 }
 
 - (IBAction)courseIntroduceAction:(id)sender {

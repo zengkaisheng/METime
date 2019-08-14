@@ -816,13 +816,31 @@
 //在线课堂首页
 #define MEIPcommonOnlineHomeIndex @"common/online/index"
 //视频
+//视频分类
+#define MEIPcommonVideoType @"common/video/getVideoType"
+//视频首页信息
+#define MEIPcommonVideoIndexList @"common/video/indexList"
+//视频列表
+#define MEIPcommonVideoList @"common/video/videoList"
 //视频详情
 #define MEIPcommonVideoDetail @"common/video/videoDetail"
-//视频详情
-#define MEIPcommonVideoList @"common/video/videoList"
 
 
-//音频V
+//音频
+//音频分类
+#define MEIPcommonAudioType @"common/audio/getAudioType"
+//音频首页信息
+#define MEIPcommonAudioIndexList @"common/audio/indexList"
+//音频列表
+#define MEIPcommonAudioList @"common/audio/audioList"
+//音频详情
+#define MEIPcommonAudioDetail @"common/audio/audioDetail"
+
+
+//生成订单
+#define MEIPcommonOnlineCreateOrder @"common/online/createOrder"
+//支付订单
+#define MEIPcommonOnlinePayOrder @"common/online/payOrder"
 
 /*********************************************/
 

@@ -38,5 +38,6 @@
 //在线课程相关
 @property (nonatomic, assign) NSInteger audio_id;
 @property (nonatomic, assign) NSInteger video_id;
+@property (nonatomic, strong) NSString * createtime;
 
 @end

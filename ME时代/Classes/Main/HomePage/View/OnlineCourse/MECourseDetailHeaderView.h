@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class MECourseVideoDetailModel;
+@class MECourseDetailModel;
 NS_ASSUME_NONNULL_BEGIN
 
 #define kMECourseDetailHeaderViewHeight 379
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) kMeIndexBlock selectedBlock;
 
-- (void)setUIWithModel:(MECourseVideoDetailModel *)model index:(NSInteger)index;
+- (void)setUIWithModel:(MECourseDetailModel *)model index:(NSInteger)index;
 
 @end
 

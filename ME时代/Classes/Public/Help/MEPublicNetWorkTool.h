@@ -617,13 +617,30 @@
 
 /*********************************************/
 #pragma mark - 在线课程
-//视频
-+ (void)postGetVideoDetailWithVideoId:(NSInteger)videoId SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//视频分类
++ (void)postGetVideoClassifyWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//视频首页信息
++ (void)postGetVideoIndexListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //视频列表
-+ (void)postGetVideoListWithIsCharge:(NSInteger)is_charge videoType:(NSString *)videoType keyword:(NSString *)keyword SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
++ (void)postGetVideoListWithIsCharge:(NSInteger)is_charge videoType:(NSString *)videoType keyword:(NSString *)keyword successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//视频详情
++ (void)postGetVideoDetailWithVideoId:(NSInteger)videoId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
 //音频
+//音频分类
++ (void)postGetAudioClassifyWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//音频首页信息
++ (void)postGetAudioIndexListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//音频列表
++ (void)postGetAudioListWithIsCharge:(NSInteger)is_charge audioType:(NSString *)audioType keyword:(NSString *)keyword successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//音频详情
++ (void)postGetAudioDetailWithAudioId:(NSInteger)audioId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
+
+//音频/视频 生成订单
++ (void)postCreateOrderWithCourseId:(NSString *)courseId orderType:(NSString *)orderType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//音频/视频 支付订单
++ (void)postPayOnlineOrderWithOrderSn:(NSString *)order_sn successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

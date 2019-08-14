@@ -8,16 +8,17 @@
 
 #import "MECourseListVC.h"
 #import "MECourseListBaseVC.h"
+#import "MEourseClassifyModel.h"
 
-@interface MECourseListVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>{
-    NSArray *_arrType;
-    NSArray *_arrDicParm;
-}
+@interface MECourseListVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIButton *btnRight;
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign) NSInteger type;
+
+@property (nonatomic, strong)NSMutableArray *arrType;
+@property (nonatomic, strong)NSMutableArray *arrModel;
 
 @end
 
@@ -33,7 +34,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _arrType = @[@"推荐",@"推荐",@"推荐",@"推荐",@"推荐",@"推荐"];
     
     switch (_type) {
         case 0:
@@ -49,30 +49,46 @@
             self.title = @"免费频道";
             break;
         case 4:
+        {
             self.title = @"视频收费频道";
+            [self getVideoTypeWithNetworking];
+        }
             break;
         case 5:
             self.title = @"音频收费频道";
+            [self getAudioTypeWithNetworking];
             break;
         case 6:
+        {
             self.title = @"视频免费频道";
+            [self getVideoTypeWithNetworking];
+        }
             break;
         case 7:
             self.title = @"音频免费频道";
+            [self getAudioTypeWithNetworking];
             break;
         default:
             break;
     }
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
+}
+
+- (void)setupUI {
+    CGFloat categoryViewHeight = kCategoryViewHeight;
+    if (self.arrModel.count < 2) {
+        categoryViewHeight = 1;
+    }
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight)];
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *_arrType.count, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *_arrType.count, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight);
     self.scrollView.bounces = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     for (int i = 0; i < _arrType.count; i++) {
-        MECourseListBaseVC *VC = [[MECourseListBaseVC alloc] initWithType:self.type index:i materialArray:_arrDicParm];
+        MECourseListBaseVC *VC = [[MECourseListBaseVC alloc] initWithType:self.type index:i materialArray:[_arrModel copy]];
         VC.title = self.title;
         VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         VC.view.frame = CGRectMake(SCREEN_WIDTH*i,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
@@ -83,7 +99,7 @@
     [self.view addSubview:self.scrollView];
     
     //1、初始化JXCategoryTitleView
-    self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeNavBarHeight, SCREEN_WIDTH, kCategoryViewHeight)];
+    self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeNavBarHeight, SCREEN_WIDTH, categoryViewHeight)];
     JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
     lineView.indicatorLineWidth = 30 *kMeFrameScaleX();
     lineView.indicatorLineViewColor = kMEPink;
@@ -97,8 +113,43 @@
     self.categoryView.titleColor =  [UIColor colorWithHexString:@"999999"];
     [self.view addSubview:self.categoryView];
     self.categoryView.defaultSelectedIndex = 0;
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
+}
+
+#pragma mark ---- Networking
+- (void)getVideoTypeWithNetworking {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetVideoClassifyWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSArray class]]) {
+            strongSelf.arrModel = [MEourseClassifyModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+            
+            [strongSelf->_arrModel enumerateObjectsUsingBlock:^(MEourseClassifyModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+                [strongSelf.arrType addObject:model.video_type_name];
+            }];
+        }
+        [strongSelf setupUI];
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+    }];
+}
+
+- (void)getAudioTypeWithNetworking {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetAudioClassifyWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSArray class]]) {
+            strongSelf.arrModel = [MEourseClassifyModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+            
+            [strongSelf->_arrModel enumerateObjectsUsingBlock:^(MEourseClassifyModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+                [strongSelf.arrType addObject:model.audio_type_name];
+            }];
+        }
+        [strongSelf setupUI];
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 - (void)pushlishAction:(UIButton *)btn{
@@ -106,10 +157,23 @@
 }
 
 #pragma MARK - Setter
+- (NSMutableArray *)arrType {
+    if (!_arrType) {
+        _arrType = [[NSMutableArray alloc] init];
+    }
+    return _arrType;
+}
+
+- (NSMutableArray *)arrModel {
+    if (!_arrModel) {
+        _arrModel = [[NSMutableArray alloc] init];
+    }
+    return _arrModel;
+}
+
 - (UIButton *)btnRight{
     if(!_btnRight){
         _btnRight= [UIButton buttonWithType:UIButtonTypeCustom];
-        //        [_btnRight setTitle:@"发表" forState:UIControlStateNormal];
         [_btnRight setImage:[UIImage imageNamed:@"icon_push"] forState:UIControlStateNormal];
         [_btnRight setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _btnRight.cornerRadius = 2;

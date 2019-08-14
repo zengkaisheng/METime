@@ -41,9 +41,15 @@
     }
     
     kSDLoadImg(_headerPic, kMeUnNilStr(model.images_url));
-    _titleLbl.text = kMeUnNilStr(model.video_name);
-    _priceLbl.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.video_price)];
-    _priceLbl.hidden = [kMeUnNilStr(model.video_price) intValue]==0?YES:NO;
+    
+    if (kMeUnNilStr(model.video_name).length > 0) {
+        _titleLbl.text = kMeUnNilStr(model.video_name);
+        _priceLbl.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.video_price)];
+    }else if (kMeUnNilStr(model.audio_name).length > 0) {
+        _titleLbl.text = kMeUnNilStr(model.audio_name);
+        _priceLbl.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.audio_price)];
+    }
+    _priceLbl.hidden = model.is_charge==2?YES:NO;
     _learnCountLbl.text = [NSString stringWithFormat:@"%ld次学习",model.browse];
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "MECourseListBaseVC.h"
-
+#import "MEourseClassifyModel.h"
 #import "MEOnlineCourseListCell.h"
 #import "MECourseDetailVC.h"
 #import "MEOnlineCourseListModel.h"
@@ -16,6 +16,7 @@
     NSInteger _type;
     NSInteger _index;
     NSArray *_arrDicParm;
+    NSInteger _is_charge;
 }
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ZLRefreshTool    *refresh;
@@ -52,52 +53,66 @@
             self.tableView.frame = CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight);
             break;
         case 4:
+        {
             self.title = @"视频收费频道";
+            _is_charge = 1;
+        }
             break;
         case 5:
+        {
             self.title = @"音频收费频道";
+            _is_charge = 1;
+        }
             break;
         case 6:
+        {
             self.title = @"视频免费频道";
+            _is_charge = 2;
+        }
             break;
         case 7:
+        {
             self.title = @"音频免费频道";
+            _is_charge = 2;
+        }
             break;
         default:
             break;
     }
     
     [self.view addSubview:self.tableView];
-    //    [self.refresh addRefreshView];
+    [self.refresh addRefreshView];
 }
 #pragma RefreshToolDelegate
 - (NSDictionary *)requestParameter{
-    if(self.refresh.pageIndex == 1){
-        if (_type == 0) {
-            //            [self getNetWork];
-        }
+    MEourseClassifyModel *model = _arrDicParm[_index];
+    if (_type == 1 || _type == 5 || _type == 7) {
+        return @{@"token":kMeUnNilStr(kCurrentUser.token),
+                 @"is_charge":@(_is_charge),
+                 @"audio_type":@(model.idField)
+                 };
     }
-    //    NSDictionary *dic = _arrDicParm[_type];
-    //    return dic;
-    return nil;
+    return @{@"token":kMeUnNilStr(kCurrentUser.token),
+             @"is_charge":@(_is_charge),
+             @"video_type":@(model.idField)
+             };
 }
 
 - (void)handleResponse:(id)data{
     if(![data isKindOfClass:[NSArray class]]){
         return;
     }
-    //    [self.refresh.arrData addObjectsFromArray:[MECoupleModel mj_objectArrayWithKeyValuesArray:data]];
+    [self.refresh.arrData addObjectsFromArray:[MEOnlineCourseListModel mj_objectArrayWithKeyValuesArray:data]];
 }
 
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //    return self.refresh.arrData.count;
-    return 10;
+    return self.refresh.arrData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEOnlineCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseListCell class]) forIndexPath:indexPath];
-    MEOnlineCourseListModel *model = [[MEOnlineCourseListModel alloc] init];
+    MEOnlineCourseListModel *model = self.refresh.arrData[indexPath.row];
     [cell setUIWithModel:model isHomeVC:YES];
     return cell;
 }
@@ -149,14 +164,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MECourseDetailVC *vc = [[MECourseDetailVC alloc] init];
+    MEOnlineCourseListModel *model = self.refresh.arrData[indexPath.row];
+    MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:_type];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma setter&&getter
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-(_arrDicParm.count<2?1:kCategoryViewHeight)) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEOnlineCourseListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEOnlineCourseListCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -172,14 +188,19 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommongetDynamicList)];
+        NSString *url = @"";
+        if (_type == 0 || _type == 4 || _type == 6) {
+            url = kGetApiWithUrl(MEIPcommonVideoList);
+        }else if (_type == 1 || _type == 5 || _type == 7) {
+            url = kGetApiWithUrl(MEIPcommonAudioList);
+        }
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:url];
         _refresh.delegate = self;
         _refresh.isDataInside = YES;
         _refresh.showMaskView = YES;
-        
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
             failView.backgroundColor = [UIColor whiteColor];
-            failView.lblOfNodata.text = @"没有内容";
+            failView.lblOfNodata.text = @"暂无相关课程";
         }];
     }
     return _refresh;

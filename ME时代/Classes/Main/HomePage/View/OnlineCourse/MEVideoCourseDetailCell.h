@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class MECourseDetailModel;
 
 @interface MEVideoCourseDetailCell : UITableViewCell
 
-- (void)setUIWithArr:(NSArray*)arr;
+- (void)setUIWithArr:(NSArray*)arr model:(MECourseDetailModel *)model;
 
 @property (nonatomic, copy) kMeIndexBlock selectBlock;
 

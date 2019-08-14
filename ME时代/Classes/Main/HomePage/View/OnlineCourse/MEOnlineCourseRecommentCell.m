@@ -12,6 +12,7 @@
 #import "MEOnlineCourseHomeModel.h"
 #import "MECourseDetailVC.h"
 #import "MEOnlineCourseVC.h"
+#import "MEOnlineCourseListModel.h"
 
 @interface MEOnlineCourseRecommentCell ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -73,7 +74,6 @@
         return cell;
     }
     MEOnlineCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseListCell class]) forIndexPath:indexPath];
-
     MEOnlineCourseListModel *model = self.model.video_list.data[indexPath.row];
     [cell setUIWithModel:model isHomeVC:YES];
     return cell;
@@ -107,10 +107,18 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MECourseDetailVC *vc = [[MECourseDetailVC alloc] init];
+    MEOnlineCourseListModel *model = self.model.video_list.data[indexPath.row];
     MEOnlineCourseVC *homevc = (MEOnlineCourseVC *)[MECommonTool getVCWithClassWtihClassName:[MEOnlineCourseVC class] targetResponderView:self];
-    if (homevc) {
-        [homevc.navigationController pushViewController:vc animated:YES];
+    if (kMeUnNilStr(model.video_urls).length > 0) {
+        MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:0];
+        if (homevc) {
+            [homevc.navigationController pushViewController:vc animated:YES];
+        }
+    }else if (kMeUnNilStr(model.audio_urls).length > 0) {
+        MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:1];
+        if (homevc) {
+            [homevc.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 

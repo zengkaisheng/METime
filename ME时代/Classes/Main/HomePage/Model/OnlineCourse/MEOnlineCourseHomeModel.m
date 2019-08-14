@@ -20,6 +20,6 @@ MEModelObjectClassInArrayWithDic((@{@"data" : [MEOnlineCourseListModel class]}))
 
 @implementation MEOnlineCourseHomeModel
 
-MEModelObjectClassInArrayWithDic((@{@"top_banner" : [MEAdModel class], @"onLine_banner" : [MEAdModel class]}))
+MEModelObjectClassInArrayWithDic((@{@"top_banner" : [MEAdModel class], @"onLine_banner" : [MEAdModel class], @"banner" : [MEAdModel class]}))
 
 @end

@@ -206,8 +206,18 @@
     
     self.isDraging = YES;
     CMTime duration = self.playerItem.duration;
+    
     self.controlView.playTimeLabel.text = [XMPlayerTool getMMSSFromSS:[NSString stringWithFormat:@"%.0f", CMTimeGetSeconds(duration) * value]];
     self.controlView.playerSilder.trackValue = value;
+    NSString *playedValue = [XMPlayerTool getMMSSFromSS:[NSString stringWithFormat:@"%.0f", CMTimeGetSeconds(duration) * value]];
+    CGFloat current = [[NSString stringWithFormat:@"%@",[playedValue substringWithRange:NSMakeRange(playedValue.length - 2, 2)]] floatValue];
+    if (self.previewTime > 0) {
+        if (current >= self.previewTime) {
+            self.controlView.replayButton.hidden = NO;
+            self.controlView.playButton.selected = YES;
+            [self pause];
+        }
+    }
 }
 
 // 滑动结束
@@ -380,7 +390,7 @@
     BGView.backgroundColor = [UIColor blackColor];
     BGView.center = self.window.center;
     BGView.bounds = self.window.bounds;
-    BGView.frame = self.frame;
+    BGView.frame = self.bounds;
     [self addSubview:BGView];
     self.BGView = BGView;
     
@@ -506,11 +516,19 @@
     //监控时间进度(根据API提示，如果要监控时间进度，这个对象引用计数器要+1，retain)
     __weak typeof(self) weakSelf = self;
     self.timeObserver = [self.avPlayer addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-        
+        float current = CMTimeGetSeconds(time);
         // 获取 item 当前播放秒
         weakSelf.currentPlayTime = (double)weakSelf.avPlayer.currentItem.currentTime.value / weakSelf.avPlayer.currentItem.currentTime.timescale;
 //        NSLog(@"当前时间:%f",weakSelf.currentPlayTime);
         [weakSelf updateVideoSlider:weakSelf.currentPlayTime];
+        
+        if (weakSelf.previewTime > 0) {
+            if (current >= weakSelf.previewTime) {
+                weakSelf.controlView.replayButton.hidden = NO;
+                weakSelf.controlView.playButton.selected = YES;
+                [weakSelf pause];
+            }
+        }
     }];
     
     if (self.playerViewType == XMPlayerViewTwoSynVideoType) {
@@ -740,6 +758,9 @@
 //        [self pause];
         self.controlView.replayButton.hidden = NO;
         self.controlView.playButton.selected = YES;
+        if (self.pauseBlock) {
+            self.pauseBlock();
+        }
     }
 }
 
@@ -1154,7 +1175,7 @@ didFinishDownloadingToURL:(NSURL *)location{
 // 双视频旋转屏幕更新布局
 - (void)twoVideoRotatingScreenLayoutSubviewsWithIsFullScreen:(BOOL)isFullScreen{
     
-    self.BGView.frame = self.frame;
+    self.BGView.frame = self.bounds;
     CGFloat ratio = 1.6;
     if (self.touchMinWindowVideoBtn.selected) {  // 切换后
         if (isFullScreen) {
@@ -1207,8 +1228,8 @@ didFinishDownloadingToURL:(NSURL *)location{
 }
 //重新播放
 - (void)replayClick {
-    self.controlView.bottomView.hidden = NO;
     self.controlView.replayButton.hidden = YES;
+    self.controlView.playButton.selected = NO;
     [self.avPlayer seekToTime:CMTimeMake(0, 1)];
     [self.avPlayer play];
 }
@@ -1231,6 +1252,9 @@ didFinishDownloadingToURL:(NSURL *)location{
         [self.avPlayer2 pause];
     }
     [self.avPlayer pause];
+    if (self.pauseBlock) {
+        self.pauseBlock();
+    }
 }
 
 // 释放

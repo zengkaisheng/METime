@@ -55,6 +55,13 @@ typedef enum {
 @property (nonatomic, assign) BOOL isAllowCyclePlay;
 
 /**
+ * 试听时长
+ *
+ * 默认0
+ **/
+@property (nonatomic, assign) CGFloat previewTime;
+
+/**
  * 显示
  *
  */
@@ -65,6 +72,12 @@ typedef enum {
  *
  */
 - (void)quite;
+
+/**
+ * 暂停
+ *
+ */
+- (void)pause;
 
 
 @property (nonatomic, assign) BOOL isFullScreen; // 是否是全屏 默认：NO
@@ -78,6 +91,8 @@ typedef enum {
 - (void)settingPlayerItemWithUrl:(NSURL *)playerUrl;
 
 @property (nonatomic, copy) void(^backBlock)(void);
+//暂停block
+@property (nonatomic, copy) void(^pauseBlock)(void);
 
 
 @end

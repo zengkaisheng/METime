@@ -306,6 +306,8 @@
     model.cart_id = str;
     if(_isHasRush){
         model.order_type = @"9";
+    }else {
+        model.order_type = @"1";
     }
     [MEPublicNetWorkTool postCreateShopOrderWithAttrModel:model  successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
