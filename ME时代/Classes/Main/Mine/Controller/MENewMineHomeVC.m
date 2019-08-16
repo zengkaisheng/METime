@@ -11,6 +11,7 @@
 #import "MENewMineHomeCell.h"
 #import "MEProductListVC.h"
 #import "MENewMineHomeCodeHeaderView.h"
+#import "AppDelegate.h"
 
 @interface MENewMineHomeVC ()<UITableViewDelegate,UITableViewDataSource>{
     NSArray *_arrtype;
@@ -18,7 +19,7 @@
     NSString *_invite_code;
 }
 
-@property (nonatomic, strong) UITableView           *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) MENewMineHomeHeaderView *headerView;
 @property (nonatomic, strong) MENewMineHomeCodeHeaderView *headerCodeView;
 
@@ -157,14 +158,25 @@
                     //B
                     //                strongSelf->_arrtype = @[@[@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor),@(MeAILEI)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
                     
-                    if (kCurrentUser.audit.is_radar == 1) {
-                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeAILEI),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
-                        strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
-                    }else if (kCurrentUser.audit.is_radar == 2) {
-                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeHometuigcode)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
-                        strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
-                    }
                     
+                    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+                    if ([status isEqualToString:@"customer"]) {
+                        if (kCurrentUser.audit.is_radar == 1) {
+                            strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeAILEI),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                            strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                        }else if (kCurrentUser.audit.is_radar == 2) {
+                            strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeHometuigcode)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                            strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
+                        }
+                    }else if ([status isEqualToString:@"business"]) {
+                        if (kCurrentUser.audit.is_radar == 1) {
+                            strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor),@(MeAILEI)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MeMyCollection),@(MeHomeNewGuide)]];
+                            strongSelf->_arrtypeTitle = @[@"商家管理",@"佣金",@"店铺",@"获客",@"必备"];
+                        }else if (kCurrentUser.audit.is_radar == 2) {
+                            strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MeMyCollection),@(MeHomeNewGuide)]];
+                            strongSelf->_arrtypeTitle = @[@"商家管理",@"佣金",@"店铺",@"必备"];
+                        }
+                    }
                 }
                     break;
                 case 5:{
@@ -237,7 +249,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _arrtype.count;
-    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MENewMineHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MENewMineHomeCell class]) forIndexPath:indexPath];
@@ -249,12 +260,16 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSArray *arr = _arrtype[indexPath.row];
-    return [MENewMineHomeCell getHeightWithArr:arr];;
+    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+    if (indexPath.row == 0) {
+        if ([status isEqualToString:@"business"]) {
+            return [MENewMineHomeCell getHeightWithArr:arr]-37-15;
+        }
+    }
+    return [MENewMineHomeCell getHeightWithArr:arr];
 }
 
-
 #pragma MARK - Setter
-
 - (UITableView *)tableView{
     if(!_tableView){
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight) style:UITableViewStylePlain];
@@ -280,7 +295,23 @@
 - (MENewMineHomeCodeHeaderView *)headerCodeView{
     if(!_headerCodeView){
         _headerCodeView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeCodeHeaderView" owner:nil options:nil] lastObject];
-        _headerCodeView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeCodeHeaderViewHeight);
+        CGFloat height = kMENewMineHomeCodeHeaderViewHeight;
+        NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+        if ([status isEqualToString:@"business"]) {
+            height = 210;
+        }
+        _headerCodeView.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
+        _headerCodeView.changeStatus = ^{
+            NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+            if ([status isEqualToString:@"customer"]) {
+                [kMeUserDefaults setObject:@"business" forKey:kMENowStatus];
+            }else if ([status isEqualToString:@"business"]) {
+                [kMeUserDefaults setObject:@"customer" forKey:kMENowStatus];
+            }
+            [kMeUserDefaults synchronize];
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate reloadTabBar];
+        };
     }
     return _headerCodeView;
 }

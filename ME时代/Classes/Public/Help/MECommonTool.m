@@ -81,9 +81,9 @@
 #pragma mark - About Verify
 
 + (BOOL)isValidPhoneNum:(NSString *)strPhoneNum{
-//    NSString *Regex = @"^(13[0-9]|14[579]|15[012356789]|16[6]|17[0135678]|18[0-9]|19[89])[0-9]{8}$";
-//    NSPredicate *mobileTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", Regex];
-    return kMeUnNilStr(strPhoneNum).length; //[mobileTest evaluateWithObject:strPhoneNum];
+    NSString *Regex = @"^(13[0-9]|14[579]|15[012356789]|16[6]|17[0135678]|18[0-9]|19[89])[0-9]{8}$";
+    NSPredicate *mobileTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", Regex];
+    return [mobileTest evaluateWithObject:strPhoneNum];//kMeUnNilStr(strPhoneNum).length;
 }
 
 + (UIImage*) createImageWithColor:(UIColor*) color{

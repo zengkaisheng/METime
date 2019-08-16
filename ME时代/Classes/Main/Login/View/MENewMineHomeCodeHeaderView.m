@@ -27,6 +27,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *invationLbl;
 @property (weak, nonatomic) IBOutlet UIButton *cpBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *changeStatusBtn;
+//我的订单
+@property (weak, nonatomic) IBOutlet UIView *orderView;
+//商家
+@property (weak, nonatomic) IBOutlet UIView *businessView;
 
 @end
 
@@ -39,7 +44,6 @@
     _consBtnW.constant = w;
     _consSetTopMargin.constant = kMeStatusBarHeight+10;
     
-    
     CGRect bounds = self.invationBGView.layer.bounds;
     CGFloat bgViewWidth = [UIScreen mainScreen].bounds.size.width - 50;
     bounds.size.width = bgViewWidth;
@@ -50,6 +54,12 @@
     
     CAGradientLayer *btnLayer = [self getLayerWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) colors:@[(__bridge id)[UIColor colorWithRed:252/255.0 green:213/255.0 blue:138/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:227/255.0 green:163/255.0 blue:40/255.0 alpha:1.0].CGColor] locations:@[@(0.0),@(1.0)] frame:self.cpBtn.layer.bounds];
     [self.cpBtn.layer insertSublayer:btnLayer atIndex:0];
+    
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, SCREEN_WIDTH-30, 37) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(10, 10)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH-30, 37);
+    maskLayer.path = maskPath.CGPath;
+    _businessView.layer.mask = maskLayer;
 }
 
 - (CAGradientLayer *)getLayerWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint colors:(NSArray *)colors locations:(NSArray *)locations frame:(CGRect)frame {
@@ -95,6 +105,17 @@
         default:
             _lblLeve.text = @"";
             break;
+    }
+    
+    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+    if ([status isEqualToString:@"customer"]) {
+        _businessView.hidden = YES;
+        _orderView.hidden = NO;
+//        [_changeStatusBtn setTitle:@"切换到商家" forState:UIControlStateNormal];
+    }else if ([status isEqualToString:@"business"]) {
+        _businessView.hidden = NO;
+        _orderView.hidden = YES;
+//        [_changeStatusBtn setTitle:@"切换到用户" forState:UIControlStateNormal];
     }
 }
 
@@ -165,6 +186,9 @@
     if(home){
         [home.navigationController pushViewController:setVC animated:YES];
     }
+}
+- (IBAction)changeStatus:(id)sender {
+    kMeCallBlock(_changeStatus);
 }
 
 @end

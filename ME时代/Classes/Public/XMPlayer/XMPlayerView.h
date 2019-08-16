@@ -79,6 +79,12 @@ typedef enum {
  */
 - (void)pause;
 
+/**
+ * 停止播放
+ *
+ */
+- (void)stopPlaying;
+
 
 @property (nonatomic, assign) BOOL isFullScreen; // 是否是全屏 默认：NO
 

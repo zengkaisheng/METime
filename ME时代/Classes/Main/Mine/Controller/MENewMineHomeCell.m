@@ -61,6 +61,11 @@
 #import "MEFeedBackVC.h"
 
 #import "MEHomeTestVC.h"
+#import "MEProjectSettingVC.h"
+#import "MECourseOrderListVC.h"
+#import "MEConsultQuestionVC.h"
+#import "MEDiagnoseFeedBackVC.h"
+#import "MEMyCollectionVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -70,6 +75,8 @@
 }
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewConsTop;
 
 @end
 
@@ -314,6 +321,33 @@
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
+        case MEProjectSet:{//项目设置
+            MEProjectSettingVC *vc = [[MEProjectSettingVC alloc]init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MECourseOrder:{//课程订单
+            MECourseOrderListVC *vc = [[MECourseOrderListVC alloc]init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MEConsultQuestion:{//问题咨询
+//            MEConsultQuestionVC *vc = [[MEConsultQuestionVC alloc]init];
+//            [homeVc.navigationController pushViewController:vc animated:YES];
+            MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc] initWithType:1];
+            [homeVc.navigationController pushViewController:feedbackVC animated:YES];
+        }
+            break;
+        case MEDiagnoseFeedBack:{//诊断反馈
+            MEDiagnoseFeedBackVC *vc = [[MEDiagnoseFeedBackVC alloc]init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMyCollection:{//我的收藏
+            MEMyCollectionVC *vc = [[MEMyCollectionVC alloc]init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
+            break;
         default:
             break;
     }
@@ -335,6 +369,12 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+    if ([_title isEqualToString:@"商家管理"]) {
+        if ([status isEqualToString:@"business"]) {
+            return CGSizeZero;
+        }
+    }
     return CGSizeMake(SCREEN_WIDTH-30, kMENewMineCellHeaderViewHeight);
 }
 
@@ -379,6 +419,15 @@
 - (void)setUIWithAtrr:(NSArray *)arr title:(NSString*)title{
     _arrModel = kMeUnArr(arr);
     _title = kMeUnNilStr(title);
+    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+
+    if ([_title isEqualToString:@"商家管理"]) {
+        if ([status isEqualToString:@"business"]) {
+            _viewConsTop.constant = 0.0;
+        }
+    }else {
+        _viewConsTop.constant = 15.0;
+    }
     switch (kCurrentUser.user_type) {
         case 1:{
             _type = MEClientOneTypeStyle;
@@ -394,7 +443,6 @@
             //C
             _type = MEClientCTypeStyle;
             _levStr = @"当前等级:普通会员";
-
         }
             break;
         case 3:{

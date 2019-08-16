@@ -13,7 +13,7 @@
 
 @interface MEBynamicPublishGridView (){
     NSArray *_arrModel;
-    
+    NSInteger _maxCount;
 }
 
 @end
@@ -27,8 +27,9 @@
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame maxCount:(NSInteger)maxCount{
     if(self = [super initWithFrame:frame]){
+        _maxCount = maxCount;
         [self setImageView];
     }
     return self;
@@ -37,7 +38,7 @@
 
 - (void)setImageView{
     _arrImageView = [NSMutableArray array];
-    for (NSInteger i=0; i<9; i++) {
+    for (NSInteger i=0; i<_maxCount; i++) {
         MEBynamicPublishGridContentView *img = [[MEBynamicPublishGridContentView alloc]init];
         img.userInteractionEnabled = YES;
         img.tag = i;
@@ -50,7 +51,7 @@
 - (void)tapAction:(UITapGestureRecognizer *)tap{
     UIImageView *view = (UIImageView *)tap.view;
     NSInteger index = view.tag;
-    if(index>=0 && index<=8){
+    if(index>=0 && index<=_maxCount-1){
         MEBynamicPublishGridModel *model = _arrModel[index];
         model.selectIndex = index;
         kMeCallBlock(_selectBlock,model);
@@ -63,10 +64,10 @@
     }
     self.height = [MEBynamicPublishGridView getViewHeightWIth:arr];
     _arrModel = arr;
-    CGFloat w = (SCREEN_WIDTH - (kMEBynamicPublishGridViewMagin *2) - (kMEBynamicPublishGridViewPadding *2))/3;
+    CGFloat w = (self.frame.size.width - (kMEBynamicPublishGridViewMagin *2) - (kMEBynamicPublishGridViewPadding *2))/3;
     kMeWEAKSELF
     for (NSInteger i = 0; i<arr.count; i++) {
-        if(i>=9){
+        if(i>=_maxCount){
             break;
         }
         MEBynamicPublishGridModel *model = arr[i];

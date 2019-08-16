@@ -23,8 +23,6 @@
 
 #import "MEFourCouponSearchHomeVC.h"
 
-#import "MEOnlineCourseVC.h"
-
 @interface MEFourHomeVC ()<UIScrollViewDelegate>{
     METhridHomeModel *_homeModel;
     MEStoreModel *_stroeModel;
@@ -234,9 +232,7 @@
         kMeWEAKSELF
         _navView.searchBlock = ^{
             kMeSTRONGSELF
-//            [strongSelf searchCoupon];
-            MEOnlineCourseVC *vc = [[MEOnlineCourseVC alloc] init];
-            [strongSelf.navigationController pushViewController:vc animated:YES];
+            [strongSelf searchCoupon];
         };
         _navView.selectIndexBlock = ^(NSInteger index) {
             kMeSTRONGSELF

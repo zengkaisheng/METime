@@ -213,7 +213,7 @@
         _tableView.tableHeaderView = self.notAddressView;
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WechatSuccess:) name:WX_PAY_RESULT object:nil];
-    [self getUserOrderFreightWithAddressId:[NSString stringWithFormat:@"%ld",(long)_addressModel.address_id] postage:_origainlPostage productId:[NSString stringWithFormat:@"%ld",_goodModel.product_id]];
+    [self getUserOrderFreightWithAddressId:[NSString stringWithFormat:@"%ld",(long)_addressModel.address_id] postage:_origainlPostage productId:[NSString stringWithFormat:@"%ld",(long)_goodModel.product_id]];
 }
 
 #pragma mark - UITableViewDelegate

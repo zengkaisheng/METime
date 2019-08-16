@@ -9,27 +9,25 @@
 #import "METabBarVC.h"
 #import "MENavigationVC.h"
 //#import "MEHomePageVC.h"
-#import "METhridHomeVC.h"
-#import "MEStoreHomeVC.h"
-#import "MEMemberHomeVC.h"
-#import "MEShoppingCartVC.h"
+//#import "METhridHomeVC.h"
+//#import "MEStoreHomeVC.h"
+//#import "MEMemberHomeVC.h"
+//#import "MEShoppingCartVC.h"
 //#import "MEMineHomeVC.h"
 #import "MENewMineHomeVC.h"
-#import "ZLWebVC.h"
+//#import "ZLWebVC.h"
 #import "MEProductShoppingCartVC.h"
 //#import "MELoginVC.h"
-#import "MEIMageVC.h"
+//#import "MEIMageVC.h"
 #import "AppDelegate.h"
-#import "MEMemberHomeVC.h"
 
-#import "MESNewHomePageVC.h"
+//#import "MESNewHomePageVC.h"
 #import "MEBynamicHomeVC.h"
 //#import "MEShoppingMallVC.h"
-#import "MEFilterGoodVC.h"
+//#import "MEFilterGoodVC.h"
 
 #import "MENewFilterGoodVC.h"
 #import "MEFourHomeVC.h"
-#import "MEFillInvationCodeVC.h"
 
 @interface METabBarVC ()<UITabBarControllerDelegate>
 
@@ -75,7 +73,7 @@
     [self addChildVc:shopcart title:@"购物车" image:@"shopcart" selectedImage:@"shopcart_s"];
     
     self.mine = [[MENewMineHomeVC alloc] init];
-    [self addChildVc:self.mine  title:@"我的" image:@"mine" selectedImage:@"mine_s"];
+    [self addChildVc:self.mine title:@"我的" image:@"mine" selectedImage:@"mine_s"];
     [self getUnMeaasge];
     
     [[UITabBarItem appearance] setTitleTextAttributes:@{
@@ -98,6 +96,7 @@
 - (void)userLogin{
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getUnMeaasge) name:kUnMessage object:nil];
 }
+
 - (void)getUnMeaasge{
     if([MEUserInfoModel isLogin]){
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -113,7 +112,6 @@
 }
 
 #pragma mark - Private Method
-
 - (void)addChildVc:(UIViewController *)childVc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage{
     // 设置子控制器的图片
     childVc.tabBarItem.image = [[UIImage imageNamed:image] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

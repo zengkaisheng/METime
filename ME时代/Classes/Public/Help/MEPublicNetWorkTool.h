@@ -641,8 +641,25 @@
 + (void)postCreateOrderWithCourseId:(NSString *)courseId orderType:(NSString *)orderType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //音频/视频 支付订单
 + (void)postPayOnlineOrderWithOrderSn:(NSString *)order_sn successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//轮询订单状态
++ (void)postGetOrderStatusWithOrderSn:(NSString *)order_sn successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
+
+/*********************************************/
+#pragma mark - Diagonse
+//诊断问题
++ (void)postGetDiagnoseQuestionWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//提交诊断问题
++ (void)postAddDiagnoseQuestionWithName:(NSString *)name phone:(NSString *)phone isBeen:(NSString *)is_been optionsJson:(NSString *)options_json successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//专家诊断服务列表
++ (void)postGetDiagnosisProductWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+// 创建诊断订单
++ (void)postCreateDiagnoiseOrderWithProductId:(NSString *)productId orderType:(NSString *)orderType phone:(NSString *)phone remark:(NSString *)remark successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//提交问题咨询
++ (void)postConsultQuestionWithProblem:(NSString *)problem images:(NSString*)images successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+/*********************************************/
 
 
 + (MBProgressHUD *)commitWithHUD:(NSString *)str;

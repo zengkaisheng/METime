@@ -22,6 +22,7 @@ const static CGFloat MEBynamicPublishVCTextHeight = 193;
     NSMutableArray *_arrImage;
     NSString *_token;
     BOOL _isError;
+    NSInteger _type;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -37,11 +38,22 @@ const static CGFloat MEBynamicPublishVCTextHeight = 193;
 
 @implementation MEFeedBackVC
 
+- (instancetype)initWithType:(NSInteger)type {
+    if (self = [super init]) {
+        _type = type;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kMEf5f4f4;
-    self.title = @"意见反馈";
+    if (_type == 1) {
+        self.title = @"问题咨询";
+    }else {
+        self.title = @"意见反馈";
+    }
     _isError = NO;
     
     MBProgressHUD *HUD = [MEPublicNetWorkTool commitWithHUD:@""];
@@ -75,13 +87,14 @@ const static CGFloat MEBynamicPublishVCTextHeight = 193;
 
 - (void)reloadGridView{
     [_gridView setUIWithArr:self.arrModel];
+    self.submitBtn.frame = CGRectMake(40, CGRectGetMaxY(self.gridView.frame)+36, SCREEN_WIDTH - 80, 42);
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(self.submitBtn.frame)+36);
 }
 
 - (void)submitFeedBack{
     [self.view endEditing:YES];
     NSString *content = kMeUnNilStr(_textView.textView.text);
     if(!content.length){
-        
         [MEShowViewTool showMessage:@"内容不能为空" view:self.view];
         return;
     }
@@ -112,20 +125,9 @@ const static CGFloat MEBynamicPublishVCTextHeight = 193;
                     dispatch_semaphore_signal(semaphore);
                 }];
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-//                [MEPublicNetWorkTool posUploadImagesWithFile:model.image successBlock:^(ZLRequestResponse *responseObject) {
-//                    [strongSelf->_arrImage addObject:kMeUnNilStr(responseObject.data[@"images_url"])];
-//                    NSLog(@"---------%@",responseObject.data);
-//                    NSLog(@"%@",kMeUnNilStr(responseObject.data[@"images_url"]));
-//                    dispatch_semaphore_signal(semaphore);
-//                } failure:^(id object) {
-//                    [strongSelf->_arrImage addObject:@""];
-//                    dispatch_semaphore_signal(semaphore);
-//                }];
-//                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
             }
         }
     });
-    
     
     dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         kMeSTRONGSELF
@@ -138,15 +140,28 @@ const static CGFloat MEBynamicPublishVCTextHeight = 193;
                                                                      error:&error];
                 NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                              encoding:NSUTF8StringEncoding];
-                [MEPublicNetWorkTool postFeedBackWithConten:content images:jsonString successBlock:^(ZLRequestResponse *responseObject) {
-                    kMeSTRONGSELF
-                    [MEShowViewTool showMessage:@"提交成功" view:self.view];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [strongSelf.navigationController popViewControllerAnimated:YES];
-                    });
-                } failure:^(id object) {
-                    
-                }];
+                
+                if (strongSelf->_type == 1) {
+                    [MEPublicNetWorkTool postConsultQuestionWithProblem:content images:jsonString successBlock:^(ZLRequestResponse *responseObject) {
+                        kMeSTRONGSELF
+                        [MEShowViewTool showMessage:@"提交成功" view:self.view];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [strongSelf.navigationController popViewControllerAnimated:YES];
+                        });
+                    } failure:^(id object) {
+                        
+                    }];
+                }else {
+                    [MEPublicNetWorkTool postFeedBackWithConten:content images:jsonString successBlock:^(ZLRequestResponse *responseObject) {
+                        kMeSTRONGSELF
+                        [MEShowViewTool showMessage:@"提交成功" view:self.view];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [strongSelf.navigationController popViewControllerAnimated:YES];
+                        });
+                    } failure:^(id object) {
+                        
+                    }];
+                }
             }else{
                 [MEShowViewTool SHOWHUDWITHHUD:hub test:@"图片上传失败"];
             }
@@ -161,8 +176,11 @@ const static CGFloat MEBynamicPublishVCTextHeight = 193;
     browser.currentIndex = model.selectIndex;
     [browser show];
 }
-
+#pragma ---- YBImageBrowserDataSource
 - (NSInteger)numberInYBImageBrowser:(YBImageBrowser *)imageBrowser {
+    if (_type == 1) {
+        return self.arrModel.count;
+    }
     return self.arrModel.count -1;
 }
 - (YBImageBrowserModel *)yBImageBrowser:(YBImageBrowser *)imageBrowser modelForCellAtIndex:(NSInteger)index {
@@ -187,13 +205,13 @@ const static CGFloat MEBynamicPublishVCTextHeight = 193;
 
 - (MEBynamicPublishGridView *)gridView{
     if(!_gridView){
-        _gridView = [[MEBynamicPublishGridView alloc]initWithFrame:CGRectMake(8, MEBynamicPublishVCTextHeight+49, SCREEN_WIDTH-16, 0)];
+        _gridView = [[MEBynamicPublishGridView alloc]initWithFrame:CGRectMake(8, MEBynamicPublishVCTextHeight+49, SCREEN_WIDTH-16, 0) maxCount:_type==1?3:9];
         _gridView.backgroundColor = [UIColor whiteColor];
         kMeWEAKSELF
         _gridView.selectBlock = ^(MEBynamicPublishGridModel *model) {
             kMeSTRONGSELF
             if(model.isAdd){
-                NSInteger maxIndex= 10 - strongSelf.arrModel.count;
+                NSInteger maxIndex= (strongSelf->_type==1?3:9)+1 - strongSelf.arrModel.count;
                 TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:maxIndex columnNumber:3 delegate:strongSelf pushPhotoPickerVc:YES];
                 imagePicker.allowPickingOriginalPhoto = NO;
                 imagePicker.allowPickingVideo = NO;
@@ -212,21 +230,25 @@ const static CGFloat MEBynamicPublishVCTextHeight = 193;
                             [strongSelf.arrModel addObject:model];
                         }
                     }
-                    MEBynamicPublishGridModel *lastmodel = [MEBynamicPublishGridModel modelWithImage:[UIImage imageNamed:@"icon_bynamicAdd"] isAdd:YES];
-                    [strongSelf.arrModel addObject:lastmodel];
+                    if (assets.count < (strongSelf->_type==1?3:9)) {
+                        MEBynamicPublishGridModel *lastmodel = [MEBynamicPublishGridModel modelWithImage:[UIImage imageNamed:@"icon_bynamicAdd"] isAdd:YES];
+                        [strongSelf.arrModel addObject:lastmodel];
+                    }
                     [strongSelf reloadGridView];
-                    strongSelf.submitBtn.frame = CGRectMake(40, CGRectGetMaxY(strongSelf.gridView.frame)+36, SCREEN_WIDTH - 80, 42);
                 }];
                 [strongSelf presentViewController:imagePicker animated:YES completion:nil];
             }else{
                 kMeSTRONGSELF
                 [strongSelf showPhotoWithModel:model];
             }
-            
         };
         _gridView.delBlock = ^(NSInteger index) {
             kMeSTRONGSELF
             [strongSelf.arrModel removeObjectAtIndex:index];
+            if (strongSelf.arrModel.count < (strongSelf->_type==1?3:9)) {
+                MEBynamicPublishGridModel *lastmodel = [MEBynamicPublishGridModel modelWithImage:[UIImage imageNamed:@"icon_bynamicAdd"] isAdd:YES];
+                [strongSelf.arrModel addObject:lastmodel];
+            }
             [strongSelf reloadGridView];
         };
     }
@@ -237,6 +259,9 @@ const static CGFloat MEBynamicPublishVCTextHeight = 193;
     if(!_textView){
         _textView = [[METextView alloc]initWithFrame:CGRectMake(8, 5, SCREEN_WIDTH-16, MEBynamicPublishVCTextHeight)];
         _textView.placeholderTextView.text = @"请在此输入您的宝贵意见，APP使用体验、优化建议都可以告诉我";
+        if (_type == 1) {
+            _textView.placeholderTextView.text = @"为了获得更好帮助，请尽可能详细描述问题~";
+        }
         _textView.textView.font = kMeFont(14);
         _textView.textView.textColor = kMEblack;
     }

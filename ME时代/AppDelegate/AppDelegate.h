@@ -17,5 +17,7 @@
 /** 横竖屏 */
 @property (nonatomic, assign) UIInterfaceOrientationMask orientationMask;
 
+- (void)reloadTabBar;
+
 @end
 

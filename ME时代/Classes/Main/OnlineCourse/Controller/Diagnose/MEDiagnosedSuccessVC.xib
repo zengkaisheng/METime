@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MEDiagnosedSuccessVC">
+            <connections>
+                <outlet property="topViewConsHeight" destination="HrQ-U3-mx3" id="ihR-me-f03"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_diagnoseSuccess" translatesAutoresizingMaskIntoConstraints="NO" id="zzO-gz-vaE">
+                    <rect key="frame" x="151.5" y="189" width="72" height="72"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="72" id="NfC-C5-Iqt"/>
+                        <constraint firstAttribute="height" constant="72" id="ism-Ng-RFx"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提交成功" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uvb-rq-vUf">
+                    <rect key="frame" x="150.5" y="296" width="74" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="6Sv-Sc-Usl"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="感谢您的信任" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHN-nn-z3F">
+                    <rect key="frame" x="141.5" y="337" width="92" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="KnG-Z6-jlq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您可在APP【我的】诊断反馈处查看报告" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMU-pI-Tzl">
+                    <rect key="frame" x="50.5" y="411" width="274" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="7L6-Ow-iYL"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N0l-E4-zAZ">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kbi-yg-lOw">
+                            <rect key="frame" x="0.0" y="63" width="375" height="1"/>
+                            <color key="backgroundColor" red="0.70196078429999997" green="0.70196078429999997" blue="0.70196078429999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="Cji-yO-Qgd"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuG-AU-58L">
+                            <rect key="frame" x="0.0" y="20" width="79" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="2y6-v9-Oto"/>
+                                <constraint firstAttribute="width" constant="79" id="Y1e-6B-VJj"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <inset key="titleEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="返回" image="icon-tmda">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="backAction:" destination="-1" eventType="touchUpInside" id="h4j-Bh-bDt"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在线诊断" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VN5-z7-cGc">
+                            <rect key="frame" x="150.5" y="31" width="74" height="22"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.98431372549019602" green="0.9800608952833334" blue="0.97515190972222221" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="VN5-z7-cGc" firstAttribute="centerY" secondItem="iuG-AU-58L" secondAttribute="centerY" id="3gd-Ms-NTW"/>
+                        <constraint firstAttribute="height" constant="64" id="HrQ-U3-mx3"/>
+                        <constraint firstAttribute="trailing" secondItem="kbi-yg-lOw" secondAttribute="trailing" id="Knr-xH-USe"/>
+                        <constraint firstItem="VN5-z7-cGc" firstAttribute="centerX" secondItem="N0l-E4-zAZ" secondAttribute="centerX" id="Lgn-bj-2Fs"/>
+                        <constraint firstItem="kbi-yg-lOw" firstAttribute="leading" secondItem="N0l-E4-zAZ" secondAttribute="leading" id="Mq1-92-Q20"/>
+                        <constraint firstAttribute="bottom" secondItem="kbi-yg-lOw" secondAttribute="bottom" id="ood-a1-PYd"/>
+                        <constraint firstItem="iuG-AU-58L" firstAttribute="leading" secondItem="N0l-E4-zAZ" secondAttribute="leading" id="wEr-BH-TDD"/>
+                        <constraint firstAttribute="bottom" secondItem="iuG-AU-58L" secondAttribute="bottom" id="xy1-BL-RPb"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我们将于24小时出具诊断报告" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kk4-dK-jXa">
+                    <rect key="frame" x="86.5" y="374" width="202" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="3q6-pL-Wnc"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Uvb-rq-vUf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5Ok-ap-jc9"/>
+                <constraint firstItem="Kk4-dK-jXa" firstAttribute="centerX" secondItem="RHN-nn-z3F" secondAttribute="centerX" id="9gO-E9-zLl"/>
+                <constraint firstItem="RHN-nn-z3F" firstAttribute="centerX" secondItem="Uvb-rq-vUf" secondAttribute="centerX" id="BRC-aV-fFr"/>
+                <constraint firstItem="RHN-nn-z3F" firstAttribute="top" secondItem="Uvb-rq-vUf" secondAttribute="bottom" constant="16" id="DHK-Vy-8pI"/>
+                <constraint firstItem="Uvb-rq-vUf" firstAttribute="top" secondItem="zzO-gz-vaE" secondAttribute="bottom" constant="35" id="Icp-8E-GTm"/>
+                <constraint firstItem="nMU-pI-Tzl" firstAttribute="top" secondItem="Kk4-dK-jXa" secondAttribute="bottom" constant="16" id="OIp-Rx-FYz"/>
+                <constraint firstItem="N0l-E4-zAZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PVY-Ur-4Qx"/>
+                <constraint firstAttribute="trailing" secondItem="N0l-E4-zAZ" secondAttribute="trailing" id="cTG-KM-Ksr"/>
+                <constraint firstItem="nMU-pI-Tzl" firstAttribute="centerX" secondItem="Kk4-dK-jXa" secondAttribute="centerX" id="cTL-gk-FKG"/>
+                <constraint firstItem="zzO-gz-vaE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mTg-Pf-BbZ"/>
+                <constraint firstItem="Kk4-dK-jXa" firstAttribute="top" secondItem="RHN-nn-z3F" secondAttribute="bottom" constant="16" id="uEW-UW-MVp"/>
+                <constraint firstItem="zzO-gz-vaE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="189" id="veC-87-RFd"/>
+                <constraint firstItem="N0l-E4-zAZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="xbc-N8-8df"/>
+            </constraints>
+            <point key="canvasLocation" x="39.200000000000003" y="46.326836581709152"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon-tmda" width="50" height="23"/>
+        <image name="icon_diagnoseSuccess" width="72" height="72"/>
+    </resources>
+</document>

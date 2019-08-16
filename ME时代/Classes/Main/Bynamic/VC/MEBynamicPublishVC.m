@@ -75,6 +75,8 @@ const static CGFloat MEBynamicPublishVCTextHeight = 135;
 
 - (void)reloadGridView{
     [_gridView setUIWithArr:self.arrModel];
+    self.chooseView.frame = CGRectMake(0, CGRectGetMaxY(self.gridView.frame)+66, SCREEN_WIDTH, 104);
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(self.chooseView.frame)+30);
 }
 
 - (void)pushlishAction:(UIButton *)btn{
@@ -201,7 +203,7 @@ const static CGFloat MEBynamicPublishVCTextHeight = 135;
 
 - (MEBynamicPublishGridView *)gridView{
     if(!_gridView){
-        _gridView = [[MEBynamicPublishGridView alloc]initWithFrame:CGRectMake(0, MEBynamicPublishVCTextHeight, SCREEN_WIDTH, 0)];
+        _gridView = [[MEBynamicPublishGridView alloc]initWithFrame:CGRectMake(0, MEBynamicPublishVCTextHeight, SCREEN_WIDTH, 0) maxCount:9];
         kMeWEAKSELF
         _gridView.selectBlock = ^(MEBynamicPublishGridModel *model) {
             kMeSTRONGSELF

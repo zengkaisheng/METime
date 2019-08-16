@@ -371,7 +371,7 @@
     //3 再把AVPlayer放到 AVPlayerLayer上
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
     self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;//视频填充模式
-    self.playerLayer.frame = self.BGView.bounds;
+    self.playerLayer.frame = self.bounds;
     //4 最后把 AVPlayerLayer放到self.view.layer上(也就是需要放置的视图的layer层上)
     [self.BGView.layer addSublayer:self.playerLayer];
     
@@ -616,7 +616,7 @@
                         [self play];
                         self.isInitPlay = NO;
                     }else{
-                        [self pause];
+                        [self stopPlaying];
                     }
                 }
             }
@@ -624,7 +624,7 @@
     } else if ([keyPath isEqualToString:@"playbackBufferEmpty"]) { //监听播放器在缓冲数据的状态
         
         XMLog(@"缓冲不足暂停了");
-        [self pause];
+        [self stopPlaying];
         [self startAnimation];
         
     } else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"]) {
@@ -1206,7 +1206,7 @@ didFinishDownloadingToURL:(NSURL *)location{
 
 //  即将返回前台的处理
 - (void)applicationWillResignActive {
-    [self pause];
+    [self stopPlaying];
 }
 
 // 点击播放
@@ -1255,6 +1255,13 @@ didFinishDownloadingToURL:(NSURL *)location{
     if (self.pauseBlock) {
         self.pauseBlock();
     }
+}
+
+- (void)stopPlaying {
+    if (self.playerViewType == XMPlayerViewTwoSynVideoType) {
+        [self.avPlayer2 pause];
+    }
+    [self.avPlayer pause];
 }
 
 // 释放

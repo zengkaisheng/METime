@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEFeedBackVC : MEBaseVC
 
+//类型 默认0 1为问题反馈
+- (instancetype)initWithType:(NSInteger)type;
+
 @end
 
 NS_ASSUME_NONNULL_END

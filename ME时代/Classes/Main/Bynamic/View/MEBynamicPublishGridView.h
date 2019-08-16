@@ -20,6 +20,9 @@ const static CGFloat kMEBynamicPublishGridViewPadding = 6;
 
 + (CGFloat)getViewHeightWIth:(NSArray *)arr;
 - (void)setUIWithArr:(NSArray *)arr;
+//设置最大图片选择数量 最多9张
+- (instancetype)initWithFrame:(CGRect)frame maxCount:(NSInteger)maxCount;
+
 @property (nonatomic, copy) kMePublishGridModelBlock selectBlock;
 @property (nonatomic, copy) kMeIndexBlock delBlock;
 @property (nonatomic, strong) NSMutableArray *arrImageView;

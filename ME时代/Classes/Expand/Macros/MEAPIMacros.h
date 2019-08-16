@@ -841,6 +841,30 @@
 #define MEIPcommonOnlineCreateOrder @"common/online/createOrder"
 //支付订单
 #define MEIPcommonOnlinePayOrder @"common/online/payOrder"
+//轮询订单状态
+#define MEIPcommonOnlineGetOrderStatus @"common/online/getOrderStatus"
+
+//订单列表
+#define MEIPcommonOnlineGetOrderList @"common/online/orderList"
+/*********************************************/
+
+
+
+/*********************************************/
+#pragma makr - 在线诊断
+//诊断问题
+#define MEIPcommonDiagnosisQuestion @"common/diagnosis/diagnosisQuestion"
+//提交诊断问题
+#define MEIPcommonAddDiagnosisQuestion @"common/diagnosis/addDiagnosis"
+
+//诊断服务列表
+#define MEIPcommonDiagnosisProduct @"common/diagnosis/diagnosisProduct"
+//创建诊断订单
+#define MEIPcommonDiagnosisCreateOrder @"common/diagnosis/createOrder"
+//提交问题咨询
+#define MEIPcommonDiagnosisAddProblem @"common/online/addProblem"
+//我的诊断服务订单
+#define MEIPcommonDiagnosisService @"common/diagnosis/diagnosisService"
 
 /*********************************************/
 

@@ -51,7 +51,7 @@ img.style.maxWidth = %f;   \
 
 #define kMEAppId @"1438596690"
 
-
+#define kMENowStatus @"kMENowStatus"
 
 // RGB颜色
 #define kMeColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]

@@ -43,6 +43,8 @@
 
 #import "LXDAppFluecyMonitor.h"
 
+#import "MENewTabBarVC.h"
+
 @interface AppDelegate ()<WXApiDelegate,UNUserNotificationCenterDelegate,JPUSHRegisterDelegate>
 
 @end
@@ -56,6 +58,8 @@
     if ([kCurrentUser.mobile length] <= 0 || kCurrentUser.is_invitation != 1) {
         [MEUserInfoModel logout];
     }
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     // 卡顿监测
     [[LXDAppFluecyMonitor sharedMonitor] startMonitoring];
@@ -152,7 +156,16 @@
     self.window.backgroundColor = [UIColor whiteColor];
     NSString *frist = [[NSUserDefaults standardUserDefaults] objectForKey:kMEAppVersion];
     if(kMeUnNilStr(frist).length){
-        [self.window setRootViewController:[METabBarVC new]];
+        NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+        if (!status || status.length<=0) {
+            [kMeUserDefaults setObject:@"customer" forKey:kMENowStatus];
+            [kMeUserDefaults synchronize];
+        }
+        if ([status isEqualToString:@"customer"]) {
+            [self.window setRootViewController:[METabBarVC new]];
+        }else if ([status isEqualToString:@"business"]) {
+            [self.window setRootViewController:[MENewTabBarVC new]];
+        }
     }else{
         MEGuideVC *fvc = [[MEGuideVC alloc] init];
         [self.window setRootViewController:fvc];
@@ -165,6 +178,15 @@
     [MECommonTool postAuthRegId];
     //
     return YES;
+}
+
+- (void)reloadTabBar {
+    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+    if ([status isEqualToString:@"customer"]) {
+        [self.window setRootViewController:[METabBarVC new]];
+    }else if ([status isEqualToString:@"business"]) {
+        [self.window setRootViewController:[MENewTabBarVC new]];
+    }
 }
 
 // window中支持的屏幕显示方向
