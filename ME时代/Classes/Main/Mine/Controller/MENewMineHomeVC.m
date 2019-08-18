@@ -170,10 +170,10 @@
                         }
                     }else if ([status isEqualToString:@"business"]) {
                         if (kCurrentUser.audit.is_radar == 1) {
-                            strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor),@(MeAILEI)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MeMyCollection),@(MeHomeNewGuide)]];
+                            strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor),@(MeAILEI)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MEDiagnoseOrder),@(MeMyCollection),@(MeHomeNewGuide)]];
                             strongSelf->_arrtypeTitle = @[@"商家管理",@"佣金",@"店铺",@"获客",@"必备"];
                         }else if (kCurrentUser.audit.is_radar == 2) {
-                            strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MeMyCollection),@(MeHomeNewGuide)]];
+                            strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MEDiagnoseOrder),@(MeMyCollection),@(MeHomeNewGuide)]];
                             strongSelf->_arrtypeTitle = @[@"商家管理",@"佣金",@"店铺",@"必备"];
                         }
                     }

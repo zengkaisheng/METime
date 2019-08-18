@@ -1220,6 +1220,7 @@
 		EB9536DC23068BC00045952D /* MEDiagnoseOrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9536DB23068BC00045952D /* MEDiagnoseOrderListModel.m */; };
 		EB9536E023068DCE0045952D /* MEDiagnoseOrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9536DE23068DCE0045952D /* MEDiagnoseOrderListCell.m */; };
 		EB9536E123068DCE0045952D /* MEDiagnoseOrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9536DF23068DCE0045952D /* MEDiagnoseOrderListCell.xib */; };
+		EB9536E42306B86C0045952D /* MEDiagnoseFeedBackBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9536E32306B86C0045952D /* MEDiagnoseFeedBackBaseVC.m */; };
 		EB971C782301010100F426B5 /* MEourseClassifyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB971C772301010100F426B5 /* MEourseClassifyModel.m */; };
 		EB9BE12422E59D7200D5F6E4 /* MEShareCouponVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9BE12222E59D7200D5F6E4 /* MEShareCouponVC.m */; };
 		EB9BE12522E59D7200D5F6E4 /* MEShareCouponVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9BE12322E59D7200D5F6E4 /* MEShareCouponVC.xib */; };
@@ -3379,6 +3380,8 @@
 		EB9536DD23068DCE0045952D /* MEDiagnoseOrderListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEDiagnoseOrderListCell.h; sourceTree = "<group>"; };
 		EB9536DE23068DCE0045952D /* MEDiagnoseOrderListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEDiagnoseOrderListCell.m; sourceTree = "<group>"; };
 		EB9536DF23068DCE0045952D /* MEDiagnoseOrderListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEDiagnoseOrderListCell.xib; sourceTree = "<group>"; };
+		EB9536E22306B86C0045952D /* MEDiagnoseFeedBackBaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEDiagnoseFeedBackBaseVC.h; sourceTree = "<group>"; };
+		EB9536E32306B86C0045952D /* MEDiagnoseFeedBackBaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEDiagnoseFeedBackBaseVC.m; sourceTree = "<group>"; };
 		EB971C762301010100F426B5 /* MEourseClassifyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEourseClassifyModel.h; sourceTree = "<group>"; };
 		EB971C772301010100F426B5 /* MEourseClassifyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEourseClassifyModel.m; sourceTree = "<group>"; };
 		EB9BE12122E59D7200D5F6E4 /* MEShareCouponVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEShareCouponVC.h; sourceTree = "<group>"; };
@@ -7382,6 +7385,8 @@
 			children = (
 				EB8CC30A230562DF00BB99FC /* MEDiagnoseFeedBackVC.h */,
 				EB8CC30B230562DF00BB99FC /* MEDiagnoseFeedBackVC.m */,
+				EB9536E22306B86C0045952D /* MEDiagnoseFeedBackBaseVC.h */,
+				EB9536E32306B86C0045952D /* MEDiagnoseFeedBackBaseVC.m */,
 			);
 			name = DiagnoseFeedBack;
 			path = "ME时代/Classes/Main/OnlineCourse/Controller/DiagnoseFeedBack";
@@ -8449,6 +8454,7 @@
 				366D5AF9214A09BB0021C1BB /* MEMakeOrderSelectAddressView.m in Sources */,
 				360057FF2189F2420010C21C /* MESearchHistoryModel.m in Sources */,
 				3683F7BA21CBA656008139B0 /* MEGiftMainCell.m in Sources */,
+				EB9536E42306B86C0045952D /* MEDiagnoseFeedBackBaseVC.m in Sources */,
 				36F5E81A222F68F1000B0241 /* TResponderTextView.m in Sources */,
 				3615B392225DBBFB00EA0F02 /* MEAICustomerHomeVC.m in Sources */,
 				36BF3E5021F9974900C8F856 /* MECouponDetailModel.m in Sources */,

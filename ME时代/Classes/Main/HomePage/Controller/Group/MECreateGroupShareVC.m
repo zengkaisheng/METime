@@ -64,7 +64,7 @@
     //过滤器恢复默认
     [filter setDefaults];
     //给过滤器添加数据http://test.meshidai.com/assembledist/newAuth.html?id=%@
-    NSString *shareUrl = [NSString stringWithFormat:@"%@assembledist/newAuth.html?id=%@",baseUrl,self.model.order_sn];
+    NSString *shareUrl = [NSString stringWithFormat:@"%@assemble/newAuth.html?id=%@&inviteCode=%@",baseUrl,self.model.order_sn,kMeUnNilStr(kCurrentUser.invite_code).length>0?kMeUnNilStr(kCurrentUser.invite_code):@""];
     //将NSString格式转化成NSData格式
     NSData *data = [shareUrl dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     [filter setValue:data forKeyPath:@"inputMessage"];

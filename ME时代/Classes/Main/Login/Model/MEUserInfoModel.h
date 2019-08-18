@@ -125,6 +125,8 @@ static NSString *kTokenKey = @"kTokenKey";
 @property (nonatomic, copy) NSString *invite_code;
 
 @property (nonatomic, assign) NSInteger is_invitation;
+//平台身份 0无 1专家 2客服 3专家+客服
+@property (nonatomic, assign) NSInteger identity_type;
 
 //个人中心C端
 //@property (nonatomic, assign) NSInteger admin_team;

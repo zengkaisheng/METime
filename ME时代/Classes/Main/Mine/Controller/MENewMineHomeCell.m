@@ -66,6 +66,7 @@
 #import "MEConsultQuestionVC.h"
 #import "MEDiagnoseFeedBackVC.h"
 #import "MEMyCollectionVC.h"
+#import "MEDiagnoseOrderListVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -332,8 +333,6 @@
         }
             break;
         case MEConsultQuestion:{//问题咨询
-//            MEConsultQuestionVC *vc = [[MEConsultQuestionVC alloc]init];
-//            [homeVc.navigationController pushViewController:vc animated:YES];
             MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc] initWithType:1];
             [homeVc.navigationController pushViewController:feedbackVC animated:YES];
         }
@@ -345,6 +344,11 @@
             break;
         case MeMyCollection:{//我的收藏
             MEMyCollectionVC *vc = [[MEMyCollectionVC alloc]init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MEDiagnoseOrder:{//我的诊断订单
+            MEDiagnoseOrderListVC *vc = [[MEDiagnoseOrderListVC alloc]init];
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;

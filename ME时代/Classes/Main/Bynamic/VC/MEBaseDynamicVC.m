@@ -533,9 +533,9 @@
         }else{
             
             //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
-            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),[NSString stringWithFormat:@"%@",@(model.product_id)],@"",@"",[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@productShare/newAuth.html?uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),[NSString stringWithFormat:@"%@",@(model.product_id)],@"",@"",[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
             NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
-            
+            //http://test.meshidai.com/productShare/newAuth.html？uid=1&goodsid=2&seckilltime=&command=&inviteCode=A6F96C
             shareTool.shareTitle = kMeUnNilStr(_productModel.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
             shareTool.shareDescriptionBody = kMeUnNilStr(_productModel.desc).length?kMeUnNilStr(_productModel.desc):kMeUnNilStr(_productModel.title);//@"你敢买我就敢送,ME时代氨基酸洁面慕斯(邮费10元)";
             shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
@@ -549,7 +549,7 @@
     }else{
         
         //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
-        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),[NSString stringWithFormat:@"%@",@(model.product_id)],@"",@"",[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@productShare/newAuth.html?uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),[NSString stringWithFormat:@"%@",@(model.product_id)],@"",@"",[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
         NSLog(@":%@",shareTool.sharWebpageUrl);
         
         shareTool.shareTitle = kMeUnNilStr(_productModel.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
@@ -576,7 +576,7 @@
         baseUrl = [@"http" stringByAppendingString:baseUrl];
         
         //https://msd.meshidai.com/meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@
-        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@meAuth.html?entrance=productShare&uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),[NSString stringWithFormat:@"%@",@(model.product_id)],@"",paoductIdEndoceStr,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@productShare/newAuth.html?uid=%@&goodsid=%@&seckilltime=%@&command=%@&inviteCode=%@",baseUrl,kMeUnNilStr(kCurrentUser.uid),[NSString stringWithFormat:@"%@",@(model.product_id)],@"",paoductIdEndoceStr,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
         
         shareTool.shareTitle = kMeUnNilStr(strongSelf->_productModel.title); //@"睁着眼洗的洁面慕斯,你见过吗?";
@@ -716,9 +716,11 @@
             NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
             baseUrl = [@"http" stringByAppendingString:baseUrl];
             //http://test.meshidai.com/api/article.html?id=%@&img=%@&text=%@&inviteCode=%@
-            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@article.html?id=%@&img=%@&text=%@&inviteCode=%@",baseUrl,model.idField,_imgUrl,_shareText,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            //http://test.meshidai.com/dynamic/home.html?id=40&inviteCode=233 新
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@dynamic/home.html?id=%@&img=%@&text=%@&inviteCode=%@",baseUrl,model.idField,_imgUrl,_shareText,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
             //    NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
-            
+        
+
             shareTool.shareTitle = model.title;
             shareTool.shareDescriptionBody = model.content;
             shareTool.shareImage = kMeGetAssetImage(@"icon-wgvilogo");
