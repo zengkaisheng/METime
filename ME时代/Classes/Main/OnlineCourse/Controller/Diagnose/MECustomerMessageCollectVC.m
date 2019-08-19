@@ -110,6 +110,7 @@
     
     NSMutableArray *mutableArr = [[NSMutableArray alloc] init];
     NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary *diagnosis = [NSMutableDictionary dictionary];
     
     for (MEDiagnosisSubModel *diagnoseModel in self.model.diagnosis) {
     
@@ -119,11 +120,14 @@
                 if (questionModel.answer.length > 0) {
                     isChoose = YES;
                     [tempDic setObject:@(diagnoseModel.idField) forKey:@"classify_id"];
-                    [tempDic setObject:@(questionModel.idField) forKey:@"question_id"];
-                    [tempDic setObject:@(questionModel.type) forKey:@"type"];
-                    [tempDic setObject:questionModel.answer forKey:@"content"];
+                    
+                    [diagnosis setObject:@(questionModel.idField) forKey:@"question_id"];
+                    [diagnosis setObject:@(questionModel.type) forKey:@"type"];
+                    [diagnosis setObject:questionModel.answer forKey:@"content"];
+                    [tempDic setObject:@[[diagnosis copy]] forKey:@"diagnosis"];
                     [mutableArr addObject:[tempDic copy]];
                     [tempDic removeAllObjects];
+                    [diagnosis removeAllObjects];
                 }
             }else {
                 NSMutableArray *tempArr = [[NSMutableArray alloc] init];
@@ -135,18 +139,24 @@
                 }
                 if (questionModel.type == 1) {
                     [tempDic setObject:@(diagnoseModel.idField) forKey:@"classify_id"];
-                    [tempDic setObject:@(questionModel.idField) forKey:@"question_id"];
-                    [tempDic setObject:@(questionModel.type) forKey:@"type"];
-                    [tempDic setObject:tempArr.firstObject forKey:@"option_id"];
+                    
+                    [diagnosis setObject:@(questionModel.idField) forKey:@"question_id"];
+                    [diagnosis setObject:@(questionModel.type) forKey:@"type"];
+                    [diagnosis setObject:tempArr.firstObject forKey:@"option_id"];
+                    [tempDic setObject:@[[diagnosis copy]] forKey:@"diagnosis"];
                     [mutableArr addObject:[tempDic copy]];
                     [tempDic removeAllObjects];
+                    [diagnosis removeAllObjects];
                     [tempArr removeAllObjects];
                 }else if (questionModel.type == 2) {
                     [tempDic setObject:@(diagnoseModel.idField) forKey:@"classify_id"];
-                    [tempDic setObject:@(questionModel.idField) forKey:@"question_id"];
-                    [tempDic setObject:@(questionModel.type) forKey:@"type"];
-                    [tempDic setObject:[tempArr copy] forKey:@"option_id"];
+                    
+                    [diagnosis setObject:@(questionModel.idField) forKey:@"question_id"];
+                    [diagnosis setObject:@(questionModel.type) forKey:@"type"];
+                    [diagnosis setObject:[tempArr copy] forKey:@"option_id"];
+                    [tempDic setObject:@[[diagnosis copy]] forKey:@"diagnosis"];
                     [mutableArr addObject:[tempDic copy]];
+                    [diagnosis removeAllObjects];
                     [tempDic removeAllObjects];
                     [tempArr removeAllObjects];
                 }

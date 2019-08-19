@@ -4226,7 +4226,26 @@
         kMeCallBlock(failure,error);
     }];
 }
-
+//诊断报告
++ (void)postGetDiagnoseReportWithReportId:(NSString *)reportId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"id":kMeUnNilStr(reportId)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonDiagnosisReport);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
 
 /*********************************************/
 

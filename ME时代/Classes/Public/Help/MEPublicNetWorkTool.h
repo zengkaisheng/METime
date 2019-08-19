@@ -658,6 +658,8 @@
 + (void)postCreateDiagnoiseOrderWithProductId:(NSString *)productId orderType:(NSString *)orderType phone:(NSString *)phone remark:(NSString *)remark successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //提交问题咨询
 + (void)postConsultQuestionWithProblem:(NSString *)problem images:(NSString*)images successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//诊断报告
++ (void)postGetDiagnoseReportWithReportId:(NSString *)reportId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
 /*********************************************/
 

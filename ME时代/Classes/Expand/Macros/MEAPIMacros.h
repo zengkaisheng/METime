@@ -865,6 +865,10 @@
 #define MEIPcommonDiagnosisAddProblem @"common/online/addProblem"
 //我的诊断服务订单
 #define MEIPcommonDiagnosisService @"common/diagnosis/diagnosisService"
+//诊断反馈列表
+#define MEIPcommonDiagnosisList @"common/diagnosis/diagnosisList"
+//诊断报告
+#define MEIPcommonDiagnosisReport @"common/diagnosis/report"
 
 /*********************************************/
 

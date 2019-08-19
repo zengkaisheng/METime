@@ -27,22 +27,23 @@
     [self.view addSubview:self.bgView];
     
     UILabel *nameLbl = [self createLabelWithTitle:@"姓名"];
-    nameLbl.frame = CGRectMake(15, 15.5, 36, 21);
+    nameLbl.frame = CGRectMake(15, 18, 36, 30);
     [self.bgView addSubview:nameLbl];
     
-    self.nameTF = [[UITextField alloc] initWithFrame:CGRectMake(68, 14, 160, 24)];
+    self.nameTF = [[UITextField alloc] initWithFrame:CGRectMake(68, 18, 190, 30)];
     self.nameTF.placeholder = @" 请输入姓名";
-    self.nameTF.font = [UIFont systemFontOfSize:14.0];
+    self.nameTF.font = [UIFont systemFontOfSize:16.0];
+    self.nameTF.returnKeyType = UIReturnKeyDone;
     self.nameTF.layer.borderWidth = 1.0;
     self.nameTF.layer.borderColor = [UIColor colorWithHexString:@"#707070"].CGColor;
     [self.bgView addSubview:self.nameTF];
     
     UILabel *phoneLbl = [self createLabelWithTitle:@"手机号"];
-    phoneLbl.frame = CGRectMake(15, 49.5, 50, 21);
+    phoneLbl.frame = CGRectMake(15, 60, 50, 30);
     [self.bgView addSubview:phoneLbl];
     
-    self.telephoneTF = [[UITextField alloc] initWithFrame:CGRectMake(68, 48, 160, 24)];
-    self.telephoneTF.font = [UIFont systemFontOfSize:14.0];
+    self.telephoneTF = [[UITextField alloc] initWithFrame:CGRectMake(68, 60, 190, 30)];
+    self.telephoneTF.font = [UIFont systemFontOfSize:16.0];
     self.telephoneTF.layer.borderWidth = 1.0;
     self.telephoneTF.layer.borderColor = [UIColor colorWithHexString:@"#707070"].CGColor;
     self.telephoneTF.placeholder = @" 请输入手机号";
@@ -50,17 +51,17 @@
     [self.bgView addSubview:self.telephoneTF];
     
     UILabel *tipsLbl = [self createLabelWithTitle:@"是否在线咨询过"];
-    tipsLbl.frame = CGRectMake(15, 82, 100, 21);
+    tipsLbl.frame = CGRectMake(15, 110, 100, 21);
     [self.bgView addSubview:tipsLbl];
     
-    UIButton *confirmBtn = [self createButtonWithTitle:@"是" font:12.0 frame:CGRectMake(226*kMeFrameScaleX(), 82, 45, 24) tag:1];
+    UIButton *confirmBtn = [self createButtonWithTitle:@"是" font:12.0 frame:CGRectMake(226*kMeFrameScaleX(), 110, 45, 24) tag:1];
     confirmBtn.selected = YES;
     confirmBtn.backgroundColor = [UIColor whiteColor];
     confirmBtn.layer.borderWidth = 1;
     confirmBtn.layer.borderColor = [UIColor colorWithHexString:@"#FFD5D5"].CGColor;
     [self.bgView addSubview:confirmBtn];
     
-    UIButton *denyBtn = [self createButtonWithTitle:@"否" font:12.0 frame:CGRectMake(289*kMeFrameScaleX(), 82, 45, 24) tag:2];
+    UIButton *denyBtn = [self createButtonWithTitle:@"否" font:12.0 frame:CGRectMake(289*kMeFrameScaleX(), 110, 45, 24) tag:2];
     [self.bgView addSubview:denyBtn];
     
     UIButton *nextBtn = [self createButtonWithTitle:@"下一步" font:15.0 frame:CGRectMake(15, SCREEN_HEIGHT-19-40, SCREEN_WIDTH-30, 40) tag:10];
@@ -119,14 +120,14 @@
     if (textField == self.telephoneTF) {
         return (strLength <= 11);
     }else if (textField == self.nameTF) {
-        return (strLength <= 6);
+        return (strLength <= 10);
     }
     return NO;
 }
 
 - (void)nameTFTextDidChange:(UITextField *)textField{
-    if(textField.text.length > 6){
-        textField.text = [textField.text substringWithRange:NSMakeRange(0,6)];
+    if(textField.text.length > 10){
+        textField.text = [textField.text substringWithRange:NSMakeRange(0,10)];
         [self.view endEditing:YES];
     }
 }
@@ -169,7 +170,7 @@
 
 - (UIView *)bgView {
     if (!_bgView) {
-        _bgView = [[UIView alloc] initWithFrame:CGRectMake(15, kMeNavBarHeight + 20, SCREEN_WIDTH-30, 120)];
+        _bgView = [[UIView alloc] initWithFrame:CGRectMake(15, kMeNavBarHeight + 20, SCREEN_WIDTH-30, 160)];
         _bgView.backgroundColor = [UIColor whiteColor];
         _bgView.layer.shadowOffset = CGSizeMake(0, 1);
         _bgView.layer.shadowOpacity = 1;

@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MEDiagnoseFeedBackBaseVC : MEBaseVC
-
+//1问题咨询 2诊断报告
 - (instancetype)initWithType:(NSInteger)type;
 
 @end

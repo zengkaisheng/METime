@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CuK-GV-I9k">
-                        <rect key="frame" x="15" y="0.0" width="345" height="113.5"/>
+                        <rect key="frame" x="15" y="2" width="345" height="113.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -29,9 +29,9 @@
                     </tableView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="CuK-GV-I9k" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="HQB-Qk-1Hc"/>
+                    <constraint firstItem="CuK-GV-I9k" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="HQB-Qk-1Hc"/>
                     <constraint firstAttribute="trailing" secondItem="CuK-GV-I9k" secondAttribute="trailing" constant="15" id="Oyz-V6-dMM"/>
-                    <constraint firstAttribute="bottom" secondItem="CuK-GV-I9k" secondAttribute="bottom" constant="10" id="bpG-Kz-lAT"/>
+                    <constraint firstAttribute="bottom" secondItem="CuK-GV-I9k" secondAttribute="bottom" constant="8" id="bpG-Kz-lAT"/>
                     <constraint firstItem="CuK-GV-I9k" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="oYw-YU-E8a"/>
                 </constraints>
             </tableViewCellContentView>
