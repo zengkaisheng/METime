@@ -16,6 +16,8 @@
 
 #import "MEDiagnosePromptView.h"
 #import "MEOnlineDiagnoseVC.h"
+#import "TDWebViewCell.h"
+#import "MEFeedBackVC.h"
 
 @interface MECourseVideoPlayVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -24,9 +26,8 @@
 @property (nonatomic, strong) XMPlayerView *playerView;
 @property (nonatomic, strong) MECourseDetailModel *model;
 @property (nonatomic, strong) NSArray *videoList;
-
+@property (strong, nonatomic) TDWebViewCell *webCell;
 @property (strong, nonatomic) NSTimer *timer;
-@property (nonatomic, assign) BOOL isShow;
 
 @end
 
@@ -69,7 +70,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navBarHidden = YES;
-    self.isShow = NO;
     if (!self.model) {
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -84,12 +84,12 @@
     self.playerView.pauseBlock = ^{
         //弹窗提示诊断
         kMeSTRONGSELF
-        if (!strongSelf.isShow) {
+        NSString *hasConsult = [kMeUserDefaults objectForKey:kMEHasConsult];
+        if (!hasConsult || [hasConsult integerValue] != 1) {
             [MEDiagnosePromptView showDiagnosePromptViewWithSuccessBlock:^{
                 MEOnlineDiagnoseVC *diagnoseVC = [[MEOnlineDiagnoseVC alloc] init];
                 [strongSelf.navigationController pushViewController:diagnoseVC animated:YES];
             } superView:strongSelf.view];
-            strongSelf.isShow = YES;
         }
         
     };
@@ -107,6 +107,11 @@
 
 - (void)reloadUI {
     self.playerView.videoURL = [NSURL URLWithString:self.model.video_urls];
+    
+    CGFloat width = [UIScreen mainScreen].bounds.size.width - 20;
+    NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
+    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.model.video_detail)] baseURL:nil];
+    
 //    kMeWEAKSELF
 //    [self.videoList enumerateObjectsUsingBlock:^(MEOnlineCourseListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
 //        kMeSTRONGSELF
@@ -116,7 +121,9 @@
 //            model.isSelected = NO;
 //        }
 //    }];
-    [self.tableView reloadData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 #pragma mark -- Networking
@@ -150,10 +157,13 @@
 
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 1) {
+        return self.webCell;
+    }
     MEVideoCourseDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEVideoCourseDetailCell class]) forIndexPath:indexPath];
     [cell setUIWithArr:self.videoList model:self.model];
     kMeWEAKSELF
@@ -167,20 +177,52 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 220;
+    if (indexPath.row == 1) {
+        if(!_webCell){
+            return 0;
+        }else{
+            return [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
+        }
+    }
+    return 79;
 }
 
 #pragma mark -- Action
 - (void)bottomBtnDidClick:(UIButton *)sender {
     switch (sender.tag-100) {
         case 0:
-            NSLog(@"点击了分享按钮");
+        {
+            [self.playerView stopPlaying];
+            
+            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+            NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+            baseUrl = [@"http" stringByAppendingString:baseUrl];
+            
+            //https://test.meshidai.com/bargaindist/newAuth.html?id=7&uid=xxx
+//            shareTool.shar WebpageUrl = [NSString stringWithFormat:@"%@bargaindist/newAuth.html?id=%ld&uid=%@&inviteCode=%@",baseUrl,(long)self.model.video_id,kMeUnNilStr(kCurrentUser.uid),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+            
+            shareTool.shareTitle = kMeUnNilStr(self.model.video_name);
+            shareTool.shareDescriptionBody = kMeUnNilStr(self.model.video_desc);
+            shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(self.model.video_images)]]];
+            
+            [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+                [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+                [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+            } failure:^(NSError *error) {
+                [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+            }];
+        }
             break;
         case 1:
             NSLog(@"点击了收藏按钮");
             break;
         case 2:
-            NSLog(@"点击了咨询按钮");
+        {
+            [self.playerView stopPlaying];
+            MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc] initWithType:1];
+            [self.navigationController pushViewController:feedbackVC animated:YES];
+        }
             break;
         default:
             break;
@@ -202,6 +244,7 @@
 - (UITableView *)tableView{
     if(!_tableView){
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.playerView.frame), SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetMaxY(_playerView.frame)-50-kMeTabbarSafeBottomMargin) style:UITableViewStylePlain];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TDWebViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TDWebViewCell class])];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEVideoCourseDetailCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEVideoCourseDetailCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -214,6 +257,13 @@
         _tableView.backgroundColor = [UIColor whiteColor];
     }
     return _tableView;
+}
+
+- (TDWebViewCell *)webCell{
+    if(!_webCell){
+        _webCell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TDWebViewCell class])];
+    }
+    return _webCell;
 }
 
 - (XMPlayerView *)playerView {

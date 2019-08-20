@@ -123,7 +123,7 @@
     if (self.datas) {
         MEReportSuggestsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEReportSuggestsCell class]) forIndexPath:indexPath];
         NSString *str = self.datas[indexPath.row];
-        cell.titleLbl.text = [NSString stringWithFormat:@"%ld、%@",indexPath.row+1,str];
+        cell.titleLbl.text = [NSString stringWithFormat:@"%d、%@",indexPath.row+1,str];
         return cell;
     }
     return nil;
@@ -300,8 +300,6 @@
     }
     return height+20;
 }
-
-
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

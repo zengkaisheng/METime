@@ -63,7 +63,6 @@
 #import "MEHomeTestVC.h"
 #import "MEProjectSettingVC.h"
 #import "MECourseOrderListVC.h"
-#import "MEConsultQuestionVC.h"
 #import "MEDiagnoseFeedBackVC.h"
 #import "MEMyCollectionVC.h"
 #import "MEDiagnoseOrderListVC.h"

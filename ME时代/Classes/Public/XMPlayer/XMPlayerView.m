@@ -215,7 +215,8 @@
         if (current >= self.previewTime) {
             self.controlView.replayButton.hidden = NO;
             self.controlView.playButton.selected = YES;
-            [self pause];
+            [MECommonTool showMessage:@"试听结束" view:kMeCurrentWindow];
+            [self stopPlaying];
         }
     }
 }
@@ -526,7 +527,8 @@
             if (current >= weakSelf.previewTime) {
                 weakSelf.controlView.replayButton.hidden = NO;
                 weakSelf.controlView.playButton.selected = YES;
-                [weakSelf pause];
+                [MECommonTool showMessage:@"试听结束" view:kMeCurrentWindow];
+                [weakSelf stopPlaying];
             }
         }
     }];
@@ -1258,6 +1260,8 @@ didFinishDownloadingToURL:(NSURL *)location{
 }
 
 - (void)stopPlaying {
+    self.controlView.playButton.selected = YES;
+    self.isManualStop = YES;
     if (self.playerViewType == XMPlayerViewTwoSynVideoType) {
         [self.avPlayer2 pause];
     }

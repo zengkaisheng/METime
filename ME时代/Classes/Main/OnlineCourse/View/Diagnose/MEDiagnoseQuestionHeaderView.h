@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setUIWithQuestionModel:(MEReportQuestionsModel *)model;
 - (void)setUIWithAnalyseModel:(MEReportAnalyseModel *)model;
 
+- (void)setUIWithSectionTitle:(NSString *)title;
+
 @end
 
 NS_ASSUME_NONNULL_END

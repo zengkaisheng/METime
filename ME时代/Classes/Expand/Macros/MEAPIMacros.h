@@ -872,5 +872,15 @@
 
 /*********************************************/
 
+
+/*********************************************/
+#pragma makr - 客户档案
+//获取顾客分类列表
+#define MEIPcommonCustomerClassifyList @"common/customerclassify/classifyList"
+//获取顾客档案列表
+#define MEIPcommonCustomerFilesList @"common/customerfiles/customerFilesList"
+
+/*********************************************/
+
 #endif /* MEAPIMacros_h */
 

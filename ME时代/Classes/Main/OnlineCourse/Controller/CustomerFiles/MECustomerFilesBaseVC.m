@@ -1,37 +1,44 @@
 //
-//  MEDiagnoseListVC.m
+//  MECustomerFilesBaseVC.m
 //  ME时代
 //
-//  Created by gao lei on 2019/8/6.
+//  Created by gao lei on 2019/8/19.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MEDiagnoseListVC.h"
-#import "MEExpertDiagnoseListCell.h"
-#import "MEDiagnoseProductModel.h"
-#import "MEExpertDiagnosePayVC.h"
+#import "MECustomerFilesBaseVC.h"
+#import "MECustomerFileListModel.h"
+#import "MECustomerFilesListCell.h"
 
-@interface MEDiagnoseListVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
+@interface MECustomerFilesBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
+@property (nonatomic, assign) NSInteger classifyId;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ZLRefreshTool *refresh;
 
 @end
 
-@implementation MEDiagnoseListVC
+@implementation MECustomerFilesBaseVC
+
+- (instancetype)initWithClassifyId:(NSInteger)classifyId {
+    if (self = [super init]) {
+        _classifyId = classifyId;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"诊断服务";
+    
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
 }
 
 #pragma RefreshToolDelegate
 - (NSDictionary *)requestParameter{
-    return @{
-             @"token":kMeUnNilStr(kCurrentUser.token)
+    return @{@"token":kMeUnNilStr(kCurrentUser.token),
+             @"classify_id":@(self.classifyId)
              };
 }
 
@@ -39,7 +46,7 @@
     if(![data isKindOfClass:[NSArray class]]){
         return;
     }
-    [self.refresh.arrData addObjectsFromArray:[MEDiagnoseProductModel mj_objectArrayWithKeyValuesArray:data]];
+    [self.refresh.arrData addObjectsFromArray:[MECustomerFileListModel mj_objectArrayWithKeyValuesArray:data]];
 }
 
 #pragma mark - tableView deleagte and sourcedata
@@ -48,29 +55,27 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MEExpertDiagnoseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEExpertDiagnoseListCell class]) forIndexPath:indexPath];
-    MEDiagnoseProductModel *model = self.refresh.arrData[indexPath.row];
+    MECustomerFilesListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerFilesListCell class]) forIndexPath:indexPath];
+    MECustomerFileListModel *model = self.refresh.arrData[indexPath.row];
     [cell setUIWithModel:model];
-    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return kMEExpertDiagnoseListCellHeight;
+    return kMECustomerFilesListCellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MEDiagnoseProductModel *model = self.refresh.arrData[indexPath.row];
-    
-    MEExpertDiagnosePayVC *vc = [[MEExpertDiagnosePayVC alloc] initWithModel:model];
-    [self.navigationController pushViewController:vc animated:YES];
+//    MEOnlineCourseListModel *model = self.refresh.arrData[indexPath.row];
+//    MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:_type];
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma setter&&getter
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight+10, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-10) style:UITableViewStylePlain];
-        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEExpertDiagnoseListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEExpertDiagnoseListCell class])];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) style:UITableViewStylePlain];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECustomerFilesListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECustomerFilesListCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.delegate = self;
@@ -85,13 +90,13 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonDiagnosisProduct)];
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonCustomerFilesList)];
         _refresh.delegate = self;
         _refresh.isDataInside = YES;
         _refresh.showMaskView = YES;
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
             failView.backgroundColor = [UIColor whiteColor];
-            failView.lblOfNodata.text = @"暂无相关订单";
+            failView.lblOfNodata.text = @"暂无相关信息";
         }];
     }
     return _refresh;

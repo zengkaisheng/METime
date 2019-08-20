@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UIButton *arrowBtn;
+@property (weak, nonatomic) IBOutlet UIButton *editBtn;
 
 @end
 
@@ -20,12 +21,14 @@
 
 - (void)setUIWithTitle:(NSString *)title font:(CGFloat)font isHiddenBtn:(BOOL)isHidden{
     _arrowBtn.hidden = isHidden;
+    _editBtn.hidden = YES;
     _titleLbl.text = title;
     _titleLbl.font = [UIFont systemFontOfSize:font];
 }
 
 - (void)setUIWithQuestionModel:(MEReportQuestionsModel *)model {
     _arrowBtn.hidden = NO;
+    _editBtn.hidden = YES;
     _arrowBtn.selected = model.isSpread;
     _titleLbl.text = kMeUnNilStr(model.classify_name);
     _titleLbl.font = [UIFont systemFontOfSize:18.0];
@@ -33,15 +36,25 @@
 
 - (void)setUIWithAnalyseModel:(MEReportAnalyseModel *)model {
     _arrowBtn.hidden = NO;
+    _editBtn.hidden = YES;
     _arrowBtn.selected = model.isSpread;
     _titleLbl.text = kMeUnNilStr(model.classify_name);
     _titleLbl.font = [UIFont systemFontOfSize:18.0];
 }
 
+- (void)setUIWithSectionTitle:(NSString *)title {
+    _arrowBtn.hidden = YES;
+    _editBtn.hidden = NO;
+    _titleLbl.text = title;
+    _titleLbl.font = [UIFont systemFontOfSize:18.0];
+}
+
 - (IBAction)downBtnAction:(id)sender {
-#warning 后期优化
     _arrowBtn.selected = !_arrowBtn.selected;
     kMeCallBlock(_tapBlock,_arrowBtn.selected);
+}
+- (IBAction)editAction:(id)sender {
+    kMeCallBlock(_tapBlock,YES);
 }
 
 @end

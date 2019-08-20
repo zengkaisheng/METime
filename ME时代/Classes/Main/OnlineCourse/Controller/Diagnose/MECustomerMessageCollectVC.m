@@ -67,6 +67,8 @@
     [MEPublicNetWorkTool postAddDiagnoseQuestionWithName:kMeUnNilStr(self.name) phone:kMeUnNilStr(self.phone) isBeen:kMeUnNilStr(self.is_been) optionsJson:json successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         if([responseObject.data isKindOfClass:[NSDictionary class]]){
+            [kMeUserDefaults setObject:@"1" forKey:kMEHasConsult];
+            [kMeUserDefaults synchronize];
             //跳到提交成功页面
             MEDiagnosedSuccessVC *vc = [[MEDiagnosedSuccessVC alloc] init];
             [strongSelf.navigationController pushViewController:vc animated:YES];

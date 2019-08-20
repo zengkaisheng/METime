@@ -12,6 +12,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "MEDiagnosePromptView.h"
 #import "MEOnlineDiagnoseVC.h"
+#import "MEFeedBackVC.h" 
 
 @interface MECourseAudioPlayerVC ()
 
@@ -35,7 +36,6 @@
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, assign) BOOL isFinished;
 @property (nonatomic, strong) id timeObserver;
-@property (nonatomic, assign) BOOL isShow;
 
 @end
 
@@ -59,7 +59,6 @@
     // Do any additional setup after loading the view from its nib.
     self.navBarHidden = YES;
     self.isFinished = NO;
-    self.isShow = NO;
     _backBtnConsTop.constant = kMeStatusBarHeight;
     _bottomViewConsHeight.constant += kMeTabbarSafeBottomMargin;
     
@@ -220,14 +219,14 @@
 
 - (void)showPromptView {
     //弹窗提示诊断
-    if (!self.isShow) {
+    NSString *hasConsult = [kMeUserDefaults objectForKey:kMEHasConsult];
+    if (!hasConsult || [hasConsult integerValue] != 1) {
         kMeWEAKSELF
         [MEDiagnosePromptView showDiagnosePromptViewWithSuccessBlock:^{
             kMeSTRONGSELF
             MEOnlineDiagnoseVC *diagnoseVC = [[MEOnlineDiagnoseVC alloc] init];
             [strongSelf.navigationController pushViewController:diagnoseVC animated:YES];
         } superView:self.view];
-        self.isShow = YES;
     }
 }
 
@@ -286,13 +285,40 @@
 - (void)bottomBtnDidClick:(UIButton *)sender {
     switch (sender.tag-100) {
         case 0:
-            NSLog(@"点击了分享按钮");
+        {
+            self.playBtn.selected = NO;
+            [self.player pause];
+            
+            MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
+            NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
+            baseUrl = [@"http" stringByAppendingString:baseUrl];
+            
+            //https://test.meshidai.com/bargaindist/newAuth.html?id=7&uid=xxx
+//            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@bargaindist/newAuth.html?id=%ld&uid=%@&inviteCode=%@",baseUrl,(long)self.model.audio_id,kMeUnNilStr(kCurrentUser.uid),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
+            
+            shareTool.shareTitle = kMeUnNilStr(self.model.audio_name);
+            shareTool.shareDescriptionBody = kMeUnNilStr(self.model.audio_desc);
+            shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(self.model.audio_images)]]];
+            
+            [shareTool showShareView:kShareWebPageContentType success:^(id data) {
+                [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
+                [MEShowViewTool showMessage:@"分享成功" view:kMeCurrentWindow];
+            } failure:^(NSError *error) {
+                [MEShowViewTool showMessage:@"分享失败" view:kMeCurrentWindow];
+            }];
+        }
             break;
         case 1:
             NSLog(@"点击了收藏按钮");
             break;
         case 2:
-            NSLog(@"点击了咨询按钮");
+        {
+            self.playBtn.selected = NO;
+            [self.player pause];
+            MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc] initWithType:1];
+            [self.navigationController pushViewController:feedbackVC animated:YES];
+        }
             break;
         default:
             break;

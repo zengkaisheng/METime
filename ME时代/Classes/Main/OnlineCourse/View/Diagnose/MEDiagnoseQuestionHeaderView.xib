@@ -33,7 +33,26 @@
                             <state key="normal" image="icon_downArrow"/>
                             <state key="selected" image="icon_upArrow"/>
                             <connections>
-                                <action selector="downBtnAction:" destination="-2" eventType="touchUpInside" id="jtd-Jr-C2P"/>
+                                <action selector="downBtnAction:" destination="-2" eventType="touchUpInside" id="83X-G8-NlD"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAz-0I-iVb">
+                            <rect key="frame" x="280" y="17" width="75" height="25"/>
+                            <color key="backgroundColor" red="1" green="0.83529411760000005" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="fmX-ok-ZxG"/>
+                                <constraint firstAttribute="width" constant="75" id="vug-xY-JG7"/>
+                            </constraints>
+                            <state key="normal" title="编辑">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="12.5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="editAction:" destination="-2" eventType="touchUpInside" id="sXs-Qm-aWG"/>
                             </connections>
                         </button>
                     </subviews>
@@ -42,7 +61,9 @@
                         <constraint firstItem="Q6a-di-QQE" firstAttribute="centerY" secondItem="PdH-EA-ctb" secondAttribute="centerY" id="CYY-5t-8ml"/>
                         <constraint firstItem="Q6a-di-QQE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g8a-Qg-o9L" secondAttribute="trailing" constant="5" id="CYf-TV-HB8"/>
                         <constraint firstAttribute="trailing" secondItem="Q6a-di-QQE" secondAttribute="trailing" constant="12" id="JV4-jQ-lPq"/>
+                        <constraint firstAttribute="trailing" secondItem="WAz-0I-iVb" secondAttribute="trailing" constant="20" id="OfK-q5-byP"/>
                         <constraint firstItem="g8a-Qg-o9L" firstAttribute="centerY" secondItem="Q6a-di-QQE" secondAttribute="centerY" id="egI-pU-hVJ"/>
+                        <constraint firstItem="WAz-0I-iVb" firstAttribute="centerY" secondItem="PdH-EA-ctb" secondAttribute="centerY" id="j4E-14-ELa"/>
                         <constraint firstItem="g8a-Qg-o9L" firstAttribute="leading" secondItem="PdH-EA-ctb" secondAttribute="leading" constant="21" id="yiy-Ol-kji"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -61,6 +82,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="arrowBtn" destination="Q6a-di-QQE" id="7r6-Ey-kex"/>
+                <outlet property="editBtn" destination="WAz-0I-iVb" id="DNx-UF-DRE"/>
                 <outlet property="titleLbl" destination="g8a-Qg-o9L" id="Yev-K5-KmS"/>
             </connections>
             <point key="canvasLocation" x="-498.39999999999998" y="80.50974512743629"/>

@@ -1,8 +1,8 @@
 //
-//  MEConsultQuestionVC.h
+//  MECustomerFilesVC.h
 //  ME时代
 //
-//  Created by gao lei on 2019/8/15.
+//  Created by gao lei on 2019/8/19.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MEConsultQuestionVC : MEBaseVC
+@interface MECustomerFilesVC : MEBaseVC
 
 @end
 

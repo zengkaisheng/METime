@@ -50,8 +50,10 @@ img.style.maxWidth = %f;   \
 #define kMEAppVersion [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
 #define kMEAppId @"1438596690"
-
+//当前身份 商家还是顾客
 #define kMENowStatus @"kMENowStatus"
+//是否提交了诊断
+#define kMEHasConsult @"kMEHasConsult"
 
 // RGB颜色
 #define kMeColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]

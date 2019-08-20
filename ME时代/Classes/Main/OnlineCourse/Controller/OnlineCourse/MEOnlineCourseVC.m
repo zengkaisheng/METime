@@ -20,6 +20,9 @@
 #import "MEOnlineCourseHomeModel.h"
 #import "MECourseListBaseVC.h"
 #import "MECourseDetailVC.h"
+#import "MECourseChargeOrFreeListVC.h"
+
+#import "MECustomerFilesVC.h"
 
 @interface MEOnlineCourseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -107,13 +110,18 @@
     }else if (indexPath.section == 1) {
         MEOnlineToolsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineToolsCell class]) forIndexPath:indexPath];
         [cell setUIWithModel:@[]];
+        kMeWEAKSELF
         cell.selectedBlock = ^(NSInteger index) {
+            kMeSTRONGSELF
             switch (index) {
                 case 1:
                     NSLog(@"运营数据");
                     break;
                 case 2:
-                    NSLog(@"顾客档案");
+                {
+                    MECustomerFilesVC *filesVC = [[MECustomerFilesVC alloc] init];
+                    [strongSelf.navigationController pushViewController:filesVC animated:YES];
+                }
                     break;
                 case 3:
                     NSLog(@"顾客服务");
@@ -276,13 +284,13 @@
                         break;
                     case 102:
                     {
-                        MECourseListBaseVC *vc = [[MECourseListBaseVC alloc] initWithType:2 index:0 materialArray:@[]];
+                        MECourseChargeOrFreeListVC *vc = [[MECourseChargeOrFreeListVC alloc] initWithIsFree:NO];
                         [strongSelf.navigationController pushViewController:vc animated:YES];
                     }
                         break;
                     case 103:
                     {
-                        MECourseListBaseVC *vc = [[MECourseListBaseVC alloc] initWithType:3 index:0 materialArray:@[]];
+                        MECourseChargeOrFreeListVC *vc = [[MECourseChargeOrFreeListVC alloc] initWithIsFree:YES];
                         [strongSelf.navigationController pushViewController:vc animated:YES];
                     }
                         break;

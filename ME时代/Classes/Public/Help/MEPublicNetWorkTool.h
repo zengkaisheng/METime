@@ -664,6 +664,17 @@
 /*********************************************/
 
 
+
+/*********************************************/
+#pragma mark - Diagonse
+//获取顾客分类列表
++ (void)postGetCustomerClassifyListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+/*********************************************/
+
+
+
+
 + (MBProgressHUD *)commitWithHUD:(NSString *)str;
 
 @end
