@@ -8,10 +8,14 @@
 
 #import "MECustomerDetailVC.h"
 #import "MEAddCustomerInfoModel.h"
+#import "MELivingHabitListModel.h"
+#import "MECustomerContentCell.h"
 
 @interface MECustomerDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *habitList;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 
 @end
 
@@ -22,7 +26,10 @@
     // Do any additional setup after loading the view.
     self.title = @"顾客档案";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self requestDiagnosisQuestionNetWork];
+    
+    [self.view addSubview:self.tableView];
+    [self requestHabitlistWithNetWork];
+    
 }
 
 - (void)loadDatas {
@@ -58,29 +65,35 @@
     MEAddCustomerInfoModel *adressModel = [self creatModelWithTitle:@"地址" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:YES andToastStr:@""];
     
     MEAddCustomerInfoModel *cTypeModel = [self creatModelWithTitle:@"顾客分类" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:YES andToastStr:@""];
+    cTypeModel.isLastItem = YES;
     
+    [self.dataSource addObject:@{@"title":@"基本资料",@"type":@"1",@"content":@[nameModel,sexModel,birthdayModel,WeChatModel,phoneModel,bestTimeModel,tailModel,bloodModel,hobbyModel,natureModel,marriedModel,jobModel,incomeModel,consumeModel,adressModel,cTypeModel]}];
     //生活习惯信息
-    
+    [self.dataSource addObject:@{@"title":@"生活习惯信息",@"type":@"2",@"content":self.habitList}];
     //顾客销售信息
     
     //销售跟进
+    
+    [self.tableView reloadData];
 }
 
 - (MEAddCustomerInfoModel *)creatModelWithTitle:(NSString *)title andPlaceHolder:(NSString *)placeHolder andMaxInputWords:(NSInteger)maxInputWords andIsTextField:(BOOL)isTextField andIsMustInput:(BOOL)isMustInput andToastStr:(NSString *)toastStr{
     
     MEAddCustomerInfoModel *model = [[MEAddCustomerInfoModel alloc]init];
     model.title = title;
+    model.value = @" ";
     model.placeHolder = placeHolder;
     model.maxInputWord = maxInputWords;
     model.isTextField = isTextField;
     model.isMustInput = isMustInput;
     model.toastStr = toastStr;
     model.isEdit = YES;
+    model.isHideArrow = YES;
     return model;
 }
 
 #pragma NetWorking
-- (void)requestDiagnosisQuestionNetWork{
+- (void)requestDiagnosisQuestionWithNetWork{
 //    kMeWEAKSELF
 //    [MEPublicNetWorkTool postGetDiagnoseQuestionWithSuccessBlock:^(ZLRequestResponse *responseObject) {
 //        kMeSTRONGSELF
@@ -98,13 +111,29 @@
 //    }];
 }
 
+- (void)requestHabitlistWithNetWork {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetLivingHabitListWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if([responseObject.data isKindOfClass:[NSArray class]]){
+            strongSelf.habitList = [MELivingHabitListModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+        }else {
+            strongSelf.habitList = [[NSArray alloc] init];
+        }
+        [strongSelf loadDatas];
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        strongSelf.habitList = [[NSArray alloc] init];
+    }];
+}
+
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+    return self.dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -114,24 +143,22 @@
 //        [cell setUIWithDiagnosisModel:diagnoseModel];
 //        return cell;
 //    }
-//    MEDiagnoseQuestionsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEDiagnoseQuestionsCell class]) forIndexPath:indexPath];
-//    MEDiagnosisSubModel *model = self.model.diagnosis[indexPath.section];
-//    [cell setUIWithDiagnosisModel:model];
-//    return cell;
-    return nil;
+    MECustomerContentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerContentCell class]) forIndexPath:indexPath];
+    NSDictionary *info = self.dataSource[indexPath.section];
+    [cell setUIWithInfo:info];
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 62;
-//    MEDiagnosisSubModel *model = self.model.diagnosis[indexPath.section];
-//    return [MEDiagnoseQuestionsCell getCellHeightWithModel:model];
+    NSDictionary *info = self.dataSource[indexPath.section];
+    return [MECustomerContentCell getCellHeightWithInfo:info];
 }
 
 #pragma setter&&getter
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight+10, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-10) style:UITableViewStylePlain];
-//        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEQuestionHeaderCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEQuestionHeaderCell class])];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) style:UITableViewStylePlain];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECustomerContentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECustomerContentCell class])];
 //        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEDiagnoseQuestionsCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEDiagnoseQuestionsCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -143,6 +170,13 @@
         _tableView.backgroundColor = [UIColor colorWithHexString:@"#FCFBFB"];
     }
     return _tableView;
+}
+
+- (NSMutableArray *)dataSource {
+    if (!_dataSource) {
+        _dataSource = [[NSMutableArray alloc] init];
+    }
+    return _dataSource;
 }
 
 @end

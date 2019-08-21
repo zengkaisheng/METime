@@ -63,8 +63,10 @@
 }
 
 - (void)consultAction {
-    MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc] initWithType:1];
-    [self.navigationController pushViewController:feedbackVC animated:YES];
+//    MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc] initWithType:1];
+//    [self.navigationController pushViewController:feedbackVC animated:YES];
+    NSMutableString *str = [[NSMutableString alloc] initWithFormat:@"telprompt://%@",kMeUnNilStr(self.model.telephone)];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
 
 #pragma mark - tableView deleagte and sourcedata

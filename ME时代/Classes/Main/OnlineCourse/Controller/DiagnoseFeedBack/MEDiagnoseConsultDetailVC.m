@@ -12,6 +12,7 @@
 @interface MEDiagnoseConsultDetailVC ()
 
 @property (nonatomic, strong) MEDiagnoseConsultModel *model;
+@property (nonatomic, assign) NSInteger consultId;
 
 @end
 
@@ -24,11 +25,29 @@
     return self;
 }
 
+- (instancetype)initWithConsultId:(NSInteger )consultId {
+    if (self = [super init]) {
+        self.consultId = consultId;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"问题反馈";
     self.view.backgroundColor = [UIColor colorWithHexString:@"#FCFBFB"];
+    
+    if (self.consultId > 0) {
+        [self requestConsultDetail];
+    }else {
+        if (_model) {
+            [self loadUI];
+        }
+    }
+}
+
+- (void)loadUI {
     //问题描述
     CGFloat problemHeight = [self getLabelHeightWithContent:kMeUnNilStr(self.model.problem)];
     CGFloat problemViewHeight = [self getBGViewHeightWithContentHeight:problemHeight images:kMeUnArr(self.model.images)];
@@ -44,6 +63,23 @@
     UIView *answerView = [self createBGViewWithTitle:@"问题回答" content:kMeUnNilStr(self.model.answer) contentHeight:answerHeight images:kMeUnArr(self.model.answer_images) frame:CGRectMake(15, CGRectGetMaxY(problemView.frame)+30, SCREEN_WIDTH-30, answerViewHeight)];
     answerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:answerView];
+}
+
+#pragma mark -- Networking
+- (void)requestConsultDetail {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetConsultDetailWithConsultId:[NSString stringWithFormat:@"%@",@(self.consultId)] successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if([responseObject.data isKindOfClass:[NSDictionary class]]){
+            strongSelf.model = [MEDiagnoseConsultModel mj_objectWithKeyValues:responseObject.data];
+        }else {
+            strongSelf.model = [[MEDiagnoseConsultModel alloc] init];
+        }
+        [strongSelf loadUI];
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 #pragma --- Helper

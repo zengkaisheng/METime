@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UIButton *arrowBtn;
 @property (weak, nonatomic) IBOutlet UIButton *editBtn;
+@property (weak, nonatomic) IBOutlet UIView *lineView;
 
 @end
 
@@ -21,14 +22,14 @@
 
 - (void)setUIWithTitle:(NSString *)title font:(CGFloat)font isHiddenBtn:(BOOL)isHidden{
     _arrowBtn.hidden = isHidden;
-    _editBtn.hidden = YES;
+    _editBtn.hidden = _lineView.hidden = YES;
     _titleLbl.text = title;
     _titleLbl.font = [UIFont systemFontOfSize:font];
 }
 
 - (void)setUIWithQuestionModel:(MEReportQuestionsModel *)model {
     _arrowBtn.hidden = NO;
-    _editBtn.hidden = YES;
+    _editBtn.hidden = _lineView.hidden = YES;
     _arrowBtn.selected = model.isSpread;
     _titleLbl.text = kMeUnNilStr(model.classify_name);
     _titleLbl.font = [UIFont systemFontOfSize:18.0];
@@ -36,7 +37,7 @@
 
 - (void)setUIWithAnalyseModel:(MEReportAnalyseModel *)model {
     _arrowBtn.hidden = NO;
-    _editBtn.hidden = YES;
+    _editBtn.hidden = _lineView.hidden = YES;
     _arrowBtn.selected = model.isSpread;
     _titleLbl.text = kMeUnNilStr(model.classify_name);
     _titleLbl.font = [UIFont systemFontOfSize:18.0];
@@ -44,7 +45,7 @@
 
 - (void)setUIWithSectionTitle:(NSString *)title {
     _arrowBtn.hidden = YES;
-    _editBtn.hidden = NO;
+    _editBtn.hidden = _lineView.hidden = NO;
     _titleLbl.text = title;
     _titleLbl.font = [UIFont systemFontOfSize:18.0];
 }

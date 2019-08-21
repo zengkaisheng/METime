@@ -15,6 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setUIWithArray:(NSArray *)array;
 + (CGFloat)getCellHeightWithArray:(NSArray *)array;
 
+
+
+- (void)setUIWithInfo:(NSDictionary *)info;
++ (CGFloat)getCellHeightWithInfo:(NSDictionary *)info;
+
 @end
 
 NS_ASSUME_NONNULL_END

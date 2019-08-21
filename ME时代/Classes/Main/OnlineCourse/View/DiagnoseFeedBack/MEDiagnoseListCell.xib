@@ -22,11 +22,11 @@
                         <rect key="frame" x="15" y="8" width="342" height="102.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019-02-16" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Muh-1o-J9r">
-                                <rect key="frame" x="15" y="10" width="82" height="21"/>
+                                <rect key="frame" x="15" y="10" width="77.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ZY3-zy-pXQ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>

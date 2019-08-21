@@ -8,6 +8,7 @@
 
 #import "MEOnlineCourseListCell.h"
 #import "MEOnlineCourseListModel.h"
+#import "MEMyCollectionModel.h"
 
 @interface MEOnlineCourseListCell ()
 
@@ -15,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UILabel *learnCountLbl;
 @property (weak, nonatomic) IBOutlet UILabel *priceLbl;
+@property (weak, nonatomic) IBOutlet UIButton *collectionDelBtn;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *ImageViewConsLeading;
 
@@ -25,6 +27,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    _collectionDelBtn.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -51,6 +54,22 @@
     }
     _priceLbl.hidden = model.is_charge==2?YES:NO;
     _learnCountLbl.text = [NSString stringWithFormat:@"%ld次学习",model.browse];
+}
+
+- (void)setUIWithCollectionModel:(MEMyCollectionModel *)model {
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.c_images_url));
+    _titleLbl.text = kMeUnNilStr(model.c_name);
+    _priceLbl.text = @"";
+    _learnCountLbl.text = @"";
+    if (model.isEdit) {
+        _collectionDelBtn.hidden = NO;
+        _collectionDelBtn.selected = model.isSelected;
+        _ImageViewConsLeading.constant = 30.0;
+    }else {
+        _collectionDelBtn.hidden = YES;
+        _ImageViewConsLeading.constant = 15.0;
+    }
+    
 }
 
 @end

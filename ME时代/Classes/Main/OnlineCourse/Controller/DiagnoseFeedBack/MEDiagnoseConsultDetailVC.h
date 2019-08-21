@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithModel:(MEDiagnoseConsultModel *)model;
 
+- (instancetype)initWithConsultId:(NSInteger )consultId;
+
 @end
 
 NS_ASSUME_NONNULL_END

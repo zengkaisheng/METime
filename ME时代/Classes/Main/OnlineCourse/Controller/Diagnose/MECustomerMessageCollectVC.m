@@ -208,7 +208,7 @@
         [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [saveBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
         saveBtn.frame = CGRectMake(71, 17, SCREEN_WIDTH-71*2, 40);
-        saveBtn.backgroundColor = [UIColor colorWithHexString:@"#FFD5D5"];
+        saveBtn.backgroundColor = kMEPink;
         saveBtn.layer.cornerRadius = 40/2.0;
         [saveBtn addTarget:self action:@selector(savBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
         [_bottomView addSubview:saveBtn];

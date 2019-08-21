@@ -45,6 +45,9 @@
 
 #import "MENewTabBarVC.h"
 
+#import "MEDiagnoseConsultDetailVC.h"
+#import "MEDiagnoseReportVC.h"
+
 @interface AppDelegate ()<WXApiDelegate,UNUserNotificationCenterDelegate,JPUSHRegisterDelegate>
 
 @end
@@ -550,6 +553,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
             //20签到
             //21l砍价
             //22拼团
+            //23问题反馈
+            //24诊断报告
             HDAlertView *alertView = [HDAlertView alertViewWithTitle:@"提示" andMessage:messageStr];
             alertView.isSupportRotating = YES;
             [alertView addButtonWithTitle:@"取消" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
@@ -661,6 +666,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                     [baseVC.navigationController pushViewController:dvc animated:YES];
                 }else if ([strType isEqualToString:@"22"]){
                     MEGroupProductDetailVC *dvc = [[MEGroupProductDetailVC alloc] initWithProductId:kMeUnNilStr(model.idField).integerValue];
+                    [baseVC.navigationController pushViewController:dvc animated:YES];
+                }else if ([strType isEqualToString:@"23"]){
+                    MEDiagnoseConsultDetailVC *dvc = [[MEDiagnoseConsultDetailVC alloc] initWithConsultId:kMeUnNilStr(model.idField).integerValue];
+                    [baseVC.navigationController pushViewController:dvc animated:YES];
+                }else if ([strType isEqualToString:@"24"]){
+                    MEDiagnoseReportVC *dvc = [[MEDiagnoseReportVC alloc] initWithReportId:kMeUnNilStr(model.idField)];
                     [baseVC.navigationController pushViewController:dvc animated:YES];
                 }else{
                     

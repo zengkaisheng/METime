@@ -84,8 +84,7 @@
     self.playerView.pauseBlock = ^{
         //弹窗提示诊断
         kMeSTRONGSELF
-        NSString *hasConsult = [kMeUserDefaults objectForKey:kMEHasConsult];
-        if (!hasConsult || [hasConsult integerValue] != 1) {
+        if (strongSelf.model.is_diagnosis_report == 0) {
             [MEDiagnosePromptView showDiagnosePromptViewWithSuccessBlock:^{
                 MEOnlineDiagnoseVC *diagnoseVC = [[MEOnlineDiagnoseVC alloc] init];
                 [strongSelf.navigationController pushViewController:diagnoseVC animated:YES];
@@ -142,6 +141,36 @@
         kMeSTRONGSELF
         strongSelf.model = nil;
     }];
+}
+//收藏与取消收藏
+- (void)collectionVideoWithNetWorking {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postSetCollectionWithCollectionId:self.model.video_id type:1 SuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        [MEShowViewTool showMessage:kMeUnNilStr(responseObject.message) view:kMeCurrentWindow];
+        if (strongSelf.model.is_collection == 1) {
+            strongSelf.model.is_collection = 2;
+        }else {
+            strongSelf.model.is_collection = 1;
+        }
+        [self reloadBottomView];
+    } failure:^(id object) {
+    }];
+}
+
+- (void)reloadBottomView {
+    for (id obj in _bottomView.subviews) {
+        if ([obj isKindOfClass:[UIButton class]]) {
+            UIButton *btn = (UIButton *)obj;
+            if (btn.tag == 101) {
+                if (self.model.is_collection == 1) {
+                    [btn setImage:[UIImage imageNamed:@"icon_collection_sel"] forState:UIControlStateNormal];
+                }else {
+                    [btn setImage:[UIImage imageNamed:@"icon_collection_nor"] forState:UIControlStateNormal];
+                }
+            }
+        }
+    }
 }
 
 // 屏幕旋转处理
@@ -215,7 +244,7 @@
         }
             break;
         case 1:
-            NSLog(@"点击了收藏按钮");
+            [self collectionVideoWithNetWorking];
             break;
         case 2:
         {
@@ -294,12 +323,17 @@
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
         line.backgroundColor = [UIColor colorWithHexString:@"#707070"];
         [_bottomView addSubview:line];
-        NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_courseLike"},@{@"title":@"咨询",@"image":@"icon_consult_white"}];
+        NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_collection_nor"},@{@"title":@"咨询",@"image":@"icon_consult_white"}];
         CGFloat btnHeight = 49;
         CGFloat btnWidth = 60;
         for (int i = 0; i < btns.count; i++) {
             NSDictionary *dict = btns[i];
             UIButton *btn = [self createButtonWithTitle:dict[@"title"] normalImage:dict[@"image"] tag:100+i];
+            if (i == 1) {
+                if (self.model.is_collection == 1) {
+                    [btn setImage:[UIImage imageNamed:@"icon_collection_sel"] forState:UIControlStateNormal];
+                }
+            }
             btn.frame = CGRectMake((SCREEN_WIDTH-btnWidth)/2*i, 0, btnWidth, btnHeight);
             [btn setImageEdgeInsets:UIEdgeInsetsMake(-8, 10, 8, -10)];
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(12, -10, -12, 10)];

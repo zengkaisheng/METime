@@ -39,6 +39,7 @@
 
 - (void)setUIWithCustomerModel:(MEAddCustomerInfoModel *)model {
     _titleLbl.text = kMeUnNilStr(model.title);
+    _lineView.hidden = model.isLastItem;
     if (model.isTextField) {
         self.contentLbl.hidden = YES;
         self.imgArrow.hidden = YES;

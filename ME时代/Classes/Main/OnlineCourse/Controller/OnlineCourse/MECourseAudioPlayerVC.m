@@ -65,12 +65,17 @@
     kSDLoadImg(_headerPic, kMeUnNilStr(self.model.images_url));
     _nameLbl.text = kMeUnNilStr(self.model.audio_name);
     
-    NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_courseLike"},@{@"title":@"咨询",@"image":@"icon_consult_white"}];
+    NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_collection_nor"},@{@"title":@"咨询",@"image":@"icon_consult_white"}];
     CGFloat btnHeight = 49;
     CGFloat btnWidth = 60;
     for (int i = 0; i < btns.count; i++) {
         NSDictionary *dict = btns[i];
         UIButton *btn = [self createButtonWithTitle:dict[@"title"] normalImage:dict[@"image"] tag:100+i];
+        if (i == 1) {
+            if (self.model.is_collection == 1) {
+                [btn setImage:[UIImage imageNamed:@"icon_collection_sel"] forState:UIControlStateNormal];
+            }
+        }
         btn.frame = CGRectMake((SCREEN_WIDTH-btnWidth)/2*i, 0, btnWidth, btnHeight);
         [btn setImageEdgeInsets:UIEdgeInsetsMake(-8, 10, 8, -10)];
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(12, -10, -12, 10)];
@@ -109,7 +114,7 @@
                     [strongSelf.player pause];
                     strongSelf->_playBtn.selected = NO;
                     [strongSelf.player seekToTime:kCMTimeZero];
-                    [MEShowViewTool showMessage:@"试听结束" view:strongSelf.view];
+                    [MEShowViewTool showMessage:@"试听已结束" view:strongSelf.view];
                 }
             }
         }];
@@ -219,8 +224,7 @@
 
 - (void)showPromptView {
     //弹窗提示诊断
-    NSString *hasConsult = [kMeUserDefaults objectForKey:kMEHasConsult];
-    if (!hasConsult || [hasConsult integerValue] != 1) {
+    if (self.model.is_diagnosis_report == 0) {
         kMeWEAKSELF
         [MEDiagnosePromptView showDiagnosePromptViewWithSuccessBlock:^{
             kMeSTRONGSELF
@@ -310,7 +314,7 @@
         }
             break;
         case 1:
-            NSLog(@"点击了收藏按钮");
+            [self collectionAudioWithNetWorking];
             break;
         case 2:
         {
@@ -322,6 +326,37 @@
             break;
         default:
             break;
+    }
+}
+
+//收藏与取消收藏
+- (void)collectionAudioWithNetWorking {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postSetCollectionWithCollectionId:self.model.audio_id type:2 SuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        [MEShowViewTool showMessage:kMeUnNilStr(responseObject.message) view:kMeCurrentWindow];
+        if (strongSelf.model.is_collection == 1) {
+            strongSelf.model.is_collection = 2;
+        }else {
+            strongSelf.model.is_collection = 1;
+        }
+        [self reloadBottomView];
+    } failure:^(id object) {
+    }];
+}
+
+- (void)reloadBottomView {
+    for (id obj in _bottomView.subviews) {
+        if ([obj isKindOfClass:[UIButton class]]) {
+            UIButton *btn = (UIButton *)obj;
+            if (btn.tag == 101) {
+                if (self.model.is_collection == 1) {
+                    [btn setImage:[UIImage imageNamed:@"icon_collection_sel"] forState:UIControlStateNormal];
+                }else {
+                    [btn setImage:[UIImage imageNamed:@"icon_collection_nor"] forState:UIControlStateNormal];
+                }
+            }
+        }
     }
 }
 

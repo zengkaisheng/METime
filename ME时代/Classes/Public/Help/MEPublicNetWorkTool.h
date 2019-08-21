@@ -625,6 +625,10 @@
 + (void)postGetVideoListWithIsCharge:(NSInteger)is_charge videoType:(NSString *)videoType keyword:(NSString *)keyword successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //视频详情
 + (void)postGetVideoDetailWithVideoId:(NSInteger)videoId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//添加收藏
++ (void)postSetCollectionWithCollectionId:(NSInteger)collectionId type:(NSInteger)type SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//取消收藏
++ (void)postCancelCollectionWithCollectionId:(NSString *)collectionId SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
 //音频
 //音频分类
@@ -658,6 +662,8 @@
 + (void)postCreateDiagnoiseOrderWithProductId:(NSString *)productId orderType:(NSString *)orderType phone:(NSString *)phone remark:(NSString *)remark successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //提交问题咨询
 + (void)postConsultQuestionWithProblem:(NSString *)problem images:(NSString*)images successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//问题资讯详情
++ (void)postGetConsultDetailWithConsultId:(NSString *)consultId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //诊断报告
 + (void)postGetDiagnoseReportWithReportId:(NSString *)reportId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
@@ -669,6 +675,10 @@
 #pragma mark - Diagonse
 //获取顾客分类列表
 + (void)postGetCustomerClassifyListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+
+//获取生活习惯分类列表及选项
++ (void)postGetLivingHabitListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
 /*********************************************/
 

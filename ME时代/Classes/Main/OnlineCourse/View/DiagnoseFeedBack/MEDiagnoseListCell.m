@@ -41,15 +41,15 @@
 }
 
 - (void)setUIWithConsultModel:(MEDiagnoseConsultModel *)model {
-    _timeLbl.text = kMeUnNilStr(model.reply_time);
+    _timeLbl.text = [NSString stringWithFormat:@"回复时间：%@",kMeUnNilStr(model.reply_time)];
     _typeLbl.hidden = NO;
     _typeLbl.text = kMeUnNilStr(model.user_type_name);
-    _reportLbl.text = kMeUnNilStr(model.problem);
+    _reportLbl.text = kMeUnNilStr(model.answer);
     
 }
 
 - (void)setUIWithReportModel:(MEDiagnoseReportModel *)model {
-    _timeLbl.text = kMeUnNilStr(model.reply_time);
+    _timeLbl.text = [NSString stringWithFormat:@"诊断时间：%@",kMeUnNilStr(model.reply_time)];
     _typeLbl.hidden = YES;
     _reportLbl.text = @"诊断报告";
 }

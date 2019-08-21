@@ -66,7 +66,7 @@
     
     UIButton *nextBtn = [self createButtonWithTitle:@"下一步" font:15.0 frame:CGRectMake(15, SCREEN_HEIGHT-19-40, SCREEN_WIDTH-30, 40) tag:10];
     [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [nextBtn setBackgroundColor:[UIColor colorWithHexString:@"#FFD5D5"]];
+    [nextBtn setBackgroundColor:[UIColor colorWithHexString:@"#FF88A4"]];
     [self.view addSubview:nextBtn];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];

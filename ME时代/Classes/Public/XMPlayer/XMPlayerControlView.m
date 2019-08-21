@@ -81,7 +81,9 @@
         _replayButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_replayButton setImage:ImageWithName(@"repeat_video") forState:UIControlStateNormal];
         _replayButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        _replayButton.bounds = CGRectMake((self.frame.size.width-TopMenuH)/2, (self.frame.size.height-TopMenuH)/2, TopMenuH, TopMenuH);
+//        [_replayButton setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]];
+        _replayButton.bounds = CGRectMake((self.frame.size.width-TopMenuH)/2, (self.frame.size.height-TopMenuH)/2, TopMenuH+20, TopMenuH+20);
+        _replayButton.layer.cornerRadius = 30;
     }
     return _replayButton;
 }

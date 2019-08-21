@@ -970,6 +970,7 @@
 		EB2D61FF230BC82800F9F253 /* MEExpertDiagnosePayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2D61FE230BC82800F9F253 /* MEExpertDiagnosePayVC.m */; };
 		EB2D6203230BCC3900F9F253 /* MEExportDiagnoseRemarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2D6201230BCC3900F9F253 /* MEExportDiagnoseRemarkCell.m */; };
 		EB2D6204230BCC3900F9F253 /* MEExportDiagnoseRemarkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB2D6202230BCC3900F9F253 /* MEExportDiagnoseRemarkCell.xib */; };
+		EB2D6207230BD92000F9F253 /* MELivingHabitListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2D6206230BD92000F9F253 /* MELivingHabitListModel.m */; };
 		EB2E1AB82150DB5200A26BE3 /* MEShoppingCartAttrModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2E1AB72150DB5200A26BE3 /* MEShoppingCartAttrModel.m */; };
 		EB2E1ABC2150E22D00A26BE3 /* MEAddAddressAttrModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2E1ABB2150E22D00A26BE3 /* MEAddAddressAttrModel.m */; };
 		EB2E1ABF2150ECEC00A26BE3 /* MEAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2E1ABE2150ECEC00A26BE3 /* MEAddressModel.m */; };
@@ -1186,6 +1187,7 @@
 		EB77A78D2304086100191E10 /* MEDiagnoseQuestionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB77A78C2304086100191E10 /* MEDiagnoseQuestionHeaderView.xib */; };
 		EB77A79123040D0700191E10 /* MEQuestionHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB77A78F23040D0700191E10 /* MEQuestionHeaderCell.m */; };
 		EB77A79223040D0800191E10 /* MEQuestionHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB77A79023040D0700191E10 /* MEQuestionHeaderCell.xib */; };
+		EB78215E230CDFA700075779 /* MEMyCollectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB78215D230CDFA700075779 /* MEMyCollectionModel.m */; };
 		EB782FDD22CEDC7700D0A165 /* MECreateGroupShareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB782FDB22CEDC7700D0A165 /* MECreateGroupShareVC.m */; };
 		EB782FDE22CEDC7700D0A165 /* MECreateGroupShareVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB782FDC22CEDC7700D0A165 /* MECreateGroupShareVC.xib */; };
 		EB782FE122CEE9E300D0A165 /* MEGroupOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB782FE022CEE9E300D0A165 /* MEGroupOrderDetailModel.m */; };
@@ -2984,6 +2986,8 @@
 		EB2D6200230BCC3900F9F253 /* MEExportDiagnoseRemarkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEExportDiagnoseRemarkCell.h; sourceTree = "<group>"; };
 		EB2D6201230BCC3900F9F253 /* MEExportDiagnoseRemarkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEExportDiagnoseRemarkCell.m; sourceTree = "<group>"; };
 		EB2D6202230BCC3900F9F253 /* MEExportDiagnoseRemarkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEExportDiagnoseRemarkCell.xib; sourceTree = "<group>"; };
+		EB2D6205230BD92000F9F253 /* MELivingHabitListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MELivingHabitListModel.h; sourceTree = "<group>"; };
+		EB2D6206230BD92000F9F253 /* MELivingHabitListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MELivingHabitListModel.m; sourceTree = "<group>"; };
 		EB2E1AB62150DB5200A26BE3 /* MEShoppingCartAttrModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEShoppingCartAttrModel.h; sourceTree = "<group>"; };
 		EB2E1AB72150DB5200A26BE3 /* MEShoppingCartAttrModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEShoppingCartAttrModel.m; sourceTree = "<group>"; };
 		EB2E1ABA2150E22D00A26BE3 /* MEAddAddressAttrModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEAddAddressAttrModel.h; sourceTree = "<group>"; };
@@ -3352,6 +3356,8 @@
 		EB77A78E23040D0700191E10 /* MEQuestionHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEQuestionHeaderCell.h; sourceTree = "<group>"; };
 		EB77A78F23040D0700191E10 /* MEQuestionHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEQuestionHeaderCell.m; sourceTree = "<group>"; };
 		EB77A79023040D0700191E10 /* MEQuestionHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEQuestionHeaderCell.xib; sourceTree = "<group>"; };
+		EB78215C230CDFA700075779 /* MEMyCollectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEMyCollectionModel.h; sourceTree = "<group>"; };
+		EB78215D230CDFA700075779 /* MEMyCollectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEMyCollectionModel.m; sourceTree = "<group>"; };
 		EB782FDA22CEDC7700D0A165 /* MECreateGroupShareVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECreateGroupShareVC.h; sourceTree = "<group>"; };
 		EB782FDB22CEDC7700D0A165 /* MECreateGroupShareVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECreateGroupShareVC.m; sourceTree = "<group>"; };
 		EB782FDC22CEDC7700D0A165 /* MECreateGroupShareVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MECreateGroupShareVC.xib; sourceTree = "<group>"; };
@@ -5622,6 +5628,7 @@
 		36D66EEC213F822A000476FF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EB78215B230CDF5C00075779 /* MyCollection */,
 				EB8CC3102305679200BB99FC /* CourseOrder */,
 				EB5AB9FF22E94F5800ADF22D /* HomeTest */,
 				EB7376D222C5A20900901DD2 /* CommonQuestion */,
@@ -6756,6 +6763,8 @@
 				EB2475EE230AC88D0088BBC0 /* MECustomerFileListModel.m */,
 				EB2475FA230AD3F80088BBC0 /* MEAddCustomerInfoModel.h */,
 				EB2475FB230AD3F80088BBC0 /* MEAddCustomerInfoModel.m */,
+				EB2D6205230BD92000F9F253 /* MELivingHabitListModel.h */,
+				EB2D6206230BD92000F9F253 /* MELivingHabitListModel.m */,
 			);
 			path = CustomerFiles;
 			sourceTree = "<group>";
@@ -7383,6 +7392,15 @@
 				EB2D18AC22BA6A9800DAB646 /* MEPublishPrizeCell.xib */,
 			);
 			path = Prize;
+			sourceTree = "<group>";
+		};
+		EB78215B230CDF5C00075779 /* MyCollection */ = {
+			isa = PBXGroup;
+			children = (
+				EB78215C230CDFA700075779 /* MEMyCollectionModel.h */,
+				EB78215D230CDFA700075779 /* MEMyCollectionModel.m */,
+			);
+			path = MyCollection;
 			sourceTree = "<group>";
 		};
 		EB784BD822DC1C80006AA1C1 /* NSDate */ = {
@@ -8488,6 +8506,7 @@
 				365151C0214134380044C763 /* MBProgressHUD+MJ.m in Sources */,
 				EB6D029F2151D99A0053B19E /* NSMutableArray+MEErrorHandle.m in Sources */,
 				3637F06D224A0A11002C661E /* MEDynamicGoodApplyNineGridCell.m in Sources */,
+				EB2D6207230BD92000F9F253 /* MELivingHabitListModel.m in Sources */,
 				36FEEBB6214CD02A00060209 /* MEAddTelView.m in Sources */,
 				EB28BE1422CD9C5400C92EC2 /* MEGroupUserListCell.m in Sources */,
 				EB4BB503229F6CB000924774 /* MEAICustomerCheckDetailCell.m in Sources */,
@@ -8985,6 +9004,7 @@
 				36FDE3C9218A8EF300633C40 /* MEHomeSearchView.m in Sources */,
 				366D1CDD21B533710004295E /* MEArticelDetailModel.m in Sources */,
 				EB5AB9FB22E94E7D00ADF22D /* MEHomeTestTitleVC.m in Sources */,
+				EB78215E230CDFA700075779 /* MEMyCollectionModel.m in Sources */,
 				36F6AF4921F8532300CF6684 /* MEBynamicHomeVC.m in Sources */,
 				36FFA6A12195715F002B6FBE /* MEStoreSearchVC.m in Sources */,
 				36F5E82F222F68F1000B0241 /* TMessageCell.m in Sources */,

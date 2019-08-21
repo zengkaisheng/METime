@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger is_show;
 @property (nonatomic, assign) NSInteger preview_time;
 @property (nonatomic, strong) NSString * updated_at;
+@property (nonatomic, assign) NSInteger is_collection; //1收藏 2未收藏
+@property (nonatomic, assign) NSInteger is_diagnosis_report; //是否诊断过
 //视频相关
 @property (nonatomic, strong) NSString * video_desc;
 @property (nonatomic, strong) NSString * video_detail;

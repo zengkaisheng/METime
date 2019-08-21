@@ -824,7 +824,10 @@
 #define MEIPcommonVideoList @"common/video/videoList"
 //视频详情
 #define MEIPcommonVideoDetail @"common/video/videoDetail"
-
+//添加收藏
+#define MEIPcommonOnlineCollection @"common/online/collection"
+//取消收藏
+#define MEIPcommonOnlineCancelCollection @"common/online/cancelCollection"
 
 //音频
 //音频分类
@@ -843,6 +846,9 @@
 #define MEIPcommonOnlinePayOrder @"common/online/payOrder"
 //轮询订单状态
 #define MEIPcommonOnlineGetOrderStatus @"common/online/getOrderStatus"
+
+//收藏列表
+#define MEIPcommonOnlineCollectionList @"common/online/collectionList"
 
 //订单列表
 #define MEIPcommonOnlineGetOrderList @"common/online/orderList"
@@ -867,6 +873,8 @@
 #define MEIPcommonDiagnosisService @"common/diagnosis/diagnosisService"
 //诊断反馈列表
 #define MEIPcommonDiagnosisList @"common/diagnosis/diagnosisList"
+//问题资讯详情
+#define MEIPcommonProblemInfo @"common/online/problemInfo"
 //诊断报告
 #define MEIPcommonDiagnosisReport @"common/diagnosis/report"
 
@@ -879,6 +887,10 @@
 #define MEIPcommonCustomerClassifyList @"common/customerclassify/classifyList"
 //获取顾客档案列表
 #define MEIPcommonCustomerFilesList @"common/customerfiles/customerFilesList"
+
+
+//获取生活习惯分类列表及选项
+#define MEIPcommonLivingHabitList @"common/livinghabit/livingHabitList"
 
 /*********************************************/
 

@@ -48,6 +48,15 @@
                         <color key="textColor" red="1" green="0.6588235294" blue="0.6588235294" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRf-ph-vkU">
+                        <rect key="frame" x="6" y="38.5" width="19" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="f01-GR-N8A"/>
+                            <constraint firstAttribute="width" constant="19" id="taz-CN-F0o"/>
+                        </constraints>
+                        <state key="normal" image="icon_delCollection_nor"/>
+                        <state key="selected" image="icon_delCollection_sel"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="4mO-x4-kfI" secondAttribute="trailing" constant="15" id="5rs-h1-xfj"/>
@@ -57,6 +66,8 @@
                     <constraint firstItem="4mO-x4-kfI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pIc-qn-zaM" secondAttribute="trailing" constant="5" id="UOQ-V0-1zN"/>
                     <constraint firstItem="pIc-qn-zaM" firstAttribute="bottom" secondItem="nfP-G6-39v" secondAttribute="bottom" constant="-1" id="V1G-D9-BlK"/>
                     <constraint firstAttribute="trailing" secondItem="jPa-PK-67e" secondAttribute="trailing" constant="15" id="bY1-84-9YK"/>
+                    <constraint firstItem="PRf-ph-vkU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cLa-rs-eYq"/>
+                    <constraint firstItem="PRf-ph-vkU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="6" id="cS4-qX-K98"/>
                     <constraint firstItem="nfP-G6-39v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="kaY-1W-b0L"/>
                     <constraint firstAttribute="bottom" secondItem="nfP-G6-39v" secondAttribute="bottom" constant="7.5" id="pcv-JG-7Ba"/>
                     <constraint firstItem="4mO-x4-kfI" firstAttribute="centerY" secondItem="pIc-qn-zaM" secondAttribute="centerY" id="uQE-aC-uZh"/>
@@ -65,15 +76,18 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="ImageViewConsLeading" destination="kaY-1W-b0L" id="Mt0-61-XGq"/>
+                <outlet property="collectionDelBtn" destination="PRf-ph-vkU" id="lrt-p6-Z3I"/>
                 <outlet property="headerPic" destination="nfP-G6-39v" id="g10-Po-IJu"/>
                 <outlet property="learnCountLbl" destination="pIc-qn-zaM" id="a6X-52-bdK"/>
                 <outlet property="priceLbl" destination="4mO-x4-kfI" id="aNb-H6-hGC"/>
                 <outlet property="titleLbl" destination="jPa-PK-67e" id="g5I-V5-7Wu"/>
             </connections>
-            <point key="canvasLocation" x="-881" y="35"/>
+            <point key="canvasLocation" x="-882.39999999999998" y="34.632683658170919"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="icon_delCollection_nor" width="19" height="19"/>
+        <image name="icon_delCollection_sel" width="19" height="19"/>
         <image name="stortpcapic" width="89" height="60"/>
     </resources>
 </document>

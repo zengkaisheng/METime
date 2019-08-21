@@ -9,6 +9,7 @@
 #import "MECustomerFilesVC.h"
 #import "MECustomerClassifyListModel.h"
 #import "MECustomerFilesBaseVC.h"
+#import "MECustomerDetailVC.h"
 
 @interface MECustomerFilesVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>
 
@@ -18,7 +19,7 @@
 @property (nonatomic, strong)NSMutableArray *arrType;
 @property (nonatomic, strong)NSMutableArray *arrModel;
 
-@property (nonatomic, strong) UIButton *btnRight;
+@property (nonatomic, strong) UIButton *addBtn;
 
 @end
 
@@ -30,7 +31,7 @@
     self.title = @"顾客档案列表";
     [self getCustomerClassifyListWithNetworking];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addBtn];
 }
 - (void)setupUI {
     CGFloat categoryViewHeight = kCategoryViewHeight;
@@ -94,8 +95,9 @@
 }
 
 #pragma mark -- Action
-- (void)rightBtnAction {
-    
+- (void)addBtnAction {
+    MECustomerDetailVC *vc = [[MECustomerDetailVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -- setter && getter
@@ -113,19 +115,19 @@
     return _arrModel;
 }
 
-- (UIButton *)btnRight{
-    if(!_btnRight){
-        _btnRight= [UIButton buttonWithType:UIButtonTypeCustom];
-        [_btnRight setTitle:@"新增" forState:UIControlStateNormal];
-        [_btnRight setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_btnRight setBackgroundColor:[UIColor colorWithHexString:@"#FFD5D5"]];
-        _btnRight.cornerRadius = 12;
-        _btnRight.clipsToBounds = YES;
-        _btnRight.frame = CGRectMake(0, 0, 65, 25);
-        _btnRight.titleLabel.font = kMeFont(15);
-        [_btnRight addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+- (UIButton *)addBtn{
+    if(!_addBtn){
+        _addBtn= [UIButton buttonWithType:UIButtonTypeCustom];
+        [_addBtn setTitle:@"新增" forState:UIControlStateNormal];
+        [_addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_addBtn setBackgroundColor:[UIColor colorWithHexString:@"#FFD5D5"]];
+        _addBtn.cornerRadius = 12;
+        _addBtn.clipsToBounds = YES;
+        _addBtn.frame = CGRectMake(0, 0, 65, 25);
+        _addBtn.titleLabel.font = kMeFont(15);
+        [_addBtn addTarget:self action:@selector(addBtnAction) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _btnRight;
+    return _addBtn;
 }
 
 @end

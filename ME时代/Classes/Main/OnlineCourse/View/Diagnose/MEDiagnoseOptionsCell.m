@@ -9,6 +9,7 @@
 #import "MEDiagnoseOptionsCell.h"
 #import "MEDiagnoseQuestionModel.h"
 #import "MEBlockTextView.h"
+#import "MELivingHabitListModel.h"
 
 @interface MEDiagnoseOptionsCell ()
 
@@ -53,6 +54,18 @@
     _textView.contentBlock = ^(NSString *str) {
         kMeCallBlock(self->_contentBlock,str);
     };
+}
+
+- (void)setUIWithHabitsModel:(MELivingHabitsOptionModel *)model {
+    _selectImageView.hidden = NO;
+    _titleLbl.hidden = NO;
+    _textView.hidden = YES;
+    if (model.isSelected) {
+        _selectImageView.image = [UIImage imageNamed:@"icon_questionSelected"];
+    }else {
+        _selectImageView.image = [UIImage imageNamed:@"icon_questionNormal"];
+    }
+    _titleLbl.text = kMeUnNilStr(model.habit);
 }
 
 @end

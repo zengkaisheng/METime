@@ -215,7 +215,7 @@
         if (current >= self.previewTime) {
             self.controlView.replayButton.hidden = NO;
             self.controlView.playButton.selected = YES;
-            [MECommonTool showMessage:@"试听结束" view:kMeCurrentWindow];
+            [MECommonTool showMessage:@"试听已结束" view:kMeCurrentWindow];
             [self stopPlaying];
         }
     }
@@ -527,7 +527,7 @@
             if (current >= weakSelf.previewTime) {
                 weakSelf.controlView.replayButton.hidden = NO;
                 weakSelf.controlView.playButton.selected = YES;
-                [MECommonTool showMessage:@"试听结束" view:kMeCurrentWindow];
+                [MECommonTool showMessage:@"试听已结束" view:kMeCurrentWindow];
                 [weakSelf stopPlaying];
             }
         }

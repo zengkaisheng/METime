@@ -9,11 +9,16 @@
 #import "MECustomerContentCell.h"
 #import "MEDiagnoseQuestionHeaderView.h"
 #import "MECustomerAddInfoCell.h"
+#import "MEDiagnoseOptionsCell.h"
+#import "MEAddCustomerInfoModel.h"
+#import "MELivingHabitListModel.h"
 
 @interface MECustomerContentCell ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *datas;
+@property (nonatomic, strong) NSString *titleStr;
+@property (nonatomic, assign) NSInteger type;
 
 @end
 
@@ -26,6 +31,7 @@
     self.contentView.backgroundColor = [UIColor colorWithHexString:@"#FCFBFB"];
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEDiagnoseQuestionHeaderView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:NSStringFromClass([MEDiagnoseQuestionHeaderView class])];
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECustomerAddInfoCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECustomerAddInfoCell class])];
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEDiagnoseOptionsCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEDiagnoseOptionsCell class])];
 //    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEDiagnoseReportCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEDiagnoseReportCell class])];
 //    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEReportSuggestsCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEReportSuggestsCell class])];
     
@@ -54,30 +60,66 @@
 
 #pragma mark -- UITableviewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.type == 2) {
+        return self.datas.count;
+    }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    if (self.type == 2) {
+        MELivingHabitListModel *model = self.datas[section];
+        return model.habit.count+1;
+    }
+    return self.datas.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.type == 2) {
+        MELivingHabitListModel *listModel = self.datas[indexPath.section];
+        
+        if (indexPath.row == 0) {
+            MECustomerAddInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerAddInfoCell class]) forIndexPath:indexPath];
+            MEAddCustomerInfoModel *model = [self creatModelWithTitle:kMeUnNilStr(listModel.classify_title) andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+            model.isLastItem = YES;
+            [cell setUIWithCustomerModel:model];
+            return cell;
+        }
+        MEDiagnoseOptionsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEDiagnoseOptionsCell class]) forIndexPath:indexPath];
+        MELivingHabitsOptionModel *habitsModel = listModel.habit[indexPath.row-1];
+        [cell setUIWithHabitsModel:habitsModel];
+        return cell;
+    }
     MECustomerAddInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerAddInfoCell class]) forIndexPath:indexPath];
-    
+    MEAddCustomerInfoModel *model = self.datas[indexPath.row];
+    [cell setUIWithCustomerModel:model];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.type == 2) {
+        if (indexPath.row == 0) {
+            return 44;
+        }
+        MELivingHabitListModel *listModel = self.datas[indexPath.section];
+        MELivingHabitsOptionModel *habitsModel = listModel.habit[indexPath.row-1];
+        return habitsModel.cellHeight;
+    }
     return 52;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (self.type == 2) {
+        if (section != 0) {
+            return 1;
+        }
+    }
     return 49;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     MEDiagnoseQuestionHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass([MEDiagnoseQuestionHeaderView class])];
-
+    [headerView setUIWithSectionTitle:self.titleStr];
     return headerView;
 }
 
@@ -92,7 +134,36 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.type == 2) {
+        MELivingHabitListModel *listModel = self.datas[indexPath.section];
+        if (listModel.type == 1) {
+            for (MELivingHabitsOptionModel *habitsModel in listModel.habit) {
+                habitsModel.isSelected = NO;
+            }
+            MELivingHabitsOptionModel *habitsModel = listModel.habit[indexPath.row-1];
+            habitsModel.isSelected = YES;
+        }else if (listModel.type == 0) {
+            MELivingHabitsOptionModel *habitsModel = listModel.habit[indexPath.row-1];
+            habitsModel.isSelected = !habitsModel.isSelected;
+        }
+        NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:indexPath.section];
+        [tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+- (MEAddCustomerInfoModel *)creatModelWithTitle:(NSString *)title andPlaceHolder:(NSString *)placeHolder andMaxInputWords:(NSInteger)maxInputWords andIsTextField:(BOOL)isTextField andIsMustInput:(BOOL)isMustInput andToastStr:(NSString *)toastStr{
     
+    MEAddCustomerInfoModel *model = [[MEAddCustomerInfoModel alloc]init];
+    model.title = title;
+    model.value = @" ";
+    model.placeHolder = placeHolder;
+    model.maxInputWord = maxInputWords;
+    model.isTextField = isTextField;
+    model.isMustInput = isMustInput;
+    model.toastStr = toastStr;
+    model.isEdit = YES;
+    model.isHideArrow = YES;
+    return model;
 }
 
 //建议
@@ -108,6 +179,33 @@
 //        height += [str boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-35, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height+10;
 //    }
     return height+20;
+}
+
+- (void)setUIWithInfo:(NSDictionary *)info {
+    self.titleStr = info[@"title"];
+    self.type = [info[@"type"] integerValue];
+    NSArray *list = info[@"content"];
+    self.datas = list;
+    [self.tableView reloadData];
+}
+
++ (CGFloat)getCellHeightWithInfo:(NSDictionary *)info {
+    CGFloat height = 49.0;
+    if ([info[@"type"] integerValue] == 1) {
+        NSArray *list = info[@"content"];
+        height += 22+52*list.count;
+    }else if ([info[@"type"] integerValue] == 2) {
+        NSArray *habitList = info[@"content"];
+        for (MELivingHabitListModel *listModel in habitList) {
+            height += 44;
+            for (MELivingHabitsOptionModel *habitsModel in listModel.habit) {
+                height += habitsModel.cellHeight;
+            }
+        }
+        height += 5;
+    }
+    
+    return height;
 }
 
 @end

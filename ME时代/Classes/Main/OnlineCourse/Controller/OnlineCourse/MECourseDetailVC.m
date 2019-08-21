@@ -471,7 +471,7 @@
         _tryBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_tryBtn setTitle:@" 试听" forState:UIControlStateNormal];
         [_tryBtn setTitleColor:kME333333 forState:UIControlStateNormal];
-        [_tryBtn setImage:[UIImage imageNamed:@"dynamicCommentLike"] forState:UIControlStateNormal];
+        [_tryBtn setImage:[UIImage imageNamed:@"icon_coursePlayBtn"] forState:UIControlStateNormal];
         [_tryBtn.titleLabel setFont:[UIFont systemFontOfSize:11]];
         _tryBtn.frame = CGRectMake(20, 0, 60, 49);
         [_tryBtn addTarget:self action:@selector(tryBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
