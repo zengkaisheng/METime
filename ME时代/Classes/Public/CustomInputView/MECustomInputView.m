@@ -1,0 +1,124 @@
+//
+//  MECustomInputView.m
+//  ME时代
+//
+//  Created by gao lei on 2019/8/21.
+//  Copyright © 2019年 hank. All rights reserved.
+//
+
+#import "MECustomInputView.h"
+#import "METextView.h"
+
+#define BGViewWidth (270*(kMeFrameScaleY()>1?kMeFrameScaleY():1))
+#define BGViewHeight (210*(kMeFrameScaleY()>1?kMeFrameScaleY():1))
+
+@interface MECustomInputView ()
+
+@property (nonatomic, strong) UIView *maskView;
+
+@property (nonatomic, strong) UIView *bgView;
+@property (nonatomic, strong) UIView *superView;
+@property (nonatomic, strong) METextView *tv;
+@property (nonatomic, copy) kMeTextBlock saveBlock;
+@property (nonatomic, copy) kMeBasicBlock cancelBlock;
+
+@end
+
+
+@implementation MECustomInputView
+
+- (void)dealloc{
+    NSLog(@"MECustomInputView dealloc");
+}
+
+- (instancetype)initWithTitle:(NSString *)title superView:(UIView*)superView{
+    if(self = [super init]){
+        self.frame = superView.bounds;
+        [self setUIWithTitle:title];
+    }
+    return self;
+}
+
+- (void)setUIWithTitle:(NSString *)title {
+    [self addSubview:self.maskView];
+    [self addSubview:self.bgView];
+    
+    //标题
+    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(28, 14, BGViewWidth-56, 21)];
+    titleLbl.text = title.length>0?title:@"编辑内容";
+    titleLbl.textColor = kME333333;
+    titleLbl.font = [UIFont systemFontOfSize:15];
+    [self.bgView addSubview:titleLbl];
+    
+    METextView *tv = [[METextView alloc] initWithFrame:CGRectMake(28, 45, BGViewWidth-56, BGViewHeight-45-50)];
+    tv.textView.font = [UIFont systemFontOfSize:15];
+    tv.textView.textColor = [UIColor blackColor];
+    tv.placeholderTextView.text = @"请输入...";
+    tv.placeholderTextView.backgroundColor = [UIColor colorWithHexString:@"#F8F8F8"];
+    self.tv = tv;
+    [self.bgView addSubview:tv];
+    
+    UIButton *saveBtn = [self createButtonWithTitle:@"保存"];
+    saveBtn.frame = CGRectMake((BGViewWidth-120)/2, CGRectGetMaxY(tv.frame) + 9, 120, 32);
+    [self.bgView addSubview:saveBtn];
+}
+
+- (void)hide{
+    [self removeFromSuperview];
+}
+
+- (void)hideTap:(UITapGestureRecognizer *)ges{
+    kMeCallBlock(_cancelBlock);
+    [self hide];
+}
+
+- (void)btnDidClick:(UIButton *)sender {
+    kMeCallBlock(_saveBlock,self.tv.textView.text);
+    [self hide];
+}
+
+- (UIButton *)createButtonWithTitle:(NSString *)title  {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    if (title.length > 0) {
+        [btn setTitle:title forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [btn setBackgroundColor:kMEPink];
+        btn.layer.cornerRadius = 16;
+    }
+    [btn addTarget:self action:@selector(btnDidClick:) forControlEvents:UIControlEventTouchUpInside];
+    return btn;
+}
+
+#pragma mark - Settet And Getter
+- (UIView *)maskView{
+    if(!_maskView){
+        _maskView = [[UIView alloc]initWithFrame:self.bounds];
+        _maskView.backgroundColor = [UIColor blackColor];
+        _maskView.alpha = 0.8;
+        _maskView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *gesmask = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideTap:)];
+        [_maskView addGestureRecognizer:gesmask];
+    }
+    return _maskView;
+}
+
+- (UIView *)bgView {
+    if (!_bgView) {
+        _bgView = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-BGViewWidth)/2, (SCREEN_HEIGHT-BGViewHeight)/2, BGViewWidth, BGViewHeight)];
+        _bgView.backgroundColor = [UIColor whiteColor];
+        _bgView.layer.cornerRadius = 10;
+    }
+    return _bgView;
+}
+
+#pragma mark - Public API
++ (void)showCustomInputViewWithTitle:(NSString *)title saveBlock:(kMeTextBlock)saveBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView *)superView {
+    MECustomInputView *view = [[MECustomInputView alloc]initWithTitle:title superView:superView];
+    view.saveBlock = saveBlock;
+    view.cancelBlock = cancelBlock;
+    view.superView = superView;
+    [superView addSubview:view];
+}
+
+@end

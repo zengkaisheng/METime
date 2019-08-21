@@ -201,6 +201,7 @@
                 <outlet property="changeBtn" destination="ARw-RR-6yR" id="BsF-RT-JOL"/>
                 <outlet property="contentLbl" destination="eO1-ZK-MH2" id="s0h-ll-UkK"/>
                 <outlet property="effectiveTimeLbl" destination="Og7-NV-HpS" id="b4p-Vn-AFE"/>
+                <outlet property="nameLbl" destination="hmB-s5-Xf5" id="0ON-fq-E3A"/>
                 <outlet property="payTimeLbl" destination="tgF-vd-ahz" id="T9I-SK-Jvl"/>
                 <outlet property="phoneLbl" destination="kmT-lf-4M6" id="cpS-5Y-ehl"/>
                 <outlet property="remarkLbl" destination="KIN-Wp-6bN" id="Qel-0S-oFK"/>

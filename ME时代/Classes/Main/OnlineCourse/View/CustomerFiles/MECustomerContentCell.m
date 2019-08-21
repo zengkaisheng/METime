@@ -12,6 +12,13 @@
 #import "MEDiagnoseOptionsCell.h"
 #import "MEAddCustomerInfoModel.h"
 #import "MELivingHabitListModel.h"
+#import "MECustomerClassifyListModel.h"
+
+#import "DatePickerView.h"
+#import "DataPickerView.h"
+
+#import "MECustomerDetailVC.h"
+#import "MECustomerTypeListVC.h"
 
 @interface MECustomerContentCell ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -19,6 +26,7 @@
 @property (nonatomic, strong) NSArray *datas;
 @property (nonatomic, strong) NSString *titleStr;
 @property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) BOOL isAdd;
 
 @end
 
@@ -54,7 +62,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     // Configure the view for the selected state
 }
 
@@ -93,6 +101,9 @@
     MECustomerAddInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerAddInfoCell class]) forIndexPath:indexPath];
     MEAddCustomerInfoModel *model = self.datas[indexPath.row];
     [cell setUIWithCustomerModel:model];
+    cell.textBlock = ^(NSString *str) {
+        model.value = str;
+    };
     return cell;
 }
 
@@ -119,7 +130,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     MEDiagnoseQuestionHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass([MEDiagnoseQuestionHeaderView class])];
-    [headerView setUIWithSectionTitle:self.titleStr];
+    [headerView setUIWithSectionTitle:self.titleStr isAdd:self.isAdd];
     return headerView;
 }
 
@@ -134,6 +145,35 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.type == 1) {
+        MEAddCustomerInfoModel *model = self.datas[indexPath.row];
+        if (self.isAdd) {
+            if (indexPath.row == 1) {
+                [self showDataPickWithIndexPath:indexPath];
+            }else if (indexPath.row == 2) {
+                [self showDatePickerWithIndexPath:indexPath];
+            }else if (indexPath.row == 12) {
+                [self showDataPickWithIndexPath:indexPath];
+            }else if (indexPath.row == 17) {
+                [kMeCurrentWindow endEditing:YES];
+                MECustomerDetailVC *homeVC = (MECustomerDetailVC *)[MECommonTool getVCWithClassWtihClassName:[MECustomerDetailVC class] targetResponderView:self];
+                if (homeVC) {
+                    kMeWEAKSELF
+                    MECustomerTypeListVC *vc = [[MECustomerTypeListVC alloc] init];
+                    vc.contentBlock = ^(id object) {
+                        kMeSTRONGSELF
+                        if ([object isKindOfClass:[MECustomerClassifyListModel class]]) {
+                            MECustomerClassifyListModel *classifyModel = (MECustomerClassifyListModel *)object;
+                            model.valueId = [NSString stringWithFormat:@"%@",@(classifyModel.idField)];
+                            model.value = classifyModel.classify_name;
+                            [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        }
+                    };
+                    [homeVC.navigationController pushViewController:vc animated:YES];
+                }
+            }
+        }
+    }
     if (self.type == 2) {
         MELivingHabitListModel *listModel = self.datas[indexPath.section];
         if (listModel.type == 1) {
@@ -149,6 +189,55 @@
         NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:indexPath.section];
         [tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
     }
+}
+
+- (void)showDatePickerWithIndexPath:(NSIndexPath *)indexPath {
+    MEAddCustomerInfoModel *model = self.datas[indexPath.row];
+    
+    DatePickerView *datePickerView = [[DatePickerView alloc] init];
+    datePickerView.title = @"选择日期";
+    datePickerView.isBeforeTime = YES;
+    kMeWEAKSELF
+    datePickerView.selectBlock = ^(NSString *selectDate) {
+        kMeSTRONGSELF
+        if ([selectDate length] > 0) {
+            NSString *tempDate = [selectDate stringByReplacingOccurrencesOfString:@"/" withString:@"-"];
+            NSLog(@"选择的日期是：%@",tempDate);
+            model.value = tempDate;
+            [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    };
+    
+    [kMeCurrentWindow endEditing:YES];
+}
+
+- (void)showDataPickWithIndexPath:(NSIndexPath *)indexPath {
+    NSArray *array = [NSArray new];
+    NSString *title;
+    if (indexPath.row == 1) {
+        array = @[@{@"name":@"男",@"value":@"1"},@{@"name":@"女",@"value":@"2"}];
+        title = @"请选择性别";
+    }else if (indexPath.row == 12) {
+        array = @[@{@"name":@"已婚",@"value":@"1"},@{@"name":@"未婚",@"value":@"0"}];
+        title = @"请选择婚否";
+    }
+    kMeWEAKSELF
+    [kMeCurrentWindow endEditing:YES];
+    
+    MEAddCustomerInfoModel *model = self.datas[indexPath.row];
+    
+    DataPickerView *dataPicker = [[DataPickerView alloc] init];
+    dataPicker.pickerHeight = 52 * (array.count + 2);
+    dataPicker.title = title;
+    dataPicker.dataSource = array;
+    dataPicker.selectedData = model.value;
+    dataPicker.selectBlock = ^(NSString *selectData, NSString *selectId) {
+        kMeSTRONGSELF
+        NSLog(@"value:%@,id:%@",selectData,selectId);
+        model.value = selectData;
+        model.valueId = selectId;
+        [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
 }
 
 - (MEAddCustomerInfoModel *)creatModelWithTitle:(NSString *)title andPlaceHolder:(NSString *)placeHolder andMaxInputWords:(NSInteger)maxInputWords andIsTextField:(BOOL)isTextField andIsMustInput:(BOOL)isMustInput andToastStr:(NSString *)toastStr{
@@ -181,10 +270,11 @@
     return height+20;
 }
 
-- (void)setUIWithInfo:(NSDictionary *)info {
+- (void)setUIWithInfo:(NSDictionary *)info isAdd:(BOOL)isAdd {
     self.titleStr = info[@"title"];
     self.type = [info[@"type"] integerValue];
     NSArray *list = info[@"content"];
+    self.isAdd = isAdd;
     self.datas = list;
     [self.tableView reloadData];
 }
@@ -197,12 +287,12 @@
     }else if ([info[@"type"] integerValue] == 2) {
         NSArray *habitList = info[@"content"];
         for (MELivingHabitListModel *listModel in habitList) {
-            height += 44;
+            height += 44+10;
             for (MELivingHabitsOptionModel *habitsModel in listModel.habit) {
                 height += habitsModel.cellHeight;
             }
         }
-        height += 5;
+        height += 20;
     }
     
     return height;

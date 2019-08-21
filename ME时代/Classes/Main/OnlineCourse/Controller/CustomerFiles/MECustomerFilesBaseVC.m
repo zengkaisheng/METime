@@ -9,6 +9,7 @@
 #import "MECustomerFilesBaseVC.h"
 #import "MECustomerFileListModel.h"
 #import "MECustomerFilesListCell.h"
+#import "MECustomerDetailVC.h"
 
 @interface MECustomerFilesBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -49,6 +50,10 @@
     [self.refresh.arrData addObjectsFromArray:[MECustomerFileListModel mj_objectArrayWithKeyValuesArray:data]];
 }
 
+- (void)reloadDatas {
+    [self.refresh reload];
+}
+
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.refresh.arrData.count;
@@ -66,9 +71,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    MEOnlineCourseListModel *model = self.refresh.arrData[indexPath.row];
-//    MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:_type];
-//    [self.navigationController pushViewController:vc animated:YES];
+    MECustomerFileListModel *model = self.refresh.arrData[indexPath.row];
+    MECustomerDetailVC *vc = [[MECustomerDetailVC alloc] initWithCustomerId:model.idField];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma setter&&getter

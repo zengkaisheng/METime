@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *remarkLbl;
 @property (weak, nonatomic) IBOutlet UIButton *changeBtn;
 @property (weak, nonatomic) IBOutlet UILabel *amountLbl;
+@property (weak, nonatomic) IBOutlet UILabel *nameLbl;
 
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UILabel *contentLbl;
@@ -49,6 +50,7 @@
 }
 
 - (void)setUIWithModel:(MEDiagnoseOrderListModel *)model {
+    _nameLbl.text = kMeUnNilStr(model.product_name);
     _buyTimeLbl.text = [NSString stringWithFormat:@"购买时长：%@",kMeUnNilStr(model.buy_time)];
     _effectiveTimeLbl.text = [NSString stringWithFormat:@"有效时间：%@",kMeUnNilStr(model.effective_time)];
     _payTimeLbl.text = [NSString stringWithFormat:@"支付时间：%@",kMeUnNilStr(model.pay_time)];

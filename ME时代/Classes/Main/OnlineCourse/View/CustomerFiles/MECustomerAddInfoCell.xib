@@ -18,17 +18,17 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="51.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSe-GT-Xkv">
-                        <rect key="frame" x="134" y="17" width="37.5" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSe-GT-Xkv">
+                        <rect key="frame" x="134" y="26" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_more" translatesAutoresizingMaskIntoConstraints="NO" id="HcX-N6-JPR">
-                        <rect key="frame" x="349" y="18" width="10" height="16"/>
+                        <rect key="frame" x="349" y="19" width="8" height="14"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="10" id="P47-9f-C2q"/>
-                            <constraint firstAttribute="height" constant="16" id="msd-Ax-ydX"/>
+                            <constraint firstAttribute="width" constant="8" id="P47-9f-C2q"/>
+                            <constraint firstAttribute="height" constant="14" id="msd-Ax-ydX"/>
                         </constraints>
                     </imageView>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0mx-X4-dSK">
@@ -44,8 +44,8 @@
                             <constraint firstAttribute="height" constant="1" id="Vk3-n2-eLY"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YhM-hr-YNu">
-                        <rect key="frame" x="20" y="17" width="38" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YhM-hr-YNu">
+                        <rect key="frame" x="20" y="17" width="0.0" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="WaN-JI-4nH"/>
                         </constraints>
@@ -56,7 +56,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="zpd-T0-RVl" secondAttribute="bottom" id="24I-jz-YOo"/>
-                    <constraint firstAttribute="trailing" secondItem="HcX-N6-JPR" secondAttribute="trailing" constant="16" id="4CS-2Y-t8q"/>
+                    <constraint firstAttribute="trailing" secondItem="HcX-N6-JPR" secondAttribute="trailing" constant="18" id="4CS-2Y-t8q"/>
                     <constraint firstItem="0mx-X4-dSK" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Bbw-3c-SSF"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZSe-GT-Xkv" secondAttribute="trailing" constant="20" id="CAc-dm-j8f"/>
                     <constraint firstItem="ZSe-GT-Xkv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="F4v-zs-iAx"/>

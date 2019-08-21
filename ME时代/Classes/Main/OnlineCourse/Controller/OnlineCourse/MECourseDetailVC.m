@@ -116,12 +116,12 @@
 - (NSDictionary *)requestParameter{
     if (self.type == 1  || self.type == 5 || self.type == 7) {
     return @{@"token":kMeUnNilStr(kCurrentUser.token),
-          @"is_charge":@(self.detailModel.is_charge),
+          /*@"is_charge":@(self.detailModel.is_charge),*/
           @"audio_type":@(self.detailModel.audio_type)
           };
     }
     return @{@"token":kMeUnNilStr(kCurrentUser.token),
-             @"is_charge":@(self.detailModel.is_charge),
+             /*@"is_charge":@(self.detailModel.is_charge),*/
              @"video_type":@(self.detailModel.video_type)
              };
 }
@@ -159,8 +159,10 @@
         self.tryBtn.hidden = NO;
         if (self.type == 0 || self.type == 4 || self.type == 6) {
             [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.video_price)] forState:UIControlStateNormal];
+            [self.tryBtn setTitle:@" 试看" forState:UIControlStateNormal];
         }else if (self.type == 1  || self.type == 5 || self.type == 7) {
             [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.audio_price)] forState:UIControlStateNormal];
+            [self.tryBtn setTitle:@" 试听" forState:UIControlStateNormal];
         }
         self.buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201*kMeFrameScaleX(), 4.5, 201*kMeFrameScaleX(), 40);
     }

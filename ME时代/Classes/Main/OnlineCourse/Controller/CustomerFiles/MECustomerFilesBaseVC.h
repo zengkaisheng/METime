@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithClassifyId:(NSInteger)classifyId;
 
+- (void)reloadDatas;
+
 @end
 
 NS_ASSUME_NONNULL_END

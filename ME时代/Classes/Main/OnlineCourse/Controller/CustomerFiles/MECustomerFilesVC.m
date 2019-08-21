@@ -75,7 +75,7 @@
 }
 
 #pragma mark ---- Networking
-//视频分类
+//顾客分类
 - (void)getCustomerClassifyListWithNetworking {
     kMeWEAKSELF
     [MEPublicNetWorkTool postGetCustomerClassifyListWithSuccessBlock:^(ZLRequestResponse *responseObject) {
@@ -97,6 +97,14 @@
 #pragma mark -- Action
 - (void)addBtnAction {
     MECustomerDetailVC *vc = [[MECustomerDetailVC alloc] init];
+    vc.finishBlock = ^{
+        for (UIViewController *vc in self.childViewControllers) {
+            if ([vc isKindOfClass:[MECustomerFilesBaseVC class]]) {
+                MECustomerFilesBaseVC *baseVC = (MECustomerFilesBaseVC *)vc;
+                [baseVC reloadDatas];
+            }
+        }
+    };
     [self.navigationController pushViewController:vc animated:YES];
 }
 

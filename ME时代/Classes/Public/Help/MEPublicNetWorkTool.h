@@ -24,6 +24,7 @@
 @class MEAddGoodModel;
 @class MEAiCustomerDataModel;
 @class SSHomeAddTestDecModel;
+@class MEAddCustomerInformationModel;
 
 @interface MEPublicNetWorkTool : NSObject
 
@@ -675,7 +676,15 @@
 #pragma mark - Diagonse
 //获取顾客分类列表
 + (void)postGetCustomerClassifyListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//删除顾客分类
++ (void)postDeleteCustomerClassifyWithClassifyId:(NSInteger)classifyId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//添加顾客分类
++ (void)postAddCustomerClassifyWithClassifyName:(NSString *)classifyName successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
+//添加顾客基本信息
++ (void)postAddCustomerInformationWithInformationModel:(MEAddCustomerInformationModel *)informationModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取顾客档案信息
++ (void)postGetCustomerInformationWithCustomerId:(NSInteger)customerId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
 //获取生活习惯分类列表及选项
 + (void)postGetLivingHabitListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;

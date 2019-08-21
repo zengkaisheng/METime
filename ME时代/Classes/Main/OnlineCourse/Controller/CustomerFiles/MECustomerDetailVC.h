@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECustomerDetailVC : MEBaseVC
 
+@property (nonatomic, copy) kMeBasicBlock finishBlock;
+
+- (instancetype)initWithCustomerId:(NSInteger)customerId;
+
+@property (nonatomic, assign) BOOL isAdd;
+
 @end
 
 NS_ASSUME_NONNULL_END

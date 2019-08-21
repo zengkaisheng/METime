@@ -885,9 +885,17 @@
 #pragma makr - 客户档案
 //获取顾客分类列表
 #define MEIPcommonCustomerClassifyList @"common/customerclassify/classifyList"
+//删除顾客分类
+#define MEIPcommonCustomerClassifyDel @"common/customerclassify/classifyDel"
+//添加顾客分类
+#define MEIPcommonCustomerClassifyAdd @"common/customerclassify/classifyAdd"
+
 //获取顾客档案列表
 #define MEIPcommonCustomerFilesList @"common/customerfiles/customerFilesList"
-
+//新增顾客基本信息
+#define MEIPcommonCustomerFilesAdd @"common/customerfiles/customerFilesAdd"
+//获取顾客档案信息
+#define MEIPcommonGetCustomerFilesInfo @"common/customerfiles/customerFilesInfo"
 
 //获取生活习惯分类列表及选项
 #define MEIPcommonLivingHabitList @"common/livinghabit/livingHabitList"

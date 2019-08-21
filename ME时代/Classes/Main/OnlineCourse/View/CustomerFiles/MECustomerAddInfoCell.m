@@ -9,7 +9,7 @@
 #import "MECustomerAddInfoCell.h"
 #import "MEAddCustomerInfoModel.h"
 
-@interface MECustomerAddInfoCell ()
+@interface MECustomerAddInfoCell ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UILabel *contentLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrow;
@@ -28,6 +28,7 @@
     // Initialization code
     self.textField.hidden = YES;
     self.imgArrow.hidden = YES;
+    self.textField.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldChange) name:UITextFieldTextDidChangeNotification object:self.textField];
 }
 
@@ -77,7 +78,14 @@
         if (range.length == 1 && string.length == 0) {
             return YES;
         }else if (self.textField.text.length >= self.maxCount) {
-            self.textField.text = [textField.text substringToIndex:self.maxCount];
+            [self.textField endEditing:YES];
+            self.textField.text = [textField.text substringWithRange:NSMakeRange(0, textField.text.length)];
+            if ([_titleLbl.text isEqualToString:@"手机号码"]) {
+                if (![MECommonTool isValidPhoneNum:self.textField.text]) {
+                    [MECommonTool showMessage:@"手机号码格式不正确" view:kMeCurrentWindow];
+                    return YES;
+                }
+            }
             return NO;
         }
     }

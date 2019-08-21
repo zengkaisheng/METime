@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-- (void)setUIWithInfo:(NSDictionary *)info;
+- (void)setUIWithInfo:(NSDictionary *)info isAdd:(BOOL)isAdd;
 + (CGFloat)getCellHeightWithInfo:(NSDictionary *)info;
 
 @end

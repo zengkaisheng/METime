@@ -19,7 +19,7 @@
 }
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) ZLRefreshTool         *refresh;
+@property (nonatomic, strong) ZLRefreshTool *refresh;
 
 @end
 
