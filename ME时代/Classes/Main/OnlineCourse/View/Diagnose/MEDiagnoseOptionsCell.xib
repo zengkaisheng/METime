@@ -19,14 +19,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_questionNormal" translatesAutoresizingMaskIntoConstraints="NO" id="jJP-PQ-gf6">
-                        <rect key="frame" x="21" y="6.5" width="13" height="13"/>
+                        <rect key="frame" x="21" y="9" width="16" height="16"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="13" id="5xY-KN-Bsj"/>
-                            <constraint firstAttribute="width" constant="13" id="wT4-uH-vuK"/>
+                            <constraint firstAttribute="height" constant="16" id="5xY-KN-Bsj"/>
+                            <constraint firstAttribute="width" constant="16" id="wT4-uH-vuK"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7H-Dc-ID7">
-                        <rect key="frame" x="38" y="4" width="37.5" height="18"/>
+                        <rect key="frame" x="41" y="7" width="37.5" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -47,14 +47,14 @@
                     </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="jJP-PQ-gf6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6.5" id="Jee-gN-Bej"/>
+                    <constraint firstItem="jJP-PQ-gf6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="Jee-gN-Bej"/>
                     <constraint firstItem="jJP-PQ-gf6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="21" id="KGs-Kl-OQt"/>
                     <constraint firstAttribute="trailing" secondItem="wFw-3f-mm9" secondAttribute="trailing" constant="20" id="OTb-CO-cge"/>
                     <constraint firstItem="wFw-3f-mm9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="TgU-g2-Top"/>
                     <constraint firstItem="wFw-3f-mm9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="21" id="kOG-Qc-uhY"/>
                     <constraint firstItem="R7H-Dc-ID7" firstAttribute="leading" secondItem="jJP-PQ-gf6" secondAttribute="trailing" constant="4" id="mwf-p0-kzc"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="R7H-Dc-ID7" secondAttribute="trailing" constant="20" id="psq-s5-o8j"/>
-                    <constraint firstItem="R7H-Dc-ID7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="q1T-sU-5oX"/>
+                    <constraint firstItem="R7H-Dc-ID7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="q1T-sU-5oX"/>
                     <constraint firstAttribute="bottom" secondItem="wFw-3f-mm9" secondAttribute="bottom" constant="4" id="uD7-Ua-Dqk"/>
                 </constraints>
             </tableViewCellContentView>

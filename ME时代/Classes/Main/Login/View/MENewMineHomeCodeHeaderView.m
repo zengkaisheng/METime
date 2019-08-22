@@ -107,6 +107,11 @@
             break;
     }
     
+    if (kCurrentUser.client_type == 4) {
+        _changeStatusBtn.hidden = YES;
+    }else {
+        _changeStatusBtn.hidden = NO;
+    }
     NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
     if ([status isEqualToString:@"customer"]) {
         _businessView.hidden = YES;

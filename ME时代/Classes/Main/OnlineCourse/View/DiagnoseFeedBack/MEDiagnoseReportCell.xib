@@ -37,6 +37,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vqz-rj-5ZI" customClass="MEBlockTextField">
+                        <rect key="frame" x="20" y="39" width="335" height="30"/>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="ymw-sG-v9p" firstAttribute="top" secondItem="0t2-Wt-3wR" secondAttribute="bottom" constant="10" id="7NS-rf-sgT"/>
@@ -46,13 +52,17 @@
                     <constraint firstAttribute="trailing" secondItem="0t2-Wt-3wR" secondAttribute="trailing" id="PmI-Ib-qtk"/>
                     <constraint firstItem="ymw-sG-v9p" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Sw1-jC-Smc"/>
                     <constraint firstItem="Uca-vg-ppG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="VWB-iw-5n0"/>
+                    <constraint firstItem="Vqz-rj-5ZI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="ckH-fW-zrG"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Uca-vg-ppG" secondAttribute="trailing" constant="20" id="mNh-iQ-HAO"/>
+                    <constraint firstItem="Vqz-rj-5ZI" firstAttribute="top" secondItem="ymw-sG-v9p" secondAttribute="bottom" constant="10" id="ozx-Wj-cl0"/>
                     <constraint firstItem="Uca-vg-ppG" firstAttribute="top" secondItem="ymw-sG-v9p" secondAttribute="bottom" constant="13" id="pMW-wL-Q3X"/>
+                    <constraint firstAttribute="trailing" secondItem="Vqz-rj-5ZI" secondAttribute="trailing" constant="20" id="rli-oL-j0f"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="answerLbl" destination="Uca-vg-ppG" id="WLQ-iy-oOb"/>
                 <outlet property="questionLbl" destination="ymw-sG-v9p" id="4Vr-ge-HPk"/>
+                <outlet property="textField" destination="Vqz-rj-5ZI" id="Mar-wH-fss"/>
             </connections>
             <point key="canvasLocation" x="39.200000000000003" y="25.187406296851577"/>
         </tableViewCell>

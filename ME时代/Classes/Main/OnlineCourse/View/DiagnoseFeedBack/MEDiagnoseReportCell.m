@@ -8,11 +8,14 @@
 
 #import "MEDiagnoseReportCell.h"
 #import "MEDiagnoseReportDetailModel.h"
+#import "MEAddCustomerInfoModel.h"
+#import "MEBlockTextField.h"
 
-@interface MEDiagnoseReportCell ()
+@interface MEDiagnoseReportCell ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *questionLbl;
 @property (weak, nonatomic) IBOutlet UILabel *answerLbl;
+@property (weak, nonatomic) IBOutlet MEBlockTextField *textField;
 
 @end
 
@@ -21,6 +24,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    _textField.hidden = YES;
+    _textField.delegate = self;
+    _textField.returnKeyType = UIReturnKeyDone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -31,6 +37,7 @@
 
 //诊断问题
 - (void)setUIWithDiagnosisModel:(MEReportDiagnosisModel *)model {
+    _textField.hidden = YES;
     _questionLbl.text = kMeUnNilStr(model.question);
     _answerLbl.text = kMeUnNilStr(model.option);
     if (kMeUnArr(model.options).count > 0) {
@@ -50,9 +57,25 @@
 
 //诊断分析
 - (void)setUIWithAnalyseModel:(MEReportAnalyseModel *)model {
+    _textField.hidden = YES;
     _questionLbl.text = kMeUnNilStr(model.analysis);
     _answerLbl.text = kMeUnNilStr(model.suggest);
     _answerLbl.textColor = kME333333;
+}
+//顾客销售信息
+- (void)setUIWithSalesInfoModel:(MEAddCustomerInfoModel *)model {
+    _textField.hidden = !model.isEdit;
+    _textField.contentBlock = ^(NSString *str) {
+        model.value = str;
+    };
+    _questionLbl.text = kMeUnNilStr(model.title);
+    _answerLbl.text = kMeUnNilStr(model.value);
+    _answerLbl.textColor = kME666666;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self endEditing:YES];
+    return YES;
 }
 
 @end

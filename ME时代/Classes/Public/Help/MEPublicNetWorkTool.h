@@ -25,6 +25,7 @@
 @class MEAiCustomerDataModel;
 @class SSHomeAddTestDecModel;
 @class MEAddCustomerInformationModel;
+@class MESetCustomerFileSalesModel;
 
 @interface MEPublicNetWorkTool : NSObject
 
@@ -680,14 +681,21 @@
 + (void)postDeleteCustomerClassifyWithClassifyId:(NSInteger)classifyId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //添加顾客分类
 + (void)postAddCustomerClassifyWithClassifyName:(NSString *)classifyName successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
-
 //添加顾客基本信息
 + (void)postAddCustomerInformationWithInformationModel:(MEAddCustomerInformationModel *)informationModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取顾客档案信息
 + (void)postGetCustomerInformationWithCustomerId:(NSInteger)customerId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//修改顾客基本信息
++ (void)postEditCustomerInformationWithInformationModel:(MEAddCustomerInformationModel *)informationModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//顾客档案销售信息-修改
++ (void)postSetCustomerSalesInfoWithSalesModel:(MESetCustomerFileSalesModel *)salesModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
 //获取生活习惯分类列表及选项
 + (void)postGetLivingHabitListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//获取跟进方式列表
++ (void)postGetFollowTypeListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
 /*********************************************/
 

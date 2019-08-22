@@ -24,7 +24,7 @@ MEModelIdToIdField
     if (kMeUnNilStr(self.option).length > 0) {
         height = [kMeUnNilStr(self.option) boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-54-30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height+15;
     }
-    return height;
+    return height+5;
 }
 
 @end

@@ -896,9 +896,17 @@
 #define MEIPcommonCustomerFilesAdd @"common/customerfiles/customerFilesAdd"
 //获取顾客档案信息
 #define MEIPcommonGetCustomerFilesInfo @"common/customerfiles/customerFilesInfo"
+//修改顾客档案信息
+#define MEIPcommonGetCustomerFilesEdit @"common/customerfiles/customerFilesEdit"
+
+//修改顾客档案销售信息
+#define MEIPcommonSetCustomerFilesSales @"common/customerfiles/setCustomerFilesSales"
+
 
 //获取生活习惯分类列表及选项
 #define MEIPcommonLivingHabitList @"common/livinghabit/livingHabitList"
+//获取跟进方式列表
+#define MEIPcommonGetFollowType @"common/followtype/getFollowType"
 
 /*********************************************/
 

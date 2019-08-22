@@ -9,6 +9,7 @@
 #import "MEBaseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@class MECustomerFollowTpyeModel;
 
 @interface MECustomerInfoFollowModel : MEBaseModel
 
@@ -21,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * project;
 @property (nonatomic, strong) NSString * result;
 @property (nonatomic, strong) NSString * updated_at;
+
+@property (nonatomic, strong) NSArray *followList;
 
 @end
 

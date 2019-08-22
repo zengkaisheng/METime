@@ -82,7 +82,10 @@
         kMeSTRONGSELF
         if ([responseObject.data isKindOfClass:[NSArray class]]) {
             strongSelf.arrModel = [MECustomerClassifyListModel mj_objectArrayWithKeyValuesArray:responseObject.data];
-            
+            MECustomerClassifyListModel *model = [[MECustomerClassifyListModel alloc] init];
+            model.classify_name = @"全部";
+            model.idField = 0;
+            [strongSelf.arrModel insertObject:model atIndex:0];
             [strongSelf->_arrModel enumerateObjectsUsingBlock:^(MECustomerClassifyListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
                 [strongSelf.arrType addObject:model.classify_name];
             }];
@@ -97,6 +100,7 @@
 #pragma mark -- Action
 - (void)addBtnAction {
     MECustomerDetailVC *vc = [[MECustomerDetailVC alloc] init];
+    vc.isAdd = YES;
     vc.finishBlock = ^{
         for (UIViewController *vc in self.childViewControllers) {
             if ([vc isKindOfClass:[MECustomerFilesBaseVC class]]) {

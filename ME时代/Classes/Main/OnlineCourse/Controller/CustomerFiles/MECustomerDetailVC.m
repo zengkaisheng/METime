@@ -12,11 +12,15 @@
 #import "MECustomerContentCell.h"
 #import "MEAddCustomerInformationModel.h"
 #import "MECustomerFilesInfoModel.h"
+#import "MECustomerFollowTpyeModel.h"
+
+#import "MEEditCustomerInfomationVC.h"
 
 @interface MECustomerDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *habitList;
+@property (nonatomic, strong) NSArray *followTypeList;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger customerId;
 
@@ -43,16 +47,13 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:self.tableView];
-//    [self requestHabitlistWithNetWork];
     if (self.isAdd) {
         self.title = @"新增客户档案";
         [self loadBaseInformation];
         self.tableView.tableFooterView = self.footerView;
     }else {
-        [self requestCustomerInfomationWithNetWork];
+        [self getCustomerInformationsWithNetWork];
     }
-    
-    [self.tableView reloadData];
 }
 
 - (void)loadBaseInformation {
@@ -65,14 +66,15 @@
     MEAddCustomerInfoModel *birthdayModel = [self creatModelWithTitle:@"生日" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
     birthdayModel.isHideArrow = self.isAdd?NO:YES;
     
-    MEAddCustomerInfoModel *WeChatModel = [self creatModelWithTitle:@"微信" andPlaceHolder:@"" andMaxInputWords:20 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
+    MEAddCustomerInfoModel *WeChatModel = [self creatModelWithTitle:@"微信/QQ" andPlaceHolder:@"" andMaxInputWords:20 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
     
-    MEAddCustomerInfoModel *qqModel = [self creatModelWithTitle:@"QQ" andPlaceHolder:@"" andMaxInputWords:20 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
+//    MEAddCustomerInfoModel *qqModel = [self creatModelWithTitle:@"QQ" andPlaceHolder:@"" andMaxInputWords:20 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
     
     MEAddCustomerInfoModel *phoneModel = [self creatModelWithTitle:@"手机号码" andPlaceHolder:@"请输入手机号码" andMaxInputWords:11 andIsTextField:self.isAdd?YES:NO andIsMustInput:YES andToastStr:@"请输入手机号码"];
     phoneModel.isNumberType = YES;
     
-    MEAddCustomerInfoModel *bestTimeModel = [self creatModelWithTitle:@"最佳致电时间" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
+    MEAddCustomerInfoModel *bestTimeModel = [self creatModelWithTitle:@"最佳致电时间" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+    bestTimeModel.isHideArrow = self.isAdd?NO:YES;
     
     MEAddCustomerInfoModel *tailModel = [self creatModelWithTitle:@"身高" andPlaceHolder:@"" andMaxInputWords:10 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
     
@@ -84,7 +86,7 @@
     
     MEAddCustomerInfoModel *natureModel = [self creatModelWithTitle:@"性格特征" andPlaceHolder:@"" andMaxInputWords:30 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
     
-    MEAddCustomerInfoModel *marriedModel = [self creatModelWithTitle:@"婚否" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
+    MEAddCustomerInfoModel *marriedModel = [self creatModelWithTitle:@"婚否" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
     marriedModel.isHideArrow = self.isAdd?NO:YES;
     
     MEAddCustomerInfoModel *jobModel = [self creatModelWithTitle:@"职业" andPlaceHolder:@"" andMaxInputWords:30 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
@@ -105,7 +107,7 @@
         sexModel.valueId = [NSString stringWithFormat:@"%@",@(self.detailModel.sex)];
         birthdayModel.value = kMeUnNilStr(self.detailModel.birthday);
         WeChatModel.value = kMeUnNilStr(self.detailModel.wechat);
-        qqModel.value = kMeUnNilStr(self.detailModel.qq);
+//        qqModel.value = kMeUnNilStr(self.detailModel.qq);
         phoneModel.value = kMeUnNilStr(self.detailModel.phone);
         bestTimeModel.value = kMeUnNilStr(self.detailModel.best_communication_time);
         tailModel.value = [NSString stringWithFormat:@"%@",@(self.detailModel.tall)];
@@ -122,20 +124,61 @@
         cTypeModel.value = kMeUnNilStr(self.detailModel.classify_name);
     }
     
-    [self.dataSource addObject:@{@"title":@"基本资料",@"type":@"1",@"content":@[nameModel,sexModel,birthdayModel,WeChatModel,qqModel,phoneModel,bestTimeModel,tailModel,weightModel,bloodModel,hobbyModel,natureModel,marriedModel,jobModel,incomeModel,consumeModel,adressModel,cTypeModel]}];
+    [self.dataSource addObject:@{@"title":@"基本资料",@"type":@"1",@"content":@[nameModel,sexModel,birthdayModel,WeChatModel,phoneModel,bestTimeModel,tailModel,weightModel,bloodModel,hobbyModel,natureModel,marriedModel,jobModel,incomeModel,consumeModel,adressModel,cTypeModel]}];
 }
 
 - (void)loadHabitDatas {
+    for (MELivingHabitListModel *listModel in self.habitList) {
+        for (MELivingHabitsOptionModel *optionModel in listModel.habit) {
+            for (MECustomerInfoHabitModel *habitModel in self.detailModel.habit) {
+                if (habitModel.classify_id == optionModel.classify_id) {
+                    if (habitModel.habit_arr.count > 0) {
+                        for (MECustomerInfoHabitSubModel *subModel in habitModel.habit_arr) {
+                            if (subModel.idField == optionModel.idField) {
+                                optionModel.isSelected = YES;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     //生活习惯信息
     [self.dataSource addObject:@{@"title":@"生活习惯信息",@"type":@"2",@"content":self.habitList}];
 }
 
 - (void)loadSalesDatas {
     //顾客销售信息
+    MEAddCustomerInfoModel *requirmentsModel = [self creatModelWithTitle:@"到店目的及要求" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+    requirmentsModel.value = kMeUnNilStr(self.detailModel.objectives_and_requirements);
+    
+    MEAddCustomerInfoModel *interestModel = [self creatModelWithTitle:@"兴趣项目" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+    interestModel.value = kMeUnNilStr(self.detailModel.interest_object);
+    
+    MEAddCustomerInfoModel *mainModel = [self creatModelWithTitle:@"主推项目" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+    mainModel.value = kMeUnNilStr(self.detailModel.main_projects);
+    
+    MEAddCustomerInfoModel *consumptionModel = [self creatModelWithTitle:@"预计年消费" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+    consumptionModel.value = [NSString stringWithFormat:@"%@",@(self.detailModel.consumption)];
+    consumptionModel.isLastItem = YES;
+    
+    [self.dataSource addObject:@{@"title":@"顾客销售信息",@"type":@"3",@"content":@[requirmentsModel,interestModel,mainModel,consumptionModel]}];
 }
 
 - (void)loadFollowDatas {
+    for (MECustomerInfoFollowModel *followModel in self.detailModel.follow) {
+        followModel.followList = [self.followTypeList copy];
+        for (NSString *string in followModel.follow_type) {
+            for (MECustomerFollowTpyeModel *typeModel in followModel.followList) {
+                if ([string integerValue] == typeModel.idField) {
+                    typeModel.isSelected = YES;
+                }
+            }
+        }
+    }
+    
     //销售跟进
+    [self.dataSource addObject:@{@"title":@"销售跟进",@"type":@"4",@"content":self.detailModel.follow,@"options":self.followTypeList}];
 }
 
 #pragma mark -- Action
@@ -159,6 +202,93 @@
 }
 
 #pragma NetWorking
+- (void)getCustomerInformationsWithNetWork{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
+    hud.label.text = @"获取详情中...";
+    hud.userInteractionEnabled = YES;
+    
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    kMeWEAKSELF
+    dispatch_group_async(group, queue, ^{//生活习惯列表
+        [MEPublicNetWorkTool postGetLivingHabitListWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            if([responseObject.data isKindOfClass:[NSArray class]]){
+                strongSelf.habitList = [MELivingHabitListModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+            }else {
+                strongSelf.habitList = [[NSArray alloc] init];
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            kMeSTRONGSELF
+            strongSelf.habitList = [[NSArray alloc] init];
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
+    dispatch_group_async(group, queue, ^{
+        [MEPublicNetWorkTool postGetFollowTypeListWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            if([responseObject.data isKindOfClass:[NSArray class]]){
+                strongSelf.followTypeList = [MECustomerFollowTpyeModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+            }else {
+                strongSelf.followTypeList = [[NSArray alloc] init];
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            kMeSTRONGSELF
+            strongSelf.followTypeList = [[NSArray alloc] init];
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
+    dispatch_group_async(group, queue, ^{//顾客详情资料
+        [MEPublicNetWorkTool postGetCustomerInformationWithCustomerId:self.customerId successBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            if([responseObject.data isKindOfClass:[NSDictionary class]]){
+                strongSelf.detailModel = [MECustomerFilesInfoModel mj_objectWithKeyValues:responseObject.data];
+            }else {
+                strongSelf.detailModel = nil;
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            kMeSTRONGSELF
+            strongSelf.detailModel = nil;
+            if([object isKindOfClass:[ZLRequestResponse class]]){
+                ZLRequestResponse *res = (ZLRequestResponse*)object;
+                [MEShowViewTool SHOWHUDWITHHUD:hud test:kMeUnNilStr(res.message)];
+            }else{
+                [MEShowViewTool SHOWHUDWITHHUD:hud test:kApiError];
+            }
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
+    dispatch_group_notify(group, queue, ^{
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [hud hideAnimated:YES];
+            kMeSTRONGSELF
+            if (strongSelf.detailModel == nil) {
+                [strongSelf.navigationController popViewControllerAnimated:YES];
+            }else {
+                if (strongSelf.dataSource.count > 0) {
+                    [strongSelf.dataSource removeAllObjects];
+                }
+                [strongSelf loadBaseInformation];
+                [strongSelf loadHabitDatas];
+                [strongSelf loadSalesDatas];
+                [strongSelf loadFollowDatas];
+                [strongSelf.tableView reloadData];
+            }
+        });
+    });
+}
+/*
 - (void)requestCustomerInfomationWithNetWork{
     kMeWEAKSELF
     [MEPublicNetWorkTool postGetCustomerInformationWithCustomerId:self.customerId successBlock:^(ZLRequestResponse *responseObject) {
@@ -166,8 +296,7 @@
         if([responseObject.data isKindOfClass:[NSDictionary class]]){
             strongSelf.detailModel = [MECustomerFilesInfoModel mj_objectWithKeyValues:responseObject.data];
         }
-        [strongSelf loadBaseInformation];
-        [strongSelf.tableView reloadData];
+        [strongSelf requestHabitlistWithNetWork];
     } failure:^(id object) {
         kMeSTRONGSELF
         [strongSelf.navigationController popViewControllerAnimated:YES];
@@ -183,12 +312,17 @@
         }else {
             strongSelf.habitList = [[NSArray alloc] init];
         }
+        [strongSelf loadBaseInformation];
         [strongSelf loadHabitDatas];
+        [strongSelf loadSalesDatas];
+        [strongSelf loadFollowDatas];
+        [strongSelf.tableView reloadData];
     } failure:^(id object) {
         kMeSTRONGSELF
         strongSelf.habitList = [[NSArray alloc] init];
     }];
 }
+ */
 //添加客户基本信息
 - (void)addCustomerInformationsWithNetWork {
     MEAddCustomerInformationModel *addModel = [[MEAddCustomerInformationModel alloc] init];
@@ -239,7 +373,7 @@
                     addModel.weight = model.value;
                 }
                 if ([model.title isEqualToString:@"血型"]) {
-                    addModel.hlood_type = model.value;
+                    addModel.blood_type = model.value;
                 }
                 if ([model.title isEqualToString:@"兴趣爱好"]) {
                     addModel.interest = model.value;
@@ -253,7 +387,7 @@
                 if ([model.title isEqualToString:@"职业"]) {
                     addModel.job = model.value;
                 }
-                if ([model.title isEqualToString:@"月收入"]) {
+                if ([model.title isEqualToString:@"月均收入"]) {
                     addModel.month_earning = model.value;
                 }
                 if ([model.title isEqualToString:@"消费习惯"]) {
@@ -289,7 +423,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MECustomerContentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerContentCell class]) forIndexPath:indexPath];
     NSDictionary *info = self.dataSource[indexPath.section];
-    [cell setUIWithInfo:info isAdd:self.isAdd];
+    [cell setUIWithInfo:info isAdd:self.isAdd isEdit:NO];
+    kMeWEAKSELF
+    cell.tapBlock = ^{
+        kMeSTRONGSELF
+        MEEditCustomerInfomationVC *editVC = [[MEEditCustomerInfomationVC alloc] initWithInfo:info customerId:self.customerId];
+        kMeWEAKSELF
+        editVC.finishBlock = ^{
+            kMeSTRONGSELF
+            [strongSelf getCustomerInformationsWithNetWork];
+        };
+        [strongSelf.navigationController pushViewController:editVC animated:YES];
+    };
     return cell;
 }
 
@@ -303,7 +448,6 @@
     if(!_tableView){
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECustomerContentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECustomerContentCell class])];
-//        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEDiagnoseQuestionsCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEDiagnoseQuestionsCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.delegate = self;

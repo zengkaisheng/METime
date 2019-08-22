@@ -23,6 +23,7 @@
 #import "MEAiCustomerDataModel.h"
 #import "MEHomeAddTestDecModel.h"
 #import "MEAddCustomerInformationModel.h"
+#import "MESetCustomerFileSalesModel.h"
 
 @implementation MEPublicNetWorkTool
 
@@ -4401,6 +4402,45 @@
                           @"customer_files_id":@(customerId)
                           };
     NSString *url = kGetApiWithUrl(MEIPcommonGetCustomerFilesInfo);
+//    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+//        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+//        if([error isKindOfClass:[ZLRequestResponse class]]){
+//            ZLRequestResponse *res = (ZLRequestResponse*)error;
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+//        }else{
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+//        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
+//修改顾客基本信息
++ (void)postEditCustomerInformationWithInformationModel:(MEAddCustomerInformationModel *)informationModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = [informationModel mj_keyValues];
+    
+    NSString *url = kGetApiWithUrl(MEIPcommonGetCustomerFilesEdit);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
+//顾客档案销售信息-修改
++ (void)postSetCustomerSalesInfoWithSalesModel:(MESetCustomerFileSalesModel *)salesModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = [salesModel mj_keyValues];
+    NSString *url = kGetApiWithUrl(MEIPcommonSetCustomerFilesSales);
     MBProgressHUD *HUD = [self commitWithHUD:@""];
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
         [HUD hideAnimated:YES];
@@ -4421,17 +4461,29 @@
     NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token)
                           };
     NSString *url = kGetApiWithUrl(MEIPcommonLivingHabitList);
-    MBProgressHUD *HUD = [self commitWithHUD:@""];
+//    MBProgressHUD *HUD = [self commitWithHUD:@""];
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
-        [HUD hideAnimated:YES];
+//        [HUD hideAnimated:YES];
         kMeCallBlock(successBlock,responseObject);
     } failure:^(id error) {
-        if([error isKindOfClass:[ZLRequestResponse class]]){
-            ZLRequestResponse *res = (ZLRequestResponse*)error;
-            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
-        }else{
-            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
-        }
+//        if([error isKindOfClass:[ZLRequestResponse class]]){
+//            ZLRequestResponse *res = (ZLRequestResponse*)error;
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+//        }else{
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+//        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
+//获取跟进方式列表
++ (void)postGetFollowTypeListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonGetFollowType);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
         kMeCallBlock(failure,error);
     }];
 }

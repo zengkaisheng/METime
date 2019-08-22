@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEAddCustomerInformationModel : MEBaseModel
 
+@property (nonatomic, assign) NSInteger idField;
+
 @property (nonatomic, strong) NSString * token;
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSString * sex;
@@ -22,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * best_communication_time;
 @property (nonatomic, strong) NSString * tall;
 @property (nonatomic, strong) NSString * weight;
-@property (nonatomic, strong) NSString * hlood_type;
+@property (nonatomic, strong) NSString * blood_type;
 @property (nonatomic, strong) NSString * interest;
 @property (nonatomic, strong) NSString * traits_of_character;
 @property (nonatomic, strong) NSString * married;

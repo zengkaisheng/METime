@@ -1004,6 +1004,10 @@
 		EB3E3B5022A1166A002EAC8D /* MENewFilterGoodsMiddleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB3E3B4E22A1166A002EAC8D /* MENewFilterGoodsMiddleHeaderView.xib */; };
 		EB4A743622B376EC0027B4DE /* MEIntelligentSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A743522B376EC0027B4DE /* MEIntelligentSearchView.m */; };
 		EB4A743922B38FF50027B4DE /* MEFourCoupleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A743822B38FF50027B4DE /* MEFourCoupleVC.m */; };
+		EB4A9930230E38BF00E82871 /* TimePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A992F230E38BF00E82871 /* TimePickerView.m */; };
+		EB4A9933230E68AB00E82871 /* MECustomerFollowTpyeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A9932230E68AB00E82871 /* MECustomerFollowTpyeModel.m */; };
+		EB4A9936230E99E100E82871 /* MEEditCustomerInfomationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A9935230E99E100E82871 /* MEEditCustomerInfomationVC.m */; };
+		EB4A9939230EC83C00E82871 /* MESetCustomerFileSalesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A9938230EC83C00E82871 /* MESetCustomerFileSalesModel.m */; };
 		EB4BB4FF229F6C7600924774 /* MEAICustomerCheckDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4BB4FE229F6C7600924774 /* MEAICustomerCheckDetailModel.m */; };
 		EB4BB503229F6CB000924774 /* MEAICustomerCheckDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4BB501229F6CB000924774 /* MEAICustomerCheckDetailCell.m */; };
 		EB4BB504229F6CB000924774 /* MEAICustomerCheckDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB4BB502229F6CB000924774 /* MEAICustomerCheckDetailCell.xib */; };
@@ -3055,6 +3059,14 @@
 		EB4A743522B376EC0027B4DE /* MEIntelligentSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEIntelligentSearchView.m; sourceTree = "<group>"; };
 		EB4A743722B38FF50027B4DE /* MEFourCoupleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFourCoupleVC.h; sourceTree = "<group>"; };
 		EB4A743822B38FF50027B4DE /* MEFourCoupleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFourCoupleVC.m; sourceTree = "<group>"; };
+		EB4A992E230E38BF00E82871 /* TimePickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimePickerView.h; sourceTree = "<group>"; };
+		EB4A992F230E38BF00E82871 /* TimePickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimePickerView.m; sourceTree = "<group>"; };
+		EB4A9931230E68AB00E82871 /* MECustomerFollowTpyeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECustomerFollowTpyeModel.h; sourceTree = "<group>"; };
+		EB4A9932230E68AB00E82871 /* MECustomerFollowTpyeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECustomerFollowTpyeModel.m; sourceTree = "<group>"; };
+		EB4A9934230E99E100E82871 /* MEEditCustomerInfomationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEEditCustomerInfomationVC.h; sourceTree = "<group>"; };
+		EB4A9935230E99E100E82871 /* MEEditCustomerInfomationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEEditCustomerInfomationVC.m; sourceTree = "<group>"; };
+		EB4A9937230EC83C00E82871 /* MESetCustomerFileSalesModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MESetCustomerFileSalesModel.h; sourceTree = "<group>"; };
+		EB4A9938230EC83C00E82871 /* MESetCustomerFileSalesModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MESetCustomerFileSalesModel.m; sourceTree = "<group>"; };
 		EB4BB4FD229F6C7600924774 /* MEAICustomerCheckDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEAICustomerCheckDetailModel.h; sourceTree = "<group>"; };
 		EB4BB4FE229F6C7600924774 /* MEAICustomerCheckDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEAICustomerCheckDetailModel.m; sourceTree = "<group>"; };
 		EB4BB500229F6CB000924774 /* MEAICustomerCheckDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEAICustomerCheckDetailCell.h; sourceTree = "<group>"; };
@@ -6781,6 +6793,8 @@
 				EB2475FE230AD7050088BBC0 /* MECustomerDetailVC.m */,
 				EB352D66230D3623008036F5 /* MECustomerTypeListVC.h */,
 				EB352D67230D3623008036F5 /* MECustomerTypeListVC.m */,
+				EB4A9934230E99E100E82871 /* MEEditCustomerInfomationVC.h */,
+				EB4A9935230E99E100E82871 /* MEEditCustomerInfomationVC.m */,
 			);
 			path = CustomerFiles;
 			sourceTree = "<group>";
@@ -6800,6 +6814,10 @@
 				EB352D73230D680F008036F5 /* MEAddCustomerInformationModel.m */,
 				EB352D75230D7C53008036F5 /* MECustomerFilesInfoModel.h */,
 				EB352D76230D7C53008036F5 /* MECustomerFilesInfoModel.m */,
+				EB4A9931230E68AB00E82871 /* MECustomerFollowTpyeModel.h */,
+				EB4A9932230E68AB00E82871 /* MECustomerFollowTpyeModel.m */,
+				EB4A9937230EC83C00E82871 /* MESetCustomerFileSalesModel.h */,
+				EB4A9938230EC83C00E82871 /* MESetCustomerFileSalesModel.m */,
 			);
 			path = CustomerFiles;
 			sourceTree = "<group>";
@@ -7466,6 +7484,8 @@
 			children = (
 				EB782164230D281100075779 /* DatePickerView.h */,
 				EB782165230D281100075779 /* DatePickerView.m */,
+				EB4A992E230E38BF00E82871 /* TimePickerView.h */,
+				EB4A992F230E38BF00E82871 /* TimePickerView.m */,
 			);
 			path = DatePickerView;
 			sourceTree = "<group>";
@@ -8452,6 +8472,7 @@
 				3691308322363B6E008B1836 /* AAChartModel.m in Sources */,
 				EB73455422B8CE9400FA0D84 /* MEPrizeListModel.m in Sources */,
 				3628E7E021C0B53300D5405B /* MEBDataDealVC.m in Sources */,
+				EB4A9939230EC83C00E82871 /* MESetCustomerFileSalesModel.m in Sources */,
 				EB75D68D22CC43B700DE646B /* MEGroupDetailHeaderView.m in Sources */,
 				36FDE3D0218A980900633C40 /* MEFilterMainCell.m in Sources */,
 				36021AE0214B8086001B8DAF /* MEServiceDetailTelAddressCell.m in Sources */,
@@ -8639,9 +8660,11 @@
 				366D5AFF214A0CA40021C1BB /* MEMakeOrderCell.m in Sources */,
 				36F6B2C2224D0CDB007FDD7A /* MEAddGoodStoreGoodsTypeCell.m in Sources */,
 				EB7418F6230AA7D100A6B5E4 /* MECourseChargeOrFreeListVC.m in Sources */,
+				EB4A9933230E68AB00E82871 /* MECustomerFollowTpyeModel.m in Sources */,
 				EB5AB9FC22E94E7D00ADF22D /* MEHomeTestVC.m in Sources */,
 				EB4BB4FF229F6C7600924774 /* MEAICustomerCheckDetailModel.m in Sources */,
 				3600A7332159DAFD00195484 /* MEHomeGoodModel.m in Sources */,
+				EB4A9936230E99E100E82871 /* MEEditCustomerInfomationVC.m in Sources */,
 				EB92DEAC22CA0ECF00928D6B /* MEBargainRuleView.m in Sources */,
 				EB6F11FE22CB467F00619D4D /* MEJDCoupleModel.m in Sources */,
 				36F69B2E225C8362008E8DB0 /* MEAIHomeVC.m in Sources */,
@@ -8826,6 +8849,7 @@
 				3600B857217EF10700049F49 /* YBPopupMenu.m in Sources */,
 				36FEEBDC214CEFB400060209 /* MEDiscountCouponDottedLine.m in Sources */,
 				36A401D52143F6E300B0BD4F /* MEShoppingCartVC.m in Sources */,
+				EB4A9930230E38BF00E82871 /* TimePickerView.m in Sources */,
 				36D750E0221E927F00FE434B /* MEMySelfExtractionOrderVC.m in Sources */,
 				36F697062230BCB4001E53BA /* MEBynamicPublishVC.m in Sources */,
 				36E284E522375701009F1563 /* MEBrandAbilityAnalysisVC.m in Sources */,

@@ -16,8 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (CGFloat)getCellHeightWithArray:(NSArray *)array;
 
 
+@property (nonatomic, copy) kMeBasicBlock tapBlock;
 
-- (void)setUIWithInfo:(NSDictionary *)info isAdd:(BOOL)isAdd;
+- (void)setUIWithInfo:(NSDictionary *)info isAdd:(BOOL)isAdd isEdit:(BOOL)isEdit;
 + (CGFloat)getCellHeightWithInfo:(NSDictionary *)info;
 
 @end

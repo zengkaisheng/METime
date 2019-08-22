@@ -227,8 +227,8 @@
             NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
             baseUrl = [@"http" stringByAppendingString:baseUrl];
             
-            //https://test.meshidai.com/bargaindist/newAuth.html?id=7&uid=xxx
-//            shareTool.shar WebpageUrl = [NSString stringWithFormat:@"%@bargaindist/newAuth.html?id=%ld&uid=%@&inviteCode=%@",baseUrl,(long)self.model.video_id,kMeUnNilStr(kCurrentUser.uid),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            //http://test.meshidai.com/videoShare/newAuth.html?id=2&inviteCode=222
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@videoShare/newAuth.html?id=%ld&inviteCode=%@",baseUrl,(long)self.model.video_id,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
             NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
             
             shareTool.shareTitle = kMeUnNilStr(self.model.video_name);

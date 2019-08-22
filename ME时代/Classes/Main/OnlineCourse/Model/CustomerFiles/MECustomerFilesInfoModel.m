@@ -7,11 +7,13 @@
 //
 
 #import "MECustomerFilesInfoModel.h"
-
+#import "MECustomerFollowTpyeModel.h"
 
 @implementation MECustomerInfoFollowModel
 
 MEModelIdToIdField
+
+MEModelObjectClassInArrayWithDic((@{@"followList" : [MECustomerFollowTpyeModel class]}))
 
 @end
 

@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @class MEReportDiagnosisModel;
 @class MEReportAnalyseModel;
+@class MEAddCustomerInfoModel;
 
 @interface MEDiagnoseReportCell : UITableViewCell
 
@@ -19,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //诊断分析
 - (void)setUIWithAnalyseModel:(MEReportAnalyseModel *)model;
+
+//顾客销售信息
+- (void)setUIWithSalesInfoModel:(MEAddCustomerInfoModel *)model;
 
 @end
 

@@ -10,6 +10,8 @@
 
 @implementation MEAddCustomerInformationModel
 
+MEModelIdToIdField
+
 - (NSString *)token {
     return kMeUnNilStr(kCurrentUser.token);
 }

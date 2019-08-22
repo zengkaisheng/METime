@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isHideArrow;    //是否隐藏箭头
 @property (nonatomic, assign) CGFloat offsetL;     //值的左边距
 
+@property (nonatomic, assign) CGFloat cellHeight;
+
 @end
 
 NS_ASSUME_NONNULL_END

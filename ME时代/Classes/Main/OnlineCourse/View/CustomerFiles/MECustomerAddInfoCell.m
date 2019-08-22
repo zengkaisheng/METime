@@ -29,6 +29,7 @@
     self.textField.hidden = YES;
     self.imgArrow.hidden = YES;
     self.textField.delegate = self;
+    self.textField.returnKeyType = UIReturnKeyDone;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldChange) name:UITextFieldTextDidChangeNotification object:self.textField];
 }
 
@@ -89,6 +90,11 @@
             return NO;
         }
     }
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self endEditing:YES];
     return YES;
 }
 
