@@ -25,6 +25,10 @@
 
 @implementation MECustomerFilesVC
 
+- (void)dealloc{
+    kNSNotificationCenterDealloc
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -32,6 +36,8 @@
     [self getCustomerClassifyListWithNetworking];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addBtn];
+    
+    kFilesListReload
 }
 - (void)setupUI {
     CGFloat categoryViewHeight = kCategoryViewHeight;
@@ -80,16 +86,21 @@
     kMeWEAKSELF
     [MEPublicNetWorkTool postGetCustomerClassifyListWithSuccessBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
+        [strongSelf.arrType removeAllObjects];
+        
         if ([responseObject.data isKindOfClass:[NSArray class]]) {
+            
             strongSelf.arrModel = [MECustomerClassifyListModel mj_objectArrayWithKeyValuesArray:responseObject.data];
-            MECustomerClassifyListModel *model = [[MECustomerClassifyListModel alloc] init];
-            model.classify_name = @"全部";
-            model.idField = 0;
-            [strongSelf.arrModel insertObject:model atIndex:0];
-            [strongSelf->_arrModel enumerateObjectsUsingBlock:^(MECustomerClassifyListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-                [strongSelf.arrType addObject:model.classify_name];
-            }];
+        }else {
+            strongSelf.arrModel = [NSMutableArray array];
         }
+        MECustomerClassifyListModel *model = [[MECustomerClassifyListModel alloc] init];
+        model.classify_name = @"全部";
+        model.idField = 0;
+        [strongSelf.arrModel insertObject:model atIndex:0];
+        [strongSelf->_arrModel enumerateObjectsUsingBlock:^(MECustomerClassifyListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            [strongSelf.arrType addObject:model.classify_name];
+        }];
         [strongSelf setupUI];
     } failure:^(id object) {
         kMeSTRONGSELF
@@ -101,15 +112,20 @@
 - (void)addBtnAction {
     MECustomerDetailVC *vc = [[MECustomerDetailVC alloc] init];
     vc.isAdd = YES;
+    kMeWEAKSELF
     vc.finishBlock = ^{
-        for (UIViewController *vc in self.childViewControllers) {
-            if ([vc isKindOfClass:[MECustomerFilesBaseVC class]]) {
-                MECustomerFilesBaseVC *baseVC = (MECustomerFilesBaseVC *)vc;
-                [baseVC reloadDatas];
-            }
-        }
+        kMeSTRONGSELF
+        [strongSelf.scrollView removeFromSuperview];
+        [strongSelf.categoryView removeFromSuperview];
+        [strongSelf getCustomerClassifyListWithNetworking];
     };
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)reloadFilesList {
+    [self.scrollView removeFromSuperview];
+    [self.categoryView removeFromSuperview];
+    [self getCustomerClassifyListWithNetworking];
 }
 
 #pragma mark -- setter && getter
@@ -132,7 +148,7 @@
         _addBtn= [UIButton buttonWithType:UIButtonTypeCustom];
         [_addBtn setTitle:@"新增" forState:UIControlStateNormal];
         [_addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_addBtn setBackgroundColor:[UIColor colorWithHexString:@"#FFD5D5"]];
+        [_addBtn setBackgroundColor:kMEPink];
         _addBtn.cornerRadius = 12;
         _addBtn.clipsToBounds = YES;
         _addBtn.frame = CGRectMake(0, 0, 65, 25);

@@ -65,11 +65,18 @@
 //顾客销售信息
 - (void)setUIWithSalesInfoModel:(MEAddCustomerInfoModel *)model {
     _textField.hidden = !model.isEdit;
+    _answerLbl.hidden = model.isEdit;
+    if (model.isEdit) {
+        _textField.placeholder = kMeUnNilStr(model.placeHolder);
+        _textField.text = kMeUnNilStr(model.value);
+    }else {
+        _answerLbl.text = [kMeUnNilStr(model.value) length]>0?kMeUnNilStr(model.value):kMeUnNilStr(model.placeHolder);
+    }
+    
     _textField.contentBlock = ^(NSString *str) {
         model.value = str;
     };
     _questionLbl.text = kMeUnNilStr(model.title);
-    _answerLbl.text = kMeUnNilStr(model.value);
     _answerLbl.textColor = kME666666;
 }
 

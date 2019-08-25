@@ -8,12 +8,11 @@
 
 #import "MEEditCustomerInfomationVC.h"
 #import "MEAddCustomerInfoModel.h"
-#import "MELivingHabitListModel.h"
 #import "MECustomerContentCell.h"
 #import "MEAddCustomerInformationModel.h"
 #import "MECustomerFilesInfoModel.h"
-#import "MECustomerFollowTpyeModel.h"
 #import "MESetCustomerFileSalesModel.h"
+#import "MEEditFollowsVC.h"
 
 @interface MEEditCustomerInfomationVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -23,9 +22,9 @@
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger customerId;
 
-@property (nonatomic, strong) MEAddCustomerInformationModel *addInfoModel; //新增Model
-@property (nonatomic, strong) MECustomerFilesInfoModel *detailModel; //详情Model
 @property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, strong) UIButton *rightBtn;
+@property (nonatomic, strong) UIButton *bottomBtn;
 @property (nonatomic, assign) NSInteger type;
 
 @end
@@ -47,20 +46,81 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self.view addSubview:self.footerView];
     [self.view addSubview:self.tableView];
     
-    if (self.type == 1) {
-        self.tableView.tableFooterView = self.footerView;
-    }else if (self.type == 3) {
-        self.tableView.frame = CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-70);
-        self.footerView.frame = CGRectMake(0, SCREEN_HEIGHT-70, SCREEN_WIDTH, 70);
-        [self.view addSubview:self.footerView];
+    if (self.type == 4) {
+        [self.bottomBtn setTitle:@"添加跟进记录" forState:UIControlStateNormal];
     }
+}
+
+- (void)addFollowDatas {
+    //销售跟进
+    //重新组装数据
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self.dataSource.firstObject];
     
+    MECustomerInfoFollowModel *followModel = [[MECustomerInfoFollowModel alloc] init];
+
+    NSMutableArray *followList = [NSMutableArray array];
+
+    MEAddCustomerInfoModel *projectModel = [self creatModelWithTitle:@"项目" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@"请输入项目"];
+    [followList addObject:projectModel];
+
+    MEAddCustomerInfoModel *followTimeModel = [self creatModelWithTitle:@"跟进时间" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@"请选择跟进时间"];
+    [followList addObject:followTimeModel];
+
+    MEAddCustomerInfoModel *followTpyeModel = [self creatModelWithTitle:@"跟进类型" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@"请选择跟进类型"];
+    [followList addObject:followTpyeModel];
+    
+    [followList addObjectsFromArray:[dict[@"options"] copy]];
+
+    MEAddCustomerInfoModel *resultModel = [self creatModelWithTitle:@"跟进结果" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@"请输入跟进结果"];
+    [followList addObject:resultModel];
+
+    followModel.followList = [followList copy];
+
+    [dict setObject:@[followModel] forKey:@"content"];
+    
+    MEEditFollowsVC *vc = [[MEEditFollowsVC alloc] initWithInfo:[dict copy] customerId:self.customerId];
+    kMeWEAKSELF
+    vc.finishBlock = ^(MECustomerInfoFollowModel *model) {
+        kMeSTRONGSELF
+        NSMutableDictionary *info = [NSMutableDictionary dictionaryWithDictionary:strongSelf.dataSource.firstObject];
+        NSMutableArray *follows = [NSMutableArray arrayWithArray:(NSArray *)info[@"content"]];
+        
+        [follows insertObject:model atIndex:0];
+        [info setObject:[follows copy] forKey:@"content"];
+        
+        kMeCallBlock(strongSelf.finishBlock);
+        
+        [strongSelf.dataSource removeAllObjects];
+        [strongSelf.dataSource addObject:[info copy]];
+        [strongSelf.tableView reloadData];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    //销售跟进
+    //[self.dataSource addObject:@{@"title":@"销售跟进",@"type":@"4",@"content":self.detailModel.follow,@"options":self.followTypeList}];
+}
+
+- (MEAddCustomerInfoModel *)creatModelWithTitle:(NSString *)title andPlaceHolder:(NSString *)placeHolder andMaxInputWords:(NSInteger)maxInputWords andIsTextField:(BOOL)isTextField andIsMustInput:(BOOL)isMustInput andToastStr:(NSString *)toastStr{
+    
+    MEAddCustomerInfoModel *model = [[MEAddCustomerInfoModel alloc]init];
+    model.title = title;
+    model.value = @"";
+    model.placeHolder = placeHolder;
+    model.maxInputWord = maxInputWords;
+    model.isTextField = isTextField;
+    model.isMustInput = isMustInput;
+    model.toastStr = toastStr;
+    model.isEdit = YES;
+    model.isHideArrow = YES;
+    return model;
 }
 
 #pragma mark -- Action
-- (void)saveBtnAction {
+- (void)bottomBtnAction {
+    [self.view endEditing:YES];
     switch (self.type) {
         case 1:
             [self addCustomerInformationsWithNetWork];
@@ -72,11 +132,15 @@
             [self saveCustomerSalesInfo];
             break;
         case 4:
-            
+            [self addFollowDatas];
             break;
         default:
             break;
     }
+}
+//保存销售跟进信息
+- (void)rightBtnAction {
+    
 }
 
 //添加客户基本信息
@@ -106,7 +170,7 @@
                 if ([model.title isEqualToString:@"生日"]) {
                     addModel.birthday = model.value;
                 }
-                if ([model.title isEqualToString:@"微信"]) {
+                if ([model.title isEqualToString:@"微信/QQ"]) {
                     addModel.wechat = model.value;
                 }
                 if ([model.title isEqualToString:@"QQ"]) {
@@ -213,20 +277,40 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MECustomerContentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerContentCell class]) forIndexPath:indexPath];
     NSDictionary *info = self.dataSource[indexPath.section];
-    [cell setUIWithInfo:info isAdd:NO isEdit:YES];
-//    kMeWEAKSELF
+    if (self.type == 4) {
+        cell.isEditFollow = YES;
+        [cell setUIWithInfo:info isAdd:NO isEdit:NO];
+    }else {
+        cell.isEditFollow = NO;
+        [cell setUIWithInfo:info isAdd:NO isEdit:YES];
+    }
+    kMeWEAKSELF
+    cell.indexBlock = ^(NSInteger index) {
+        kMeSTRONGSELF
+        NSArray *content = info[@"content"];
+        MECustomerInfoFollowModel *followModel = (MECustomerInfoFollowModel *)content[index];
+        NSDictionary *editInfo = @{@"title":@"销售跟进",@"type":@"4",@"content":@[followModel],@"options":info[@"options"]};
+        MEEditFollowsVC *editVC = [[MEEditFollowsVC alloc] initWithInfo:editInfo customerId:strongSelf.customerId];
+        editVC.isEdit = YES;
+        
+        editVC.finishBlock = ^(MECustomerInfoFollowModel *model) {
+            [strongSelf.tableView reloadData];
+        };
+        [strongSelf.navigationController pushViewController:editVC animated:YES];
+    };
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary *info = self.dataSource[indexPath.section];
-    return [MECustomerContentCell getCellHeightWithInfo:info];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self.dataSource[indexPath.section]];
+    [dict setObject:@(YES) forKey:@"editFollows"];
+    return [MECustomerContentCell getCellHeightWithInfo:dict];
 }
 
 #pragma setter&&getter
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-70) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECustomerContentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECustomerContentCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -250,19 +334,40 @@
 
 - (UIView *)footerView {
     if (!_footerView) {
-        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 70)];
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-70, SCREEN_WIDTH, 70)];
         _footerView.backgroundColor = [UIColor whiteColor];
-        UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
-        [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [saveBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [saveBtn setBackgroundColor:kMEPink];
-        saveBtn.frame = CGRectMake(40, 15, SCREEN_WIDTH-80, 40);
-        saveBtn.layer.cornerRadius = 20.0;
-        [saveBtn addTarget:self action:@selector(saveBtnAction) forControlEvents:UIControlEventTouchUpInside];
-        [_footerView addSubview:saveBtn];
+        [_footerView addSubview:self.bottomBtn];
     }
     return _footerView;
+}
+
+- (UIButton *)rightBtn{
+    if(!_rightBtn){
+        _rightBtn= [UIButton buttonWithType:UIButtonTypeCustom];
+        [_rightBtn setTitle:@"保存" forState:UIControlStateNormal];
+        [_rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_rightBtn setBackgroundColor:kMEPink];
+        _rightBtn.cornerRadius = 12;
+        _rightBtn.clipsToBounds = YES;
+        _rightBtn.frame = CGRectMake(0, 0, 65, 25);
+        _rightBtn.titleLabel.font = kMeFont(15);
+        [_rightBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightBtn;
+}
+
+- (UIButton *)bottomBtn {
+    if(!_bottomBtn){
+        _bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
+        [_bottomBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_bottomBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_bottomBtn setBackgroundColor:kMEPink];
+        _bottomBtn.frame = CGRectMake(40, 15, SCREEN_WIDTH-80, 40);
+        _bottomBtn.layer.cornerRadius = 20.0;
+        [_bottomBtn addTarget:self action:@selector(bottomBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _bottomBtn;
 }
 
 @end

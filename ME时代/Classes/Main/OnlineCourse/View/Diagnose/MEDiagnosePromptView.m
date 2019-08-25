@@ -81,7 +81,7 @@
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [btn setBackgroundColor:[UIColor colorWithHexString:@"#FFD5D5"]];
+    [btn setBackgroundColor:kMEPink];
     btn.layer.cornerRadius = frame.size.height/2.0;
     [btn addTarget:self action:@selector(btnDidClick) forControlEvents:UIControlEventTouchUpInside];
     return btn;

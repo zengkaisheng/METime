@@ -19,8 +19,10 @@
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIView *superView;
 @property (nonatomic, strong) METextView *tv;
-@property (nonatomic, copy) kMeTextBlock saveBlock;
+@property (nonatomic, strong) UIButton *chooseBtn;
+//@property (nonatomic, copy) kMeTextBlock saveBlock;
 @property (nonatomic, copy) kMeBasicBlock cancelBlock;
+@property (nonatomic, copy) kMeCustomerBlock saveBlock;
 
 @end
 
@@ -31,15 +33,15 @@
     NSLog(@"MECustomInputView dealloc");
 }
 
-- (instancetype)initWithTitle:(NSString *)title superView:(UIView*)superView{
+- (instancetype)initWithTitle:(NSString *)title content:(NSString *)content superView:(UIView*)superView{
     if(self = [super init]){
         self.frame = superView.bounds;
-        [self setUIWithTitle:title];
+        [self setUIWithTitle:title content:content];
     }
     return self;
 }
 
-- (void)setUIWithTitle:(NSString *)title {
+- (void)setUIWithTitle:(NSString *)title content:(NSString *)content{
     [self addSubview:self.maskView];
     [self addSubview:self.bgView];
     
@@ -53,10 +55,22 @@
     METextView *tv = [[METextView alloc] initWithFrame:CGRectMake(28, 45, BGViewWidth-56, BGViewHeight-45-50)];
     tv.textView.font = [UIFont systemFontOfSize:15];
     tv.textView.textColor = [UIColor blackColor];
-    tv.placeholderTextView.text = @"请输入...";
+    
+    if (content.length > 0) {
+        tv.placeholderTextView.hidden = YES;
+        tv.textView.text = content;
+        tv.backgroundColor = [UIColor colorWithHexString:@"#F8F8F8"];;
+    }else {
+        tv.placeholderTextView.hidden = NO;
+        tv.placeholderTextView.text = @"请输入...";
+    }
     tv.placeholderTextView.backgroundColor = [UIColor colorWithHexString:@"#F8F8F8"];
     self.tv = tv;
     [self.bgView addSubview:tv];
+    
+    self.chooseBtn.frame = CGRectMake(10, CGRectGetMaxY(tv.frame) + 6, 60, 40);
+    [self.chooseBtn setButtonImageTitleStyle:ButtonImageTitleStyleTop padding:2];
+    [self.bgView addSubview:self.chooseBtn];
     
     UIButton *saveBtn = [self createButtonWithTitle:@"保存"];
     saveBtn.frame = CGRectMake((BGViewWidth-120)/2, CGRectGetMaxY(tv.frame) + 9, 120, 32);
@@ -73,8 +87,12 @@
 }
 
 - (void)btnDidClick:(UIButton *)sender {
-    kMeCallBlock(_saveBlock,self.tv.textView.text);
+    kMeCallBlock(_saveBlock,self.tv.textView.text,self.chooseBtn.selected);
     [self hide];
+}
+
+- (void)chooseBtnDidClick:(UIButton *)sender {
+    
 }
 
 - (UIButton *)createButtonWithTitle:(NSString *)title  {
@@ -112,10 +130,33 @@
     return _bgView;
 }
 
+- (UIButton *)chooseBtn {
+    if (!_chooseBtn) {
+        _chooseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_chooseBtn setTitle:@"是否多选" forState:UIControlStateNormal];
+        [_chooseBtn setTitleColor:[UIColor colorWithHexString:@"#393939"] forState:UIControlStateNormal];
+        [_chooseBtn setImage:[UIImage imageNamed:@"icon_delCollection_nor"] forState:UIControlStateNormal];
+        [_chooseBtn setImage:[UIImage imageNamed:@"icon_delCollection_sel"] forState:UIControlStateSelected];
+        _chooseBtn.selected = YES;
+        [_chooseBtn.titleLabel setFont:[UIFont systemFontOfSize:11]];
+        [_chooseBtn addTarget:self action:@selector(chooseBtnDidClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _chooseBtn;
+}
+
 #pragma mark - Public API
-+ (void)showCustomInputViewWithTitle:(NSString *)title saveBlock:(kMeTextBlock)saveBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView *)superView {
-    MECustomInputView *view = [[MECustomInputView alloc]initWithTitle:title superView:superView];
+//+ (void)showCustomInputViewWithTitle:(NSString *)title content:(NSString *)content saveBlock:(kMeTextBlock)saveBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView *)superView {
+//    MECustomInputView *view = [[MECustomInputView alloc]initWithTitle:title content:content superView:superView];
+//    view.saveBlock = saveBlock;
+//    view.cancelBlock = cancelBlock;
+//    view.superView = superView;
+//    [superView addSubview:view];
+//}
+
++ (void)showCustomInputViewWithTitle:(NSString *)title content:(NSString *)content showChooseBtn:(BOOL)isShow saveBlock:(kMeCustomerBlock)saveBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView {
+    MECustomInputView *view = [[MECustomInputView alloc]initWithTitle:title content:content superView:superView];
     view.saveBlock = saveBlock;
+    view.chooseBtn.hidden = !isShow;
     view.cancelBlock = cancelBlock;
     view.superView = superView;
     [superView addSubview:view];

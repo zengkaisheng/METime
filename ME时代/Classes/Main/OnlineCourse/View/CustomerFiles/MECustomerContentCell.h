@@ -12,14 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECustomerContentCell : UITableViewCell
 
-- (void)setUIWithArray:(NSArray *)array;
-+ (CGFloat)getCellHeightWithArray:(NSArray *)array;
-
-
 @property (nonatomic, copy) kMeBasicBlock tapBlock;
+@property (nonatomic, copy) kMeIndexBlock indexBlock;
 
+@property (nonatomic, assign) BOOL isEditFollow;
 - (void)setUIWithInfo:(NSDictionary *)info isAdd:(BOOL)isAdd isEdit:(BOOL)isEdit;
 + (CGFloat)getCellHeightWithInfo:(NSDictionary *)info;
+
 
 @end
 

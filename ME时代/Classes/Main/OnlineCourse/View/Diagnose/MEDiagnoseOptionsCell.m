@@ -10,7 +10,7 @@
 #import "MEDiagnoseQuestionModel.h"
 #import "MEBlockTextView.h"
 #import "MELivingHabitListModel.h"
-#import "MECustomerFollowTpyeModel.h"
+#import "MECustomerFollowTypeModel.h"
 
 @interface MEDiagnoseOptionsCell ()
 
@@ -69,7 +69,7 @@
     _titleLbl.text = kMeUnNilStr(model.habit);
 }
 
-- (void)setUIWithFollowTypeModel:(MECustomerFollowTpyeModel *)model {
+- (void)setUIWithFollowTypeModel:(MECustomerFollowTypeModel *)model {
     _selectImageView.hidden = NO;
     _titleLbl.hidden = NO;
     _textView.hidden = YES;

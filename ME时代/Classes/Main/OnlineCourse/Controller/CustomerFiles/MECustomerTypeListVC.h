@@ -9,10 +9,13 @@
 #import "MEBaseVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@class MELivingHabitListModel;
 
 @interface MECustomerTypeListVC : MEBaseVC
 
 @property (nonatomic, copy) kMeObjBlock contentBlock;
+
+- (instancetype)initWithHabitModel:(MELivingHabitListModel *)model;
 
 @end
 

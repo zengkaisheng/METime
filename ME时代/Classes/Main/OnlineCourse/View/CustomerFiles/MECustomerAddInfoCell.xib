@@ -38,10 +38,10 @@
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zpd-T0-RVl">
-                        <rect key="frame" x="0.0" y="50.5" width="375" height="1"/>
+                        <rect key="frame" x="0.0" y="51" width="375" height="0.5"/>
                         <color key="backgroundColor" red="0.80784313725490198" green="0.80784313725490198" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="Vk3-n2-eLY"/>
+                            <constraint firstAttribute="height" constant="0.5" id="Vk3-n2-eLY"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YhM-hr-YNu">
@@ -53,6 +53,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dSM-Yd-Q7W">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                        <color key="backgroundColor" red="0.80784313725490198" green="0.80784313725490198" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="iu1-5u-qSV"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="zpd-T0-RVl" secondAttribute="bottom" id="24I-jz-YOo"/>
@@ -61,11 +68,14 @@
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZSe-GT-Xkv" secondAttribute="trailing" constant="20" id="CAc-dm-j8f"/>
                     <constraint firstItem="ZSe-GT-Xkv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="F4v-zs-iAx"/>
                     <constraint firstItem="0mx-X4-dSK" firstAttribute="leading" secondItem="ZSe-GT-Xkv" secondAttribute="leading" id="Hb4-GV-usJ"/>
+                    <constraint firstAttribute="trailing" secondItem="dSM-Yd-Q7W" secondAttribute="trailing" id="K7f-qW-IFw"/>
+                    <constraint firstItem="dSM-Yd-Q7W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="KM0-iR-IrE"/>
                     <constraint firstAttribute="trailing" secondItem="zpd-T0-RVl" secondAttribute="trailing" id="N2s-LI-ika"/>
                     <constraint firstItem="YhM-hr-YNu" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="UxS-oq-kdc"/>
                     <constraint firstItem="HcX-N6-JPR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="XkB-GQ-8xL"/>
                     <constraint firstItem="ZSe-GT-Xkv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="134" id="Xly-6p-wib"/>
                     <constraint firstAttribute="trailing" secondItem="0mx-X4-dSK" secondAttribute="trailing" constant="16" id="b6Q-fI-enY"/>
+                    <constraint firstItem="dSM-Yd-Q7W" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fNB-zn-2z0"/>
                     <constraint firstItem="zpd-T0-RVl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qEH-R4-1F0"/>
                     <constraint firstItem="YhM-hr-YNu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="qy2-KH-Gu0"/>
                 </constraints>
@@ -77,7 +87,7 @@
                 <outlet property="textField" destination="0mx-X4-dSK" id="VUC-e8-Qot"/>
                 <outlet property="titleLbl" destination="YhM-hr-YNu" id="Zgj-r9-Icf"/>
             </connections>
-            <point key="canvasLocation" x="-169" y="151"/>
+            <point key="canvasLocation" x="-170.40000000000001" y="149.32533733133434"/>
         </tableViewCell>
     </objects>
     <resources>

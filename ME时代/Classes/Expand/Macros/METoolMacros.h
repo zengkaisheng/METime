@@ -289,6 +289,11 @@ NS_INLINE NSString *kMeFilePathAtDocumentWithName(NSString *fileNAme){
 #define kUnNoticeMessage @"kUnNoticeMessage"
 #define kNoticeUnNoticeMessage [[NSNotificationCenter defaultCenter] postNotificationName:kUnNoticeMessage object:nil];
 
+//通知顾客档案列表刷新
+#define kCustomerFilesList @"kCustomerFilesList"
+#define kNoticeReloadFilesList [[NSNotificationCenter defaultCenter] postNotificationName:kCustomerFilesList object:nil];
+#define kFilesListReload   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFilesList) name:kCustomerFilesList object:nil];
+
 //判断是否完成首单Key
 #define kcheckFirstBuy  @"checkFirstBuy"
 
@@ -310,4 +315,5 @@ NS_INLINE NSString *kMeFilePathAtDocumentWithName(NSString *fileNAme){
 #define kMEArticelVCSearchHistoriesCachePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"MEArticelVC.plist"]
 //会员搜索历史记录
 #define kMEClerkSearchVCSearchHistoriesCachePath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"MEClerkSearchVC.plist"]
+
 #endif /* METoolMacros_h */

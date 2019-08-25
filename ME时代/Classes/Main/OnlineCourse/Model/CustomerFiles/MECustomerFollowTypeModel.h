@@ -1,5 +1,5 @@
 //
-//  MECustomerFollowTpyeModel.h
+//  MECustomerFollowTypeModel.h
 //  ME时代
 //
 //  Created by gao lei on 2019/8/22.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MECustomerFollowTpyeModel : MEBaseModel
+@interface MECustomerFollowTypeModel : MEBaseModel
 
 @property (nonatomic, strong) NSString * created_at;
 @property (nonatomic, strong) NSString * follow_type_title;

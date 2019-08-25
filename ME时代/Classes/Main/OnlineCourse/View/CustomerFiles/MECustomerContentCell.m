@@ -15,7 +15,7 @@
 #import "MECustomerClassifyListModel.h"
 #import "MEDiagnoseReportCell.h"
 #import "MECustomerFilesInfoModel.h"
-#import "MECustomerFollowTpyeModel.h"
+#import "MECustomerFollowTypeModel.h"
 
 #import "DatePickerView.h"
 #import "TimePickerView.h"
@@ -90,11 +90,12 @@
         return model.habit.count+1;
     }else if (self.type == 4) {
         if (self.datas.count > 0) {
-            return self.options.count+4;
+            MECustomerInfoFollowModel *followModel = self.datas[section];
+            NSArray *followList = followModel.followList;
+            return followList.count;
         }else {
             return self.datas.count;
         }
-        
     }
     return self.datas.count;
 }
@@ -105,7 +106,7 @@
         
         if (indexPath.row == 0) {
             MECustomerAddInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerAddInfoCell class]) forIndexPath:indexPath];
-            MEAddCustomerInfoModel *model = [self creatModelWithTitle:kMeUnNilStr(listModel.classify_title) andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+            MEAddCustomerInfoModel *model = [self creatModelWithTitle:[NSString stringWithFormat:@"%ld、%@",indexPath.section + 1,kMeUnNilStr(listModel.classify_title)] andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
             model.isLastItem = YES;
             [cell setUIWithCustomerModel:model];
             return cell;
@@ -126,30 +127,38 @@
         return cell;
     }else if (self.type == 4) {
         MECustomerInfoFollowModel *followModel = self.datas[indexPath.section];
-        if (indexPath.row > 2 && indexPath.row < self.options.count +3) {
+        
+        if (indexPath.row > 2 && indexPath.row < 7) {
             MEDiagnoseOptionsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEDiagnoseOptionsCell class]) forIndexPath:indexPath];
             
-            MECustomerFollowTpyeModel *typeModel = followModel.followList[indexPath.row-3];
+            MECustomerFollowTypeModel *typeModel = followModel.followList[indexPath.row];
             
             [cell setUIWithFollowTypeModel:typeModel];
             return cell;
         }else {
             MECustomerAddInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerAddInfoCell class]) forIndexPath:indexPath];
-            MEAddCustomerInfoModel *model = [self creatModelWithTitle:@"" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
-            if (indexPath.row == 0) {
-                model.title = @"项目";
-                model.value = kMeUnNilStr(followModel.project);
-            }else if (indexPath.row == 1) {
-                model.title = @"跟进时间";
-                model.value = kMeUnNilStr(followModel.follow_time);
-            }else if (indexPath.row == 2) {
-                model.title = @"跟进类型";
-                model.value = @" ";
-            }else if (indexPath.row == self.options.count+3) {
-                model.title = @"跟进结果";
-                model.value = kMeUnNilStr(followModel.result);
+            MEAddCustomerInfoModel *model = followModel.followList[indexPath.row];
+            if (self.isEdit) {
+                if (indexPath.row == 0 || indexPath.row == 7) {
+                    model.isTextField = YES;
+                }else if (indexPath.row == 1) {
+                    model.isHideArrow = NO;
+                    model.isTextField = NO;
+                }
+            }else {
+                if (indexPath.row == 0 || indexPath.row == 7) {
+                    model.isTextField = NO;
+                }else if (indexPath.row == 1) {
+                    model.isHideArrow = YES;
+                    model.isTextField = NO;
+                }
             }
             [cell setUIWithCustomerModel:model];
+            if (model.isTextField) {
+                cell.textBlock = ^(NSString *str) {
+                    model.value = str;
+                };
+            }
             return cell;
         }
     }
@@ -187,9 +196,9 @@
         MEAddCustomerInfoModel *model = self.datas[indexPath.row];
         return model.cellHeight;
     }else if (self.type == 4) {
-        if (indexPath.row > 2 && indexPath.row < self.options.count +3) {
+        if (indexPath.row > 2 && indexPath.row < 7) {
             MECustomerInfoFollowModel *followModel = self.datas[indexPath.section];
-            MECustomerFollowTpyeModel *typeModel = followModel.followList[indexPath.row-3];
+            MECustomerFollowTypeModel *typeModel = followModel.followList[indexPath.row];
             return typeModel.cellHeight;
         }else {
             return 52;
@@ -201,7 +210,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (self.type == 2 || self.type == 4) {
         if (section != 0) {
-            return 1;
+            if (self.isEditFollow) {
+                return 49;
+            }
+            return 0;
         }
     }
     return 49;
@@ -210,8 +222,14 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     MEDiagnoseQuestionHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass([MEDiagnoseQuestionHeaderView class])];
     [headerView setUIWithSectionTitle:self.titleStr isAdd:(self.isAdd||self.isEdit)];
+    kMeWEAKSELF
     headerView.tapBlock = ^(BOOL isTap) {
-        kMeCallBlock(self.tapBlock);
+        kMeSTRONGSELF
+        if (strongSelf.isEditFollow) {
+            kMeCallBlock(strongSelf.indexBlock,section);
+        }else {
+            kMeCallBlock(strongSelf.tapBlock);
+        }
     };
     return headerView;
 }
@@ -278,8 +296,7 @@
                 }
             }
         }
-    }
-    if (self.type == 2) {
+    }else if (self.type == 2) {
         if (self.isAdd || self.isEdit) {
             MELivingHabitListModel *listModel = self.datas[indexPath.section];
             if (indexPath.row != 0) {
@@ -297,7 +314,42 @@
                 [tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
             }
         }
+    }else if (self.type == 4) {
+        if (self.isEdit) {
+            if (indexPath.row == 1) {
+                [self showFollowDatePickerWithIndexPath:indexPath];
+            }else if (indexPath.row > 2 && indexPath.row < 7) {
+                MECustomerInfoFollowModel *followModel = self.datas[indexPath.section];
+                MECustomerFollowTypeModel *typeModel = followModel.followList[indexPath.row];
+                typeModel.isSelected = !typeModel.isSelected;
+                NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:indexPath.section];
+                [tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+            }
+        }
     }
+}
+
+- (void)showFollowDatePickerWithIndexPath:(NSIndexPath *)indexPath {
+    MECustomerInfoFollowModel *followModel = self.datas[indexPath.section];
+    MEAddCustomerInfoModel *model = followModel.followList[indexPath.row];
+    
+    DatePickerView *datePickerView = [[DatePickerView alloc] init];
+    datePickerView.title = @"选择跟进时间";
+    datePickerView.isBeforeTime = YES;
+    datePickerView.isShowHour = YES;
+    kMeWEAKSELF
+    datePickerView.selectBlock = ^(NSString *selectDate) {
+        kMeSTRONGSELF
+        if ([selectDate length] > 0) {
+            NSString *tempDate = [selectDate stringByReplacingOccurrencesOfString:@"/" withString:@"-"];
+            //            NSLog(@"选择的日期是：%@",tempDate);
+            followModel.follow_time = tempDate;
+            model.value = tempDate;
+            [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    };
+    [datePickerView show];
+    [kMeCurrentWindow endEditing:YES];
 }
 
 - (void)showDatePickerWithIndexPath:(NSIndexPath *)indexPath {
@@ -346,7 +398,7 @@
     if (indexPath.row == 1) {
         array = @[@{@"name":@"男",@"value":@"1"},@{@"name":@"女",@"value":@"2"}];
         title = @"请选择性别";
-    }else if (indexPath.row == 12) {
+    }else if (indexPath.row == 11) {
         array = @[@{@"name":@"已婚",@"value":@"1"},@{@"name":@"未婚",@"value":@"0"}];
         title = @"请选择婚否";
     }
@@ -382,21 +434,6 @@
     model.isEdit = YES;
     model.isHideArrow = YES;
     return model;
-}
-
-//建议
-- (void)setUIWithArray:(NSArray *)array {
-    self.datas = [array copy];
-    [self.tableView reloadData];
-}
-
-+ (CGFloat)getCellHeightWithArray:(NSArray *)array {
-    CGFloat height = 49.0;
-//    for (int i = 0; i < array.count; i++) {
-//        NSString *str = [NSString stringWithFormat:@"%d、%@",i+1,array[i]];
-//        height += [str boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-35, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height+10;
-//    }
-    return height+20;
 }
 
 - (void)setUIWithInfo:(NSDictionary *)info isAdd:(BOOL)isAdd isEdit:(BOOL)isEdit{
@@ -436,14 +473,25 @@
     }else if ([info[@"type"] integerValue] == 4) {
         NSArray *followList = kMeUnArr(info[@"content"]);
         NSArray *options = kMeUnArr(info[@"options"]);
+        
+        BOOL isEditFollow = NO;
+        if ([info.allKeys containsObject:@"editFollows"]) {
+            isEditFollow = YES;
+            height = 0;
+        }
         if (followList.count > 0) {
             for (int i = 0; i < followList.count; i++) {
+                if (isEditFollow) {
+                    height += 49;
+                }
                 height += 4*52 ;
-                for (MECustomerFollowTpyeModel *typeModel in options) {
+                for (MECustomerFollowTypeModel *typeModel in options) {
                     height += typeModel.cellHeight;
                 }
             }
-            height += 25;
+            height += 20;
+        }else {
+            height += 15;
         }
     }
     return height;

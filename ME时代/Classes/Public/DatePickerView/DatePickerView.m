@@ -126,6 +126,8 @@
         [self.dataArray addObject:self.dayArr];
     }
     
+    [self.pickerView reloadAllComponents];
+    
     self.year = self.timeArr[0];
     self.month = [NSString stringWithFormat:@"%ld月", [self.timeArr[1] integerValue]];
     self.day = [NSString stringWithFormat:@"%ld日", [self.timeArr[2] integerValue]];

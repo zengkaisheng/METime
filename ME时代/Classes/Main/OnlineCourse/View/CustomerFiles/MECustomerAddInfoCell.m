@@ -59,10 +59,8 @@
         self.textField.hidden = YES;
         self.contentLbl.hidden = NO;
         self.imgArrow.hidden = model.isHideArrow;
-        if (kMeUnNilStr(model.value).length > 0) {
-            self.contentLbl.text = kMeUnNilStr(model.value);
-            self.contentLbl.textColor = kME333333;
-        }
+        self.contentLbl.text = kMeUnNilStr(model.value);
+        self.contentLbl.textColor = kME333333;
     }
 }
 

@@ -691,12 +691,28 @@
 //顾客档案销售信息-修改
 + (void)postSetCustomerSalesInfoWithSalesModel:(MESetCustomerFileSalesModel *)salesModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
+//顾客档案跟进信息-添加
++ (void)postAddCustomerFollowInfoWithFileId:(NSInteger )fileId project:(NSString *)project followTime:(NSString *)followTime followType:(NSString *)followType result:(NSString *)result successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//顾客档案跟进信息-修改
++ (void)postEditCustomerFollowInfoWithFileId:(NSInteger )fileId followId:(NSInteger)followId project:(NSString *)project followTime:(NSString *)followTime followType:(NSString *)followType result:(NSString *)result successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取生活习惯分类列表及选项
 + (void)postGetLivingHabitListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取顾客档案生活习惯-添加/修改
++ (void)postEditLivingHabitWithCustomerFilesId:(NSString *)customerFilesId habit:(NSString *)habit successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
 //获取跟进方式列表
 + (void)postGetFollowTypeListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
+
+//添加生活习惯
++ (void)postAddLivingHabitWithClassifyId:(NSString *)classifyId habit:(NSString *)habit habitType:(NSString *)habitType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//修改生活习惯
++ (void)postEditLivingHabitWithClassifyId:(NSString *)classifyId habitId:(NSString *)habitId habit:(NSString *)habit habitType:(NSString *)habitType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//删除生活习惯
++ (void)postDeleteLivingHabitWithHabitId:(NSString *)habitId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//修改生活习惯分类
++ (void)postEditLivingHabitClassifyNameWithClassifyId:(NSString *)classifyId classifyTitle:(NSString *)classifyTitle type:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

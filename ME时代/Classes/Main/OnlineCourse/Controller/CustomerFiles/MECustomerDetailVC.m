@@ -12,8 +12,9 @@
 #import "MECustomerContentCell.h"
 #import "MEAddCustomerInformationModel.h"
 #import "MECustomerFilesInfoModel.h"
-#import "MECustomerFollowTpyeModel.h"
+#import "MECustomerFollowTypeModel.h"
 
+#import "MEEditLivingHabitsVC.h"
 #import "MEEditCustomerInfomationVC.h"
 
 @interface MECustomerDetailVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -149,16 +150,16 @@
 
 - (void)loadSalesDatas {
     //顾客销售信息
-    MEAddCustomerInfoModel *requirmentsModel = [self creatModelWithTitle:@"到店目的及要求" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+    MEAddCustomerInfoModel *requirmentsModel = [self creatModelWithTitle:@"到店目的及要求" andPlaceHolder:@"到店目的及要求" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
     requirmentsModel.value = kMeUnNilStr(self.detailModel.objectives_and_requirements);
     
-    MEAddCustomerInfoModel *interestModel = [self creatModelWithTitle:@"兴趣项目" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+    MEAddCustomerInfoModel *interestModel = [self creatModelWithTitle:@"兴趣项目" andPlaceHolder:@"兴趣项目" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
     interestModel.value = kMeUnNilStr(self.detailModel.interest_object);
     
-    MEAddCustomerInfoModel *mainModel = [self creatModelWithTitle:@"主推项目" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+    MEAddCustomerInfoModel *mainModel = [self creatModelWithTitle:@"主推项目" andPlaceHolder:@"主推项目" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
     mainModel.value = kMeUnNilStr(self.detailModel.main_projects);
     
-    MEAddCustomerInfoModel *consumptionModel = [self creatModelWithTitle:@"预计年消费" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+    MEAddCustomerInfoModel *consumptionModel = [self creatModelWithTitle:@"预计年消费" andPlaceHolder:@"预计年消费" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
     consumptionModel.value = [NSString stringWithFormat:@"%@",@(self.detailModel.consumption)];
     consumptionModel.isLastItem = YES;
     
@@ -167,11 +168,39 @@
 
 - (void)loadFollowDatas {
     for (MECustomerInfoFollowModel *followModel in self.detailModel.follow) {
-        followModel.followList = [self.followTypeList copy];
+        
+        NSMutableArray *followList = [NSMutableArray array];
+        
+        MEAddCustomerInfoModel *projectModel = [self creatModelWithTitle:@"项目" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@"请输入项目"];
+        projectModel.value = kMeUnNilStr(followModel.project);
+        [followList addObject:projectModel];
+        
+        MEAddCustomerInfoModel *followTimeModel = [self creatModelWithTitle:@"跟进时间" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@"请选择跟进时间"];
+        followTimeModel.value = kMeUnNilStr(followModel.follow_time);
+        [followList addObject:followTimeModel];
+        
+        MEAddCustomerInfoModel *followTpyeModel = [self creatModelWithTitle:@"跟进类型" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@"请选择跟进类型"];
+        [followList addObject:followTpyeModel];
+        
+        for (int i = 0; i < self.followTypeList.count; i++) {
+            MECustomerFollowTypeModel *typeModel = self.followTypeList[i];
+            MECustomerFollowTypeModel *model = [MECustomerFollowTypeModel mj_objectWithKeyValues:typeModel.mj_keyValues];
+            [followList addObject:model];
+        }
+        
+        MEAddCustomerInfoModel *resultModel = [self creatModelWithTitle:@"跟进结果" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@"请输入跟进结果"];
+        resultModel.value = kMeUnNilStr(followModel.result);
+        [followList addObject:resultModel];
+        
+        followModel.followList = [followList mutableCopy];
+        
         for (NSString *string in followModel.follow_type) {
-            for (MECustomerFollowTpyeModel *typeModel in followModel.followList) {
-                if ([string integerValue] == typeModel.idField) {
-                    typeModel.isSelected = YES;
+            for (id obj in followModel.followList) {
+                if ([obj isKindOfClass:[MECustomerFollowTypeModel class]]) {
+                    MECustomerFollowTypeModel *typeModel = (MECustomerFollowTypeModel *)obj;
+                    if ([string integerValue] == typeModel.idField) {
+                        typeModel.isSelected = YES;
+                    }
                 }
             }
         }
@@ -232,7 +261,7 @@
         [MEPublicNetWorkTool postGetFollowTypeListWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             if([responseObject.data isKindOfClass:[NSArray class]]){
-                strongSelf.followTypeList = [MECustomerFollowTpyeModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+                strongSelf.followTypeList = [MECustomerFollowTypeModel mj_objectArrayWithKeyValuesArray:responseObject.data];
             }else {
                 strongSelf.followTypeList = [[NSArray alloc] init];
             }
@@ -349,7 +378,7 @@
                 if ([model.title isEqualToString:@"生日"]) {
                     addModel.birthday = model.value;
                 }
-                if ([model.title isEqualToString:@"微信"]) {
+                if ([model.title isEqualToString:@"微信/QQ"]) {
                     addModel.wechat = model.value;
                 }
                 if ([model.title isEqualToString:@"QQ"]) {
@@ -405,8 +434,11 @@
     kMeWEAKSELF
     [MEPublicNetWorkTool postAddCustomerInformationWithInformationModel:addModel successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
+        [MECommonTool showMessage:@"添加基本信息成功" view:kMeCurrentWindow];
         kMeCallBlock(strongSelf.finishBlock);
-        [strongSelf.navigationController popViewControllerAnimated:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        });
     } failure:^(id object) {
     }];
 }
@@ -427,13 +459,23 @@
     kMeWEAKSELF
     cell.tapBlock = ^{
         kMeSTRONGSELF
-        MEEditCustomerInfomationVC *editVC = [[MEEditCustomerInfomationVC alloc] initWithInfo:info customerId:self.customerId];
-        kMeWEAKSELF
-        editVC.finishBlock = ^{
-            kMeSTRONGSELF
-            [strongSelf getCustomerInformationsWithNetWork];
-        };
-        [strongSelf.navigationController pushViewController:editVC animated:YES];
+        if ([info[@"title"] isEqualToString:@"生活习惯信息"]) {
+            MEEditLivingHabitsVC *vc = [[MEEditLivingHabitsVC alloc] initWithInfo:info customerId:strongSelf.customerId];
+            kMeWEAKSELF
+            vc.finishBlock = ^{
+                kMeSTRONGSELF
+                [strongSelf getCustomerInformationsWithNetWork];
+            };
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        }else {
+            MEEditCustomerInfomationVC *editVC = [[MEEditCustomerInfomationVC alloc] initWithInfo:info customerId:strongSelf.customerId];
+            kMeWEAKSELF
+            editVC.finishBlock = ^{
+                kMeSTRONGSELF
+                [strongSelf getCustomerInformationsWithNetWork];
+            };
+            [strongSelf.navigationController pushViewController:editVC animated:YES];
+        }
     };
     return cell;
 }

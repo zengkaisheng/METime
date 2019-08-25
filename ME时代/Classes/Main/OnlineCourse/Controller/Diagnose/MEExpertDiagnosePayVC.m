@@ -190,7 +190,7 @@
         [_payBtn setTitle:@"支付" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_payBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [_payBtn setBackgroundColor:[UIColor colorWithHexString:@"#FFD5D5"]];
+        [_payBtn setBackgroundColor:kMEPink];
         _payBtn.frame = CGRectMake(15, SCREEN_HEIGHT - 52, SCREEN_WIDTH-30, 40);
         _payBtn.layer.cornerRadius = 20.0;
         [_payBtn addTarget:self action:@selector(payAction) forControlEvents:UIControlEventTouchUpInside];

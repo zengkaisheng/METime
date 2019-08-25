@@ -4456,6 +4456,57 @@
     }];
 }
 
+//顾客档案跟进信息-添加
++ (void)postAddCustomerFollowInfoWithFileId:(NSInteger )fileId project:(NSString *)project followTime:(NSString *)followTime followType:(NSString *)followType result:(NSString *)result successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"customer_files_id":@(fileId),
+                          @"project":project,
+                          @"follow_time":followTime,
+                          @"follow_type":followType,
+                          @"result":result
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonCustomerFilesFollowAdd);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
+//顾客档案跟进信息-修改
++ (void)postEditCustomerFollowInfoWithFileId:(NSInteger )fileId followId:(NSInteger)followId project:(NSString *)project followTime:(NSString *)followTime followType:(NSString *)followType result:(NSString *)result successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"customer_files_id":@(fileId),
+                          @"project":project,
+                          @"follow_time":followTime,
+                          @"follow_type":followType,
+                          @"result":result,
+                          @"id":@(followId)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonCustomerFilesFollowEdit);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
 //获取生活习惯分类列表及选项
 + (void)postGetLivingHabitListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token)
@@ -4476,6 +4527,28 @@
     }];
 }
 
+//获取顾客档案生活习惯-添加/修改
++ (void)postEditLivingHabitWithCustomerFilesId:(NSString *)customerFilesId habit:(NSString *)habit successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"customer_files_id":customerFilesId,
+                          @"habit":habit
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonSetCustomerFilesHabit);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+                if([error isKindOfClass:[ZLRequestResponse class]]){
+                    ZLRequestResponse *res = (ZLRequestResponse*)error;
+                    [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+                }else{
+                    [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+                }
+        kMeCallBlock(failure,error);
+    }];
+}
+
 //获取跟进方式列表
 + (void)postGetFollowTypeListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token)
@@ -4484,6 +4557,96 @@
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
         kMeCallBlock(successBlock,responseObject);
     } failure:^(id error) {
+        kMeCallBlock(failure,error);
+    }];
+}
+
+
+//添加生活习惯
++ (void)postAddLivingHabitWithClassifyId:(NSString *)classifyId habit:(NSString *)habit habitType:(NSString *)habitType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"classify_id":classifyId,
+                          @"habit":habit,
+                          @"habit_type":habitType
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonLivingHabitAdd);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//修改生活习惯
++ (void)postEditLivingHabitWithClassifyId:(NSString *)classifyId habitId:(NSString *)habitId habit:(NSString *)habit habitType:(NSString *)habitType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"classify_id":classifyId,
+                          @"id":habitId,
+                          @"habit":habit,
+                          @"habit_type":habitType
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonLivingHabitEdit);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//删除生活习惯
++ (void)postDeleteLivingHabitWithHabitId:(NSString *)habitId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"id":habitId
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonLivingHabitDel);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
+//修改生活习惯分类
++ (void)postEditLivingHabitClassifyNameWithClassifyId:(NSString *)classifyId classifyTitle:(NSString *)classifyTitle type:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"id":classifyId,
+                           @"classify_title":classifyTitle,
+                           @"type":@(type)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonLivingHabitClassifyEdit);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
         kMeCallBlock(failure,error);
     }];
 }

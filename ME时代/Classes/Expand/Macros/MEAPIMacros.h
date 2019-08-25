@@ -902,11 +902,29 @@
 //修改顾客档案销售信息
 #define MEIPcommonSetCustomerFilesSales @"common/customerfiles/setCustomerFilesSales"
 
+//顾客档案跟进信息添加
+#define MEIPcommonCustomerFilesFollowAdd @"common/customerfiles/customerFilesFollowAdd"
+//顾客档案跟进信息修改
+#define MEIPcommonCustomerFilesFollowEdit @"common/customerfiles/customerFilesFollowEdit"
 
 //获取生活习惯分类列表及选项
 #define MEIPcommonLivingHabitList @"common/livinghabit/livingHabitList"
+//获取顾客档案生活习惯-添加/修改
+#define MEIPcommonSetCustomerFilesHabit @"common/customerfiles/setCustomerFilesHabit"
+
 //获取跟进方式列表
 #define MEIPcommonGetFollowType @"common/followtype/getFollowType"
+
+
+//添加生活习惯
+#define MEIPcommonLivingHabitAdd @"common/livinghabit/livingHabitAdd"
+//修改生活习惯
+#define MEIPcommonLivingHabitEdit @"common/livinghabit/livingHabitEdit"
+//删除生活习惯
+#define MEIPcommonLivingHabitDel @"common/livinghabit/livingHabitDel"
+
+//修改生活习惯分类
+#define MEIPcommonLivingHabitClassifyEdit @"common/livinghabit/livingHabitClassifyEdit"
 
 /*********************************************/
 

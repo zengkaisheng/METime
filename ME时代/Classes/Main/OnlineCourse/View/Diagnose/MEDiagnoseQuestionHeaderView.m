@@ -46,7 +46,7 @@
 - (void)setUIWithSectionTitle:(NSString *)title isAdd:(BOOL)isAdd{
     _arrowBtn.hidden = YES;
     _editBtn.hidden = isAdd;
-    _lineView.hidden = NO;
+    _lineView.hidden = YES;
     _titleLbl.text = title;
     _titleLbl.font = [UIFont systemFontOfSize:18.0];
 }
