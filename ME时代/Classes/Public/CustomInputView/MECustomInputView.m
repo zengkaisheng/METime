@@ -92,7 +92,7 @@
 }
 
 - (void)chooseBtnDidClick:(UIButton *)sender {
-    
+    self.chooseBtn.selected = !self.chooseBtn.selected;
 }
 
 - (UIButton *)createButtonWithTitle:(NSString *)title  {
@@ -145,14 +145,6 @@
 }
 
 #pragma mark - Public API
-//+ (void)showCustomInputViewWithTitle:(NSString *)title content:(NSString *)content saveBlock:(kMeTextBlock)saveBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView *)superView {
-//    MECustomInputView *view = [[MECustomInputView alloc]initWithTitle:title content:content superView:superView];
-//    view.saveBlock = saveBlock;
-//    view.cancelBlock = cancelBlock;
-//    view.superView = superView;
-//    [superView addSubview:view];
-//}
-
 + (void)showCustomInputViewWithTitle:(NSString *)title content:(NSString *)content showChooseBtn:(BOOL)isShow saveBlock:(kMeCustomerBlock)saveBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView {
     MECustomInputView *view = [[MECustomInputView alloc]initWithTitle:title content:content superView:superView];
     view.saveBlock = saveBlock;

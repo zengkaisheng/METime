@@ -62,18 +62,39 @@
                                 <constraint firstAttribute="height" constant="1" id="IqL-ae-5IW"/>
                             </constraints>
                         </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_more" translatesAutoresizingMaskIntoConstraints="NO" id="Vcd-qd-X0n">
+                            <rect key="frame" x="351" y="20.5" width="8" height="18"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="18" id="Nki-Up-T2Y"/>
+                                <constraint firstAttribute="width" constant="8" id="kIL-Hv-DH0"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nA5-JY-84H">
+                            <rect key="frame" x="164" y="4" width="203" height="51"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="203" id="Ru8-id-dO5"/>
+                            </constraints>
+                            <connections>
+                                <action selector="rightArrowBtnAction:" destination="-2" eventType="touchUpInside" id="gyM-Tl-UVd"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="fo1-0n-M59" firstAttribute="leading" secondItem="PdH-EA-ctb" secondAttribute="leading" id="3TH-pr-O26"/>
                         <constraint firstItem="Q6a-di-QQE" firstAttribute="centerY" secondItem="PdH-EA-ctb" secondAttribute="centerY" id="CYY-5t-8ml"/>
                         <constraint firstItem="Q6a-di-QQE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g8a-Qg-o9L" secondAttribute="trailing" constant="5" id="CYf-TV-HB8"/>
+                        <constraint firstAttribute="trailing" secondItem="nA5-JY-84H" secondAttribute="trailing" constant="8" id="Hjw-iH-8mQ"/>
                         <constraint firstAttribute="bottom" secondItem="fo1-0n-M59" secondAttribute="bottom" id="IQo-yN-2AC"/>
                         <constraint firstAttribute="trailing" secondItem="Q6a-di-QQE" secondAttribute="trailing" constant="12" id="JV4-jQ-lPq"/>
+                        <constraint firstItem="nA5-JY-84H" firstAttribute="top" secondItem="PdH-EA-ctb" secondAttribute="top" constant="4" id="Mu2-TL-7x5"/>
                         <constraint firstAttribute="trailing" secondItem="WAz-0I-iVb" secondAttribute="trailing" constant="20" id="OfK-q5-byP"/>
+                        <constraint firstItem="fo1-0n-M59" firstAttribute="top" secondItem="nA5-JY-84H" secondAttribute="bottom" constant="3" id="bXC-EG-QKr"/>
                         <constraint firstItem="g8a-Qg-o9L" firstAttribute="centerY" secondItem="Q6a-di-QQE" secondAttribute="centerY" id="egI-pU-hVJ"/>
                         <constraint firstAttribute="trailing" secondItem="fo1-0n-M59" secondAttribute="trailing" id="hPs-B7-xNe"/>
                         <constraint firstItem="WAz-0I-iVb" firstAttribute="centerY" secondItem="PdH-EA-ctb" secondAttribute="centerY" id="j4E-14-ELa"/>
+                        <constraint firstAttribute="trailing" secondItem="Vcd-qd-X0n" secondAttribute="trailing" constant="16" id="kAB-RM-V7A"/>
+                        <constraint firstItem="Vcd-qd-X0n" firstAttribute="centerY" secondItem="PdH-EA-ctb" secondAttribute="centerY" id="pPs-sO-dSQ"/>
                         <constraint firstItem="g8a-Qg-o9L" firstAttribute="leading" secondItem="PdH-EA-ctb" secondAttribute="leading" constant="21" id="yiy-Ol-kji"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -92,8 +113,10 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="arrowBtn" destination="Q6a-di-QQE" id="7r6-Ey-kex"/>
+                <outlet property="arrowImageV" destination="Vcd-qd-X0n" id="1l5-sw-EQq"/>
                 <outlet property="editBtn" destination="WAz-0I-iVb" id="DNx-UF-DRE"/>
                 <outlet property="lineView" destination="fo1-0n-M59" id="s7n-RR-IIb"/>
+                <outlet property="rightArrowBtn" destination="nA5-JY-84H" id="eZf-tR-KuR"/>
                 <outlet property="titleLbl" destination="g8a-Qg-o9L" id="Yev-K5-KmS"/>
             </connections>
             <point key="canvasLocation" x="-922.39999999999998" y="64.31784107946028"/>
@@ -101,6 +124,7 @@
     </objects>
     <resources>
         <image name="icon_downArrow" width="11" height="5"/>
+        <image name="icon_more" width="7" height="11"/>
         <image name="icon_upArrow" width="12" height="6"/>
     </resources>
 </document>

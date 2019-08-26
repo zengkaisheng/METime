@@ -79,8 +79,8 @@
         self.placeholderTextView.hidden = NO;
         self.textView.backgroundColor = [UIColor clearColor];
     }else{
-        self.placeholderTextView.hidden =YES;
-        self.textView.backgroundColor = [UIColor whiteColor];
+        self.placeholderTextView.hidden = YES;
+        self.textView.backgroundColor =  [UIColor colorWithHexString:@"#F8F8F8"];;;
     }
     kMeCallBlock(self.contenBlock,[textView.text trimSpace]);
 //    //该判断用于联想输入

@@ -170,7 +170,6 @@
     MECustomerContentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerContentCell class]) forIndexPath:indexPath];
     NSDictionary *info = self.dataSource[indexPath.section];
     [cell setUIWithInfo:info isAdd:NO isEdit:YES];
-    //    kMeWEAKSELF
     return cell;
 }
 

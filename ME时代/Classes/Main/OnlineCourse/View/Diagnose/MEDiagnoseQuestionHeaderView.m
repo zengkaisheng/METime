@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *arrowBtn;
 @property (weak, nonatomic) IBOutlet UIButton *editBtn;
 @property (weak, nonatomic) IBOutlet UIView *lineView;
+@property (weak, nonatomic) IBOutlet UIImageView *arrowImageV;
+@property (weak, nonatomic) IBOutlet UIButton *rightArrowBtn;
 
 @end
 
@@ -25,6 +27,7 @@
     _editBtn.hidden = _lineView.hidden = YES;
     _titleLbl.text = title;
     _titleLbl.font = [UIFont systemFontOfSize:font];
+    _arrowImageV.hidden = _rightArrowBtn.hidden = YES;
 }
 
 - (void)setUIWithQuestionModel:(MEReportQuestionsModel *)model {
@@ -33,6 +36,7 @@
     _arrowBtn.selected = model.isSpread;
     _titleLbl.text = kMeUnNilStr(model.classify_name);
     _titleLbl.font = [UIFont systemFontOfSize:18.0];
+    _arrowImageV.hidden = _rightArrowBtn.hidden = YES;
 }
 
 - (void)setUIWithAnalyseModel:(MEReportAnalyseModel *)model {
@@ -41,6 +45,7 @@
     _arrowBtn.selected = model.isSpread;
     _titleLbl.text = kMeUnNilStr(model.classify_name);
     _titleLbl.font = [UIFont systemFontOfSize:18.0];
+    _arrowImageV.hidden = _rightArrowBtn.hidden = YES;
 }
 
 - (void)setUIWithSectionTitle:(NSString *)title isAdd:(BOOL)isAdd{
@@ -49,6 +54,33 @@
     _lineView.hidden = YES;
     _titleLbl.text = title;
     _titleLbl.font = [UIFont systemFontOfSize:18.0];
+    _arrowImageV.height = _rightArrowBtn.hidden = YES;
+}
+
+- (void)setIsShowArrow:(BOOL)isShowArrow{
+    _isShowArrow = isShowArrow;
+    _arrowImageV.hidden = _rightArrowBtn.hidden = !isShowArrow;
+}
+
+- (void)setUIWithSectionTitle:(NSString *)title isHeader:(BOOL)isHeader {
+    _arrowBtn.hidden = YES;
+    if (isHeader) {
+        _titleLbl.text = title;
+        _titleLbl.font = [UIFont systemFontOfSize:18.0];
+        _editBtn.hidden = YES;
+        if ([title isEqualToString:@"基本资料"]) {
+            _arrowImageV.hidden = _rightArrowBtn.hidden = YES;
+        }else {
+            _arrowImageV.hidden = _rightArrowBtn.hidden = NO;
+        }
+        _lineView.hidden = NO;
+    }else {
+        _titleLbl.text = @" ";
+        _editBtn.hidden = NO;
+        _arrowImageV.hidden = _rightArrowBtn.hidden = YES;
+        [_editBtn setTitle:@"添加" forState:UIControlStateNormal];
+        _lineView.hidden = YES;
+    }
 }
 
 - (IBAction)downBtnAction:(id)sender {
@@ -56,6 +88,9 @@
     kMeCallBlock(_tapBlock,_arrowBtn.selected);
 }
 - (IBAction)editAction:(id)sender {
+    kMeCallBlock(_tapBlock,YES);
+}
+- (IBAction)rightArrowBtnAction:(id)sender {
     kMeCallBlock(_tapBlock,YES);
 }
 

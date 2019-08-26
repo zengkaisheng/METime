@@ -8,8 +8,11 @@
 
 #import "MEBaseVC.h"
 
-
+typedef void(^kMEChooseBlock)(NSString *name, NSString *memberId);
 
 @interface MEClerkManngerVC : MEBaseVC
+
+@property (nonatomic, assign) BOOL isChoose;
+@property (nonatomic, copy) kMEChooseBlock chooseBlock;
 
 @end

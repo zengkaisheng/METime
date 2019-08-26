@@ -1,17 +1,17 @@
 //
-//  MECustomerFilesBaseVC.m
+//  MECustomerServiceBaseVC.m
 //  ME时代
 //
-//  Created by gao lei on 2019/8/19.
+//  Created by gao lei on 2019/8/25.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MECustomerFilesBaseVC.h"
+#import "MECustomerServiceBaseVC.h"
 #import "MECustomerFileListModel.h"
-#import "MECustomerFilesListCell.h"
-#import "MECustomerDetailVC.h"
+#import "MECustomerServiceListCell.h"
+#import "MECustomerServiceDetailVC.h"
 
-@interface MECustomerFilesBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
+@interface MECustomerServiceBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
 @property (nonatomic, assign) NSInteger classifyId;
 @property (nonatomic, strong) UITableView *tableView;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation MECustomerFilesBaseVC
+@implementation MECustomerServiceBaseVC
 
 - (instancetype)initWithClassifyId:(NSInteger)classifyId {
     if (self = [super init]) {
@@ -31,7 +31,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
 }
@@ -53,6 +52,16 @@
 - (void)reloadDatas {
     [self.refresh reload];
 }
+#pragma mark -- Networking
+- (void)deleteCustomerServiceWithServiceId:(NSInteger)serviceId {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postDeleteCustomerServiceWithServiceId:serviceId successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        [MECommonTool showMessage:@"删除成功" view:kMeCurrentWindow];
+        [strongSelf.refresh reload];
+    } failure:^(id object) {
+    }];
+}
 
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -60,19 +69,37 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MECustomerFilesListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerFilesListCell class]) forIndexPath:indexPath];
+    MECustomerServiceListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerServiceListCell class]) forIndexPath:indexPath];
     MECustomerFileListModel *model = self.refresh.arrData[indexPath.row];
     [cell setUIWithModel:model];
+    kMeWEAKSELF
+    cell.tapBlock = ^(NSInteger index) {
+        kMeSTRONGSELF
+        if (index == 0) {//删除
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [strongSelf deleteCustomerServiceWithServiceId:model.idField];
+            }];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"确定要删除 %@ 吗？",kMeUnNilStr(model.name)] preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:cancelAction];
+            [alertController addAction:sureAction];
+            [strongSelf presentViewController:alertController animated:YES completion:nil];
+        }else if (index == 1) {//查看
+            MECustomerServiceDetailVC *vc = [[MECustomerServiceDetailVC alloc] initWithFilesId:model.idField];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        }
+    };
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return kMECustomerFilesListCellHeight;
+    return kMECustomerServiceListCellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MECustomerFileListModel *model = self.refresh.arrData[indexPath.row];
-    MECustomerDetailVC *vc = [[MECustomerDetailVC alloc] initWithCustomerId:model.idField];
+    MECustomerServiceDetailVC *vc = [[MECustomerServiceDetailVC alloc] initWithFilesId:model.idField];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -80,7 +107,7 @@
 - (UITableView *)tableView{
     if(!_tableView){
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) style:UITableViewStylePlain];
-        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECustomerFilesListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECustomerFilesListCell class])];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECustomerServiceListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECustomerServiceListCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.delegate = self;
@@ -95,13 +122,13 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonCustomerFilesList)];
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonCustomerServiceList)];
         _refresh.delegate = self;
         _refresh.isDataInside = YES;
         _refresh.showMaskView = YES;
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
             failView.backgroundColor = [UIColor whiteColor];
-            failView.lblOfNodata.text = @"暂无相关档案";
+            failView.lblOfNodata.text = @"暂无相关服务";
         }];
     }
     return _refresh;

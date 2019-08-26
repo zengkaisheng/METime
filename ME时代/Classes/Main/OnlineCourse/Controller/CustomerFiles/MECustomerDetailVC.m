@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger customerId;
 
-@property (nonatomic, strong) MEAddCustomerInformationModel *addInfoModel; //新增Model
+//@property (nonatomic, strong) MEAddCustomerInformationModel *addInfoModel; //新增Model
 @property (nonatomic, strong) MECustomerFilesInfoModel *detailModel; //详情Model
 @property (nonatomic, strong) UIView *footerView;
 

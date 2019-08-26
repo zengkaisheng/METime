@@ -26,6 +26,7 @@
 @class SSHomeAddTestDecModel;
 @class MEAddCustomerInformationModel;
 @class MESetCustomerFileSalesModel;
+@class MEAddServiceModel;
 
 @interface MEPublicNetWorkTool : NSObject
 
@@ -715,6 +716,21 @@
 + (void)postEditLivingHabitClassifyNameWithClassifyId:(NSString *)classifyId classifyTitle:(NSString *)classifyTitle type:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
+
+/*********************************************/
+#pragma mark - 顾客服务
+//通过手机号获取顾客档案-基本信息
++ (void)postGetCustomerFilesDetailWithPhone:(NSString *)phone successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取顾客服务祥情
++ (void)postGetCustomerServiceDetailWithFilesId:(NSInteger )filesId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//删除顾客服务
++ (void)postDeleteCustomerServiceWithServiceId:(NSInteger)serviceId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//添加顾客服务
++ (void)postAddCustomerServiceWithServiceModel:(MEAddServiceModel *)serviceModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//添加/修改顾客服务--记录
++ (void)postAddCustomerServiceRecordsWithServiceModel:(MEAddServiceModel *)serviceModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+/*********************************************/
 
 
 

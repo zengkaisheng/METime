@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSString * phone;
 @property (nonatomic, assign) NSInteger idField;
+//服务列表
+@property (nonatomic, assign) NSInteger customer_files_id;
 
 @end
 

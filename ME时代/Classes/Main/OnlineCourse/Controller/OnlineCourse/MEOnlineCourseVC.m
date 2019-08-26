@@ -23,6 +23,7 @@
 #import "MECourseChargeOrFreeListVC.h"
 
 #import "MECustomerFilesVC.h"
+#import "MECustomerServiceVC.h"
 
 @interface MEOnlineCourseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -124,7 +125,10 @@
                 }
                     break;
                 case 3:
-                    NSLog(@"顾客服务");
+                {
+                    MECustomerServiceVC *serviceVC = [[MECustomerServiceVC alloc] init];
+                    [strongSelf.navigationController pushViewController:serviceVC animated:YES];
+                }
                     break;
                 case 4:
                     NSLog(@"顾客预约");

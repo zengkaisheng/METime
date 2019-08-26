@@ -166,6 +166,11 @@ NSUInteger const kSizeNum = 10;
                     MENetListModel *nlModel = [MENetListModel mj_objectWithKeyValues:responseObject.data];
                     strongSelf.allRows = nlModel.count;
                 }
+                if (strongSelf->_isServiceLogs) {
+                    NSDictionary *data = (NSDictionary *)responseObject.data;
+                    NSDictionary *logs = (NSDictionary *)data[@"logs"];
+                    strongSelf.allRows = [logs[@"count"] integerValue];
+                }
             }
             
             //reloadData

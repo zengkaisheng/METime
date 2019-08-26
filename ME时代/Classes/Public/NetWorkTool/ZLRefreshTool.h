@@ -57,6 +57,7 @@
 @property (nonatomic,assign) BOOL isFilter; //是否优选列表
 @property (nonatomic,assign) BOOL isJD;
 @property (nonatomic,assign) BOOL isJuHS;
+@property (nonatomic,assign) BOOL isServiceLogs;
 
 @property (nonatomic,assign) BOOL isBargain; //是否砍价列表
 

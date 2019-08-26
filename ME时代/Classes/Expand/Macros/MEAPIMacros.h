@@ -906,15 +906,13 @@
 #define MEIPcommonCustomerFilesFollowAdd @"common/customerfiles/customerFilesFollowAdd"
 //顾客档案跟进信息修改
 #define MEIPcommonCustomerFilesFollowEdit @"common/customerfiles/customerFilesFollowEdit"
+//获取跟进方式列表
+#define MEIPcommonGetFollowType @"common/followtype/getFollowType"
 
 //获取生活习惯分类列表及选项
 #define MEIPcommonLivingHabitList @"common/livinghabit/livingHabitList"
 //获取顾客档案生活习惯-添加/修改
 #define MEIPcommonSetCustomerFilesHabit @"common/customerfiles/setCustomerFilesHabit"
-
-//获取跟进方式列表
-#define MEIPcommonGetFollowType @"common/followtype/getFollowType"
-
 
 //添加生活习惯
 #define MEIPcommonLivingHabitAdd @"common/livinghabit/livingHabitAdd"
@@ -925,6 +923,29 @@
 
 //修改生活习惯分类
 #define MEIPcommonLivingHabitClassifyEdit @"common/livinghabit/livingHabitClassifyEdit"
+
+/*********************************************/
+
+
+/*********************************************/
+#pragma makr - 客户服务
+//获取顾客服务列表
+#define MEIPcommonCustomerServiceList @"common/customerservice/customerServiceList"
+//通过手机号获取顾客档案-基本信息
+#define MEIPcommonCustomerFilesDetailByPhone @"common/customerfiles/customerFilesDetailByPhone"
+//获取顾客服务祥情
+#define MEIPcommonCustomerServiceDetail @"common/customerservice/customerServiceDetail"
+//删除顾客服务
+#define MEIPcommonCustomerServiceDel @"common/customerservice/customerServiceDel"
+//添加顾客服务
+#define MEIPcommonCustomerServiceAdd @"common/customerservice/customerServiceAdd"
+//添加/修改顾客服务--记录
+#define MEIPcommonCustomerServiceLogAdd @"common/customerservice/customerServiceLogAddOrEdit"
+
+//查看更多服务项目
+#define MEIPcommonCustomerServiceServiceList @"common/customerservice/serviceList"
+//查看更多服务记录
+#define MEIPcommonCustomerServiceServiceLogs @"common/customerservice/serviceLogs"
 
 /*********************************************/
 

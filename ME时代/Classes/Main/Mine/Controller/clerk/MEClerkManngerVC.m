@@ -102,28 +102,34 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MEClerkModel *model = self.refresh.arrData[indexPath.row];
-    MECustomActionSheet *sheet = [[MECustomActionSheet alloc]initWithTitles:@[@"删除",@"查看店员佣金统计"]];
-    kMeWEAKSELF
-    sheet.blockBtnTapHandle = ^(NSInteger index){
-        if(index){
-            kMeSTRONGSELF
-            MEClerkStatisticsVC *vc = [[MEClerkStatisticsVC alloc]initWithType:MEClientBTypeStyle memberId:model.member_id];
-            [strongSelf.navigationController pushViewController:vc animated:YES];
-        }else{
-            MEAlertView *aler = [[MEAlertView alloc] initWithTitle:@"" message:@"确定删除该员工?"];
-            [aler addButtonWithTitle:@"确定" block:^{
-                [MEPublicNetWorkTool postClerkToMemberWithmemberId:kMeUnNilStr(model.member_id) successBlock:^(ZLRequestResponse *responseObject) {
-                    kMeSTRONGSELF
-                    [strongSelf.refresh reload];
-                } failure:^(id object) {
-                    
+    
+    if (self.isChoose) {
+        kMeCallBlock(self.chooseBlock,model.name,model.member_id);
+        [self.navigationController popViewControllerAnimated:YES];
+    }else {
+        MECustomActionSheet *sheet = [[MECustomActionSheet alloc]initWithTitles:@[@"删除",@"查看店员佣金统计"]];
+        kMeWEAKSELF
+        sheet.blockBtnTapHandle = ^(NSInteger index){
+            if(index){
+                kMeSTRONGSELF
+                MEClerkStatisticsVC *vc = [[MEClerkStatisticsVC alloc]initWithType:MEClientBTypeStyle memberId:model.member_id];
+                [strongSelf.navigationController pushViewController:vc animated:YES];
+            }else{
+                MEAlertView *aler = [[MEAlertView alloc] initWithTitle:@"" message:@"确定删除该员工?"];
+                [aler addButtonWithTitle:@"确定" block:^{
+                    [MEPublicNetWorkTool postClerkToMemberWithmemberId:kMeUnNilStr(model.member_id) successBlock:^(ZLRequestResponse *responseObject) {
+                        kMeSTRONGSELF
+                        [strongSelf.refresh reload];
+                    } failure:^(id object) {
+                        
+                    }];
                 }];
-            }];
-            [aler addButtonWithTitle:@"取消"];
-            [aler show];
-        }
-    };
-    [sheet show];
+                [aler addButtonWithTitle:@"取消"];
+                [aler show];
+            }
+        };
+        [sheet show];
+    }
 }
 
 - (void)toAddClerk:(UIButton *)btn{
