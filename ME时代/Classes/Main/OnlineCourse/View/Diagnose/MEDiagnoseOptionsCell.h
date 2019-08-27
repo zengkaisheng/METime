@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MEOptionsSubModel;
 @class MELivingHabitsOptionModel;
 @class MECustomerFollowTypeModel;
+@class MEExpenseSourceModel;
 
 @interface MEDiagnoseOptionsCell : UITableViewCell
 
@@ -25,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 //跟进形式
 - (void)setUIWithFollowTypeModel:(MECustomerFollowTypeModel *)model;
+//消费来源
+- (void)setUIWithExpenseSourceModel:(MEExpenseSourceModel *)model;
 
 @end
 

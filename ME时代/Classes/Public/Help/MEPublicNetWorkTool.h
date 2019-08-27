@@ -27,6 +27,7 @@
 @class MEAddCustomerInformationModel;
 @class MESetCustomerFileSalesModel;
 @class MEAddServiceModel;
+@class MEAddCustomerExpenseModel;
 
 @interface MEPublicNetWorkTool : NSObject
 
@@ -732,6 +733,22 @@
 
 /*********************************************/
 
+/*********************************************/
+#pragma mark - 顾客消费
+//获取顾客消费祥情
++ (void)postGetCustomerExpenseDetailWithFilesId:(NSInteger )filesId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//添加顾客消费/充值
++ (void)postAddCustomerExpenseWithExpenseModel:(MEAddCustomerExpenseModel *)expenseModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//修改顾客消费/充值
++ (void)postEditCustomerExpenseWithExpenseModel:(MEAddCustomerExpenseModel *)expenseModel expenseId:(NSInteger)expenseId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//顾客消费详情
++ (void)postGetCustomerExpenseDetailWithExpenseId:(NSInteger)expenseId type:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//产品性质列表
++ (void)postGetExpenseProductNatureListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//产品性质列表
++ (void)postGetExpenseSourceListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+/*********************************************/
 
 
 + (MBProgressHUD *)commitWithHUD:(NSString *)str;

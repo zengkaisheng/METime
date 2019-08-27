@@ -73,10 +73,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4of-V5-aM1">
-                        <rect key="frame" x="0.0" y="111.5" width="375" height="1"/>
+                        <rect key="frame" x="0.0" y="112" width="375" height="0.5"/>
                         <color key="backgroundColor" red="0.80784313725490198" green="0.80784313725490198" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="Jlr-48-d1C"/>
+                            <constraint firstAttribute="height" constant="0.5" id="Jlr-48-d1C"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a0y-iP-HKJ">

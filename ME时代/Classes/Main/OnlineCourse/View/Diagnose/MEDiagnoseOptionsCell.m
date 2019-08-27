@@ -11,6 +11,7 @@
 #import "MEBlockTextView.h"
 #import "MELivingHabitListModel.h"
 #import "MECustomerFollowTypeModel.h"
+#import "MEExpenseSourceModel.h"
 
 @interface MEDiagnoseOptionsCell ()
 
@@ -79,6 +80,23 @@
         _selectImageView.image = [UIImage imageNamed:@"icon_questionNormal"];
     }
     _titleLbl.text = kMeUnNilStr(model.follow_type_title);
+}
+
+- (void)setUIWithExpenseSourceModel:(MEExpenseSourceModel *)model {
+    _selectImageView.hidden = NO;
+    _titleLbl.hidden = NO;
+    _textView.hidden = YES;
+    if (model.isSelected) {
+        _selectImageView.image = [UIImage imageNamed:@"icon_questionSelected"];
+    }else {
+        _selectImageView.image = [UIImage imageNamed:@"icon_questionNormal"];
+    }
+    if (kMeUnNilStr(model.option).length > 0) {
+        _titleLbl.text = kMeUnNilStr(model.option);
+    }
+    if (kMeUnNilStr(model.nature).length > 0) {
+        _titleLbl.text = kMeUnNilStr(model.nature);
+    }
 }
 
 @end

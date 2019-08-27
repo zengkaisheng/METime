@@ -24,6 +24,7 @@
 
 #import "MECustomerFilesVC.h"
 #import "MECustomerServiceVC.h"
+#import "MECustomerConsumeVC.h"
 
 @interface MEOnlineCourseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -134,7 +135,11 @@
                     NSLog(@"顾客预约");
                     break;
                 case 5:
-                    NSLog(@"顾客消费");
+                {
+                    MECustomerConsumeVC *vc = [[MECustomerConsumeVC alloc] init];
+                    [strongSelf.navigationController pushViewController:vc
+                                                               animated:YES];
+                }
                     break;
                 default:
                     break;

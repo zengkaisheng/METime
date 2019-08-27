@@ -1,17 +1,17 @@
 //
-//  MECustomerServiceBaseVC.m
+//  MECustomerConsumeBaseVC.m
 //  ME时代
 //
-//  Created by gao lei on 2019/8/25.
+//  Created by gao lei on 2019/8/26.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MECustomerServiceBaseVC.h"
+#import "MECustomerConsumeBaseVC.h"
 #import "MECustomerFileListModel.h"
 #import "MECustomerServiceListCell.h"
-#import "MECustomerServiceDetailVC.h"
+#import "MECustomerConsumeDetailVC.h"
 
-@interface MECustomerServiceBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
+@interface MECustomerConsumeBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
 @property (nonatomic, assign) NSInteger classifyId;
 @property (nonatomic, strong) UITableView *tableView;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation MECustomerServiceBaseVC
+@implementation MECustomerConsumeBaseVC
 
 - (instancetype)initWithClassifyId:(NSInteger)classifyId {
     if (self = [super init]) {
@@ -31,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
 }
@@ -38,7 +39,7 @@
 #pragma RefreshToolDelegate
 - (NSDictionary *)requestParameter{
     return @{@"token":kMeUnNilStr(kCurrentUser.token),
-             @"classify_id":@(self.classifyId)
+             @"customer_classify_id":@(self.classifyId)
              };
 }
 
@@ -86,7 +87,7 @@
             [alertController addAction:sureAction];
             [strongSelf presentViewController:alertController animated:YES completion:nil];
         }else if (index == 1) {//查看
-            MECustomerServiceDetailVC *vc = [[MECustomerServiceDetailVC alloc] initWithFilesId:model.customer_files_id];
+            MECustomerConsumeDetailVC *vc = [[MECustomerConsumeDetailVC alloc] initWithFilesId:model.customer_files_id];
             [strongSelf.navigationController pushViewController:vc animated:YES];
         }
     };
@@ -99,7 +100,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MECustomerFileListModel *model = self.refresh.arrData[indexPath.row];
-    MECustomerServiceDetailVC *vc = [[MECustomerServiceDetailVC alloc] initWithFilesId:model.customer_files_id];
+    MECustomerConsumeDetailVC *vc = [[MECustomerConsumeDetailVC alloc] initWithFilesId:model.customer_files_id];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -122,13 +123,13 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonCustomerServiceList)];
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonCustomerExpenseList)];
         _refresh.delegate = self;
         _refresh.isDataInside = YES;
         _refresh.showMaskView = YES;
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
             failView.backgroundColor = [UIColor whiteColor];
-            failView.lblOfNodata.text = @"暂无相关服务";
+            failView.lblOfNodata.text = @"暂无消费记录";
         }];
     }
     return _refresh;

@@ -949,5 +949,27 @@
 
 /*********************************************/
 
+/*********************************************/
+#pragma makr - 客户消费
+//获取消费顾客列表
+#define MEIPcommonCustomerExpenseList @"common/customerexpense/expenseCustomerList"
+//获取顾客消费祥情
+#define MEIPcommonCustomerExpenseCustomerDetail @"common/customerexpense/expenseCustomerDetail"
+//获取顾客消费记录
+#define MEIPcommonCustomerExpenseExpenseList @"common/customerexpense/expenseList"
+//添加顾客消费/充值
+#define MEIPcommonCustomerExpenseAdd @"common/customerexpense/customerExpenseAdd"
+//修改顾客消费/充值
+#define MEIPcommonCustomerExpenseEdit @"common/customerexpense/customerExpenseEdit"
+//顾客消费详情
+#define MEIPcommonCustomerExpenseDetail @"common/customerexpense/expenseDetail"
+
+//获取消费来源列表
+#define MEIPcommonCustomerExpenseSourceList @"common/customerexpense/sourceList"
+//获取产品性质列表
+#define MEIPcommonCustomerExpenseNatureList @"common/customerexpense/natureList"
+/*********************************************/
+
+
 #endif /* MEAPIMacros_h */
 

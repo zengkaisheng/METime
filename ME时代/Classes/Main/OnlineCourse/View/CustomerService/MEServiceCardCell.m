@@ -8,6 +8,7 @@
 
 #import "MEServiceCardCell.h"
 #import "MECustomerServiceDetailModel.h"
+#import "MECustomerExpenseDetailModel.h"
 
 @interface MEServiceCardCell ()
 
@@ -67,6 +68,57 @@
             _topValueLbl.text = kMeUnNilStr(model.service_name);
             _centerValueLbl.text = [NSString stringWithFormat:@"%@次",@(model.total_num)];
             _bottomValueLbl.text = [NSString stringWithFormat:@"%@次",@(model.residue_num)];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)setUIWithExpenseModel:(MEExpenseDetailSubModel *)model {
+    switch (model.type) {
+        case 4:
+        {
+            _topTitleLbl.text = @"充值时间";
+            _centerTitleLbl.text = @"充值金额";
+            _bottomTitleLbl.hidden = YES;
+            
+            _topValueLbl.text = kMeUnNilStr(model.created_at);
+            _centerValueLbl.text = [NSString stringWithFormat:@"%@元",@(model.money)];
+            _bottomValueLbl.hidden = YES;
+        }
+            break;
+        case 1:
+        {
+            _topTitleLbl.text = @"消费时间";
+            _centerTitleLbl.text = @"项目名称";
+            _bottomTitleLbl.text = @"消费金额";
+            
+            _topValueLbl.text = kMeUnNilStr(model.created_at);
+            _centerValueLbl.text = kMeUnNilStr(model.name);
+            _bottomValueLbl.text = [NSString stringWithFormat:@"%@元",@(model.money)];
+        }
+            break;
+        case 2:
+        {
+            _topTitleLbl.text = @"开卡时间";
+            _centerTitleLbl.text = @"项目名称";
+            _bottomTitleLbl.text = @"消费金额";
+            
+            _topValueLbl.text = kMeUnNilStr(model.created_at);
+            _centerValueLbl.text = kMeUnNilStr(model.name);
+            _bottomValueLbl.text = [NSString stringWithFormat:@"%@元",@(model.money)];
+        }
+            break;
+        case 3:
+        {
+            _topTitleLbl.text = @"消费时间";
+            _centerTitleLbl.text = @"项目名称";
+            _bottomTitleLbl.text = @"消费金额";
+            
+            _topValueLbl.text = kMeUnNilStr(model.created_at);
+            _centerValueLbl.text = kMeUnNilStr(model.name);
+            _bottomValueLbl.text = [NSString stringWithFormat:@"%@元",@(model.money)];
         }
             break;
         default:

@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 @class MEServiceDetailSubModel;
+@class MEExpenseDetailSubModel;
 NS_ASSUME_NONNULL_BEGIN
 
 #define kMEServiceCardCellHeight 113
 
 @interface MEServiceCardCell : UITableViewCell
-
+//服务
 - (void)setUIWithServiceModel:(MEServiceDetailSubModel *)model index:(NSInteger)index;
+//消费
+- (void)setUIWithExpenseModel:(MEExpenseDetailSubModel *)model;
 
 @end
 

@@ -1,18 +1,18 @@
 //
-//  MECustomerServiceVC.m
+//  MECustomerConsumeVC.m
 //  ME时代
 //
-//  Created by gao lei on 2019/8/25.
+//  Created by gao lei on 2019/8/26.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MECustomerServiceVC.h"
+#import "MECustomerConsumeVC.h"
 #import "MECustomerClassifyListModel.h"
-#import "MECustomerServiceBaseVC.h"
-#import "MECustomerServiceDetailVC.h"
+#import "MECustomerConsumeBaseVC.h"
+#import "MECustomerConsumeDetailVC.h"
 #import "MECustomInputPhoneView.h"
 
-@interface MECustomerServiceVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>
+@interface MECustomerConsumeVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -24,13 +24,13 @@
 
 @end
 
-@implementation MECustomerServiceVC
+@implementation MECustomerConsumeVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"顾客服务列表";
+    self.title = @"顾客消费列表";
     [self getCustomerClassifyListWithNetworking];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addBtn];
@@ -51,7 +51,7 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     for (int i = 0; i < _arrType.count; i++) {
         MECustomerClassifyListModel *mode = _arrModel[i];
-        MECustomerServiceBaseVC *VC = [[MECustomerServiceBaseVC alloc] initWithClassifyId:mode.idField];
+        MECustomerConsumeBaseVC *VC = [[MECustomerConsumeBaseVC alloc] initWithClassifyId:mode.idField];
         VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         VC.view.frame = CGRectMake(SCREEN_WIDTH*i,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight);
         [self addChildViewController:VC];
@@ -110,7 +110,7 @@
     kMeWEAKSELF
     [MECustomInputPhoneView showCustomInputPhoneViewWithTitle:@"" contentTitle:@"" saveBlock:^(NSString *str) {
         kMeSTRONGSELF
-        MECustomerServiceDetailVC *vc = [[MECustomerServiceDetailVC alloc] initWithPhone:str];
+        MECustomerConsumeDetailVC *vc = [[MECustomerConsumeDetailVC alloc] initWithPhone:str];
         vc.finishBlock = ^{
             [strongSelf reloadFilesList];
         };

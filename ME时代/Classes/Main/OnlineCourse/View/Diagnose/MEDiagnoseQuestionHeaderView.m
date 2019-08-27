@@ -54,7 +54,7 @@
     _lineView.hidden = YES;
     _titleLbl.text = title;
     _titleLbl.font = [UIFont systemFontOfSize:18.0];
-    _arrowImageV.height = _rightArrowBtn.hidden = YES;
+    _arrowImageV.hidden = _rightArrowBtn.hidden = YES;
 }
 
 - (void)setIsShowArrow:(BOOL)isShowArrow{
@@ -78,7 +78,7 @@
         _titleLbl.text = @" ";
         _editBtn.hidden = NO;
         _arrowImageV.hidden = _rightArrowBtn.hidden = YES;
-        [_editBtn setTitle:@"添加" forState:UIControlStateNormal];
+        [_editBtn setTitle:title.length>0?title:@"添加" forState:UIControlStateNormal];
         _lineView.hidden = YES;
     }
 }

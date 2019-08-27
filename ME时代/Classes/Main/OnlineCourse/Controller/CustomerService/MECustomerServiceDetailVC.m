@@ -40,7 +40,7 @@
 - (instancetype)initWithFilesId:(NSInteger)filesId {
     if (self = [super init]) {
         self.filesId = filesId;
-        [self getCustomerFilesDetailWithFilesId];
+        [self getCustomerServiceDetailWithFilesId];
     }
     return self;
 }
@@ -61,6 +61,15 @@
         kMeSTRONGSELF
         if([responseObject.data isKindOfClass:[NSDictionary class]]){
             strongSelf.detailModel = [MECustomerServiceDetailModel mj_objectWithKeyValues:responseObject.data];
+            if (strongSelf.detailModel.ci_card_service.count <= 0) {
+                strongSelf.detailModel.ci_card_service = [[NSArray alloc] init];
+            }
+            if (strongSelf.detailModel.time_card_service.count <= 0) {
+                strongSelf.detailModel.time_card_service = [[NSArray alloc] init];
+            }
+            if (strongSelf.detailModel.product_service.count <= 0) {
+                strongSelf.detailModel.product_service = [[NSArray alloc] init];
+            }
         }else {
             strongSelf.detailModel = nil;
         }
@@ -69,7 +78,7 @@
     }];
 }
 
-- (void)getCustomerFilesDetailWithFilesId {
+- (void)getCustomerServiceDetailWithFilesId {
     kMeWEAKSELF
     [MEPublicNetWorkTool postGetCustomerServiceDetailWithFilesId:self.filesId successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
@@ -147,7 +156,7 @@
             MEAddServiceVC *addVC = [[MEAddServiceVC alloc] initWithInfo:info filesId:strongSelf.filesId];
             addVC.isAddService = YES;
             addVC.finishBlock = ^(id object) {
-                [strongSelf getCustomerFilesDetailWithFilesId];
+                [strongSelf getCustomerServiceDetailWithFilesId];
             };
             [strongSelf.navigationController pushViewController:addVC animated:YES];
         }
