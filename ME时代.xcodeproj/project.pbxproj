@@ -960,6 +960,12 @@
 		EB28EA792314C6E1002E23BA /* MEAddCustomerExpenseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28EA782314C6E1002E23BA /* MEAddCustomerExpenseModel.m */; };
 		EB28EA7C2314DFB8002E23BA /* MEExpenseDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28EA7B2314DFB8002E23BA /* MEExpenseDetailsModel.m */; };
 		EB28EA7F2315070F002E23BA /* MEExpenseSourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28EA7E2315070F002E23BA /* MEExpenseSourceModel.m */; };
+		EB28EA852315520D002E23BA /* MECustomerAppointmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28EA842315520D002E23BA /* MECustomerAppointmentVC.m */; };
+		EB28EA882315599A002E23BA /* MEAppointmentDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28EA872315599A002E23BA /* MEAppointmentDateModel.m */; };
+		EB28EA8C2315601B002E23BA /* MEAppointmentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28EA8A2315601B002E23BA /* MEAppointmentListCell.m */; };
+		EB28EA8D2315601B002E23BA /* MEAppointmentListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB28EA8B2315601B002E23BA /* MEAppointmentListCell.xib */; };
+		EB28EA90231568B2002E23BA /* MEAppointmentListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28EA8F231568B2002E23BA /* MEAppointmentListModel.m */; };
+		EB28EA9323156D72002E23BA /* MEAddAppointmentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB28EA9223156D72002E23BA /* MEAddAppointmentVC.m */; };
 		EB294E4622C4CF1A0073EB8F /* MECommonQuestionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB294E4522C4CF1A0073EB8F /* MECommonQuestionVC.m */; };
 		EB296E9722D3176300C2E52E /* MEGroupOrderDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB296E9622D3176300C2E52E /* MEGroupOrderDetailHeaderView.m */; };
 		EB296E9B22D317E900C2E52E /* MEGroupOrderDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB296E9A22D317E900C2E52E /* MEGroupOrderDetailHeaderView.xib */; };
@@ -1002,6 +1008,9 @@
 		EB352D71230D446B008036F5 /* MECustomInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB352D70230D446B008036F5 /* MECustomInputView.m */; };
 		EB352D74230D680F008036F5 /* MEAddCustomerInformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB352D73230D680F008036F5 /* MEAddCustomerInformationModel.m */; };
 		EB352D77230D7C53008036F5 /* MECustomerFilesInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB352D76230D7C53008036F5 /* MECustomerFilesInfoModel.m */; };
+		EB367FC623161368006CB057 /* MEAppointmentCustomerListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB367FC523161368006CB057 /* MEAppointmentCustomerListVC.m */; };
+		EB367FC9231629D6006CB057 /* MEAppointmentObjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB367FC8231629D6006CB057 /* MEAppointmentObjectModel.m */; };
+		EB367FCC23164F26006CB057 /* MEAddCustomerAppointmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB367FCB23164F26006CB057 /* MEAddCustomerAppointmentModel.m */; };
 		EB374E04230F928C00940728 /* MEEditFollowsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB374E03230F928C00940728 /* MEEditFollowsVC.m */; };
 		EB374E07230FF45D00940728 /* MEEditLivingHabitsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB374E06230FF45D00940728 /* MEEditLivingHabitsVC.m */; };
 		EB3E3B4A22A1124F002EAC8D /* MENewFilterGoodsTopHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3E3B4822A1124F002EAC8D /* MENewFilterGoodsTopHeaderView.m */; };
@@ -3013,6 +3022,17 @@
 		EB28EA7B2314DFB8002E23BA /* MEExpenseDetailsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEExpenseDetailsModel.m; sourceTree = "<group>"; };
 		EB28EA7D2315070F002E23BA /* MEExpenseSourceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEExpenseSourceModel.h; sourceTree = "<group>"; };
 		EB28EA7E2315070F002E23BA /* MEExpenseSourceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEExpenseSourceModel.m; sourceTree = "<group>"; };
+		EB28EA832315520D002E23BA /* MECustomerAppointmentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECustomerAppointmentVC.h; sourceTree = "<group>"; };
+		EB28EA842315520D002E23BA /* MECustomerAppointmentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECustomerAppointmentVC.m; sourceTree = "<group>"; };
+		EB28EA862315599A002E23BA /* MEAppointmentDateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEAppointmentDateModel.h; sourceTree = "<group>"; };
+		EB28EA872315599A002E23BA /* MEAppointmentDateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEAppointmentDateModel.m; sourceTree = "<group>"; };
+		EB28EA892315601B002E23BA /* MEAppointmentListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEAppointmentListCell.h; sourceTree = "<group>"; };
+		EB28EA8A2315601B002E23BA /* MEAppointmentListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEAppointmentListCell.m; sourceTree = "<group>"; };
+		EB28EA8B2315601B002E23BA /* MEAppointmentListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEAppointmentListCell.xib; sourceTree = "<group>"; };
+		EB28EA8E231568B2002E23BA /* MEAppointmentListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEAppointmentListModel.h; sourceTree = "<group>"; };
+		EB28EA8F231568B2002E23BA /* MEAppointmentListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEAppointmentListModel.m; sourceTree = "<group>"; };
+		EB28EA9123156D72002E23BA /* MEAddAppointmentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEAddAppointmentVC.h; sourceTree = "<group>"; };
+		EB28EA9223156D72002E23BA /* MEAddAppointmentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEAddAppointmentVC.m; sourceTree = "<group>"; };
 		EB294E4422C4CF1A0073EB8F /* MECommonQuestionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECommonQuestionVC.h; sourceTree = "<group>"; };
 		EB294E4522C4CF1A0073EB8F /* MECommonQuestionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECommonQuestionVC.m; sourceTree = "<group>"; };
 		EB296E9522D3176300C2E52E /* MEGroupOrderDetailHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEGroupOrderDetailHeaderView.h; sourceTree = "<group>"; };
@@ -3086,6 +3106,12 @@
 		EB352D73230D680F008036F5 /* MEAddCustomerInformationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEAddCustomerInformationModel.m; sourceTree = "<group>"; };
 		EB352D75230D7C53008036F5 /* MECustomerFilesInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECustomerFilesInfoModel.h; sourceTree = "<group>"; };
 		EB352D76230D7C53008036F5 /* MECustomerFilesInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECustomerFilesInfoModel.m; sourceTree = "<group>"; };
+		EB367FC423161368006CB057 /* MEAppointmentCustomerListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEAppointmentCustomerListVC.h; sourceTree = "<group>"; };
+		EB367FC523161368006CB057 /* MEAppointmentCustomerListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEAppointmentCustomerListVC.m; sourceTree = "<group>"; };
+		EB367FC7231629D6006CB057 /* MEAppointmentObjectModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEAppointmentObjectModel.h; sourceTree = "<group>"; };
+		EB367FC8231629D6006CB057 /* MEAppointmentObjectModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEAppointmentObjectModel.m; sourceTree = "<group>"; };
+		EB367FCA23164F26006CB057 /* MEAddCustomerAppointmentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEAddCustomerAppointmentModel.h; sourceTree = "<group>"; };
+		EB367FCB23164F26006CB057 /* MEAddCustomerAppointmentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEAddCustomerAppointmentModel.m; sourceTree = "<group>"; };
 		EB374E02230F928C00940728 /* MEEditFollowsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEEditFollowsVC.h; sourceTree = "<group>"; };
 		EB374E03230F928C00940728 /* MEEditFollowsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEEditFollowsVC.m; sourceTree = "<group>"; };
 		EB374E05230FF45D00940728 /* MEEditLivingHabitsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEEditLivingHabitsVC.h; sourceTree = "<group>"; };
@@ -6928,6 +6954,44 @@
 			path = CustomerFiles;
 			sourceTree = "<group>";
 		};
+		EB28EA80231551C5002E23BA /* CustomerAppointment */ = {
+			isa = PBXGroup;
+			children = (
+				EB28EA832315520D002E23BA /* MECustomerAppointmentVC.h */,
+				EB28EA842315520D002E23BA /* MECustomerAppointmentVC.m */,
+				EB28EA9123156D72002E23BA /* MEAddAppointmentVC.h */,
+				EB28EA9223156D72002E23BA /* MEAddAppointmentVC.m */,
+				EB367FC423161368006CB057 /* MEAppointmentCustomerListVC.h */,
+				EB367FC523161368006CB057 /* MEAppointmentCustomerListVC.m */,
+			);
+			path = CustomerAppointment;
+			sourceTree = "<group>";
+		};
+		EB28EA81231551CB002E23BA /* CustomerAppointment */ = {
+			isa = PBXGroup;
+			children = (
+				EB28EA862315599A002E23BA /* MEAppointmentDateModel.h */,
+				EB28EA872315599A002E23BA /* MEAppointmentDateModel.m */,
+				EB28EA8E231568B2002E23BA /* MEAppointmentListModel.h */,
+				EB28EA8F231568B2002E23BA /* MEAppointmentListModel.m */,
+				EB367FC7231629D6006CB057 /* MEAppointmentObjectModel.h */,
+				EB367FC8231629D6006CB057 /* MEAppointmentObjectModel.m */,
+				EB367FCA23164F26006CB057 /* MEAddCustomerAppointmentModel.h */,
+				EB367FCB23164F26006CB057 /* MEAddCustomerAppointmentModel.m */,
+			);
+			path = CustomerAppointment;
+			sourceTree = "<group>";
+		};
+		EB28EA82231551D3002E23BA /* CustomerAppointment */ = {
+			isa = PBXGroup;
+			children = (
+				EB28EA892315601B002E23BA /* MEAppointmentListCell.h */,
+				EB28EA8A2315601B002E23BA /* MEAppointmentListCell.m */,
+				EB28EA8B2315601B002E23BA /* MEAppointmentListCell.xib */,
+			);
+			path = CustomerAppointment;
+			sourceTree = "<group>";
+		};
 		EB294E4322C4CF070073EB8F /* CommonQuestion */ = {
 			isa = PBXGroup;
 			children = (
@@ -7715,6 +7779,7 @@
 		EB8CC2E323052E7200BB99FC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EB28EA80231551C5002E23BA /* CustomerAppointment */,
 				EB8485AD2313E8A500C3026F /* CustomerConsume */,
 				EB825E7E23126B96007F7005 /* CustomerService */,
 				EB2475E1230AC4550088BBC0 /* CustomerFiles */,
@@ -7728,6 +7793,7 @@
 		EB8CC2E423052E7900BB99FC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EB28EA81231551CB002E23BA /* CustomerAppointment */,
 				EB8485AE2313E8B300C3026F /* CustomerConsume */,
 				EB825E7D23126B90007F7005 /* CustomerService */,
 				EB2475E2230AC4610088BBC0 /* CustomerFiles */,
@@ -7741,6 +7807,7 @@
 		EB8CC2E523052E7F00BB99FC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EB28EA82231551D3002E23BA /* CustomerAppointment */,
 				EB8485AF2313E8C100C3026F /* CustomerConsume */,
 				EB825E7C23126B87007F7005 /* CustomerService */,
 				EB2475E3230AC4670088BBC0 /* CustomerFiles */,
@@ -8357,6 +8424,7 @@
 				3611F30D225DE6DE00F9883D /* MEAiCustomerDetailCell.xib in Resources */,
 				EB70E5A822FAD8F500F00046 /* btn_player_scale01@2x.png in Resources */,
 				3645BBD3221BE2410042748C /* MEBStoreMannagerCell.xib in Resources */,
+				EB28EA8D2315601B002E23BA /* MEAppointmentListCell.xib in Resources */,
 				36EE6999227149B900B10983 /* MEArticleAdCell.xib in Resources */,
 				EB9536E123068DCE0045952D /* MEDiagnoseOrderListCell.xib in Resources */,
 				36F3B88521F8151F0001F2F6 /* MEProductDetailCommentCell.xib in Resources */,
@@ -8500,6 +8568,7 @@
 				36E1BF2121492F4D00E28301 /* MEAppointmentInfoVC.m in Sources */,
 				EB825E9E23129457007F7005 /* MEServiceCardCell.m in Sources */,
 				360EE7FA21F599980048490E /* MERushBuyContentCell.m in Sources */,
+				EB367FC623161368006CB057 /* MEAppointmentCustomerListVC.m in Sources */,
 				36F528B421E6F2F500BB7388 /* MEClerksSortModel.m in Sources */,
 				36F5E812222F68F1000B0241 /* TPickView.m in Sources */,
 				36017668215B870B0080EB00 /* MEMineShareVC.m in Sources */,
@@ -8700,6 +8769,7 @@
 				367C84ED21479DDC00BEC7B1 /* MEMyDistributionReusableView.m in Sources */,
 				EB374E04230F928C00940728 /* MEEditFollowsVC.m in Sources */,
 				36A8B4C32285528000D3A83C /* MEFindView.m in Sources */,
+				EB28EA852315520D002E23BA /* MECustomerAppointmentVC.m in Sources */,
 				36F5E821222F68F1000B0241 /* TPopView.m in Sources */,
 				36FDEFEF21B114760022D374 /* MEArticelVC.m in Sources */,
 				36707289221C04AD0070BA90 /* ZHPlaceInfoModel.m in Sources */,
@@ -8999,6 +9069,7 @@
 				360034CB21AE9A7100BAF337 /* MEVistorVisterCell.m in Sources */,
 				36FB9E192199195D00B3DDD3 /* MENoticeCell.m in Sources */,
 				36707295221C04C90070BA90 /* ZHMapAroundInfoViewController.m in Sources */,
+				EB28EA8C2315601B002E23BA /* MEAppointmentListCell.m in Sources */,
 				36FD63ED213FA798009743C5 /* METabBarVC.m in Sources */,
 				36F5E833222F68F1000B0241 /* TMenuCell.m in Sources */,
 				36021ACE214B6201001B8DAF /* MEAppointmentSelectStoreVC.m in Sources */,
@@ -9175,6 +9246,7 @@
 				EB782FE122CEE9E300D0A165 /* MEGroupOrderDetailModel.m in Sources */,
 				36FB87A1224207AF000A7547 /* MEBdataStoreCustomerTopCell.m in Sources */,
 				EB737C2422BA350F0027A714 /* MEJoinPrizeCell.m in Sources */,
+				EB367FC9231629D6006CB057 /* MEAppointmentObjectModel.m in Sources */,
 				365069192237B98700EB11DA /* MEOrderExpressDetailCell.m in Sources */,
 				EB28101221533123006A765A /* NSObject+MEDebugDescription.m in Sources */,
 				EB6D029C2151D9380053B19E /* NSArray+MEErrorHandle.m in Sources */,
@@ -9243,6 +9315,7 @@
 				EB77A7792303A33600191E10 /* MEDiagnosePromptView.m in Sources */,
 				366D5B21214A4F290021C1BB /* UITextView+MEXibConfiguartion.m in Sources */,
 				3602A18D21424091004A6E1F /* ZLWebViewVC.m in Sources */,
+				EB28EA90231568B2002E23BA /* MEAppointmentListModel.m in Sources */,
 				3683F7C221CBBBC7008139B0 /* MEGiftMainNilCell.m in Sources */,
 				36F5E83F222F68F1000B0241 /* TGroupCommonCell.m in Sources */,
 				EB7376D522C5A34400901DD2 /* MECommonQuestionListModel.m in Sources */,
@@ -9298,6 +9371,7 @@
 				EB74F30A23025F710042BE23 /* MECourseAudioPlayerVC.m in Sources */,
 				3650F3F021797BF4007EA97F /* MEAppointAttrModel.m in Sources */,
 				36FD63F5213FA9E7009743C5 /* UIColor+MeHexString.m in Sources */,
+				EB367FCC23164F26006CB057 /* MEAddCustomerAppointmentModel.m in Sources */,
 				EB8D601422C30E5C00D86B37 /* MEBargainListVC.m in Sources */,
 				EB8485BB231405EA00C3026F /* MECustomerExpenseDetailModel.m in Sources */,
 				36FEEBE0214CF39C00060209 /* MEAppointmentDetailVC.m in Sources */,
@@ -9333,6 +9407,7 @@
 				36F5E83D222F68F1000B0241 /* TAddMemberController.m in Sources */,
 				EB782FED22CF4F7400D0A165 /* MEGroupOrderModel.m in Sources */,
 				3695C3A721D4BDD500EDBCDF /* MECouponOrderCell.m in Sources */,
+				EB28EA9323156D72002E23BA /* MEAddAppointmentVC.m in Sources */,
 				369D7E692241D1EF00A35DBB /* MEBdataTopCell.m in Sources */,
 				36F5E81F222F68F1000B0241 /* TAddCollectionCell.m in Sources */,
 				36FEC25021AD343500BB64A5 /* MEArticleListVC.m in Sources */,
@@ -9352,6 +9427,7 @@
 				EB7376D922C5A67E00901DD2 /* MECommonQuestionListCell.m in Sources */,
 				EB6F125C22CB472700619D4D /* MEGroupListModel.m in Sources */,
 				36E78C9E2276D908009EC0E8 /* METhridHomeGoodGoodMainCell.m in Sources */,
+				EB28EA882315599A002E23BA /* MEAppointmentDateModel.m in Sources */,
 				EB33F2FF22B23DEC00765E2A /* MEFourHomeBaseVC.m in Sources */,
 				360AF10F21AFD7070039AB79 /* MEVisterDetailVC.m in Sources */,
 				EB64702E22CD956100AE2D1E /* MEShowGroupUserListView.m in Sources */,

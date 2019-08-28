@@ -46,6 +46,10 @@
 
 @implementation MEFourHomeVC
 
+- (void)dealloc{
+    kNSNotificationCenterDealloc
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

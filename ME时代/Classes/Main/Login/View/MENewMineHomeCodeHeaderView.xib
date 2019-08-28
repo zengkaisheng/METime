@@ -287,21 +287,21 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wzj-Ct-hib">
-                    <rect key="frame" x="265" y="88" width="87" height="25"/>
+                    <rect key="frame" x="251" y="88" width="109" height="32"/>
                     <color key="backgroundColor" red="0.098039215686274508" green="0.6588235294117647" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="25" id="QOm-3T-XHO"/>
-                        <constraint firstAttribute="width" constant="87" id="xAk-cR-l5n"/>
+                        <constraint firstAttribute="height" constant="32" id="QOm-3T-XHO"/>
+                        <constraint firstAttribute="width" constant="109" id="xAk-cR-l5n"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <inset key="titleEdgeInsets" minX="-45" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <inset key="imageEdgeInsets" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="切换样式" image="icon_changeStatus">
+                    <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="切换样式 " image="icon_changeStatus">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="12.5"/>
+                            <real key="value" value="16"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -321,9 +321,9 @@
                 <constraint firstItem="vmF-7a-DZa" firstAttribute="leading" secondItem="YSZ-JS-kvI" secondAttribute="leading" constant="25" id="EXY-Jf-VqJ"/>
                 <constraint firstItem="R8D-Wv-nyg" firstAttribute="top" secondItem="kk6-IU-ojS" secondAttribute="bottom" constant="11" id="F3y-cb-Z5b"/>
                 <constraint firstAttribute="trailing" secondItem="R8D-Wv-nyg" secondAttribute="trailing" constant="15" id="GDS-7J-Mei"/>
-                <constraint firstAttribute="trailing" secondItem="Wzj-Ct-hib" secondAttribute="trailing" constant="23" id="KaH-JU-kZy"/>
+                <constraint firstAttribute="trailing" secondItem="Wzj-Ct-hib" secondAttribute="trailing" constant="15" id="KaH-JU-kZy"/>
                 <constraint firstItem="urX-Rd-KyT" firstAttribute="top" secondItem="R8D-Wv-nyg" secondAttribute="bottom" constant="7" id="N0r-m3-cLT"/>
-                <constraint firstItem="vmF-7a-DZa" firstAttribute="top" secondItem="Wzj-Ct-hib" secondAttribute="bottom" constant="19" id="PEH-pM-AOx"/>
+                <constraint firstItem="vmF-7a-DZa" firstAttribute="top" secondItem="Wzj-Ct-hib" secondAttribute="bottom" constant="12" id="PEH-pM-AOx"/>
                 <constraint firstItem="Xgv-KA-i2t" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" constant="41" id="Qy5-K1-ill"/>
                 <constraint firstItem="kk6-IU-ojS" firstAttribute="top" secondItem="Xgv-KA-i2t" secondAttribute="top" constant="6" id="SeG-nf-EUv"/>
                 <constraint firstItem="GWr-v4-Fkh" firstAttribute="top" secondItem="avq-p1-BvR" secondAttribute="top" id="VKn-HU-mLq"/>

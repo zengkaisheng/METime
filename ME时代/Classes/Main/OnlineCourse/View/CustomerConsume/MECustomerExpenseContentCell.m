@@ -20,6 +20,10 @@
 #import "MECustomerConsumeDetailVC.h"
 #import "MEAddExpenseVC.h"
 
+#import "MEAddAppointmentVC.h"
+#import "MEClerkManngerVC.h"
+#import "MEAppointmentCustomerListVC.h"
+
 @interface MECustomerExpenseContentCell ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -177,8 +181,67 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self endEditing:YES];
     if (self.type == 1) {
-        if ([self.titleStr isEqualToString:@"会员充值"]) {
+        if ([self.titleStr isEqualToString:@"顾客预约"]) {
+            MEAddCustomerInfoModel *model = self.dataSource[indexPath.row];
+            
+            MEAddAppointmentVC *homeVc = [MECommonTool getVCWithClassWtihClassName:[MEAddAppointmentVC class] targetResponderView:self];
+            kMeWEAKSELF
+            switch (indexPath.row) {
+                case 0:
+                {
+                    if (homeVc) {
+                        MEAppointmentCustomerListVC *customerList = [[MEAppointmentCustomerListVC alloc] init];
+                        customerList.isFileList = YES;
+                        customerList.chooseBlock = ^(NSString * _Nonnull str, NSInteger ids) {
+                           kMeSTRONGSELF
+                            model.value = str;
+                            model.valueId = [NSString stringWithFormat:@"%@",@(ids)];
+                            [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                        };
+                        [homeVc.navigationController pushViewController:customerList animated:YES];
+                    }
+                }
+                    break;
+                case 1:
+                case 2:
+                {//选择美容师
+                    if (homeVc) {
+                        MEClerkManngerVC *clerkVC = [[MEClerkManngerVC alloc] init];
+                        clerkVC.isChoose = YES;
+                        clerkVC.chooseBlock = ^(NSString *name, NSString *memberId) {
+                            kMeSTRONGSELF
+                            model.value = name;
+                            model.valueId = memberId;
+                            [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                        };
+                        [homeVc.navigationController pushViewController:clerkVC animated:YES];
+                    }
+                }
+                    break;
+                case 3:
+                    //选择预约时间
+                    [self showServiceDatePickerWithIndexPath:indexPath title:@"预约时间"];
+                    break;
+                case 4:
+                {
+                    if (homeVc) {
+                        MEAppointmentCustomerListVC *customerList = [[MEAppointmentCustomerListVC alloc] init];
+                        customerList.chooseBlock = ^(NSString * _Nonnull str, NSInteger ids) {
+                            kMeSTRONGSELF
+                            model.value = str;
+                            model.valueId = [NSString stringWithFormat:@"%@",@(ids)];
+                            [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                        };
+                        [homeVc.navigationController pushViewController:customerList animated:YES];
+                    }
+                }
+                    break;
+                default:
+                    break;
+            }
+        }else if ([self.titleStr isEqualToString:@"会员充值"]) {
             MEAddCustomerInfoModel *model = self.dataSource[indexPath.row];
             if ([model.title isEqualToString:@"充值时间"]) {
                 if (!model.isHideArrow) {

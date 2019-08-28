@@ -971,5 +971,29 @@
 /*********************************************/
 
 
+/*********************************************/
+#pragma makr - 客户预约
+//预约时间列表
+#define MEIPcommonCustomerAppointmentDate @"common/customerappointment/appointmentDate"
+//获取顾客预约列表
+#define MEIPcommonCustomerAppointmentList @"common/customerappointment/customerAppointmentList"
+//获取项目列表
+#define MEIPcommonCustomerAppointmentObjectList @"common/customerobject/objectList"
+//添加项目
+#define MEIPcommonCustomerAppointmentObjectAdd @"common/customerobject/objectAdd"
+
+//添加顾客预约
+#define MEIPcommonCustomerAppointmentAdd @"common/customerappointment/customerAppointmentAdd"
+//删除顾客预约
+#define MEIPcommonCustomerAppointmentDel @"common/customerappointment/customerAppointmentDel"
+//确认顾客预约
+#define MEIPcommonCustomerAppointmentConfirm @"common/customerappointment/appointmentConfirm"
+//获取顾客预约祥情
+#define MEIPcommonCustomerAppointmentDetail @"common/customerappointment/customerAppointmentDetail"
+//修改顾客预约
+#define MEIPcommonCustomerAppointmentEdit @"common/customerappointment/customerAppointmentEdit"
+/*********************************************/
+
+
 #endif /* MEAPIMacros_h */
 

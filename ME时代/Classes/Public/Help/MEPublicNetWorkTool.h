@@ -28,6 +28,7 @@
 @class MESetCustomerFileSalesModel;
 @class MEAddServiceModel;
 @class MEAddCustomerExpenseModel;
+@class MEAddCustomerAppointmentModel;
 
 @interface MEPublicNetWorkTool : NSObject
 
@@ -749,6 +750,29 @@
 + (void)postGetExpenseSourceListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
 /*********************************************/
+
+
+/*********************************************/
+#pragma mark - 顾客预约
+//预约时间列表
++ (void)postGetAppointmentDateListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取项目列表
++ (void)postGetAppointmentObjectListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//添加项目
++ (void)postAddAppointmentObjectWithObjectName:(NSString *)objectName successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//添加顾客预约
++ (void)postAddCustomerAppointmentWithModel:(MEAddCustomerAppointmentModel *)model successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//取消预约
++ (void)postCancelAppointmentWithAppointmentId:(NSString *)appointmentId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//确认预约
++ (void)postConfirmAppointmentWithAppointmentId:(NSString *)appointmentId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取顾客预约祥情
++ (void)postGetAppointmentDetailWithAppointmentId:(NSString *)appointmentId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//编辑顾客预约
++ (void)postEditCustomerAppointmentWithModel:(MEAddCustomerAppointmentModel *)model appointmentId:(NSString *)appointmentId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+/*********************************************/
+
+
 
 
 + (MBProgressHUD *)commitWithHUD:(NSString *)str;

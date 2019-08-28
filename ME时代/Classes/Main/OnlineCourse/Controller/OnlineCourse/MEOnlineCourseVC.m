@@ -25,6 +25,7 @@
 #import "MECustomerFilesVC.h"
 #import "MECustomerServiceVC.h"
 #import "MECustomerConsumeVC.h"
+#import "MECustomerAppointmentVC.h"
 
 @interface MEOnlineCourseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -38,6 +39,10 @@
 @end
 
 @implementation MEOnlineCourseVC
+
+- (void)dealloc{
+    kNSNotificationCenterDealloc
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -54,7 +59,12 @@
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogin) name:kUserLogin object:nil];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
+}
+
+- (void)userLogin{
+    [self.refresh reload];
 }
 
 #pragma RefreshToolDelegate
@@ -132,7 +142,10 @@
                 }
                     break;
                 case 4:
-                    NSLog(@"顾客预约");
+                {
+                    MECustomerAppointmentVC *appointmentVC = [[MECustomerAppointmentVC alloc] init];
+                    [strongSelf.navigationController pushViewController:appointmentVC animated:YES];
+                }
                     break;
                 case 5:
                 {
