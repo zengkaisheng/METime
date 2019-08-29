@@ -51,7 +51,7 @@
 - (void)setUIWithReportModel:(MEDiagnoseReportModel *)model {
     _timeLbl.text = [NSString stringWithFormat:@"诊断时间：%@",kMeUnNilStr(model.reply_time)];
     _typeLbl.hidden = YES;
-    _reportLbl.text = @"诊断报告";
+    _reportLbl.text = @"诊断反馈";
 }
 
 

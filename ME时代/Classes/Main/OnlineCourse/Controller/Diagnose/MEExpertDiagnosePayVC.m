@@ -41,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"诊断服务详情";
+    self.title = @"定制方案";
     self.phone = @"";
     self.remark = @"";
     

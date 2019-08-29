@@ -45,7 +45,7 @@
     
     //数据统计
     MEStatisticsVC *statistics = [[MEStatisticsVC alloc] init];
-    [self addChildVc:statistics title:@"数据统计" image:@"tabbar_statistics_nor" selectedImage:@"tabbar_statistics_sel"];
+    [self addChildVc:statistics title:@"诊断反馈" image:@"tabbar_feedBack_nor" selectedImage:@"tabbar_feedBack_sel"];
     
     self.mine = [[MENewMineHomeVC alloc] init];
     [self addChildVc:self.mine title:@"我的" image:@"tabbar_me_nor" selectedImage:@"tabbar_me_sel"];

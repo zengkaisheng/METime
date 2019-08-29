@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setUIWithSectionTitle:(NSString *)title isAdd:(BOOL)isAdd;
 
 @property (nonatomic, assign) BOOL isShowArrow;
+@property (nonatomic, assign) BOOL isShowLine;
 - (void)setUIWithSectionTitle:(NSString *)title isHeader:(BOOL)isHeader;
 
 @end

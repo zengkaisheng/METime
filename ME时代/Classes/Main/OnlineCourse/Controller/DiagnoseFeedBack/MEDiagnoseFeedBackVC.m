@@ -32,7 +32,7 @@
     // Do any additional setup after loading the view.
     self.title = @"诊断反馈";
     
-    _arrType = @[@"问题咨询",@"诊断报告"];
+    _arrType = @[@"问题咨询",@"诊断反馈"];
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight)];
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;

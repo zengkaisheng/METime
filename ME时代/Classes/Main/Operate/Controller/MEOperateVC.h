@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEOperateVC : MEBaseVC
 
+@property (nonatomic, assign) BOOL isShowTop;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,6 +11,7 @@
 @interface MEOnlineToolsCell ()
 
 @property (weak, nonatomic) IBOutlet UIButton *runDataButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *runDataBtnConsHeight;
 
 @end
 
@@ -28,7 +29,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setUIWithModel:(id)model {
+- (void)setUIWithHiddenRunData:(BOOL)hidenRunData{
     _runDataButton.layer.shadowOffset = CGSizeMake(0, 1);
     _runDataButton.layer.shadowOpacity = 1;
     _runDataButton.layer.shadowRadius = 3;
@@ -36,6 +37,14 @@
     _runDataButton.layer.masksToBounds = false;
     _runDataButton.layer.cornerRadius = 5;
     _runDataButton.clipsToBounds = false;
+    
+    if (hidenRunData) {
+        _runDataButton.hidden = YES;
+        _runDataBtnConsHeight.constant = 0.0;
+    }else {
+        _runDataButton.hidden = NO;
+        _runDataBtnConsHeight.constant = 78.0;
+    }
 }
 
 - (IBAction)runDataAction:(id)sender {

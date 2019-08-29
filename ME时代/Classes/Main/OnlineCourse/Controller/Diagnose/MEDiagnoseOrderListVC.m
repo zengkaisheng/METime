@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"诊断订单";
+    self.title = @"方案订单";
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
 }

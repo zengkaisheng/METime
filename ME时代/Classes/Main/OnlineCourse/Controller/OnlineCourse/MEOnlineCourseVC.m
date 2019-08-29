@@ -22,6 +22,7 @@
 #import "MECourseDetailVC.h"
 #import "MECourseChargeOrFreeListVC.h"
 
+#import "MEOperateVC.h"
 #import "MECustomerFilesVC.h"
 #import "MECustomerServiceVC.h"
 #import "MECustomerConsumeVC.h"
@@ -117,17 +118,25 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         MEOnlineConsultCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineConsultCell class]) forIndexPath:indexPath];
-        [cell setUIWithDict:@{@"title":@"报告诊断"}];
+        [cell setUIWithDict:@{@"title":@"免费诊断店铺问题"}];
         return cell;
     }else if (indexPath.section == 1) {
+        MEOnlineConsultCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineConsultCell class]) forIndexPath:indexPath];
+        [cell setUIWithDict:@{@"title":@"定制方案"}];
+        return cell;
+    }else if (indexPath.section == 2) {
         MEOnlineToolsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineToolsCell class]) forIndexPath:indexPath];
-        [cell setUIWithModel:@[]];
+        [cell setUIWithHiddenRunData:NO];
         kMeWEAKSELF
         cell.selectedBlock = ^(NSInteger index) {
             kMeSTRONGSELF
             switch (index) {
                 case 1:
-                    NSLog(@"运营数据");
+                {
+                    MEOperateVC *operationVC = [[MEOperateVC alloc] init];
+                    operationVC.isShowTop = YES;
+                    [strongSelf.navigationController pushViewController:operationVC animated:YES];
+                }
                     break;
                 case 2:
                 {
@@ -159,10 +168,6 @@
             }
         };
         return cell;
-    }else if (indexPath.section == 2) {
-        MEOnlineConsultCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineConsultCell class]) forIndexPath:indexPath];
-        [cell setUIWithDict:@{@"title":@"诊断服务"}];
-        return cell;
     }
     MEOnlineCourseRecommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseRecommentCell class]) forIndexPath:indexPath];
     [cell setUpUIWithModel:self.model];
@@ -179,9 +184,9 @@
     if (indexPath.section == 0) {
         return kMEOnlineConsultCellHeight;
     }else if (indexPath.section == 1) {
-        return kMEOnlineToolsCellHeight;
-    }else if (indexPath.section == 2) {
         return 93;
+    }else if (indexPath.section == 2) {
+        return kMEOnlineToolsCellHeight;
     }
     
     if (kMeUnArr(self.model.onLine_banner).count <= 0 && kMeUnArr(self.model.video_list.data).count <= 0) {
@@ -215,10 +220,10 @@
             titleLbl.text = @"在线诊断";
             break;
         case 1:
-            titleLbl.text = @"运营工具";
+            titleLbl.text = @"定制方案";
             break;
         case 2:
-            titleLbl.text = @"专家诊断";
+            titleLbl.text = @"运营工具";
             break;
         default:
             break;

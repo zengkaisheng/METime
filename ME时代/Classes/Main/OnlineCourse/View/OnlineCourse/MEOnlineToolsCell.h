@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,copy) kMeIndexBlock selectedBlock;
 
-- (void)setUIWithModel:(id)model;
+- (void)setUIWithHiddenRunData:(BOOL)hidenRunData;
 
 @end
 

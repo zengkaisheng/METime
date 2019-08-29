@@ -994,6 +994,20 @@
 #define MEIPcommonCustomerAppointmentEdit @"common/customerappointment/customerAppointmentEdit"
 /*********************************************/
 
+/*********************************************/
+#pragma makr - 运营管理
+//运营管理首页数据
+#define MEIPcommonStoreOperationData @"common/store/operationData"
+//员工排名
+#define MEIPcommonExpenseClerkRanking @"common/customerexpense/clerkRanking"
+//服务项目排名
+#define MEIPcommonExpenseObjectRanking @"common/customerexpense/objectRanking"
+//店员总顾客数排名（今日）
+#define MEIPcommonExpenseClerkCustomerNumOrder @"common/customerappointment/clerkCustomerNumOrder"
+//店员手工费总数（今日）
+#define MEIPcommonExpenseClerkWorkmanshipChargeOrder @"common/customerappointment/clerkWorkmanshipChargeOrder"
+/*********************************************/
+
 
 #endif /* MEAPIMacros_h */
 

@@ -62,6 +62,11 @@
     _arrowImageV.hidden = _rightArrowBtn.hidden = !isShowArrow;
 }
 
+- (void)setIsShowLine:(BOOL)isShowLine{
+    _isShowLine = isShowLine;
+    _lineView.hidden = !isShowLine;
+}
+
 - (void)setUIWithSectionTitle:(NSString *)title isHeader:(BOOL)isHeader {
     _arrowBtn.hidden = YES;
     if (isHeader) {

@@ -772,7 +772,15 @@
 + (void)postEditCustomerAppointmentWithModel:(MEAddCustomerAppointmentModel *)model appointmentId:(NSString *)appointmentId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
-
+/*********************************************/
+#pragma mark - 运营管理
+//运营管理首页数据
++ (void)postGetOperationDataWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//员工排名
++ (void)postGetClerkRankingDatasWithType:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//服务项目排名
++ (void)postGetObjectRankingDatasWithDateType:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+/*********************************************/
 
 
 + (MBProgressHUD *)commitWithHUD:(NSString *)str;

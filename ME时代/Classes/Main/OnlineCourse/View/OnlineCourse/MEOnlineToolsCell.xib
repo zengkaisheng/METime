@@ -131,6 +131,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="runDataBtnConsHeight" destination="F0E-7s-znm" id="I0i-cF-sFd"/>
                 <outlet property="runDataButton" destination="AUe-kp-2dY" id="IdS-iF-Bha"/>
             </connections>
             <point key="canvasLocation" x="132" y="154.72263868065968"/>
