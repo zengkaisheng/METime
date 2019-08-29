@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setUIWithConsultModel:(MEDiagnoseConsultModel *)model;
 - (void)setUIWithReportModel:(MEDiagnoseReportModel *)model;
 
+- (void)setUIWithNoReplyModel:(MEDiagnoseConsultModel *)model;
+
 @end
 
 NS_ASSUME_NONNULL_END

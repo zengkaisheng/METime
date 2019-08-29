@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithModel:(MEDiagnoseConsultModel *)model;
 
+@property (nonatomic, assign) BOOL isReply;
+
 - (instancetype)initWithConsultId:(NSInteger )consultId;
 
 @end

@@ -122,7 +122,7 @@
         return cell;
     }else if (indexPath.section == 1) {
         MEOnlineConsultCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineConsultCell class]) forIndexPath:indexPath];
-        [cell setUIWithDict:@{@"title":@"定制方案"}];
+        [cell setUIWithDict:@{@"title":@"定制店铺专属方案"}];
         return cell;
     }else if (indexPath.section == 2) {
         MEOnlineToolsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineToolsCell class]) forIndexPath:indexPath];

@@ -97,9 +97,6 @@
     [self.navigationController popToViewController:self animated:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kUnMessage object:nil];
     [self.headerView clearUIWithUserInfo];
-    _arrtype = @[];
-    _arrtypeTitle = @[];
-    [self.tableView reloadData];
 }
 
 - (void)userLogin{
@@ -136,45 +133,111 @@
                     //B
                     //                strongSelf->_arrtype = @[@[@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
                     //,@(MeHomeTest)每日测试
-                    strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHometixian),@(MeHomejuanyngjing),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
-                    strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                    
+                    /*
+                    if (kCurrentUser.identity_type == 0) {
+                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHometixian),@(MeHomejuanyngjing),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                        strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                    }else {
+                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHometixian),@(MeHomejuanyngjing),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack),@(MEDiagnoseAnswer)]];
+                        strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                    }
+                     */
+                    
+                    if (kCurrentUser.identity_type == 0) {
+                        strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                        strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
+                    }else {
+                        strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack),@(MEDiagnoseAnswer)]];
+                        strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
+                    }
+                    
                 }
                     break;
                 case 2:{
                     //
                     //                strongSelf->_arrtype = @[@[@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
-                    strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomepinpaigli),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
-                    strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                    /*
+                    if (kCurrentUser.identity_type == 0) {
+                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomepinpaigli),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                        strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                    }else {
+                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomepinpaigli),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack),@(MEDiagnoseAnswer)]];
+                        strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                    }
+                    */
+                    if (kCurrentUser.identity_type == 0) {
+                        strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                        strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
+                    }else {
+                        strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack),@(MEDiagnoseAnswer)]];
+                        strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
+                    }
+                    
                 }
                     break;
                 case 4:{
                     //C
                     //                strongSelf->_arrtype = @[@[@(MeMyDistribution),@(MeMyExchange),@(MeMyAppointment),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply)]];
-                    strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
-                    strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
+                    if (kCurrentUser.identity_type == 0) {
+                        strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                        strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
+                    }else {
+                        strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack),@(MEDiagnoseAnswer)]];
+                        strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
+                    }
                 }
                     break;
                 case 3:{
                     //B
                     //                strongSelf->_arrtype = @[@[@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor),@(MeAILEI)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
                     
-                    
                     NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
                     if ([status isEqualToString:@"customer"]) {
+                        /*
                         if (kCurrentUser.audit.is_radar == 1) {
-                            strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeAILEI),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
-                            strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                            if (kCurrentUser.identity_type == 0) {
+                                strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeAILEI),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                                strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                            }else {
+                                strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeAILEI),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack),@(MEDiagnoseAnswer)]];
+                                strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                            }
                         }else if (kCurrentUser.audit.is_radar == 2) {
-                            strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeHometuigcode)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
-                            strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
+                            if (kCurrentUser.identity_type == 0) {
+                                strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeHometuigcode)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                                strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
+                            }else {
+                                strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHometixian),@(MeHomejuanyngjing),@(MeHomeziti),@(MeHometuigcode)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack),@(MEDiagnoseAnswer)]];
+                                strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
+                            }
+                        }
+                        */
+                        if (kCurrentUser.identity_type == 0) {
+                            strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                            strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
+                        }else {
+                            strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack),@(MEDiagnoseAnswer)]];
+                            strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
                         }
                     }else if ([status isEqualToString:@"business"]) {
                         if (kCurrentUser.audit.is_radar == 1) {
-                            strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor),@(MeAILEI)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MEDiagnoseOrder),@(MeMyCollection),@(MeHomeNewGuide)]];
-                            strongSelf->_arrtypeTitle = @[@"商家管理",@"佣金",@"店铺",@"获客",@"必备"];
+                            if (kCurrentUser.identity_type == 0) {
+                                strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor),@(MeAILEI)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MEDiagnoseOrder),@(MeMyCollection),@(MeHomeNewGuide)]];
+                                strongSelf->_arrtypeTitle = @[@"商家管理",@"佣金",@"店铺",@"获客",@"必备"];
+                            }else {
+                                strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor),@(MeAILEI)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MEDiagnoseOrder),@(MeMyCollection),@(MeHomeNewGuide),@(MEDiagnoseAnswer)]];
+                                strongSelf->_arrtypeTitle = @[@"商家管理",@"佣金",@"店铺",@"获客",@"必备"];
+                            }
+                            
                         }else if (kCurrentUser.audit.is_radar == 2) {
-                            strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MEDiagnoseOrder),@(MeMyCollection),@(MeHomeNewGuide)]];
-                            strongSelf->_arrtypeTitle = @[@"商家管理",@"佣金",@"店铺",@"必备"];
+                            if (kCurrentUser.identity_type == 0) {
+                                strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MEDiagnoseOrder),@(MeMyCollection),@(MeHomeNewGuide)]];
+                                strongSelf->_arrtypeTitle = @[@"商家管理",@"佣金",@"店铺",@"必备"];
+                            }else {
+                                strongSelf->_arrtype = @[@[@(MeHometuandui),@(MeHomeshangji),@(MeHomedianyuan),@(MEProjectSet),@(MeHometuigcode)],@[@(MeHomeyongjing),@(MeHomeorderall),@(MeHometixian),@(MeHomejuanyngjing),@(MECourseOrder)],@[@(MeHomeyuyue),@(MeHomedata),@(MeHomedianpu),@(MeHomeziti)],@[@(MEConsultQuestion),@(MEDiagnoseFeedBack),@(MEDiagnoseOrder),@(MeMyCollection),@(MeHomeNewGuide),@(MEDiagnoseAnswer)]];
+                                strongSelf->_arrtypeTitle = @[@"商家管理",@"佣金",@"店铺",@"必备"];
+                            }
                         }
                     }
                 }
@@ -182,20 +245,37 @@
                 case 5:{
                     //clerk
                     //                                strongSelf->_arrtype = @[@[@(MeMyDistribution),@(MeMyCentraManagertment),@(MeMyExchange),@(MeMyAppointment),@(MeMyActity),@(MeDynalApply),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MePAVistor),@(MeAILEI)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData)]];
+                    /*
                     if (kCurrentUser.audit.is_radar == 1) {
-                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomemeiodu),@(MeHomeCorderall),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomeyuyue),@(MeHometixian),@(MeHomejuanyngjing),@(MeAILEI),@(Mehomeyongjitongji),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
-                        strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                        if (kCurrentUser.identity_type == 0) {
+                            strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomemeiodu),@(MeHomeCorderall),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomeyuyue),@(MeHometixian),@(MeHomejuanyngjing),@(MeAILEI),@(Mehomeyongjitongji),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                            strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                        }else {
+                            strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomemeiodu),@(MeHomeCorderall),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomeyuyue),@(MeHometixian),@(MeHomejuanyngjing),@(MeAILEI),@(Mehomeyongjitongji),@(MeHometuigcode)],@[@(MeMyPoster),@(MeMyArticel),@(MemyData),@(MePAVistor)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack),@(MEDiagnoseAnswer)]];
+                            strongSelf->_arrtypeTitle = @[@"商家管理",@"获客",@"必备"];
+                        }
                     }else if (kCurrentUser.audit.is_radar == 2) {
-                        strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomemeiodu),@(MeHomeCorderall),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomeyuyue),@(MeHometixian),@(MeHomejuanyngjing),@(Mehomeyongjitongji),@(MeHometuigcode)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
-                        strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
+                        if (kCurrentUser.identity_type == 0) {
+                            strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomemeiodu),@(MeHomeCorderall),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomeyuyue),@(MeHometixian),@(MeHomejuanyngjing),@(Mehomeyongjitongji),@(MeHometuigcode)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                            strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
+                        }else {
+                            strongSelf->_arrtype = @[@[@(MeHomeyongjing),@(MeHomemeiodu),@(MeHomeCorderall),@(MeHomeorderall),@(MeHometuandui),@(MeHomeshangji),@(MeHomeyuyue),@(MeHometixian),@(MeHomejuanyngjing),@(Mehomeyongjitongji),@(MeHometuigcode)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyActity),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack),@(MEDiagnoseAnswer)]];
+                            strongSelf->_arrtypeTitle = @[@"商家管理",@"必备"];
+                        }
+                     }
+                     */
+                    if (kCurrentUser.identity_type == 0) {
+                        strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack)]];
+                        strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
+                    }else {
+                        strongSelf->_arrtype = @[@[@(MeHomemeiodu),@(MeHomeCorderall),@(MeHometuandui),@(MeHometuigcode),@(MeHomejuanyngjing)],@[@(MeMyBargain),@(MeMyGroup),@(MeMyExchange),@(MeMyCustomer),@(MeMyCustomerPhone),@(MeMyAddress),@(MeMyMobile),@(MeStoreApply),@(MeHomeNewGuide),@(MeHomeCommonQuestion),@(MeMyFeedBack),@(MEDiagnoseAnswer)]];
+                        strongSelf->_arrtypeTitle = @[@"中心管理",@"必备"];
                     }
                 }
-                    
                     break;
                 default:{
                     strongSelf->_arrtype = @[];
                     strongSelf->_arrtypeTitle = @[];
-                    
                 }
                     break;
             }

@@ -64,6 +64,10 @@
     }
     
     if ([text isEqualToString:@"\n"]) {
+        text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        if (text.length == 0 && range.location == 0) {
+            self.placeholderTextView.hidden = NO;
+        }
         [textView resignFirstResponder];
         return NO;
     }

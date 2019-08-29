@@ -53,6 +53,8 @@
     [_btnCaptcha setTitle:@"获取验证码" forState:UIControlStateNormal];
     [_tfCaptcha addTarget:self action:@selector(tfCodeTextDidChange:) forControlEvents:UIControlEventEditingChanged];
     [_tfCaptcha addTarget:self action:@selector(tfVerficationTextDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [_tfNnumber addTarget:self action:@selector(tfNUmberDidChange:) forControlEvents:UIControlEventEditingChanged];
+    _tfNnumber.delegate = self;
     _tfCaptcha.delegate = self;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     [_bgView addGestureRecognizer:tap];
@@ -60,6 +62,12 @@
 }
 
 #pragma mark - UITextField Action
+- (void)tfNUmberDidChange:(UITextField *)textField{
+    if(textField.text.length > 11){
+        textField.text = [textField.text substringWithRange:NSMakeRange(0,11)];
+        [textField endEditing:YES];
+    }
+}
 
 - (void)tfCodeTextDidChange:(UITextField *)textField{
     if(textField.text.length> kLimitVerficationNum){

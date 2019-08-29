@@ -453,6 +453,9 @@
 + (void)getUserWebgetAgreementWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 // 门店申请、或修改申请
 + (void)postStoreApplyWithModel:(MEStoreApplyParModel *)model SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//新门店申请
++ (void)postNewStoreApplyWithModel:(MEStoreApplyParModel *)model SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
 + (void)postGetMemberStoreInfoWithsuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
 
@@ -671,7 +674,8 @@
 + (void)postGetConsultDetailWithConsultId:(NSString *)consultId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //诊断报告
 + (void)postGetDiagnoseReportWithReportId:(NSString *)reportId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
-
+//问题回复
++ (void)postReplyQuestionWithAnswer:(NSString *)answer questionId:(NSString*)questionId userType:(NSInteger)userType answerImages:(NSString*)answerImages successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

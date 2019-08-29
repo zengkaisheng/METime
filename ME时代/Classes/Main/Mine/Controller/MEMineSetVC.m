@@ -13,6 +13,7 @@
 #import "MEModifyPhoneVC.h"
 #import "MECompandNoticeVC.h"
 #import "MEFeedBackVC.h"
+#import "AppDelegate.h"
 
 @interface MEMineSetVC ()<UITableViewDelegate,UITableViewDataSource>{
     NSArray *_arrtype;
@@ -177,6 +178,10 @@
     [aler addButtonWithTitle:@"确定" block:^{
         kMeSTRONGSELF
         [MEUserInfoModel logout];
+        [kMeUserDefaults setObject:@"customer" forKey:kMENowStatus];
+        [kMeUserDefaults synchronize];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate reloadTabBar];
         [strongSelf.navigationController popViewControllerAnimated:NO];
         kMeCallBlock(strongSelf.exitBlock);
     }];

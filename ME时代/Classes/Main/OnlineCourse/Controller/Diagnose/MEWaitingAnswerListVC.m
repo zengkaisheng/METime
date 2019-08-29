@@ -1,12 +1,12 @@
 //
-//  MEDiagnoseFeedBackBaseVC.m
+//  MEWaitingAnswerListVC.m
 //  ME时代
 //
-//  Created by gao lei on 2019/8/16.
+//  Created by gao lei on 2019/8/29.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MEDiagnoseFeedBackBaseVC.h"
+#import "MEWaitingAnswerListVC.h"
 #import "MEDiagnoseConsultModel.h"
 #import "MEDiagnoseReportModel.h"
 #import "MEDiagnoseListCell.h"
@@ -14,36 +14,26 @@
 #import "MEDiagnoseConsultDetailVC.h"
 #import "MEDiagnoseReportVC.h"
 
-@interface MEDiagnoseFeedBackBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
-    NSInteger _type;
-}
+@interface MEWaitingAnswerListVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ZLRefreshTool *refresh;
 
 @end
 
-@implementation MEDiagnoseFeedBackBaseVC
-
-- (instancetype)initWithType:(NSInteger)type {
-    if (self = [super init]) {
-        _type = type;
-    }
-    return self;
-}
+@implementation MEWaitingAnswerListVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"待回复列表";
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
 }
 
 #pragma RefreshToolDelegate
 - (NSDictionary *)requestParameter{
-    return @{
-             @"token":kMeUnNilStr(kCurrentUser.token),
-             @"type":@(_type)
+    return @{@"token":kMeUnNilStr(kCurrentUser.token)
              };
 }
 
@@ -51,11 +41,7 @@
     if(![data isKindOfClass:[NSArray class]]){
         return;
     }
-    if (_type == 1) {
-        [self.refresh.arrData addObjectsFromArray:[MEDiagnoseConsultModel mj_objectArrayWithKeyValuesArray:data]];
-    }else {
-        [self.refresh.arrData addObjectsFromArray:[MEDiagnoseReportModel mj_objectArrayWithKeyValuesArray:data]];
-    }
+    [self.refresh.arrData addObjectsFromArray:[MEDiagnoseConsultModel mj_objectArrayWithKeyValuesArray:data]];
 }
 
 #pragma mark - tableView deleagte and sourcedata
@@ -65,41 +51,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEDiagnoseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEDiagnoseListCell class]) forIndexPath:indexPath];
-    if (_type == 1) {
-        MEDiagnoseConsultModel *model = self.refresh.arrData[indexPath.row];
-        [cell setUIWithConsultModel:model];
-    }else {
-        MEDiagnoseReportModel *model = self.refresh.arrData[indexPath.row];
-        [cell setUIWithReportModel:model];
-    }
+    MEDiagnoseConsultModel *model = self.refresh.arrData[indexPath.row];
+    [cell setUIWithNoReplyModel:model];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (_type == 1) {
-        MEDiagnoseConsultModel *model = self.refresh.arrData[indexPath.row];
-        CGFloat height = [kMeUnNilStr(model.problem) boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 60, 40) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height;
-        return 113-21+height;
-    }
-    return 82;
+    MEDiagnoseConsultModel *model = self.refresh.arrData[indexPath.row];
+    CGFloat height = [kMeUnNilStr(model.problem) boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 60, 40) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height;
+    return 82-21+height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (_type == 1) {
-        MEDiagnoseConsultModel *model = self.refresh.arrData[indexPath.row];
-        MEDiagnoseConsultDetailVC *vc = [[MEDiagnoseConsultDetailVC alloc] initWithModel:model];
-        [self.navigationController pushViewController:vc animated:YES];
-    }else {
-        MEDiagnoseReportModel *model = self.refresh.arrData[indexPath.row];
-        MEDiagnoseReportVC *vc = [[MEDiagnoseReportVC alloc] initWithReportId:[NSString stringWithFormat:@"%ld",model.idField]];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
+    MEDiagnoseConsultModel *model = self.refresh.arrData[indexPath.row];
+    MEDiagnoseConsultDetailVC *vc = [[MEDiagnoseConsultDetailVC alloc] initWithModel:model];
+    vc.isReply = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma setter&&getter
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight-20) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEDiagnoseListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEDiagnoseListCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -115,7 +88,7 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonDiagnosisList)];
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonDiagnosisGetNoReply)];
         _refresh.delegate = self;
         _refresh.isDataInside = YES;
         _refresh.showMaskView = YES;

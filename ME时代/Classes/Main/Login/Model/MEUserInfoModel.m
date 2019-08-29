@@ -83,6 +83,7 @@ static MEUserInfoModel *shareUser;
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     [kCurrentUser setterWithDict:@{}];
     [kCurrentUser save];
+    
     kNoticeUserLogout
 }
 

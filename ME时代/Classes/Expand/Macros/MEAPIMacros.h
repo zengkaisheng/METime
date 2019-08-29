@@ -541,6 +541,8 @@
 #define MEIPcommonGetMemberStoreInfo @"common/store/getMemberStoreInfo"
 //门店申请、或修改申请
 #define MEIPcommonStoreApply @"common/store/storeApply"
+//新门店申请、或修改申请
+#define MEIPcommonNewStoreApply @"common/store/NewStoreApply"
 //一键已读
 #define MEIPcommonAllreadedNotice @"common/message/listRead"
 //已读消息
@@ -877,7 +879,10 @@
 #define MEIPcommonProblemInfo @"common/online/problemInfo"
 //诊断报告
 #define MEIPcommonDiagnosisReport @"common/diagnosis/report"
-
+//待回问题列表
+#define MEIPcommonDiagnosisGetNoReply @"common/online/getNoReply"
+//回复问题
+#define MEIPcommonDiagnosisReply @"common/online/reply"
 /*********************************************/
 
 

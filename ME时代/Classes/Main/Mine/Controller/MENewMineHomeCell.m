@@ -26,7 +26,8 @@
 #import "MEArticelVC.h"
 #import "MEVisiterHomeVC.h"
 #import "MECouponOrderVC.h"
-#import "MEStoreApplyVC.h"
+//#import "MEStoreApplyVC.h"
+#import "MENewStoreApplyVC.h"
 #import "MEStoreApplyModel.h"
 #import "MEStoreApplyStatusVC.h"
 #import "MEDynamicGoodApplyVC.h"
@@ -66,6 +67,7 @@
 #import "MEDiagnoseFeedBackVC.h"
 #import "MEMyCollectionVC.h"
 #import "MEDiagnoseOrderListVC.h"
+#import "MEWaitingAnswerListVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -176,7 +178,8 @@
         case MeStoreApply:{
             [MEPublicNetWorkTool postGetMemberStoreInfoWithsuccessBlock:^(ZLRequestResponse *responseObject) {
                 if(![responseObject.data isKindOfClass:[NSDictionary class]] || responseObject.data==nil){
-                    MEStoreApplyVC *vc = [[MEStoreApplyVC alloc]init];
+//                    MEStoreApplyVC *vc = [[MEStoreApplyVC alloc]init];
+                    MENewStoreApplyVC *vc = [[MENewStoreApplyVC alloc] init];
                     [homeVc.navigationController pushViewController:vc animated:YES];
                 }else{
                     MEStoreApplyModel *model = [MEStoreApplyModel mj_objectWithKeyValues:responseObject.data];
@@ -351,6 +354,10 @@
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
+        case MEDiagnoseAnswer:{
+            MEWaitingAnswerListVC *vc = [[MEWaitingAnswerListVC alloc]init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
         default:
             break;
     }

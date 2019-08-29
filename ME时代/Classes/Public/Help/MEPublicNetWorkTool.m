@@ -2438,6 +2438,42 @@
         kMeCallBlock(failure,error);
     }];
 }
+//新门店申请
++ (void)postNewStoreApplyWithModel:(MEStoreApplyParModel *)model SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+
+    NSDictionary *dic = @{
+                          @"true_name":kMeUnNilStr(model.true_name),
+                          @"store_name":kMeUnNilStr(model.store_name),
+                          @"name":kMeUnNilStr(model.name),
+                          @"province":kMeUnNilStr(model.province),
+                          @"city":kMeUnNilStr(model.city),
+                          @"district":kMeUnNilStr(model.district),
+                          @"address":kMeUnNilStr(model.address),
+                          @"latitude":kMeUnNilStr(model.latitude),
+                          @"longitude":kMeUnNilStr(model.longitude),
+                          @"token":kMeUnNilStr(model.token)
+                          };
+    NSLog(@"%@",dic);
+    NSString *url = kGetApiWithUrl(MEIPcommonNewStoreApply);
+    //#ifdef TestVersion
+    //    url = [@"http://test_dev.meshidai.com/api/" stringByAppendingString:MEIPcommonStoreApply];
+    //#else
+    //    url = [@"https://msd.meshidai.com/api/" stringByAppendingString:MEIPcommonStoreApply];
+    //#endif
+    MBProgressHUD *HUD = [self commitWithHUD:@"提交中"];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
 
 + (void)getUserGetUserWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSString *url = kGetApiWithUrl(MEIPcommonGetUser);
@@ -4301,6 +4337,28 @@
                           };
     NSString *url = kGetApiWithUrl(MEIPcommonDiagnosisReport);
     MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//问题回复
++ (void)postReplyQuestionWithAnswer:(NSString *)answer questionId:(NSString*)questionId userType:(NSInteger)userType answerImages:(NSString*)answerImages successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"id":kMeUnNilStr(questionId),
+                          @"answer":kMeUnNilStr(answer),
+                          @"user_type":@(userType),
+                          @"answer_images":answerImages};
+    NSString *url = kGetApiWithUrl(MEIPcommonDiagnosisReply);
+    MBProgressHUD *HUD = [self commitWithHUD:@"提交中"];
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
         [HUD hideAnimated:YES];
         kMeCallBlock(successBlock,responseObject);

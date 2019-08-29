@@ -107,7 +107,7 @@
             break;
     }
     
-    if (kCurrentUser.client_type == 4) {
+    if (kCurrentUser.user_type == 4) {
         _changeStatusBtn.hidden = YES;
     }else {
         _changeStatusBtn.hidden = NO;

@@ -14,6 +14,8 @@
 #import "MECompandNoticeVC.h"
 
 #import "MEFillInvationCodeVC.h"
+#import "MEChooseStatusVC.h"
+#import "MENewStoreApplyVC.h"
 
 @interface MEWxLoginVC (){
     BOOL _isNewUser;
@@ -171,7 +173,13 @@
         kMeWEAKSELF
         [MEFillInvationCodeVC presentFillInvationCodeVCWithSuccessHandler:^(id object) {
             kMeSTRONGSELF
-            [strongSelf loginSuccess];
+            [MEChooseStatusVC presentChooseStatusVCWithIndexBlock:^(NSInteger index) {
+                if (index == 1) {
+                    MENewStoreApplyVC *appleVC = [[MENewStoreApplyVC alloc] init];
+                    [strongSelf.navigationController pushViewController:appleVC animated:YES];
+                }
+                [strongSelf loginSuccess];
+            }];
         } failHandler:^(id object) {
              [MEUserInfoModel logout];
         }];
