@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEProjectSettingVC : MEBaseVC
 
+@property (nonatomic ,copy) kMeDictionaryBlock chooseBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -141,5 +141,8 @@
         [home.navigationController pushViewController:setVC animated:YES];
     }
 }
+- (IBAction)changeStatus:(id)sender {
+    kMeCallBlock(_changeStatus);
+}
 
 @end

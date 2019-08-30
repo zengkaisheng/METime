@@ -218,15 +218,15 @@
                 <outlet property="bottomView" destination="i4x-AJ-Tr3" id="7VG-Lf-QB6"/>
                 <outlet property="sdView" destination="RwJ-hF-KKn" id="gvs-EX-8Be"/>
             </connections>
-            <point key="canvasLocation" x="40.799999999999997" y="46.776611694152926"/>
+            <point key="canvasLocation" x="-418" y="34"/>
         </view>
     </objects>
     <resources>
-        <image name="icon_audio" width="42" height="42"/>
-        <image name="icon_charge" width="42" height="42"/>
+        <image name="icon_audio" width="21" height="21"/>
+        <image name="icon_charge" width="21" height="21"/>
         <image name="icon_courseChange" width="21" height="21"/>
         <image name="icon_courseFree" width="21" height="21"/>
-        <image name="icon_free" width="42" height="42"/>
-        <image name="icon_video" width="42" height="42"/>
+        <image name="icon_free" width="21" height="21"/>
+        <image name="icon_video" width="21" height="21"/>
     </resources>
 </document>

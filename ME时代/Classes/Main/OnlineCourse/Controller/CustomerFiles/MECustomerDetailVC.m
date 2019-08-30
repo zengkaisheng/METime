@@ -78,8 +78,10 @@
     bestTimeModel.isHideArrow = self.isAdd?NO:YES;
     
     MEAddCustomerInfoModel *tailModel = [self creatModelWithTitle:@"身高" andPlaceHolder:@"" andMaxInputWords:10 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
+    tailModel.isNumberType = YES;
     
     MEAddCustomerInfoModel *weightModel = [self creatModelWithTitle:@"体重" andPlaceHolder:@"" andMaxInputWords:10 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
+    weightModel.isNumberType = YES;
     
     MEAddCustomerInfoModel *bloodModel = [self creatModelWithTitle:@"血型" andPlaceHolder:@"" andMaxInputWords:10 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
     
@@ -92,7 +94,7 @@
     
     MEAddCustomerInfoModel *jobModel = [self creatModelWithTitle:@"职业" andPlaceHolder:@"" andMaxInputWords:30 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
     
-    MEAddCustomerInfoModel *incomeModel = [self creatModelWithTitle:@"月均收入" andPlaceHolder:@"" andMaxInputWords:30 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
+    MEAddCustomerInfoModel *incomeModel = [self creatModelWithTitle:@"月均收入" andPlaceHolder:@"" andMaxInputWords:10 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
     
     MEAddCustomerInfoModel *consumeModel = [self creatModelWithTitle:@"消费习惯" andPlaceHolder:@"" andMaxInputWords:30 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
     

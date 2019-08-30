@@ -156,6 +156,7 @@
     [MEPublicNetWorkTool getUserGetUserWithSuccessBlock:^(ZLRequestResponse *responseObject) {
         NSLog(@"%@",kCurrentUser.uid);
         kMeSTRONGSELF
+        /*
         switch (kCurrentUser.user_type) {
             case 1:{
                 
@@ -187,6 +188,7 @@
             }
                 break;
         }
+         */
         [strongSelf.headerView reloadUIWithUserInfo];
         strongSelf.tableView.tableHeaderView = strongSelf.headerView;
         [strongSelf.tableView reloadData];
@@ -227,7 +229,7 @@
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MEMineHomeCellStyle type = [_arrtype[indexPath.row] intValue];
+    MEMineHomeMenuCellStyle type = [_arrtype[indexPath.row] intValue];
     MEMineHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEMineHomeCell class]) forIndexPath:indexPath];
     [cell setUiWithType:type];
     return cell;
@@ -238,58 +240,58 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MEMineHomeCellStyle type = [_arrtype[indexPath.row] intValue];
-    switch (type) {
-        case MeMyDistribution:{
-            //我的中心
-            MEMyDistrbutionVC *dvc = [[MEMyDistrbutionVC alloc]initWithC];
-            [self.navigationController pushViewController:dvc animated:YES];
-        }
-            break;
-        case MeMyCentraManagertment:{
-            //管理中心
-            MEMyDistrbutionVC *dvc = [[MEMyDistrbutionVC alloc]init];
-            [self.navigationController pushViewController:dvc animated:YES];
-        }
-            break;
-        case MeMyAppointment:{
-            MEMyAppointmentVC *dvc = [[MEMyAppointmentVC alloc]initWithType:MEAppointmenyUseing];
-            [self.navigationController pushViewController:dvc animated:YES];
-        }
-            break;
-        case MeMyExchange:{
-            MEInteralExchangVC *dvc = [[MEInteralExchangVC alloc]init];
-            [self.navigationController pushViewController:dvc animated:YES];
-        }
-            break;
-        case MeMyCustomer:{
-            MERCConversationListVC *cvc = [[MERCConversationListVC alloc]init];
-            [self.navigationController pushViewController:cvc animated:YES];
-        }
-            break;
-        case MeMyCustomerPhone:{
-            MEMineCustomerPhone *cvc = [[MEMineCustomerPhone alloc]init];
-            [self.navigationController pushViewController:cvc animated:YES];
-        }
-            break;
-        case MeMyAddress:{
-            MESelectAddressVC *address = [[MESelectAddressVC alloc]init];
-            [self.navigationController pushViewController:address animated:YES];
-        }
-            break;
-        case MeMyMobile:{
-            MEMyMobileVC *mobile = [[MEMyMobileVC alloc]init];
-            [self.navigationController pushViewController:mobile animated:YES];
-        }
-            break;
-        case MeMyActity:{
-            MeMyActityMineVC *mobile = [[MeMyActityMineVC alloc]init];
-            [self.navigationController pushViewController:mobile animated:YES];
-        }
-            break;
-        default:
-            break;
-    }
+    MEMineHomeMenuCellStyle type = [_arrtype[indexPath.row] intValue];
+//    switch (type) {
+//        case MeMyDistribution:{
+//            //我的中心
+//            MEMyDistrbutionVC *dvc = [[MEMyDistrbutionVC alloc]initWithC];
+//            [self.navigationController pushViewController:dvc animated:YES];
+//        }
+//            break;
+//        case MeMyCentraManagertment:{
+//            //管理中心
+//            MEMyDistrbutionVC *dvc = [[MEMyDistrbutionVC alloc]init];
+//            [self.navigationController pushViewController:dvc animated:YES];
+//        }
+//            break;
+//        case MeMyAppointment:{
+//            MEMyAppointmentVC *dvc = [[MEMyAppointmentVC alloc]initWithType:MEAppointmenyUseing];
+//            [self.navigationController pushViewController:dvc animated:YES];
+//        }
+//            break;
+//        case MeMyExchange:{
+//            MEInteralExchangVC *dvc = [[MEInteralExchangVC alloc]init];
+//            [self.navigationController pushViewController:dvc animated:YES];
+//        }
+//            break;
+//        case MeMyCustomer:{
+//            MERCConversationListVC *cvc = [[MERCConversationListVC alloc]init];
+//            [self.navigationController pushViewController:cvc animated:YES];
+//        }
+//            break;
+//        case MeMyCustomerPhone:{
+//            MEMineCustomerPhone *cvc = [[MEMineCustomerPhone alloc]init];
+//            [self.navigationController pushViewController:cvc animated:YES];
+//        }
+//            break;
+//        case MeMyAddress:{
+//            MESelectAddressVC *address = [[MESelectAddressVC alloc]init];
+//            [self.navigationController pushViewController:address animated:YES];
+//        }
+//            break;
+//        case MeMyMobile:{
+//            MEMyMobileVC *mobile = [[MEMyMobileVC alloc]init];
+//            [self.navigationController pushViewController:mobile animated:YES];
+//        }
+//            break;
+//        case MeMyActity:{
+//            MeMyActityMineVC *mobile = [[MeMyActityMineVC alloc]init];
+//            [self.navigationController pushViewController:mobile animated:YES];
+//        }
+//            break;
+//        default:
+//            break;
+//    }
 }
 
 #pragma MARK - Setter

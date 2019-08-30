@@ -59,13 +59,6 @@
             [self.bottomBtn setTitle:@"添加" forState:UIControlStateNormal];
         }
     }
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
-    [self.view addGestureRecognizer:tap];
-}
-
-- (void)tapAction {
-    [self.view endEditing:YES];
 }
 
 //添加项目
@@ -101,8 +94,8 @@
     MEAddCustomerInfoModel *projectModel = [self creatModelWithTitle:@"预约项目" andPlaceHolder:@"请选择预约项目" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@"请选择预约项目"];
     projectModel.isHideArrow = NO;
     
-    MEAddCustomerInfoModel *feeModel = [self creatModelWithTitle:@"手工费" andPlaceHolder:@"请输入手工费" andMaxInputWords:0 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入手工费"];
-    feeModel.isNumberType = YES;
+    MEAddCustomerInfoModel *feeModel = [self creatModelWithTitle:@"手工费" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:YES andToastStr:@""];
+    feeModel.isHideArrow = YES;
     
     if (self.isEdit) {
         nameModel.value = kMeUnNilStr(self.detailModel.name);
@@ -285,11 +278,6 @@
     MECustomerExpenseContentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerExpenseContentCell class]) forIndexPath:indexPath];
     NSDictionary *info = self.dataSource[indexPath.section];
     [cell setUIWithInfo:info];
-    kMeWEAKSELF
-    cell.indexBlock = ^(NSInteger index) {
-        kMeSTRONGSELF
-        
-    };
     return cell;
 }
 

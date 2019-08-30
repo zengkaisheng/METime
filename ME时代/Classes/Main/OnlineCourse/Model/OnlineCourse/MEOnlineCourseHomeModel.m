@@ -10,6 +10,16 @@
 #import "MEAdModel.h"
 #import "MEOnlineCourseListModel.h"
 
+@implementation MECourseHomeMenuListSubModel
+MEModelIdToIdField
+@end
+
+
+@implementation MECourseHomeMenuListModel
+MEModelIdToIdField
+@end
+
+
 @implementation MECourseHomeVideoListModel
 
 MEModelObjectClassInArrayWithDic((@{@"data" : [MEOnlineCourseListModel class]}))
@@ -20,6 +30,6 @@ MEModelObjectClassInArrayWithDic((@{@"data" : [MEOnlineCourseListModel class]}))
 
 @implementation MEOnlineCourseHomeModel
 
-MEModelObjectClassInArrayWithDic((@{@"top_banner" : [MEAdModel class], @"onLine_banner" : [MEAdModel class], @"banner" : [MEAdModel class]}))
+MEModelObjectClassInArrayWithDic((@{@"top_banner" : [MEAdModel class], @"onLine_banner" : [MEAdModel class], @"banner" : [MEAdModel class], @"menu_list":[MECourseHomeMenuListModel class]}))
 
 @end

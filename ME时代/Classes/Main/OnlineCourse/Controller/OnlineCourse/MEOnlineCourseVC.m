@@ -8,7 +8,7 @@
 
 #import "MEOnlineCourseVC.h"
 #import "MEOnlineCourseHeaderView.h"
-
+#import "MENewOnlineCourseHeaderView.h"
 #import "MEOnlineConsultCell.h"
 #import "MEOnlineToolsCell.h"
 #import "MEOnlineCourseRecommentCell.h"
@@ -32,6 +32,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) MEOnlineCourseHeaderView *headerView;
+@property (nonatomic, strong) MENewOnlineCourseHeaderView *headerNewView;
 @property (nonatomic, strong) ZLRefreshTool    *refresh;
 @property (nonatomic, strong) MEOnlineCourseHomeModel *model;
 
@@ -55,8 +56,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    self.title = @"在线课程";
-    self.tableView.tableHeaderView = self.headerView;
-    [self.headerView setUIWithArray:@[] type:0];
+    self.tableView.tableHeaderView = self.headerNewView;
+//    [self.headerView setUIWithArray:@[] type:0];
+    [self.headerNewView setUIWithArray:@[]];
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
     
@@ -78,7 +80,19 @@
         return;
     }
     self.model = [MEOnlineCourseHomeModel mj_objectWithKeyValues:data];
-    [self.headerView setUIWithArray:self.model.top_banner type:0];
+    BOOL hasSection = NO;
+    for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+        if (model.idField == 1) {
+            hasSection = YES;
+        }
+    }
+    if (hasSection) {
+        self.tableView.tableHeaderView = self.headerView;
+        [self.headerView setUIWithArray:self.model.top_banner type:0];
+    }else {
+        self.tableView.tableHeaderView = self.headerNewView;
+        [self.headerNewView setUIWithArray:self.model.top_banner];
+    }
     [self.tableView reloadData];
 }
 
@@ -117,57 +131,84 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        MEOnlineConsultCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineConsultCell class]) forIndexPath:indexPath];
-        [cell setUIWithDict:@{@"title":@"免费诊断店铺问题"}];
-        return cell;
-    }else if (indexPath.section == 1) {
-        MEOnlineConsultCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineConsultCell class]) forIndexPath:indexPath];
-        [cell setUIWithDict:@{@"title":@"定制店铺专属方案"}];
-        return cell;
-    }else if (indexPath.section == 2) {
-        MEOnlineToolsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineToolsCell class]) forIndexPath:indexPath];
-        [cell setUIWithHiddenRunData:NO];
-        kMeWEAKSELF
-        cell.selectedBlock = ^(NSInteger index) {
-            kMeSTRONGSELF
-            switch (index) {
-                case 1:
-                {
-                    MEOperateVC *operationVC = [[MEOperateVC alloc] init];
-                    operationVC.isShowTop = YES;
-                    [strongSelf.navigationController pushViewController:operationVC animated:YES];
-                }
-                    break;
-                case 2:
-                {
-                    MECustomerFilesVC *filesVC = [[MECustomerFilesVC alloc] init];
-                    [strongSelf.navigationController pushViewController:filesVC animated:YES];
-                }
-                    break;
-                case 3:
-                {
-                    MECustomerServiceVC *serviceVC = [[MECustomerServiceVC alloc] init];
-                    [strongSelf.navigationController pushViewController:serviceVC animated:YES];
-                }
-                    break;
-                case 4:
-                {
-                    MECustomerAppointmentVC *appointmentVC = [[MECustomerAppointmentVC alloc] init];
-                    [strongSelf.navigationController pushViewController:appointmentVC animated:YES];
-                }
-                    break;
-                case 5:
-                {
-                    MECustomerConsumeVC *vc = [[MECustomerConsumeVC alloc] init];
-                    [strongSelf.navigationController pushViewController:vc
-                                                               animated:YES];
-                }
-                    break;
-                default:
-                    break;
+        BOOL hasSection = NO;
+        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+            if (model.idField == 2) {
+                hasSection = YES;
             }
-        };
-        return cell;
+        }
+        if (hasSection) {
+            MEOnlineConsultCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineConsultCell class]) forIndexPath:indexPath];
+            [cell setUIWithDict:@{@"title":@"免费诊断店铺问题"}];
+            return cell;
+        }
+        return [UITableViewCell new];
+    }else if (indexPath.section == 1) {
+        BOOL hasSection = NO;
+        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+            if (model.idField == 4) {
+                hasSection = YES;
+            }
+        }
+        if (hasSection) {
+            MEOnlineConsultCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineConsultCell class]) forIndexPath:indexPath];
+            [cell setUIWithDict:@{@"title":@"定制店铺专属方案"}];
+            return cell;
+        }
+        return [UITableViewCell new];
+    }else if (indexPath.section == 2) {
+        BOOL hasSection = NO;
+        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+            if (model.idField == 3) {
+                hasSection = YES;
+            }
+        }
+        if (hasSection) {
+            MEOnlineToolsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineToolsCell class]) forIndexPath:indexPath];
+            [cell setUIWithHiddenRunData:NO];
+            kMeWEAKSELF
+            cell.selectedBlock = ^(NSInteger index) {
+                kMeSTRONGSELF
+                switch (index) {
+                    case 1:
+                    {
+                        MEOperateVC *operationVC = [[MEOperateVC alloc] init];
+                        operationVC.isShowTop = YES;
+                        [strongSelf.navigationController pushViewController:operationVC animated:YES];
+                    }
+                        break;
+                    case 2:
+                    {
+                        MECustomerFilesVC *filesVC = [[MECustomerFilesVC alloc] init];
+                        [strongSelf.navigationController pushViewController:filesVC animated:YES];
+                    }
+                        break;
+                    case 3:
+                    {
+                        MECustomerServiceVC *serviceVC = [[MECustomerServiceVC alloc] init];
+                        [strongSelf.navigationController pushViewController:serviceVC animated:YES];
+                    }
+                        break;
+                    case 4:
+                    {
+                        MECustomerAppointmentVC *appointmentVC = [[MECustomerAppointmentVC alloc] init];
+                        [strongSelf.navigationController pushViewController:appointmentVC animated:YES];
+                    }
+                        break;
+                    case 5:
+                    {
+                        MECustomerConsumeVC *vc = [[MECustomerConsumeVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc
+                                                                   animated:YES];
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            };
+            return cell;
+        }
+        return [UITableViewCell new];
     }
     MEOnlineCourseRecommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseRecommentCell class]) forIndexPath:indexPath];
     [cell setUpUIWithModel:self.model];
@@ -182,28 +223,98 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return kMEOnlineConsultCellHeight;
+        BOOL hasSection = NO;
+        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+            if (model.idField == 2) {
+                hasSection = YES;
+            }
+        }
+        if (hasSection) {
+            return kMEOnlineConsultCellHeight;
+        }
+        return 0;
     }else if (indexPath.section == 1) {
-        return 93;
+        BOOL hasSection = NO;
+        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+            if (model.idField == 4) {
+                hasSection = YES;
+            }
+        }
+        if (hasSection) {
+            return 93;
+        }
+        return 0;
     }else if (indexPath.section == 2) {
-        return kMEOnlineToolsCellHeight;
+        BOOL hasSection = NO;
+        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+            if (model.idField == 3) {
+                hasSection = YES;
+            }
+        }
+        if (hasSection) {
+            return kMEOnlineToolsCellHeight;
+        }
+        return 0;
     }
-    
     if (kMeUnArr(self.model.onLine_banner).count <= 0 && kMeUnArr(self.model.video_list.data).count <= 0) {
         return 0;
     }
-    CGFloat height = 41.0+18.0;
-    if (kMeUnArr(self.model.onLine_banner).count > 0) {
-        height += 120;
+    
+    BOOL hasSection = NO;
+    for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+        if (model.idField == 5) {
+            hasSection = YES;
+        }
     }
-    if (kMeUnArr(self.model.video_list.data).count > 0) {
-        height += 89*kMeUnArr(self.model.video_list.data).count;
+    if (hasSection) {
+        CGFloat height = 41.0+18.0;
+        if (kMeUnArr(self.model.onLine_banner).count > 0) {
+            height += 120;
+        }
+        if (kMeUnArr(self.model.video_list.data).count > 0) {
+            height += 89*kMeUnArr(self.model.video_list.data).count;
+        }
+        return height;
     }
-    return height;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 3) {
+        return 0;
+    }
+    if (section == 0) {
+        BOOL hasSection = NO;
+        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+            if (model.idField == 2) {
+                hasSection = YES;
+            }
+        }
+        if (hasSection) {
+            return 41;
+        }
+        return 0;
+    }else if (section == 1) {
+        BOOL hasSection = NO;
+        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+            if (model.idField == 4) {
+                hasSection = YES;
+            }
+        }
+        if (hasSection) {
+            return 41;
+        }
+        return 0;
+    }else if (section == 2) {
+        BOOL hasSection = NO;
+        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+            if (model.idField == 3) {
+                hasSection = YES;
+            }
+        }
+        if (hasSection) {
+            return 41;
+        }
         return 0;
     }
     return 41;
@@ -328,6 +439,22 @@
         };
     }
     return _headerView;
+}
+
+- (MENewOnlineCourseHeaderView *)headerNewView {
+    if(!_headerNewView){
+        _headerNewView = [[[NSBundle mainBundle]loadNibNamed:@"MENewOnlineCourseHeaderView" owner:nil options:nil] lastObject];
+        _headerNewView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewOnlineCourseHeaderViewHeight);
+        kMeWEAKSELF
+        _headerNewView.selectedBlock = ^(NSInteger index) {
+            kMeSTRONGSELF
+            if (index < 100) {
+                MEAdModel *model = strongSelf.model.top_banner[index];
+                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+            }
+        };
+    }
+    return _headerNewView;
 }
 
 - (UIButton *)btnRight{

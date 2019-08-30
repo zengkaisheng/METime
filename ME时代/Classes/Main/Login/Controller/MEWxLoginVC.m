@@ -96,6 +96,11 @@
     }else{
         kMeCallBlock(self.blockSuccess,nil);
     }
+    
+    [kMeUserDefaults setObject:@"customer" forKey:kMENowStatus];
+    [kMeUserDefaults synchronize];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate reloadTabBar];
 }
 
 -(void)loginFail{

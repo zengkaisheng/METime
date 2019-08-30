@@ -29,11 +29,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECustomerServiceDetailModel : MEBaseModel
 
+@property (nonatomic, strong) NSString * address;
+@property (nonatomic, strong) NSString * appointment_habit;
 @property (nonatomic, strong) NSString * annual_average;
+@property (nonatomic, strong) NSString * best_appointment_time;
 @property (nonatomic, strong) NSString * best_communication_time;
+@property (nonatomic, strong) NSString * birthday;
+@property (nonatomic, strong) NSString * blood_type;
+@property (nonatomic, strong) NSString * classify_name;
 @property (nonatomic, strong) NSArray * ci_card_service;
 @property (nonatomic, assign) NSInteger come_total;
 @property (nonatomic, strong) NSString * consumption_habit;
+@property (nonatomic, strong) NSString * created_at;
+@property (nonatomic, assign) NSInteger customer_classify_id;
 @property (nonatomic, strong) NSString * monthly_average;
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSString * phone;
@@ -42,6 +50,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray * time_card_service;
 @property (nonatomic, strong) NSString * wechat;
 @property (nonatomic, assign) NSInteger idField;
+
+@property (nonatomic, strong) NSString * interest;
+@property (nonatomic, assign) NSInteger is_del;
+@property (nonatomic, strong) NSString * job;
+@property (nonatomic, assign) NSInteger married;
+@property (nonatomic, assign) NSInteger money;
+@property (nonatomic, strong) NSString * month_earning;
+@property (nonatomic, assign) NSInteger sex;
+@property (nonatomic, assign) NSInteger store_id;
+@property (nonatomic, assign) NSInteger tall;
+@property (nonatomic, strong) NSString * traits_of_character;
+@property (nonatomic, strong) NSString * updated_at;
+@property (nonatomic, assign) NSInteger weight;
 
 @end
 

@@ -92,7 +92,7 @@
 //服务项目排名
 - (void)getObjectRankingDatas {
     kMeWEAKSELF
-    [MEPublicNetWorkTool postGetObjectRankingDatasWithDateType:0 successBlock:^(ZLRequestResponse *responseObject) {
+    [MEPublicNetWorkTool postGetObjectRankingDatasWithDateType:self.index successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         if([responseObject.data isKindOfClass:[NSDictionary class]]){
             NSDictionary *data = responseObject.data;

@@ -219,8 +219,9 @@
     if (self.isHabit) {
         MELivingHabitsOptionModel *model = self.dataSource[indexPath.row];
         kMeWEAKSELF
-        [MECustomInputView showCustomInputViewWithTitle:kMeUnNilStr(self.model.classify_title) content:kMeUnNilStr(model.habit) showChooseBtn:NO saveBlock:^(NSString * str, BOOL isShow) {
+        [MECustomInputView showCustomInputViewWithTitle:kMeUnNilStr(self.model.classify_title) content:kMeUnNilStr(model.habit) showChooseBtn:YES isInput:YES saveBlock:^(NSString * str, BOOL isShow) {
             kMeSTRONGSELF
+            model.habit_type = isShow?1:0;
             [strongSelf editLivingHabitWithHabitName:str model:model index:indexPath.row];
         } cancelBlock:^{
         } superView:kMeCurrentWindow];
@@ -244,7 +245,7 @@
     kMeWEAKSELF
     headerView.tapBlock = ^(BOOL isTap) {
         kMeSTRONGSELF
-        [MECustomInputView showCustomInputViewWithTitle:@"修改" content:kMeUnNilStr(strongSelf.model.classify_title) showChooseBtn:YES saveBlock:^(NSString * str, BOOL isShow) {
+        [MECustomInputView showCustomInputViewWithTitle:@"修改" content:kMeUnNilStr(strongSelf.model.classify_title) showChooseBtn:YES isInput:NO saveBlock:^(NSString * str, BOOL isShow) {
             [strongSelf editLivingHabitClassifyTitle:str type:isShow?0:1];
         } cancelBlock:^{
         } superView:kMeCurrentWindow];
@@ -256,13 +257,13 @@
 - (void)addBtnAction {
     kMeWEAKSELF
     if (self.isHabit) {
-        [MECustomInputView showCustomInputViewWithTitle:kMeUnNilStr(self.model.classify_title) content:@"" showChooseBtn:NO saveBlock:^(NSString * str, BOOL isShow) {
+        [MECustomInputView showCustomInputViewWithTitle:kMeUnNilStr(self.model.classify_title) content:@"" showChooseBtn:NO isInput:NO saveBlock:^(NSString * str, BOOL isShow) {
             kMeSTRONGSELF
             [strongSelf addLivingHabitWithHabitName:str];
         } cancelBlock:^{
         } superView:kMeCurrentWindow];
     }else {
-        [MECustomInputView showCustomInputViewWithTitle:@"添加顾客分类" content:@"" showChooseBtn:NO saveBlock:^(NSString * str, BOOL isShow) {
+        [MECustomInputView showCustomInputViewWithTitle:@"添加顾客分类" content:@"" showChooseBtn:NO isInput:NO saveBlock:^(NSString * str, BOOL isShow) {
             kMeSTRONGSELF
             [strongSelf addCustomerClassifyWithClassifyName:str];
         } cancelBlock:^{

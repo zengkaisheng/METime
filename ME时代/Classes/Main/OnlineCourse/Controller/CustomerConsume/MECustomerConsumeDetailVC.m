@@ -60,24 +60,31 @@
     kMeWEAKSELF
     [MEPublicNetWorkTool postGetCustomerFilesDetailWithPhone:self.phone successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
-        if([responseObject.data isKindOfClass:[NSDictionary class]]){
-            strongSelf.detailModel = [MECustomerExpenseDetailModel mj_objectWithKeyValues:responseObject.data];
-            if (strongSelf.detailModel.ci_card.count <= 0) {
-                strongSelf.detailModel.ci_card = [[NSArray alloc] init];
-            }
-            if (strongSelf.detailModel.time_card.count <= 0) {
-                strongSelf.detailModel.time_card = [[NSArray alloc] init];
-            }
-            if (strongSelf.detailModel.product.count <= 0) {
-                strongSelf.detailModel.product = [[NSArray alloc] init];
-            }
-            if (strongSelf.detailModel.top_up.count <= 0) {
-                strongSelf.detailModel.top_up = [[NSArray alloc] init];
-            }
+        if (kMeUnObjectIsEmpty(responseObject.data)) {
+            [MECommonTool showMessage:@"未找到档案,请前往顾客档案添加" view:kMeCurrentWindow];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [strongSelf.navigationController popViewControllerAnimated:YES];
+            });
         }else {
-            strongSelf.detailModel = nil;
+            if([responseObject.data isKindOfClass:[NSDictionary class]]){
+                strongSelf.detailModel = [MECustomerExpenseDetailModel mj_objectWithKeyValues:responseObject.data];
+                if (strongSelf.detailModel.ci_card.count <= 0) {
+                    strongSelf.detailModel.ci_card = [[NSArray alloc] init];
+                }
+                if (strongSelf.detailModel.time_card.count <= 0) {
+                    strongSelf.detailModel.time_card = [[NSArray alloc] init];
+                }
+                if (strongSelf.detailModel.product.count <= 0) {
+                    strongSelf.detailModel.product = [[NSArray alloc] init];
+                }
+                if (strongSelf.detailModel.top_up.count <= 0) {
+                    strongSelf.detailModel.top_up = [[NSArray alloc] init];
+                }
+            }else {
+                strongSelf.detailModel = nil;
+            }
+            [strongSelf loadDetailInfo];
         }
-        [strongSelf loadDetailInfo];
     } failure:^(id object) {
     }];
 }

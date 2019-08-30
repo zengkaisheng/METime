@@ -162,7 +162,7 @@
         [MEPublicNetWorkTool getUserCountListWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 kMeSTRONGSELF
-                if(strongSelf->_navView){
+                if(strongSelf.navView){
                     NSInteger unread = [responseObject.data integerValue];
                     [strongSelf.navView setRead:!unread];
                 }

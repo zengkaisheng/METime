@@ -23,6 +23,7 @@
 #import "MEAddAppointmentVC.h"
 #import "MEClerkManngerVC.h"
 #import "MEAppointmentCustomerListVC.h"
+#import "MEProjectSettingVC.h"
 
 @interface MECustomerExpenseContentCell ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -181,9 +182,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self endEditing:YES];
     if (self.type == 1) {
-        if ([self.titleStr isEqualToString:@"顾客预约"]) {
+        if ([self.titleStr isEqualToString:@"顾客预约"] || [self.titleStr isEqualToString:@"编辑顾客预约"]) {
+            [self endEditing:YES];
             MEAddCustomerInfoModel *model = self.dataSource[indexPath.row];
             
             MEAddAppointmentVC *homeVc = [MECommonTool getVCWithClassWtihClassName:[MEAddAppointmentVC class] targetResponderView:self];
@@ -227,14 +228,26 @@
                 case 4:
                 {
                     if (homeVc) {
-                        MEAppointmentCustomerListVC *customerList = [[MEAppointmentCustomerListVC alloc] init];
-                        customerList.chooseBlock = ^(NSString * _Nonnull str, NSInteger ids) {
+                        MEProjectSettingVC *vc = [[MEProjectSettingVC alloc] init];
+                        vc.chooseBlock = ^(NSDictionary *dic) {
                             kMeSTRONGSELF
-                            model.value = str;
-                            model.valueId = [NSString stringWithFormat:@"%@",@(ids)];
-                            [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                            model.value = kMeUnNilStr(dic[@"name"]);
+                            model.valueId = [NSString stringWithFormat:@"%@",dic[@"id"]];
+                            
+                            MEAddCustomerInfoModel *moneyModel = self.dataSource[indexPath.row+1];
+                            moneyModel.value = [NSString stringWithFormat:@"%@",dic[@"money"]];
+                            [strongSelf.tableView reloadData];
                         };
-                        [homeVc.navigationController pushViewController:customerList animated:YES];
+                        [homeVc.navigationController pushViewController:vc animated:YES];
+                        
+//                        MEAppointmentCustomerListVC *customerList = [[MEAppointmentCustomerListVC alloc] init];
+//                        customerList.chooseBlock = ^(NSString * _Nonnull str, NSInteger ids) {
+//                            kMeSTRONGSELF
+//                            model.value = str;
+//                            model.valueId = [NSString stringWithFormat:@"%@",@(ids)];
+//                            [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//                        };
+//                        [homeVc.navigationController pushViewController:customerList animated:YES];
                     }
                 }
                     break;
@@ -266,7 +279,7 @@
             id obj = self.dataSource[indexPath.row];
             if ([obj isKindOfClass:[MEAddCustomerInfoModel class]]) {
                 MEAddCustomerInfoModel *model = (MEAddCustomerInfoModel *)obj;
-                if ([model.title isEqualToString:@"消费时间"]) {
+                if ([model.title isEqualToString:@"消费时间"] || [model.title isEqualToString:@"开卡时间"] ) {
                     if (!model.isHideArrow) {
                         [self showServiceDatePickerWithIndexPath:indexPath title:kMeUnNilStr(model.title)];
                     }
@@ -279,7 +292,7 @@
         MECustomerConsumeDetailVC *homeVc = [MECommonTool getVCWithClassWtihClassName:[MECustomerConsumeDetailVC class] targetResponderView:self];
         if (homeVc) {
             NSDictionary *info = @{@"title":self.titleStr,@"type":@(self.type),@"content":@[model]};
-            MEAddExpenseVC *vc = [[MEAddExpenseVC alloc] initWithInfo:info filesId:model.idField];
+            MEAddExpenseVC *vc = [[MEAddExpenseVC alloc] initWithInfo:info filesId:self.filesId];
             vc.isEdit = YES;
             kMeWEAKSELF
             vc.finishBlock = ^(id object) {

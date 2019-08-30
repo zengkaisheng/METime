@@ -46,22 +46,22 @@ const static CGFloat kImgStore = 50;
 
 @interface MEFourHomeBaseVC ()<UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>{
     NSInteger _type;
-    NSArray *_arrHot;
-    METhridHomeModel *_homeModel;
-    MEStoreModel *_stroeModel;
-    MEHomeRecommendAndSpreebuyModel *_spreebugmodel;
-    NSArray *_arrDicParm;
-    NSArray *_arrPPTM;
-    NSString *_net;
-    NSArray *_optionsArray;
-    NSArray *_noticeArray;
-    MEAdModel *_leftBanner;
 }
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) MEFourHomeHeaderView *headerView;
 @property (nonatomic, strong) UIImageView *imgStore;
 @property (nonatomic, strong) ZLRefreshTool    *refresh;
+@property (nonatomic, strong) MEAdModel *leftBanner;
+@property (nonatomic, strong) NSArray *arrHot;
+@property (nonatomic, strong) METhridHomeModel *homeModel;
+@property (nonatomic, strong) MEStoreModel *stroeModel;
+@property (nonatomic, strong) MEHomeRecommendAndSpreebuyModel *spreebugmodel;
+@property (nonatomic, strong) NSArray *arrDicParm;
+@property (nonatomic, strong) NSArray *arrPPTM;
+@property (nonatomic, strong) NSString *net;
+@property (nonatomic, strong) NSArray *optionsArray;
+@property (nonatomic, strong) NSArray *noticeArray;
 
 @end
 
@@ -88,12 +88,7 @@ const static CGFloat kImgStore = 50;
     
     self.navBarHidden = YES;
     [self.view addSubview:self.collectionView];
-    _arrHot = [NSArray array];
-    _arrPPTM = [NSArray array];
-    _optionsArray = [NSArray array];
-    _noticeArray = [NSArray array];
-    _homeModel = [METhridHomeModel new];
-    _leftBanner = [MEAdModel new];
+
     _net = @"";
     
     [self.refresh addRefreshView];
@@ -177,14 +172,14 @@ const static CGFloat kImgStore = 50;
         [MEPublicNetWorkTool postGetappHomePageDataWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
-                strongSelf->_stroeModel = [MEStoreModel mj_objectWithKeyValues:responseObject.data];
+                strongSelf.stroeModel = [MEStoreModel mj_objectWithKeyValues:responseObject.data];
             }else{
-                strongSelf->_stroeModel = nil;
+                strongSelf.stroeModel = nil;
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             kMeSTRONGSELF
-            strongSelf->_stroeModel = nil;
+            strongSelf.stroeModel = nil;
             dispatch_semaphore_signal(semaphore);
         }];
     });
@@ -192,11 +187,11 @@ const static CGFloat kImgStore = 50;
     dispatch_group_async(group, queue, ^{
         [MEPublicNetWorkTool postThridHomeStyleWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
-            strongSelf->_homeModel = [METhridHomeModel mj_objectWithKeyValues:responseObject.data];
+            strongSelf.homeModel = [METhridHomeModel mj_objectWithKeyValues:responseObject.data];
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             kMeSTRONGSELF
-            strongSelf->_homeModel = nil;
+            strongSelf.homeModel = nil;
             dispatch_semaphore_signal(semaphore);
         }];
     });
@@ -207,23 +202,23 @@ const static CGFloat kImgStore = 50;
             if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *data = (NSDictionary *)responseObject.data;
                 if ([data[@"left_banner"] isKindOfClass:[NSDictionary class]]) {
-                    strongSelf->_leftBanner = [MEAdModel mj_objectWithKeyValues:data[@"left_banner"]];
+                    strongSelf.leftBanner = [MEAdModel mj_objectWithKeyValues:data[@"left_banner"]];
                 }else {
-                    strongSelf->_leftBanner = [MEAdModel new];
+                    strongSelf.leftBanner = [MEAdModel new];
                 }
                 if ([data[@"bulletin"] isKindOfClass:[NSArray class]]) {
                     NSArray *bulletin = (NSArray *)data[@"bulletin"];
-                    strongSelf->_noticeArray = [MEAdModel mj_objectArrayWithKeyValuesArray:bulletin];
+                    strongSelf.noticeArray = [MEAdModel mj_objectArrayWithKeyValuesArray:bulletin];
                 }else {
-                    strongSelf->_noticeArray = [NSArray array];
+                    strongSelf.noticeArray = [NSArray array];
                 }
             }else {
-                strongSelf->_noticeArray = [NSArray array];
+                strongSelf.noticeArray = [NSArray array];
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             kMeSTRONGSELF
-            strongSelf->_noticeArray = [NSArray array];
+            strongSelf.noticeArray = [NSArray array];
             dispatch_semaphore_signal(semaphore);
         }];
     });
@@ -251,14 +246,14 @@ const static CGFloat kImgStore = 50;
                 }
                 [tempArr addObject:[tempDic copy]];
                 [tempDic removeAllObjects];
-                strongSelf->_arrHot = [tempArr copy];
+                strongSelf.arrHot = [tempArr copy];
             }else{
-                strongSelf->_arrHot = [NSArray array];
+                strongSelf.arrHot = [NSArray array];
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             kMeSTRONGSELF
-            strongSelf->_arrHot = @[@{@"activity":@[]},@{@"goods":@[]}];
+            strongSelf.arrHot = @[@{@"activity":@[]},@{@"goods":@[]}];
             dispatch_semaphore_signal(semaphore);
         }];
 //        [MEPublicNetWorkTool postThridHomehomegetRecommendWithSuccessBlock:^(ZLRequestResponse *responseObject) {
@@ -280,14 +275,14 @@ const static CGFloat kImgStore = 50;
         [MEPublicNetWorkTool postThridHomeRecommendAndSpreebuyWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             if([responseObject.data isKindOfClass:[NSDictionary class]]){
-                strongSelf->_spreebugmodel = [MEHomeRecommendAndSpreebuyModel mj_objectWithKeyValues:responseObject.data];
+                strongSelf.spreebugmodel = [MEHomeRecommendAndSpreebuyModel mj_objectWithKeyValues:responseObject.data];
             }else{
-                strongSelf->_spreebugmodel = nil;
+                strongSelf.spreebugmodel = nil;
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             kMeSTRONGSELF
-            strongSelf->_spreebugmodel = nil;
+            strongSelf.spreebugmodel = nil;
             dispatch_semaphore_signal(semaphore);
         }];
     });
@@ -296,14 +291,14 @@ const static CGFloat kImgStore = 50;
         [MEPublicNetWorkTool postFourHomeOptionsWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             if ([responseObject.data isKindOfClass:[NSArray class]]) {
-                strongSelf->_optionsArray = [MEHomeOptionsModel mj_objectArrayWithKeyValuesArray:responseObject.data];
+                strongSelf.optionsArray = [MEHomeOptionsModel mj_objectArrayWithKeyValuesArray:responseObject.data];
             }else{
-                strongSelf->_optionsArray = [NSArray array];
+                strongSelf.optionsArray = [NSArray array];
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             kMeSTRONGSELF
-            strongSelf->_optionsArray = [NSArray array];
+            strongSelf.optionsArray = [NSArray array];
             dispatch_semaphore_signal(semaphore);
         }];
     });
@@ -313,9 +308,9 @@ const static CGFloat kImgStore = 50;
             kMeSTRONGSELF
             id data = responseObject.data;
             if ([data isKindOfClass:[NSArray class]]) {
-                strongSelf->_arrPPTM = [MEAdModel mj_objectArrayWithKeyValuesArray:data];
+                strongSelf.arrPPTM = [MEAdModel mj_objectArrayWithKeyValuesArray:data];
             }else {
-                strongSelf->_arrPPTM = [NSArray array];
+                strongSelf.arrPPTM = [NSArray array];
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
@@ -333,18 +328,9 @@ const static CGFloat kImgStore = 50;
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_async(dispatch_get_main_queue(), ^{
             kMeSTRONGSELF
-            //            [strongSelf->_headerView setUIWithModel:strongSelf->_homeModel stroeModel:strongSelf->_stroeModel];
-            //            if(strongSelf->_headerView.sdView){
-            //                [strongSelf->_headerView.sdView makeScrollViewScrollToIndex:0];
-            //            }
             [strongSelf setSdBackgroundColorWithIndex:0];
-            //            if(strongSelf->_stroeModel){
-            //                 kSDLoadImg(strongSelf->_imgStore, kMeUnNilStr(strongSelf->_stroeModel.mask_img));
-            //            }else{
-            //                strongSelf->_imgStore.image = [UIImage imageNamed:@"icon-wgvilogo"];
-            //            }
             
-            if (kMeUnNilStr(strongSelf->_homeModel.right_bottom_img.ad_img).length > 0) {
+            if (kMeUnNilStr(strongSelf.homeModel.right_bottom_img.ad_img).length > 0) {
                 strongSelf.imgStore.hidden = NO;
                 [strongSelf setStoreImage];
             }else {
@@ -628,8 +614,8 @@ const static CGFloat kImgStore = 50;
     if (_type == 0) {
         if (indexPath.section == 1) {
             MEFourHomeExchangeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MEFourHomeExchangeCell class]) forIndexPath:indexPath];
-            if(_homeModel && kMeUnNilStr(_homeModel.member_of_the_ritual_image).length){
-                kSDLoadImg(cell.imgPic, kMeUnNilStr(_homeModel.member_of_the_ritual_image));
+            if(self.homeModel && kMeUnNilStr(self.homeModel.member_of_the_ritual_image).length){
+                kSDLoadImg(cell.imgPic, kMeUnNilStr(self.homeModel.member_of_the_ritual_image));
             }
             return cell;
         }
@@ -647,7 +633,7 @@ const static CGFloat kImgStore = 50;
 //    [self.navigationController pushViewController:webVC animated:YES];
     if (_type == 0) {
         if (indexPath.section == 1) {
-            if(_homeModel && kMeUnNilStr(_homeModel.member_of_the_ritual_image).length){
+            if(self.homeModel && kMeUnNilStr(self.homeModel.member_of_the_ritual_image).length){
                 if([MEUserInfoModel isLogin]){
                     [self toReDeemVC];
                 }else{
@@ -695,7 +681,7 @@ const static CGFloat kImgStore = 50;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (_type == 0) {
         if (indexPath.section == 1) {
-            if(_homeModel && kMeUnNilStr(_homeModel.member_of_the_ritual_image).length){
+            if(self.homeModel && kMeUnNilStr(self.homeModel.member_of_the_ritual_image).length){
                 return CGSizeMake(SCREEN_WIDTH, kMEFourHomeExchangeCellheight);
             }else{
                 return CGSizeMake(SCREEN_WIDTH, 0.1);
@@ -710,19 +696,19 @@ const static CGFloat kImgStore = 50;
         if (section == 0) {
             return CGSizeMake(SCREEN_WIDTH, [MEFourHomeHeaderView getViewHeightWithOptionsArray:_optionsArray]);
         }else if (section == 1) {
-            if (_noticeArray.count > 0) {
+            if (self.noticeArray.count > 0) {
                 return CGSizeMake(SCREEN_WIDTH, 70);
             }else {
                 return CGSizeMake(0, 0);
             }
         }else if (section == 2) {
-            if (_arrPPTM.count > 0) {
+            if (self.arrPPTM.count > 0) {
                 return CGSizeMake(SCREEN_WIDTH, 100*kMeFrameScaleY());
             }else {
                 return CGSizeMake(0, 0);
             }
         }else if (section == 3) {
-            if(_spreebugmodel.recommend_left && _spreebugmodel.recommend_right){
+            if(self.spreebugmodel.recommend_left && self.spreebugmodel.recommend_right){
                 return CGSizeMake(SCREEN_WIDTH, kMEFourHomeTopHeaderViewHeight);
             }else{
                 return CGSizeMake(0, 0.1);;
@@ -732,9 +718,9 @@ const static CGFloat kImgStore = 50;
             return CGSizeZero;
         }else if (section == 5) {
             CGFloat height = 51;
-            if (_arrHot.count > 0) {
-                for (int i = 0; i < _arrHot.count; i++) {
-                    NSDictionary *data = _arrHot[i];
+            if (self.arrHot.count > 0) {
+                for (int i = 0; i < self.arrHot.count; i++) {
+                    NSDictionary *data = self.arrHot[i];
                     if ([data.allKeys containsObject:@"activity"]) {
                         if ([data[@"activity"] isKindOfClass:[NSArray class]]) {
                             NSArray *activity = data[@"activity"];
@@ -767,7 +753,7 @@ const static CGFloat kImgStore = 50;
         if (_type == 0) {
             if (indexPath.section == 0) {
                 MEFourHomeHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeHeaderView class]) forIndexPath:indexPath];
-                [header setUIWithModel:_homeModel stroeModel:_stroeModel optionsArray:_optionsArray];
+                [header setUIWithModel:self.homeModel stroeModel:self.stroeModel optionsArray:self.optionsArray];
                 if(header.sdView){
                     [header.sdView makeScrollViewScrollToIndex:0];
                 }
@@ -784,37 +770,37 @@ const static CGFloat kImgStore = 50;
                 headerView = header;
             }else if (indexPath.section == 1) {
                 MEFourHomeNoticeHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeNoticeHeaderView class]) forIndexPath:indexPath];
-                [header setUIWithArray:_noticeArray leftBanner:_leftBanner];
+                [header setUIWithArray:self.noticeArray leftBanner:self.leftBanner];
                 kMeWEAKSELF
                 header.selectedIndexBlock = ^(NSInteger index) {
                     kMeSTRONGSELF
-                    MEAdModel *model = strongSelf->_noticeArray[index];
+                    MEAdModel *model = strongSelf.noticeArray[index];
                     [strongSelf cycleScrollViewDidSelectItemWithModel:model];
                 };
                 headerView = header;
             }else if (indexPath.section == 2) {
                 MESpecialSaleHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MESpecialSaleHeaderView class]) forIndexPath:indexPath];
-                [header setUIWithBannerImage:_arrPPTM];
+                [header setUIWithBannerImage:self.arrPPTM];
                 kMeWEAKSELF
                 header.selectedIndexBlock = ^(NSInteger index) {
                     kMeSTRONGSELF
-                    MEAdModel *model = strongSelf->_arrPPTM[index];
+                    MEAdModel *model = strongSelf.arrPPTM[index];
                     [strongSelf cycleScrollViewDidSelectItemWithModel:model];
                 };
                 headerView = header;
             }else if (indexPath.section == 3) {
                 MEFourHomeTopHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeTopHeaderView class]) forIndexPath:indexPath];
-                if(_spreebugmodel.recommend_left && _spreebugmodel.recommend_right){
-                    [header setUiWithModel:_spreebugmodel];
+                if(self.spreebugmodel.recommend_left && self.spreebugmodel.recommend_right){
+                    [header setUiWithModel:self.spreebugmodel];
                     kMeWEAKSELF
                     header.leftBlock = ^{
                         kMeSTRONGSELF
-                        MEAdModel *model = strongSelf->_spreebugmodel.recommend_left;
+                        MEAdModel *model = strongSelf.spreebugmodel.recommend_left;
                         [strongSelf cycleScrollViewDidSelectItemWithModel:model];
                     };
                     header.rightBlock = ^{
                         kMeSTRONGSELF
-                        MEAdModel *model = strongSelf->_spreebugmodel.recommend_right;
+                        MEAdModel *model = strongSelf.spreebugmodel.recommend_right;
                         [strongSelf cycleScrollViewDidSelectItemWithModel:model];
                     };
                 }
@@ -824,7 +810,7 @@ const static CGFloat kImgStore = 50;
                 headerView = header;
             }else if (indexPath.section == 5) {
                 MEFourHomeGoodGoodMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) forIndexPath:indexPath];
-                [header setupUIWithArray:_arrHot];
+                [header setupUIWithArray:self.arrHot];
                 headerView = header;
             }
         }

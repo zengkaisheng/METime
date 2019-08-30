@@ -37,10 +37,10 @@
     _headerImgV.hidden = YES;
     _nameLblConsLeading.constant = 30.0;
     _nameLbl.text = kMeUnNilStr(model.name);
-    _numberLbl.text = [NSString stringWithFormat:@"%@",@(model.count)];
-    if (index == 0 || index == 1) {
-        _numberLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
-    }
+    _numberLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
+//    if (index == 0 || index == 1) {
+//        _numberLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
+//    }
 }
 
 - (void)setUIWithObjectRankModel:(MEOperationObjectRankModel *)model index:(NSInteger)index {

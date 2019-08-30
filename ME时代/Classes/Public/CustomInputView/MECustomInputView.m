@@ -87,6 +87,10 @@
 }
 
 - (void)btnDidClick:(UIButton *)sender {
+    if (self.tv.textView.text.length <= 0) {
+        [MECommonTool showMessage:@"内容不能为空" view:kMeCurrentWindow];
+        return;
+    }
     kMeCallBlock(_saveBlock,self.tv.textView.text,self.chooseBtn.selected);
     [self hide];
 }
@@ -145,10 +149,20 @@
 }
 
 #pragma mark - Public API
-+ (void)showCustomInputViewWithTitle:(NSString *)title content:(NSString *)content showChooseBtn:(BOOL)isShow saveBlock:(kMeCustomerBlock)saveBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView {
++ (void)showCustomInputViewWithTitle:(NSString *)title content:(NSString *)content showChooseBtn:(BOOL)isShow isInput:(BOOL)isInput saveBlock:(kMeCustomerBlock)saveBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView {
     MECustomInputView *view = [[MECustomInputView alloc]initWithTitle:title content:content superView:superView];
     view.saveBlock = saveBlock;
     view.chooseBtn.hidden = !isShow;
+    if (isShow) {
+        if (isInput) {
+            [view.chooseBtn setTitle:@"是否输入" forState:UIControlStateNormal];
+            view.chooseBtn.selected = NO;
+        }else {
+            [view.chooseBtn setTitle:@"是否多选" forState:UIControlStateNormal];
+            view.chooseBtn.selected = YES;
+        }
+    }
+    
     view.cancelBlock = cancelBlock;
     view.superView = superView;
     [superView addSubview:view];

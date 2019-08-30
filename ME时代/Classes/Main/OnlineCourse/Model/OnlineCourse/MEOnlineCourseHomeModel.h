@@ -10,6 +10,41 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface MECourseHomeMenuListSubModel : MEBaseModel
+
+@property (nonatomic, strong) NSString * created_at;
+@property (nonatomic, strong) NSString * icon;
+@property (nonatomic, assign) NSInteger idField;
+@property (nonatomic, assign) NSInteger is_del;
+@property (nonatomic, strong) NSString * menu_name;
+@property (nonatomic, assign) NSInteger order_by;
+@property (nonatomic, assign) NSInteger parent_id;
+@property (nonatomic, assign) NSInteger status;
+@property (nonatomic, strong) NSString * to_level;
+@property (nonatomic, strong) NSString * updated_at;
+
+@end
+
+
+
+@interface MECourseHomeMenuListModel : MEBaseModel
+
+@property (nonatomic, strong) NSString * created_at;
+@property (nonatomic, strong) NSString * icon;
+@property (nonatomic, assign) NSInteger idField;
+@property (nonatomic, assign) NSInteger is_del;
+@property (nonatomic, strong) NSString * menu_name;
+@property (nonatomic, assign) NSInteger order_by;
+@property (nonatomic, assign) NSInteger parent_id;
+@property (nonatomic, assign) NSInteger status;
+@property (nonatomic, strong) NSArray * subclass;
+@property (nonatomic, strong) NSString * to_level;
+@property (nonatomic, strong) NSString * updated_at;
+
+@end
+
+
+
 @interface MECourseHomeVideoListModel : MEBaseModel
 
 @property (nonatomic, assign) NSInteger count;
@@ -17,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray * data;
 
 @end
+
+
 
 @interface MEOnlineCourseHomeModel : MEBaseModel
 
@@ -27,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 //视/音频首页相关内容
 @property (nonatomic, strong) NSArray * banner;
 @property (nonatomic, strong) MECourseHomeVideoListModel * hot_video;
+@property (nonatomic, strong) NSArray * menu_list;
 
 @end
 

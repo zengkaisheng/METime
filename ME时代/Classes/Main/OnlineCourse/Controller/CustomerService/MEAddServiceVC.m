@@ -64,17 +64,17 @@
     }
     MEAddCustomerInfoModel *projectModel = [self creatModelWithTitle:@"项目名称" andPlaceHolder:@"请输入项目名称" andMaxInputWords:0 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入项目名称"];
     
-    MEAddCustomerInfoModel *totalModel = [self creatModelWithTitle:@"总次数" andPlaceHolder:@"请输入总次数" andMaxInputWords:0 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入总次数"];
+    MEAddCustomerInfoModel *totalModel = [self creatModelWithTitle:@"总次数" andPlaceHolder:@"请输入总次数" andMaxInputWords:10 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入总次数"];
     
-    MEAddCustomerInfoModel *residueModel = [self creatModelWithTitle:@"剩余次数" andPlaceHolder:@"请输入剩余次数" andMaxInputWords:0 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入剩余次数"];
+    MEAddCustomerInfoModel *residueModel = [self creatModelWithTitle:@"剩余次数" andPlaceHolder:@"请输入剩余次数" andMaxInputWords:10 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入剩余次数"];
     if (self.type == 1) {
         totalModel.title = @"总次数";
         totalModel.isTextField = YES;
         totalModel.isHideArrow = YES;
+        totalModel.isNumberType = YES;
         
         residueModel.title = @"剩余次数";
-        residueModel.isTextField = YES;
-        residueModel.isHideArrow = YES;
+        residueModel.isNumberType = YES;
     }else if (self.type == 2) {
         totalModel.title = @"开卡时间";
         totalModel.isTextField = NO;
@@ -82,18 +82,16 @@
         totalModel.toastStr = @"请选择开卡时间";
         
         residueModel.title = @"剩余时间";
-        residueModel.isTextField = NO;
-        residueModel.isHideArrow = NO;
-        residueModel.toastStr = @"请选择剩余时间";
+        residueModel.toastStr = @"请输入剩余时间";
     }else if (self.type == 3) {
         totalModel.title = @"服务次数";
         totalModel.isTextField = YES;
         totalModel.isHideArrow = YES;
         totalModel.toastStr = @"请输入服务次数";
+        totalModel.isNumberType = YES;
         
         residueModel.title = @"剩余次数";
-        residueModel.isTextField = YES;
-        residueModel.isHideArrow = YES;
+        residueModel.isNumberType = YES;
     }
     
     if (!self.isAddService) {
@@ -116,8 +114,9 @@
     
     [self.dataSource addObject:@{@"title":@"",@"type":@"1",@"isAdd":@(YES),@"isHiddenHeaderV":@(YES),@"content":@[projectModel,totalModel,residueModel]}];
     
-    MEAddCustomerInfoModel *oneModel = [self creatModelWithTitle:@"到店次数" andPlaceHolder:@"请输入到店次数" andMaxInputWords:0 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入到店次数"];
+    MEAddCustomerInfoModel *oneModel = [self creatModelWithTitle:@"到店次数" andPlaceHolder:@"请输入到店次数" andMaxInputWords:10 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入到店次数"];
     oneModel.value = @"1";
+    oneModel.isNumberType = YES;
     
     MEAddCustomerInfoModel *timeModel = [self creatModelWithTitle:@"服务时间" andPlaceHolder:@"请选择服务时间" andMaxInputWords:0 andIsTextField:NO andIsMustInput:YES andToastStr:@"请选择服务时间"];
     timeModel.isHideArrow = NO;

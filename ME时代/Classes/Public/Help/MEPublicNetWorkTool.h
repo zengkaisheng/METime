@@ -423,6 +423,8 @@
 + (void)getUserCountListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取用户信息
 + (void)getUserGetUserWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//我的入口
++ (void)getUserMenuDataWithType:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取用户的邀请码
 + (void)getUserInvitationCodeWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //一键已读
@@ -784,6 +786,15 @@
 + (void)postGetClerkRankingDatasWithType:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //服务项目排名
 + (void)postGetObjectRankingDatasWithDateType:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//获取项目列表
++ (void)postGetObjectListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//删除项目
++ (void)postDeleteObjectsWithObjectId:(NSInteger)objectId SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//修改项目
++ (void)postEditObjectWithObjectId:(NSInteger)objectId objectName:(NSString *)objectName money:(NSString *)money SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//添加项目
++ (void)postAddObjectWithObjectName:(NSString *)objectName money:(NSString *)money SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

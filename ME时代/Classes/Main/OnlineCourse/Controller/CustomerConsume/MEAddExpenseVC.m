@@ -90,7 +90,7 @@
         [self.dataSource removeAllObjects];
     }
     
-    MEAddCustomerInfoModel *amountModel = [self creatModelWithTitle:@"充值金额" andPlaceHolder:@"请输入充值金额" andMaxInputWords:0 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入充值金额"];
+    MEAddCustomerInfoModel *amountModel = [self creatModelWithTitle:@"充值金额" andPlaceHolder:@"请输入充值金额" andMaxInputWords:12 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入充值金额"];
     amountModel.isNumberType = YES;
     
     MEAddCustomerInfoModel *timeModel = [self creatModelWithTitle:@"充值时间" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:YES andToastStr:@"请选择充值时间"];
@@ -131,7 +131,7 @@
     MEAddCustomerInfoModel *nameModel = [self creatModelWithTitle:@"项目名称" andPlaceHolder:@"请输入项目名称" andMaxInputWords:0 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入项目名称"];
     [array addObject:nameModel];
     
-    MEAddCustomerInfoModel *amountModel = [self creatModelWithTitle:@"消费金额" andPlaceHolder:@"请输入消费金额" andMaxInputWords:0 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入消费金额"];
+    MEAddCustomerInfoModel *amountModel = [self creatModelWithTitle:@"消费金额" andPlaceHolder:@"请输入消费金额" andMaxInputWords:10 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入消费金额"];
     amountModel.isNumberType = YES;
     [array addObject:amountModel];
     
@@ -165,24 +165,27 @@
     }
     [array addObject:contentModel];
     
-    MEAddCustomerInfoModel *numModel = [self creatModelWithTitle:@"购买次数" andPlaceHolder:@"请输入购买次数" andMaxInputWords:0 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入购买次数"];
+    MEAddCustomerInfoModel *numModel = [self creatModelWithTitle:@"购买次数" andPlaceHolder:@"请输入购买次数" andMaxInputWords:10 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入购买次数"];
     numModel.isNumberType = YES;
     if (self.type == 2) {
         numModel.title = @"购买时长";
         numModel.placeHolder = numModel.toastStr = @"请输入购买时长";
         numModel.isNumberType = YES;
+        numModel.maxInputWord = 10;
     }else if (self.type == 3) {
         numModel.title = @"赠送产品内容";
         numModel.placeHolder = numModel.toastStr = @"请输入赠送产品内容";
         numModel.isNumberType = NO;
+        numModel.maxInputWord = 0;
     }
     [array addObject:numModel];
     
-    MEAddCustomerInfoModel *giveNumModel = [self creatModelWithTitle:@"赠送次数" andPlaceHolder:@"请输入赠送次数" andMaxInputWords:0 andIsTextField:YES andIsMustInput:NO andToastStr:@""];
+    MEAddCustomerInfoModel *giveNumModel = [self creatModelWithTitle:@"赠送次数" andPlaceHolder:@"请输入赠送次数" andMaxInputWords:10 andIsTextField:YES andIsMustInput:NO andToastStr:@""];
     giveNumModel.isNumberType = YES;
     if (self.type == 2) {
         giveNumModel.title = @"赠送时长";
         giveNumModel.placeHolder = giveNumModel.toastStr = @"请输入赠送时长";
+        giveNumModel.maxInputWord = 10;
     }else if (self.type == 3) {
         giveNumModel.title = @"产品性质";
         giveNumModel.toastStr = @"请选择产品性质";
@@ -202,7 +205,7 @@
     }
     [array addObjectsFromArray:self.natureList];
     
-    MEAddCustomerInfoModel *totalModel = [self creatModelWithTitle:@"总次数" andPlaceHolder:@"请输入总次数" andMaxInputWords:0 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入总次数"];
+    MEAddCustomerInfoModel *totalModel = [self creatModelWithTitle:@"总次数" andPlaceHolder:@"请输入总次数" andMaxInputWords:10 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入总次数"];
     totalModel.isNumberType = YES;
     if (self.type == 2) {
         totalModel.title = @"总时长";

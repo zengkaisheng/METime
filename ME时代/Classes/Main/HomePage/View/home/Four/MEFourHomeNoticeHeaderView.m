@@ -95,15 +95,15 @@
     _sdView1.autoScroll = YES;
     [_sdView1 disableScrollGesture];
     _sdView1.autoScrollTimeInterval = 4;
-    kMeWEAKSELF
+//    kMeWEAKSELF
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        kMeSTRONGSELF
+//        kMeSTRONGSELF
         if (array.count < 3) {
-            strongSelf->_sdView.infiniteLoop = NO;
-            strongSelf->_sdView.autoScroll = NO;
+            self->_sdView.infiniteLoop = NO;
+            self->_sdView.autoScroll = NO;
             
-            strongSelf->_sdView1.infiniteLoop = NO;
-            strongSelf->_sdView1.autoScroll = NO;
+            self->_sdView1.infiniteLoop = NO;
+            self->_sdView1.autoScroll = NO;
         }
     });
 }

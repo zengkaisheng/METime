@@ -12,7 +12,7 @@
 @interface MEMineHomeCell (){
     NSArray *_arrTitle;
     NSArray *_arrImage;
-    MEMineHomeCellStyle _type;
+    MEMineHomeMenuCellStyle _type;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgPic;
@@ -26,16 +26,16 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    _arrTitle = MEMineHomeCellStyleTitle;
-    _arrImage = MEMineHomeCellStyleImage;
+    _arrTitle = MEMineHomeMenuCellStyleTitle;
+    _arrImage = MEMineHomeMenuCellStyleImage;
     // Initialization code
 }
 
-- (void)setUiWithType:(MEMineHomeCellStyle)type{
+- (void)setUiWithType:(MEMineHomeMenuCellStyle)type{
     _type = type;
     _imgPic.image =  kMeGetAssetImage(_arrImage[type]);
     _lblTitle.text = _arrTitle[type];
-    if(type == MeMyCustomer){
+    if(type == MeMyMenuCustomer){
         _lblUnMessage.hidden = NO;
         [self setUnMeaasge];
     }else{

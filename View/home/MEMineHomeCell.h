@@ -14,6 +14,6 @@ const static CGFloat kMEMineHomeCellHeight = 49;
 
 @interface MEMineHomeCell : UITableViewCell
 
-- (void)setUiWithType:(MEMineHomeCellStyle)type;
+- (void)setUiWithType:(MEMineHomeMenuCellStyle)type;
 - (void)setUnMeaasge;
 @end

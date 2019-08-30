@@ -588,7 +588,8 @@
 #define MEIPcommonCheckFirstBuy @"common/user/checkFirstBuy"
 //获取用户信息
 #define MEIPcommonGetUser @"common/user/getUser"
-
+//我的入口
+#define MEIPcommonGetUserMenu @"common/my/menu"
 //获取用户的邀请码
 #define MEIPcommonGetInvitationCode @"common/user/getInvitationCode"
 
@@ -1011,6 +1012,15 @@
 #define MEIPcommonExpenseClerkCustomerNumOrder @"common/customerappointment/clerkCustomerNumOrder"
 //店员手工费总数（今日）
 #define MEIPcommonExpenseClerkWorkmanshipChargeOrder @"common/customerappointment/clerkWorkmanshipChargeOrder"
+
+//获取项目列表
+#define MEIPcommonCustomerObjectList @"common/customerobject/objectList"
+//删除项目
+#define MEIPcommonCustomerObjectDelete @"common/customerobject/objectDel"
+//修改项目
+#define MEIPcommonCustomerObjectEdit @"common/customerobject/objectEdit"
+//添加项目
+#define MEIPcommonCustomerObjectAdd @"common/customerobject/objectAdd"
 /*********************************************/
 
 

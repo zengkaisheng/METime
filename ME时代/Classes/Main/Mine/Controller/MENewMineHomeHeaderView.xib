@@ -209,6 +209,28 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xo-sz-eGN">
+                    <rect key="frame" x="251" y="107" width="109" height="32"/>
+                    <color key="backgroundColor" red="0.098039215690000001" green="0.6588235294" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="39e-Fo-Qw9"/>
+                        <constraint firstAttribute="width" constant="109" id="HQT-3a-OPW"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <inset key="titleEdgeInsets" minX="-45" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="切换样式 " image="icon_changeStatus">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="16"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="changeStatus:" destination="iN0-l3-epB" eventType="touchUpInside" id="exc-EL-loG"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -216,6 +238,7 @@
                 <constraint firstItem="1hG-ou-a3L" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="6cQ-dw-gTh"/>
                 <constraint firstAttribute="trailing" secondItem="drv-dw-k8v" secondAttribute="trailing" id="84k-Wp-TGM"/>
                 <constraint firstItem="drv-dw-k8v" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9Uf-lU-7HG"/>
+                <constraint firstAttribute="trailing" secondItem="6Xo-sz-eGN" secondAttribute="trailing" constant="15" id="CRe-hD-7Rj"/>
                 <constraint firstItem="gfN-or-tQT" firstAttribute="top" secondItem="1hG-ou-a3L" secondAttribute="bottom" constant="20" id="CnM-PG-jpf"/>
                 <constraint firstAttribute="trailing" secondItem="GQ1-gY-yzQ" secondAttribute="trailing" id="DHb-yg-s7h"/>
                 <constraint firstAttribute="trailing" secondItem="87e-jn-qMJ" secondAttribute="trailing" constant="15" id="Fld-d4-u56"/>
@@ -226,6 +249,7 @@
                 <constraint firstAttribute="trailing" secondItem="gfN-or-tQT" secondAttribute="trailing" constant="15" id="Wto-Gz-Z3I"/>
                 <constraint firstItem="m7A-EC-Atk" firstAttribute="leading" secondItem="07M-vF-6qS" secondAttribute="leading" id="Yit-dz-qld"/>
                 <constraint firstItem="GQ1-gY-yzQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZM1-bL-Xco"/>
+                <constraint firstItem="gfN-or-tQT" firstAttribute="top" secondItem="6Xo-sz-eGN" secondAttribute="bottom" constant="12" id="bNR-aX-ThY"/>
                 <constraint firstItem="fXN-ef-9Wj" firstAttribute="leading" secondItem="1hG-ou-a3L" secondAttribute="trailing" constant="15" id="cbg-fX-7I8"/>
                 <constraint firstItem="GQ1-gY-yzQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gJe-Sx-BLc"/>
                 <constraint firstAttribute="bottom" secondItem="gfN-or-tQT" secondAttribute="bottom" id="hY9-gz-wWp"/>
@@ -248,6 +272,7 @@
         </view>
     </objects>
     <resources>
+        <image name="icon_changeStatus" width="21" height="21"/>
         <image name="icon_daifahuo" width="20" height="20"/>
         <image name="icon_daifukuan" width="20" height="20"/>
         <image name="icon_daishouhuo" width="20" height="20"/>

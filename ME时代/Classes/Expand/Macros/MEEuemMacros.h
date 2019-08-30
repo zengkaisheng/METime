@@ -19,7 +19,62 @@ typedef enum : NSUInteger {
     MEHomeADSERVICeTYPE = 3,
 } MEHomeAD;
 
+//我的Home 新
+typedef enum : NSUInteger {
+    MeMenuHomeyongjing=1,//我的佣金
+    MeMenuHomemeiodu,//我的美豆
+    MeMenuHomeCorderall,//美豆订单
+    MeMenuHomeorderall,//佣金订单
+    MeMenuHometuandui,//我的团队
+    
+    MeMenuHomeshangji,//我的上级
+    MeMenuHomedianyuan,//店员管理
+    MeMenuHomeyuyue,//预约管理
+    MeMenuHomedata,//数据统计
+    MeMenuHomedianpu,//店铺管理
+    
+    MeMenuHometixian,//提现明细
+    MeMenuHomejuanyngjing,//优惠券佣金
+    MeMenuHomeziti,//自提订单
+    MeMenuAILEI,//AI雷达
+    MeMenuHometuigcode,//推广二维码
+    
+    MeMenuHomeyongjitongji,//佣金统计
+    MeMenuHomepinpaigli,//品牌管理
+    MeMyMenuPoster,//获客海报
+    MeMyMenuArticel,//获客文章
+    MeMyMenuData,//访客统计
+    
+    MeMenuPAVistor,//获客图文
+    MeMenuMyBargain,//我的砍价
+    MeMenuMyGroup,//我的拼团
+    MeMyMenuExchange,//兑换中心
+    MeMyMenuActity,//我的活动
+    
+    MeMyMenuCustomer,//ME聊
+    MeMyMenuCustomerPhone,//客服微信
+    MeMyMenuAddress,//收货地址
+    MeMyMenuMobile,//绑定手机
+    MeMenuStoreApply,//门店申请
+    
+    MeMenuHomeNewGuide,//新手指南
+    MeMenuHomeCommonQuestion,//常见问题
+    MeMenuMyFeedBack,//意见反馈
+    MEMenuProjectSet,//项目设置
+    MEMenuCourseOrder,//课程订单
+    
+    MEMenuConsultQuestion,//问题咨询
+    MEMenuDiagnoseFeedBack,//诊断反馈
+    MEMenuDiagnoseOrder,//方案订单
+    MeMyMenuCollection,//我的收藏
+    MEMenuDiagnoseAnswer//诊断回复
+    
+} MEMineHomeMenuCellStyle;
+#define MEMineHomeMenuCellStyleTitle @[@"我的佣金",@"我的美豆",@"美豆订单",@"佣金订单",@"我的团队",@"我的上级",@"店员管理",@"预约管理",@"数据统计",@"店铺管理",@"提现明细",@"优惠券佣金",@"自提订单",@"AI雷达",@"推广二维码",@"佣金统计",@"品牌管理",@"获客海报",@"获客文章",@"访客统计",@"获客图文",@"我的砍价",@"我的拼团",@"兑换中心",@"我的活动",@"ME聊",@"客服微信",@"收货地址",@"绑定手机",@"门店申请",@"新手指南",@"常见问题",@"意见反馈",@"项目设置",@"课程订单",@"问题咨询",@"诊断反馈",@"方案订单",@"我的收藏",@"诊断回复"]
+#define MEMineHomeMenuCellStyleImage @[@"mineyongjing",@"minemeidou",@"meidouorder",@"mineorderall",@"minetuandui",@"mineshangji",@"minedianyuan",@"mineyuyue",@"minedatatj",@"minedianpu",@"minetixian",@"minejuanyongjin",@"mineziti",@"homeailei",@"minetuigcode",@"mineyongjintongji",@"minepinpai",@"mineposter",@"minearticel",@"minedata",@"minepa",@"icon_bargain",@"icon_group",@"icon_zhuceyoujiang",@"iqpgweqq",@"icon-qrpteb",@"icon-qrptebjnyt",@"nhwxfbfh",@"qlru",@"uyyhjhyg",@"minenewguid",@"icon_commonQuestion",@"icon_feedBack",@"icon_projectSet",@"icon_courseOrder",@"icon_consultQuestion",@"icon_diagnoseFeed",@"icon_diagnoseOrder",@"icon_wodeshoucang",@"icon_diagnoseAnswer"]
 
+
+/*
 //我的Home
 typedef enum : NSUInteger {
     MeMyAppointment =0,//预约
@@ -71,7 +126,7 @@ typedef enum : NSUInteger {
 } MEMineHomeCellStyle;
 #define MEMineHomeCellStyleTitle @[@"我的预约",@"中心管理",@"我的中心",@"兑换中心",@"我的收藏",@"ME聊",@"客服微信",@"收货地址",@"绑定手机",@"我的活动",@"访客统计",@"获客海报",@"获客文章",@"优惠券佣金",@"门店申请",@"寻味师",@"获客图文",@"AI雷达",@"数据统计",@"店铺管理",@"店员管理",@"预约管理",@"优惠券佣金",@"我的美豆",@"佣金订单",@"我的上级",@"提现明细",@"我的团队",@"推广二维码",@"我的佣金",@"自提订单",@"品牌管理",@"佣金统计",@"美豆订单",@"新手指南",@"常见问题",@"我的砍价",@"我的拼团",@"意见反馈",@"每日测试",@"项目设置",@"课程订单",@"问题咨询",@"诊断反馈",@"方案订单",@"诊断回复"]
 #define MEMineHomeCellStyleImage @[@"icon_woddemiaosha",@"icon-khnytpgj",@"icon_fenxiaozhognxin",@"icon_zhuceyoujiang",@"icon_wodeshoucang",@"icon-qrpteb",@"icon-qrptebjnyt",@"nhwxfbfh",@"qlru",@"qritfc",@"minedata",@"mineposter",@"minearticel",@"iqpgweqq",@"uyyhjhyg",@"goodApply",@"minepa",@"homeailei",@"minedatatj",@"minedianpu",@"minedianyuan",@"mineyuyue",@"minejuanyongjin",@"minemeidou",@"mineorderall",@"mineshangji",@"minetixian",@"minetuandui",@"minetuigcode",@"mineyongjing",@"mineziti",@"minepinpai",@"mineyongjintongji",@"meidouorder",@"minenewguid",@"icon_commonQuestion",@"icon_bargain",@"icon_group",@"icon_feedBack",@"icon_feedBack",@"icon_projectSet",@"icon_courseOrder",@"icon_consultQuestion",@"icon_diagnoseFeed",@"icon_diagnoseOrder",@"icon_diagnoseAnswer"]
-
+*/
 //订单
 typedef enum : NSUInteger {
     MEAllOrder = 0,

@@ -12,6 +12,7 @@
 
 #import "MELivingHabitListModel.h"
 #import "MECustomerTypeListVC.h"
+#import "MECustomInputView.h"
 
 @interface MEEditLivingHabitsVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -135,8 +136,18 @@
             habitsModel.isSelected = NO;
         }
     }
-    habitsModel.isSelected = !habitsModel.isSelected;
-    
+    if (habitsModel.habit_type == 1) {//输入
+        habitsModel.isSelected = YES;
+//        kMeWEAKSELF
+        [MECustomInputView showCustomInputViewWithTitle:@"" content:@"" showChooseBtn:NO isInput:NO saveBlock:^(NSString * str, BOOL isShow) {
+//            kMeSTRONGSELF
+            habitsModel.habit = [NSString stringWithFormat:@"%@  %@",habitsModel.habit,str];
+            [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+        } cancelBlock:^{
+        } superView:kMeCurrentWindow];
+    }else {
+        habitsModel.isSelected = !habitsModel.isSelected;
+    }
     [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
 }
 

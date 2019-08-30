@@ -11,7 +11,7 @@
 @interface MENewMineHomeContentCell (){
     NSArray *_arrTitle;
     NSArray *_arrImage;
-    MEMineHomeCellStyle _type;
+    MEMineHomeMenuCellStyle _type;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *imgPic;
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
@@ -22,16 +22,16 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    _arrTitle = MEMineHomeCellStyleTitle;
-    _arrImage = MEMineHomeCellStyleImage;
+    _arrTitle = MEMineHomeMenuCellStyleTitle;
+    _arrImage = MEMineHomeMenuCellStyleImage;
     // Initialization code
 }
 
-- (void)setUIWithType:(MEMineHomeCellStyle )type{
+- (void)setUIWithType:(MEMineHomeMenuCellStyle)type{
     _type = type;
-    _imgPic.image =  kMeGetAssetImage(_arrImage[type]);
-    _lblTitle.text = _arrTitle[type];
-    if(type == MeMyCustomer){
+    _imgPic.image = kMeGetAssetImage(_arrImage[type-1]);
+    _lblTitle.text = _arrTitle[type-1];
+    if(type == MeMyMenuCustomer){
         _lblUnMessage.hidden = YES;
         [self setUnMeaasge];
     }else{

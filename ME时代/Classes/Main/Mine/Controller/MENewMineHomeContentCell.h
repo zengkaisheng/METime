@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MENewMineHomeContentCell : UICollectionViewCell
 
-- (void)setUIWithType:(MEMineHomeCellStyle )type;
+- (void)setUIWithType:(MEMineHomeMenuCellStyle )type;
 
 @end
 

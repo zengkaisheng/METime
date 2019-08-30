@@ -77,22 +77,22 @@
             MEOperationClerkRankModel *model = array[i];
             if (i == 0) {
                 _topNameLbl.text = kMeUnNilStr(model.name);
-                _topNumLbl.text = [NSString stringWithFormat:@"%@",@(model.count)];
-                if (index == 0 || index == 1) {
-                    _topNumLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
-                }
+                _topNumLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
+//                if (index == 0 || index == 1) {
+//                    _topNumLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
+//                }
             }else if (i == 1) {
                 _centerNameLbl.text = kMeUnNilStr(model.name);
-                _centerNumLbl.text = [NSString stringWithFormat:@"%@",@(model.count)];
-                if (index == 0 || index == 1) {
-                    _topNumLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
-                }
+                _centerNumLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
+//                if (index == 0 || index == 1) {
+//                    _topNumLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
+//                }
             }else if (i == 2) {
                 _bottomNameLbl.text = kMeUnNilStr(model.name);
-                _bottomNumLbl.text = [NSString stringWithFormat:@"%@",@(model.count)];
-                if (index == 0 || index == 1) {
-                    _topNumLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
-                }
+                _bottomNumLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
+//                if (index == 0 || index == 1) {
+//                    _topNumLbl.text = [NSString stringWithFormat:@"%@",@(model.money)];
+//                }
             }
         }
     }else if (type == 5) {

@@ -54,6 +54,7 @@
     self.textField = [[MEBlockTextField alloc] initWithFrame:CGRectMake(20, 73, BGViewWidth-40, 45)];
     self.textField.delegate = self;
     self.textField.returnKeyType = UIReturnKeyDone;
+    self.textField.keyboardType = UIKeyboardTypeNumberPad;
     self.textField.borderStyle = UITextBorderStyleLine;
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 45)];
     

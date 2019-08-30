@@ -15,6 +15,8 @@ const static CGFloat kMENewMineHomeHeaderViewHeight = 286;
 
 - (void)reloadUIWithUserInfo;
 - (void)clearUIWithUserInfo;
+
+@property (nonatomic, copy) kMeBasicBlock changeStatus;
 @property (weak, nonatomic) IBOutlet UILabel *lblTel;
 @end
 
