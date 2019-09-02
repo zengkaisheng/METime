@@ -55,23 +55,23 @@
         case 1:
         {
             _bgView.hidden = YES;
-            _topLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.top_up_total)];
-            _topLeftTitleLbl.text = @"总充值";
+            _topLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.performance)];
+            _topLeftTitleLbl.text = @"本月业绩";
             
-            _topCenterNumLbl.text = [NSString stringWithFormat:@"%@",@(model.balance_total)];
-            _topCenterTitleLbl.text = @"总余额";
+            _topCenterNumLbl.text = [NSString stringWithFormat:@"%@",@(model.top_up_total)];
+            _topCenterTitleLbl.text = @"本月充值金额";
             
-            _topRightNumLbl.text = [NSString stringWithFormat:@"%@",@(model.customer_total)];
-            _topRightTitleLbl.text = @"顾客数";
+            _topRightNumLbl.text = [NSString stringWithFormat:@"%@",@(model.residue_top_up_money)];
+            _topRightTitleLbl.text = @"剩余充值金额";
             
-            _bottomLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.oject_total)];
-            _bottomLeftTitleLbl.text = @"总项目次数";
+            _bottomLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.object_num)];
+            _bottomLeftTitleLbl.text = @"本月销售卡项数";
             
-            _bottomCenterNumLbl.text = kMeUnNilStr(model.give_num_total);
-            _bottomCenterTitleLbl.text = @"赠送次数";
+            _bottomCenterNumLbl.text = [NSString stringWithFormat:@"%@",@(model.customer_total)];
+            _bottomCenterTitleLbl.text = @"本月新增顾客数";
             
-            _topLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.customer_classify_total)];
-            _topLeftTitleLbl.text = @"顾客各分类数";
+            _bottomRightNumLbl.text = [NSString stringWithFormat:@"%@",@(model.service_num)];
+            _bottomRightTitleLbl.text = @"本月服务数";
         }
             break;
         case 2:
@@ -81,21 +81,21 @@
             _rightBtn.hidden = YES;
             
             _bgLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.performance)];
-            _bgLeftTitleLbl.text = @"本月业绩";
+            _bgLeftTitleLbl.text = @"总业绩";
             _bgLeftNumLbl.textColor = _bgLeftTitleLbl.textColor = [UIColor colorWithHexString:@"#1D1D1D"];
             
-            _bgRightNumLbl.text = [NSString stringWithFormat:@"%@",@(model.expense)];
-            _bgRightTitleLbl.text = @"本月消耗";
+            _bgRightNumLbl.text = [NSString stringWithFormat:@"%@",@(model.residue_top_up_money)];
+            _bgRightTitleLbl.text = @"总剩余充值金额";
             _bgRightNumLbl.textColor = _bgRightTitleLbl.textColor = [UIColor colorWithHexString:@"#1D1D1D"];
             
-            _bottomLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.object_num)];
-            _bottomLeftTitleLbl.text = @"项目数";
+            _bottomLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.customer_total)];
+            _bottomLeftTitleLbl.text = @"总顾客数";
             
-            _bottomCenterNumLbl.text = [NSString stringWithFormat:@"%@",@(model.customer_num)];
-            _bottomCenterTitleLbl.text = @"客次数";
+            _bottomCenterNumLbl.text = [NSString stringWithFormat:@"%@",@(model.service_num)];
+            _bottomCenterTitleLbl.text = @"总服务数";
             
-            _topLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.workmanship_charge)];
-            _topLeftTitleLbl.text = @"手工费";
+            _bottomRightNumLbl.text = [NSString stringWithFormat:@"%@",@(model.workmanship_charge)];
+            _bottomRightTitleLbl.text = @"总手工费";
         }
             break;
         case 3:
@@ -104,7 +104,7 @@
             _leftBtn.hidden = NO;
             _rightBtn.hidden = NO;
             
-            _bgLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.customer_num)];
+            _bgLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.customer_total)];
             _bgLeftTitleLbl.text = @"今日顾客总人次";
             _bgLeftNumLbl.textColor = _bgLeftTitleLbl.textColor = [UIColor colorWithHexString:@"#540115"];
             
@@ -118,8 +118,8 @@
             _bottomCenterNumLbl.text = [NSString stringWithFormat:@"%@",@(model.this_day_customer_num)];
             _bottomCenterTitleLbl.text = @"今日顾客数量占比";
             
-            _topLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.this_month_workmanship_charge)];
-            _topLeftTitleLbl.text = @"月手工费总数";
+            _bottomRightNumLbl.text = [NSString stringWithFormat:@"%@",@(model.this_month_workmanship_charge)];
+            _bottomRightTitleLbl.text = @"月手工费总数";
         }
             break;
         default:

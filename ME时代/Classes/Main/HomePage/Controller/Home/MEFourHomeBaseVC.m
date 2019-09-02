@@ -38,6 +38,7 @@
 #import "MEHomeOptionsModel.h"
 #import "MEHomeRecommendModel.h"
 #import "MECommonQuestionVC.h"
+#import "MELianTongListVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 #define kMEThridHomeNavViewHeight (((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 129 : 107))
@@ -534,6 +535,12 @@ const static CGFloat kImgStore = 50;
         {//跳常见问题
             MECommonQuestionVC *questionVC = [[MECommonQuestionVC alloc] init];
             [self.navigationController pushViewController:questionVC animated:YES];
+        }
+            break;
+        case 20:
+        {//联通兑换专区
+            MELianTongListVC *liantongVC = [[MELianTongListVC alloc] init];
+            [self.navigationController pushViewController:liantongVC animated:YES];
         }
             break;
         default:

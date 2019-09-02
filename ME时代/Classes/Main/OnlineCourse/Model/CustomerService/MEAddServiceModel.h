@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * customer_files_id;//顾客档案ID
 @property (nonatomic, strong) NSString * service_name; //服务项目名称
 @property (nonatomic, strong) NSString * total_num; //总次数
-@property (nonatomic, strong) NSString * residue_num; //剩余次数
+//@property (nonatomic, strong) NSString * residue_num; //剩余次数
 @property (nonatomic, strong) NSString * residue_time; //剩余时间
 @property (nonatomic, strong) NSString * open_card_time; //开卡时间
 

@@ -200,12 +200,33 @@
                             <constraint firstItem="2CA-Fn-fN9" firstAttribute="centerY" secondItem="bqA-7o-gEp" secondAttribute="centerY" id="uUd-NJ-6HU"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W85-Hg-4bl">
+                        <rect key="frame" x="50" y="22" width="275" height="93"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无数据" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPe-x4-bJA">
+                                <rect key="frame" x="106.5" y="37.5" width="62" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="9Y4-Tr-v2a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KPe-x4-bJA" firstAttribute="centerX" secondItem="W85-Hg-4bl" secondAttribute="centerX" id="4qg-gA-7jM"/>
+                            <constraint firstItem="KPe-x4-bJA" firstAttribute="centerY" secondItem="W85-Hg-4bl" secondAttribute="centerY" id="qxl-NU-Bey"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="EJY-Fw-ifO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="042-RS-ngU"/>
+                    <constraint firstItem="W85-Hg-4bl" firstAttribute="top" secondItem="EJY-Fw-ifO" secondAttribute="bottom" constant="21" id="0Hr-Ev-0Ag"/>
                     <constraint firstItem="a0e-wl-TeC" firstAttribute="leading" secondItem="zc8-ns-d8a" secondAttribute="trailing" constant="5" id="9pc-d2-Sxl"/>
                     <constraint firstItem="oMs-bf-e6u" firstAttribute="width" secondItem="zc8-ns-d8a" secondAttribute="width" id="ATl-Qc-Zhj"/>
                     <constraint firstItem="nEQ-Sf-Nep" firstAttribute="top" secondItem="zc8-ns-d8a" secondAttribute="bottom" constant="7" id="DZ1-7G-Vep"/>
+                    <constraint firstItem="W85-Hg-4bl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="HVE-ip-4xO"/>
                     <constraint firstItem="zyi-KP-D32" firstAttribute="leading" secondItem="oMs-bf-e6u" secondAttribute="trailing" constant="5" id="HkZ-Qa-9wX"/>
                     <constraint firstItem="a0e-wl-TeC" firstAttribute="trailing" secondItem="myh-ct-ENv" secondAttribute="trailing" id="Iby-yT-GKY"/>
                     <constraint firstItem="myh-ct-ENv" firstAttribute="top" secondItem="EJY-Fw-ifO" secondAttribute="bottom" constant="24" id="Kbf-ag-ys0"/>
@@ -216,9 +237,11 @@
                     <constraint firstItem="zc8-ns-d8a" firstAttribute="leading" secondItem="myh-ct-ENv" secondAttribute="leading" id="Rhy-yc-4Ao"/>
                     <constraint firstItem="rnL-NF-NOW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="1" id="UCT-8c-c4z"/>
                     <constraint firstItem="nEQ-Sf-Nep" firstAttribute="leading" secondItem="zc8-ns-d8a" secondAttribute="leading" id="V0D-Rn-8NE"/>
+                    <constraint firstAttribute="trailing" secondItem="W85-Hg-4bl" secondAttribute="trailing" constant="50" id="Vye-se-K0l"/>
                     <constraint firstItem="a0e-wl-TeC" firstAttribute="top" secondItem="myh-ct-ENv" secondAttribute="bottom" constant="10" id="Xak-3x-0b1"/>
                     <constraint firstItem="nEQ-Sf-Nep" firstAttribute="width" secondItem="zc8-ns-d8a" secondAttribute="width" id="XgY-7B-i6u"/>
                     <constraint firstItem="oMs-bf-e6u" firstAttribute="leading" secondItem="zc8-ns-d8a" secondAttribute="leading" id="YPW-oJ-g8t"/>
+                    <constraint firstAttribute="bottom" secondItem="W85-Hg-4bl" secondAttribute="bottom" constant="22.5" id="ZmE-tB-vMw"/>
                     <constraint firstAttribute="trailing" secondItem="EJY-Fw-ifO" secondAttribute="trailing" id="cfn-vn-KDJ"/>
                     <constraint firstAttribute="trailing" secondItem="rnL-NF-NOW" secondAttribute="trailing" id="fWZ-Ld-0Vy"/>
                     <constraint firstItem="EJY-Fw-ifO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fpg-m5-Gdz"/>
@@ -240,6 +263,8 @@
                 <outlet property="firsetNumLbl" destination="Y9A-Ia-D1f" id="uVA-qC-qDP"/>
                 <outlet property="firstNameLbl" destination="BmE-DQ-CoJ" id="ayS-Tm-9Qr"/>
                 <outlet property="goldImgV" destination="HVe-9e-GGT" id="QLF-qs-tNb"/>
+                <outlet property="noDataViewConsTop" destination="0Hr-Ev-0Ag" id="6LK-aS-Dkd"/>
+                <outlet property="noDatasView" destination="W85-Hg-4bl" id="kCI-Nh-C3R"/>
                 <outlet property="secondNameLbl" destination="2CA-Fn-fN9" id="dra-q6-pQl"/>
                 <outlet property="secondNumLbl" destination="OYK-TO-LQj" id="ph1-OP-dQr"/>
                 <outlet property="silverImgV" destination="bqA-7o-gEp" id="bgB-TB-oiE"/>
@@ -249,7 +274,7 @@
                 <outlet property="topNumLbl" destination="a0e-wl-TeC" id="ito-hL-Yjf"/>
                 <outlet property="topView" destination="myh-ct-ENv" id="MHf-S8-xEA"/>
             </connections>
-            <point key="canvasLocation" x="-910" y="29"/>
+            <point key="canvasLocation" x="-911.20000000000005" y="28.785607196401802"/>
         </tableViewCell>
     </objects>
     <resources>

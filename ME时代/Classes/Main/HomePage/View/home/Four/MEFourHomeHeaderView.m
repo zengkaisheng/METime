@@ -33,6 +33,8 @@
 #import "MESpecialSaleVC.h"
 #import "MEBargainListVC.h"
 #import "MEGroupListVC.h"
+#import "MECommonQuestionVC.h"
+#import "MELianTongListVC.h"
 
 #import "MEBargainDetailVC.h"
 #import "MEGroupProductDetailVC.h"
@@ -224,17 +226,19 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             break;
         case 12://秒杀商品
         {
-            METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
             if (homeVC) {
+                METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
                 [homeVC.navigationController pushViewController:dvc animated:YES];
             }
         }
             break;
         case 13:
         {//跳拼多多推荐商品列表
-            MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
-            vc.recordType = 1;
-            [homeVC.navigationController pushViewController:vc animated:YES];
+            if (homeVC) {
+                MECoupleMailVC *vc = [[MECoupleMailVC alloc] initWithAdId:model.ad_id];
+                vc.recordType = 1;
+                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
         }
             break;
         case 14:
@@ -270,15 +274,31 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
         case 16:
         {//跳签到活动详情
             if([MEUserInfoModel isLogin]){
-                MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",model.activity_id]];
+                MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.activity_id]];
                 [homeVC.navigationController pushViewController:prizeVC animated:YES];
             }else {
                 [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
-                    MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",model.activity_id]];
+                    MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.activity_id]];
                     [homeVC.navigationController pushViewController:prizeVC animated:YES];
                 } failHandler:^(id object) {
                     
                 }];
+            }
+        }
+            break;
+        case 17:
+        {//跳常见问题
+            if (homeVC) {
+                MECommonQuestionVC *questionVC = [[MECommonQuestionVC alloc] init];
+                [homeVC.navigationController pushViewController:questionVC animated:YES];
+            }
+        }
+            break;
+        case 20:
+        {//联通兑换专区
+            if (homeVC) {
+                MELianTongListVC *liantongVC = [[MELianTongListVC alloc] init];
+                [homeVC.navigationController pushViewController:liantongVC animated:YES];
             }
         }
             break;

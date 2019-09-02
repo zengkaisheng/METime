@@ -20,6 +20,8 @@
 #import "MEBargainDetailVC.h"
 #import "MEGroupProductDetailVC.h"
 #import "MEJoinPrizeVC.h"
+#import "MECommonQuestionVC.h"
+#import "MELianTongListVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
@@ -272,18 +274,30 @@
         case 16:
         {//跳签到活动详情
             if([MEUserInfoModel isLogin]){
-                MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",model.activity_id]];
+                MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.activity_id]];
                 [self.navigationController pushViewController:prizeVC animated:YES];
             }else {
                 kMeWEAKSELF
                 [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
                     kMeSTRONGSELF
-                    MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",model.activity_id]];
+                    MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.activity_id]];
                     [strongSelf.navigationController pushViewController:prizeVC animated:YES];
                 } failHandler:^(id object) {
                     
                 }];
             }
+        }
+            break;
+        case 17:
+        {//跳常见问题
+            MECommonQuestionVC *questionVC = [[MECommonQuestionVC alloc] init];
+            [self.navigationController pushViewController:questionVC animated:YES];
+        }
+            break;
+        case 20:
+        {//联通兑换专区
+            MELianTongListVC *liantongVC = [[MELianTongListVC alloc] init];
+            [self.navigationController pushViewController:liantongVC animated:YES];
         }
             break;
         default:

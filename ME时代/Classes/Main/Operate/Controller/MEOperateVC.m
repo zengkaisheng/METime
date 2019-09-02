@@ -55,7 +55,7 @@
         return;
     }
     self.model = [MEOperateDataModel mj_objectWithKeyValues:data];
-    [self getClerkRankingDatas];
+    [self getClerkRankingDatasAndGetObjectRankDatas:YES];
 }
 
 - (void)reloadOperationDatas {
@@ -63,8 +63,8 @@
         [self.refresh.arrData removeAllObjects];
     }
     
-    [self.refresh.arrData addObject:@{@"title":@"门店表现",@"type":@"1",@"content":@[self.model.total]}];
-    [self.refresh.arrData addObject:@{@"title":@"本月数据统计",@"type":@"2",@"content":@[self.model.this_month]}];
+    [self.refresh.arrData addObject:@{@"title":@"本月业绩统计",@"type":@"1",@"content":@[self.model.total]}];
+    [self.refresh.arrData addObject:@{@"title":@"累计业绩统计",@"type":@"2",@"content":@[self.model.this_month]}];
     [self.refresh.arrData addObject:@{@"title":@"顾客预约",@"type":@"3",@"content":@[self.model.appointment]}];
     [self.refresh.arrData addObject:@{@"title":@"员工排名",@"type":@"4",@"index":@(self.index-1),@"content":[self.clerkRanks copy]}];
     [self.refresh.arrData addObject:@{@"title":@"服务项目排名",@"type":@"5",@"content":[self.objectRanks copy]}];
@@ -73,7 +73,7 @@
 
 #pragma mark -- Networking
 //员工排名
-- (void)getClerkRankingDatas {
+- (void)getClerkRankingDatasAndGetObjectRankDatas:(BOOL)isGet {
     kMeWEAKSELF
     [MEPublicNetWorkTool postGetClerkRankingDatasWithType:self.index successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
@@ -83,7 +83,11 @@
                 strongSelf.clerkRanks = [MEOperationClerkRankModel mj_objectArrayWithKeyValuesArray:data[@"data"]];
             }
         }
-        [strongSelf getObjectRankingDatas];
+        if (isGet) {
+            [strongSelf getObjectRankingDatas];
+        }else {
+            [strongSelf reloadOperationDatas];
+        }
     } failure:^(id object) {
         kMeSTRONGSELF
         strongSelf.model = nil;
@@ -191,28 +195,28 @@
 //                NSLog(@"业绩");
             {
                 strongSelf.index = 1;
-                [strongSelf getClerkRankingDatas];
+                [strongSelf getClerkRankingDatasAndGetObjectRankDatas:NO];
             }
                 break;
             case 3:
 //                NSLog(@"消耗");
             {
                 strongSelf.index = 2;
-                [strongSelf getClerkRankingDatas];
+                [strongSelf getClerkRankingDatasAndGetObjectRankDatas:NO];
             }
                 break;
             case 4:
 //                NSLog(@"项目数");
             {
                 strongSelf.index = 3;
-                [strongSelf getClerkRankingDatas];
+                [strongSelf getClerkRankingDatasAndGetObjectRankDatas:NO];
             }
                 break;
             case 5:
 //                NSLog(@"客次数");
             {
                 strongSelf.index = 4;
-                [strongSelf getClerkRankingDatas];
+                [strongSelf getClerkRankingDatasAndGetObjectRankDatas:NO];
             }
                 break;
             case 6:
@@ -276,7 +280,7 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonStoreOperationData)];
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonStoreNewOperationData)];
         _refresh.delegate = self;
         _refresh.isDataInside = NO;
 //        _refresh.showMaskView = YES;

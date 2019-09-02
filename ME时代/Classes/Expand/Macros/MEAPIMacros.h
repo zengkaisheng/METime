@@ -1004,6 +1004,8 @@
 #pragma makr - 运营管理
 //运营管理首页数据
 #define MEIPcommonStoreOperationData @"common/store/operationData"
+//运营管理首页数据（新）
+#define MEIPcommonStoreNewOperationData @"common/store/newOperationData"
 //员工排名
 #define MEIPcommonExpenseClerkRanking @"common/customerexpense/clerkRanking"
 //服务项目排名

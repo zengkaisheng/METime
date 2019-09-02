@@ -37,12 +37,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECustomerExpenseDetailModel : MEBaseModel
 
-@property (nonatomic, strong) NSString * annual_average;
-@property (nonatomic, strong) NSString * best_communication_time;
+@property (nonatomic, strong) NSString * annual_average;    //年均消费
+@property (nonatomic, strong) NSString * best_communication_time;//最佳致电时间
 @property (nonatomic, strong) NSArray * ci_card;
-@property (nonatomic, strong) NSString * classify_name;
-@property (nonatomic, assign) NSInteger expense_total;
-@property (nonatomic, strong) NSString * monthly_average;
+@property (nonatomic, strong) NSString * classify_name;     //顾客分类名称
+@property (nonatomic, assign) NSInteger expense_total;      //总消费
+@property (nonatomic, assign) NSInteger residue_top_up;     //总剩余充值金额
+@property (nonatomic, strong) NSString * monthly_average;   //月均消费
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSString * phone;
 @property (nonatomic, strong) NSArray * product;

@@ -119,6 +119,8 @@
     
     MEAddCustomerInfoModel *totalModel = [self creatModelWithTitle:@"总消费" andValue:[NSString stringWithFormat:@"%@元",@(self.detailModel.expense_total)]];
     
+    MEAddCustomerInfoModel *residueModel = [self creatModelWithTitle:@"总剩余充值金额" andValue:[NSString stringWithFormat:@"%@元",@(self.detailModel.residue_top_up)]];
+    
     MEAddCustomerInfoModel *yearModel = [self creatModelWithTitle:@"年均消费" andValue:[NSString stringWithFormat:@"%d元",kMeUnNilStr(self.detailModel.annual_average).intValue]];
     
     MEAddCustomerInfoModel *monthModel = [self creatModelWithTitle:@"月均消费" andValue:[NSString stringWithFormat:@"%d元",kMeUnNilStr(self.detailModel.monthly_average).intValue]];
@@ -141,7 +143,7 @@
         model.type = 3;
     }
     
-    [self.dataSource addObject:@{@"title":@"基本资料",@"type":@"1",@"filesId":@(self.filesId),@"content":@[nameModel,phoneModel,wechatModel,bestTimeModel,totalModel,yearModel,monthModel,typeModel]}];
+    [self.dataSource addObject:@{@"title":@"基本资料",@"type":@"1",@"filesId":@(self.filesId),@"content":@[nameModel,phoneModel,wechatModel,bestTimeModel,residueModel,totalModel,yearModel,monthModel,typeModel]}];
     
     [self.dataSource addObject:@{@"title":@"会员充值",@"type":@"2",@"filesId":@(self.filesId),@"content":kMeUnArr(self.detailModel.top_up)}];
     

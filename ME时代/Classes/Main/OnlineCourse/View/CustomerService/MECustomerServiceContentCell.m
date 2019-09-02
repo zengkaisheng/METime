@@ -166,13 +166,17 @@
         MEAddCustomerInfoModel *model = self.dataSource[indexPath.row];
         if (indexPath.row == 1) {
             if ([model.title isEqualToString:@"开卡时间"]) {
-                [self showServiceDatePickerWithIndexPath:indexPath title:kMeUnNilStr(model.title)];
+                if (!model.isHideArrow) {
+                    [self showServiceDatePickerWithIndexPath:indexPath title:kMeUnNilStr(model.title)];
+                }
             }else if ([model.title isEqualToString:@"服务时间"]) {
                 [self showServiceDatePickerWithIndexPath:indexPath title:kMeUnNilStr(model.title)];
             }
         }else if (indexPath.row == 2){
             if ([model.title isEqualToString:@"剩余时间"]) {
-                [self showServiceDatePickerWithIndexPath:indexPath title:kMeUnNilStr(model.title)];
+                if (!model.isHideArrow) {
+                    [self showServiceDatePickerWithIndexPath:indexPath title:kMeUnNilStr(model.title)];
+                }
             }else if ([model.title isEqualToString:@"服务人员"]) {
                 MEAddServiceVC *homeVc = [MECommonTool getVCWithClassWtihClassName:[MEAddServiceVC class] targetResponderView:self];
                 if (homeVc) {
@@ -231,13 +235,13 @@
     self.titleStr = kMeUnNilStr(info[@"title"]);
     self.type = [info[@"type"] integerValue];
     if ([info.allKeys containsObject:@"isAdd"]) {
-        self.isAdd = info[@"isAdd"];
+        self.isAdd = [info[@"isAdd"] boolValue];
     }
     if ([info.allKeys containsObject:@"isLogs"]) {
-        self.isLogs = info[@"isLogs"];
+        self.isLogs = [info[@"isLogs"] boolValue];
     }
     if ([info.allKeys containsObject:@"isHiddenHeaderV"]) {
-        self.isHiddenHeaderV = info[@"isHiddenHeaderV"];
+        self.isHiddenHeaderV = [info[@"isHiddenHeaderV"] boolValue];
     }
     
     NSArray *list = kMeUnArr(info[@"content"]);

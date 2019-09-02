@@ -82,6 +82,8 @@
         totalModel.toastStr = @"请选择开卡时间";
         
         residueModel.title = @"剩余时间";
+        residueModel.isTextField = YES;
+        residueModel.placeHolder = @"请输入剩余时间";
         residueModel.toastStr = @"请输入剩余时间";
     }else if (self.type == 3) {
         totalModel.title = @"服务次数";
@@ -109,6 +111,11 @@
             
             MEAddCustomerInfoModel *resiModel = self.datas[2];
             residueModel.value = resiModel.value;
+            residueModel.isTextField = NO;
+            if (self.type == 2) {
+                residueModel.isHideArrow = YES;
+                residueModel.isTextField = YES;
+            }
         }
     }
     
@@ -173,9 +180,9 @@
             if ([model.title isEqualToString:@"总次数"] || [model.title isEqualToString:@"服务次数"]) {
                 addModel.total_num = kMeUnNilStr(model.value);
             }
-            if ([model.title isEqualToString:@"剩余次数"]) {
-                addModel.residue_num = kMeUnNilStr(model.value);
-            }
+//            if ([model.title isEqualToString:@"剩余次数"]) {
+//                addModel.residue_num = kMeUnNilStr(model.value);
+//            }
             if ([model.title isEqualToString:@"开卡时间"]) {
                 addModel.open_card_time = kMeUnNilStr(model.value);
             }
@@ -215,11 +222,11 @@
                 addModel.service_name = kMeUnNilStr(model.value);
             }
             if ([model.title isEqualToString:@"总次数"] || [model.title isEqualToString:@"服务次数"]) {
-                addModel.total_num = kMeUnNilStr(model.value);
+                addModel.total_num = [NSString stringWithFormat:@"%d",[kMeUnNilStr(model.value) intValue]];
             }
-            if ([model.title isEqualToString:@"剩余次数"]) {
-                addModel.residue_num = kMeUnNilStr(model.value);
-            }
+//            if ([model.title isEqualToString:@"剩余次数"]) {
+//                addModel.residue_num = kMeUnNilStr(model.value);
+//            }
             if ([model.title isEqualToString:@"开卡时间"]) {
                 addModel.open_card_time = kMeUnNilStr(model.value);
             }

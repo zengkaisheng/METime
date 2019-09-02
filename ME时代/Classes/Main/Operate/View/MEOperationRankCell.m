@@ -35,6 +35,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *thirdNumLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *brassImgV;
 
+@property (weak, nonatomic) IBOutlet UIView *noDatasView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *noDataViewConsTop;
+
 @end
 
 @implementation MEOperationRankCell
@@ -43,6 +46,7 @@
     [super awakeFromNib];
     // Initialization code
     self.bgView.hidden = YES;
+    self.noDatasView.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -73,6 +77,12 @@
         
         self.bgView.hidden = YES;
         _topNameLbl.text = _topNumLbl.text = _centerNameLbl.text = _centerNumLbl.text = _bottomNameLbl.text = _bottomNumLbl.text = @" ";
+        if (array.count <= 0) {
+            _noDatasView.hidden = NO;
+            _noDataViewConsTop.constant = 50.0;
+        }else {
+            _noDatasView.hidden = YES;
+        }
         for (int i = 0; i < array.count; i++) {
             MEOperationClerkRankModel *model = array[i];
             if (i == 0) {
@@ -101,6 +111,10 @@
             _goldImgV.hidden = YES;
             _silverImgV.hidden = YES;
             _brassImgV.hidden = YES;
+            _noDatasView.hidden = NO;
+            _noDataViewConsTop.constant = 24.0;
+        }else {
+            _noDatasView.hidden = YES;
         }
         _firstNameLbl.text = _firsetNumLbl.text = _secondNameLbl.text = _secondNumLbl.text = _thirdNameLbl.text = _thirdNumLbl.text = @" ";
         for (int i = 0; i < array.count; i++) {
