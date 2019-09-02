@@ -361,9 +361,11 @@
             [strongSelf.tableView reloadData];
             [strongSelf.tableView.mj_header endRefreshing];
             
-            NSString *firstIn = [kMeUserDefaults objectForKey:@"firstInMine"];
-            if (!firstIn || firstIn.length <= 0) {
-                [kMeCurrentWindow addSubview:strongSelf.maskView];
+            if (kCurrentUser.user_type != 4) {
+                NSString *firstIn = [kMeUserDefaults objectForKey:@"firstInMine"];
+                if (!firstIn || firstIn.length <= 0) {
+                    [kMeCurrentWindow addSubview:strongSelf.maskView];
+                }
             }
         });
     });
@@ -417,7 +419,13 @@
 - (MENewMineHomeHeaderView *)headerView{
     if(!_headerView){
         _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeHeaderView" owner:nil options:nil] lastObject];
-        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeHeaderViewHeight);
+//        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeHeaderViewHeight);
+        CGFloat height = kMENewMineHomeHeaderViewHeight;
+        NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+        if ([status isEqualToString:@"business"]) {
+            height = 210;
+        }
+        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
         _headerView.changeStatus = ^{
             NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
             if ([status isEqualToString:@"customer"]) {

@@ -41,6 +41,10 @@ typedef void(^TapChangedMoveX)(float moveX);  // 改变结束
 @property (nonatomic, strong) UIButton *playButton;
 
 /**
+ 重新播放按钮底部View
+ */
+@property (nonatomic, strong) UIView *replayBtnView;
+/**
  重新播放按钮
  */
 @property (nonatomic, strong) UIButton *replayButton;

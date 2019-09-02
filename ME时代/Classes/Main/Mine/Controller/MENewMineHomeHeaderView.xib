@@ -151,6 +151,37 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FEf-R2-Bw7">
+                    <rect key="frame" x="15" y="153" width="345" height="58"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pto-qc-Y7v">
+                            <rect key="frame" x="15" y="56" width="315" height="1"/>
+                            <color key="backgroundColor" red="0.94901960784313721" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="8cc-QR-Gvs"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商家" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80I-W0-1Ka">
+                            <rect key="frame" x="15" y="20" width="27" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="27" id="zPF-QZ-V8F"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="80I-W0-1Ka" firstAttribute="top" secondItem="FEf-R2-Bw7" secondAttribute="top" constant="20" id="8n2-9z-8lF"/>
+                        <constraint firstItem="80I-W0-1Ka" firstAttribute="leading" secondItem="FEf-R2-Bw7" secondAttribute="leading" constant="15" id="KcJ-Wh-Ynz"/>
+                        <constraint firstAttribute="trailing" secondItem="Pto-qc-Y7v" secondAttribute="trailing" constant="15" id="SHx-Rm-xPO"/>
+                        <constraint firstItem="Pto-qc-Y7v" firstAttribute="leading" secondItem="FEf-R2-Bw7" secondAttribute="leading" constant="15" id="Tzp-1q-M5T"/>
+                        <constraint firstItem="Pto-qc-Y7v" firstAttribute="top" secondItem="80I-W0-1Ka" secondAttribute="bottom" constant="19" id="Vpu-HE-Okw"/>
+                        <constraint firstAttribute="bottom" secondItem="Pto-qc-Y7v" secondAttribute="bottom" constant="1" id="jVt-9b-8Wd"/>
+                        <constraint firstAttribute="height" constant="58" id="zrn-aD-79B"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hG-ou-a3L">
                     <rect key="frame" x="16" y="44" width="87" height="87"/>
                     <subviews>
@@ -241,7 +272,9 @@
                 <constraint firstAttribute="trailing" secondItem="6Xo-sz-eGN" secondAttribute="trailing" constant="15" id="CRe-hD-7Rj"/>
                 <constraint firstItem="gfN-or-tQT" firstAttribute="top" secondItem="1hG-ou-a3L" secondAttribute="bottom" constant="20" id="CnM-PG-jpf"/>
                 <constraint firstAttribute="trailing" secondItem="GQ1-gY-yzQ" secondAttribute="trailing" id="DHb-yg-s7h"/>
+                <constraint firstItem="FEf-R2-Bw7" firstAttribute="top" secondItem="6Xo-sz-eGN" secondAttribute="bottom" constant="14" id="FeY-Eb-Ing"/>
                 <constraint firstAttribute="trailing" secondItem="87e-jn-qMJ" secondAttribute="trailing" constant="15" id="Fld-d4-u56"/>
+                <constraint firstItem="FEf-R2-Bw7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="JgI-tq-TxU"/>
                 <constraint firstItem="m7A-EC-Atk" firstAttribute="trailing" secondItem="07M-vF-6qS" secondAttribute="trailing" id="Kuy-BL-95v"/>
                 <constraint firstItem="87e-jn-qMJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="SSI-Rz-eam"/>
                 <constraint firstItem="gfN-or-tQT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="Sgh-i4-err"/>
@@ -255,20 +288,24 @@
                 <constraint firstAttribute="bottom" secondItem="gfN-or-tQT" secondAttribute="bottom" id="hY9-gz-wWp"/>
                 <constraint firstItem="m7A-EC-Atk" firstAttribute="top" secondItem="07M-vF-6qS" secondAttribute="bottom" constant="7.5" id="hpa-VZ-ZDV"/>
                 <constraint firstItem="07M-vF-6qS" firstAttribute="top" secondItem="drv-dw-k8v" secondAttribute="bottom" constant="12" id="knx-Zw-xvK"/>
+                <constraint firstAttribute="trailing" secondItem="FEf-R2-Bw7" secondAttribute="trailing" constant="15" id="ls9-Id-JCE"/>
                 <constraint firstAttribute="trailing" secondItem="07M-vF-6qS" secondAttribute="trailing" constant="15" id="wGZ-Ky-Kel"/>
                 <constraint firstItem="fXN-ef-9Wj" firstAttribute="top" secondItem="1hG-ou-a3L" secondAttribute="top" constant="15" id="yR4-04-FiB"/>
                 <constraint firstAttribute="trailing" secondItem="fXN-ef-9Wj" secondAttribute="trailing" constant="45" id="ypU-n5-Wsf"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="businessView" destination="FEf-R2-Bw7" id="8C7-zB-xRe"/>
+                <outlet property="changeStatusBtn" destination="6Xo-sz-eGN" id="vfK-m6-SJb"/>
                 <outlet property="consSetTopMargin" destination="SSI-Rz-eam" id="Cg1-HY-vLf"/>
                 <outlet property="imgPic" destination="EiY-Z9-hT3" id="gMI-2r-Tlk"/>
                 <outlet property="lblLeve" destination="m7A-EC-Atk" id="4vF-kP-sQy"/>
                 <outlet property="lblName" destination="fXN-ef-9Wj" id="Atc-rB-TUG"/>
                 <outlet property="lblTel" destination="07M-vF-6qS" id="rlh-d1-kNv"/>
+                <outlet property="orderView" destination="gfN-or-tQT" id="k5X-tg-8SU"/>
                 <outlet property="viewLine" destination="1hG-ou-a3L" id="Yl4-5P-8X5"/>
             </connections>
-            <point key="canvasLocation" x="212" y="-273"/>
+            <point key="canvasLocation" x="212" y="-273.4632683658171"/>
         </view>
     </objects>
     <resources>

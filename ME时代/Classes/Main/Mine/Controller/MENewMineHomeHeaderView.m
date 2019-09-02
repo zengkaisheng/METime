@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgPic;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblLeve;
+@property (weak, nonatomic) IBOutlet UIView *orderView;
+@property (weak, nonatomic) IBOutlet UIView *businessView;
+@property (weak, nonatomic) IBOutlet UIButton *changeStatusBtn;
 
 @end
 
@@ -33,6 +36,12 @@
     CGFloat w = (SCREEN_WIDTH - 60)/4;
     _consBtnW.constant = w;
     _consSetTopMargin.constant = kMeStatusBarHeight+10;
+    
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, SCREEN_WIDTH-30, 57) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(10, 10)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = CGRectMake(0, 0, SCREEN_WIDTH-30, 57);
+    maskLayer.path = maskPath.CGPath;
+    _businessView.layer.mask = maskLayer;
 }
 
 - (void)reloadUIWithUserInfo{
@@ -76,6 +85,21 @@
         default:
             _lblLeve.text = @"";
             break;
+    }
+    
+    if (kCurrentUser.user_type == 4) {
+        _changeStatusBtn.hidden = YES;
+    }else {
+        _changeStatusBtn.hidden = NO;
+    }
+    
+    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+    if ([status isEqualToString:@"customer"]) {
+        _businessView.hidden = YES;
+        _orderView.hidden = NO;
+    }else if ([status isEqualToString:@"business"]) {
+        _businessView.hidden = NO;
+        _orderView.hidden = YES;
     }
 }
 

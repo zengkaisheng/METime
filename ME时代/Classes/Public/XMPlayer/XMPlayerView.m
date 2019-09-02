@@ -213,6 +213,7 @@
     CGFloat current = [[NSString stringWithFormat:@"%@",[playedValue substringWithRange:NSMakeRange(playedValue.length - 2, 2)]] floatValue];
     if (self.previewTime > 0) {
         if (current >= self.previewTime) {
+            self.controlView.replayBtnView.hidden = NO;
             self.controlView.replayButton.hidden = NO;
             self.controlView.playButton.selected = YES;
             [MECommonTool showMessage:@"试听已结束" view:kMeCurrentWindow];
@@ -481,6 +482,7 @@
     
     // 重新播放
     [self.controlView.replayButton addTarget:self action:@selector(replayClick) forControlEvents:UIControlEventTouchUpInside];
+    self.controlView.replayBtnView.hidden = YES;
     self.controlView.replayButton.hidden = YES;
     __weak typeof(self) weakSelf = self;
     // 手势滑动界面
@@ -525,6 +527,7 @@
         
         if (weakSelf.previewTime > 0) {
             if (current >= weakSelf.previewTime) {
+                weakSelf.controlView.replayBtnView.hidden = NO;
                 weakSelf.controlView.replayButton.hidden = NO;
                 weakSelf.controlView.playButton.selected = YES;
                 [MECommonTool showMessage:@"试听已结束" view:kMeCurrentWindow];
@@ -758,6 +761,7 @@
 //        }];
 //        [self.avPlayer seekToTime:CMTimeMake(0, 1)];
 //        [self pause];
+        self.controlView.replayBtnView.hidden = NO;
         self.controlView.replayButton.hidden = NO;
         self.controlView.playButton.selected = YES;
         if (self.pauseBlock) {
@@ -1222,6 +1226,7 @@ didFinishDownloadingToURL:(NSURL *)location{
         if (self.controlView.replayButton.hidden) {
             [self play];
         }else {
+            self.controlView.replayBtnView.hidden = YES;
             self.controlView.replayButton.hidden = YES;
             [self.avPlayer seekToTime:CMTimeMake(0, 1)];
             [self play];
@@ -1230,6 +1235,7 @@ didFinishDownloadingToURL:(NSURL *)location{
 }
 //重新播放
 - (void)replayClick {
+    self.controlView.replayBtnView.hidden = YES;
     self.controlView.replayButton.hidden = YES;
     self.controlView.playButton.selected = NO;
     [self.avPlayer seekToTime:CMTimeMake(0, 1)];

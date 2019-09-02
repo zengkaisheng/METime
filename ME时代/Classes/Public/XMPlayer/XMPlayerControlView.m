@@ -76,13 +76,23 @@
     return _playButton;
 }
 
+- (UIView *)replayBtnView {
+    if (!_replayBtnView) {
+        _replayBtnView = [[UIView alloc] init];
+        _replayBtnView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+        _replayBtnView.bounds = CGRectMake((self.frame.size.width-TopMenuH-30)/2, (self.frame.size.height-TopMenuH-30)/2, TopMenuH+30, TopMenuH+30);
+        _replayBtnView.layer.cornerRadius = 35;
+    }
+    return _replayBtnView;
+}
+
 - (UIButton *)replayButton {
     if (!_replayButton) {
         _replayButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_replayButton setImage:ImageWithName(@"repeat_video") forState:UIControlStateNormal];
         _replayButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
 //        [_replayButton setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]];
-        _replayButton.bounds = CGRectMake((self.frame.size.width-TopMenuH)/2, (self.frame.size.height-TopMenuH)/2, TopMenuH+20, TopMenuH+20);
+        _replayButton.bounds = CGRectMake((self.frame.size.width-TopMenuH-20)/2, (self.frame.size.height-TopMenuH-20)/2, TopMenuH+20, TopMenuH+20);
         _replayButton.layer.cornerRadius = 30;
     }
     return _replayButton;
@@ -144,7 +154,8 @@
         [self addSubview:self.topView];
         [self.topView addSubview:self.closeButton];
         
-        [self addSubview:self.replayButton];
+        [self addSubview:self.replayBtnView];
+        [self.replayBtnView addSubview:self.replayButton];
 
         [self addSubview:self.bottomView];
         [self.bottomView addSubview:self.fullScreenButton];
@@ -258,6 +269,7 @@
     self.closeButton.frame = CGRectMake(10, CGRectGetMinX(self.topView.bounds), CGRectGetWidth(self.closeButton.bounds), CGRectGetHeight(self.closeButton.bounds));
     self.bottomView.frame = CGRectMake(0, self.frame.size.height - BotMenuH, self.frame.size.width, BotMenuH);
     self.playButton.frame = CGRectMake(10, (BotMenuH - CGRectGetHeight(self.playButton.bounds))/2.0, CGRectGetWidth(self.playButton.bounds), CGRectGetHeight(self.playButton.bounds));
+    self.replayBtnView.frame = CGRectMake((self.frame.size.width-CGRectGetWidth(self.replayBtnView.bounds))/2, (self.frame.size.height - CGRectGetHeight(self.replayBtnView.bounds))/2.0, CGRectGetWidth(self.replayBtnView.bounds), CGRectGetHeight(self.replayBtnView.bounds));
     self.replayButton.frame = CGRectMake((self.frame.size.width-CGRectGetWidth(self.replayButton.bounds))/2, (self.frame.size.height - CGRectGetHeight(self.replayButton.bounds))/2.0, CGRectGetWidth(self.replayButton.bounds), CGRectGetHeight(self.replayButton.bounds));
     self.playTimeLabel.frame = CGRectMake(CGRectGetMaxX(self.playButton.frame), 0, TimeShowWidth, CGRectGetHeight(self.playTimeLabel.bounds));
     self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomView.bounds) - CGRectGetWidth(self.fullScreenButton.bounds) - 10, (CGRectGetHeight(self.bottomView.frame)-CGRectGetHeight(self.fullScreenButton.bounds))/2.0, CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
