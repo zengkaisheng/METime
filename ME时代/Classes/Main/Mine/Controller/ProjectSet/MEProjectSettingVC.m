@@ -70,7 +70,7 @@
     [MEPublicNetWorkTool postDeleteObjectsWithObjectId:objectId SuccessBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         [MECommonTool showMessage:@"删除成功" view:kMeCurrentWindow];
-        [strongSelf.tableView reloadData];
+        [strongSelf.refresh reload];
     } failure:^(id object) {
         kMeSTRONGSELF
         [strongSelf.navigationController popViewControllerAnimated:YES];

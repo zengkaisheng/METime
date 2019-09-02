@@ -75,7 +75,10 @@
             }
         }
     }
-    
+    if (tempStr.length <= 0) {
+        [MECommonTool showMessage:@"请选择跟进类型" view:kMeCurrentWindow];
+        return;
+    }
     NSString *followType = [tempStr substringWithRange:NSMakeRange(0, tempStr.length - 1)];
     
     kMeWEAKSELF

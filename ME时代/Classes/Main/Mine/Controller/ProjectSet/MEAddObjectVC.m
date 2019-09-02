@@ -76,6 +76,7 @@
         kMeSTRONGSELF
         if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
             [MECommonTool showMessage:@"添加成功" view:kMeCurrentWindow];
+            kMeCallBlock(strongSelf.finishBlock);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [strongSelf.navigationController popViewControllerAnimated:YES];
             });
@@ -98,6 +99,7 @@
         kMeSTRONGSELF
         if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
             [MECommonTool showMessage:@"修改成功" view:kMeCurrentWindow];
+            kMeCallBlock(strongSelf.finishBlock);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [strongSelf.navigationController popViewControllerAnimated:YES];
             });

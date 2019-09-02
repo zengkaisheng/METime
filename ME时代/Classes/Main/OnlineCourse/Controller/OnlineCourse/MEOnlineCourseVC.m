@@ -360,7 +360,7 @@
     if (indexPath.section == 0) {
         MEOnlineDiagnoseVC *onlineDiagnoseVC = [[MEOnlineDiagnoseVC alloc] init];
         [self.navigationController pushViewController:onlineDiagnoseVC animated:YES];
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 1) {
         MEDiagnoseListVC *diagnoseList = [[MEDiagnoseListVC alloc] init];
         [self.navigationController pushViewController:diagnoseList animated:YES];
     }

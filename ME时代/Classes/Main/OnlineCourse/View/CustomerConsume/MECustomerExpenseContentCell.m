@@ -264,6 +264,12 @@
         }else {
             if (self.sourceCount > 0) {
                 if (indexPath.row > 2 && indexPath.row < 2+1+self.sourceCount) {
+                    for (id obj in self.dataSource) {
+                        if ([obj isKindOfClass:[MEExpenseSourceModel class]]) {
+                            MEExpenseSourceModel *model = (MEExpenseSourceModel *)obj;
+                            model.isSelected = NO;
+                        }
+                    }
                     MEExpenseSourceModel *sourceModel = self.dataSource[indexPath.row];
                     sourceModel.isSelected = !sourceModel.isSelected;
                     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];

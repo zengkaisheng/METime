@@ -10,7 +10,7 @@
 #import "MEBlockTextField.h"
 #import "MEProjectSettingListModel.h"
 
-@interface MEAddObjectCell ()
+@interface MEAddObjectCell ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet MEBlockTextField *nameTF;
@@ -32,7 +32,10 @@
     _bgView.layer.cornerRadius = 5;
     _bgView.clipsToBounds = false;
     
-    
+    _nameTF.returnKeyType = _chargeTF.returnKeyType = UIReturnKeyDone;
+    _nameTF.delegate = self;
+    _chargeTF.delegate = self;
+    _chargeTF.keyboardType = UIKeyboardTypeNumberPad;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -44,13 +47,29 @@
 - (void)setUIWithModel:(MEProjectSettingListModel *)model {
     _nameTF.text = kMeUnNilStr(model.object_name);
     _chargeTF.text = model.money>0?[NSString stringWithFormat:@"%@",@(model.money)]:@"";
-    
+    kMeWEAKSELF
     _nameTF.contentBlock = ^(NSString *str) {
+        kMeSTRONGSELF
+        if (str.length > 10) {
+            str = [str substringWithRange:NSMakeRange(0, 10)];
+            [strongSelf->_nameTF endEditing:YES];
+        }
         model.object_name = str;
     };
+    
     _chargeTF.contentBlock = ^(NSString *str) {
+        kMeSTRONGSELF
+        if (str.length > 10) {
+            str = [str substringWithRange:NSMakeRange(0, 10)];
+            [strongSelf->_chargeTF endEditing:YES];
+        }
         model.money = [str integerValue];
     };
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self endEditing:YES];
+    return YES;
 }
 
 @end

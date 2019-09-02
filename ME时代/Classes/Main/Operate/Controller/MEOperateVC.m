@@ -247,11 +247,11 @@
     if (self.isShowTop) {
         row = indexPath.row - 1;
     }
-    NSDictionary *info = self.refresh.arrData[row];
-    NSArray *content = info[@"content"];
-    if (content.count <= 0) {
-        return 0;
-    }
+//    NSDictionary *info = self.refresh.arrData[row];
+//    NSArray *content = info[@"content"];
+//    if (content.count <= 0) {
+//        return 0;
+//    }
     return 198;
 }
 
