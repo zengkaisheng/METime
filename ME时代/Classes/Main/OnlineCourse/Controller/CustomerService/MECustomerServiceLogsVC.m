@@ -82,7 +82,7 @@
         totalModel.value = kMeUnNilStr(self.logsModel.open_card_time);
         title = @"时间卡服务详情";
     }else if (_type == 3) {
-        totalModel.title = @"服务次数";
+        totalModel.title = @"总服务次数";
         title = @"套盒产品服务详情";
     }
     MEAddCustomerInfoModel *residueModel = [self creatModelWithTitle:@"剩余次数" andValue:[NSString stringWithFormat:@"%@次",@(self.logsModel.residue_num)]];
@@ -107,7 +107,7 @@
 }
 
 - (NSArray *)setupLogsSubListDatasWithModel:(MEServiceLogsDataModel *)model {
-    MEAddCustomerInfoModel *comeModel = [self creatModelWithTitle:@"到店次数" andValue:[NSString stringWithFormat:@"%@次",@(model.come_in_count)]];
+    MEAddCustomerInfoModel *comeModel = [self creatModelWithTitle:@"服务次数" andValue:[NSString stringWithFormat:@"%@次",@(model.come_in_count)]];
     
     MEAddCustomerInfoModel *timeModel = [self creatModelWithTitle:@"服务时间" andValue:kMeUnNilStr(model.service_time)];
     

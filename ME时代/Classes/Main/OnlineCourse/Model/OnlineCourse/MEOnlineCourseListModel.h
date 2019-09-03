@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * video_price;
 @property (nonatomic, strong) NSString * video_type_name;
 @property (nonatomic, strong) NSString * video_urls;
+@property (nonatomic, strong) NSString * video_desc;
 
 //视频相关
 @property (nonatomic, strong) NSString * audio_images;
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * audio_price;
 @property (nonatomic, strong) NSString * audio_type_name;
 @property (nonatomic, strong) NSString * audio_urls;
+@property (nonatomic, strong) NSString * audio_desc;
 
 @property (nonatomic, assign) BOOL isSelected;  //是否选中 默认NO
 

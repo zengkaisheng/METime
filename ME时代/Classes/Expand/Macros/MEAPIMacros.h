@@ -1026,5 +1026,12 @@
 /*********************************************/
 
 
+/*********************************************/
+#pragma makr - 运营管理
+//获取用户联通订单
+#define MEIPcommonOrderGetLianTongOrder @"common/order/getLianTongOrder"
+
+/*********************************************/
+
 #endif /* MEAPIMacros_h */
 

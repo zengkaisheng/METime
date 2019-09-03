@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, METhridProductDetailsVCType) {
 @property (nonatomic, assign) BOOL isReceivePrize;//是否领取奖品
 @property (nonatomic, copy) NSString *activity_id;//领取奖品时的抽奖活动ID
 @property (nonatomic, strong) NSString *time;
-
+@property (nonatomic, assign) BOOL isLianTong;
 @property (nonatomic, copy) NSString *reducePrice;
 
 @end

@@ -7,10 +7,9 @@
 //
 
 #import "MELianTongListVC.h"
-#import "MEProductCell.h"
+#import "MELianTongListCell.h"
 #import "MEGoodModel.h"
-
-#define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
+#import "METhridProductDetailsVC.h"
 
 @interface MELianTongListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>
 
@@ -45,9 +44,9 @@
 #pragma mark- CollectionView Delegate And DataSource
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MEGoodModel *model = self.refresh.arrData [indexPath.row];
-//    METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-//    details.isGift = YES;
-//    [self.navigationController pushViewController:details animated:YES];
+    METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+    details.isLianTong = YES;
+    [self.navigationController pushViewController:details animated:YES];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -55,19 +54,18 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    MEProductCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MEProductCell class]) forIndexPath:indexPath];
+    MELianTongListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MELianTongListCell class]) forIndexPath:indexPath];
     MEGoodModel *model = self.refresh.arrData[indexPath.row];
     [cell setUIWithModel:model];
     return cell;
 }
 
-
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(kMEProductCellWdith, kMEProductCellHeight);
+    return CGSizeMake(kMELianTongListCellWdith, kMELianTongListCellHeight);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-     return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin+2, kMEGoodsMargin, kMEGoodsMargin+2);
+     return UIEdgeInsetsMake(kMEMargin, kMEMargin, kMEMargin, kMEMargin);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
@@ -78,20 +76,17 @@
     return kMEMargin;
 }
 
-
 #pragma mark - Getting And Setting
-
 - (UICollectionView *)collectionView{
     if(!_collectionView){
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) collectionViewLayout:layout];
-        _collectionView.backgroundColor = [UIColor whiteColor];
-        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEProductCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MEProductCell class])];
+        _collectionView.backgroundColor = [UIColor colorWithHexString:@"kMEf5f4f4"];
+        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MELianTongListCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MELianTongListCell class])];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.alwaysBounceVertical = YES;
-        
     }
     return _collectionView;
 }

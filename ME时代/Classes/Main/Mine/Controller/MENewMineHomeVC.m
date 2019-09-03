@@ -311,9 +311,10 @@
                 [strongSelf.memuList enumerateObjectsUsingBlock:^(MEMineHomeMuneModel *menuModel, NSUInteger idx, BOOL * _Nonnull stop) {
                     [titles addObject:menuModel.name];
                     
-                    [menuModel.children enumerateObjectsUsingBlock:^(MEMineHomeMuneChildrenModel *subModel, NSUInteger idx, BOOL * _Nonnull stop) {
-                        [childrens addObject:@([subModel.path intValue])];
-                    }];
+                    [childrens addObjectsFromArray:menuModel.children];
+//                    [menuModel.children enumerateObjectsUsingBlock:^(MEMineHomeMuneChildrenModel *subModel, NSUInteger idx, BOOL * _Nonnull stop) {
+//                        [childrens addObject:@([subModel.path intValue])];
+//                    }];
                     [items addObject:[childrens mutableCopy]];
                     [childrens removeAllObjects];
                 }];
@@ -364,7 +365,7 @@
             if (kCurrentUser.user_type != 4) {
                 NSString *firstIn = [kMeUserDefaults objectForKey:@"firstInMine"];
                 if (!firstIn || firstIn.length <= 0) {
-                    [kMeCurrentWindow addSubview:strongSelf.maskView];
+                    [strongSelf.view addSubview:strongSelf.maskView];
                 }
             }
         });

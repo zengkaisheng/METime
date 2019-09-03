@@ -68,6 +68,8 @@
 #import "MEMyCollectionVC.h"
 #import "MEDiagnoseOrderListVC.h"
 #import "MEWaitingAnswerListVC.h"
+#import "MEMineHomeMuneModel.h"
+#import "MELianTongOrderVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -111,8 +113,9 @@
     if(!homeVc){
         return;
     }
-    MEMineHomeMenuCellStyle type = [_arrModel[indexPath.row] intValue];
-    switch (type) {
+//    MEMineHomeMenuCellStyle type = [_arrModel[indexPath.row] intValue];
+    MEMineHomeMuneChildrenModel *childModel = _arrModel[indexPath.row];
+    switch ([childModel.path intValue]) {
             /*
         case MeHomemeiodu:{
             //我的中心
@@ -466,7 +469,6 @@
             MEDistributionOrderMainVC *orderVC = [[MEDistributionOrderMainVC alloc]init];
             [homeVc.navigationController pushViewController:orderVC animated:YES];
         }
-            
             break;
             //        case MEDistributionMoney:{
             //            //            MEDistributionMoneyVC *vc = [[MEDistributionMoneyVC alloc]initWithModel:@""];
@@ -496,7 +498,6 @@
             [homeVc.navigationController pushViewController:clerkVC animated:YES];
         }
             break;
-            
         case MeMenuHomeyuyue:{
             MEMyAppointmentVC *dvc = [[MEMyAppointmentVC alloc]initWithType:MEAppointmenyUseing userType:MEClientBTypeStyle];
             [homeVc.navigationController pushViewController:dvc animated:YES];
@@ -602,10 +603,16 @@
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case MEMenuDiagnoseAnswer:{
+        case MEMenuDiagnoseAnswer:{//诊断回复
             MEWaitingAnswerListVC *vc = [[MEWaitingAnswerListVC alloc]init];
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
+            break;
+        case MeMyMenuLianTong:{//联通i订单
+            MELianTongOrderVC *vc = [[MELianTongOrderVC alloc]init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
+            break;
         default:
             break;
     }
@@ -617,8 +624,10 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MENewMineHomeContentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MENewMineHomeContentCell class]) forIndexPath:indexPath];
-    MEMineHomeMenuCellStyle type = [_arrModel[indexPath.row] intValue];
-    [cell setUIWithType:type];
+//    MEMineHomeMenuCellStyle type = [_arrModel[indexPath.row] intValue];
+//    [cell setUIWithType:type];
+    MEMineHomeMuneChildrenModel *childModel = _arrModel[indexPath.row];
+    [cell setUIWithModel:childModel];
     return cell;
 }
 

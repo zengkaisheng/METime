@@ -153,6 +153,10 @@
 
 - (void)userLogin{
     [self getUnInfo];
+    [MEPublicNetWorkTool getUserInvitationCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kCurrentUser.invite_code = kMeUnNilStr(responseObject.data);
+    } failure:^(id object) {
+    }];
     [self.choseVC reloadData];
 }
 

@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * start_time;
 @property (nonatomic, strong) NSString * title;
 @property (nonatomic, assign) NSInteger type;
+@property (nonatomic, strong) NSString * desc;
 
 @end
 

@@ -86,10 +86,10 @@
         residueModel.placeHolder = @"请输入剩余时间";
         residueModel.toastStr = @"请输入剩余时间";
     }else if (self.type == 3) {
-        totalModel.title = @"服务次数";
+        totalModel.title = @"总服务次数";
         totalModel.isTextField = YES;
         totalModel.isHideArrow = YES;
-        totalModel.toastStr = @"请输入服务次数";
+        totalModel.toastStr = @"请输入总服务次数";
         totalModel.isNumberType = YES;
         
         residueModel.title = @"剩余次数";
@@ -121,7 +121,7 @@
     
     [self.dataSource addObject:@{@"title":@"",@"type":@"1",@"isAdd":@(YES),@"isHiddenHeaderV":@(YES),@"content":@[projectModel,totalModel,residueModel]}];
     
-    MEAddCustomerInfoModel *oneModel = [self creatModelWithTitle:@"到店次数" andPlaceHolder:@"请输入到店次数" andMaxInputWords:10 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入到店次数"];
+    MEAddCustomerInfoModel *oneModel = [self creatModelWithTitle:@"服务次数" andPlaceHolder:@"请输入服务次数" andMaxInputWords:10 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入服务次数"];
     oneModel.value = @"1";
     oneModel.isNumberType = YES;
     
@@ -177,7 +177,7 @@
             if ([model.title isEqualToString:@"项目名称"]) {
                 addModel.service_name = kMeUnNilStr(model.value);
             }
-            if ([model.title isEqualToString:@"总次数"] || [model.title isEqualToString:@"服务次数"]) {
+            if ([model.title isEqualToString:@"总次数"] || [model.title isEqualToString:@"总服务次数"]) {
                 addModel.total_num = kMeUnNilStr(model.value);
             }
 //            if ([model.title isEqualToString:@"剩余次数"]) {
@@ -221,7 +221,7 @@
             if ([model.title isEqualToString:@"项目名称"]) {
                 addModel.service_name = kMeUnNilStr(model.value);
             }
-            if ([model.title isEqualToString:@"总次数"] || [model.title isEqualToString:@"服务次数"]) {
+            if ([model.title isEqualToString:@"总次数"] || [model.title isEqualToString:@"总服务次数"]) {
                 addModel.total_num = [NSString stringWithFormat:@"%d",[kMeUnNilStr(model.value) intValue]];
             }
 //            if ([model.title isEqualToString:@"剩余次数"]) {
@@ -233,7 +233,7 @@
             if ([model.title isEqualToString:@"剩余时间"]) {
                 addModel.residue_time = kMeUnNilStr(model.value);
             }
-            if ([model.title isEqualToString:@"到店次数"]) {
+            if ([model.title isEqualToString:@"服务次数"]) {
                 addModel.come_in_count = kMeUnNilStr(model.value);
             }
             if ([model.title isEqualToString:@"服务时间"]) {

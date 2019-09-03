@@ -44,5 +44,8 @@
 @property (nonatomic, assign) NSInteger stock;//库存
 @property (nonatomic, assign) NSInteger sell_num;//销量
 @property (nonatomic, assign) NSInteger sales;//虚拟销量
+//联通兑换
+@property (nonatomic, assign) NSInteger get_phone_bill;//话费
+
 
 @end

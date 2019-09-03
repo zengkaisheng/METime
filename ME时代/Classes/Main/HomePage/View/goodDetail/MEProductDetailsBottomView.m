@@ -33,6 +33,15 @@
     _btnShare.hidden = ![WXApi isWXAppInstalled];
 }
 
+- (void)setModel:(MEGoodDetailModel *)model {
+    _model = model;
+    if (self.model.product_type == 17) {
+        _btnShare.hidden = YES;
+    }else {
+        _btnShare.hidden = ![WXApi isWXAppInstalled];
+    }
+}
+
 - (IBAction)homeAction:(UIButton *)sender {
     if (self.isGroup) {
         MEGroupProductDetailVC *detailVC = (MEGroupProductDetailVC *)[MECommonTool getVCWithClassWtihClassName:[MEGroupProductDetailVC class] targetResponderView:self];

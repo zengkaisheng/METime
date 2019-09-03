@@ -33,6 +33,33 @@ const static CGFloat kTitleWdith = 92;
     // Initialization code
 }
 
+//女神卡
+- (void)setGirlNumberUIWithTitle:(NSString *)title {
+    _txMessage.hidden = NO;
+    _lblSubTitle.hidden = YES;
+    _consTitleWdith.constant = kTitleWdith;
+    _lblTitle.text = title;
+    _txMessage.placeholder = @"请填写女神卡号码";
+    _txMessage.keyboardType = UIKeyboardTypeNumberPad;
+    kMeWEAKSELF
+    _txMessage.contentBlock = ^(NSString *str) {
+        kMeSTRONGSELF
+        if (str.length > 11) {
+            str = [str substringWithRange:NSMakeRange(0, 11)];
+            strongSelf->_txMessage.text = str;
+            if (![MECommonTool isValidPhoneNum:str]) {
+                [MECommonTool showMessage:@"女神卡号格式错误" view:kMeCurrentWindow];
+            }
+            [strongSelf endEditing:YES];
+        }
+        kMeCallBlock(strongSelf.messageBlock,str);
+    };
+    _txMessage.returnBlock = ^{
+        kMeSTRONGSELF
+        kMeCallBlock(strongSelf.returnBlock);
+    };
+}
+
 - (void)setUIWithType:(MEMakrOrderCellStyle)type model:(NSString *)model{
     _txMessage.hidden = type!=MEMakrOrderCellMessage;
     _lblSubTitle.hidden = type==MEMakrOrderCellMessage;

@@ -451,7 +451,7 @@ kTDWebViewCellDidFinishLoadNotificationMethod
                     }
                 }
             }
-            if(strongSelf.model.product_type == 15||strongSelf.model.product_type == 16){
+            if(strongSelf.model.product_type == 15 || strongSelf.model.product_type == 16 || strongSelf.model.product_type == 17){
                 [MEShowViewTool showMessage:@"该商品不支持加入购物车" view:kMeCurrentWindow];
             }else{
                 [strongSelf showBuyViewWithTypy:kpurchaseViewShoppingType];

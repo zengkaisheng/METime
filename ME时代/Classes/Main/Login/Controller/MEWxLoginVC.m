@@ -97,7 +97,11 @@
         kMeCallBlock(self.blockSuccess,nil);
     }
     
-    [kMeUserDefaults setObject:@"customer" forKey:kMENowStatus];
+    if (kCurrentUser.user_type == 4) {
+        [kMeUserDefaults setObject:@"customer" forKey:kMENowStatus];
+    }else {
+        [kMeUserDefaults setObject:@"business" forKey:kMENowStatus];
+    }
     [kMeUserDefaults synchronize];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate reloadTabBar];

@@ -81,7 +81,7 @@
 }
 
 - (void)setUIWithGroupModel:(MEGroupListModel *)model {
-    _subTitleLbl.hidden = YES;
+//    _subTitleLbl.hidden = YES;
     _countLbl.hidden = YES;
     _groupImgV.hidden = NO;
     _groupNumberLbl.hidden = NO;
@@ -91,6 +91,7 @@
     
     kSDLoadImg(_headerPic, kMeUnNilStr(model.image_url));
     _titleLbl.text = kMeUnNilStr(model.title);
+    _subTitleLbl.text = kMeUnNilStr(model.desc);
     _groupNumberLbl.text = [NSString stringWithFormat:@"%@人团",@(kMeUnNilStr(model.group_num).intValue)];
     
     if (IS_IPHONE_4S||IS_IPHONE_5||IS_iPhone5S) {
@@ -116,14 +117,15 @@
     _titleLbl.text = kMeUnNilStr(model.title);
     _groupImgV.hidden = YES;
     _groupNumberLbl.hidden = YES;
-    _countLbl.hidden = YES;
+//    _countLbl.hidden = YES;
     _rateView.hidden = YES;
     _sellNumLbl.hidden = YES;
     
     if (model.type == 5) {
         _origainlPriceLbl.hidden = YES;
         _priceLbl.text = [NSString stringWithFormat:@"价值%@元",kMeUnNilStr(model.money).length>0?kMeUnNilStr(model.money):@"0"];
-        _subTitleLbl.text = [NSString stringWithFormat:@"开奖时间：%@",model.end_time];
+        _subTitleLbl.text = kMeUnNilStr(model.desc);
+        _countLbl.text = [NSString stringWithFormat:@"开奖时间：%@",model.end_time];
         switch (model.join_type) {
             case 1:
             {//未参加

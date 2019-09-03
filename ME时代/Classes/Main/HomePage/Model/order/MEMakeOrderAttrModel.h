@@ -9,6 +9,7 @@
 #import "MEBaseModel.h"
 
 @class MEGoodDetailModel;
+
 @interface MEMakeOrderAttrModel : MEBaseModel
 
 @property (nonatomic, strong) NSString * product_id;
@@ -34,6 +35,9 @@
 //拼团相关
 @property (nonatomic, assign) NSInteger group_id;
 @property (nonatomic, assign) NSInteger group_sn;
+
+//女神卡号
+@property (nonatomic, copy) NSString *girl_number;
 
 //来自好友的分享
 @property (nonatomic, strong) NSString *uid;

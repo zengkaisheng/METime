@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class MEMineHomeMuneChildrenModel;
 NS_ASSUME_NONNULL_BEGIN
 
 #define kMENewMineHomeContentCellHeight 75
@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MENewMineHomeContentCell : UICollectionViewCell
 
 - (void)setUIWithType:(MEMineHomeMenuCellStyle )type;
+
+- (void)setUIWithModel:(MEMineHomeMuneChildrenModel *)model;
 
 @end
 

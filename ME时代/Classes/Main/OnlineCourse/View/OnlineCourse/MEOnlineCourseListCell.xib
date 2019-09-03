@@ -57,26 +57,39 @@
                         <state key="normal" image="icon_delCollection_nor"/>
                         <state key="selected" image="icon_delCollection_sel"/>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bqt-mB-i6r">
+                        <rect key="frame" x="140" y="34.5" width="31" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="xlG-PY-531"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="4mO-x4-kfI" secondAttribute="trailing" constant="15" id="5rs-h1-xfj"/>
                     <constraint firstItem="pIc-qn-zaM" firstAttribute="leading" secondItem="nfP-G6-39v" secondAttribute="trailing" constant="12" id="DMb-WA-yeE"/>
                     <constraint firstItem="jPa-PK-67e" firstAttribute="leading" secondItem="nfP-G6-39v" secondAttribute="trailing" constant="11" id="HRr-mB-Vw9"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Bqt-mB-i6r" secondAttribute="trailing" constant="5" id="Jd0-fr-6XE"/>
                     <constraint firstItem="jPa-PK-67e" firstAttribute="top" secondItem="nfP-G6-39v" secondAttribute="top" id="SIz-PO-f4b"/>
                     <constraint firstItem="4mO-x4-kfI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pIc-qn-zaM" secondAttribute="trailing" constant="5" id="UOQ-V0-1zN"/>
                     <constraint firstItem="pIc-qn-zaM" firstAttribute="bottom" secondItem="nfP-G6-39v" secondAttribute="bottom" constant="-1" id="V1G-D9-BlK"/>
                     <constraint firstAttribute="trailing" secondItem="jPa-PK-67e" secondAttribute="trailing" constant="15" id="bY1-84-9YK"/>
                     <constraint firstItem="PRf-ph-vkU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cLa-rs-eYq"/>
                     <constraint firstItem="PRf-ph-vkU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="6" id="cS4-qX-K98"/>
+                    <constraint firstItem="Bqt-mB-i6r" firstAttribute="top" secondItem="jPa-PK-67e" secondAttribute="bottom" constant="10" id="eoa-Ok-FGb"/>
                     <constraint firstItem="nfP-G6-39v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="kaY-1W-b0L"/>
                     <constraint firstAttribute="bottom" secondItem="nfP-G6-39v" secondAttribute="bottom" constant="7.5" id="pcv-JG-7Ba"/>
                     <constraint firstItem="4mO-x4-kfI" firstAttribute="centerY" secondItem="pIc-qn-zaM" secondAttribute="centerY" id="uQE-aC-uZh"/>
+                    <constraint firstItem="Bqt-mB-i6r" firstAttribute="leading" secondItem="nfP-G6-39v" secondAttribute="trailing" constant="11" id="yr5-6k-xFE"/>
                     <constraint firstItem="nfP-G6-39v" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="zZQ-Xa-yDF"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="ImageViewConsLeading" destination="kaY-1W-b0L" id="Mt0-61-XGq"/>
                 <outlet property="collectionDelBtn" destination="PRf-ph-vkU" id="lrt-p6-Z3I"/>
+                <outlet property="descLbl" destination="Bqt-mB-i6r" id="Rmh-v1-Eg0"/>
                 <outlet property="headerPic" destination="nfP-G6-39v" id="g10-Po-IJu"/>
                 <outlet property="learnCountLbl" destination="pIc-qn-zaM" id="a6X-52-bdK"/>
                 <outlet property="priceLbl" destination="4mO-x4-kfI" id="aNb-H6-hGC"/>

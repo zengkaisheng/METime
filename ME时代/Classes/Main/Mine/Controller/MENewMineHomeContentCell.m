@@ -8,6 +8,8 @@
 
 #import "MENewMineHomeContentCell.h"
 #import "AppDelegate.h"
+#import "MEMineHomeMuneModel.h"
+
 @interface MENewMineHomeContentCell (){
     NSArray *_arrTitle;
     NSArray *_arrImage;
@@ -32,6 +34,18 @@
     _imgPic.image = kMeGetAssetImage(_arrImage[type-1]);
     _lblTitle.text = _arrTitle[type-1];
     if(type == MeMyMenuCustomer){
+        _lblUnMessage.hidden = YES;
+        [self setUnMeaasge];
+    }else{
+        _lblUnMessage.hidden = YES;
+    }
+}
+
+- (void)setUIWithModel:(MEMineHomeMuneChildrenModel *)model {
+//    _imgPic.image = kMeGetAssetImage(_arrImage[type-1]);
+    kSDLoadImg(_imgPic, kMeUnNilStr(model.icon));
+    _lblTitle.text = kMeUnNilStr(model.name);
+    if([model.path integerValue] == 26){
         _lblUnMessage.hidden = YES;
         [self setUnMeaasge];
     }else{

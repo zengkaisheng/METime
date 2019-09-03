@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLbl;
 @property (weak, nonatomic) IBOutlet UIButton *introduceBtn;
 @property (weak, nonatomic) IBOutlet UIButton *courseListBtn;
+@property (weak, nonatomic) IBOutlet UILabel *descLbl;
 
 @end
 
@@ -48,9 +49,11 @@
     if (kMeUnNilStr(model.video_name).length > 0) {
         _titleLbl.text = kMeUnNilStr(model.video_name);
         _priceLbl.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.video_price)];
+        _descLbl.text = kMeUnNilStr(model.video_desc);
     }else if (kMeUnNilStr(model.audio_name).length > 0) {
         _titleLbl.text = kMeUnNilStr(model.audio_name);
         _priceLbl.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.audio_price)];
+        _descLbl.text = kMeUnNilStr(model.audio_desc);
     }
     
     _learnCountLbl.text = [NSString stringWithFormat:@"%@次学习",@(model.browse)];

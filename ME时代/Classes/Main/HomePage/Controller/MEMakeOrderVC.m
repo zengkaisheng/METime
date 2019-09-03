@@ -38,6 +38,7 @@
     BOOL _isPayError;//防止跳2次错误页面
     NSArray *_arrData;
     NSString *_origainlPostage;
+    NSString *_girlNumber;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) MEMakeOrderSelectAddressView *sAddressView;
@@ -181,7 +182,11 @@
                         }
                     }
                 }
-                _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPostage)];
+                if (_goodModel.product_type == 17) {
+                    _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPostage),@(MEMakrOrderCellPostage)];
+                }else {
+                    _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPostage)];
+                }
 //                if (_goodModel.isGroup) {
 //                    _arrType = @[@(MEMakrOrderCellMessage),@(MEMakrOrderCellPostage)];
 //                }
@@ -247,13 +252,26 @@
                 return cell;
             }
         }
-//        if (_goodModel.isGroup) {
-            if (indexPath.row == 2) {
-                MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
-                [cell setTitle:@"邮费" amount:[NSString stringWithFormat:@"%@",kMeUnNilStr(_goodModel.postage)]];
-                return cell;
-            }
-//        }
+        if (indexPath.row == 2) {
+            MEPreferentialCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPreferentialCell class]) forIndexPath:indexPath];
+            [cell setTitle:@"邮费" amount:[NSString stringWithFormat:@"%@",kMeUnNilStr(_goodModel.postage)]];
+            return cell;
+        }
+        if (_goodModel.product_type == 17 && indexPath.row == 3) {
+            MEMakeOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEMakeOrderCell class]) forIndexPath:indexPath];
+            [cell setGirlNumberUIWithTitle:@"女神卡号"];
+            kMeWEAKSELF
+            cell.messageBlock = ^(NSString *str) {
+                NSLog(@"%@",str);
+                kMeSTRONGSELF
+                strongSelf->_girlNumber = str;
+            };
+            cell.returnBlock = ^{
+                kMeSTRONGSELF
+                [strongSelf.view endEditing:YES];
+            };
+            return cell;
+        }
         // -1 是第一个给详情cell
         MEMakrOrderCellStyle type = [_arrType[indexPath.row-1] integerValue];
         MEMakeOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEMakeOrderCell class]) forIndexPath:indexPath];
@@ -581,9 +599,24 @@
                     if(_goodModel.product_type == 16){
                         model.order_type = @"16";
                     }
+                    if(_goodModel.product_type == 17){
+                        model.order_type = @"17";
+                        if (_girlNumber.length<= 0) {
+                            [MECommonTool showMessage:@"请填写女神卡号码" view:kMeCurrentWindow];
+                            return;
+                        }else {
+                            if (_girlNumber.length < 11) {
+                                [MECommonTool showMessage:@"女神卡号格式不正确" view:kMeCurrentWindow];
+                                return;
+                            }else {
+                                model.girl_number = _girlNumber;
+                            }
+                        }
+                    }
                     if ([self->_goodModel.skus containsString:@"到店领取"]) {
                         model.is_store_get = 1;
                     }
+                    
                     model.uid = kMeUnNilStr(self.uid);
                     [MEPublicNetWorkTool postCreateOrderWithAttrModel:model successBlock:^(ZLRequestResponse *responseObject) {
                         kMeSTRONGSELF
@@ -611,7 +644,6 @@
 }
 
 #pragma mark - Getter
-
 - (MEMakeOrderSelectAddressView *)sAddressView{
     if(!_sAddressView){
         _sAddressView = [[[NSBundle mainBundle]loadNibNamed:@"MEMakeOrderSelectAddressView" owner:nil options:nil] lastObject];

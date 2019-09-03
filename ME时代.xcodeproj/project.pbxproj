@@ -1043,6 +1043,8 @@
 		EB367FE323168F29006CB057 /* MEOperationRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB367FE123168F29006CB057 /* MEOperationRankCell.m */; };
 		EB367FE423168F29006CB057 /* MEOperationRankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB367FE223168F29006CB057 /* MEOperationRankCell.xib */; };
 		EB36EAAF231CFE1000562C54 /* MELianTongListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB36EAAE231CFE1000562C54 /* MELianTongListVC.m */; };
+		EB36EAB3231D257300562C54 /* MELianTongListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB36EAB1231D257300562C54 /* MELianTongListCell.m */; };
+		EB36EAB4231D257300562C54 /* MELianTongListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB36EAB2231D257300562C54 /* MELianTongListCell.xib */; };
 		EB374E04230F928C00940728 /* MEEditFollowsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB374E03230F928C00940728 /* MEEditFollowsVC.m */; };
 		EB374E07230FF45D00940728 /* MEEditLivingHabitsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB374E06230FF45D00940728 /* MEEditLivingHabitsVC.m */; };
 		EB3E3B4A22A1124F002EAC8D /* MENewFilterGoodsTopHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3E3B4822A1124F002EAC8D /* MENewFilterGoodsTopHeaderView.m */; };
@@ -1190,6 +1192,8 @@
 		EB70E5B522FAD92300F00046 /* MECourseVideoPlayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB70E5B422FAD92300F00046 /* MECourseVideoPlayVC.m */; };
 		EB70E5BC22FADA5C00F00046 /* LXDBacktraceLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = EB70E5B822FADA5B00F00046 /* LXDBacktraceLogger.m */; };
 		EB70E5BD22FADA5C00F00046 /* LXDAppFluecyMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = EB70E5BB22FADA5B00F00046 /* LXDAppFluecyMonitor.m */; };
+		EB710543231E63F200C1E8B6 /* MELianTongOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB710542231E63F200C1E8B6 /* MELianTongOrderVC.m */; };
+		EB710546231E652F00C1E8B6 /* MELianTongContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB710545231E652F00C1E8B6 /* MELianTongContentVC.m */; };
 		EB71640E22D48D770060D58F /* MEHomeOptionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB71640D22D48D770060D58F /* MEHomeOptionsModel.m */; };
 		EB72EA3022FBF62600D7A101 /* repeat_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB72EA2F22FBF62500D7A101 /* repeat_video@2x.png */; };
 		EB72EA3422FC01EC00D7A101 /* MEVideoCourseDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB72EA3222FC01EC00D7A101 /* MEVideoCourseDetailCell.m */; };
@@ -3198,6 +3202,9 @@
 		EB367FE223168F29006CB057 /* MEOperationRankCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEOperationRankCell.xib; sourceTree = "<group>"; };
 		EB36EAAD231CFE1000562C54 /* MELianTongListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MELianTongListVC.h; sourceTree = "<group>"; };
 		EB36EAAE231CFE1000562C54 /* MELianTongListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MELianTongListVC.m; sourceTree = "<group>"; };
+		EB36EAB0231D257300562C54 /* MELianTongListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MELianTongListCell.h; sourceTree = "<group>"; };
+		EB36EAB1231D257300562C54 /* MELianTongListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MELianTongListCell.m; sourceTree = "<group>"; };
+		EB36EAB2231D257300562C54 /* MELianTongListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MELianTongListCell.xib; sourceTree = "<group>"; };
 		EB374E02230F928C00940728 /* MEEditFollowsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEEditFollowsVC.h; sourceTree = "<group>"; };
 		EB374E03230F928C00940728 /* MEEditFollowsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEEditFollowsVC.m; sourceTree = "<group>"; };
 		EB374E05230FF45D00940728 /* MEEditLivingHabitsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEEditLivingHabitsVC.h; sourceTree = "<group>"; };
@@ -3449,6 +3456,10 @@
 		EB70E5B922FADA5B00F00046 /* LXDBacktraceLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXDBacktraceLogger.h; sourceTree = "<group>"; };
 		EB70E5BA22FADA5B00F00046 /* LXDAppFluecyMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXDAppFluecyMonitor.h; sourceTree = "<group>"; };
 		EB70E5BB22FADA5B00F00046 /* LXDAppFluecyMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXDAppFluecyMonitor.m; sourceTree = "<group>"; };
+		EB710541231E63F200C1E8B6 /* MELianTongOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MELianTongOrderVC.h; sourceTree = "<group>"; };
+		EB710542231E63F200C1E8B6 /* MELianTongOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MELianTongOrderVC.m; sourceTree = "<group>"; };
+		EB710544231E652F00C1E8B6 /* MELianTongContentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MELianTongContentVC.h; sourceTree = "<group>"; };
+		EB710545231E652F00C1E8B6 /* MELianTongContentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MELianTongContentVC.m; sourceTree = "<group>"; };
 		EB7163F722D441AB0060D58F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		EB7163F922D441B40060D58F /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		EB7163FB22D441BE0060D58F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -7230,6 +7241,10 @@
 			children = (
 				EB36EAAD231CFE1000562C54 /* MELianTongListVC.h */,
 				EB36EAAE231CFE1000562C54 /* MELianTongListVC.m */,
+				EB710541231E63F200C1E8B6 /* MELianTongOrderVC.h */,
+				EB710542231E63F200C1E8B6 /* MELianTongOrderVC.m */,
+				EB710544231E652F00C1E8B6 /* MELianTongContentVC.h */,
+				EB710545231E652F00C1E8B6 /* MELianTongContentVC.m */,
 			);
 			path = LianTong;
 			sourceTree = "<group>";
@@ -7244,6 +7259,9 @@
 		EB36EAAC231CFDF000562C54 /* LianTong */ = {
 			isa = PBXGroup;
 			children = (
+				EB36EAB0231D257300562C54 /* MELianTongListCell.h */,
+				EB36EAB1231D257300562C54 /* MELianTongListCell.m */,
+				EB36EAB2231D257300562C54 /* MELianTongListCell.xib */,
 			);
 			path = LianTong;
 			sourceTree = "<group>";
@@ -8472,6 +8490,7 @@
 				360EE7F121F575980048490E /* METhridHomeTimeSecionContentCell.xib in Resources */,
 				EB7C451F22F92F8D00B6072E /* MEOnlineCourseRecommentCell.xib in Resources */,
 				36FFD84E2143B93A0094D781 /* MEProductDetailsHeaderView.xib in Resources */,
+				EB36EAB4231D257300562C54 /* MELianTongListCell.xib in Resources */,
 				EB72EA3522FC01EC00D7A101 /* MEVideoCourseDetailCell.xib in Resources */,
 				36F10ABC224E6D7A0006E5C1 /* jquery.js in Resources */,
 				EB2523772317FEB0003521F7 /* MEChooseStatusVC.xib in Resources */,
@@ -8731,6 +8750,7 @@
 				EB6F124F22CB46F900619D4D /* MECoupleHomeMainCell.m in Sources */,
 				36F5E832222F68F1000B0241 /* TTextView.m in Sources */,
 				36F19EB6224C6E5200AD2E56 /* MEGoodManngerSpecMainCell.m in Sources */,
+				EB710543231E63F200C1E8B6 /* MELianTongOrderVC.m in Sources */,
 				36472AEE21C8E15C00CC3E48 /* JXCategoryIndicatorBallView.m in Sources */,
 				364B64F9217496B200094027 /* MEWxLoginVC.m in Sources */,
 				36FD63FC213FAAD5009743C5 /* NSAttributedString+MESize.m in Sources */,
@@ -8857,6 +8877,7 @@
 				3600A72F2159C54C00195484 /* MEImageCell.m in Sources */,
 				360A98E1214662AD009775F4 /* MEGoodsAttributeVC.m in Sources */,
 				3600345A21AE79DE00BAF337 /* MEVisiterHomeVC.m in Sources */,
+				EB36EAB3231D257300562C54 /* MELianTongListCell.m in Sources */,
 				36FEEBD8214CEFB400060209 /* MECustomActionSheet.m in Sources */,
 				369130A122363B6E008B1836 /* AAPie.m in Sources */,
 				3683F79D21CB4246008139B0 /* MECoupleMailVC.m in Sources */,
@@ -9021,6 +9042,7 @@
 				EB4A743922B38FF50027B4DE /* MEFourCoupleVC.m in Sources */,
 				3691308C22363B6E008B1836 /* AAXAxis.m in Sources */,
 				36E3EEC5221CFCDC006C79F6 /* MESearchNearAddressVC.m in Sources */,
+				EB710546231E652F00C1E8B6 /* MELianTongContentVC.m in Sources */,
 				36FF4EBA21AFB6160099DDB8 /* MESNewHomePageView.m in Sources */,
 				EB6F120322CB467F00619D4D /* MEJuHuaSuanCoupleModel.m in Sources */,
 				36B77BD021DE05CE00B4A207 /* MECoupleHomeMainGoodGoodsCell.m in Sources */,

@@ -74,9 +74,16 @@
                         <action selector="courseListAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="4Hw-ps-CuM"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gus-l4-6lB">
+                    <rect key="frame" x="16" y="269" width="31" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gus-l4-6lB" secondAttribute="trailing" constant="5" id="Duc-Zj-754"/>
                 <constraint firstItem="ceO-lf-q6d" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="FPg-cA-hJK"/>
                 <constraint firstItem="qgd-gJ-cij" firstAttribute="top" secondItem="ceO-lf-q6d" secondAttribute="bottom" constant="38" id="Gxe-3l-1cw"/>
                 <constraint firstItem="A0L-9g-KEQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IRA-98-Nb3"/>
@@ -87,24 +94,27 @@
                 <constraint firstItem="NdZ-AU-UMg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VLr-07-zR4"/>
                 <constraint firstAttribute="bottom" secondItem="A0L-9g-KEQ" secondAttribute="bottom" constant="4" id="X8Y-q1-8oS"/>
                 <constraint firstAttribute="trailing" secondItem="rVw-gd-gYQ" secondAttribute="trailing" id="Y7W-Sb-9n3"/>
+                <constraint firstItem="gus-l4-6lB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="Ybo-Gq-NE9"/>
                 <constraint firstItem="rVw-gd-gYQ" firstAttribute="width" secondItem="A0L-9g-KEQ" secondAttribute="width" id="bBx-HU-I0G"/>
                 <constraint firstItem="ceO-lf-q6d" firstAttribute="top" secondItem="NdZ-AU-UMg" secondAttribute="bottom" constant="20" id="hct-FB-Hqm"/>
+                <constraint firstItem="P0Y-0V-vve" firstAttribute="top" secondItem="gus-l4-6lB" secondAttribute="bottom" constant="19" id="m6A-e7-yeP"/>
                 <constraint firstItem="NdZ-AU-UMg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mEb-Fh-oht"/>
                 <constraint firstAttribute="trailing" secondItem="ceO-lf-q6d" secondAttribute="trailing" constant="15" id="oGj-Gn-dLB"/>
                 <constraint firstAttribute="trailing" secondItem="qgd-gJ-cij" secondAttribute="trailing" constant="15" id="u4h-qy-Jsc"/>
+                <constraint firstItem="gus-l4-6lB" firstAttribute="top" secondItem="ceO-lf-q6d" secondAttribute="bottom" constant="4" id="x7H-fH-lGx"/>
                 <constraint firstAttribute="trailing" secondItem="NdZ-AU-UMg" secondAttribute="trailing" id="x7p-iB-2vn"/>
-                <constraint firstItem="P0Y-0V-vve" firstAttribute="top" secondItem="ceO-lf-q6d" secondAttribute="bottom" constant="38" id="xe4-Ns-Qzj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="courseListBtn" destination="rVw-gd-gYQ" id="lP1-4w-oeo"/>
+                <outlet property="descLbl" destination="gus-l4-6lB" id="ens-6L-qX1"/>
                 <outlet property="headerPic" destination="NdZ-AU-UMg" id="5hY-G4-W0a"/>
                 <outlet property="introduceBtn" destination="A0L-9g-KEQ" id="VeF-NK-uHM"/>
                 <outlet property="learnCountLbl" destination="P0Y-0V-vve" id="KLo-0r-0f4"/>
                 <outlet property="priceLbl" destination="qgd-gJ-cij" id="0Wm-gV-snC"/>
                 <outlet property="titleLbl" destination="ceO-lf-q6d" id="UWc-Wx-gXW"/>
             </connections>
-            <point key="canvasLocation" x="5.5999999999999996" y="129.98500749625188"/>
+            <point key="canvasLocation" x="-591" y="103"/>
         </view>
     </objects>
     <resources>

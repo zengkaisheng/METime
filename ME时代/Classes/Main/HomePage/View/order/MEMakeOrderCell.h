@@ -16,6 +16,8 @@ const static CGFloat kMEMakeOrderCellHeight = 64;
 @property (nonatomic , copy)kMeBasicBlock returnBlock;
 
 - (void)setUIWithType:(MEMakrOrderCellStyle)type model:(NSString *)model;
+//女神卡
+- (void)setGirlNumberUIWithTitle:(NSString *)title;
 
 //退款
 - (void)setUI;
