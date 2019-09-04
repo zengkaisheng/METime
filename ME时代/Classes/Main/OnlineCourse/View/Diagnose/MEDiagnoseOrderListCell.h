@@ -16,7 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MEDiagnoseOrderListCell : UITableViewCell
 
 @property (nonatomic, copy) kMeBasicBlock tapBlock;
+
 - (void)setUIWithModel:(MEDiagnoseOrderListModel *)model;
+
++ (CGFloat)getCellHeightWithModel:(MEDiagnoseOrderListModel *)model;
 
 @end
 

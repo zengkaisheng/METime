@@ -598,7 +598,7 @@
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case MEMenuDiagnoseOrder:{//我的诊断订单
+        case MEMenuDiagnoseOrder:{//我的诊断订单/方案订单
             MEDiagnoseOrderListVC *vc = [[MEDiagnoseOrderListVC alloc]init];
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
@@ -608,7 +608,7 @@
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case MeMyMenuLianTong:{//联通i订单
+        case MeMyMenuLianTong:{//联通订单
             MELianTongOrderVC *vc = [[MELianTongOrderVC alloc]init];
             [homeVc.navigationController pushViewController:vc animated:YES];
         }

@@ -26,6 +26,7 @@
 - (IBAction)backAction:(id)sender {
     for (UIViewController *controller in self.navigationController.viewControllers) {
         if ([controller isKindOfClass:[MEOnlineCourseVC class]]) {
+            kNoticeReloadUI
             [self.navigationController popToViewController:controller animated:YES];
         }
     }

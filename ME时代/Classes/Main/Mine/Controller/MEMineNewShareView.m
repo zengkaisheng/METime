@@ -43,7 +43,8 @@
     self.backgroundColor = [UIColor colorWithHexString:@"fbfbfb"];
     
     _consSubViewHeight.constant = 140 * kMeFrameScaleX();
-    _consbIMgHeight.constant = (1053 * SCREEN_WIDTH)/750;
+    _consbIMgHeight.constant = 559*kMeFrameScaleX();
+    //(1053 * SCREEN_WIDTH)/750;
 
     _consImgCodeW.constant = 110 * kMeFrameScaleX();
     _consImgCodeH.constant = 110 * kMeFrameScaleX();
@@ -75,7 +76,8 @@
 
 + (CGFloat)getViewHeight{
     CGFloat height = 140 * kMeFrameScaleX();
-    CGFloat imgH = (1053 * SCREEN_WIDTH)/750;
+    CGFloat imgH = 559*kMeFrameScaleX();
+//    (1053 * SCREEN_WIDTH)/750;
     return height + imgH;
 }
 

@@ -62,6 +62,7 @@
 - (void)setUIWithCollectionModel:(MEMyCollectionModel *)model {
     kSDLoadImg(_headerPic, kMeUnNilStr(model.c_images_url));
     _titleLbl.text = kMeUnNilStr(model.c_name);
+    _descLbl.text = kMeUnNilStr(model.c_desc);
     _priceLbl.text = @"";
     _learnCountLbl.text = @"";
     if (model.isEdit) {
@@ -72,7 +73,6 @@
         _collectionDelBtn.hidden = YES;
         _ImageViewConsLeading.constant = 15.0;
     }
-    
 }
 
 @end

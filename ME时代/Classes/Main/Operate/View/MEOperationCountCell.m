@@ -51,6 +51,11 @@
 }
 
 - (void)setUpWithModel:(MEOperateDataSubModel *)model type:(NSInteger)type {
+    if (IS_iPhone5S) {
+        _topLeftTitleLbl.font = _topCenterTitleLbl.font = _topRightTitleLbl.font = _bottomLeftTitleLbl.font = _bottomCenterTitleLbl.font = _bottomRightTitleLbl.font = _bgLeftTitleLbl.font = _bgRightTitleLbl.font = [UIFont systemFontOfSize:10];
+    }else {
+        _topLeftTitleLbl.font = _topCenterTitleLbl.font = _topRightTitleLbl.font = _bottomLeftTitleLbl.font = _bottomCenterTitleLbl.font = _bottomRightTitleLbl.font = _bgLeftTitleLbl.font = _bgRightTitleLbl.font = [UIFont systemFontOfSize:12];
+    }
     switch (type) {
         case 1:
         {

@@ -37,6 +37,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *noDatasView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *noDataViewConsTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *firstNumLblConsWidth;
 
 @end
 
@@ -56,6 +57,11 @@
 }
 
 - (void)setUpUIWithArry:(NSArray *)array type:(NSInteger)type index:(NSInteger)index{
+    if (IS_iPhone5S) {
+        _firstNumLblConsWidth.constant = 60;
+    }else {
+        _firstNumLblConsWidth.constant = 90;
+    }
     if (type == 4) {
         for (id obj in _topView.subviews) {
             if ([obj isKindOfClass:[UIButton class]]) {

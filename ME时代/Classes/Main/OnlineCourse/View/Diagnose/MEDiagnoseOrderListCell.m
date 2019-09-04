@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UILabel *contentLbl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConsHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewConsHeight;
 
 @end
 
@@ -58,6 +59,13 @@
     _remarkLbl.text = [NSString stringWithFormat:@"用户备注：%@",kMeUnNilStr(model.remark)];
     _amountLbl.text = [NSString stringWithFormat:@"共计：￥%@",kMeUnNilStr(model.price)];
     
+    if (kMeUnNilStr(model.remark).length > 0) {
+        CGFloat remarkH = [[NSString stringWithFormat:@"用户备注：%@",kMeUnNilStr(model.remark)] boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-50, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height;
+        _contentViewConsHeight.constant = 165-18+remarkH;
+    }else {
+        _contentViewConsHeight.constant = 165;
+    }
+    
     if (model.isSpread) {
         _bottomView.hidden = NO;
         _bottomViewConsHeight.constant = model.contentHeight;
@@ -69,8 +77,19 @@
         [_changeBtn setImage:[UIImage imageNamed:@"icon_triangle_down"] forState:UIControlStateNormal];
     }
 }
+
 - (IBAction)changeBtnDidClick:(id)sender {
     kMeCallBlock(_tapBlock);
+}
+
++ (CGFloat)getCellHeightWithModel:(MEDiagnoseOrderListModel *)model {
+    CGFloat height = kMEDiagnoseOrderListCellHeight - 18;
+    CGFloat remarkH = [[NSString stringWithFormat:@"用户备注：%@",kMeUnNilStr(model.remark)] boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-50, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height;
+    height += remarkH;
+    if (model.isSpread) {
+        height += model.contentHeight;
+    }
+    return height;
 }
 
 @end

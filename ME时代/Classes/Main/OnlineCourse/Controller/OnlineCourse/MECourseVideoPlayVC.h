@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger listenTime; //试听时间
 
+- (void)reloadDatas;
+
 @end
 
 NS_ASSUME_NONNULL_END

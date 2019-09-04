@@ -59,10 +59,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{\
     MEDiagnoseOrderListModel *model = self.refresh.arrData[indexPath.row];
-    if (model.isSpread) {
-        return kMEDiagnoseOrderListCellHeight+model.contentHeight;
-    }
-    return kMEDiagnoseOrderListCellHeight;
+//    if (model.isSpread) {
+//        return kMEDiagnoseOrderListCellHeight+model.contentHeight;
+//    }
+    return [MEDiagnoseOrderListCell getCellHeightWithModel:model];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

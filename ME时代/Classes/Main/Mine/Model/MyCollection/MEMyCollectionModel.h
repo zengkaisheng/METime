@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger member_id;
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, strong) NSString * updated_at;
+@property (nonatomic, strong) NSString * c_desc;
 
 @property (nonatomic, assign) BOOL isEdit;
 @property (nonatomic, assign) BOOL isSelected;

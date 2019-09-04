@@ -347,6 +347,7 @@
                 <outlet property="LblTel" destination="R8D-Wv-nyg" id="fxf-i7-NwI"/>
                 <outlet property="businessView" destination="GWr-v4-Fkh" id="t5F-aJ-S22"/>
                 <outlet property="changeStatusBtn" destination="Wzj-Ct-hib" id="PiP-SM-BW4"/>
+                <outlet property="changeStatusBtnConsWidth" destination="xAk-cR-l5n" id="FHf-BO-M4V"/>
                 <outlet property="consSetTopMargin" destination="h6F-Cx-XAP" id="maD-UL-WGQ"/>
                 <outlet property="cpBtn" destination="a9Q-GK-2rd" id="w2y-BQ-6qJ"/>
                 <outlet property="imgPic" destination="Ey1-K7-wc4" id="kbn-q8-8Yl"/>

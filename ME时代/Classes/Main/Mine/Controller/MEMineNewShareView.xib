@@ -105,6 +105,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="TGR-sC-g5o" firstAttribute="top" secondItem="jJH-e4-BQL" secondAttribute="bottom" id="0t7-mZ-rIK"/>
                 <constraint firstAttribute="trailing" secondItem="jJH-e4-BQL" secondAttribute="trailing" id="1e4-vY-Stv"/>
                 <constraint firstAttribute="bottom" secondItem="TGR-sC-g5o" secondAttribute="bottom" id="368-We-EY6"/>
                 <constraint firstAttribute="trailing" secondItem="TGR-sC-g5o" secondAttribute="trailing" id="DKR-cZ-pgh"/>

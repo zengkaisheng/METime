@@ -99,6 +99,7 @@ typedef enum {
 @property (nonatomic, copy) void(^backBlock)(void);
 //暂停block
 @property (nonatomic, copy) void(^pauseBlock)(void);
-
+//试听结束block
+@property (nonatomic, copy) void(^listenBlock)(void);
 
 @end

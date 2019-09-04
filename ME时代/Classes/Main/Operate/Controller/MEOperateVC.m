@@ -36,10 +36,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"运营";
-    if (self.isShowTop) {
+//    self.title = @"运营";
+//    if (self.isShowTop) {
         self.title = @"运营工具";
-    }
+//    self.isShowTop = YES;
+//    }
     self.index = 1;
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
@@ -117,14 +118,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (self.isShowTop) {
+//    if (self.isShowTop) {
         return self.refresh.arrData.count+1;
-    }
-    return self.refresh.arrData.count;
+//    }
+//    return self.refresh.arrData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.isShowTop) {
+//    if (self.isShowTop) {
         if (indexPath.row == 0) {
             MEOnlineToolsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineToolsCell class]) forIndexPath:indexPath];
             [cell setUIWithHiddenRunData:YES];
@@ -164,11 +165,11 @@
             };
             return cell;
         }
-    }
+//    }
     NSInteger row = indexPath.row;
-    if (self.isShowTop) {
+//    if (self.isShowTop) {
         row = indexPath.row - 1;
-    }
+//    }
     MEOperationContentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOperationContentCell class]) forIndexPath:indexPath];
     NSDictionary *info = self.refresh.arrData[row];
     [cell setUIWithInfo:info];
@@ -242,15 +243,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.isShowTop) {
+//    if (self.isShowTop) {
         if (indexPath.row == 0) {
             return kMEOnlineToolsCellHeight-78;
         }
-    }
-    NSInteger row = indexPath.row;
-    if (self.isShowTop) {
-        row = indexPath.row - 1;
-    }
+//    }
+//    NSInteger row = indexPath.row;
+//    if (self.isShowTop) {
+//        row = indexPath.row - 1;
+//    }
 //    NSDictionary *info = self.refresh.arrData[row];
 //    NSArray *content = info[@"content"];
 //    if (content.count <= 0) {

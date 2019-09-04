@@ -19,8 +19,17 @@
 #import "TDWebViewCell.h"
 #import "MEFeedBackVC.h"
 
-@interface MECourseVideoPlayVC ()<UITableViewDelegate,UITableViewDataSource>
+#import "MECustomBuyCourseView.h"
+#import "MEPayStatusVC.h"
+#import "MEMyOrderDetailVC.h"
 
+@interface MECourseVideoPlayVC ()<UITableViewDelegate,UITableViewDataSource>
+{
+    NSString *_order_sn;
+    NSString *_order_amount;
+    BOOL _isPayError;//防止跳2次错误页面
+    BOOL _isShowBuy;
+}
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) XMPlayerView *playerView;
@@ -42,6 +51,7 @@
 }
 
 - (void)dealloc {
+    kNSNotificationCenterDealloc
     if (self.playerView) {
         [self.playerView quite];
     }
@@ -73,7 +83,7 @@
     if (!self.model) {
         [self.navigationController popViewControllerAnimated:YES];
     }
-    
+    _isShowBuy = NO;
     UIView *blackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kMeStatusBarHeight)];
     blackView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:blackView];
@@ -90,11 +100,25 @@
                 [strongSelf.navigationController pushViewController:diagnoseVC animated:YES];
             } superView:strongSelf.view];
         }
-        
+    };
+    self.playerView.listenBlock = ^{
+        kMeSTRONGSELF
+        if (!strongSelf->_isShowBuy) {
+            [MECustomBuyCourseView showCustomBuyCourseViewWithTitle:kMeUnNilStr(strongSelf.model.video_name) content:kMeUnNilStr(strongSelf.model.video_price) buyBlock:^{
+                [strongSelf buyCourseWithNetworking];
+            } cancelBlock:^{
+                
+            } superView:kMeCurrentWindow];
+            strongSelf->_isShowBuy = YES;
+        }else {
+            strongSelf->_isShowBuy = NO;
+        }
     };
     
     [self.view addSubview:self.bottomView];
     [self.view addSubview:self.tableView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadUI) name:kMEReloadUI object:nil];
     
     // 监听屏幕旋转方向
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -126,6 +150,9 @@
 }
 
 #pragma mark -- Networking
+- (void)reloadDatas {
+    [self requestVideoDetailWithNetWorkWithDetailsId:self.model.video_id];
+}
 //视频
 - (void)requestVideoDetailWithNetWorkWithDetailsId:(NSInteger)detailsId {
     kMeWEAKSELF
@@ -156,6 +183,84 @@
         [self reloadBottomView];
     } failure:^(id object) {
     }];
+}
+
+- (void)buyCourseWithNetworking {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postCreateOrderWithCourseId:[NSString stringWithFormat:@"%@",@(self.model.video_id)] orderType:@"1" successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        strongSelf->_order_sn = responseObject.data[@"order_sn"];
+        strongSelf->_order_amount = responseObject.data[@"order_amount"];
+        [MEPublicNetWorkTool postPayOnlineOrderWithOrderSn:strongSelf->_order_sn successBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            PAYPRE
+            strongSelf->_isPayError = NO;
+            MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
+            
+            BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:strongSelf->_order_amount];
+            if(!isSucess){
+                [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
+            }
+        } failure:^(id object) {
+            
+        }];
+    } failure:^(id object) {
+        
+    }];
+}
+
+#pragma mark - Pay
+- (void)WechatSuccess:(NSNotification *)noti{
+    [self payResultWithNoti:[noti object] result:WXPAY_SUCCESSED];
+}
+
+- (void)payResultWithNoti:(NSString *)noti result:(NSString *)result{
+    PAYJUDGE
+    kMeWEAKSELF
+    if ([noti isEqualToString:result]) {
+        if(_isPayError){
+            [self.navigationController popViewControllerAnimated:NO];
+        }
+        MEPayStatusVC *svc = [[MEPayStatusVC alloc]initWithSucessConfireBlock:^{
+            kMeSTRONGSELF
+            MECourseVideoPlayVC *vc = (MECourseVideoPlayVC *)[MECommonTool getClassWtihClassName:[MECourseVideoPlayVC class] targetVC:strongSelf];
+            vc.listenTime = 0;
+            [vc reloadDatas];
+            if(vc){
+                [strongSelf.navigationController popToViewController:vc animated:YES];
+            }else{
+                [strongSelf.navigationController popToViewController:strongSelf animated:YES];
+            }
+        }];
+        [self.navigationController pushViewController:svc animated:YES];
+        NSLog(@"支付成功");
+        _isPayError = NO;
+    }else{
+        if(!_isPayError){
+            kMeWEAKSELF
+            MEPayStatusVC *svc = [[MEPayStatusVC alloc]initWithFailRePayBlock:^{
+                kMeSTRONGSELF
+                [MEPublicNetWorkTool postPayOnlineOrderWithOrderSn:strongSelf->_order_sn successBlock:^(ZLRequestResponse *responseObject) {
+                    kMeSTRONGSELF
+                    MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
+                    
+                    BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:strongSelf->_order_amount];
+                    if(!isSucess){
+                        [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
+                    }
+                } failure:^(id object) {
+                    
+                }];
+            } CheckOrderBlock:^{
+                kMeSTRONGSELF
+                MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:MEAllNeedPayOrder orderGoodsSn:kMeUnNilStr(strongSelf->_order_sn)];
+                [strongSelf.navigationController pushViewController:vc animated:YES];
+            }];
+            [self.navigationController pushViewController:svc animated:YES];
+        }
+        NSLog(@"支付失败");
+        _isPayError = YES;
+    }
 }
 
 - (void)reloadBottomView {
@@ -253,6 +358,13 @@
             [self.navigationController pushViewController:feedbackVC animated:YES];
         }
             break;
+        case 3:
+        {
+            [self.playerView stopPlaying];
+            MEOnlineDiagnoseVC *diagnoseVC = [[MEOnlineDiagnoseVC alloc] init];
+            [self.navigationController pushViewController:diagnoseVC animated:YES];
+        }
+            break;
         default:
             break;
     }
@@ -323,9 +435,9 @@
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
         line.backgroundColor = [UIColor colorWithHexString:@"#707070"];
         [_bottomView addSubview:line];
-        NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_collection_nor"},@{@"title":@"咨询",@"image":@"icon_consult_white"}];
+        NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_collection_nor"},@{@"title":@"咨询",@"image":@"icon_consult_white"},@{@"title":@"诊断",@"image":@"icon_diagnose"}];
         CGFloat btnHeight = 49;
-        CGFloat btnWidth = 60;
+        CGFloat btnWidth = SCREEN_WIDTH/4;
         for (int i = 0; i < btns.count; i++) {
             NSDictionary *dict = btns[i];
             UIButton *btn = [self createButtonWithTitle:dict[@"title"] normalImage:dict[@"image"] tag:100+i];
@@ -334,7 +446,7 @@
                     [btn setImage:[UIImage imageNamed:@"icon_collection_sel"] forState:UIControlStateNormal];
                 }
             }
-            btn.frame = CGRectMake((SCREEN_WIDTH-btnWidth)/2*i, 0, btnWidth, btnHeight);
+            btn.frame = CGRectMake(i*btnWidth, 0, btnWidth, btnHeight);
             [btn setImageEdgeInsets:UIEdgeInsetsMake(-8, 10, 8, -10)];
             [btn setTitleEdgeInsets:UIEdgeInsetsMake(12, -10, -12, 10)];
             [_bottomView addSubview:btn];

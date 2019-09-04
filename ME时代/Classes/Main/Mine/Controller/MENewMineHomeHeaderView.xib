@@ -297,6 +297,7 @@
             <connections>
                 <outlet property="businessView" destination="FEf-R2-Bw7" id="8C7-zB-xRe"/>
                 <outlet property="changeStatusBtn" destination="6Xo-sz-eGN" id="vfK-m6-SJb"/>
+                <outlet property="changeStatusBtnConsWidth" destination="HQT-3a-OPW" id="Vuk-hp-n0d"/>
                 <outlet property="consSetTopMargin" destination="SSI-Rz-eam" id="Cg1-HY-vLf"/>
                 <outlet property="imgPic" destination="EiY-Z9-hT3" id="gMI-2r-Tlk"/>
                 <outlet property="lblLeve" destination="m7A-EC-Atk" id="4vF-kP-sQy"/>

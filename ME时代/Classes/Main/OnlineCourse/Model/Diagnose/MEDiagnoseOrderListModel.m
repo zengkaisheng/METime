@@ -15,7 +15,7 @@ MEModelIdToIdField
 - (CGFloat)contentHeight {
     CGFloat height = 0;
     if (self.desc) {
-        height = [self.desc boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-50, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height+6;
+        height = [self.desc boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-50, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height+12;
     }
     return height;
 }

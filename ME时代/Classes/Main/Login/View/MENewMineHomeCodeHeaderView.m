@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIView *orderView;
 //商家
 @property (weak, nonatomic) IBOutlet UIView *businessView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *changeStatusBtnConsWidth;
 
 @end
 
@@ -43,6 +44,18 @@
     CGFloat w = (SCREEN_WIDTH - 60)/4;
     _consBtnW.constant = w;
     _consSetTopMargin.constant = kMeStatusBarHeight+10;
+    
+    if (IS_iPhone5S) {
+        _changeStatusBtnConsWidth.constant = 79;
+        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:11]];
+        _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 50, 0, 0);
+        _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+    }else {
+        _changeStatusBtnConsWidth.constant = 109;
+        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
+        _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+    }
     
     CGRect bounds = self.invationBGView.layer.bounds;
     CGFloat bgViewWidth = [UIScreen mainScreen].bounds.size.width - 50;

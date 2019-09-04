@@ -92,12 +92,14 @@
 }
 
 - (void)setLayout{
+    
     _consTitleTopMargin.constant = kMeStatusBarHeight + (8*kMeFrameScaleY());
     _consImgTopMargin.constant = kImgTopMargin;
     _consImgBottomMargin.constant = 44 * kMeFrameScaleY();
-    _consBtnTopMargin.constant =42 * kMeFrameScaleY();
+    _consBtnTopMargin.constant = 42 * kMeFrameScaleY();
     if(kMeFrameScaleY()<1){
-        _consImgTopMargin.constant = 64;
+        _consImgTopMargin.constant = IS_iPhone5S?24:64;
+        _consImgBottomMargin.constant = IS_iPhone5S?24:(44 * kMeFrameScaleY());
     }
     [self.view layoutIfNeeded];
 }

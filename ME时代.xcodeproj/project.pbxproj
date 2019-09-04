@@ -1238,6 +1238,7 @@
 		EB75D69822CC826500DE646B /* MEGroupUsersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB75D69622CC826500DE646B /* MEGroupUsersCell.m */; };
 		EB75D69922CC826500DE646B /* MEGroupUsersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB75D69722CC826500DE646B /* MEGroupUsersCell.xib */; };
 		EB75D69C22CC983800DE646B /* MEGroupUserContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB75D69B22CC983800DE646B /* MEGroupUserContentModel.m */; };
+		EB765251231FAD8F00A102FF /* MECustomBuyCourseView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB765250231FAD8F00A102FF /* MECustomBuyCourseView.m */; };
 		EB77A7792303A33600191E10 /* MEDiagnosePromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB77A7782303A33600191E10 /* MEDiagnosePromptView.m */; };
 		EB77A77C2303B7EE00191E10 /* MEDiagnoseQuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB77A77B2303B7EE00191E10 /* MEDiagnoseQuestionModel.m */; };
 		EB77A77F2303BC2D00191E10 /* MEDiagnoseQuestionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB77A77E2303BC2D00191E10 /* MEDiagnoseQuestionHeaderView.m */; };
@@ -3536,6 +3537,8 @@
 		EB75D69722CC826500DE646B /* MEGroupUsersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEGroupUsersCell.xib; sourceTree = "<group>"; };
 		EB75D69A22CC983800DE646B /* MEGroupUserContentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEGroupUserContentModel.h; sourceTree = "<group>"; };
 		EB75D69B22CC983800DE646B /* MEGroupUserContentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEGroupUserContentModel.m; sourceTree = "<group>"; };
+		EB76524F231FAD8F00A102FF /* MECustomBuyCourseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECustomBuyCourseView.h; sourceTree = "<group>"; };
+		EB765250231FAD8F00A102FF /* MECustomBuyCourseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECustomBuyCourseView.m; sourceTree = "<group>"; };
 		EB77A7772303A33600191E10 /* MEDiagnosePromptView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEDiagnosePromptView.h; sourceTree = "<group>"; };
 		EB77A7782303A33600191E10 /* MEDiagnosePromptView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEDiagnosePromptView.m; sourceTree = "<group>"; };
 		EB77A77A2303B7EE00191E10 /* MEDiagnoseQuestionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEDiagnoseQuestionModel.h; sourceTree = "<group>"; };
@@ -7232,6 +7235,8 @@
 				EB352D70230D446B008036F5 /* MECustomInputView.m */,
 				EB825E9023127989007F7005 /* MECustomInputPhoneView.h */,
 				EB825E9123127989007F7005 /* MECustomInputPhoneView.m */,
+				EB76524F231FAD8F00A102FF /* MECustomBuyCourseView.h */,
+				EB765250231FAD8F00A102FF /* MECustomBuyCourseView.m */,
 			);
 			path = CustomInputView;
 			sourceTree = "<group>";
@@ -8948,6 +8953,7 @@
 				36F19EC4224C736900AD2E56 /* MEGoodManngerAddSpecModel.m in Sources */,
 				EB73831222C0C05500D02C01 /* MENewCoupleHomeVC.m in Sources */,
 				360338DA225F152600588760 /* MEAiCustomerDataModel.m in Sources */,
+				EB765251231FAD8F00A102FF /* MECustomBuyCourseView.m in Sources */,
 				36F5E80E222F68F1000B0241 /* TSwitchCell.m in Sources */,
 				EB70E5B222FAD8F500F00046 /* XMPlayerView.m in Sources */,
 				3628E7FB21C0F93B00D5405B /* MEGetCaseCell.m in Sources */,

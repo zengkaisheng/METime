@@ -60,17 +60,14 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户备注：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIN-Wp-6bN">
-                                        <rect key="frame" x="10" y="111" width="77" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="Y34-yq-jU7"/>
-                                        </constraints>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户备注：" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIN-Wp-6bN">
+                                        <rect key="frame" x="10" y="111" width="76.5" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务介绍" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGk-LZ-3es">
-                                        <rect key="frame" x="10" y="137" width="62" height="21"/>
+                                        <rect key="frame" x="10" y="134" width="62" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="0kf-ai-cIy"/>
                                         </constraints>
@@ -100,7 +97,7 @@
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Og7-NV-HpS" secondAttribute="trailing" constant="5" id="Oxh-VI-yL7"/>
                                     <constraint firstItem="tgF-vd-ahz" firstAttribute="top" secondItem="Og7-NV-HpS" secondAttribute="bottom" constant="5" id="SPN-kJ-QzW"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kmT-lf-4M6" secondAttribute="trailing" constant="5" id="Sg2-Ac-fyQ"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KIN-Wp-6bN" secondAttribute="trailing" constant="5" id="UOk-IE-NIV"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KIN-Wp-6bN" secondAttribute="trailing" constant="10" id="UOk-IE-NIV"/>
                                     <constraint firstItem="NGk-LZ-3es" firstAttribute="leading" secondItem="QQ3-Kf-Dkw" secondAttribute="leading" constant="10" id="cl2-Fh-ePV"/>
                                     <constraint firstItem="NGk-LZ-3es" firstAttribute="top" secondItem="KIN-Wp-6bN" secondAttribute="bottom" constant="5" id="dMl-Fy-wQa"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pEj-Tt-Zot" secondAttribute="trailing" constant="5" id="dZs-1I-CnU"/>
@@ -200,6 +197,7 @@
                 <outlet property="buyTimeLbl" destination="pEj-Tt-Zot" id="0qa-0i-xjM"/>
                 <outlet property="changeBtn" destination="ARw-RR-6yR" id="BsF-RT-JOL"/>
                 <outlet property="contentLbl" destination="eO1-ZK-MH2" id="s0h-ll-UkK"/>
+                <outlet property="contentViewConsHeight" destination="rVz-HC-BJ7" id="S9d-md-9rl"/>
                 <outlet property="effectiveTimeLbl" destination="Og7-NV-HpS" id="b4p-Vn-AFE"/>
                 <outlet property="nameLbl" destination="hmB-s5-Xf5" id="0ON-fq-E3A"/>
                 <outlet property="payTimeLbl" destination="tgF-vd-ahz" id="T9I-SK-Jvl"/>
