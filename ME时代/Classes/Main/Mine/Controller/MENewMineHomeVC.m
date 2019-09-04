@@ -332,7 +332,9 @@
         kMeWEAKSELF
         [MEPublicNetWorkTool getUserInvitationCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
-            strongSelf->_invite_code = kMeUnNilStr(responseObject.data);
+            if ([responseObject.data isKindOfClass:[NSString class]]) {
+                strongSelf->_invite_code = kMeUnNilStr(responseObject.data);
+            }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             dispatch_semaphore_signal(semaphore);

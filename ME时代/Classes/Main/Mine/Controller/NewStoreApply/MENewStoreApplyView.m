@@ -53,9 +53,37 @@
 - (void)reloadUI{
     
     _tfTrue_name.text = kMeUnNilStr(_model.true_name);
+    kMeWEAKSELF
+    _tfTrue_name.contentBlock = ^(NSString *str) {
+        kMeSTRONGSELF
+        if (str.length > 20) {
+            str = [str substringWithRange:NSMakeRange(0, 20)];
+            strongSelf->_tfTrue_name.text = str;
+            [strongSelf->_tfTrue_name endEditing:YES];
+        }
+        strongSelf->_model.true_name = str;
+    };
     _tfname.text = kMeUnNilStr(_model.name);
+    _tfname.contentBlock = ^(NSString *str) {
+        kMeSTRONGSELF
+        if (str.length > 20) {
+            str = [str substringWithRange:NSMakeRange(0, 20)];
+            strongSelf->_tfname.text = str;
+            [strongSelf->_tfname endEditing:YES];
+        }
+        strongSelf->_model.name = str;
+    };
     
     _tfstore_name.text = kMeUnNilStr(_model.store_name);
+    _tfstore_name.contentBlock = ^(NSString *str) {
+        kMeSTRONGSELF
+        if (str.length > 20) {
+            str = [str substringWithRange:NSMakeRange(0, 20)];
+            strongSelf->_tfstore_name.text = str;
+            [strongSelf->_tfstore_name endEditing:YES];
+        }
+        strongSelf->_model.store_name = str;
+    };
     
     self.tfaddress.text = kMeUnNilStr(_model.address);
     self.lblPCD.text = [NSString stringWithFormat:@"%@ %@ %@",kMeUnNilStr(_model.province),kMeUnNilStr(_model.city),kMeUnNilStr(_model.district)];

@@ -90,13 +90,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MEOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOrderCell class]) forIndexPath:indexPath];
-    //    kMeWEAKSELF
+        kMeWEAKSELF
     cell.cancelOrderBlock = ^{
-        //        kMeSTRONGSELF
-        //        [strongSelf.refresh.arrData removeObjectAtIndex:indexPath.row];
-        //        [strongSelf.tableView beginUpdates];
-        //        [strongSelf.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        //        [strongSelf.tableView endUpdates];
+        kMeSTRONGSELF
+        [strongSelf.refresh.arrData removeObjectAtIndex:indexPath.row];
+        [strongSelf.tableView beginUpdates];
+        [strongSelf.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [strongSelf.tableView endUpdates];
     };
     MEOrderModel *model = self.refresh.arrData[indexPath.row];
     [cell setUIWithModel:model Type:[model.order_status integerValue]];

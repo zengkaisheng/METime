@@ -14,12 +14,15 @@
 #import "MEStoreApplyStatusVC.h"
 #import "MEStoreApplyModel.h"
 
+#define kMENavViewHeight (((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 88 : 64))
+
 @interface MENewStoreApplyVC ()<UIScrollViewDelegate>{
     NSString *_token;
     BOOL _isError;
 }
 @property (nonatomic, strong) MENewStoreApplyView *cview;
 @property (nonatomic, strong) UIScrollView *scrollerView;
+@property (nonatomic, strong) UIView *navBar;
 
 @end
 
@@ -31,11 +34,13 @@
     self.title = @"门店申请";
     [self.view addSubview:self.scrollerView];
     [self.scrollerView addSubview:self.cview];
+    self.navBarHidden = YES;
+    [self.view addSubview:self.navBar];
 }
 
 - (void)submitAction{
     if(!kMeUnNilStr(self.parModel.true_name).length){
-        [MEShowViewTool showMessage:@"名字不能为空" view:kMeCurrentWindow];
+        [MEShowViewTool showMessage:@"真实姓名不能为空" view:kMeCurrentWindow];
         return;
     }
     if(!kMeUnNilStr(self.parModel.name).length){
@@ -51,7 +56,7 @@
         return;
     }
     if(!kMeUnNilStr(self.parModel.address).length){
-        [MEShowViewTool showMessage:@"详情地址不能为空" view:kMeCurrentWindow];
+        [MEShowViewTool showMessage:@"详细地址不能为空" view:kMeCurrentWindow];
         return;
     }
     if(!kMeUnNilStr(self.parModel.longitude).length || !kMeUnNilStr(self.parModel.latitude).length){
@@ -64,12 +69,22 @@
         MEStoreApplyStatusVC *vc = [[MEStoreApplyStatusVC alloc]init];
         MEStoreApplyModel *model = [MEStoreApplyModel new];
         model.state = 1;
+        model.message = @"预计10分钟以内审核完毕，审核结果会短信通知到您的注册手机上。届时请您重新登录账号！";
         vc.model = model;
+        vc.finishBlock = ^{
+            kMeCallBlock(strongSelf.finishBlock);
+        };
         [strongSelf.navigationController pushViewController:vc animated:YES];
     } failure:^(id object) {
     }];
 }
 
+- (void)backButtonPressed {
+    kMeCallBlock(self.finishBlock);
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma setter&&getter
 - (MEStoreApplyParModel *)parModel{
     if(!_parModel){
         _parModel = [MEStoreApplyParModel getModel];
@@ -120,6 +135,28 @@
         [_cview reloadUI];
     }
     return _cview;
+}
+
+- (UIView *)navBar{
+    if(!_navBar){
+        _navBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kMENavViewHeight)];
+        _navBar.backgroundColor = [UIColor colorWithHexString:@"#F2F2F2"];
+        
+        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        backButton.frame = CGRectMake(0, kMeStatusBarHeight, 44, 44);
+        [backButton setImage:[UIImage imageNamed:@"inc-xz"] forState:UIControlStateNormal];
+        backButton.imageEdgeInsets = UIEdgeInsetsMake(0, 9, 0, 0);
+        [backButton addTarget:self action:@selector(backButtonPressed)
+             forControlEvents:UIControlEventTouchUpInside];
+        [_navBar addSubview:backButton];
+        
+        UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-100)/2, kMeStatusBarHeight, 100, 44)];
+        titleLbl.font = [UIFont boldSystemFontOfSize:17];
+        titleLbl.textAlignment = NSTextAlignmentCenter;
+        titleLbl.text = @"门店申请";
+        [_navBar addSubview:titleLbl];
+    }
+    return _navBar;
 }
 
 @end

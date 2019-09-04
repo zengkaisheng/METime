@@ -129,6 +129,7 @@
 }
 
 - (void)popBackAction{
+    kMeCallBlock(self.finishBlock);
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

@@ -231,8 +231,16 @@ const static CGFloat MEBynamicPublishVCTextHeight = 193;
                         }
                     }
                     if (assets.count < (strongSelf->_type==1?3:9)) {
-                        MEBynamicPublishGridModel *lastmodel = [MEBynamicPublishGridModel modelWithImage:[UIImage imageNamed:@"icon_bynamicAdd"] isAdd:YES];
-                        [strongSelf.arrModel addObject:lastmodel];
+                        BOOL isAdd = NO;
+                        for (MEBynamicPublishGridModel *model in strongSelf.arrModel) {
+                            if (model.isAdd) {
+                                isAdd = YES;
+                            }
+                        }
+                        if (!isAdd) {
+                            MEBynamicPublishGridModel *lastmodel = [MEBynamicPublishGridModel modelWithImage:[UIImage imageNamed:@"icon_bynamicAdd"] isAdd:YES];
+                            [strongSelf.arrModel addObject:lastmodel];
+                        }
                     }
                     [strongSelf reloadGridView];
                 }];
@@ -246,8 +254,16 @@ const static CGFloat MEBynamicPublishVCTextHeight = 193;
             kMeSTRONGSELF
             [strongSelf.arrModel removeObjectAtIndex:index];
             if (strongSelf.arrModel.count < (strongSelf->_type==1?3:9)) {
-                MEBynamicPublishGridModel *lastmodel = [MEBynamicPublishGridModel modelWithImage:[UIImage imageNamed:@"icon_bynamicAdd"] isAdd:YES];
-                [strongSelf.arrModel addObject:lastmodel];
+                BOOL isAdd = NO;
+                for (MEBynamicPublishGridModel *model in strongSelf.arrModel) {
+                    if (model.isAdd) {
+                        isAdd = YES;
+                    }
+                }
+                if (!isAdd) {
+                    MEBynamicPublishGridModel *lastmodel = [MEBynamicPublishGridModel modelWithImage:[UIImage imageNamed:@"icon_bynamicAdd"] isAdd:YES];
+                    [strongSelf.arrModel addObject:lastmodel];
+                }
             }
             [strongSelf reloadGridView];
         };

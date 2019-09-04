@@ -16,9 +16,11 @@
 #import "MEFillInvationCodeVC.h"
 #import "MEChooseStatusVC.h"
 #import "MENewStoreApplyVC.h"
+#import "MEFourHomeVC.h"
 
 @interface MEWxLoginVC (){
     BOOL _isNewUser;
+    BOOL _isChooseStatus;
 }
 
 @property (assign, nonatomic) BOOL isModelPush;
@@ -184,10 +186,15 @@
             kMeSTRONGSELF
             [MEChooseStatusVC presentChooseStatusVCWithIndexBlock:^(NSInteger index) {
                 if (index == 1) {
+                    strongSelf->_isChooseStatus = YES;
                     MENewStoreApplyVC *appleVC = [[MENewStoreApplyVC alloc] init];
+                    appleVC.finishBlock = ^{
+                        [strongSelf loginSuccess];
+                    };
                     [strongSelf.navigationController pushViewController:appleVC animated:YES];
+                }else {
+                    [strongSelf loginSuccess];
                 }
-                [strongSelf loginSuccess];
             }];
         } failHandler:^(id object) {
              [MEUserInfoModel logout];

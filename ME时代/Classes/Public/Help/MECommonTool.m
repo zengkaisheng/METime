@@ -601,6 +601,11 @@
                                     searchHomeVC.recordType = 5;
                                     [baseVC.navigationController pushViewController:searchHomeVC animated:YES];
                                 }
+                                    break;
+                                case 100://关闭按钮
+                                {
+                                }
+                                    break;
                                 default:
                                     break;
                             }

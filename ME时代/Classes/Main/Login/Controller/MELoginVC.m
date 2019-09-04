@@ -77,7 +77,6 @@
     // Do any additional setup after loading the view from its nib.
 }
 
-
 - (void)initSomeThing{
     [self setLayout];
     self.navBarHidden = YES;

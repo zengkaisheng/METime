@@ -90,7 +90,7 @@
 - (MELianTongContentVC *)finishVC{
     if(!_finishVC){
         _finishVC = [[MELianTongContentVC alloc] initWithType:3];
-        _finishVC.view.frame = CGRectMake(SCREEN_WIDTH*4,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
+        _finishVC.view.frame = CGRectMake(SCREEN_WIDTH*3,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
         _finishVC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addChildViewController:_finishVC];
     }

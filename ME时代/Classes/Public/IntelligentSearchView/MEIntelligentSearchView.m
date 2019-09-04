@@ -88,7 +88,8 @@
 
 - (void)hideAction:(UIButton *)btn{
     [self hide];
-    kMeCallBlock(_cancelBlock);
+    kMeCallBlock(self.tapBlock,100);
+//    kMeCallBlock(_cancelBlock);
 }
 
 - (void)hideTap:(UITapGestureRecognizer *)ges{

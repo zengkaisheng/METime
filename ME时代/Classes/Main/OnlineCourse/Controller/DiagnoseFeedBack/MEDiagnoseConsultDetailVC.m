@@ -93,7 +93,7 @@
     CGFloat problemHeight = [self getLabelHeightWithContent:kMeUnNilStr(self.model.problem)];
     CGFloat problemViewHeight = [self getBGViewHeightWithContentHeight:problemHeight images:kMeUnArr(self.model.images)];
     
-    UIView *problemView = [self createBGViewWithTitle:@"问题描述" content:kMeUnNilStr(self.model.problem) contentHeight:problemHeight images:kMeUnArr(self.model.images) frame:CGRectMake(15, kMeNavBarHeight + 10, SCREEN_WIDTH-30, problemViewHeight)];
+    UIView *problemView = [self createBGViewWithTitle:@"问题描述：" content:kMeUnNilStr(self.model.problem) contentHeight:problemHeight images:kMeUnArr(self.model.images) frame:CGRectMake(15, kMeNavBarHeight + 10, SCREEN_WIDTH-30, problemViewHeight)];
     problemView.backgroundColor = [UIColor colorWithHexString:@"#FFD5D5"];
     [self.view addSubview:problemView];
     
@@ -105,6 +105,8 @@
         UIView *replyView = [[UIView alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(problemView.frame)+20, SCREEN_WIDTH-30, 290)];
         replyView.backgroundColor = [UIColor whiteColor];
         replyView.layer.cornerRadius = 10;
+        replyView.layer.borderWidth = 1.0;
+        replyView.layer.borderColor = [UIColor colorWithHexString:@"#707070"].CGColor;
         [self.view addSubview:replyView];
         
         [replyView addSubview:self.textView];
@@ -141,7 +143,7 @@
         }
         
     }else {
-        UIView *answerView = [self createBGViewWithTitle:@"问题回答" content:kMeUnNilStr(self.model.answer) contentHeight:answerHeight images:kMeUnArr(self.model.answer_images) frame:CGRectMake(15, CGRectGetMaxY(problemView.frame)+30, SCREEN_WIDTH-30, answerViewHeight)];
+        UIView *answerView = [self createBGViewWithTitle:@"问题回答：" content:kMeUnNilStr(self.model.answer) contentHeight:answerHeight images:kMeUnArr(self.model.answer_images) frame:CGRectMake(15, CGRectGetMaxY(problemView.frame)+30, SCREEN_WIDTH-30, answerViewHeight)];
         answerView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:answerView];
     }
@@ -350,7 +352,7 @@
 - (METextView *)textView{
     if(!_textView){
         _textView = [[METextView alloc]initWithFrame:CGRectMake(20, 5, SCREEN_WIDTH-30-40, 120)];
-        _textView.placeholderTextView.text = @"问题答案";
+        _textView.placeholderTextView.text = @"问题回答：";
         _textView.textView.font = kMeFont(14);
         _textView.textView.textColor = kMEblack;
     }
@@ -387,6 +389,8 @@
 - (UIView *)createBGViewWithTitle:(NSString *)title content:(NSString *)content contentHeight:(CGFloat)contentHeight images:(NSArray *)images frame:(CGRect)frame{
     UIView *bgView = [[UIView alloc] initWithFrame:frame];
     bgView.layer.cornerRadius = 10.0;
+    bgView.layer.borderWidth = 1.0;
+    bgView.layer.borderColor = [UIColor colorWithHexString:@"#707070"].CGColor;
     //标题
     UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(20, 15, frame.size.width-40, 21)];
     titleLbl.text = title;

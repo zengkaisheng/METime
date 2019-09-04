@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MEStoreApplyModel;
 @interface MEStoreApplyStatusVC : MEBaseVC
 
+@property (nonatomic, copy) kMeBasicBlock finishBlock;
 @property (nonatomic , strong) MEStoreApplyModel *model;
 
 @end
