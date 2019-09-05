@@ -271,15 +271,23 @@
                         }
                     }
                     MEExpenseSourceModel *sourceModel = self.dataSource[indexPath.row];
-                    sourceModel.isSelected = !sourceModel.isSelected;
-                    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    sourceModel.isSelected = YES;
+                    NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.section];
+                    [tableView reloadSections:set withRowAnimation:UITableViewRowAnimationFade];
                 }
             }
             if (self.natureCount > 0) {
                 if (indexPath.row > self.dataSource.count-1-2-self.natureCount && indexPath.row < self.dataSource.count-2) {
-                    MEExpenseSourceModel *natureModel = self.dataSource[indexPath.row];
-                    natureModel.isSelected = !natureModel.isSelected;
-                    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    for (id obj in self.dataSource) {
+                        if ([obj isKindOfClass:[MEExpenseSourceModel class]]) {
+                            MEExpenseSourceModel *model = (MEExpenseSourceModel *)obj;
+                            model.isSelected = NO;
+                        }
+                    }
+                    MEExpenseSourceModel *sourceModel = self.dataSource[indexPath.row];
+                    sourceModel.isSelected = YES;
+                    NSIndexSet *set = [NSIndexSet indexSetWithIndex:indexPath.section];
+                    [tableView reloadSections:set withRowAnimation:UITableViewRowAnimationFade];
                 }
             }
             id obj = self.dataSource[indexPath.row];

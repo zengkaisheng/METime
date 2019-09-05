@@ -16,7 +16,7 @@
 #import "YBImageBrowser.h"
 #import "MEBynamicPublishGridContentView.h"
 
-@interface MEDiagnoseConsultDetailVC ()<TZImagePickerControllerDelegate,YBImageBrowserDataSource>
+@interface MEDiagnoseConsultDetailVC ()<TZImagePickerControllerDelegate,YBImageBrowserDataSource,UIScrollViewDelegate>
 {
     NSInteger _currentIndex;
     NSMutableArray *_arrImage;
@@ -33,6 +33,8 @@
 @property (nonatomic, strong) MEBynamicPublishGridView *gridView;
 @property (strong, nonatomic) NSMutableArray *arrModel;
 @property (nonatomic, strong) UIButton *submitBtn;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UILabel *numberLbl;
 
 @end
 
@@ -82,6 +84,11 @@
             [strongSelf.navigationController popViewControllerAnimated:YES];
         }];
     }
+    
+    [kMeCurrentWindow addSubview:self.scrollView];
+    [kMeCurrentWindow addSubview:self.numberLbl];
+    self.scrollView.hidden = YES;
+    self.numberLbl.hidden = YES;
 }
 
 - (void)reloadGridView{
@@ -141,7 +148,6 @@
             }
             [self.view addSubview:btn];
         }
-        
     }else {
         UIView *answerView = [self createBGViewWithTitle:@"问题回答：" content:kMeUnNilStr(self.model.answer) contentHeight:answerHeight images:kMeUnArr(self.model.answer_images) frame:CGRectMake(15, CGRectGetMaxY(problemView.frame)+30, SCREEN_WIDTH-30, answerViewHeight)];
         answerView.backgroundColor = [UIColor whiteColor];
@@ -250,6 +256,52 @@
     });
 }
 
+- (void)tapAction:(UIGestureRecognizer *)tap {
+    UIImageView *imgView = (UIImageView *)tap.view;
+    NSArray *images = [NSArray array];
+    NSInteger tag = imgView.tag;
+    if (imgView.tag < 20) {
+        self.scrollView.hidden = NO;
+        self.numberLbl.hidden = NO;
+        images = self.model.images;
+        tag -= 10;
+    }else {
+        self.scrollView.hidden = NO;
+        self.numberLbl.hidden = NO;
+        images = self.model.answer_images;
+        tag -= 20;
+    }
+    for (int i = 0; i < images.count; i++) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(images[i])]]];
+//        kSDLoadImg(imgView, kMeUnNilStr(images[i]));
+//        imgView.userInteractionEnabled = YES;
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+//        imgView.tag = 30+i;
+//        [imgView addGestureRecognizer:tap];
+        [self.scrollView addSubview:imageView];
+    }
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*images.count, 0);
+    self.scrollView.contentOffset = CGPointMake(SCREEN_WIDTH * tag, 0);
+    self.numberLbl.text = [NSString stringWithFormat:@"%@/%@",@(tag+1),@(images.count)];
+}
+
+- (void)hideScrollview {
+    for (id obj in self.scrollView.subviews) {
+        if ([obj isKindOfClass:[UIImageView class]]) {
+            [obj removeFromSuperview];
+        }
+    }
+    self.numberLbl.text = @"1/3";
+    self.numberLbl.hidden = YES;
+    self.scrollView.hidden = YES;
+}
+#pragma scrollviewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    NSInteger page = scrollView.contentOffset.x / SCREEN_WIDTH;
+    self.numberLbl.text = [NSString stringWithFormat:@"%@/3",@(page+1)];
+}
+
 - (void)showPhotoWithModel:(MEBynamicPublishGridModel*)model{
     _currentIndex = model.selectIndex;
     YBImageBrowser *browser = [YBImageBrowser new];
@@ -272,6 +324,7 @@
     return contenView.imageVIew;
 }
 
+#pragma mark -- setter && getter
 - (NSMutableArray *)arrModel{
     if(!_arrModel){
         _arrModel = [NSMutableArray array];
@@ -385,6 +438,31 @@
     return _submitBtn;
 }
 
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _scrollView.pagingEnabled = YES;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.delegate = self;
+        _scrollView.userInteractionEnabled = YES;
+        _scrollView.backgroundColor = [UIColor blackColor];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideScrollview)];
+        [_scrollView addGestureRecognizer:tap];
+    }
+    return _scrollView;
+}
+
+- (UILabel *)numberLbl {
+    if (!_numberLbl) {
+        _numberLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, kMeStatusBarHeight, SCREEN_WIDTH, 44)];
+        _numberLbl.font = [UIFont systemFontOfSize:17];
+        _numberLbl.textColor = [UIColor blackColor];
+        _numberLbl.textAlignment = NSTextAlignmentCenter;
+        _numberLbl.text = @"0/3";
+    }
+    return _numberLbl;
+}
+
 #pragma --- Helper
 - (UIView *)createBGViewWithTitle:(NSString *)title content:(NSString *)content contentHeight:(CGFloat)contentHeight images:(NSArray *)images frame:(CGRect)frame{
     UIView *bgView = [[UIView alloc] initWithFrame:frame];
@@ -411,10 +489,17 @@
         for (int i = 0; i < images.count; i++) {
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(20+(itemWith+40)*i, frame.size.height-10-itemHeight, itemWith, itemHeight)];
             kSDLoadImg(imgView, kMeUnNilStr(images[i]));
+            if ([title isEqualToString:@"问题描述："]) {
+                imgView.tag = 10+i;
+            }else if ([title isEqualToString:@"问题回答："]) {
+                imgView.tag = 20+i;
+            }
+            imgView.userInteractionEnabled = YES;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+            [imgView addGestureRecognizer:tap];
             [bgView addSubview:imgView];
         }
     }
-    
     return bgView;
 }
 

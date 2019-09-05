@@ -36,7 +36,7 @@
                   moduleName = "ME&#x65f6;&#x4ee3;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Main/OnlineCourse/Controller/CustomerFiles/MECustomerTypeListVC.m"
-                  timestampString = "589288107.6662689"
+                  timestampString = "589357820.404462"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "266"
@@ -51,7 +51,7 @@
                   moduleName = "ME&#x65f6;&#x4ee3;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Main/OnlineCourse/Controller/CustomerFiles/MECustomerTypeListVC.m"
-                  timestampString = "589288107.6685489"
+                  timestampString = "589357820.4069819"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "267"
@@ -66,7 +66,7 @@
                   moduleName = "ME&#x65f6;&#x4ee3;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Main/OnlineCourse/Controller/CustomerFiles/MECustomerTypeListVC.m"
-                  timestampString = "589288107.67064"
+                  timestampString = "589357820.409248"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "266"
@@ -74,38 +74,6 @@
                   offsetFromSymbolStart = "16">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/OnlineCourse/View/CustomerConsume/MECustomerExpenseContentCell.m"
-            timestampString = "589277698.065747"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/OnlineCourse/View/CustomerConsume/MECustomerExpenseContentCell.m"
-            timestampString = "589277698.066103"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -694,6 +694,8 @@
 + (void)postAddCustomerInformationWithInformationModel:(MEAddCustomerInformationModel *)informationModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取顾客档案信息
 + (void)postGetCustomerInformationWithCustomerId:(NSInteger)customerId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//删除顾客档案
++ (void)postDeleteCustomerFileWithFileId:(NSInteger)fileId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //修改顾客基本信息
 + (void)postEditCustomerInformationWithInformationModel:(MEAddCustomerInformationModel *)informationModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 
@@ -722,6 +724,8 @@
 
 //修改生活习惯分类
 + (void)postEditLivingHabitClassifyNameWithClassifyId:(NSString *)classifyId classifyTitle:(NSString *)classifyTitle type:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//添加生活习惯分类
++ (void)postAddCustomerLivingHabitClassifyWithClassifyTitle:(NSString *)classifyTitle type:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

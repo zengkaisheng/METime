@@ -11,7 +11,7 @@
 
 //#warning -mustNotes 上线一定要注释/海报分享产品分享
 
-//#define TestVersion
+#define TestVersion
 
 //域名 develop
 #ifdef TestVersion
@@ -904,6 +904,8 @@
 #define MEIPcommonGetCustomerFilesInfo @"common/customerfiles/customerFilesInfo"
 //修改顾客档案信息
 #define MEIPcommonGetCustomerFilesEdit @"common/customerfiles/customerFilesEdit"
+//删除顾客档案信息
+#define MEIPcommonGetCustomerFilesDel @"common/customerfiles/customerFilesDel"
 
 //修改顾客档案销售信息
 #define MEIPcommonSetCustomerFilesSales @"common/customerfiles/setCustomerFilesSales"
@@ -929,7 +931,8 @@
 
 //修改生活习惯分类
 #define MEIPcommonLivingHabitClassifyEdit @"common/livinghabit/livingHabitClassifyEdit"
-
+//添加生活习惯分类
+#define MEIPcommonLivingHabitClassifyAdd @"common/livinghabit/livingHabitClassifyAdd"
 /*********************************************/
 
 

@@ -8,7 +8,7 @@
 
 #import "MECustomerFilesBaseVC.h"
 #import "MECustomerFileListModel.h"
-#import "MECustomerFilesListCell.h"
+#import "MECustomerServiceListCell.h"
 #import "MECustomerDetailVC.h"
 
 @interface MECustomerFilesBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
@@ -54,20 +54,49 @@
     [self.refresh reload];
 }
 
+#pragma mark -- Networking
+- (void)deleteCustomerFileWithFileId:(NSInteger)fileId {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetCustomerInformationWithCustomerId:fileId successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        [MECommonTool showMessage:@"删除成功" view:kMeCurrentWindow];
+        [strongSelf.refresh reload];
+    } failure:^(id object) {
+    }];
+}
+
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.refresh.arrData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MECustomerFilesListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerFilesListCell class]) forIndexPath:indexPath];
+    MECustomerServiceListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MECustomerServiceListCell class]) forIndexPath:indexPath];
     MECustomerFileListModel *model = self.refresh.arrData[indexPath.row];
     [cell setUIWithModel:model];
+    kMeWEAKSELF
+    cell.tapBlock = ^(NSInteger index) {
+        kMeSTRONGSELF
+        if (index == 0) {//删除
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [strongSelf deleteCustomerFileWithFileId:model.customer_files_id];
+            }];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"确定要删除 %@ 吗？",kMeUnNilStr(model.name)] preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:cancelAction];
+            [alertController addAction:sureAction];
+            [strongSelf presentViewController:alertController animated:YES completion:nil];
+        }else if (index == 1) {//查看
+             MECustomerDetailVC *vc = [[MECustomerDetailVC alloc] initWithCustomerId:model.idField];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        }
+    };
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return kMECustomerFilesListCellHeight;
+    return kMECustomerServiceListCellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -80,7 +109,7 @@
 - (UITableView *)tableView{
     if(!_tableView){
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) style:UITableViewStylePlain];
-        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECustomerFilesListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECustomerFilesListCell class])];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECustomerServiceListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECustomerServiceListCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.delegate = self;

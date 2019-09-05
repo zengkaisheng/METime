@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) UIButton *bottomBtn;
+@property (nonatomic, strong) UIButton *saveBtn;
 
 @property (nonatomic, assign) NSInteger customerId;
 @property (nonatomic, assign) NSInteger type;
@@ -43,6 +44,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.saveBtn];
     [self.view addSubview:self.footerView];
     [self.view addSubview:self.tableView];
 }
@@ -77,6 +79,32 @@
 
 #pragma mark -- Action
 - (void)bottomBtnAction {
+    kMeWEAKSELF
+    [MECustomInputView showCustomInputViewWithTitle:@"添加生活习惯" content:@"" showChooseBtn:YES isInput:NO saveBlock:^(NSString * str, BOOL isShow) {
+        kMeSTRONGSELF
+        [MEPublicNetWorkTool postAddCustomerLivingHabitClassifyWithClassifyTitle:kMeUnNilStr(str) type:isShow?1:0 successBlock:^(ZLRequestResponse *responseObject) {
+            if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+                MELivingHabitListModel *listModel = [MELivingHabitListModel mj_objectWithKeyValues:responseObject.data];
+                listModel.habit = [NSArray new];
+                [strongSelf.dataSource addObject:listModel];
+                [strongSelf.tableView reloadData];
+                kMeCallBlock(strongSelf.finishBlock);
+                MECustomerTypeListVC *vc = [[MECustomerTypeListVC alloc] initWithHabitModel:listModel];
+                vc.contentBlock = ^(MELivingHabitListModel *listModel) {
+                    listModel = listModel;
+                    [strongSelf.tableView reloadData];
+                    kMeCallBlock(strongSelf.finishBlock);
+                };
+                [strongSelf.navigationController pushViewController:vc animated:YES];
+            }
+        } failure:^(id object) {
+            
+        }];
+    } cancelBlock:^{
+    } superView:kMeCurrentWindow];
+}
+
+- (void)saveBtnAction {
     [self saveLivingHabitList];
 }
 
@@ -189,7 +217,7 @@
 - (UIButton *)bottomBtn {
     if(!_bottomBtn){
         _bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
+        [_bottomBtn setTitle:@"添加" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_bottomBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
         [_bottomBtn setBackgroundColor:kMEPink];
@@ -198,6 +226,21 @@
         [_bottomBtn addTarget:self action:@selector(bottomBtnAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
+}
+
+- (UIButton *)saveBtn{
+    if(!_saveBtn){
+        _saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_saveBtn setTitle:@"保存" forState:UIControlStateNormal];
+        [_saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_saveBtn setBackgroundColor:kMEPink];
+        _saveBtn.cornerRadius = 12;
+        _saveBtn.clipsToBounds = YES;
+        _saveBtn.frame = CGRectMake(0, 0, 65, 25);
+        _saveBtn.titleLabel.font = kMeFont(15);
+        [_saveBtn addTarget:self action:@selector(saveBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _saveBtn;
 }
 
 @end
