@@ -64,8 +64,8 @@
         [self.refresh.arrData removeAllObjects];
     }
     
-    [self.refresh.arrData addObject:@{@"title":@"本月业绩统计",@"type":@"1",@"content":@[self.model.total]}];
-    [self.refresh.arrData addObject:@{@"title":@"累计业绩统计",@"type":@"2",@"content":@[self.model.this_month]}];
+    [self.refresh.arrData addObject:@{@"title":@"本月业绩统计",@"type":@"1",@"content":@[self.model.this_month]}];
+    [self.refresh.arrData addObject:@{@"title":@"累计业绩统计",@"type":@"2",@"content":@[self.model.total]}];
     [self.refresh.arrData addObject:@{@"title":@"顾客预约",@"type":@"3",@"content":@[self.model.appointment]}];
     [self.refresh.arrData addObject:@{@"title":@"员工排名",@"type":@"4",@"index":@(self.index-1),@"content":[self.clerkRanks copy]}];
     [self.refresh.arrData addObject:@{@"title":@"服务项目排名",@"type":@"5",@"content":[self.objectRanks copy]}];

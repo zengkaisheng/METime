@@ -346,6 +346,9 @@
                 }
             }
         }];
+        if (_goodModel.product_type == 17) {
+            svc.order_sn = _order_sn;
+        }
         [self.navigationController pushViewController:svc animated:YES];
         NSLog(@"支付成功");
         _isPayError = NO;

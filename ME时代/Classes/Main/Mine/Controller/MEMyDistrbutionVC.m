@@ -30,6 +30,8 @@
 #import "MEMySelfExtractionOrderVC.h"
 #import "MEBrandManngerVC.h"
 
+#import "MEMoneyDetailedVC.h"
+
 @interface MEMyDistrbutionVC ()<UICollectionViewDelegate,UICollectionViewDataSource>{
     //c端model
     MEDistributionCentreModel *_cModel;
@@ -41,6 +43,8 @@
 @property (strong, nonatomic)  UICollectionView *collectionView;
 @property (strong, nonatomic)  NSArray *arrData;
 @property (strong, nonatomic)  NSArray *arrDataStr;
+
+@property (nonatomic, strong) UIButton *rightBtn;
 @end
 
 @implementation MEMyDistrbutionVC
@@ -101,6 +105,13 @@
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
     [self.collectionView.mj_header beginRefreshing];
     // Do any additional setup after loading the view.
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightBtn];
+}
+
+- (void)rightBtnAction {
+    MEGetCaseMainSVC *vc = [[MEGetCaseMainSVC alloc] initWithType:MEGetCaseAllStyle isLianTong:NO];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)loadData{
@@ -248,7 +259,7 @@
         }
             break;
         case MEMyCash:{
-            MEGetCaseMainSVC *vc = [[MEGetCaseMainSVC alloc]initWithType:MEGetCaseAllStyle];
+            MEGetCaseMainSVC *vc = [[MEGetCaseMainSVC alloc]initWithType:MEGetCaseAllStyle isLianTong:NO];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -387,6 +398,18 @@
         _collectionView.backgroundColor = kMEHexColor(@"eeeeee");
     }
     return _collectionView;
+}
+
+- (UIButton *)rightBtn{
+    if(!_rightBtn){
+        _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_rightBtn setTitle:@"提现记录" forState:UIControlStateNormal];
+        [_rightBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _rightBtn.frame = CGRectMake(0, 0, 65, 44);
+        _rightBtn.titleLabel.font = kMeFont(15);
+        [_rightBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightBtn;
 }
 
 @end

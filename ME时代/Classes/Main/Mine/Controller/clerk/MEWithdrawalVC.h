@@ -13,4 +13,6 @@
 @property (nonatomic, copy) kMeBasicBlock applySucessBlock;
 //优惠卷佣金提现入口
 - (instancetype)initWithCouponMoney;
+
+@property (nonatomic, assign) BOOL isLianTong;
 @end

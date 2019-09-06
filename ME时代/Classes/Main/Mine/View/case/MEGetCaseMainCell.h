@@ -13,6 +13,9 @@ const static CGFloat kMEGetCaseMainCellHeight = 205;
 
 @interface MEGetCaseMainCell : UITableViewCell
 
+
 - (void)setUIWithModel:(MEGetCaseMainModel *)model;
 +(CGFloat)getCellHeightWithModel:(MEGetCaseMainModel *)model;
+
+
 @end

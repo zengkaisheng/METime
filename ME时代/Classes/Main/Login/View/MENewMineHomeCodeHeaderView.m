@@ -12,6 +12,7 @@
 #import "MEMyOrderVC.h"
 #import "MEMineSetVC.h"
 #import "MERefundOrderListVC.h"
+#import "MEMineHomeMuneModel.h"
 
 @interface MENewMineHomeCodeHeaderView ()
 
@@ -33,6 +34,7 @@
 //商家
 @property (weak, nonatomic) IBOutlet UIView *businessView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *changeStatusBtnConsWidth;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 
 @end
 
@@ -53,8 +55,8 @@
     }else {
         _changeStatusBtnConsWidth.constant = 109;
         [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
-        _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
-        _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+        _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 75, 0, 0);
+        _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -50, 0, 0);
     }
     
     CGRect bounds = self.invationBGView.layer.bounds;
@@ -126,15 +128,49 @@
         _changeStatusBtn.hidden = NO;
     }
     NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+     _businessView.hidden = YES;
     if ([status isEqualToString:@"customer"]) {
-        _businessView.hidden = YES;
+       
         _orderView.hidden = NO;
-//        [_changeStatusBtn setTitle:@"切换到商家" forState:UIControlStateNormal];
+        [_changeStatusBtn setTitle:@"切换商家版" forState:UIControlStateNormal];
     }else if ([status isEqualToString:@"business"]) {
-        _businessView.hidden = NO;
-        _orderView.hidden = YES;
-//        [_changeStatusBtn setTitle:@"切换到用户" forState:UIControlStateNormal];
+//        _businessView.hidden = NO;
+        _orderView.hidden = NO;
+        [_changeStatusBtn setTitle:@"切换用户版" forState:UIControlStateNormal];
     }
+    
+    for (id obj in _bottomView.subviews) {
+        if ([obj isKindOfClass:[UIButton class]]) {
+            [obj removeFromSuperview];
+        }
+    }
+    CGFloat btnWidth = (SCREEN_WIDTH-60)/self.orderList.count;
+    for (int i = 0; i < self.orderList.count; i++) {
+        MEMineHomeMuneChildrenModel *model = self.orderList[i];
+        UIButton *btn = [self createBtnWithTitle:kMeUnNilStr(model.name) image:kMeUnNilStr(model.icon) tag:model.path.integerValue frame:CGRectMake(btnWidth*i, 0, btnWidth, 85)];
+        UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(model.icon)]]]];
+        imgV.frame = CGRectMake((btnWidth*i+btnWidth/2-11), 10, 22, 27);
+        [_bottomView addSubview:imgV];
+        [_bottomView addSubview:btn];
+    }
+}
+
+- (void)btnDidClick:(UIButton *)sender {
+    kMeCallBlock(self.indexBlock,sender.tag);
+}
+
+- (UIButton *)createBtnWithTitle:(NSString *)title image:(NSString *)image tag:(NSInteger)tag frame:(CGRect)frame {
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:title forState:UIControlStateNormal];
+//    [btn setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:image]]] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [btn addTarget:self action:@selector(btnDidClick:) forControlEvents:UIControlEventTouchUpInside];
+    btn.titleEdgeInsets = UIEdgeInsetsMake(15, 0, -15, 0);
+    btn.tag = tag;
+    btn.frame = frame;
+    return btn;
 }
 
 - (void)clearUIWithUserInfo{
@@ -151,11 +187,11 @@
 }
 
 - (IBAction)allOrderAction:(UIButton *)sender {
-    MENewMineHomeVC *home = (MENewMineHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MENewMineHomeVC class] targetResponderView:self];
-    MEMyOrderVC *orderVC = [[MEMyOrderVC alloc]initWithType:MEAllOrder];
-    if(home){
-        [home.navigationController pushViewController:orderVC animated:YES];
-    }
+//    MENewMineHomeVC *home = (MENewMineHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MENewMineHomeVC class] targetResponderView:self];
+//    MEMyOrderVC *orderVC = [[MEMyOrderVC alloc]initWithType:MEAllOrder];
+//    if(home){
+//        [home.navigationController pushViewController:orderVC animated:YES];
+//    }
 }
 
 - (IBAction)needPayAction:(MEMidelMiddelImageButton *)sender {

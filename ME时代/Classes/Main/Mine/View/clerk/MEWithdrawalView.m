@@ -70,13 +70,23 @@
     }else{
         self.parModel.order_type = @"";
     }
-    kMeWEAKSELF
-    [MEPublicNetWorkTool postDestoonFinanceCashWithAttrModel:self.parModel successBlock:^(ZLRequestResponse *responseObject) {
-        kMeSTRONGSELF
-        kMeCallBlock(strongSelf->_applyFinishBlock);
-    } failure:^(id object) {
-        
-    }];
+    if (self.isLianTong) {
+        kMeWEAKSELF
+        [MEPublicNetWorkTool postLianTongDestoonFinanceCashWithAttrModel:self.parModel successBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            kMeCallBlock(strongSelf->_applyFinishBlock);
+        } failure:^(id object) {
+            
+        }];
+    }else {
+        kMeWEAKSELF
+        [MEPublicNetWorkTool postDestoonFinanceCashWithAttrModel:self.parModel successBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            kMeCallBlock(strongSelf->_applyFinishBlock);
+        } failure:^(id object) {
+            
+        }];
+    }
 }
 
 

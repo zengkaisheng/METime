@@ -31,5 +31,9 @@ const static CGFloat kMEOrderCellNoPayedBtnHeight = 52;
 //拼团
 - (void)setUIWithGroupModel:(MEGroupOrderModel *)model;
 + (CGFloat)getCellHeightWithGroupModel:(MEGroupOrderModel *)model;
+//联通
+- (void)setLianTongUIWithModel:(MEOrderModel *)model Type:(MEOrderStyle)type;
++ (CGFloat)getCellHeightWithLianTongModel:(MEOrderModel *)model Type:(MEOrderStyle)type;
+@property (nonatomic, copy) kMeBasicBlock finishBlock;
 
 @end

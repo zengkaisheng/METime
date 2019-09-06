@@ -14,6 +14,73 @@
 #import "AppDelegate.h"
 #import "MEMineHomeMuneModel.h"
 
+#import "MEMyDistrbutionVC.h"
+#import "MEInteralExchangVC.h"
+#import "MERCConversationListVC.h"
+#import "MEMineCustomerPhone.h"
+#import "MEMyMobileVC.h"
+#import "MEMyOrderVC.h"
+
+#import "MESelectAddressVC.h"
+#import "MEMyAppointmentVC.h"
+#import "MELoginVC.h"
+#import "MEAddTelView.h"
+#import "AppDelegate.h"
+#import "MEExpireTipView.h"
+
+#import "MEProductListVC.h"
+#import "MeMyActityMineVC.h"
+#import "MENewMineHomeVC.h"
+#import "MEPosterListVC.h"
+#import "MEArticelVC.h"
+#import "MEVisiterHomeVC.h"
+#import "MECouponOrderVC.h"
+//#import "MEStoreApplyVC.h"
+#import "MENewStoreApplyVC.h"
+#import "MEStoreApplyModel.h"
+#import "MEStoreApplyStatusVC.h"
+#import "MEDynamicGoodApplyVC.h"
+//#import "MEPAVistorVC.h"
+#import "MEAIHomeVC.h"
+#import "MEPNewAVistorVC.h"
+
+#import "MECouponOrderVC.h"
+#import "MEBStoreMannagerVC.h"
+#import "MEMySelfExtractionOrderVC.h"
+#import "MEBrandManngerVC.h"
+#import "MEMoneyDetailedVC.h"
+#import "MEMineNewShareVC.h"
+#import "MEClerkManngerVC.h"
+//#import "MEBDataDealVC.h"
+#import "MEBdataVC.h"
+#import "MEMyAppointmentVC.h"
+#import "MEGetCaseMainSVC.h"
+#import "MEWithdrawalVC.h"
+#import "MEClerkStatisticsVC.h"
+#import "MEDistributionOrderVC.h"
+#import "MEDistributionMoneyVC.h"
+#import "MEDistributionTeamVC.h"
+#import "MEDistributionOrderMainVC.h"
+#import "MENewMineCellHeaderView.h"
+#import "MeHomeNewGuideVC.h"
+#import "MECommonQuestionVC.h"
+
+#import "MEBargainListVC.h"
+#import "MEMyBargainListVC.h"
+#import "MEMyGroupOrderVC.h"
+#import "MEFeedBackVC.h"
+
+#import "MEHomeTestVC.h"
+#import "MEProjectSettingVC.h"
+#import "MECourseOrderListVC.h"
+#import "MEDiagnoseFeedBackVC.h"
+#import "MEMyCollectionVC.h"
+#import "MEDiagnoseOrderListVC.h"
+#import "MEWaitingAnswerListVC.h"
+#import "MEMineHomeMuneModel.h"
+#import "MELianTongOrderVC.h"
+#import "MELianTongCommissionVC.h"
+
 @interface MENewMineHomeVC ()<UITableViewDelegate,UITableViewDataSource>{
     NSArray *_arrtype;
     NSArray *_arrtypeTitle;
@@ -24,7 +91,7 @@
 @property (nonatomic, strong) MENewMineHomeHeaderView *headerView;
 @property (nonatomic, strong) MENewMineHomeCodeHeaderView *headerCodeView;
 @property (nonatomic, strong) NSArray *memuList;
-
+@property (nonatomic, strong) NSArray *orderList;
 @property (nonatomic, strong) UIView *maskView; //蒙版
 
 @end
@@ -301,6 +368,34 @@
         if ([status isEqualToString:@"business"]) {
             type = 2;
         }
+        [MEPublicNetWorkTool getNewUserMenAlluDataWithType:type successBlock:^(ZLRequestResponse *responseObject) {
+             kMeSTRONGSELF
+            if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+                NSArray *memu = responseObject.data[@"menu"];
+                strongSelf.memuList = [MEMineHomeMuneSubModel mj_objectArrayWithKeyValuesArray:memu];
+                strongSelf.orderList = [MEMineHomeMuneChildrenModel mj_objectArrayWithKeyValuesArray:responseObject.data[@"order"]];
+                NSMutableArray *titles = [[NSMutableArray alloc] init];
+                NSMutableArray *items = [[NSMutableArray alloc] init];
+                NSMutableArray *childrens = [[NSMutableArray alloc] init];
+                [strongSelf.memuList enumerateObjectsUsingBlock:^(MEMineHomeMuneSubModel *menuSubModel, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [titles addObject:menuSubModel.name];
+                    
+                    [childrens addObjectsFromArray:menuSubModel.children];
+                    //                    [menuModel.children enumerateObjectsUsingBlock:^(MEMineHomeMuneChildrenModel *subModel, NSUInteger idx, BOOL * _Nonnull stop) {
+                    //                        [childrens addObject:@([subModel.path intValue])];
+                    //                    }];
+                    [items addObject:[childrens mutableCopy]];
+                    [childrens removeAllObjects];
+                }];
+                strongSelf->_arrtypeTitle = [titles mutableCopy];
+                strongSelf->_arrtype = [items mutableCopy];
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+        
+        /*
         [MEPublicNetWorkTool getUserMenuDataWithType:type successBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             if ([responseObject.data isKindOfClass:[NSArray class]]) {
@@ -325,6 +420,7 @@
         } failure:^(id object) {
             dispatch_semaphore_signal(semaphore);
         }];
+         */
     });
     
     
@@ -404,6 +500,279 @@
     [self.maskView removeFromSuperview];
 }
 
+- (void)tapVCWithTypre:(NSInteger)type {
+    switch (type) {
+            //新
+        case MeMenuHomemeiodu:{
+            //我的中心
+            MEMyDistrbutionVC *dvc = [[MEMyDistrbutionVC alloc]initWithC];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        case MeMenuHomeyongjing:{
+            //我的佣金
+            MEMyDistrbutionVC *dvc = [[MEMyDistrbutionVC alloc]init];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+            //        case MeMyMenuAppointment:{
+            //            MEMyAppointmentVC *dvc = [[MEMyAppointmentVC alloc]initWithType:MEAppointmenyUseing];
+            //            [homeVc.navigationController pushViewController:dvc animated:YES];
+            //        }
+            //            break;
+        case MeMyMenuExchange:{
+            MEInteralExchangVC *dvc = [[MEInteralExchangVC alloc]init];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        case MeMyMenuCustomer:{
+            MERCConversationListVC *cvc = [[MERCConversationListVC alloc]init];
+            [self.navigationController pushViewController:cvc animated:YES];
+        }
+            break;
+        case MeMyMenuCustomerPhone:{
+            MEMineCustomerPhone *cvc = [[MEMineCustomerPhone alloc]init];
+            [self.navigationController pushViewController:cvc animated:YES];
+        }
+            break;
+        case MeMyMenuAddress:{
+            MESelectAddressVC *address = [[MESelectAddressVC alloc]init];
+            [self.navigationController pushViewController:address animated:YES];
+        }
+            break;
+        case MeMyMenuMobile:{
+            MEMyMobileVC *mobile = [[MEMyMobileVC alloc]init];
+            [self.navigationController pushViewController:mobile animated:YES];
+        }
+            break;
+        case MeMyMenuActity:{
+            MeMyActityMineVC *mobile = [[MeMyActityMineVC alloc]init];
+            [self.navigationController pushViewController:mobile animated:YES];
+        }
+            break;
+        case MeMyMenuData:{
+            MEVisiterHomeVC *mobile = [[MEVisiterHomeVC alloc]init];
+            [self.navigationController pushViewController:mobile animated:YES];
+        }
+            break;
+        case MeMyMenuPoster:{
+            MEPosterListVC *mobile = [[MEPosterListVC alloc]init];
+            [self.navigationController pushViewController:mobile animated:YES];
+        }
+            break;
+        case MeMyMenuArticel:{
+            MEArticelVC *mobile = [[MEArticelVC alloc]init];
+            [self.navigationController pushViewController:mobile animated:YES];
+        }
+            break;
+        case MeMenuStoreApply:{
+            [MEPublicNetWorkTool postGetMemberStoreInfoWithsuccessBlock:^(ZLRequestResponse *responseObject) {
+                if(![responseObject.data isKindOfClass:[NSDictionary class]] || responseObject.data==nil){
+                    //                    MEStoreApplyVC *vc = [[MEStoreApplyVC alloc]init];
+                    MENewStoreApplyVC *vc = [[MENewStoreApplyVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else{
+                    MEStoreApplyModel *model = [MEStoreApplyModel mj_objectWithKeyValues:responseObject.data];
+                    MEStoreApplyStatusVC *vc = [[MEStoreApplyStatusVC alloc]init];
+                    vc.model = model;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            } failure:^(id object) {
+                
+            }];
+        }
+            break;
+            //        case MeMenuDynalApply:{
+            //            MEDynamicGoodApplyVC *vc = [[MEDynamicGoodApplyVC alloc]init];
+            //            [homeVc.navigationController pushViewController:vc animated:YES];
+            //        }
+            //            break;
+        case MeMenuPAVistor:{
+            MEPNewAVistorVC *vc = [[MEPNewAVistorVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMenuAILEI:{
+            MEAIHomeVC *vc = [[MEAIHomeVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMenuHomeshangji:{
+            MEMyMobileVC *mobile = [[MEMyMobileVC alloc]init];
+            mobile.isSuper = YES;
+            [self.navigationController pushViewController:mobile animated:YES];
+        }
+            break;
+        case MeMenuHomeCorderall:{
+            //C
+            MEDistributionOrderMainVC *orderVC = [[MEDistributionOrderMainVC alloc]init];
+            [self.navigationController pushViewController:orderVC animated:YES];
+        }
+            break;
+            //        case MEDistributionMoney:{
+            //            //            MEDistributionMoneyVC *vc = [[MEDistributionMoneyVC alloc]initWithModel:@""];
+            //            //            [self.navigationController pushViewController:vc animated:YES];
+            //        }
+            
+            break;
+        case MeMenuHometuandui:{
+//            MEDistributionTeamVC *vc = [[MEDistributionTeamVC alloc]initWithType:_type];
+//            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMenuHomeorderall:{
+            //C以上
+            MEMoneyDetailedVC *vc = [[MEMoneyDetailedVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMenuHometuigcode:{
+//            MEMineNewShareVC *vc = [[MEMineNewShareVC alloc]initWithLevel:_levStr];
+//            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
+        case MeMenuHomedianyuan:{
+            MEClerkManngerVC *clerkVC = [[MEClerkManngerVC alloc]init];
+            [self.navigationController pushViewController:clerkVC animated:YES];
+        }
+            break;
+        case MeMenuHomeyuyue:{
+            MEMyAppointmentVC *dvc = [[MEMyAppointmentVC alloc]initWithType:MEAppointmenyUseing userType:MEClientBTypeStyle];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+            
+        case MeMenuHomedata:{
+            MEBdataVC *vc = [[MEBdataVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMenuHomeyongjitongji:{
+            MEClerkStatisticsVC *vc = [[MEClerkStatisticsVC alloc]initWithType:MEClientTypeClerkStyle memberId:@""];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMenuHometixian:{
+            MEGetCaseMainSVC *vc = [[MEGetCaseMainSVC alloc]initWithType:MEGetCaseAllStyle isLianTong:NO];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMenuHomejuanyngjing:{
+            MECouponOrderVC *couponVC = [[MECouponOrderVC alloc]init];
+            [self.navigationController pushViewController:couponVC animated:YES];
+        }
+            break;
+        case MeMenuHomedianpu:{
+            MEBStoreMannagerVC *storeVC = [[MEBStoreMannagerVC alloc]init];
+            [self.navigationController pushViewController:storeVC animated:YES];
+        }
+            break;
+        case MeMenuHomeziti:{
+            MEMySelfExtractionOrderVC *orderVC = [[MEMySelfExtractionOrderVC alloc]init];
+            [self.navigationController pushViewController:orderVC animated:YES];
+        }
+            break;
+        case MeMenuHomepinpaigli:{
+            MEBrandManngerVC *brandVC = [[MEBrandManngerVC alloc]init];
+            [self.navigationController pushViewController:brandVC animated:YES];
+        }
+            break;
+        case MeMenuHomeNewGuide:{
+            MeHomeNewGuideVC *brandVC = [[MeHomeNewGuideVC alloc]init];
+            [self.navigationController pushViewController:brandVC animated:YES];
+        }
+            break;
+        case MeMenuHomeCommonQuestion:{
+            MECommonQuestionVC *questionVC = [[MECommonQuestionVC alloc]init];
+            [self.navigationController pushViewController:questionVC animated:YES];
+        }
+            break;
+        case MeMenuMyBargain:{
+            MEMyBargainListVC *bargainVC = [[MEMyBargainListVC alloc]init];
+            bargainVC.callBackBlock = ^{
+                MEBargainListVC *listVC = [[MEBargainListVC alloc] init];
+                [self.navigationController pushViewController:listVC animated:YES];
+            };
+            [self.navigationController pushViewController:bargainVC animated:YES];
+        }
+            break;
+        case MeMenuMyGroup:{
+            MEMyGroupOrderVC *groupVC = [[MEMyGroupOrderVC alloc]init];
+            [self.navigationController pushViewController:groupVC animated:YES];
+        }
+            break;
+        case MeMenuMyFeedBack:{
+            MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc]init];
+            [self.navigationController pushViewController:feedbackVC animated:YES];
+        }
+            break;
+            //        case MeMenuHomeTest:{
+            //            MEHomeTestVC *vc = [[MEHomeTestVC alloc]init];
+            //            [homeVc.navigationController pushViewController:vc animated:YES];
+            //        }
+            //            break;
+        case MEMenuProjectSet:{//项目设置
+            MEProjectSettingVC *vc = [[MEProjectSettingVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MEMenuCourseOrder:{//课程订单
+            MECourseOrderListVC *vc = [[MECourseOrderListVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MEMenuConsultQuestion:{//问题咨询
+            MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc] initWithType:1];
+            [self.navigationController pushViewController:feedbackVC animated:YES];
+        }
+            break;
+        case MEMenuDiagnoseFeedBack:{//诊断反馈
+            MEDiagnoseFeedBackVC *vc = [[MEDiagnoseFeedBackVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMyMenuCollection:{//我的收藏
+            MEMyCollectionVC *vc = [[MEMyCollectionVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MEMenuDiagnoseOrder:{//我的诊断订单/方案订单
+            MEDiagnoseOrderListVC *vc = [[MEDiagnoseOrderListVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MEMenuDiagnoseAnswer:{//诊断回复
+            MEWaitingAnswerListVC *vc = [[MEWaitingAnswerListVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMyMenuLianTong:{//联通订单
+            MELianTongOrderVC *vc = [[MELianTongOrderVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMyMenuLianTongTopUp:{//联通充值MeMyMenuLianTongCommission
+            MELianTongOrderVC *vc = [[MELianTongOrderVC alloc]init];
+            vc.isTopUp = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMyMenuLianTongCommission:{//联通佣金
+            MELianTongCommissionVC *vc = [[MELianTongCommissionVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMyMenuAllOrder:{//商品订单
+            MEMyOrderVC *orderVC = [[MEMyOrderVC alloc]initWithType:MEAllOrder];
+            [self.navigationController pushViewController:orderVC animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 #pragma MARK - Setter
 - (UITableView *)tableView{
     if(!_tableView){
@@ -447,11 +816,12 @@
 - (MENewMineHomeCodeHeaderView *)headerCodeView{
     if(!_headerCodeView){
         _headerCodeView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeCodeHeaderView" owner:nil options:nil] lastObject];
-        CGFloat height = kMENewMineHomeCodeHeaderViewHeight;
-        NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
-        if ([status isEqualToString:@"business"]) {
-            height = 210;
-        }
+        CGFloat height = kMENewMineHomeCodeHeaderViewHeight+85;
+//        NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+//        if ([status isEqualToString:@"business"]) {
+//            height = 210;
+//        }
+        _headerCodeView.orderList = self.orderList;
         _headerCodeView.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
         _headerCodeView.changeStatus = ^{
             NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
@@ -463,6 +833,11 @@
             [kMeUserDefaults synchronize];
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [appDelegate reloadTabBar];
+        };
+        kMeWEAKSELF
+        _headerCodeView.indexBlock = ^(NSInteger index) {
+            kMeSTRONGSELF
+            [strongSelf tapVCWithTypre:index];
         };
     }
     return _headerCodeView;

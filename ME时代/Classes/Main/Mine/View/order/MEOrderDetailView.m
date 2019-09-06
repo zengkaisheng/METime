@@ -28,8 +28,15 @@
 @property (weak, nonatomic) IBOutlet UIView *viewForLogist;
 @property (weak, nonatomic) IBOutlet UILabel *lblLogist;
 @property (weak, nonatomic) IBOutlet UILabel *lblCreatTime;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logistViewConsHeight;
 
+@property (weak, nonatomic) IBOutlet UIView *topUpView;
+@property (weak, nonatomic) IBOutlet UILabel *topUpStatusLbl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topUpViewConsHeight;
 
+@property (weak, nonatomic) IBOutlet UIView *addressView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addressViewConsHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addressViewConsBottom;
 
 @end
 
@@ -43,6 +50,8 @@
     _viewForLogist.userInteractionEnabled = YES;
     UITapGestureRecognizer *ges = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(logistAction:)];
     [_viewForLogist addGestureRecognizer:ges];
+    _topUpViewConsHeight.constant = 0.0;
+    _topUpView.hidden = YES;
 }
 
 - (void)logistAction:(UITapGestureRecognizer *)ges{
@@ -74,11 +83,13 @@
         NSArray *arr = kMeUnArr(model.express_detail);
         if(arr.count>0){
             _viewForLogist.hidden = NO;
+            _logistViewConsHeight.constant = 72.0;
             _viewForLogist.userInteractionEnabled = YES;
 //            MELogistDataModel *ldModel = [lmodel.data firstObject];
             _lblLogist.text = @"查看物流";
         }else{
 //            _lblLogist.text = @"暂无快递信息";
+            _logistViewConsHeight.constant = 0.0;
             _viewForLogist.hidden = YES;
             _viewForLogist.userInteractionEnabled = NO;
         }
@@ -95,6 +106,36 @@
     _lblCreatTime.text = [NSString stringWithFormat:@"创建时间:%@",kMeUnNilStr(model.created_at)];;
     NSString *address = [NSString stringWithFormat:@"%@%@%@%@",kMeUnNilStr(model.address.province_id),kMeUnNilStr(model.address.city_id),kMeUnNilStr(model.address.area_id),kMeUnNilStr(model.address.detail)];
     _lblAddress.text  = address;
+    
+    if (model.order_type == 17) {
+        if (model.isTopUp) {
+            _logistViewConsHeight.constant = 0.0;
+            _viewForLogist.hidden = YES;
+            _viewForLogist.userInteractionEnabled = NO;
+            _lblOrderStatus.text = kMeUnNilStr(model.top_up_status_name);
+            
+            _addressViewConsHeight.constant = 0.0;
+            _addressViewConsBottom.constant = 0.0;
+            _addressView.hidden = YES;
+        }else {
+            _addressViewConsHeight.constant = 72.0;
+            _addressViewConsBottom.constant = 10.0;
+            _addressView.hidden = NO;
+        }
+        if ([model.order_status integerValue] == MEAllNeedPayOrder || [model.order_status integerValue] == MEAllCancelOrder) {
+            _topUpViewConsHeight.constant = 0.0;
+            _topUpView.hidden = YES;
+        }else {
+            _topUpView.hidden = NO;
+            _topUpViewConsHeight.constant = 68.0;
+            if (kMeUnNilStr(model.top_up_status_name)) {
+                _topUpStatusLbl.text = kMeUnNilStr(model.top_up_status_name);
+            }
+        }
+    }else {
+        _topUpView.hidden = YES;
+        _topUpViewConsHeight.constant = 0.0;
+    }
 }
 
 - (void)setAppointUIWithModel:(MEAppointDetailModel *)model orderType:(MEAppointmenyStyle)type{
@@ -114,10 +155,34 @@
 + (CGFloat)getViewHeightWithType:(MEOrderStyle)type Model:(MEOrderDetailModel *)model{
     NSArray *arr = kMeUnArr(model.express_detail);
     if(arr.count>0){
+        if (model.order_type == 17) {
+            if (model.isTopUp) {
+                return kMEOrderDetailViewHeight+kMEOrderDetailViewTopUpHeight-82;
+            }else {
+                if (model.order_status.integerValue == MEAllNeedPayOrder || [model.order_status integerValue] == MEAllCancelOrder) {
+                    return kMEOrderDetailViewHeight+kMEOrderDetailViewLogistHeight;
+                }
+                return kMEOrderDetailViewHeight+kMEOrderDetailViewLogistHeight+kMEOrderDetailViewTopUpHeight;
+            }
+        }
         return kMEOrderDetailViewHeight + kMEOrderDetailViewLogistHeight;
     }else{
+        if (model.order_type == 17) {
+            if (model.isTopUp) {
+                return kMEOrderDetailViewHeight+kMEOrderDetailViewTopUpHeight-82;
+            }else {
+                if (model.order_status.integerValue == MEAllNeedPayOrder || [model.order_status integerValue] == MEAllCancelOrder) {
+                    return kMEOrderDetailViewHeight;
+                }
+                return kMEOrderDetailViewHeight+kMEOrderDetailViewTopUpHeight;
+            }
+        }
         return kMEOrderDetailViewHeight;
     }
+}
+
+- (IBAction)topUpAction:(id)sender {
+    kMeCallBlock(self.topUpBlock);
 }
 
 @end

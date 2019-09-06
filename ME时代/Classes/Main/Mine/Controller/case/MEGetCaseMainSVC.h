@@ -9,5 +9,5 @@
 #import "MEBaseVC.h"
 
 @interface MEGetCaseMainSVC : MEBaseVC
-- (instancetype)initWithType:(MEGetCaseStyle)type;
+- (instancetype)initWithType:(MEGetCaseStyle)type isLianTong:(BOOL)isLianTong;
 @end

@@ -109,7 +109,7 @@
             _leftBtn.hidden = NO;
             _rightBtn.hidden = NO;
             
-            _bgLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.customer_total)];
+            _bgLeftNumLbl.text = [NSString stringWithFormat:@"%@",@(model.customer_num)];
             _bgLeftTitleLbl.text = @"今日顾客总人次";
             _bgLeftNumLbl.textColor = _bgLeftTitleLbl.textColor = [UIColor colorWithHexString:@"#540115"];
             

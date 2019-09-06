@@ -425,6 +425,8 @@
 + (void)getUserGetUserWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //我的入口
 + (void)getUserMenuDataWithType:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//我的入口（新）
++ (void)getNewUserMenAlluDataWithType:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取用户的邀请码
 + (void)getUserInvitationCodeWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //一键已读
@@ -799,6 +801,16 @@
 + (void)postEditObjectWithObjectId:(NSInteger)objectId objectName:(NSString *)objectName money:(NSString *)money SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //添加项目
 + (void)postAddObjectWithObjectName:(NSString *)objectName money:(NSString *)money SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+/*********************************************/
+
+/*********************************************/
+#pragma mark - 联通充值
+//获取门店确认充值联通订单
++ (void)postTopUpLianTongOrderWithOrderSn:(NSString *)orderSn SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//佣金祥情统计
++ (void)postGetLianTongBrokerageDetailWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//门店联通订单提现
++ (void)postLianTongDestoonFinanceCashWithAttrModel:(MEWithdrawalParamModel *)attrModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

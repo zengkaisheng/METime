@@ -13,6 +13,7 @@
 
 @interface MELianTongContentVC ()<UITableViewDelegate, UITableViewDataSource,RefreshToolDelegate>{
     MEOrderStyle _type;
+    BOOL _isTopUp;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -26,9 +27,10 @@
     kNSNotificationCenterDealloc
 }
 
-- (instancetype)initWithType:(NSInteger)type{
+- (instancetype)initWithType:(NSInteger)type isTopUp:(BOOL)isTopUp{
     if(self = [super init]){
         _type = type;
+        _isTopUp = isTopUp;
     }
     return self;
 }
@@ -56,18 +58,19 @@
             break;
         case 2:
             dict = @{@"token":kMeUnNilStr(kCurrentUser.token),
-                     @"top_up_status":@"2"
+                     @"top_up_status":@"2",
+                     @"order_status":@""
                      };
             break;
         case 3:
             dict = @{@"token":kMeUnNilStr(kCurrentUser.token),
-                     @"top_up_status":@"1"
+                     @"top_up_status":@"1",
+                     @"order_status":@""
                      };
             break;
         default:
             break;
     }
-    
     return dict;
 }
 
@@ -78,13 +81,12 @@
     [self.refresh.arrData addObjectsFromArray:[MEOrderModel mj_objectArrayWithKeyValuesArray:data]];
 }
 
-#pragma mark ------------------ <UITableViewDelegate, UITableViewDataSource> ----
+#pragma mark ------- <UITableViewDelegate, UITableViewDataSource> ----
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //MEStoreModel *storeModel = self.arrStore[section];
     return self.refresh.arrData.count;
 }
 
@@ -99,18 +101,20 @@
         [strongSelf.tableView endUpdates];
     };
     MEOrderModel *model = self.refresh.arrData[indexPath.row];
-    [cell setUIWithModel:model Type:[model.order_status integerValue]];
+    model.isTopUp = _isTopUp;
+    [cell setLianTongUIWithModel:model Type:[model.order_status integerValue]];
+    cell.finishBlock = ^{
+        [self.refresh reload];
+    };
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     MEOrderModel *model = self.refresh.arrData[indexPath.row];
-    return [MEOrderCell getCellHeightWithModel:model Type:[model.order_status integerValue]];
+    return [MEOrderCell getCellHeightWithLianTongModel:model Type:[model.order_status integerValue]];
 }
 
-
 #pragma mark - Set And Get
-
 - (UITableView *)tableView{
     if(!_tableView){
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight) style:UITableViewStylePlain];
@@ -127,7 +131,11 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        _refresh = [[ZLRefreshTool alloc] initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonOrderGetLianTongOrder)];
+        NSString *url = kGetApiWithUrl(MEIPcommonOrderGetLianTongOrder);
+        if (_isTopUp) {
+            url = kGetApiWithUrl(MEIPcommonOrderGetStoreLianTongOrder);
+        }
+        _refresh = [[ZLRefreshTool alloc] initWithContentView:self.tableView url:url];
         _refresh.isDataInside = YES;
         _refresh.delegate = self;
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {

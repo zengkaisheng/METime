@@ -31,6 +31,13 @@
     _lblGetingCommsion.text= [MECommonTool changeformatterWithFen:@(model.withdrawal)];
 }
 
+- (void)setLianTongUIWithModdel:(MECouponDetailModel *)model {
+    _lblCanUserCommsion.text = [NSString stringWithFormat:@"%@",@(model.commission_amount)];
+    _lblUsedCommsion.text = [NSString stringWithFormat:@"%@",@(model.finish_promotion_amount)];
+    _lblNotUseCommsion.text = [NSString stringWithFormat:@"%@",@(model.unfinish_promotion_amount)];
+    _lblGetingCommsion.text= [NSString stringWithFormat:@"%@",@(model.withdrawal)];
+}
+
 - (IBAction)touchAction:(UIButton *)sender {
     kMeCallBlock(_block);
 }

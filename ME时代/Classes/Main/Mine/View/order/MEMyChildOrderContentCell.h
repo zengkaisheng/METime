@@ -23,4 +23,6 @@ static const CGFloat kMEMyChildOrderContentCellHeight = 120;
 
 - (void)setUIWithGroupModel:(MEGroupOrderModel *)model;
 
+- (void)setUIWithModel:(MEOrderGoodModel *)model;
+
 @end

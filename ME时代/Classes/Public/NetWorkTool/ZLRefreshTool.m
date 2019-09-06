@@ -117,42 +117,45 @@ NSUInteger const kSizeNum = 10;
                 [strongSelf.arrData removeAllObjects];
             }
             if(self.isDataInside){
-                //项目赶 以后优化
-                if(strongSelf->_isCouple){
-                    NSInteger count = [responseObject.data[@"tbk_dg_item_coupon_get_response"][@"total_results"] integerValue];
-                    strongSelf.allRows = count ;
-                    [strongSelf.delegate handleResponse:responseObject.data[@"tbk_dg_item_coupon_get_response"][@"results"][@"tbk_coupon"]];
-                }else{
-                    if(strongSelf->_isCoupleMater){
-                        NSInteger count = [responseObject.data[@"tbk_dg_material_optional_response"][@"total_results"] integerValue];
-                        count=count==0?1000:count;
+                if ([responseObject.data isEqual:@""]) {
+                }else {
+                    //项目赶 以后优化
+                    if(strongSelf->_isCouple){
+                        NSInteger count = [responseObject.data[@"tbk_dg_item_coupon_get_response"][@"total_results"] integerValue];
                         strongSelf.allRows = count ;
-                        [strongSelf.delegate handleResponse:responseObject.data[@"tbk_dg_material_optional_response"][@"result_list"][@"map_data"]];
+                        [strongSelf.delegate handleResponse:responseObject.data[@"tbk_dg_item_coupon_get_response"][@"results"][@"tbk_coupon"]];
                     }else{
-                        if (strongSelf->_isJuHS) {
-                            if (!kMeUnObjectIsEmpty(responseObject.data)) {
-                                NSInteger count = [responseObject.data[@"ju_items_search_response"][@"result"][@"total_item"] integerValue];
-                                strongSelf.allRows = count ;
-                                [strongSelf.delegate handleResponse:responseObject.data[@"ju_items_search_response"][@"result"][@"model_list"][@"items"]];
-                            }
-                        }else if(strongSelf->_isPinduoduoCoupleMater){
-                            if (!kMeUnObjectIsEmpty(responseObject.data)) {
-                                NSInteger count = [responseObject.data[@"goods_search_response"][@"total_count"] integerValue];
-                                if (strongSelf.isFilter) {
-                                    count=count>0?1000:count;
-                                }else {
-                                    count=count==0?1000:count;
-                                }
-                                strongSelf.allRows = count;
-                                [strongSelf.delegate handleResponse:responseObject.data[@"goods_search_response"][@"goods_list"]];
-                            }else {
-                                strongSelf.allRows = 0;
-                            }
+                        if(strongSelf->_isCoupleMater){
+                            NSInteger count = [responseObject.data[@"tbk_dg_material_optional_response"][@"total_results"] integerValue];
+                            count=count==0?1000:count;
+                            strongSelf.allRows = count ;
+                            [strongSelf.delegate handleResponse:responseObject.data[@"tbk_dg_material_optional_response"][@"result_list"][@"map_data"]];
                         }else{
-                            strongSelf->_response = [MENetListModel mj_objectWithKeyValues:responseObject.data];
-                            MENetListModel *nlModel = [MENetListModel mj_objectWithKeyValues:responseObject.data];
-                            strongSelf.allRows = nlModel.count;
-                            [strongSelf.delegate handleResponse:nlModel.data];
+                            if (strongSelf->_isJuHS) {
+                                if (!kMeUnObjectIsEmpty(responseObject.data)) {
+                                    NSInteger count = [responseObject.data[@"ju_items_search_response"][@"result"][@"total_item"] integerValue];
+                                    strongSelf.allRows = count ;
+                                    [strongSelf.delegate handleResponse:responseObject.data[@"ju_items_search_response"][@"result"][@"model_list"][@"items"]];
+                                }
+                            }else if(strongSelf->_isPinduoduoCoupleMater){
+                                if (!kMeUnObjectIsEmpty(responseObject.data)) {
+                                    NSInteger count = [responseObject.data[@"goods_search_response"][@"total_count"] integerValue];
+                                    if (strongSelf.isFilter) {
+                                        count=count>0?1000:count;
+                                    }else {
+                                        count=count==0?1000:count;
+                                    }
+                                    strongSelf.allRows = count;
+                                    [strongSelf.delegate handleResponse:responseObject.data[@"goods_search_response"][@"goods_list"]];
+                                }else {
+                                    strongSelf.allRows = 0;
+                                }
+                            }else{
+                                strongSelf->_response = [MENetListModel mj_objectWithKeyValues:responseObject.data];
+                                MENetListModel *nlModel = [MENetListModel mj_objectWithKeyValues:responseObject.data];
+                                strongSelf.allRows = nlModel.count;
+                                [strongSelf.delegate handleResponse:nlModel.data];
+                            }
                         }
                     }
                 }

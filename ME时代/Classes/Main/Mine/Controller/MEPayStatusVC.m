@@ -8,6 +8,9 @@
 
 #import "MEPayStatusVC.h"
 #import "MEProductListVC.h"
+#import "METopUpTipsView.h"
+#import "MEOrderDetailModel.h"
+
 #define kImgTopMargin (70* kMeFrameScaleY()+kMeStatusBarHeight)
 
 #define kFristBtnSucesstopMargin (124 * kMeFrameScaleY())
@@ -52,6 +55,20 @@
     return self;
 }
 
+- (void)getOrderDetailWithOrderSn:(NSString *)orderSn {
+    
+    [MEPublicNetWorkTool getOrderDetailWithGoodSn:self.order_sn successBlock:^(ZLRequestResponse *responseObject) {
+        
+        MEOrderDetailModel *detaliModel = [MEOrderDetailModel mj_objectWithKeyValues:responseObject.data];
+        if (detaliModel.order_type == 17) {
+            [METopUpTipsView showTopUpTipsViewWithName:kMeUnNilStr(detaliModel.store_name) phone:kMeUnNilStr(detaliModel.cellphone) tips:kMeUnNilStr(detaliModel.tips) cancelBlock:^{
+                
+            } superView:kMeCurrentWindow];
+        }
+    } failure:^(id object) {
+        
+    }];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,6 +80,9 @@
          _btnCheckOrder.hidden = YES;
         _lblStatus.text = @"支付失败";
     }else{
+        if (self.order_sn.length > 0) {
+            [self getOrderDetailWithOrderSn:self.order_sn];
+        }
         _imgStatus.image = kMeGetAssetImage(@"icon-fcwfdnal");
         _consFristBtnTopMargin.constant = kFristBtnSucesstopMargin;
         _btnCheckOrder.hidden = YES;

@@ -59,6 +59,7 @@
 - (MEWithdrawalView *)cview{
     if(!_cview){
         _cview = [[[NSBundle mainBundle]loadNibNamed:@"MEWithdrawalView" owner:nil options:nil] lastObject];
+        _cview.isLianTong = self.isLianTong;
         _cview.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEWithdrawalView getViewHeight]);
         _cview.isCouponMoney = _isCouponMoney;
     }

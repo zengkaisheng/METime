@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblError;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consErrorHeight;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
+@property (weak, nonatomic) IBOutlet UIButton *checkBtn;
 
 
 @end
@@ -61,6 +62,11 @@
         }
         _lblError.hidden = YES;
         _lblError.text = @"";
+    }
+    if (model.isLianTong) {
+        _checkBtn.hidden = YES;
+    }else {
+        _checkBtn.hidden = NO;
     }
 }
 

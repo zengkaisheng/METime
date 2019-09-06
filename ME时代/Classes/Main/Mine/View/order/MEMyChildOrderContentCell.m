@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblPrice;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 @property (weak, nonatomic) IBOutlet UILabel *pinLbl;
+@property (weak, nonatomic) IBOutlet UILabel *topUpStatusLbl;
 
 @end
 
@@ -40,6 +41,11 @@
     _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.product_amount)];
     _lblTitle.text = kMeUnNilStr(model.product_name);
     _lblSkuAndNum.text = [NSString stringWithFormat:@"规格:%@ 数量:%@",kMeUnNilStr(model.order_spec_name),@(model.product_number)];
+    _topUpStatusLbl.text = kMeUnNilStr(model.top_up_status_name);
+    if (model.isTopUp) {
+        _topUpStatusLbl.hidden = YES;
+        _lblStatus.text = kMeUnNilStr(model.top_up_status_name);
+    }
 }
 
 - (void)setSelfUIWithModel:(MEOrderGoodModel *)model extractStatus:(NSString *)status{

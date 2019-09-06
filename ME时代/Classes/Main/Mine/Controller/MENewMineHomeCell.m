@@ -70,6 +70,7 @@
 #import "MEWaitingAnswerListVC.h"
 #import "MEMineHomeMuneModel.h"
 #import "MELianTongOrderVC.h"
+#import "MELianTongCommissionVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -107,7 +108,6 @@
 }
 
 #pragma mark- CollectionView Delegate And DataSource
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MENewMineHomeVC *homeVc = [MECommonTool getVCWithClassWtihClassName:[MENewMineHomeVC class] targetResponderView:self];
     if(!homeVc){
@@ -371,7 +371,7 @@
         }
             break;
         case MeMenuHomeyongjing:{
-            //管理中心
+            //我的佣金
             MEMyDistrbutionVC *dvc = [[MEMyDistrbutionVC alloc]init];
             [homeVc.navigationController pushViewController:dvc animated:YES];
         }
@@ -515,14 +515,14 @@
         }
             break;
         case MeMenuHometixian:{
-            MEGetCaseMainSVC *vc = [[MEGetCaseMainSVC alloc]initWithType:MEGetCaseAllStyle];
+            MEGetCaseMainSVC *vc = [[MEGetCaseMainSVC alloc]initWithType:MEGetCaseAllStyle isLianTong:NO];
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
-//        case MeHomejuanyngjing:{
-//            MECouponOrderVC *couponVC = [[MECouponOrderVC alloc]init];
-//            [homeVc.navigationController pushViewController:couponVC animated:YES];
-//        }
+        case MeMenuHomejuanyngjing:{
+            MECouponOrderVC *couponVC = [[MECouponOrderVC alloc]init];
+            [homeVc.navigationController pushViewController:couponVC animated:YES];
+        }
             break;
         case MeMenuHomedianpu:{
             MEBStoreMannagerVC *storeVC = [[MEBStoreMannagerVC alloc]init];
@@ -613,6 +613,17 @@
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
+        case MeMyMenuLianTongTopUp:{//联通充值MeMyMenuLianTongCommission
+            MELianTongOrderVC *vc = [[MELianTongOrderVC alloc]init];
+            vc.isTopUp = YES;
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMyMenuLianTongCommission:{//联通佣金
+            MELianTongCommissionVC *vc = [[MELianTongCommissionVC alloc]init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
+            break;
         default:
             break;
     }
@@ -636,12 +647,12 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
-    if ([_title isEqualToString:@"商家"]) {
-        if ([status isEqualToString:@"business"]) {
-            return CGSizeZero;
-        }
-    }
+//    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+//    if ([_title isEqualToString:@"商家"]) {
+//        if ([status isEqualToString:@"business"]) {
+//            return CGSizeZero;
+//        }
+//    }
     return CGSizeMake(SCREEN_WIDTH-30, kMENewMineCellHeaderViewHeight);
 }
 
@@ -688,13 +699,13 @@
     _title = kMeUnNilStr(title);
     NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
 
-    if ([_title isEqualToString:@"商家"]) {
-        if ([status isEqualToString:@"business"]) {
-            _viewConsTop.constant = 0.0;
-        }
-    }else {
-        _viewConsTop.constant = 15.0;
-    }
+//    if ([_title isEqualToString:@"商家"]) {
+//        if ([status isEqualToString:@"business"]) {
+//            _viewConsTop.constant = 0.0;
+//        }
+//    }else {
+//        _viewConsTop.constant = 15.0;
+//    }
     switch (kCurrentUser.user_type) {
         case 1:{
             _type = MEClientOneTypeStyle;

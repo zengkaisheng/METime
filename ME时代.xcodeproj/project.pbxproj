@@ -1194,6 +1194,8 @@
 		EB70E5BD22FADA5C00F00046 /* LXDAppFluecyMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = EB70E5BB22FADA5B00F00046 /* LXDAppFluecyMonitor.m */; };
 		EB710543231E63F200C1E8B6 /* MELianTongOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB710542231E63F200C1E8B6 /* MELianTongOrderVC.m */; };
 		EB710546231E652F00C1E8B6 /* MELianTongContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB710545231E652F00C1E8B6 /* MELianTongContentVC.m */; };
+		EB7131A2232204B800652204 /* METopUpTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7131A1232204B800652204 /* METopUpTipsView.m */; };
+		EB7131A5232265E600652204 /* MELianTongCommissionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7131A4232265E600652204 /* MELianTongCommissionVC.m */; };
 		EB71640E22D48D770060D58F /* MEHomeOptionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB71640D22D48D770060D58F /* MEHomeOptionsModel.m */; };
 		EB72EA3022FBF62600D7A101 /* repeat_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB72EA2F22FBF62500D7A101 /* repeat_video@2x.png */; };
 		EB72EA3422FC01EC00D7A101 /* MEVideoCourseDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB72EA3222FC01EC00D7A101 /* MEVideoCourseDetailCell.m */; };
@@ -3461,6 +3463,10 @@
 		EB710542231E63F200C1E8B6 /* MELianTongOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MELianTongOrderVC.m; sourceTree = "<group>"; };
 		EB710544231E652F00C1E8B6 /* MELianTongContentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MELianTongContentVC.h; sourceTree = "<group>"; };
 		EB710545231E652F00C1E8B6 /* MELianTongContentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MELianTongContentVC.m; sourceTree = "<group>"; };
+		EB7131A0232204B800652204 /* METopUpTipsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = METopUpTipsView.h; sourceTree = "<group>"; };
+		EB7131A1232204B800652204 /* METopUpTipsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = METopUpTipsView.m; sourceTree = "<group>"; };
+		EB7131A3232265E600652204 /* MELianTongCommissionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MELianTongCommissionVC.h; sourceTree = "<group>"; };
+		EB7131A4232265E600652204 /* MELianTongCommissionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MELianTongCommissionVC.m; sourceTree = "<group>"; };
 		EB7163F722D441AB0060D58F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		EB7163F922D441B40060D58F /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		EB7163FB22D441BE0060D58F /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -7237,6 +7243,8 @@
 				EB825E9123127989007F7005 /* MECustomInputPhoneView.m */,
 				EB76524F231FAD8F00A102FF /* MECustomBuyCourseView.h */,
 				EB765250231FAD8F00A102FF /* MECustomBuyCourseView.m */,
+				EB7131A0232204B800652204 /* METopUpTipsView.h */,
+				EB7131A1232204B800652204 /* METopUpTipsView.m */,
 			);
 			path = CustomInputView;
 			sourceTree = "<group>";
@@ -7250,6 +7258,8 @@
 				EB710542231E63F200C1E8B6 /* MELianTongOrderVC.m */,
 				EB710544231E652F00C1E8B6 /* MELianTongContentVC.h */,
 				EB710545231E652F00C1E8B6 /* MELianTongContentVC.m */,
+				EB7131A3232265E600652204 /* MELianTongCommissionVC.h */,
+				EB7131A4232265E600652204 /* MELianTongCommissionVC.m */,
 			);
 			path = LianTong;
 			sourceTree = "<group>";
@@ -8825,6 +8835,7 @@
 				EB6F117322CB3E6E00619D4D /* MEGroupListVC.m in Sources */,
 				EB70E5A122FAD8F500F00046 /* XMRefreshView.m in Sources */,
 				36F5E813222F68F1000B0241 /* TNavigationController.m in Sources */,
+				EB7131A5232265E600652204 /* MELianTongCommissionVC.m in Sources */,
 				3611F305225DDA4100F9883D /* MEAICustomerSearchVC.m in Sources */,
 				36022E032190220100DC9A8B /* MENewHomePageHeaderView.m in Sources */,
 				EB6F120622CB467F00619D4D /* MECoupleFilterFlowLayout.m in Sources */,
@@ -9630,6 +9641,7 @@
 				3605D6CA22826D8400A1C490 /* MeHomeNewGuideModel.m in Sources */,
 				EB25236D2317F396003521F7 /* MENewStoreApplyVC.m in Sources */,
 				36F5E81B222F68F1000B0241 /* TAddHelper.m in Sources */,
+				EB7131A2232204B800652204 /* METopUpTipsView.m in Sources */,
 				360057FC2189F1B60010C21C /* MESearchHistoryView.m in Sources */,
 				36FDE3C9218A8EF300633C40 /* MEHomeSearchView.m in Sources */,
 				366D1CDD21B533710004295E /* MEArticelDetailModel.m in Sources */,

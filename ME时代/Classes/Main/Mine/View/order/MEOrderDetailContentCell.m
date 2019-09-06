@@ -52,6 +52,7 @@
     _lblTitle.text = kMeUnNilStr(model.product_name);
     _lblSku.text = [NSString stringWithFormat:@"规格:%@ 数量:%@",kMeUnNilStr(model.order_spec_name),@(model.product_number)];
     _lblPrice.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.product_amount)];
+    _imgVWidthConstraints.constant = 95;
     _lblAppointStatus.hidden = YES;
 }
 

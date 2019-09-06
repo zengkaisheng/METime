@@ -21,4 +21,6 @@ const static CGFloat kMEMyOrderDetailCellHeight = 49;
 
 - (void)setGroupUIWithInfo:(NSDictionary *)info;
 
+- (void)setLianTongUIWithContent:(NSString *)content;
+
 @end

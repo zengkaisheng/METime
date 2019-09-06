@@ -42,8 +42,8 @@
 }
 
 - (void)setUIWithClerkRanging {
-    NSArray *btns = @[@"业绩",@"消耗",@"项目数",@"客次数"];
-    CGFloat btnWidth = (SCREEN_WIDTH-32)/4;;
+    NSArray *btns = @[@"业绩",@"服务",@"项目数"];
+    CGFloat btnWidth = (SCREEN_WIDTH-32)/3;;
     for (int i = 0; i < btns.count; i++) {
         UIButton *btn = [self createBtnWithTitle:btns[i] frame:CGRectMake(btnWidth*i+16, 10, btnWidth, 25) tag:100+i];
         if (i == 0) {

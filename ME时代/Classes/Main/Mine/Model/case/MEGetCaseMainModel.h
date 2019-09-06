@@ -28,4 +28,6 @@
 @property (nonatomic, strong) NSString * true_name;
 @property (nonatomic, strong) NSString * updated_at;
 
+@property (nonatomic, assign) BOOL isLianTong;
+
 @end

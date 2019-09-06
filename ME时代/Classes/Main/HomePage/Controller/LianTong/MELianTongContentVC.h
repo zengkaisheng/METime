@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MELianTongContentVC : MEBaseVC
 
-- (instancetype)initWithType:(NSInteger)type;
+- (instancetype)initWithType:(NSInteger)type isTopUp:(BOOL)isTopUp;
 
 @end
 

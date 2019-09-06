@@ -14,11 +14,16 @@ MEModelIdToIdField
 
 @end
 
-
-@implementation MEMineHomeMuneModel
+@implementation MEMineHomeMuneSubModel
 
 MEModelIdToIdField
 
 MEModelObjectClassInArrayWithDic(@{@"children":[MEMineHomeMuneChildrenModel class]})
+
+@end
+
+@implementation MEMineHomeMuneModel
+
+MEModelObjectClassInArrayWithDic((@{@"menu":[MEMineHomeMuneSubModel class],@"order":[MEMineHomeMuneSubModel class]}))
 
 @end

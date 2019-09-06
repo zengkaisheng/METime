@@ -68,9 +68,13 @@ typedef enum : NSUInteger {
     MEMenuDiagnoseOrder,//方案订单
     MeMyMenuCollection,//我的收藏
     MEMenuDiagnoseAnswer,//诊断回复
-    MeMyMenuLianTong    //联通兑换
+    
+    MeMyMenuLianTong,    //联通兑换
+    MeMyMenuLianTongTopUp, //联通充值
+    MeMyMenuLianTongCommission, //联通佣金
+    MeMyMenuAllOrder
 } MEMineHomeMenuCellStyle;
-#define MEMineHomeMenuCellStyleTitle @[@"我的佣金",@"我的美豆",@"美豆订单",@"佣金订单",@"我的团队",@"我的上级",@"店员管理",@"预约管理",@"数据统计",@"店铺管理",@"提现明细",@"优惠券佣金",@"自提订单",@"AI雷达",@"推广二维码",@"佣金统计",@"品牌管理",@"获客海报",@"获客文章",@"访客统计",@"获客图文",@"我的砍价",@"我的拼团",@"兑换中心",@"我的活动",@"ME聊",@"客服微信",@"收货地址",@"绑定手机",@"门店申请",@"新手指南",@"常见问题",@"意见反馈",@"项目设置",@"课程订单",@"问题咨询",@"诊断反馈",@"方案订单",@"我的收藏",@"诊断回复",@"联通兑换"]
+#define MEMineHomeMenuCellStyleTitle @[@"我的佣金",@"我的美豆",@"美豆订单",@"佣金订单",@"我的团队",@"我的上级",@"店员管理",@"预约管理",@"数据统计",@"店铺管理",@"提现明细",@"优惠券佣金",@"自提订单",@"AI雷达",@"推广二维码",@"佣金统计",@"品牌管理",@"获客海报",@"获客文章",@"访客统计",@"获客图文",@"我的砍价",@"我的拼团",@"兑换中心",@"我的活动",@"ME聊",@"客服微信",@"收货地址",@"绑定手机",@"门店申请",@"新手指南",@"常见问题",@"意见反馈",@"项目设置",@"课程订单",@"问题咨询",@"诊断反馈",@"方案订单",@"我的收藏",@"诊断回复",@"联通兑换",@"联通充值",@"联通佣金"]
 #define MEMineHomeMenuCellStyleImage @[@"mineyongjing",@"minemeidou",@"meidouorder",@"mineorderall",@"minetuandui",@"mineshangji",@"minedianyuan",@"mineyuyue",@"minedatatj",@"minedianpu",@"minetixian",@"minejuanyongjin",@"mineziti",@"homeailei",@"minetuigcode",@"mineyongjintongji",@"minepinpai",@"mineposter",@"minearticel",@"minedata",@"minepa",@"icon_bargain",@"icon_group",@"icon_zhuceyoujiang",@"iqpgweqq",@"icon-qrpteb",@"icon-qrptebjnyt",@"nhwxfbfh",@"qlru",@"uyyhjhyg",@"minenewguid",@"icon_commonQuestion",@"icon_feedBack",@"icon_projectSet",@"icon_courseOrder",@"icon_consultQuestion",@"icon_diagnoseFeed",@"icon_diagnoseOrder",@"icon_wodeshoucang",@"icon_diagnoseAnswer"]
 
 
@@ -161,9 +165,10 @@ typedef enum : NSUInteger {
     MESettlmemtRealPay = 2,
     MESettlmemtExpressCompany = 3,
     MESettlmemtExpressNum = 4,
-    MESettlmemtRemark = 5
+    MESettlmemtRemark = 5,
+    MESettlmemtPhoneBill = 6
 } MEOrderSettlmentStyle;
-#define MEOrderSettlmentStyleTitle @[@"订单金额",@"运费",@"实付金额",@"配送方式",@"快递编号",@"备注"];
+#define MEOrderSettlmentStyleTitle @[@"订单总额",@"运费",@"实付金额",@"配送方式",@"快递编号",@"备注",@"赠送话费"];
 
 //预约
 typedef enum : NSUInteger {

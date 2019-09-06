@@ -40,14 +40,14 @@
     
     if (IS_iPhone5S) {
         _changeStatusBtnConsWidth.constant = 79;
-        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:11]];
+        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
         _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 50, 0, 0);
         _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
     }else {
         _changeStatusBtnConsWidth.constant = 109;
         [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
-        _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
-        _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+        _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 75, 0, 0);
+        _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -50, 0, 0);
     }
     
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, SCREEN_WIDTH-30, 57) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(10, 10)];
@@ -110,9 +110,11 @@
     if ([status isEqualToString:@"customer"]) {
         _businessView.hidden = YES;
         _orderView.hidden = NO;
+        [_changeStatusBtn setTitle:@"切换商家版" forState:UIControlStateNormal];
     }else if ([status isEqualToString:@"business"]) {
         _businessView.hidden = NO;
         _orderView.hidden = YES;
+        [_changeStatusBtn setTitle:@"切换用户版" forState:UIControlStateNormal];
     }
 }
 

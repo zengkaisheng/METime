@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MELianTongOrderVC : MEBaseVC
 
+@property (nonatomic, assign) BOOL isTopUp; //是否联通充值默认NO
+
 @end
 
 NS_ASSUME_NONNULL_END

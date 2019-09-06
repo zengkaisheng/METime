@@ -13,6 +13,7 @@
 
 @interface MEGetCaseMainVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     MEGetCaseStyle _type;
+    BOOL _isLianTong;
 }
 
 @property (nonatomic, strong) UITableView           *tableView;
@@ -23,9 +24,10 @@
 
 @implementation MEGetCaseMainVC
 
-- (instancetype)initWithType:(MEGetCaseStyle)type{
+- (instancetype)initWithType:(MEGetCaseStyle)type isLianTong:(BOOL)isLianTong{
     if(self = [super init]){
         _type = type;
+        _isLianTong = isLianTong;
     }
     return self;
 }
@@ -89,6 +91,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEGetCaseMainModel *model = self.refresh.arrData[indexPath.row];
     MEGetCaseMainCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEGetCaseMainCell class]) forIndexPath:indexPath];
+    model.isLianTong = _isLianTong;
     [cell setUIWithModel:model];
     return cell;
 }
@@ -99,9 +102,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MEGetCaseMainModel *model = self.refresh.arrData[indexPath.row];
-    MEGetCaseContentVC *vc = [[MEGetCaseContentVC alloc]initWithMoney_check_sn:kMeUnNilStr(model.order_sn)];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (_isLianTong) {
+        
+    }else {
+        MEGetCaseMainModel *model = self.refresh.arrData[indexPath.row];
+        MEGetCaseContentVC *vc = [[MEGetCaseContentVC alloc]initWithMoney_check_sn:kMeUnNilStr(model.order_sn)];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma MARK - Setter
@@ -124,12 +131,16 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommondestoonFinanceCashListh)];
+        NSString *url = kGetApiWithUrl(MEIPcommondestoonFinanceCashListh);
+        if (_isLianTong) {
+            url = kGetApiWithUrl(MEIPcommonOrderLianTongWithdrawHistory);
+        }
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:url];
         _refresh.delegate = self;
         _refresh.isDataInside = YES;
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
             failView.backgroundColor = [UIColor whiteColor];
-            failView.lblOfNodata.text = @"没有提现";
+            failView.lblOfNodata.text = @"没有提现记录";
         }];
     }
     return _refresh;

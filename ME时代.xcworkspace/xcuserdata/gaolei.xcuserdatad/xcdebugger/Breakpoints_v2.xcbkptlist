@@ -19,61 +19,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/OnlineCourse/Controller/CustomerFiles/MECustomerTypeListVC.m"
-            timestampString = "589272600.641917"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/HomePage/Controller/MEMakeOrderVC.m"
+            timestampString = "589458713.2269681"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
-            landmarkName = "-addBtnAction"
+            startingLineNumber = "435"
+            endingLineNumber = "435"
+            landmarkName = "-toPay:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MECustomerTypeListVC addBtnAction]"
-                  moduleName = "ME&#x65f6;&#x4ee3;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Main/OnlineCourse/Controller/CustomerFiles/MECustomerTypeListVC.m"
-                  timestampString = "589357820.404462"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "266"
-                  endingLineNumber = "266"
-                  offsetFromSymbolStart = "1252">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[MECustomerTypeListVC addBtnAction]_block_invoke_2"
-                  moduleName = "ME&#x65f6;&#x4ee3;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Main/OnlineCourse/Controller/CustomerFiles/MECustomerTypeListVC.m"
-                  timestampString = "589357820.4069819"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "267"
-                  endingLineNumber = "267"
-                  offsetFromSymbolStart = "60">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.325"
-                  moduleName = "ME&#x65f6;&#x4ee3;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Main/OnlineCourse/Controller/CustomerFiles/MECustomerTypeListVC.m"
-                  timestampString = "589357820.409248"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "266"
-                  endingLineNumber = "266"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/HomePage/Controller/MEMakeOrderVC.m"
+            timestampString = "589458713.227039"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "453"
+            endingLineNumber = "453"
+            landmarkName = "-toPay:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/HomePage/Controller/MEMakeOrderVC.m"
+            timestampString = "589458713.227097"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "451"
+            endingLineNumber = "451"
+            landmarkName = "-toPay:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

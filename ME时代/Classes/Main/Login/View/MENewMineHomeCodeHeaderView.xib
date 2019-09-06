@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="YSZ-JS-kvI" customClass="MENewMineHomeCodeHeaderView">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="313"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="398"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newmineHeader" translatesAutoresizingMaskIntoConstraints="NO" id="snG-Jl-D0c">
@@ -80,7 +80,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avq-p1-BvR">
-                    <rect key="frame" x="15" y="175" width="345" height="138"/>
+                    <rect key="frame" x="15" y="175" width="345" height="223"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的订单" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJB-Eo-duC">
                             <rect key="frame" x="15" y="20" width="54" height="16"/>
@@ -156,6 +156,13 @@
                                 <action selector="returnAction:" destination="YSZ-JS-kvI" eventType="touchUpInside" id="e4T-ug-bOq"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="00v-Vh-Wcg">
+                            <rect key="frame" x="15" y="138" width="315" height="85"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="85" id="eHH-1U-vxd"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -165,7 +172,8 @@
                         <constraint firstItem="nvd-Cv-aEF" firstAttribute="leading" secondItem="TcW-7c-AJL" secondAttribute="trailing" id="4bT-ZL-M88"/>
                         <constraint firstAttribute="trailing" secondItem="Qad-Ta-Fst" secondAttribute="trailing" id="55I-Xb-82E"/>
                         <constraint firstItem="TcW-7c-AJL" firstAttribute="leading" secondItem="avq-p1-BvR" secondAttribute="leading" constant="15" id="7E6-z7-FgO"/>
-                        <constraint firstAttribute="bottom" secondItem="TcW-7c-AJL" secondAttribute="bottom" id="A0q-k4-tI3"/>
+                        <constraint firstAttribute="bottom" secondItem="TcW-7c-AJL" secondAttribute="bottom" constant="85" id="A0q-k4-tI3"/>
+                        <constraint firstAttribute="trailing" secondItem="00v-Vh-Wcg" secondAttribute="trailing" constant="15" id="BAb-F1-Z26"/>
                         <constraint firstItem="VB6-eX-Mv8" firstAttribute="height" secondItem="TcW-7c-AJL" secondAttribute="height" id="Bpw-1k-bN9"/>
                         <constraint firstItem="FPx-IQ-261" firstAttribute="centerY" secondItem="TcW-7c-AJL" secondAttribute="centerY" id="DaH-w0-WUK"/>
                         <constraint firstItem="FPx-IQ-261" firstAttribute="height" secondItem="TcW-7c-AJL" secondAttribute="height" id="Et0-y2-0N2"/>
@@ -174,6 +182,7 @@
                         <constraint firstAttribute="trailing" secondItem="J6a-50-Ouk" secondAttribute="trailing" constant="15" id="Kya-5o-Gfz"/>
                         <constraint firstItem="UEu-ia-fsg" firstAttribute="width" secondItem="TcW-7c-AJL" secondAttribute="width" id="P7b-Gd-jfm"/>
                         <constraint firstItem="J6a-50-Ouk" firstAttribute="top" secondItem="yJB-Eo-duC" secondAttribute="bottom" constant="17" id="QZx-gH-ynv"/>
+                        <constraint firstItem="00v-Vh-Wcg" firstAttribute="leading" secondItem="avq-p1-BvR" secondAttribute="leading" constant="15" id="R0M-0M-cX4"/>
                         <constraint firstItem="J6a-50-Ouk" firstAttribute="top" secondItem="Qad-Ta-Fst" secondAttribute="bottom" id="RyE-ly-89C"/>
                         <constraint firstItem="Qad-Ta-Fst" firstAttribute="leading" secondItem="avq-p1-BvR" secondAttribute="leading" id="Tuy-w4-JKJ"/>
                         <constraint firstItem="UEu-ia-fsg" firstAttribute="centerY" secondItem="TcW-7c-AJL" secondAttribute="centerY" id="VLc-4X-6MK"/>
@@ -183,6 +192,7 @@
                         <constraint firstAttribute="trailing" secondItem="Csj-nb-CRI" secondAttribute="trailing" constant="15" id="eQz-UK-fLx"/>
                         <constraint firstItem="Csj-nb-CRI" firstAttribute="centerY" secondItem="yJB-Eo-duC" secondAttribute="centerY" id="ebK-bb-Mzv"/>
                         <constraint firstAttribute="trailing" secondItem="UEu-ia-fsg" secondAttribute="trailing" constant="15" id="hAU-Op-4r1"/>
+                        <constraint firstAttribute="bottom" secondItem="00v-Vh-Wcg" secondAttribute="bottom" id="iit-q2-C5j"/>
                         <constraint firstItem="FPx-IQ-261" firstAttribute="width" secondItem="TcW-7c-AJL" secondAttribute="width" id="ikm-xv-kEp"/>
                         <constraint firstItem="nvd-Cv-aEF" firstAttribute="height" secondItem="TcW-7c-AJL" secondAttribute="height" id="kim-7B-YoC"/>
                         <constraint firstItem="UEu-ia-fsg" firstAttribute="height" secondItem="TcW-7c-AJL" secondAttribute="height" id="l9b-MF-H1w"/>
@@ -197,7 +207,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GWr-v4-Fkh">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GWr-v4-Fkh">
                     <rect key="frame" x="15" y="175" width="345" height="35"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJL-0y-5n3">
@@ -294,9 +304,9 @@
                         <constraint firstAttribute="width" constant="109" id="xAk-cR-l5n"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <inset key="titleEdgeInsets" minX="-45" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <inset key="imageEdgeInsets" minX="70" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="切换样式 " image="icon_changeStatus">
+                    <inset key="titleEdgeInsets" minX="-50" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="75" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="切换商家版" image="icon_changeStatus">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -345,6 +355,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="LblTel" destination="R8D-Wv-nyg" id="fxf-i7-NwI"/>
+                <outlet property="bottomView" destination="00v-Vh-Wcg" id="Ugz-Ky-qUk"/>
                 <outlet property="businessView" destination="GWr-v4-Fkh" id="t5F-aJ-S22"/>
                 <outlet property="changeStatusBtn" destination="Wzj-Ct-hib" id="PiP-SM-BW4"/>
                 <outlet property="changeStatusBtnConsWidth" destination="xAk-cR-l5n" id="FHf-BO-M4V"/>
@@ -358,7 +369,7 @@
                 <outlet property="orderView" destination="avq-p1-BvR" id="usU-Qj-CFC"/>
                 <outlet property="viewLine" destination="Xgv-KA-i2t" id="4eF-L3-Z2a"/>
             </connections>
-            <point key="canvasLocation" x="-1730.4000000000001" y="-412.44377811094455"/>
+            <point key="canvasLocation" x="-1730.4000000000001" y="-412.89355322338832"/>
         </view>
     </objects>
     <resources>

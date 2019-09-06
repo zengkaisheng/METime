@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -141,6 +141,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="checkBtn" destination="0mL-6o-FRZ" id="hfA-eU-IGB"/>
                 <outlet property="consErrorHeight" destination="USu-HI-2ZV" id="6gj-4w-ldd"/>
                 <outlet property="lblBankNo" destination="Jdf-k1-iRT" id="RQv-zS-sGC"/>
                 <outlet property="lblError" destination="pfs-lK-ETd" id="Hjl-fc-rNa"/>
@@ -151,7 +152,7 @@
                 <outlet property="lblTime" destination="la9-Je-QT7" id="XNE-OR-rtE"/>
                 <outlet property="lnlFee" destination="GKC-CX-Zf2" id="cdQ-w5-h0k"/>
             </connections>
-            <point key="canvasLocation" x="32" y="94.5"/>
+            <point key="canvasLocation" x="-272" y="71"/>
         </tableViewCell>
     </objects>
 </document>

@@ -34,8 +34,8 @@
 
 @interface MEOrderDetailExpressModel : MEBaseModel
 
-@property (nonatomic, strong) NSString * express_company;
-@property (nonatomic, strong) NSString * express_num;
+@property (nonatomic, strong) NSString * express_company; //快递公司
+@property (nonatomic, strong) NSString * express_num;     //快递单号
 
 @end
 
@@ -55,6 +55,7 @@
 @property (nonatomic, strong) NSString *city_id;
 @property (nonatomic, assign) NSInteger idField;
 @property (nonatomic, strong) NSString *province_id;
+@property (nonatomic, strong) NSString *standby_mobile;
 @property (nonatomic, assign) NSInteger uid;
 
 @end
@@ -67,8 +68,8 @@
 @property (nonatomic, assign) NSInteger is_apprise;
 @property (nonatomic, assign) NSInteger is_del;
 @property (nonatomic, strong) NSString * order_amount;
-@property (nonatomic, strong) NSString * order_discountAmount;
-@property (nonatomic, assign) NSInteger order_discountNum;
+@property (nonatomic, strong) NSString * order_discount_amount;
+@property (nonatomic, assign) NSInteger order_discount_num;
 @property (nonatomic, strong) NSString * order_sn;
 @property (nonatomic, strong) NSString * order_status;
 @property (nonatomic, assign) NSInteger order_type;
@@ -82,5 +83,23 @@
 //@property (nonatomic, strong) MELogistModel *logistics;
 @property (nonatomic, strong) MEStoreGetModel *store_get;
 
+@property (nonatomic, strong) NSString * actual_money;
+@property (nonatomic, strong) NSString * all_integral;
+@property (nonatomic, strong) NSString * cellphone;     //店铺电话
+@property (nonatomic, strong) NSString * check_top_up_member_id;
+@property (nonatomic, strong) NSString * check_top_up_time;
+@property (nonatomic, strong) NSString * girl_number;   //女神卡
+@property (nonatomic, assign) NSInteger group_id;
+@property (nonatomic, assign) NSInteger group_sn;
+@property (nonatomic, strong) NSString * pay_time;      //支付时间
+@property (nonatomic, strong) NSString * tips;          //提示
+@property (nonatomic, assign) NSInteger store_id;
+@property (nonatomic, strong) NSString * store_name;    //店铺名称
+@property (nonatomic, assign) NSInteger top_up_status;
+@property (nonatomic, strong) NSString * top_up_status_name;//充值状态
+@property (nonatomic, strong) NSString * warehouse_ids;
+
 @property (nonatomic, strong) NSArray *express_detail;
+
+@property (nonatomic, assign) BOOL isTopUp;//联通充值订单
 @end

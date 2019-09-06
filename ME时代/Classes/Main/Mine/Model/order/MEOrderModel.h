@@ -15,6 +15,7 @@
 @property (nonatomic, assign) NSInteger company_id;
 @property (nonatomic, strong) NSString * created_at;
 @property (nonatomic, strong) NSString * freight;
+@property (nonatomic, strong) NSString * get_phone_bill;  //可领话费
 @property (nonatomic, assign) NSInteger idField;
 @property (nonatomic, assign) NSInteger is_del;
 @property (nonatomic, strong) NSString * order_goods_sn;
@@ -30,7 +31,8 @@
 @property (nonatomic, assign) NSInteger product_number;
 @property (nonatomic, assign) NSInteger product_type;
 @property (nonatomic, strong) NSString * refund_sn;
-@property (nonatomic, strong) NSString * refund_status;
+@property (nonatomic, assign) NSInteger refund_status;
+@property (nonatomic, assign) NSInteger return_cash_store;
 @property (nonatomic, assign) NSInteger share_id;
 @property (nonatomic, assign) NSInteger store_id;
 @property (nonatomic, assign) NSInteger uid;
@@ -45,6 +47,12 @@
 @property (nonatomic, assign) NSInteger is_export;
 @property (nonatomic, assign) NSInteger share_uid;
 @property (nonatomic, assign) NSInteger warehouse_id;
+//联通订单相关
+@property (nonatomic, assign) NSInteger is_check;
+@property (nonatomic, assign) NSInteger top_up_status;
+@property (nonatomic, strong) NSString *top_up_status_name;
+
+@property (nonatomic, assign) BOOL isTopUp;//联通充值订单
 
 @end
 
@@ -57,4 +65,11 @@
 @property (nonatomic, strong) NSString *order_status_name;
 //自提订单"get_status": "未提取",
 @property (nonatomic, strong) NSString *get_status;
+//联通订单相关
+@property (nonatomic, strong) NSString *girl_number;
+@property (nonatomic, assign) NSInteger top_up_status;
+@property (nonatomic, strong) NSString *top_up_status_name;
+
+@property (nonatomic, assign) BOOL isTopUp;//联通充值订单
+
 @end

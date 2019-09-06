@@ -19,7 +19,9 @@
 #import "MEGroupOrderModel.h"
 #import "ZLWebViewVC.h"
 #import "MEMyGroupOrderVC.h"
+#import "MELianTongContentVC.h"
 #import "MEGroupOrderDetailVC.h"
+#import "METopUpTipsView.h"
 
 @interface MEOrderCell ()<UITableViewDelegate,UITableViewDataSource>{
     NSArray *_arrType;
@@ -236,8 +238,47 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - tableView deleagte and sourcedata
+- (void)setLianTongUIWithModel:(MEOrderModel *)model Type:(MEOrderStyle)type{
+    _isSelf = NO;
+    _refundImgV.hidden = YES;
+    _refundLbl.hidden = YES;
+    _type = type;
+    _consTableViewHeight.constant =  (kMEMyChildOrderContentCellHeight * kMeUnArr(model.children).count);
+    _model = model;
+    _btnCancelOrder.hidden = type!=MEAllNeedPayOrder;
+    if (model.isTopUp) {
+        if (model.top_up_status == 1) {
+            _btnPay.hidden = YES;
+        }else if (model.top_up_status == 2) {
+            _btnPay.hidden = NO;
+            _btnPay.layer.borderWidth = 0;
+            _btnPay.backgroundColor = kMEPink;
+            [_btnPay setTitle:@"立即充值" forState:UIControlStateNormal];
+            [_btnPay setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [_btnPay.titleLabel setFont:[UIFont systemFontOfSize:14]];
+        }
+    }else {
+        if(type == MEAllNeedPayOrder || type == MEAllNeedDeliveryOrder){
+            if (type == MEAllNeedDeliveryOrder) {
+                _btnPay.hidden = YES;
+            }else {
+                _btnPay.hidden = NO;
+                _btnPay.layer.borderWidth = 0;
+                _btnPay.backgroundColor = kMEPink;
+                [_btnPay setTitle:@"立即支付" forState:UIControlStateNormal];
+                [_btnPay setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [_btnPay.titleLabel setFont:[UIFont systemFontOfSize:14]];
+            }
+        }else{
+            _btnPay.hidden = YES;
+        }
+    }
+    
+    _lblOrderNum.text = kMeUnNilStr(model.order_sn);
+    [self.tableView reloadData];
+}
 
+#pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (_type == MEAllRefundOrder) {
         return kMeUnArr(_refundModel.order_goods).count;
@@ -266,6 +307,10 @@
             [cell setUIWithGroupModel:_groupModel];
         }else {
             MEOrderGoodModel *model = kMeUnArr(_model.children)[indexPath.row];
+            if (_model.top_up_status_name.length > 0) {
+                model.top_up_status_name = _model.top_up_status_name;
+            }
+            model.isTopUp = _model.isTopUp;
             if(_isSelf){
                 [cell setSelfUIWithModel:model extractStatus:_model.get_status];
             }else{
@@ -292,12 +337,18 @@
             MEGroupOrderDetailVC *vc = [[MEGroupOrderDetailVC alloc] initWithOrderSn:kMeUnNilStr(_groupModel.order_sn)];
             [orderVC.navigationController pushViewController:vc animated:YES];
         }else {
-            MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
             MEOrderGoodModel *model = kMeUnArr(_model.children)[indexPath.row];
             if (model.product_type == 7) {
+                MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
                 MEGroupOrderDetailVC *vc = [[MEGroupOrderDetailVC alloc] initWithOrderSn:kMeUnNilStr(_model.order_sn)];
                 [orderVC.navigationController pushViewController:vc animated:YES];
+            }else if (model.product_type == 17) {//联通订单
+                MELianTongContentVC *orderVC = (MELianTongContentVC *)[MECommonTool getVCWithClassWtihClassName:[MELianTongContentVC class] targetResponderView:self];
+                MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
+                vc.isTopUp = _model.isTopUp;
+                [orderVC.navigationController pushViewController:vc animated:YES];
             }else {
+                MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
                 MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
                 [orderVC.navigationController pushViewController:vc animated:YES];
             }
@@ -334,20 +385,48 @@
             [orderVC.navigationController pushViewController:vc animated:YES];
         }
     }else {
-        MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
-        if(orderVC){
-            if(_type==MEAllNeedPayOrder){
+        if(_type==MEAllNeedPayOrder){
+            MEOrderGoodModel *goodModel = (MEOrderGoodModel *)_model.children.firstObject;
+            if (goodModel.product_type == 17) {
+                MELianTongContentVC *orderVC = (MELianTongContentVC *)[MECommonTool getVCWithClassWtihClassName:[MELianTongContentVC class] targetResponderView:self];
                 MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
+                vc.isTopUp = _model.isTopUp;
                 [orderVC.navigationController pushViewController:vc animated:YES];
-            }else if (_type == MEAllNeedDeliveryOrder){
-                MEApplyRefundVC *applyVC = [[MEApplyRefundVC alloc] initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
-                [orderVC.navigationController pushViewController:applyVC animated:YES];
-            }else if (_type == MEAllFinishOrder){
-                //            MELogisticsVC*vc  = [[MELogisticsVC alloc]initWithOrderGoodsSn:kMeUnNilStr(_model.order_sn)];
-                //            [orderVC.navigationController pushViewController:vc animated:YES];
-            }else{
-                
+            }else {
+                MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
+                if(orderVC){
+                    MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
+                    [orderVC.navigationController pushViewController:vc animated:YES];
+                }
             }
+        }else if (_type == MEAllNeedDeliveryOrder){
+            MEOrderGoodModel *goodModel = (MEOrderGoodModel *)_model.children.firstObject;
+            if (goodModel.product_type == 17) {
+//                MELianTongContentVC *orderVC = (MELianTongContentVC *)[MECommonTool getVCWithClassWtihClassName:[MELianTongContentVC class] targetResponderView:self];
+//                MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
+//                vc.isTopUp = _model.isTopUp;
+//                [orderVC.navigationController pushViewController:vc animated:YES];
+                MEOrderGoodModel *model = kMeUnArr(_model.children)[0];
+                [METopUpTipsView showTopUpTipsViewWithPhone:kMeUnNilStr(_model.girl_number) money:kMeUnNilStr(model.get_phone_bill) successBlock:^{
+                    kMeWEAKSELF
+                    [MEPublicNetWorkTool postTopUpLianTongOrderWithOrderSn:kMeUnNilStr(self->_model.order_sn) SuccessBlock:^(ZLRequestResponse *responseObject) {
+                        kMeSTRONGSELF
+                        kMeCallBlock(strongSelf.finishBlock);
+                    } failure:^(id object) {
+                        
+                    }];
+                } cancelBlock:^{
+                } superView:kMeCurrentWindow];
+            }else {
+                MEMyOrderVC *orderVC = (MEMyOrderVC *)[MECommonTool getVCWithClassWtihClassName:[MEMyOrderVC class] targetResponderView:self];
+                if(orderVC){
+                    MEApplyRefundVC *applyVC = [[MEApplyRefundVC alloc] initWithType:[_model.order_status integerValue] orderGoodsSn:kMeUnNilStr(_model.order_sn)];
+                    [orderVC.navigationController pushViewController:applyVC animated:YES];
+                }
+            }
+        }else if (_type == MEAllFinishOrder){
+            //            MELogisticsVC*vc  = [[MELogisticsVC alloc]initWithOrderGoodsSn:kMeUnNilStr(_model.order_sn)];
+            //            [orderVC.navigationController pushViewController:vc animated:YES];
         }
     }
 }
@@ -381,6 +460,24 @@
          height = (kMEMyChildOrderContentCellHeight * kMeUnArr(model.children).count) +kMEOrderCellNeedPayBtnHeight;
     }else{
          height = (kMEMyChildOrderContentCellHeight * kMeUnArr(model.children).count) +kMEOrderCellNoPayedBtnHeight;
+    }
+    return height;
+}
+
++ (CGFloat)getCellHeightWithLianTongModel:(MEOrderModel *)model Type:(MEOrderStyle)type {
+    CGFloat height = 0;
+    if (model.isTopUp) {
+        if (model.top_up_status == 1) {
+            height = (kMEMyChildOrderContentCellHeight * kMeUnArr(model.children).count) +kMEOrderCellNoPayedBtnHeight;
+        }else {
+            height = (kMEMyChildOrderContentCellHeight * kMeUnArr(model.children).count) +kMEOrderCellNeedPayBtnHeight;
+        }
+    }else {
+        if(type == MEAllNeedPayOrder){
+            height = (kMEMyChildOrderContentCellHeight * kMeUnArr(model.children).count) +kMEOrderCellNeedPayBtnHeight;
+        }else{
+            height = (kMEMyChildOrderContentCellHeight * kMeUnArr(model.children).count) +kMEOrderCellNoPayedBtnHeight;
+        }
     }
     return height;
 }

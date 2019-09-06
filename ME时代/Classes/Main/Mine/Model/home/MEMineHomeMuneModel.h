@@ -20,13 +20,21 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface MEMineHomeMuneModel : MEBaseModel
+@interface MEMineHomeMuneSubModel : MEBaseModel
 
 @property (nonatomic, strong) NSArray * children;
 @property (nonatomic, strong) NSString * icon;
 @property (nonatomic, assign) NSInteger idField;
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSString * path;
+
+@end
+
+
+@interface MEMineHomeMuneModel : MEBaseModel
+
+@property (nonatomic, strong) NSArray * menu;
+@property (nonatomic, strong) NSArray * order;
 
 @end
 

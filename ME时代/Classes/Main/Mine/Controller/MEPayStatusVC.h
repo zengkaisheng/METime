@@ -13,4 +13,6 @@
 - (instancetype)initWithSucessConfireBlock:(kMeBasicBlock)block;
 - (instancetype)initWithFailRePayBlock:(kMeBasicBlock)rePayBlock CheckOrderBlock:(kMeBasicBlock)checkOrderBlock;
 
+@property (nonatomic, strong) NSString *order_sn;
+
 @end

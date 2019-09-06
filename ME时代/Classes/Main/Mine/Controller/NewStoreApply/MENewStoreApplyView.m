@@ -56,8 +56,8 @@
     kMeWEAKSELF
     _tfTrue_name.contentBlock = ^(NSString *str) {
         kMeSTRONGSELF
-        if (str.length > 20) {
-            str = [str substringWithRange:NSMakeRange(0, 20)];
+        if (str.length > 10) {
+            str = [str substringWithRange:NSMakeRange(0, 10)];
             strongSelf->_tfTrue_name.text = str;
             [strongSelf->_tfTrue_name endEditing:YES];
         }
@@ -66,8 +66,8 @@
     _tfname.text = kMeUnNilStr(_model.name);
     _tfname.contentBlock = ^(NSString *str) {
         kMeSTRONGSELF
-        if (str.length > 20) {
-            str = [str substringWithRange:NSMakeRange(0, 20)];
+        if (str.length > 10) {
+            str = [str substringWithRange:NSMakeRange(0, 10)];
             strongSelf->_tfname.text = str;
             [strongSelf->_tfname endEditing:YES];
         }
@@ -77,8 +77,8 @@
     _tfstore_name.text = kMeUnNilStr(_model.store_name);
     _tfstore_name.contentBlock = ^(NSString *str) {
         kMeSTRONGSELF
-        if (str.length > 20) {
-            str = [str substringWithRange:NSMakeRange(0, 20)];
+        if (str.length > 10) {
+            str = [str substringWithRange:NSMakeRange(0, 10)];
             strongSelf->_tfstore_name.text = str;
             [strongSelf->_tfstore_name endEditing:YES];
         }

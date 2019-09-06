@@ -11,7 +11,7 @@
 
 //#warning -mustNotes 上线一定要注释/海报分享产品分享
 
-#define TestVersion
+//#define TestVersion
 
 //域名 develop
 #ifdef TestVersion
@@ -590,6 +590,8 @@
 #define MEIPcommonGetUser @"common/user/getUser"
 //我的入口
 #define MEIPcommonGetUserMenu @"common/my/menu"
+//我的入口(新)
+#define MEIPcommonGetUserMenuAll @"common/my/menuAll"
 //获取用户的邀请码
 #define MEIPcommonGetInvitationCode @"common/user/getInvitationCode"
 
@@ -1033,7 +1035,16 @@
 #pragma makr - 运营管理
 //获取用户联通订单
 #define MEIPcommonOrderGetLianTongOrder @"common/order/getLianTongOrder"
-
+//获取门店联通订单
+#define MEIPcommonOrderGetStoreLianTongOrder @"common/order/getStoreLianTongOrder"
+//获取门店联通订单
+#define MEIPcommonOrderTopUpLianTongOrder @"common/order/topUpLianTongOrder"
+//门店佣金统计
+#define MEIPcommonOrderLianTongBrokerage @"common/order/liantongBrokerage"
+//门店联通提现历史记录
+#define MEIPcommonOrderLianTongWithdrawHistory @"common/order/liantongWithdrawHistory"
+//门店联通订单提现
+#define MEIPcommonOrderLianTongWithdrawDeposit @"common/order/liantongWithdrawDeposit"
 /*********************************************/
 
 #endif /* MEAPIMacros_h */

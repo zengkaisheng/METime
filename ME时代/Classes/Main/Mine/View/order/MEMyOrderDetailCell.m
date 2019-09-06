@@ -80,6 +80,14 @@
     _lblFristBuy.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:12];
 }
 
+- (void)setLianTongUIWithContent:(NSString *)content {
+    _lblTitle.hidden = YES;
+    _lblSubTitle.hidden = YES;
+    _lblFristBuy.text = content;
+    
+    _lblFristBuy.textColor = kME333333;
+}
+
 - (void)setGroupUIWithInfo:(NSDictionary *)info {
     
     if ([info[@"type"] intValue] == 0) {

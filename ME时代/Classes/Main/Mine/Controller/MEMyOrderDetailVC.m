@@ -14,13 +14,14 @@
 #import "MEOrderModel.h"
 #import "MEPayStatusVC.h"
 #import "MEMyOrderVC.h"
+#import "METopUpTipsView.h"
 
 @interface MEMyOrderDetailVC ()<UITableViewDelegate, UITableViewDataSource>{
     MEOrderStyle _orderType;
     NSString *_orderGoodsSn;
     MEOrderDetailModel *_detaliModel;
     BOOL _isPayError;//防止跳2次错误页面
-    BOOL _isSelf;
+    BOOL _isSelf;//是否自提订单
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -29,6 +30,7 @@
 @property (nonatomic, strong) MEOrderDetailView *headerView;
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) UIView *bottomSelfExtractView;
+@property (nonatomic, strong) UIButton *payBtn;
 
 @end
 
@@ -67,27 +69,63 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"订单详情";
+    [self getOrderDetailWithNetworking];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WechatSuccess:) name:WX_PAY_RESULT object:nil];
+}
+
+- (void)getOrderDetailWithNetworking {
     kMeWEAKSELF
     [MEPublicNetWorkTool getOrderDetailWithGoodSn:_orderGoodsSn successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         strongSelf->_detaliModel = [MEOrderDetailModel mj_objectWithKeyValues:responseObject.data];
+        strongSelf->_detaliModel.isTopUp = strongSelf.isTopUp;
         strongSelf->_orderType = [strongSelf->_detaliModel.order_status integerValue];
         if(kMeUnNilStr(strongSelf->_detaliModel.remark).length){
-            strongSelf.arrData =  @[@(MESettlmemtFreight),@(MESettlmemtRealPay),@(MESettlmemtExpressCompany),@(MESettlmemtExpressNum),@(MESettlmemtRemark)];
-            strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],kMeUnNilStr(strongSelf->_detaliModel.express.express_company),kMeUnNilStr(strongSelf->_detaliModel.express.express_num),kMeUnNilStr(strongSelf->_detaliModel.remark)];
+            if (strongSelf->_detaliModel.order_type == 17) {
+                NSArray *firstArray = @[@(MESettlmemtGoodsPrice),@(MESettlmemtFreight),@(MESettlmemtRealPay),@(MESettlmemtRemark)];
+                strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],kMeUnNilStr(strongSelf->_detaliModel.actual_money),kMeUnNilStr(strongSelf->_detaliModel.remark)];
+                if (strongSelf.isTopUp) {
+                    MEOrderGoodModel *orderModel = kMeUnArr(strongSelf->_detaliModel.children)[0];
+                    firstArray = @[@(MESettlmemtGoodsPrice),@(MESettlmemtFreight),@(MESettlmemtRealPay),@(MESettlmemtPhoneBill),@(MESettlmemtRemark)];
+                    strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],kMeUnNilStr(strongSelf->_detaliModel.actual_money),kMeUnNilStr(orderModel.get_phone_bill),kMeUnNilStr(strongSelf->_detaliModel.remark)];
+                }
+                strongSelf.arrData = @[firstArray,@[[NSString stringWithFormat:@"订单编号：%@",kMeUnNilStr(strongSelf->_detaliModel.order_sn)],[NSString stringWithFormat:@"创建时间：%@",kMeUnNilStr(strongSelf->_detaliModel.created_at)],[NSString stringWithFormat:@"交易时间：%@",kMeUnNilStr(strongSelf->_detaliModel.pay_time)],[NSString stringWithFormat:@"体验中心姓名：%@",kMeUnNilStr(strongSelf->_detaliModel.store_name)],[NSString stringWithFormat:@"体验中心手机：%@",kMeUnNilStr(strongSelf->_detaliModel.cellphone)],[NSString stringWithFormat:@"%@",kMeUnNilStr(strongSelf->_detaliModel.tips)]]];
+            }else {
+                strongSelf.arrData =  @[@(MESettlmemtFreight),@(MESettlmemtRealPay),@(MESettlmemtExpressCompany),@(MESettlmemtExpressNum),@(MESettlmemtRemark)];
+                strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],kMeUnNilStr(strongSelf->_detaliModel.express.express_company),kMeUnNilStr(strongSelf->_detaliModel.express.express_num),kMeUnNilStr(strongSelf->_detaliModel.remark)];
+            }
         }else{
-            strongSelf.arrData =  @[@(MESettlmemtFreight),@(MESettlmemtRealPay),@(MESettlmemtExpressCompany),@(MESettlmemtExpressNum)];
-            strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],kMeUnNilStr(strongSelf->_detaliModel.express.express_company),kMeUnNilStr(strongSelf->_detaliModel.express.express_num)];
+            if (strongSelf->_detaliModel.order_type == 17) {
+                NSArray *firstArray = @[@(MESettlmemtGoodsPrice),@(MESettlmemtFreight),@(MESettlmemtRealPay)];
+                strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],kMeUnNilStr(strongSelf->_detaliModel.actual_money)];
+                if (strongSelf.isTopUp) {
+                    MEOrderGoodModel *orderModel = kMeUnArr(strongSelf->_detaliModel.children)[0];
+                    firstArray = @[@(MESettlmemtGoodsPrice),@(MESettlmemtFreight),@(MESettlmemtRealPay),@(MESettlmemtPhoneBill)];
+                    strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],kMeUnNilStr(strongSelf->_detaliModel.actual_money),kMeUnNilStr(orderModel.get_phone_bill)];
+                }
+                strongSelf.arrData = @[firstArray,@[[NSString stringWithFormat:@"订单编号：%@",kMeUnNilStr(strongSelf->_detaliModel.order_sn)],[NSString stringWithFormat:@"创建时间：%@",kMeUnNilStr(strongSelf->_detaliModel.created_at)],[NSString stringWithFormat:@"交易时间：%@",kMeUnNilStr(strongSelf->_detaliModel.pay_time)],[NSString stringWithFormat:@"体验中心姓名：%@",kMeUnNilStr(strongSelf->_detaliModel.store_name)],[NSString stringWithFormat:@"体验中心手机：%@",kMeUnNilStr(strongSelf->_detaliModel.cellphone)],[NSString stringWithFormat:@"%@",kMeUnNilStr(strongSelf->_detaliModel.tips)]]];
+            }else {
+                strongSelf.arrData =  @[@(MESettlmemtFreight),@(MESettlmemtRealPay),@(MESettlmemtExpressCompany),@(MESettlmemtExpressNum)];
+                strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],kMeUnNilStr(strongSelf->_detaliModel.express.express_company),kMeUnNilStr(strongSelf->_detaliModel.express.express_num)];
+            }
         }
         strongSelf.tableView.tableHeaderView = strongSelf.headerView;
-        if(strongSelf->_orderType == MEAllNeedPayOrder && strongSelf->_isSelf==NO){
-            strongSelf.tableView.tableFooterView = strongSelf.bottomView;
-        }
-        if(strongSelf->_isSelf==YES &&
-           strongSelf->_detaliModel.store_get &&
-           strongSelf->_detaliModel.store_get.get_status==MEOSelfNotExtractionrderStyle)
-        {   
-            strongSelf.tableView.tableFooterView = strongSelf.bottomSelfExtractView;
+        if (strongSelf.isTopUp) {
+            if (strongSelf->_detaliModel.top_up_status == 2) {
+                strongSelf.tableView.tableFooterView = strongSelf.bottomView;
+                [strongSelf.payBtn setTitle:@"立即充值" forState:UIControlStateNormal];
+            }
+        }else {
+            if(strongSelf->_orderType == MEAllNeedPayOrder && strongSelf->_isSelf==NO){
+                strongSelf.tableView.tableFooterView = strongSelf.bottomView;
+            }
+            if(strongSelf->_isSelf==YES &&
+               strongSelf->_detaliModel.store_get &&
+               strongSelf->_detaliModel.store_get.get_status==MEOSelfNotExtractionrderStyle)
+            {
+                strongSelf.tableView.tableFooterView = strongSelf.bottomSelfExtractView;
+            }
         }
         [strongSelf.view addSubview:strongSelf.tableView];
         [strongSelf.tableView reloadData];
@@ -95,11 +133,9 @@
         kMeSTRONGSELF
         [strongSelf.navigationController popViewControllerAnimated:YES];
     }];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WechatSuccess:) name:WX_PAY_RESULT object:nil];
 }
 
 #pragma mark - Pay
-
 - (void)WechatSuccess:(NSNotification *)noti{
     [self payResultWithNoti:[noti object] result:WXPAY_SUCCESSED];
 }
@@ -153,10 +189,17 @@
 
 #pragma mark ------------------ <UITableViewDelegate, UITableViewDataSource> ----
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (_detaliModel.order_type == 17) {
+        return 3;
+    }
     return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(section){
+        if (_detaliModel.order_type == 17) {
+            NSArray *array = _arrData[section-1];
+            return array.count;
+        }
         return _arrData.count;
     }else{
         return kMeUnArr(_detaliModel.children).count;
@@ -166,7 +209,16 @@
     if(indexPath.section){
         MEMyOrderDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEMyOrderDetailCell class]) forIndexPath:indexPath];
         ;
-        [cell setUIWithModel:_arrDataStr[indexPath.row] Type:[_arrData[indexPath.row] integerValue] orderType:_orderType];
+        if (_detaliModel.order_type == 17) {
+            NSArray *array = _arrData[indexPath.section-1];
+            if (indexPath.section == 1) {
+                [cell setUIWithModel:_arrDataStr[indexPath.row] Type:[array[indexPath.row] integerValue] orderType:_orderType];
+            }else {
+                [cell setLianTongUIWithContent:[NSString stringWithFormat:@"%@",kMeUnNilStr(array[indexPath.row])]];
+            }
+        }else {
+            [cell setUIWithModel:_arrDataStr[indexPath.row] Type:[_arrData[indexPath.row] integerValue] orderType:_orderType];
+        }
         return cell;
     }else{
         MEOrderDetailContentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOrderDetailContentCell class]) forIndexPath:indexPath];
@@ -177,7 +229,27 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.section?kMEMyOrderDetailCellHeight:kMEOrderDetailContentCellHeight;
+    if (indexPath.section) {
+        if (_detaliModel.order_type == 17) {
+            if (indexPath.section == 1) {
+                return kMEMyOrderDetailCellHeight;
+            }
+            if (indexPath.section == 2) {
+                if (indexPath.row == 2) {
+                    if (kMeUnNilStr(_detaliModel.pay_time).length <= 0) {
+                        return 0;
+                    }
+                }else if (indexPath.row == 3||indexPath.row==4||indexPath.row==5){
+                    if (self.isTopUp) {
+                        return 0;
+                    }
+                }
+            }
+            return 35;
+        }
+        return kMEMyOrderDetailCellHeight;
+    }
+    return kMEOrderDetailContentCellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -188,16 +260,29 @@
     if(section){
         UIView *sectionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kMEMyOrderDetailCellHeight)];
         UILabel *lblTitle = [[UILabel alloc]init];
+        lblTitle.frame = CGRectMake(15, 0, SCREEN_WIDTH-30, kMEMyOrderDetailCellHeight);
         [sectionView addSubview:lblTitle];
         lblTitle.text = @"结算";
+        
+        if (_detaliModel.order_type == 17) {
+            if (section == 2) {
+                sectionView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMEMyOrderDetailCellHeight+10);
+                lblTitle.text = @"订单明细";
+                UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+                line.backgroundColor = [UIColor colorWithHexString:@"#EEEEEE"];
+                [sectionView addSubview:line];
+                
+                lblTitle.frame = CGRectMake(15, 10, SCREEN_WIDTH-30, kMEMyOrderDetailCellHeight);
+            }
+        }
         lblTitle.font = [UIFont systemFontOfSize:16];
         lblTitle.textColor = kMEHexColor(@"333333");
-        [lblTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(sectionView.mas_left).offset(15);
-            make.right.equalTo(sectionView.mas_right).offset(15);
-            make.top.equalTo(sectionView);
-            make.bottom.equalTo(sectionView);
-        }];
+//        [lblTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(sectionView.mas_left).offset(15);
+//            make.right.equalTo(sectionView.mas_right).offset(15);
+//            make.top.equalTo(sectionView);
+//            make.bottom.equalTo(sectionView);
+//        }];
         return sectionView;
     }else{
         return [UIView new];
@@ -221,19 +306,36 @@
 }
 
 - (void)toPay:(UIButton *)btn{
-    kMeWEAKSELF
-    [MEPublicNetWorkTool postPayOrderWithOrder_sn:kMeUnNilStr(self->_orderGoodsSn) successBlock:^(ZLRequestResponse *responseObject) {
-        kMeSTRONGSELF
-        PAYPRE
-        strongSelf->_isPayError= NO;
-        MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-        BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:strongSelf->_detaliModel.order_amount];
-        if(!isSucess){
-            [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
+    if (_detaliModel.isTopUp) {
+        if (_detaliModel.top_up_status == 2) {
+            MEOrderGoodModel *orderModel = kMeUnArr(_detaliModel.children)[0];
+            [METopUpTipsView showTopUpTipsViewWithPhone:kMeUnNilStr(_detaliModel.girl_number) money:kMeUnNilStr(orderModel.get_phone_bill) successBlock:^{
+                kMeWEAKSELF
+                [MEPublicNetWorkTool postTopUpLianTongOrderWithOrderSn:kMeUnNilStr(self->_orderGoodsSn) SuccessBlock:^(ZLRequestResponse *responseObject) {
+                    kMeSTRONGSELF
+                    [strongSelf getOrderDetailWithNetworking];
+                    
+                } failure:^(id object) {
+                    
+                }];
+            } cancelBlock:^{
+            } superView:kMeCurrentWindow];
         }
-    } failure:^(id object) {
-        
-    }];
+    }else {
+        kMeWEAKSELF
+        [MEPublicNetWorkTool postPayOrderWithOrder_sn:kMeUnNilStr(self->_orderGoodsSn) successBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            PAYPRE
+            strongSelf->_isPayError= NO;
+            MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
+            BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:strongSelf->_detaliModel.order_amount];
+            if(!isSucess){
+                [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
+            }
+        } failure:^(id object) {
+            
+        }];
+    }
 }
 
 #pragma mark - Set And Get
@@ -273,6 +375,7 @@
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         btn.cornerRadius = 5;
         btn.clipsToBounds = YES;
+        self.payBtn = btn;
         btn.titleLabel.font = [UIFont systemFontOfSize:18];
         [_bottomView addSubview:btn];
     }

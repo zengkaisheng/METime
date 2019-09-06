@@ -14,4 +14,6 @@
 + (CGFloat)getViewHeight;
 @property (nonatomic, copy) kMeBasicBlock applyFinishBlock;
 @property (nonatomic, assign) BOOL isCouponMoney;
+
+@property (nonatomic, assign) BOOL isLianTong;
 @end

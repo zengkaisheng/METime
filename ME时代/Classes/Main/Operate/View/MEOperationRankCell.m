@@ -68,8 +68,8 @@
                 [obj removeFromSuperview];
             }
         }
-        NSArray *btns = @[@"业绩",@"消耗",@"项目数",@"客次数"];
-        CGFloat btnWidth = 50;
+        NSArray *btns = @[@"业绩",@"服务",@"项目数"];
+        CGFloat btnWidth = 65;
         for (int i = 0; i < btns.count; i++) {
             UIButton *btn = [self createBtnWithTitle:btns[i] frame:CGRectMake(btnWidth*i, 0, btnWidth, 24) tag:102+i];
             

@@ -10,9 +10,12 @@
 
 @class MEAppointDetailModel;
 @class MEOrderDetailModel;
-const static CGFloat kMEOrderDetailViewHeight = 187;
-const static CGFloat kMEOrderDetailViewLogistHeight = 87;
+const static CGFloat kMEOrderDetailViewHeight = 182;
+const static CGFloat kMEOrderDetailViewLogistHeight = 72;
+const static CGFloat kMEOrderDetailViewTopUpHeight = 68;
 @interface MEOrderDetailView : UIView
+
+@property (nonatomic, copy) kMeBasicBlock topUpBlock;
 
 - (void)setUIWithModel:(MEOrderDetailModel *)model orderType:(MEOrderStyle)type;
 - (void)setAppointUIWithModel:(MEAppointDetailModel *)model orderType:(MEAppointmenyStyle)type;

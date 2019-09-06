@@ -65,8 +65,10 @@
     }
     if (model.is_confirm == 1) {
         [_confirmBtn setTitle:@"已确定" forState:UIControlStateNormal];
+        _cancelBtn.hidden = YES;
     }else {
         [_confirmBtn setTitle:@"确认预约" forState:UIControlStateNormal];
+        _cancelBtn.hidden = NO;
     }
 }
 

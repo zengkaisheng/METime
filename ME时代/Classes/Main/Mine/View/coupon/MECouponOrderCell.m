@@ -10,6 +10,7 @@
 #import "MECouponMoneyModel.h"
 #import "MEJDCouponMoneyModel.h"
 #import "MECouponBtModel.h"
+#import "MEOrderModel.h"
 
 @interface MECouponOrderCell()
 @property (weak, nonatomic) IBOutlet UIImageView *imgPic;
@@ -57,6 +58,17 @@
     _lblPrice.text =  [NSString stringWithFormat:@"消费金额¥%@",kMeUnNilStr(model.pay_price)];
     _lblCommission.text = [NSString stringWithFormat:@"佣金估计¥%@",kMeUnNilStr(model.expected_money)];
     _lblStatus.text = kMeUnNilStr(model.status_name);
+}
+
+- (void)setLianTongUIWithModel:(MEOrderGoodModel *)model {
+    kSDLoadImg(_imgPic, MELoadQiniuImagesWithUrl(kMeUnNilStr(model.product_image)));
+    _lblTitle.text = kMeUnNilStr(model.product_name);
+    _lblTime.text = [NSString stringWithFormat:@"下单时间:%@",kMeUnNilStr(model.created_at)];
+    
+    _lblPrice.text =  [NSString stringWithFormat:@"消费金额¥%@",kMeUnNilStr(model.all_amount)];
+    NSInteger money = model.product_number * model.return_cash_store;
+    _lblCommission.text = [NSString stringWithFormat:@"佣金估计¥%@",@(money)];
+    _lblStatus.hidden = YES;
 }
 
 @end

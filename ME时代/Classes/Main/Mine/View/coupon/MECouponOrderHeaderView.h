@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) kMeBasicBlock block;
 - (void)setUIWithModel:(MECouponDetailModel *)model;
 
+- (void)setLianTongUIWithModdel:(MECouponDetailModel *)model;
+
 @end
 
 NS_ASSUME_NONNULL_END
