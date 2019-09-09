@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MECustomerTypeListVC : MEBaseVC
 
 @property (nonatomic, copy) kMeObjBlock contentBlock;
+@property (nonatomic, copy) kMeBasicBlock deleteBlock;
 
 - (instancetype)initWithHabitModel:(MELivingHabitListModel *)model;
 

@@ -728,6 +728,8 @@
 + (void)postEditLivingHabitClassifyNameWithClassifyId:(NSString *)classifyId classifyTitle:(NSString *)classifyTitle type:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //添加生活习惯分类
 + (void)postAddCustomerLivingHabitClassifyWithClassifyTitle:(NSString *)classifyTitle type:(NSInteger)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//添加生活习惯分类
++ (void)postDeleteCustomerLivingHabitClassifyWithClassifyId:(NSString *)classifyId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

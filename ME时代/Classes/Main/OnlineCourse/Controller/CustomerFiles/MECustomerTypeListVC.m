@@ -160,9 +160,27 @@
             strongSelf.model.classify_title = info[@"classify_title"];
             strongSelf.model.type = [info[@"type"] integerValue];
             strongSelf.chooseBtn.selected = strongSelf.model.type==0?YES:NO;
+            [MECommonTool showMessage:@"保存成功" view:kMeCurrentWindow];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [strongSelf.navigationController popViewControllerAnimated:YES];
+                kMeCallBlock(strongSelf.contentBlock,strongSelf.model);
+            });
         }
-        kMeCallBlock(self.contentBlock,strongSelf.model);
-        [strongSelf.tableView reloadData];
+    } failure:^(id object) {
+    }];
+}
+//删除生活习惯分类
+- (void)deleteLivingHabitClassifyWithClassifyId:(NSString *)classifyId {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postDeleteCustomerLivingHabitClassifyWithClassifyId:classifyId successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data intValue] == 1) {
+            [MECommonTool showMessage:@"删除成功" view:kMeCurrentWindow];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [strongSelf.navigationController popViewControllerAnimated:YES];
+                kMeCallBlock(self.deleteBlock);
+            });
+        }
     } failure:^(id object) {
     }];
 }
@@ -245,10 +263,22 @@
     kMeWEAKSELF
     headerView.tapBlock = ^(BOOL isTap) {
         kMeSTRONGSELF
-        [MECustomInputView showCustomInputViewWithTitle:@"修改" content:kMeUnNilStr(strongSelf.model.classify_title) showChooseBtn:YES isInput:NO saveBlock:^(NSString * str, BOOL isShow) {
-            [strongSelf editLivingHabitClassifyTitle:str type:isShow?0:1];
-        } cancelBlock:^{
-        } superView:kMeCurrentWindow];
+        UIAlertAction *editAction = [UIAlertAction actionWithTitle:@"修改" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [MECustomInputView showCustomInputViewWithTitle:@"修改" content:kMeUnNilStr(strongSelf.model.classify_title) showChooseBtn:YES isInput:NO saveBlock:^(NSString * str, BOOL isShow) {
+                [strongSelf editLivingHabitClassifyTitle:str type:isShow?0:1];
+            } cancelBlock:^{
+            } superView:kMeCurrentWindow];
+        }];
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [strongSelf deleteLivingHabitClassifyWithClassifyId:[NSString stringWithFormat:@"%@",@(strongSelf.model.idField)]];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"编辑生活习惯" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+        [alertController addAction:editAction];
+        [alertController addAction:deleteAction];
+        [alertController addAction:cancelAction];
+        [strongSelf presentViewController:alertController animated:YES completion:nil];
     };
     return headerView;
 }

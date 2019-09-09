@@ -485,12 +485,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSArray *arr = _arrtype[indexPath.row];
-    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
-    if (indexPath.row == 0) {
-        if ([status isEqualToString:@"business"]) {
-            return [MENewMineHomeCell getHeightWithArr:arr]-37-15;
-        }
-    }
+//    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+//    if (indexPath.row == 0) {
+//        if ([status isEqualToString:@"business"]) {
+//            return [MENewMineHomeCell getHeightWithArr:arr]-37-15;
+//        }
+//    }
     return [MENewMineHomeCell getHeightWithArr:arr];
 }
 

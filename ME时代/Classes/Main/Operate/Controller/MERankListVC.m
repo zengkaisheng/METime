@@ -193,6 +193,36 @@
     return 52*self.refresh.arrData.count+20;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (self.isObjectList) {
+        return 40;
+    }
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (self.isObjectList) {
+        UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
+        UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 100, 40)];
+        nameLbl.text = @"项目名称";
+        nameLbl.font = [UIFont systemFontOfSize:15];
+        nameLbl.textAlignment = NSTextAlignmentCenter;
+        [header addSubview:nameLbl];
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-1)/2, 5, 1, 30)];
+        line.backgroundColor = [UIColor colorWithHexString:@"#eeeeee"];
+        [header addSubview:line];
+        
+        UILabel *amountLbl = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-15-100, 0, 100, 40)];
+        amountLbl.text = @"消费金额";
+        amountLbl.font = [UIFont systemFontOfSize:15];
+        amountLbl.textAlignment = NSTextAlignmentCenter;
+        [header addSubview:amountLbl];
+        return header;
+    }
+    return nil;
+}
+
 
 #pragma setter&&getter
 - (UITableView *)tableView{

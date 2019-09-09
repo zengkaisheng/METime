@@ -71,8 +71,10 @@
     [MEPublicNetWorkTool postEditLivingHabitWithCustomerFilesId:[NSString stringWithFormat:@"%@",@(self.customerId)] habit:habits successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         [MECommonTool showMessage:@"修改成功" view:kMeCurrentWindow];
-        kMeCallBlock(strongSelf.finishBlock);
-        [strongSelf.tableView reloadData];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            kMeCallBlock(strongSelf.finishBlock);
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        });
     } failure:^(id object) {
     }];
 }
@@ -150,6 +152,11 @@
             listModel = listModel;
             [strongSelf.tableView reloadData];
             kMeCallBlock(strongSelf.finishBlock);
+        };
+        vc.deleteBlock = ^{
+            [strongSelf.dataSource removeObject:listModel];
+            kMeCallBlock(strongSelf.finishBlock);
+            [strongSelf.tableView reloadData];
         };
         [strongSelf.navigationController pushViewController:vc animated:YES];
     };

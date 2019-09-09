@@ -64,12 +64,23 @@
     kMeWEAKSELF
     _tfName.contentBlock = ^(NSString *str) {
         kMeSTRONGSELF
+        if (str.length > 15) {
+            str = [str substringWithRange:NSMakeRange(0, 15)];
+            strongSelf->_tfName.text = str;
+            [strongSelf->_tfName endEditing:YES];
+        }
         strongSelf->_attrModel.truename = str;
     };
     _tfPhone.contentBlock = ^(NSString *str) {
         kMeSTRONGSELF
+        if (str.length > 11) {
+            str = [str substringWithRange:NSMakeRange(0, 11)];
+            strongSelf->_tfPhone.text = str;
+            [strongSelf->_tfPhone endEditing:YES];
+        }
         strongSelf->_attrModel.telphone = str;
     };
+    _tfPhone.keyboardType = UIKeyboardTypeNumberPad;
     
     _tvAddress.contentBlock = ^(NSString *str) {
         kMeSTRONGSELF

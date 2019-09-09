@@ -52,6 +52,7 @@
         kMeSTRONGSELF
         if (str.length > 10) {
             str = [str substringWithRange:NSMakeRange(0, 10)];
+            strongSelf->_nameTF.text = str;
             [strongSelf->_nameTF endEditing:YES];
         }
         model.object_name = str;
@@ -59,8 +60,9 @@
     
     _chargeTF.contentBlock = ^(NSString *str) {
         kMeSTRONGSELF
-        if (str.length > 10) {
-            str = [str substringWithRange:NSMakeRange(0, 10)];
+        if (str.length > 6) {
+            str = [str substringWithRange:NSMakeRange(0, 6)];
+            strongSelf->_chargeTF.text = str;
             [strongSelf->_chargeTF endEditing:YES];
         }
         model.money = [str integerValue];

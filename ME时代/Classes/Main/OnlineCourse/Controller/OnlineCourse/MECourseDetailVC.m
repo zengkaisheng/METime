@@ -146,9 +146,9 @@
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
     
     if (self.type == 0 || self.type == 4 || self.type == 6) {
-        [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.detailModel.video_detail)] baseURL:nil];
+        [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.detailModel.video_detail).length>0?kMeUnNilStr(self.detailModel.video_detail):@"<p>暂无课程介绍</p> "] baseURL:nil];
     }else if (self.type == 1  || self.type == 5 || self.type == 7) {
-        [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.detailModel.audio_detail)] baseURL:nil];
+        [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.detailModel.audio_detail).length>0?kMeUnNilStr(self.detailModel.audio_detail):@"<p>暂无课程介绍</p> "] baseURL:nil];
     }
     
     if (self.detailModel.is_charge == 2 || self.detailModel.is_buy == 1) {//免费或已购买

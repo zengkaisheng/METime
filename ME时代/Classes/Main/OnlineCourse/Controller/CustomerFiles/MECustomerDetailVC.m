@@ -100,7 +100,7 @@
     
     MEAddCustomerInfoModel *adressModel = [self creatModelWithTitle:@"地址" andPlaceHolder:@"" andMaxInputWords:40 andIsTextField:self.isAdd?YES:NO andIsMustInput:NO andToastStr:@""];
     
-    MEAddCustomerInfoModel *cTypeModel = [self creatModelWithTitle:@"顾客分类" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:NO andToastStr:@""];
+    MEAddCustomerInfoModel *cTypeModel = [self creatModelWithTitle:@"顾客分类" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:NO andIsMustInput:YES andToastStr:@"请选择顾客分类"];
     cTypeModel.isHideArrow = self.isAdd?NO:YES;
     cTypeModel.isLastItem = YES;
     
@@ -428,7 +428,12 @@
                     addModel.address = model.value;
                 }
                 if ([model.title isEqualToString:@"顾客分类"]) {
-                    addModel.customer_classify_id = model.valueId;
+                    if (kMeUnNilStr(model.value).length <= 0) {
+                        [MECommonTool showMessage:model.toastStr view:kMeCurrentWindow];
+                        return;
+                    }else {
+                        addModel.customer_classify_id = model.valueId;
+                    }
                 }
             }
         }

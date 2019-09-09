@@ -751,7 +751,7 @@
         return 0;
     }
     NSInteger section = (arr.count/3)+((arr.count%3)>0?1:0);
-    CGFloat height =  (section * kMENewMineHomeContentCellHeight)+25+15+37;
+    CGFloat height = (section * kMENewMineHomeContentCellHeight)+25+15+37;
     return height;
 }
 

@@ -55,6 +55,20 @@
     METextView *tv = [[METextView alloc] initWithFrame:CGRectMake(28, 45, BGViewWidth-56, BGViewHeight-45-50)];
     tv.textView.font = [UIFont systemFontOfSize:15];
     tv.textView.textColor = [UIColor blackColor];
+    __block METextView *textView = tv;
+    tv.contenBlock = ^(NSString *str) {
+        int maxCount = 30;
+        if ([title isEqualToString:@"添加顾客分类"]) {
+            maxCount = 10;
+        }else if ([title isEqualToString:@"添加生活习惯"]) {
+            maxCount = 15;
+        }
+        if (str.length > maxCount) {
+            str = [str substringWithRange:NSMakeRange(0, maxCount)];
+            textView.textView.text = str;
+            [textView endEditing:YES];
+        }
+    };
     
     if (content.length > 0) {
         tv.placeholderTextView.hidden = YES;

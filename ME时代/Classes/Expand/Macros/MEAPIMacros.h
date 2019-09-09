@@ -11,7 +11,7 @@
 
 //#warning -mustNotes 上线一定要注释/海报分享产品分享
 
-//#define TestVersion
+#define TestVersion
 
 //域名 develop
 #ifdef TestVersion
@@ -935,6 +935,8 @@
 #define MEIPcommonLivingHabitClassifyEdit @"common/livinghabit/livingHabitClassifyEdit"
 //添加生活习惯分类
 #define MEIPcommonLivingHabitClassifyAdd @"common/livinghabit/livingHabitClassifyAdd"
+//删除生活习惯分类
+#define MEIPcommonLivingHabitClassifyDel @"common/livinghabit/livingHabitClassifyDel"
 /*********************************************/
 
 
