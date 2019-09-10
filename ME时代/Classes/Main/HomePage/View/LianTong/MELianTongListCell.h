@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 @class MEGoodModel;
 
-#define kMELianTongListCellHeight (248*kMeFrameScaleX())
-#define kMELianTongListCellWdith ((SCREEN_WIDTH - 15)/2)
-#define kMEMargin ((IS_iPhoneX?5:4)*kMeFrameScaleX())
+#define kMELianTongListCellHeight 230
+#define kMELianTongListCellWdith ((SCREEN_WIDTH - (15*2))/2)
+#define kMEMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
 NS_ASSUME_NONNULL_BEGIN
 

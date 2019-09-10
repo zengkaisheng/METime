@@ -36,6 +36,13 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *changeStatusBtnConsWidth;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 
+@property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *needPayBtn;
+@property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *deliveryBtn;
+@property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *receiveBtn;
+@property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *finishBtn;
+@property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *refundBtn;
+
+
 @end
 
 @implementation MENewMineHomeCodeHeaderView
@@ -49,14 +56,26 @@
     
     if (IS_iPhone5S) {
         _changeStatusBtnConsWidth.constant = 79;
-        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:11]];
+        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:9]];
         _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 50, 0, 0);
         _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+        
+        [_needPayBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
+        [_finishBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
+        [_receiveBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
+        [_deliveryBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
+        [_refundBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
     }else {
         _changeStatusBtnConsWidth.constant = 109;
         [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
         _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 75, 0, 0);
         _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -50, 0, 0);
+        
+        [_needPayBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_finishBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_receiveBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_deliveryBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_refundBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
     }
     
     CGRect bounds = self.invationBGView.layer.bounds;
@@ -163,9 +182,11 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:title forState:UIControlStateNormal];
-//    [btn setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:image]]] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn setTitleColor:kMEblack forState:UIControlStateNormal];
     [btn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    if (IS_iPhone5S) {
+        [btn.titleLabel setFont:[UIFont systemFontOfSize:10]];
+    }
     [btn addTarget:self action:@selector(btnDidClick:) forControlEvents:UIControlEventTouchUpInside];
     btn.titleEdgeInsets = UIEdgeInsetsMake(15, 0, -15, 0);
     btn.tag = tag;
@@ -187,11 +208,11 @@
 }
 
 - (IBAction)allOrderAction:(UIButton *)sender {
-//    MENewMineHomeVC *home = (MENewMineHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MENewMineHomeVC class] targetResponderView:self];
-//    MEMyOrderVC *orderVC = [[MEMyOrderVC alloc]initWithType:MEAllOrder];
-//    if(home){
-//        [home.navigationController pushViewController:orderVC animated:YES];
-//    }
+    MENewMineHomeVC *home = (MENewMineHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MENewMineHomeVC class] targetResponderView:self];
+    MEMyOrderVC *orderVC = [[MEMyOrderVC alloc]initWithType:MEAllOrder];
+    if(home){
+        [home.navigationController pushViewController:orderVC animated:YES];
+    }
 }
 
 - (IBAction)needPayAction:(MEMidelMiddelImageButton *)sender {

@@ -540,7 +540,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         //        NSString *type = contentDic[@"type"];
         //        NSInteger msg_id = [contentDic[@"msg_id"] integerValue];
         NSString *strType = kMeUnNilStr(model.type);
-        if([strType isEqualToString:@"1"] || [strType isEqualToString:@"2"]|| [strType isEqualToString:@"3"]|| [strType isEqualToString:@"7"]|| [strType isEqualToString:@"9"]|| [strType isEqualToString:@"10"]|| [strType isEqualToString:@"11"]|| [strType isEqualToString:@"12"]|| [strType isEqualToString:@"16"]|| [strType isEqualToString:@"17"]|| [strType isEqualToString:@"18"]|| [strType isEqualToString:@"19"] || [strType isEqualToString:@"20"] || [strType isEqualToString:@"21"] || [strType isEqualToString:@"22"]){
+        if([strType isEqualToString:@"1"] || [strType isEqualToString:@"2"]|| [strType isEqualToString:@"3"]|| [strType isEqualToString:@"7"]|| [strType isEqualToString:@"9"]|| [strType isEqualToString:@"10"]|| [strType isEqualToString:@"11"]|| [strType isEqualToString:@"12"]|| [strType isEqualToString:@"16"]|| [strType isEqualToString:@"17"]|| [strType isEqualToString:@"18"]|| [strType isEqualToString:@"19"] || [strType isEqualToString:@"20"] || [strType isEqualToString:@"21"] || [strType isEqualToString:@"22"] || [strType isEqualToString:@"23"] || [strType isEqualToString:@"24"] || [strType isEqualToString:@"25"]){
             //1跳商品  2跳订单详情 3更新 4B店铺访问 5C店铺访问 7预约管理 8投票
             //跳url 9
             //跳动态 10
@@ -673,8 +673,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 }else if ([strType isEqualToString:@"24"]){
                     MEDiagnoseReportVC *dvc = [[MEDiagnoseReportVC alloc] initWithReportId:kMeUnNilStr(model.idField)];
                     [baseVC.navigationController pushViewController:dvc animated:YES];
-                }else{
-                    
+                }else if ([strType isEqualToString:@"25"]){
+                    MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:2 orderGoodsSn:kMeUnNilStr(model.idField)];
+                    vc.isTopUp = YES;
+                    [baseVC.navigationController pushViewController:vc animated:YES];
                 }
             }];
             [alertView show];

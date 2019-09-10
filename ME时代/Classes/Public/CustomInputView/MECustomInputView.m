@@ -57,9 +57,9 @@
     tv.textView.textColor = [UIColor blackColor];
     __block METextView *textView = tv;
     tv.contenBlock = ^(NSString *str) {
-        int maxCount = 30;
+        int maxCount = 20;
         if ([title isEqualToString:@"添加顾客分类"]) {
-            maxCount = 10;
+            maxCount = 15;
         }else if ([title isEqualToString:@"添加生活习惯"]) {
             maxCount = 15;
         }

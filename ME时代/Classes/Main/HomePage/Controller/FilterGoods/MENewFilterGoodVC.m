@@ -28,6 +28,8 @@
 #import "MEGroupProductDetailVC.h"
 #import "MEJoinPrizeVC.h"
 #import "MECommonQuestionVC.h"
+
+#import "MELianTongListCell.h"
 #import "MELianTongListVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
@@ -89,6 +91,7 @@
         kMeSTRONGSELF
         id data = responseObject.data[@"data"];
         if ([data isKindOfClass:[NSArray class]]) {
+            
             strongSelf->_productArr = [MEGoodModel mj_objectArrayWithKeyValuesArray:data];
             [strongSelf.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
             if (isTop) {
@@ -144,6 +147,7 @@
     });
     //原优选商品
     dispatch_group_async(group, queue, ^{
+        sleep(2);
         kMeWEAKSELF//category_id
         [MEPublicNetWorkTool postFetchProductsWithCategoryId:self->_category_id successBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
@@ -190,6 +194,7 @@
         });
     });
 }
+
 #pragma mark - RefreshToolDelegate
 - (NSDictionary *)requestParameter{
     if(self.refresh.pageIndex == 1){
@@ -223,10 +228,16 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        MEProductCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MEProductCell class]) forIndexPath:indexPath];
         MEGoodModel *model = _productArr[indexPath.row];
-        [cell setUIWithModel:model];
-        return cell;
+        if (model.product_type == 17) {
+            MELianTongListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MELianTongListCell class]) forIndexPath:indexPath];
+            [cell setUIWithModel:model];
+            return cell;
+        }else {
+            MEProductCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MEProductCell class]) forIndexPath:indexPath];
+            [cell setUIWithModel:model];
+            return cell;
+        }
     }
     MECoupleMailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MECoupleMailCell class]) forIndexPath:indexPath];
     MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
@@ -238,6 +249,9 @@
     if (indexPath.section == 0) {
         MEGoodModel *model = _productArr[indexPath.row];
         METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+        if (model.product_type == 17) {
+            details.isLianTong = YES;
+        }
         [self.navigationController pushViewController:details animated:YES];
     }else {
         MEPinduoduoCoupleModel *model = self.refresh.arrData[indexPath.row];
@@ -437,7 +451,6 @@
             break;
         case 6:
         {
-            
         }
             break;
         case 8:
@@ -577,6 +590,7 @@
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, IS_iPhoneX?10:0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-(IS_iPhoneX?10:0)) collectionViewLayout:layout];
         _collectionView.backgroundColor = [UIColor whiteColor];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEProductCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MEProductCell class])];
+        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MELianTongListCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MELianTongListCell class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MECoupleMailCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MECoupleMailCell class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MENewFilterGoodsTopHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsTopHeaderView class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MENewFilterGoodsMiddleBannerView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MENewFilterGoodsMiddleBannerView class])];

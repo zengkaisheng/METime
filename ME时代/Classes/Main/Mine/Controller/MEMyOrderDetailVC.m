@@ -90,7 +90,7 @@
                     firstArray = @[@(MESettlmemtGoodsPrice),@(MESettlmemtFreight),@(MESettlmemtRealPay),@(MESettlmemtPhoneBill),@(MESettlmemtRemark)];
                     strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],kMeUnNilStr(strongSelf->_detaliModel.actual_money),kMeUnNilStr(orderModel.get_phone_bill),kMeUnNilStr(strongSelf->_detaliModel.remark)];
                 }
-                strongSelf.arrData = @[firstArray,@[[NSString stringWithFormat:@"订单编号：%@",kMeUnNilStr(strongSelf->_detaliModel.order_sn)],[NSString stringWithFormat:@"创建时间：%@",kMeUnNilStr(strongSelf->_detaliModel.created_at)],[NSString stringWithFormat:@"交易时间：%@",kMeUnNilStr(strongSelf->_detaliModel.pay_time)],[NSString stringWithFormat:@"体验中心姓名：%@",kMeUnNilStr(strongSelf->_detaliModel.store_name)],[NSString stringWithFormat:@"体验中心手机：%@",kMeUnNilStr(strongSelf->_detaliModel.cellphone)],[NSString stringWithFormat:@"%@",kMeUnNilStr(strongSelf->_detaliModel.tips)]]];
+                strongSelf.arrData = @[firstArray,@[[NSString stringWithFormat:@"订单编号：%@",kMeUnNilStr(strongSelf->_detaliModel.order_sn)],[NSString stringWithFormat:@"创建时间：%@",kMeUnNilStr(strongSelf->_detaliModel.created_at)],[NSString stringWithFormat:@"交易时间：%@",kMeUnNilStr(strongSelf->_detaliModel.pay_time)],[NSString stringWithFormat:@"女神卡：%@",kMeUnNilStr(strongSelf->_detaliModel.girl_number)],[NSString stringWithFormat:@"体验中心姓名：%@",kMeUnNilStr(strongSelf->_detaliModel.store_name)],[NSString stringWithFormat:@"体验中心手机：%@",kMeUnNilStr(strongSelf->_detaliModel.cellphone)],[NSString stringWithFormat:@"%@",kMeUnNilStr(strongSelf->_detaliModel.tips)]]];
             }else {
                 strongSelf.arrData =  @[@(MESettlmemtFreight),@(MESettlmemtRealPay),@(MESettlmemtExpressCompany),@(MESettlmemtExpressNum),@(MESettlmemtRemark)];
                 strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],kMeUnNilStr(strongSelf->_detaliModel.express.express_company),kMeUnNilStr(strongSelf->_detaliModel.express.express_num),kMeUnNilStr(strongSelf->_detaliModel.remark)];
@@ -104,7 +104,7 @@
                     firstArray = @[@(MESettlmemtGoodsPrice),@(MESettlmemtFreight),@(MESettlmemtRealPay),@(MESettlmemtPhoneBill)];
                     strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],kMeUnNilStr(strongSelf->_detaliModel.actual_money),kMeUnNilStr(orderModel.get_phone_bill)];
                 }
-                strongSelf.arrData = @[firstArray,@[[NSString stringWithFormat:@"订单编号：%@",kMeUnNilStr(strongSelf->_detaliModel.order_sn)],[NSString stringWithFormat:@"创建时间：%@",kMeUnNilStr(strongSelf->_detaliModel.created_at)],[NSString stringWithFormat:@"交易时间：%@",kMeUnNilStr(strongSelf->_detaliModel.pay_time)],[NSString stringWithFormat:@"体验中心姓名：%@",kMeUnNilStr(strongSelf->_detaliModel.store_name)],[NSString stringWithFormat:@"体验中心手机：%@",kMeUnNilStr(strongSelf->_detaliModel.cellphone)],[NSString stringWithFormat:@"%@",kMeUnNilStr(strongSelf->_detaliModel.tips)]]];
+                strongSelf.arrData = @[firstArray,@[[NSString stringWithFormat:@"订单编号：%@",kMeUnNilStr(strongSelf->_detaliModel.order_sn)],[NSString stringWithFormat:@"创建时间：%@",kMeUnNilStr(strongSelf->_detaliModel.created_at)],[NSString stringWithFormat:@"交易时间：%@",kMeUnNilStr(strongSelf->_detaliModel.pay_time)],[NSString stringWithFormat:@"女神卡：%@",kMeUnNilStr(strongSelf->_detaliModel.girl_number)],[NSString stringWithFormat:@"体验中心姓名：%@",kMeUnNilStr(strongSelf->_detaliModel.store_name)],[NSString stringWithFormat:@"体验中心手机：%@",kMeUnNilStr(strongSelf->_detaliModel.cellphone)],[NSString stringWithFormat:@"%@",kMeUnNilStr(strongSelf->_detaliModel.tips)]]];
             }else {
                 strongSelf.arrData =  @[@(MESettlmemtFreight),@(MESettlmemtRealPay),@(MESettlmemtExpressCompany),@(MESettlmemtExpressNum)];
                 strongSelf.arrDataStr = @[[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.all_freight)],[NSString stringWithFormat:@"¥%@",kMeUnNilStr(strongSelf->_detaliModel.order_amount)],kMeUnNilStr(strongSelf->_detaliModel.express.express_company),kMeUnNilStr(strongSelf->_detaliModel.express.express_num)];
@@ -239,7 +239,7 @@
                     if (kMeUnNilStr(_detaliModel.pay_time).length <= 0) {
                         return 0;
                     }
-                }else if (indexPath.row == 3||indexPath.row==4||indexPath.row==5){
+                }else if (indexPath.row == 4||indexPath.row==5||indexPath.row==6){
                     if (self.isTopUp) {
                         return 0;
                     }

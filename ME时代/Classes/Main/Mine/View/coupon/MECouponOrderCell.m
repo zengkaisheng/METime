@@ -67,7 +67,7 @@
     
     _lblPrice.text =  [NSString stringWithFormat:@"消费金额¥%@",kMeUnNilStr(model.all_amount)];
     NSInteger money = model.product_number * model.return_cash_store;
-    _lblCommission.text = [NSString stringWithFormat:@"佣金估计¥%@",@(money)];
+    _lblCommission.text = [NSString stringWithFormat:@"佣金估计¥%@",@(model.return_cash_store)];
     _lblStatus.hidden = YES;
 }
 

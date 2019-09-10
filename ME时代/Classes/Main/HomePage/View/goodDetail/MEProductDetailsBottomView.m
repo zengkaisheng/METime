@@ -35,11 +35,12 @@
 
 - (void)setModel:(MEGoodDetailModel *)model {
     _model = model;
-    if (self.model.product_type == 17) {
-        _btnShare.hidden = YES;
-    }else {
-        _btnShare.hidden = ![WXApi isWXAppInstalled];
-    }
+//    if (self.model.product_type == 17) {
+//        _btnShare.hidden = YES;
+//    }else {
+//        _btnShare.hidden = ![WXApi isWXAppInstalled];
+//    }
+    _btnShare.hidden = ![WXApi isWXAppInstalled];
 }
 
 - (IBAction)homeAction:(UIButton *)sender {

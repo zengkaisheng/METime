@@ -573,6 +573,12 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
                 }
             }
                 break;
+            case 11:
+            {//联通兑换
+                MELianTongListVC *liantongVC = [[MELianTongListVC alloc] init];
+                [homeVC.navigationController pushViewController:liantongVC animated:YES];
+            }
+                break;
             default:
                 break;
         }

@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEProjectSettingVC : MEBaseVC
 
+@property (nonatomic, assign) BOOL isChoose;
 @property (nonatomic ,copy) kMeDictionaryBlock chooseBlock;
 
 @end

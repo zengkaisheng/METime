@@ -124,9 +124,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MEProjectSettingListModel *model = self.refresh.arrData[indexPath.row];
-    kMeCallBlock(self.chooseBlock,@{@"name":kMeUnNilStr(model.object_name),@"id":@(model.idField),@"money":@(model.money)});
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.isChoose) {
+        MEProjectSettingListModel *model = self.refresh.arrData[indexPath.row];
+        kMeCallBlock(self.chooseBlock,@{@"name":kMeUnNilStr(model.object_name),@"id":@(model.idField),@"money":@(model.money)});
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma setter&&getter

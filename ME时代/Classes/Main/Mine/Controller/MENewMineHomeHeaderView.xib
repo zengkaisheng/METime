@@ -299,11 +299,16 @@
                 <outlet property="changeStatusBtn" destination="6Xo-sz-eGN" id="vfK-m6-SJb"/>
                 <outlet property="changeStatusBtnConsWidth" destination="HQT-3a-OPW" id="Vuk-hp-n0d"/>
                 <outlet property="consSetTopMargin" destination="SSI-Rz-eam" id="Cg1-HY-vLf"/>
+                <outlet property="deliveryBtn" destination="YHW-Ax-JMJ" id="a7a-9q-i2W"/>
+                <outlet property="finishBtn" destination="hvu-g0-btn" id="Lue-69-5UJ"/>
                 <outlet property="imgPic" destination="EiY-Z9-hT3" id="gMI-2r-Tlk"/>
                 <outlet property="lblLeve" destination="m7A-EC-Atk" id="4vF-kP-sQy"/>
                 <outlet property="lblName" destination="fXN-ef-9Wj" id="Atc-rB-TUG"/>
                 <outlet property="lblTel" destination="07M-vF-6qS" id="rlh-d1-kNv"/>
+                <outlet property="needPayBtn" destination="luw-Eq-y4j" id="VJN-Mt-RFL"/>
                 <outlet property="orderView" destination="gfN-or-tQT" id="k5X-tg-8SU"/>
+                <outlet property="receiveBtn" destination="5KW-Tb-dl7" id="HQe-2e-5rW"/>
+                <outlet property="refundBtn" destination="w33-7g-P4a" id="DW4-v2-pyz"/>
                 <outlet property="viewLine" destination="1hG-ou-a3L" id="Yl4-5P-8X5"/>
             </connections>
             <point key="canvasLocation" x="212" y="-273.4632683658171"/>

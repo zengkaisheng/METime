@@ -27,6 +27,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *changeStatusBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *changeStatusBtnConsWidth;
 
+@property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *needPayBtn;
+@property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *finishBtn;
+@property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *receiveBtn;
+@property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *deliveryBtn;
+@property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *refundBtn;
+
 @end
 
 @implementation MENewMineHomeHeaderView
@@ -40,14 +46,26 @@
     
     if (IS_iPhone5S) {
         _changeStatusBtnConsWidth.constant = 79;
-        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
+        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:9]];
         _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 50, 0, 0);
         _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+        
+        [_needPayBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
+        [_finishBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
+        [_receiveBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
+        [_deliveryBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
+        [_refundBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
     }else {
         _changeStatusBtnConsWidth.constant = 109;
         [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
         _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 75, 0, 0);
         _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -50, 0, 0);
+        
+        [_needPayBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_finishBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_receiveBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_deliveryBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [_refundBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
     }
     
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, SCREEN_WIDTH-30, 57) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(10, 10)];

@@ -91,7 +91,7 @@
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_more" translatesAutoresizingMaskIntoConstraints="NO" id="Csj-nb-CRI">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_more" translatesAutoresizingMaskIntoConstraints="NO" id="Csj-nb-CRI">
                             <rect key="frame" x="323" y="22.5" width="7" height="11"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="7" id="OPy-18-Mv2"/>
@@ -141,7 +141,7 @@
                                 <action selector="diveryAction:" destination="YSZ-JS-kvI" eventType="touchUpInside" id="QoB-78-Ojq"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qad-Ta-Fst">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qad-Ta-Fst">
                             <rect key="frame" x="0.0" y="0.0" width="345" height="53"/>
                             <connections>
                                 <action selector="allOrderAction:" destination="YSZ-JS-kvI" eventType="touchUpInside" id="Ubj-yp-JZl"/>
@@ -361,12 +361,17 @@
                 <outlet property="changeStatusBtnConsWidth" destination="xAk-cR-l5n" id="FHf-BO-M4V"/>
                 <outlet property="consSetTopMargin" destination="h6F-Cx-XAP" id="maD-UL-WGQ"/>
                 <outlet property="cpBtn" destination="a9Q-GK-2rd" id="w2y-BQ-6qJ"/>
+                <outlet property="deliveryBtn" destination="nvd-Cv-aEF" id="AvD-3R-Ej1"/>
+                <outlet property="finishBtn" destination="FPx-IQ-261" id="hel-dh-bAS"/>
                 <outlet property="imgPic" destination="Ey1-K7-wc4" id="kbn-q8-8Yl"/>
                 <outlet property="invationBGView" destination="vmF-7a-DZa" id="wbi-tE-FEj"/>
                 <outlet property="invationLbl" destination="y9I-Oo-6XY" id="trp-yl-eMQ"/>
                 <outlet property="lblLeve" destination="urX-Rd-KyT" id="t4P-tI-CsT"/>
                 <outlet property="lblName" destination="kk6-IU-ojS" id="u1Y-ih-RrH"/>
+                <outlet property="needPayBtn" destination="TcW-7c-AJL" id="nUY-kh-HV0"/>
                 <outlet property="orderView" destination="avq-p1-BvR" id="usU-Qj-CFC"/>
+                <outlet property="receiveBtn" destination="VB6-eX-Mv8" id="eyC-1l-xYM"/>
+                <outlet property="refundBtn" destination="UEu-ia-fsg" id="p0O-Pd-dQb"/>
                 <outlet property="viewLine" destination="Xgv-KA-i2t" id="4eF-L3-Z2a"/>
             </connections>
             <point key="canvasLocation" x="-1730.4000000000001" y="-412.89355322338832"/>

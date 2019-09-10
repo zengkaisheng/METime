@@ -229,6 +229,7 @@
                 {
                     if (homeVc) {
                         MEProjectSettingVC *vc = [[MEProjectSettingVC alloc] init];
+                        vc.isChoose = YES;
                         vc.chooseBlock = ^(NSDictionary *dic) {
                             kMeSTRONGSELF
                             model.value = kMeUnNilStr(dic[@"name"]);
