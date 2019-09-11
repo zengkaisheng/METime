@@ -560,12 +560,24 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
             [alertView addButtonWithTitle:@"取消" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
             }];
             [alertView addButtonWithTitle:@"立即前往" type:HDAlertViewButtonTypeDefault handler:^(HDAlertView *alertView) {
-                if (![self.window.rootViewController isKindOfClass:[METabBarVC class]]) return;
+                NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+                if ([status isEqualToString:@"customer"]) {
+                   if (![self.window.rootViewController isKindOfClass:[METabBarVC class]]) return;
+                }else if ([status isEqualToString:@"business"]) {
+                    if (![self.window.rootViewController isKindOfClass:[MENewTabBarVC class]]) return;
+                }
+                
                 [MEPublicNetWorkTool getUserReadedNoticeWithNoticeId:model.msg_id SuccessBlock:^(ZLRequestResponse *responseObject) {
                     kNoticeUnNoticeMessage
                 } failure:nil];
                 // 取到tabbarcontroller
-                METabBarVC *tabBarController = ( METabBarVC*)self.window.rootViewController;
+                UITabBarController *tabBarController;
+                if ([status isEqualToString:@"customer"]) {
+                    tabBarController = (METabBarVC *)self.window.rootViewController;
+                }else if ([status isEqualToString:@"business"]) {
+                    tabBarController = (MENewTabBarVC *)self.window.rootViewController;
+                }
+//                METabBarVC *tabBarController = (METabBarVC *)self.window.rootViewController;
                 // 取到navigationcontroller
                 MENavigationVC *nav = (MENavigationVC *)tabBarController.selectedViewController;
                 UIViewController * baseVC = (UIViewController *)nav.visibleViewController;
