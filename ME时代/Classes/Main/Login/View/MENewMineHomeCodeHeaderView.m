@@ -117,23 +117,23 @@
     _LblTel.text = [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
     switch (kCurrentUser.client_type ) {
         case MEClientTypeClerkStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"当前等级:店员"];
+            _lblLeve.text = [NSString stringWithFormat:@"我的等级:店员"];
         }
             break;
         case MEClientBTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"当前等级:体验中心"];
+            _lblLeve.text = [NSString stringWithFormat:@"我的等级:体验中心"];
         }
             break;
         case MEClientCTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"当前等级:会员"];
+            _lblLeve.text = [NSString stringWithFormat:@"我的等级:会员"];
         }
             break;
         case MEClientOneTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"当前等级:售后中心"];
+            _lblLeve.text = [NSString stringWithFormat:@"我的等级:售后中心"];
         }
             break;
         case MEClientTwoTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"当前等级:营销中心"];
+            _lblLeve.text = [NSString stringWithFormat:@"我的等级:营销中心"];
         }
             break;
         default:

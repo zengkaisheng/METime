@@ -12,6 +12,7 @@
 #import "MEMyOrderVC.h"
 #import "MEMineSetVC.h"
 #import "MERefundOrderListVC.h"
+#import "MEMineHomeMuneModel.h"
 
 @interface MENewMineHomeHeaderView ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consSetTopMargin;
@@ -27,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *changeStatusBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *changeStatusBtnConsWidth;
 
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *needPayBtn;
 @property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *finishBtn;
 @property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *receiveBtn;
@@ -94,23 +96,23 @@
     _lblTel.text = [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
     switch (kCurrentUser.client_type ) {
         case MEClientTypeClerkStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"当前等级:店员"];
+            _lblLeve.text = [NSString stringWithFormat:@"我的等级:店员"];
         }
             break;
         case MEClientBTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"当前等级:体验中心"];
+            _lblLeve.text = [NSString stringWithFormat:@"我的等级:体验中心"];
         }
             break;
         case MEClientCTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"当前等级:会员"];
+            _lblLeve.text = [NSString stringWithFormat:@"我的等级:会员"];
         }
             break;
         case MEClientOneTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"当前等级:售后中心"];
+            _lblLeve.text = [NSString stringWithFormat:@"我的等级:售后中心"];
         }
             break;
         case MEClientTwoTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"当前等级:营销中心"];
+            _lblLeve.text = [NSString stringWithFormat:@"我的等级:营销中心"];
         }
             break;
         default:
@@ -125,15 +127,49 @@
     }
     
     NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+    _businessView.hidden = YES;
     if ([status isEqualToString:@"customer"]) {
-        _businessView.hidden = YES;
         _orderView.hidden = NO;
         [_changeStatusBtn setTitle:@"切换商家版" forState:UIControlStateNormal];
     }else if ([status isEqualToString:@"business"]) {
-        _businessView.hidden = NO;
-        _orderView.hidden = YES;
+        _orderView.hidden = NO;
         [_changeStatusBtn setTitle:@"切换用户版" forState:UIControlStateNormal];
     }
+    
+    for (id obj in _bottomView.subviews) {
+        if ([obj isKindOfClass:[UIButton class]]) {
+            [obj removeFromSuperview];
+        }
+    }
+    CGFloat btnWidth = (SCREEN_WIDTH-60)/self.orderList.count;
+    for (int i = 0; i < self.orderList.count; i++) {
+        MEMineHomeMuneChildrenModel *model = self.orderList[i];
+        UIButton *btn = [self createBtnWithTitle:kMeUnNilStr(model.name) image:kMeUnNilStr(model.icon) tag:model.path.integerValue frame:CGRectMake(btnWidth*i, 0, btnWidth, 85)];
+        UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(model.icon)]]]];
+        imgV.frame = CGRectMake((btnWidth*i+btnWidth/2-11), 10, 22, 27);
+        [_bottomView addSubview:imgV];
+        [_bottomView addSubview:btn];
+    }
+}
+
+- (void)btnDidClick:(UIButton *)sender {
+    kMeCallBlock(self.indexBlock,sender.tag);
+}
+
+- (UIButton *)createBtnWithTitle:(NSString *)title image:(NSString *)image tag:(NSInteger)tag frame:(CGRect)frame {
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:title forState:UIControlStateNormal];
+    [btn setTitleColor:kMEblack forState:UIControlStateNormal];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    if (IS_iPhone5S) {
+        [btn.titleLabel setFont:[UIFont systemFontOfSize:10]];
+    }
+    [btn addTarget:self action:@selector(btnDidClick:) forControlEvents:UIControlEventTouchUpInside];
+    btn.titleEdgeInsets = UIEdgeInsetsMake(15, 0, -15, 0);
+    btn.tag = tag;
+    btn.frame = frame;
+    return btn;
 }
 
 - (void)clearUIWithUserInfo{

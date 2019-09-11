@@ -792,12 +792,13 @@
     if(!_headerView){
         _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeHeaderView" owner:nil options:nil] lastObject];
 //        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeHeaderViewHeight);
-        CGFloat height = kMENewMineHomeHeaderViewHeight;
-        NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
-        if ([status isEqualToString:@"business"]) {
-            height = 210;
-        }
+        CGFloat height = kMENewMineHomeHeaderViewHeight+85;
+//        NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+//        if ([status isEqualToString:@"business"]) {
+//            height = 210;
+//        }
         _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
+        _headerView.orderList = self.orderList;
         _headerView.changeStatus = ^{
             NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
             if ([status isEqualToString:@"customer"]) {
@@ -808,6 +809,11 @@
             [kMeUserDefaults synchronize];
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [appDelegate reloadTabBar];
+        };
+        kMeWEAKSELF
+        _headerView.indexBlock = ^(NSInteger index) {
+            kMeSTRONGSELF
+            [strongSelf tapVCWithTypre:index];
         };
     }
     return _headerView;

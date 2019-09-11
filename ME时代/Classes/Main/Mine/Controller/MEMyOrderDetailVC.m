@@ -239,11 +239,12 @@
                     if (kMeUnNilStr(_detaliModel.pay_time).length <= 0) {
                         return 0;
                     }
-                }else if (indexPath.row == 4||indexPath.row==5||indexPath.row==6){
-                    if (self.isTopUp) {
-                        return 0;
-                    }
                 }
+//                else if (indexPath.row == 4||indexPath.row==5||indexPath.row==6){
+//                    if (self.isTopUp) {
+//                        return 0;
+//                    }
+//                }
             }
             return 35;
         }

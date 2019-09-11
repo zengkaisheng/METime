@@ -100,6 +100,10 @@
         childVc.title =@"在线课程";
         childVc.tabBarItem.title=@"课程";
     }
+    if([title isEqualToString:@"运营"]){
+        childVc.title =@"运营工具";
+        childVc.tabBarItem.title=@"运营";
+    }
     [self addChildViewController:nav];
 }
 

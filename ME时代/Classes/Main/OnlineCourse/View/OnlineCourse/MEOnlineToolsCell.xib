@@ -63,7 +63,7 @@
                             <constraint firstAttribute="height" constant="43" id="MFA-zz-JFb"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title=" 客户预约" image="icon_customerAppointment">
+                        <state key="normal" title=" 顾客预约" image="icon_customerAppointment">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <userDefinedRuntimeAttributes>
@@ -82,7 +82,7 @@
                             <constraint firstAttribute="height" constant="43" id="ehT-lf-Uxa"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title=" 客户消费" image="icon_customerConsume">
+                        <state key="normal" title=" 顾客消费" image="icon_customerConsume">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <userDefinedRuntimeAttributes>
