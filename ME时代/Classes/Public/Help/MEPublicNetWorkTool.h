@@ -815,6 +815,12 @@
 + (void)postLianTongDestoonFinanceCashWithAttrModel:(MEWithdrawalParamModel *)attrModel successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
+/*********************************************/
+#pragma mark - C端课程
+//课程详情
++ (void)postGetCourseDetailWithCourseId:(NSInteger)courseId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+/*********************************************/
+
 
 + (MBProgressHUD *)commitWithHUD:(NSString *)str;
 

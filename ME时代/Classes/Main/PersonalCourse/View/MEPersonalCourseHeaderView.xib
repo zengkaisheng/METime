@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MEPersonalCourseHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="212"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9y-YI-EVx" customClass="SDCycleScrollView">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="166"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Z9y-YI-EVx" secondAttribute="height" multiplier="375:166" id="D6Z-Uw-Pot"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1SW-Fz-3v7">
+                    <rect key="frame" x="0.0" y="166" width="375" height="46"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Z9y-YI-EVx" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="FvH-oR-of4"/>
+                <constraint firstAttribute="trailing" secondItem="Z9y-YI-EVx" secondAttribute="trailing" id="Mev-Wr-WKf"/>
+                <constraint firstAttribute="bottom" secondItem="1SW-Fz-3v7" secondAttribute="bottom" id="Rfy-tW-AO1"/>
+                <constraint firstItem="Z9y-YI-EVx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="TCS-Lo-HMm"/>
+                <constraint firstAttribute="trailing" secondItem="1SW-Fz-3v7" secondAttribute="trailing" id="ZmJ-hb-cB4"/>
+                <constraint firstItem="1SW-Fz-3v7" firstAttribute="top" secondItem="Z9y-YI-EVx" secondAttribute="bottom" id="pJw-Gs-XXY"/>
+                <constraint firstItem="1SW-Fz-3v7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ycq-Yo-ll5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="sdView" destination="Z9y-YI-EVx" id="sTM-7q-fz7"/>
+                <outlet property="titleView" destination="1SW-Fz-3v7" id="gfL-PY-Jjb"/>
+            </connections>
+            <point key="canvasLocation" x="-258" y="120"/>
+        </view>
+    </objects>
+</document>

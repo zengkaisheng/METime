@@ -634,10 +634,6 @@ const static CGFloat kImgStore = 50;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    ZLWebViewVC *webVC = [[ZLWebViewVC alloc] init];
-//    webVC.showProgress = YES;
-//    [webVC loadURL:[NSURL URLWithString:@"http://test.meshidai.com/jump/index.html?activity_id=34"]];
-//    [self.navigationController pushViewController:webVC animated:YES];
     if (_type == 0) {
         if (indexPath.section == 1) {
             if(self.homeModel && kMeUnNilStr(self.homeModel.member_of_the_ritual_image).length){

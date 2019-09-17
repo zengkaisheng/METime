@@ -8,6 +8,7 @@
 
 #import "MECourseDetailHeaderView.h"
 #import "MECourseDetailModel.h"
+#import "MEPersionalCourseDetailModel.h"
 
 @interface MECourseDetailHeaderView ()
 @property (weak, nonatomic) IBOutlet UIImageView *headerPic;
@@ -58,6 +59,22 @@
     
     _learnCountLbl.text = [NSString stringWithFormat:@"%@次学习",@(model.browse)];
     _priceLbl.hidden = model.is_charge==2?YES:NO;
+}
+
+- (void)setUIWithCourseModel:(MEPersionalCourseDetailModel *)model index:(NSInteger)index {
+    if (index == 0) {
+        self.introduceBtn.selected = YES;
+        self.courseListBtn.selected = NO;
+    }else if (index == 1) {
+        self.introduceBtn.selected = NO;
+        self.courseListBtn.selected = YES;
+    }
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.images));
+    
+    _titleLbl.text = kMeUnNilStr(model.name);
+    _priceLbl.hidden = YES;
+    _descLbl.text = kMeUnNilStr(model.desc);
+    _learnCountLbl.text = [NSString stringWithFormat:@"%@次学习",kMeUnNilStr(model.study_num)];
 }
 
 - (IBAction)courseIntroduceAction:(id)sender {

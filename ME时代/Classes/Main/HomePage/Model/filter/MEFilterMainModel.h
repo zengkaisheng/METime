@@ -15,4 +15,6 @@
 @property (nonatomic, assign) NSInteger idField;
 
 @property (nonatomic, assign) NSInteger unRead;
+
+@property (nonatomic, strong) NSString * title;
 @end

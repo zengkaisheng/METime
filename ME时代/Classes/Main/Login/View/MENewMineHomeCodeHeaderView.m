@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *cpBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *changeStatusBtn;
+@property (weak, nonatomic) IBOutlet UILabel *statusLbl;
 //我的订单
 @property (weak, nonatomic) IBOutlet UIView *orderView;
 //商家
@@ -55,22 +56,22 @@
     _consSetTopMargin.constant = kMeStatusBarHeight+10;
     
     if (IS_iPhone5S) {
-        _changeStatusBtnConsWidth.constant = 79;
-        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:9]];
-        _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 50, 0, 0);
-        _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
-        
+//        _changeStatusBtnConsWidth.constant = 79;
+//        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:9]];
+//        _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 50, 0, 0);
+//        _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+
         [_needPayBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
         [_finishBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
         [_receiveBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
         [_deliveryBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
         [_refundBtn.titleLabel setFont:[UIFont systemFontOfSize:10]];
     }else {
-        _changeStatusBtnConsWidth.constant = 109;
-        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
-        _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 75, 0, 0);
-        _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -50, 0, 0);
-        
+//        _changeStatusBtnConsWidth.constant = 109;
+//        [_changeStatusBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+//        _changeStatusBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 75, 0, 0);
+//        _changeStatusBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -50, 0, 0);
+
         [_needPayBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
         [_finishBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
         [_receiveBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
@@ -143,19 +144,21 @@
     
     if (kCurrentUser.user_type == 4) {
         _changeStatusBtn.hidden = YES;
+        _statusLbl.hidden = YES;
     }else {
         _changeStatusBtn.hidden = NO;
+        _statusLbl.hidden = NO;
     }
     NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
      _businessView.hidden = YES;
     if ([status isEqualToString:@"customer"]) {
        
         _orderView.hidden = NO;
-        [_changeStatusBtn setTitle:@"切换商家版" forState:UIControlStateNormal];
+//        [_changeStatusBtn setTitle:@"切换商家版" forState:UIControlStateNormal];
     }else if ([status isEqualToString:@"business"]) {
 //        _businessView.hidden = NO;
         _orderView.hidden = NO;
-        [_changeStatusBtn setTitle:@"切换用户版" forState:UIControlStateNormal];
+//        [_changeStatusBtn setTitle:@"切换用户版" forState:UIControlStateNormal];
     }
     
     for (id obj in _bottomView.subviews) {
@@ -168,7 +171,7 @@
         MEMineHomeMuneChildrenModel *model = self.orderList[i];
         UIButton *btn = [self createBtnWithTitle:kMeUnNilStr(model.name) image:kMeUnNilStr(model.icon) tag:model.path.integerValue frame:CGRectMake(btnWidth*i, 0, btnWidth, 85)];
         UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(model.icon)]]]];
-        imgV.frame = CGRectMake((btnWidth*i+btnWidth/2-11), 10, 22, 27);
+        imgV.frame = CGRectMake((btnWidth*i+btnWidth/2-10), 10, 20, 25);
         [_bottomView addSubview:imgV];
         [_bottomView addSubview:btn];
     }

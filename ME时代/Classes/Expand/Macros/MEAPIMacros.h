@@ -1049,5 +1049,17 @@
 #define MEIPcommonOrderLianTongWithdrawDeposit @"common/order/liantongWithdrawDeposit"
 /*********************************************/
 
+
+/*********************************************/
+#pragma makr - 个人课程
+//首页课程列表
+#define MEIPcommonCoursesGetCourses @"common/courses/getCourses"
+//查看更多
+#define MEIPcommonCoursesGetCoursesList @"common/courses/getCoursesList"
+//课程详情
+#define MEIPcommonCoursesGetCoursesDetail @"common/courses/getCoursesDetail"
+
+/*********************************************/
+
 #endif /* MEAPIMacros_h */
 

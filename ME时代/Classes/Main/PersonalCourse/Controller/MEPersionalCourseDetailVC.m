@@ -1,31 +1,22 @@
 //
-//  MECourseDetailVC.m
+//  MEPersionalCourseDetailVC.m
 //  ME时代
 //
-//  Created by gao lei on 2019/8/1.
+//  Created by gao lei on 2019/9/16.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MECourseDetailVC.h"
+#import "MEPersionalCourseDetailVC.h"
 #import "MECourseDetailHeaderView.h"
 #import "TDWebViewCell.h"
-//#import "MECourseDetailListCell.h"
-#import "MEOnlineCourseListCell.h"
-#import "MECourseDetailCommentCell.h"
+#import "MEPersionalCourseListCell.h"
 #import "ViewPagerTitleButton.h"
-#import "MECourseVideoPlayVC.h"
-#import "MEPayStatusVC.h"
-#import "MEMyOrderDetailVC.h"
 
-#import "MECourseDetailModel.h"
-#import "MEOnlineCourseListModel.h"
-#import "MECourseAudioPlayerVC.h"
+#import "MEPersionalCourseDetailModel.h"
+#import "MEPersonalCourseListModel.h"
 
-@interface MECourseDetailVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
-    NSInteger _detailsId;
-    NSString *_order_sn;
-    NSString *_order_amount;
-    BOOL _isPayError;//防止跳2次错误页面
+@interface MEPersionalCourseDetailVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
+    NSInteger _courseId;
 }
 
 @property (nonatomic, strong) UIView *customNav;
@@ -35,9 +26,8 @@
 @property (nonatomic, strong) ZLRefreshTool *refresh;
 @property (nonatomic, strong) MECourseDetailHeaderView *headerView;
 @property (strong, nonatomic) TDWebViewCell *webCell;
-@property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) NSInteger index;
-@property (nonatomic, strong) MECourseDetailModel *detailModel;
+@property (nonatomic, strong) MEPersionalCourseDetailModel *detailModel;
 
 @property (nonatomic, strong) UIButton *tryBtn;
 @property (nonatomic, strong) UIButton *buyBtn;
@@ -45,34 +35,25 @@
 
 @end
 
-@implementation MECourseDetailVC
+@implementation MEPersionalCourseDetailVC
 
-- (instancetype)initWithId:(NSInteger)detailsId type:(NSInteger)type {
+- (instancetype)initWithCourseId:(NSInteger)courseId {
     if (self = [super init]) {
-        _detailsId = detailsId;
-        self.type = type;
+        _courseId = courseId;
     }
     return self;
-}
-
-- (void)dealloc{
-    kNSNotificationCenterDealloc
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     //黑色
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    //隐藏
-    //    [UIApplication sharedApplication].statusBarHidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     //白色
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    //显示
-    //    [UIApplication sharedApplication].statusBarHidden = NO;
 }
 
 - (void)viewDidLoad {
@@ -91,7 +72,6 @@
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 20;
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
     [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,@""] baseURL:nil];
-    /*/<img src=\"http://images.meshidai.com/2f1022a12c59f66ca99aadc51f4128f2\" alt=\"\" />*/
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 49 - kMeTabbarSafeBottomMargin, SCREEN_WIDTH, 49 + kMeTabbarSafeBottomMargin)];
     bottomView.backgroundColor = [UIColor whiteColor];
@@ -107,63 +87,41 @@
     [self.view addSubview:self.siftView];
     [self.view addSubview:self.backButton];
     
-    [self reloadData];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WechatSuccess:) name:WX_PAY_RESULT object:nil];
+    [self requestCourseDetailWithNetWork];
 }
 
 #pragma RefreshToolDelegate
 - (NSDictionary *)requestParameter{
-    if (self.type == 1  || self.type == 5 || self.type == 7) {
     return @{@"token":kMeUnNilStr(kCurrentUser.token),
-          /*@"is_charge":@(self.detailModel.is_charge),*/
-          @"audio_type":@(self.detailModel.audio_type)
-          };
-    }
-    return @{@"token":kMeUnNilStr(kCurrentUser.token),
-             /*@"is_charge":@(self.detailModel.is_charge),*/
-             @"video_type":@(self.detailModel.video_type)
+             @"classify_id":@(self.detailModel.classify_id)
              };
 }
 
 - (void)handleResponse:(id)data{
-    if(![data isKindOfClass:[NSArray class]]){
+    if (![data isKindOfClass:[NSArray class]]) {
         return;
     }
-    [self.refresh.arrData addObjectsFromArray:[MEOnlineCourseListModel mj_objectArrayWithKeyValuesArray:data]];
+    [self.refresh.arrData addObjectsFromArray:[MECourseListModel mj_objectArrayWithKeyValuesArray:data]];
 }
 
 - (void)reloadUI {
-    [self.headerView setUIWithModel:self.detailModel index:self.index];
+    [self.headerView setUIWithCourseModel:self.detailModel index:self.index];
     
-    if (kMeUnNilStr(self.detailModel.video_name).length > 0) {
-        self.titleLbl.text = self.detailModel.video_name;
-    }else if (kMeUnNilStr(self.detailModel.audio_name).length > 0) {
-        self.titleLbl.text = self.detailModel.audio_name;
-    }
+    self.titleLbl.text = kMeUnNilStr(self.detailModel.name);
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 20;
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
     
-    if (self.type == 0 || self.type == 4 || self.type == 6) {
-        [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.detailModel.video_detail).length>0?kMeUnNilStr(self.detailModel.video_detail):@"<p>暂无课程介绍</p>"] baseURL:nil];
-    }else if (self.type == 1  || self.type == 5 || self.type == 7) {
-        [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.detailModel.audio_detail).length>0?kMeUnNilStr(self.detailModel.audio_detail):@"<p>暂无课程介绍</p>"] baseURL:nil];
-    }
+    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.detailModel.detail).length>0?kMeUnNilStr(self.detailModel.detail):@"<p>暂无课程介绍</p>"] baseURL:nil];
     
     if (self.detailModel.is_charge == 2 || self.detailModel.is_buy == 1) {//免费或已购买
         self.tryBtn.hidden = YES;
-        [self.buyBtn setTitle:@"立即学习" forState:UIControlStateNormal];
+        [self.buyBtn setTitle:@"立即播放" forState:UIControlStateNormal];
         self.buyBtn.frame = CGRectMake(30, 4.5, SCREEN_WIDTH-60, 40);
     }else {
         self.tryBtn.hidden = NO;
-        if (self.type == 0 || self.type == 4 || self.type == 6) {
-            [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.video_price)] forState:UIControlStateNormal];
-            [self.tryBtn setTitle:@" 试看" forState:UIControlStateNormal];
-        }else if (self.type == 1  || self.type == 5 || self.type == 7) {
-            [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.audio_price)] forState:UIControlStateNormal];
-            [self.tryBtn setTitle:@" 试听" forState:UIControlStateNormal];
-        }
+        [self.buyBtn setTitle:@"VIP免费" forState:UIControlStateNormal];
+        [self.tryBtn setTitle:@" 试看" forState:UIControlStateNormal];
         self.buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201*kMeFrameScaleX(), 4.5, 201*kMeFrameScaleX(), 40);
     }
     
@@ -171,29 +129,13 @@
 }
 
 #pragma mark -- Networking
-//视频
-- (void)requestVideoDetailWithNetWork {
+//课程详情
+- (void)requestCourseDetailWithNetWork {
     kMeWEAKSELF
-    [MEPublicNetWorkTool postGetVideoDetailWithVideoId:_detailsId successBlock:^(ZLRequestResponse *responseObject) {
+    [MEPublicNetWorkTool postGetCourseDetailWithCourseId:_courseId successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
-            strongSelf.detailModel = [MECourseDetailModel mj_objectWithKeyValues:responseObject.data];
-        }else{
-            strongSelf.detailModel = nil;
-        }
-        [strongSelf reloadUI];
-    } failure:^(id object) {
-        kMeSTRONGSELF
-        [strongSelf.navigationController popViewControllerAnimated:YES];
-    }];
-}
-//音频
-- (void)requestAudioDetailWithNetWork {
-    kMeWEAKSELF
-    [MEPublicNetWorkTool postGetAudioDetailWithAudioId:_detailsId successBlock:^(ZLRequestResponse *responseObject) {
-        kMeSTRONGSELF
-        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
-            strongSelf.detailModel = [MECourseDetailModel mj_objectWithKeyValues:responseObject.data];
+            strongSelf.detailModel = [MEPersionalCourseDetailModel mj_objectWithKeyValues:responseObject.data];
         }else{
             strongSelf.detailModel = nil;
         }
@@ -206,55 +148,55 @@
 
 #pragma Action
 - (void)tryBtnDidClick {
-    if (self.type == 0 || self.type == 4 || self.type == 6) {
-        MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
-        vc.listenTime = self.detailModel.preview_time;
-        [self.navigationController pushViewController:vc animated:YES];
-    }else if (self.type == 1 || self.type == 5 || self.type == 7) {
-        MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithModel:self.detailModel audioList:[self.refresh.arrData copy]];
-        vc.listenTime = self.detailModel.preview_time;
-        [self.navigationController pushViewController:vc animated:YES];
-    }
+//    if (self.type == 0 || self.type == 4 || self.type == 6) {
+//        MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
+//        vc.listenTime = self.detailModel.preview_time;
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }else if (self.type == 1 || self.type == 5 || self.type == 7) {
+//        MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithModel:self.detailModel audioList:[self.refresh.arrData copy]];
+//        vc.listenTime = self.detailModel.preview_time;
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }
 }
 
 - (void)buyBtnDidClick {
-
+    
     if (self.detailModel.is_charge == 2 || self.detailModel.is_buy == 1) {
-        if (self.type == 0 || self.type == 4 || self.type == 6) {
-            MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
-            [self.navigationController pushViewController:vc animated:YES];
-        }else if (self.type == 1 || self.type == 5 || self.type == 7) {
-            MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithModel:self.detailModel audioList:[self.refresh.arrData copy]];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
+//        if (self.type == 0 || self.type == 4 || self.type == 6) {
+//            MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }else if (self.type == 1 || self.type == 5 || self.type == 7) {
+//            MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithModel:self.detailModel audioList:[self.refresh.arrData copy]];
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
     }else {
-        NSString *orderType;
-        if (self.type == 0 || self.type == 4 || self.type == 6) {
-            orderType = @"1";
-        }else if (self.type == 1 || self.type == 5 || self.type == 7) {
-            orderType = @"2";
-        }
-        kMeWEAKSELF
-        [MEPublicNetWorkTool postCreateOrderWithCourseId:[NSString stringWithFormat:@"%ld",(long)_detailsId] orderType:orderType successBlock:^(ZLRequestResponse *responseObject) {
-            kMeSTRONGSELF
-            strongSelf->_order_sn = responseObject.data[@"order_sn"];
-            strongSelf->_order_amount = responseObject.data[@"order_amount"];
-            [MEPublicNetWorkTool postPayOnlineOrderWithOrderSn:strongSelf->_order_sn successBlock:^(ZLRequestResponse *responseObject) {
-                kMeSTRONGSELF
-                PAYPRE
-                strongSelf->_isPayError = NO;
-                MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-                
-                BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:strongSelf->_order_amount];
-                if(!isSucess){
-                    [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
-                }
-            } failure:^(id object) {
-                
-            }];
-        } failure:^(id object) {
-            
-        }];
+//        NSString *orderType;
+//        if (self.type == 0 || self.type == 4 || self.type == 6) {
+//            orderType = @"1";
+//        }else if (self.type == 1 || self.type == 5 || self.type == 7) {
+//            orderType = @"2";
+//        }
+//        kMeWEAKSELF
+//        [MEPublicNetWorkTool postCreateOrderWithCourseId:[NSString stringWithFormat:@"%ld",(long)_courseId] orderType:orderType successBlock:^(ZLRequestResponse *responseObject) {
+//            kMeSTRONGSELF
+//            strongSelf->_order_sn = responseObject.data[@"order_sn"];
+//            strongSelf->_order_amount = responseObject.data[@"order_amount"];
+//            [MEPublicNetWorkTool postPayOnlineOrderWithOrderSn:strongSelf->_order_sn successBlock:^(ZLRequestResponse *responseObject) {
+//                kMeSTRONGSELF
+//                PAYPRE
+//                strongSelf->_isPayError = NO;
+//                MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
+//
+//                BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:strongSelf->_order_amount];
+//                if(!isSucess){
+//                    [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
+//                }
+//            } failure:^(id object) {
+//
+//            }];
+//        } failure:^(id object) {
+//
+//        }];
     }
 }
 
@@ -271,7 +213,7 @@
     }
     sender.selected = YES;
     self.index = sender.tag - 100;
-    [self.headerView setUIWithModel:self.detailModel index:self.index];
+    [self.headerView setUIWithCourseModel:self.detailModel index:self.index];
     [self.tableView reloadData];
 }
 
@@ -288,67 +230,6 @@
     }
 }
 
-- (void)reloadData {
-    if (self.type == 0 || self.type == 4 || self.type == 6) {
-        [self requestVideoDetailWithNetWork];
-    }else if (self.type == 1  || self.type == 5 || self.type == 7) {
-        [self requestAudioDetailWithNetWork];
-    }
-}
-
-#pragma mark - Pay
-- (void)WechatSuccess:(NSNotification *)noti{
-    [self payResultWithNoti:[noti object] result:WXPAY_SUCCESSED];
-}
-
-- (void)payResultWithNoti:(NSString *)noti result:(NSString *)result{
-    PAYJUDGE
-    kMeWEAKSELF
-    if ([noti isEqualToString:result]) {
-        if(_isPayError){
-            [self.navigationController popViewControllerAnimated:NO];
-        }
-        MEPayStatusVC *svc = [[MEPayStatusVC alloc]initWithSucessConfireBlock:^{
-            kMeSTRONGSELF
-            MECourseDetailVC *vc = (MECourseDetailVC *)[MECommonTool getClassWtihClassName:[MECourseDetailVC class] targetVC:strongSelf];
-            [vc reloadData];
-            if(vc){
-                [strongSelf.navigationController popToViewController:vc animated:YES];
-            }else{
-                [strongSelf.navigationController popToViewController:strongSelf animated:YES];
-            }
-        }];
-        [self.navigationController pushViewController:svc animated:YES];
-        NSLog(@"支付成功");
-        _isPayError = NO;
-    }else{
-        if(!_isPayError){
-            kMeWEAKSELF
-            MEPayStatusVC *svc = [[MEPayStatusVC alloc]initWithFailRePayBlock:^{
-                kMeSTRONGSELF
-                [MEPublicNetWorkTool postPayOnlineOrderWithOrderSn:strongSelf->_order_sn successBlock:^(ZLRequestResponse *responseObject) {
-                    kMeSTRONGSELF
-                    MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-                    
-                    BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:strongSelf->_order_amount];
-                    if(!isSucess){
-                        [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
-                    }
-                } failure:^(id object) {
-                    
-                }];
-            } CheckOrderBlock:^{
-                kMeSTRONGSELF
-                MEMyOrderDetailVC *vc = [[MEMyOrderDetailVC alloc]initWithType:MEAllNeedPayOrder orderGoodsSn:kMeUnNilStr(strongSelf->_order_sn)];
-                [strongSelf.navigationController pushViewController:vc animated:YES];
-            }];
-            [self.navigationController pushViewController:svc animated:YES];
-        }
-        NSLog(@"支付失败");
-        _isPayError = YES;
-    }
-}
-
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.index == 0) {
@@ -361,9 +242,9 @@
     if (self.index == 0) {
         return self.webCell;
     }
-    MEOnlineCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseListCell class]) forIndexPath:indexPath];
-    MEOnlineCourseListModel *model = self.refresh.arrData[indexPath.row];
-    [cell setUIWithModel:model isHomeVC:NO];
+    MEPersionalCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPersionalCourseListCell class]) forIndexPath:indexPath];
+    MECourseListModel *listModel = self.refresh.arrData[indexPath.row];
+    [cell setUIWithModel:listModel isFree:NO];
     return cell;
 }
 
@@ -375,19 +256,13 @@
             return [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
         }
     }
-    return kMEOnlineCourseListCellHeight;
+    return kMEPersionalCourseListCellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MEOnlineCourseListModel *model = self.refresh.arrData[indexPath.row];
-    _detailsId = model.idField;
-    if (self.type == 0 || self.type == 4 || self.type == 6) {
-        
-        [self requestVideoDetailWithNetWork];
-    }else if (self.type == 1) {
-       
-        [self requestAudioDetailWithNetWork];
-    }
+    MECourseListModel *model = self.refresh.arrData[indexPath.row];
+    _courseId = model.idField;
+    [self requestCourseDetailWithNetWork];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -415,8 +290,7 @@
     if(!_tableView){
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeStatusBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeStatusBarHeight-49-kMeTabbarSafeBottomMargin) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TDWebViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TDWebViewCell class])];
-        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEOnlineCourseListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEOnlineCourseListCell class])];
-        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECourseDetailCommentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECourseDetailCommentCell class])];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPersionalCourseListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEPersionalCourseListCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.delegate = self;
@@ -443,13 +317,7 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        NSString *url = @"";
-        if (self.type == 0 || self.type == 4 || self.type == 6) {
-            url = kGetApiWithUrl(MEIPcommonVideoList);
-        }else if (self.type == 1 || self.type == 5 || self.type == 7) {
-            url = kGetApiWithUrl(MEIPcommonAudioList);
-        }
-        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:url];
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonCoursesGetCoursesList)];
         _refresh.delegate = self;
         _refresh.isDataInside = YES;
         _refresh.showMaskView = YES;
@@ -484,7 +352,7 @@
 - (UIButton *)buyBtn {
     if (!_buyBtn) {
         _buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_buyBtn setTitle:@"￥100.00购买" forState:UIControlStateNormal];
+        [_buyBtn setTitle:@"VIP免费" forState:UIControlStateNormal];
         [_buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_buyBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
         [_buyBtn setBackgroundColor:[UIColor colorWithHexString:@"#FE4B77"]];
@@ -544,6 +412,5 @@
     }
     return _siftView;
 }
-
 
 @end

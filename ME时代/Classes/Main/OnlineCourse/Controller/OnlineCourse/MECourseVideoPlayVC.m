@@ -133,7 +133,7 @@
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 20;
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
-    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.model.video_detail)] baseURL:nil];
+    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.model.video_detail).length>0?kMeUnNilStr(self.model.video_detail):@"<p>暂无课程介绍</p>"] baseURL:nil];
     
 //    kMeWEAKSELF
 //    [self.videoList enumerateObjectsUsingBlock:^(MEOnlineCourseListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {

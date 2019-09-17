@@ -53,11 +53,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JV8-yh-Syh">
                     <rect key="frame" x="0.0" y="240" width="375" height="72"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="藏族自治州" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGm-Xy-r99">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="藏族自治州" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGm-Xy-r99">
                             <rect key="frame" x="15" y="10" width="71.5" height="17"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="71.5" id="4cu-Lb-z4U"/>
-                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -82,6 +79,7 @@
                     <constraints>
                         <constraint firstItem="JNK-rf-9X3" firstAttribute="centerY" secondItem="JGm-Xy-r99" secondAttribute="centerY" id="0nH-HF-vH0"/>
                         <constraint firstItem="qD5-SY-Jvh" firstAttribute="leading" secondItem="JGm-Xy-r99" secondAttribute="leading" id="D75-OQ-m5v"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JNK-rf-9X3" secondAttribute="trailing" constant="10" id="S9N-LM-Huf"/>
                         <constraint firstAttribute="trailing" secondItem="qD5-SY-Jvh" secondAttribute="trailing" constant="15" id="Tt8-fK-ggh"/>
                         <constraint firstAttribute="height" constant="72" id="dfN-TV-Cbh"/>
                         <constraint firstItem="qD5-SY-Jvh" firstAttribute="top" secondItem="JGm-Xy-r99" secondAttribute="bottom" constant="5" id="fkZ-7P-bGL"/>

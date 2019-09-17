@@ -116,6 +116,7 @@
             ZHMapAroundInfoViewController *mapVC = [[ZHMapAroundInfoViewController alloc]init];
             mapVC.contentBlock = ^(ZHPlaceInfoModel *model) {
                 kMeSTRONGSELF
+                [strongSelf.view endEditing:YES];
                 strongSelf.parModel.latitude = @(model.coordinate.latitude).description;
                 strongSelf.parModel.longitude = @(model.coordinate.latitude).description;
                 strongSelf.parModel.province = kMeUnNilStr(model.province);

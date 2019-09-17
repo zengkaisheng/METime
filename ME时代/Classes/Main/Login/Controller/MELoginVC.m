@@ -15,7 +15,8 @@
 #import "AppDelegate.h"
 #import "MECompandNoticeVC.h"
 #import "MEFillInvationCodeVC.h"
-//#import "MENewAddTelView.h"
+#import "MEChooseStatusVC.h"
+#import "MENewStoreApplyVC.h"
 
 #define kImgTopMargin (54.0 * kMeFrameScaleY())
 
@@ -24,6 +25,7 @@
     METickTimerTool *_timer;
     NSString *_strCaptcha;
     BOOL _isNewUser;
+    BOOL _isChooseStatus;
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consTitleTopMargin;
 
@@ -354,8 +356,21 @@
     if (needShow) {
         kMeWEAKSELF
         [MEFillInvationCodeVC presentFillInvationCodeVCWithSuccessHandler:^(id object) {
+//            kMeSTRONGSELF
+//            [strongSelf loginSuccess];
             kMeSTRONGSELF
-            [strongSelf loginSuccess];
+            [MEChooseStatusVC presentChooseStatusVCWithIndexBlock:^(NSInteger index) {
+                if (index == 1) {
+                    strongSelf->_isChooseStatus = YES;
+                    MENewStoreApplyVC *appleVC = [[MENewStoreApplyVC alloc] init];
+                    appleVC.finishBlock = ^{
+                        [strongSelf loginSuccess];
+                    };
+                    [strongSelf.navigationController pushViewController:appleVC animated:YES];
+                }else {
+                    [strongSelf loginSuccess];
+                }
+            }];
         } failHandler:^(id object) {
              [MEUserInfoModel logout];
         }];
