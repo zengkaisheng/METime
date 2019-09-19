@@ -29,7 +29,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *cpBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *changeStatusBtn;
-@property (weak, nonatomic) IBOutlet UILabel *statusLbl;
 //我的订单
 @property (weak, nonatomic) IBOutlet UIView *orderView;
 //商家
@@ -142,13 +141,11 @@
             break;
     }
     
-    if (kCurrentUser.user_type == 4) {
-        _changeStatusBtn.hidden = YES;
-        _statusLbl.hidden = YES;
-    }else {
-        _changeStatusBtn.hidden = NO;
-        _statusLbl.hidden = NO;
-    }
+//    if (kCurrentUser.user_type == 4) {
+//        _changeStatusBtn.hidden = YES;
+//    }else {
+//        _changeStatusBtn.hidden = NO;
+//    }
     NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
      _businessView.hidden = YES;
     if ([status isEqualToString:@"customer"]) {

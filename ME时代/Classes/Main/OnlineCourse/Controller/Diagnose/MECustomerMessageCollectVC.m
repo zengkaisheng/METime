@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) NSString *is_been;
+@property (nonatomic, strong) UIView *headerView;
 
 @end
 
@@ -54,6 +55,7 @@
             strongSelf.model = [[MEDiagnoseQuestionModel alloc] init];
         }
         [strongSelf.view addSubview:strongSelf.tableView];
+        strongSelf.tableView.tableHeaderView = strongSelf.headerView;
         strongSelf.tableView.tableFooterView = strongSelf.bottomView;
         [strongSelf.tableView reloadData];
     } failure:^(id object) {
@@ -211,6 +213,27 @@
         [_bottomView addSubview:saveBtn];
     }
     return _bottomView;
+}
+
+- (UIView *)headerView {
+    if (!_headerView) {
+        CGFloat height = [kMeUnNilStr(self.model.tips) boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-106, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0]} context:nil].size.height;
+        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, height+32)];
+        _headerView.backgroundColor = [UIColor whiteColor];
+        
+        UILabel *tips = [[UILabel alloc] initWithFrame:CGRectMake(33, 16, 40, 15)];
+        tips.text = @"小提示：";
+        tips.font = [UIFont systemFontOfSize:10.0];
+        [_headerView addSubview:tips];
+        
+        UILabel *content = [[UILabel alloc] initWithFrame:CGRectMake(73, 16, SCREEN_WIDTH-106, height)];
+        content.text = kMeUnNilStr(self.model.tips);
+        content.font = [UIFont systemFontOfSize:10.0];
+        content.textColor = kMEPink;
+        content.numberOfLines = 0;
+        [_headerView addSubview:content];
+    }
+    return _headerView;
 }
 
 @end

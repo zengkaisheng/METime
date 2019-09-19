@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEPersionalCourseListCell : UITableViewCell
 
-- (void)setUIWithModel:(MECourseListModel *)model isFree:(BOOL)isFree;
+- (void)setUIWithModel:(MECourseListModel *)model;
 
 @end
 

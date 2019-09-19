@@ -73,6 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSArray * diagnosis;
 @property (nonatomic, strong) MEDiagnoseQuestionUserModel * user;
+@property (nonatomic, strong) NSString * tips;
 
 @end
 

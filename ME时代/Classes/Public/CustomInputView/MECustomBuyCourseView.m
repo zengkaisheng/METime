@@ -28,7 +28,7 @@
 - (void)dealloc{
     NSLog(@"MECustomBuyCourseView dealloc");
 }
-
+//购买课程
 - (instancetype)initWithTitle:(NSString *)title content:(NSString *)content superView:(UIView*)superView{
     if(self = [super init]){
         self.frame = superView.bounds;
@@ -65,6 +65,45 @@
     UIButton *cancelBtn = [self createButtonWithTitle:@"取消" color:[UIColor blackColor] tag:2];
     cancelBtn.frame = CGRectMake(0, CGRectGetMaxY(line2.frame), BGViewWidth, 58*kMeFrameScaleX());
     [self.bgView addSubview:cancelBtn];
+}
+
+//购买VIP
+- (instancetype)initWithTitle:(NSString *)title confirmBtn:(NSString *)confirmBtn superView:(UIView*)superView{
+    if(self = [super init]){
+        self.frame = superView.bounds;
+        self.title = title;
+        [self setUIWithTitle:title confirmBtn:confirmBtn];
+    }
+    return self;
+}
+
+- (void)setUIWithTitle:(NSString *)title confirmBtn:(NSString *)confirmBtn{
+    [self addSubview:self.maskView];
+    [self addSubview:self.bgView];
+    self.bgView.frame = CGRectMake((SCREEN_WIDTH-BGViewWidth)/2, (SCREEN_HEIGHT-132)/2, BGViewWidth, 132);
+    //标题
+    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, BGViewWidth, 80)];
+    titleLbl.text = title;
+    titleLbl.textColor = kME333333;
+    titleLbl.textAlignment = NSTextAlignmentCenter;
+    titleLbl.font = [UIFont systemFontOfSize:20];
+    [self.bgView addSubview:titleLbl];
+    
+    UIView *line1 = [self createLineViewWithFrame:CGRectMake(0, CGRectGetMaxY(titleLbl.frame), BGViewWidth, 1)];
+    line1.backgroundColor = kME999999;
+    [self.bgView addSubview:line1];
+    
+    UIButton *cancelBtn = [self createButtonWithTitle:@"取消" color:[UIColor blackColor] tag:2];
+    cancelBtn.frame = CGRectMake(0, CGRectGetMaxY(line1.frame), (BGViewWidth-1)/2, 51);
+    [self.bgView addSubview:cancelBtn];
+    
+    UIView *line2 = [self createLineViewWithFrame:CGRectMake((BGViewWidth-1)/2, CGRectGetMaxY(line1.frame), 1, 51)];
+    line2.backgroundColor = kME999999;
+    [self.bgView addSubview:line2];
+    
+    UIButton *buyBtn = [self createButtonWithTitle:confirmBtn.length>0?confirmBtn:@"购买VIP" color:[UIColor colorWithHexString:@"#FE4B77"] tag:1];
+    buyBtn.frame = CGRectMake((BGViewWidth-1)/2+1, CGRectGetMaxY(line1.frame), (BGViewWidth-1)/2, 51);
+    [self.bgView addSubview:buyBtn];
 }
 
 - (void)hide{
@@ -129,6 +168,15 @@
 #pragma mark - Public API
 + (void)showCustomBuyCourseViewWithTitle:(NSString *)title content:(NSString *)content buyBlock:(kMeBasicBlock)buyBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView {
     MECustomBuyCourseView *view = [[MECustomBuyCourseView alloc] initWithTitle:title content:content superView:superView];
+    view.buyBlock = buyBlock;
+    view.cancelBlock = cancelBlock;
+    view.superView = superView;
+    [superView addSubview:view];
+}
+
+//购买Vip
++ (void)showCustomBuyVIPViewWithTitle:(NSString *)title confirmBtn:(NSString *)confirmBtn buyBlock:(kMeBasicBlock)buyBlock cancelBlock:(kMeBasicBlock)cancelBlock superView:(UIView*)superView {
+    MECustomBuyCourseView *view = [[MECustomBuyCourseView alloc] initWithTitle:title confirmBtn:confirmBtn superView:superView];
     view.buyBlock = buyBlock;
     view.cancelBlock = cancelBlock;
     view.superView = superView;

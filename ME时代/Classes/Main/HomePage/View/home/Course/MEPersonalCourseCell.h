@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class MECourseListModel;
+
+#define kMEPersonalCourseCellHeight 179
 
 @interface MEPersonalCourseCell : UITableViewCell
 
-- (void)setUIWithModel:(id)model;
+- (void)setUIWithModel:(MECourseListModel *)model;
 
 @end
 

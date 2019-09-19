@@ -52,18 +52,18 @@
         case 3:
         {
             _titleLbl.text = @"一起学习";
-            _titleLbl.textColor = [UIColor colorWithHexString:@"#E74192"];
-            _leftImageV.hidden = _rightImageV.hidden = NO;
-            _leftView.hidden = _rightView.hidden = YES;
+            _titleLbl.textColor = [UIColor colorWithHexString:@"#FF7979"];
+            _leftImageV.hidden = _rightImageV.hidden = YES;
+            _leftView.hidden = _rightView.hidden = NO;
             _bgImageV.hidden = YES;
         }
             break;
         case 4:
         {
             _titleLbl.text = @"精品课程";
-            _titleLbl.textColor = [UIColor colorWithHexString:@"#E74192"];
-            _leftImageV.hidden = _rightImageV.hidden = NO;
-            _leftView.hidden = _rightView.hidden = YES;
+            _titleLbl.textColor = [UIColor colorWithHexString:@"#FF7979"];
+            _leftImageV.hidden = _rightImageV.hidden = YES;
+            _leftView.hidden = _rightView.hidden = NO;
             _bgImageV.hidden = YES;
         }
             break;

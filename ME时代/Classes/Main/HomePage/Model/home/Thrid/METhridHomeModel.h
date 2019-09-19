@@ -10,15 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface METhridHomeStudyTogetherModel : MEBaseModel
 
-//"product_id": 12,
-//"product_type": 5,
-//"images": "c6d1763e0b0b54f0780ce312861d83f5",
-//"title": "ME时代负离子咖啡因连体身材管理器（买一套送一套）",
-//"market_price": "3980.00",
-//"money": "3980.00",
-//"desc": "",
-//"interval_price": "3980"
+@property (nonatomic, strong) NSArray * left_banner;      //左图
+@property (nonatomic, strong) NSArray * right_banner;     //右图
+
+@end
+
 
 @interface METhridHomeBuyingGoodsModel : MEBaseModel
 
@@ -53,6 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger is_need_login;//0 不需要登录 1 需要登录
 @property (nonatomic, assign) NSInteger bargain_id;  //砍价活动
 @property (nonatomic, assign) NSInteger activity_id; //签到活动
+
+@property (nonatomic, assign) NSInteger audio_id;    //音频ID
+@property (nonatomic, assign) NSInteger video_id;    //视频ID
 
 
 @end
@@ -99,6 +100,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray * service;
 @property (nonatomic, strong) NSArray * top_banner;
 @property (nonatomic, strong) NSString *member_of_the_ritual_image;
+
+@property (nonatomic, strong) NSArray * media_banner;      //首页课程banner
+@property (nonatomic, strong) NSArray * excellent_course;  //精品课程
+@property (nonatomic, strong) METhridHomeStudyTogetherModel *study_together;//一起学习
 
 @end
 

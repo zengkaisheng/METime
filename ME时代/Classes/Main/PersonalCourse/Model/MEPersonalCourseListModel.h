@@ -40,6 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * detail;
 @property (nonatomic, strong) NSString * time;
 
+@property (nonatomic, assign) NSInteger ids;
+@property (nonatomic, assign) NSInteger list_order;
+@property (nonatomic, assign) NSInteger preview_time;
+@property (nonatomic, assign) NSInteger status;
+
 @end
 
 

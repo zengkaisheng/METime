@@ -1058,7 +1058,14 @@
 #define MEIPcommonCoursesGetCoursesList @"common/courses/getCoursesList"
 //课程详情
 #define MEIPcommonCoursesGetCoursesDetail @"common/courses/getCoursesDetail"
-
+//VIP会员课程套餐
+#define MEIPcommonCoursesGetCoursesVIP @"common/courses/coursesVip"
+//创建VIP课程订单
+#define MEIPcommonCoursesCreateVIPOrder @"common/courses/createOrder"
+//我的VIP
+#define MEIPcommonCoursesGetMyCoursesVip @"common/courses/myCoursesVip"
+//vip交易记录
+#define MEIPcommonCoursesGetMyCoursesVipLog @"common/courses/myCoursesVipLog"
 /*********************************************/
 
 #endif /* MEAPIMacros_h */

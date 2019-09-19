@@ -7,21 +7,35 @@
 //
 
 #import "METhridHomeModel.h"
+#import "MEPersonalCourseListModel.h"
+
+@implementation METhridHomeStudyTogetherModel
+
+MEModelObjectClassInArrayWithDic((@{@"left_banner" : [METhridHomeAdModel class], @"right_banner" : [METhridHomeAdModel class]}))
+
+@end
+
 
 @implementation METhridHomeBuyingGoodsModel
 
 
 @end
 
+
+
 @implementation METhridHomeAdModel
 
 
 @end
 
+
+
 @implementation METhridHomeserviceModel
 
 
 @end
+
+
 
 @implementation METhridHomeBackgroundModel
 
@@ -29,11 +43,13 @@ MEModelIdToIdField
 
 @end
 
+
+
 @implementation METhridHomeModel
 
 +(NSDictionary *)mj_replacedKeyFromPropertyName{return @{@"member_exclusive" : @"new_member_exclusive"};}
 
-MEModelObjectClassInArrayWithDic((@{@"service" : [METhridHomeserviceModel class], @"top_banner" : [METhridHomeAdModel class], @"scare_buying_goods" : [METhridHomeBuyingGoodsModel class]}))
+MEModelObjectClassInArrayWithDic((@{@"service" : [METhridHomeserviceModel class], @"top_banner" : [METhridHomeAdModel class], @"scare_buying_goods" : [METhridHomeBuyingGoodsModel class], @"media_banner" : [METhridHomeAdModel class], @"excellent_course" : [MECourseListModel class]}))
 
 - (NSArray*)scare_buying_goods{
     if(!_scare_buying_goods){

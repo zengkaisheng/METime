@@ -272,8 +272,13 @@
         if (kMeUnArr(self.model.onLine_banner).count > 0) {
             height += 120;
         }
-        if (kMeUnArr(self.model.video_list.data).count > 0) {
-            height += 89*kMeUnArr(self.model.video_list.data).count;
+        if (kMeUnArr(self.model.category).count > 0) {
+            for (MECourseHomeCategoryModel *categoryModel in self.model.category) {
+                if (kMeUnArr(categoryModel.video_list).count > 0) {
+                    height += 43;
+                }
+                height += 89*kMeUnArr(categoryModel.video_list).count;
+            }
         }
         return height;
     }

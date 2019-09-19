@@ -28,6 +28,7 @@
 
 #import "MENewFilterGoodVC.h"
 #import "MEFourHomeVC.h"
+#import "MEPersonalCourseVC.h"
 
 @interface METabBarVC ()<UITabBarControllerDelegate>
 
@@ -49,15 +50,15 @@
 //    METhridHomeVC *home = [[METhridHomeVC alloc] init];
     MEFourHomeVC *home = [[MEFourHomeVC alloc] init];
     [self addChildVc:home title:@"首页" image:@"home" selectedImage:@"home_s"];
+    //课程
+    MEPersonalCourseVC *courseVC = [[MEPersonalCourseVC alloc] init];
+    [self addChildVc:courseVC title:@"课程" image:@"course" selectedImage:@"course_s"];
     
 //    MEIMageVC *store = [[MEIMageVC alloc]initWithType:MEMainStoreStyle];
 //    MEStoreHomeVC *store = [[MEStoreHomeVC alloc] init];
 //    MEFilterGoodVC *filter = [[MEFilterGoodVC alloc]initWithcategory_id:@"0" title:@"优选"];
 //    filter.isHome = YES;
 //    [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];
-    
-    MENewFilterGoodVC *filter = [[MENewFilterGoodVC alloc] init];
-    [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];
     
     MEBynamicHomeVC *dynamic = [[MEBynamicHomeVC alloc] init];
     //    MEIMageVC *store = [[MEIMageVC alloc]initWithType:MEMainStoreStyle];
@@ -69,8 +70,10 @@
     //    //MEMemberHomeVC *member = [[MEMemberHomeVC alloc] init];
     //    [self addChildVc:member title:@"超级会员" image:@"hat" selectedImage:@"hat"];
     
-    MEProductShoppingCartVC *shopcart = [[MEProductShoppingCartVC alloc] init];
-    [self addChildVc:shopcart title:@"购物车" image:@"shopcart" selectedImage:@"shopcart_s"];
+//    MEProductShoppingCartVC *shopcart = [[MEProductShoppingCartVC alloc] init];
+//    [self addChildVc:shopcart title:@"购物车" image:@"shopcart" selectedImage:@"shopcart_s"];
+    MENewFilterGoodVC *filter = [[MENewFilterGoodVC alloc] init];
+    [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];
     
     self.mine = [[MENewMineHomeVC alloc] init];
     [self addChildVc:self.mine title:@"我的" image:@"mine" selectedImage:@"mine_s"];

@@ -46,12 +46,12 @@
     for (int i = 0; i < 2; i++) {
         MECourseListModel *model = (MECourseListModel *)array[i];
         if (i == 0) {
-            kSDLoadImg(_leftHeaderPic, kMeUnNilStr(model.images));
+            kSDLoadImg(_leftHeaderPic, kMeUnNilStr(model.courses_images));
             _leftTitleLbl.text = kMeUnNilStr(model.name);
             _leftDescLbl.text = kMeUnNilStr(model.desc);
             _LeftCountLbl.text = [NSString stringWithFormat:@"%@人观看",kMeUnNilStr(model.study_num)];
         }else if (i == 1) {
-            kSDLoadImg(_rightHeaderPic, kMeUnNilStr(model.images));
+            kSDLoadImg(_rightHeaderPic, kMeUnNilStr(model.courses_images));
             _rightTitleLbl.text = kMeUnNilStr(model.name);
             _rightDescLbl.text = kMeUnNilStr(model.desc);
             _rightCountLbl.text = [NSString stringWithFormat:@"%@人观看",kMeUnNilStr(model.study_num)];

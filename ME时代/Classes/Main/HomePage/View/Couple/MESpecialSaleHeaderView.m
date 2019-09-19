@@ -8,6 +8,7 @@
 
 #import "MESpecialSaleHeaderView.h"
 #import "MEAdModel.h"
+#import "METhridHomeModel.h"
 
 @interface MESpecialSaleHeaderView ()<SDCycleScrollViewDelegate>
 
@@ -26,9 +27,15 @@
     _sdView.clipsToBounds = YES;
     _sdView.delegate = self;
     
-    __block NSMutableArray *arrImage =[NSMutableArray array];
-    [bannerImages enumerateObjectsUsingBlock:^(MEAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        [arrImage addObject:kMeUnNilStr(model.ad_img)];
+    __block NSMutableArray *arrImage = [NSMutableArray array];
+    [bannerImages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[MEAdModel class]]) {
+            MEAdModel *model = (MEAdModel *)obj;
+            [arrImage addObject:kMeUnNilStr(model.ad_img)];
+        }else if ([obj isKindOfClass:[METhridHomeAdModel class]]) {
+            METhridHomeAdModel *model = (METhridHomeAdModel *)obj;
+            [arrImage addObject:kMeUnNilStr(model.ad_img)];
+        }
     }];
     _sdView.imageURLStringsGroup = arrImage;
     

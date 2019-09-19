@@ -65,25 +65,13 @@
     if ([self.filterArr containsObject:@"推荐"]) {
         hasFree = YES;
     }
-    if (hasFree) {
-        if (index == 0) {
-            height = 166*kMeFrameScaleY();
-        }else {
-            height = 166*kMeFrameScaleY()+31+260;
-            for (int i = 1; i < index; i++) {
-                MEPersonalCourseListModel *model = self.refresh.arrData[i];
-                height += (31+130*model.courses.count)*i;
-            }
-        }
+    if (index == 0) {
+        height = 166*kMeFrameScaleY();
     }else {
-        if (index == 0) {
-            height = 166*kMeFrameScaleY();
-        }else {
-            height = 166*kMeFrameScaleY();
-            for (int i = 0; i < index; i++) {
-                MEPersonalCourseListModel *model = self.refresh.arrData[i];
-                height += (31+130*model.courses.count)*i;
-            }
+        height = 166*kMeFrameScaleY()+36+260;
+        for (int i = 1; i < index; i++) {
+            MEPersonalCourseListModel *model = self.refresh.arrData[i];
+            height += (36+130*model.courses.count);
         }
     }
     [self.tableView setContentOffset:CGPointMake(0, height) animated:YES];
@@ -127,22 +115,21 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    MEPersonalCourseListModel *model = self.refresh.arrData[section];
-    if ([model.classify_name isEqualToString:@"免费体验"]) {
+    if (section == 0) {
         return 1;
     }
+    MEPersonalCourseListModel *model = self.refresh.arrData[section];
     return model.courses.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEPersonalCourseListModel *model = self.refresh.arrData[indexPath.section];
-    if ([model.classify_name isEqualToString:@"免费体验"]) {
+    if (indexPath.section == 0) {
         MEPersonalCourseFreeCell *freeCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPersonalCourseFreeCell class]) forIndexPath:indexPath];
         [freeCell setUIWithArray:kMeUnArr(model.courses)];
         kMeWEAKSELF
         freeCell.indexBlock = ^(NSInteger index) {
             kMeSTRONGSELF
-//            NSLog(@"index:%@",@(index));
             NSArray *course = kMeUnArr(model.courses);
             MECourseListModel *model = (MECourseListModel *)course[index];
             MEPersionalCourseDetailVC *vc = [[MEPersionalCourseDetailVC alloc] initWithCourseId:model.idField];
@@ -158,15 +145,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MEPersonalCourseListModel *model = self.refresh.arrData[indexPath.section];
-    if ([model.classify_name isEqualToString:@"免费体验"]) {
+    if (indexPath.section == 0) {
         return 260;
     }
     return kMEPersonalCourseListCellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 31;
+    return 36;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -178,9 +164,6 @@
         kMeSTRONGSELF
         MEPersionalCourseListVC *vc = [[MEPersionalCourseListVC alloc] initWithClassifyId:model.classify_id];
         vc.title = kMeUnNilStr(model.classify_name);
-        if ([model.classify_name isEqualToString:@"免费体验"]) {
-            vc.isFree = YES;
-        }
         [strongSelf.navigationController pushViewController:vc animated:YES];
     };
     return header;
@@ -227,10 +210,16 @@
 //    [self saveClickRecordsWithType:@"1" params:params];
     
     switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
-        case 1:
-        {
-//            METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-//            [self.navigationController pushViewController:dvc animated:YES];
+        case 21:
+        {//C端视频
+            MEPersionalCourseDetailVC *vc = [[MEPersionalCourseDetailVC alloc] initWithCourseId:model.video_id];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 22:
+        {//C端音频
+            MEPersionalCourseDetailVC *vc = [[MEPersionalCourseDetailVC alloc] initWithCourseId:model.audio_id];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:
@@ -253,7 +242,7 @@
 
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kMeTabBarHeight) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPersonalCourseFreeCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEPersonalCourseFreeCell class])];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPersonalCourseListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEPersonalCourseListCell class])];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPersonalCourseHeader class]) bundle:nil] forHeaderFooterViewReuseIdentifier:NSStringFromClass([MEPersonalCourseHeader class])];

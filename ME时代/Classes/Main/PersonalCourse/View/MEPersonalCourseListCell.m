@@ -14,9 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headerPic;
 @property (weak, nonatomic) IBOutlet UILabel *nameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *descLbl;
-@property (weak, nonatomic) IBOutlet UILabel *totalLbl;
-@property (weak, nonatomic) IBOutlet UILabel *reloadTotalLbl;
 @property (weak, nonatomic) IBOutlet UILabel *playCountLbl;
+@property (weak, nonatomic) IBOutlet UILabel *vipLbl;
 
 
 @end
@@ -35,10 +34,15 @@
 }
 
 - (void)setUIWithModel:(MECourseListModel *)model {
-    kSDLoadImg(_headerPic, kMeUnNilStr(model.images));
-    _nameLbl.text = [NSString stringWithFormat:@"《%@》",kMeUnNilStr(model.name)];
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.courses_images));
+    _nameLbl.text = kMeUnNilStr(model.name);
     _descLbl.text = kMeUnNilStr(model.desc);
-    _playCountLbl.text = [NSString stringWithFormat:@"%@人观看",kMeUnNilStr(model.study_num)];
+    _playCountLbl.text = [NSString stringWithFormat:@"播放量:%@",kMeUnNilStr(model.study_num)];
+    if (model.is_charge == 1) {
+        _vipLbl.text = @"VIP";
+    }else {
+        _vipLbl.text = @"免费";
+    }
 }
 
 @end

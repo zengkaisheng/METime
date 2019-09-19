@@ -116,7 +116,9 @@
     [MECommonTool postAuthRegId];
     [MEPublicNetWorkTool getUserCheckFirstBuyWithSuccessBlock:nil failure:nil];
     [MEPublicNetWorkTool getUserInvitationCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
-        kCurrentUser.invite_code = kMeUnNilStr(responseObject.data);
+        if ([responseObject.data isKindOfClass:[NSString class]]) {
+            kCurrentUser.invite_code = [responseObject.data mutableCopy];
+        }
     } failure:^(id object) {
     }];
     //设置alias

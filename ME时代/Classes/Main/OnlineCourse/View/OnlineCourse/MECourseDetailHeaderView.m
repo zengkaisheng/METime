@@ -69,7 +69,7 @@
         self.introduceBtn.selected = NO;
         self.courseListBtn.selected = YES;
     }
-    kSDLoadImg(_headerPic, kMeUnNilStr(model.images));
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.courses_images));
     
     _titleLbl.text = kMeUnNilStr(model.name);
     _priceLbl.hidden = YES;

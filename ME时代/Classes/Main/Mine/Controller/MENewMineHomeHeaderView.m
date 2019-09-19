@@ -26,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet UIView *orderView;
 @property (weak, nonatomic) IBOutlet UIView *businessView;
 @property (weak, nonatomic) IBOutlet UIButton *changeStatusBtn;
-@property (weak, nonatomic) IBOutlet UILabel *statusLbl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *changeStatusBtnConsWidth;
 
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -121,13 +120,11 @@
             break;
     }
     
-    if (kCurrentUser.user_type == 4) {
-        _changeStatusBtn.hidden = YES;
-        _statusLbl.hidden = YES;
-    }else {
-        _changeStatusBtn.hidden = NO;
-        _statusLbl.hidden = NO;
-    }
+//    if (kCurrentUser.user_type == 4) {
+//        _changeStatusBtn.hidden = YES;
+//    }else {
+//        _changeStatusBtn.hidden = NO;
+//    }
     
     NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
     _businessView.hidden = YES;

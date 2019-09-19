@@ -22,13 +22,13 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kk6-IU-ojS">
-                    <rect key="frame" x="131" y="47" width="199" height="18"/>
+                    <rect key="frame" x="126" y="47" width="204" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8D-Wv-nyg">
-                    <rect key="frame" x="131" y="76" width="229" height="14.5"/>
+                    <rect key="frame" x="126" y="76" width="234" height="14.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -291,7 +291,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urX-Rd-KyT">
-                    <rect key="frame" x="131" y="97.5" width="229" height="15"/>
+                    <rect key="frame" x="126" y="97.5" width="234" height="15"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -314,27 +314,8 @@
                             <real key="value" value="16"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="切换身份" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DUf-zj-3tx">
-                    <rect key="frame" x="25" y="106" width="81" height="16"/>
-                    <color key="backgroundColor" red="0.97254901959999995" green="0.6588235294" blue="0.6588235294" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="81" id="sRW-6c-rXw"/>
-                        <constraint firstAttribute="height" constant="16" id="wOs-bo-A88"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="8"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3V-4T-qHf">
-                    <rect key="frame" x="25" y="41" width="81" height="81"/>
                     <connections>
-                        <action selector="changeStatus:" destination="YSZ-JS-kvI" eventType="touchUpInside" id="Lay-hv-pnz"/>
+                        <action selector="changeStatus:" destination="YSZ-JS-kvI" eventType="touchUpInside" id="FuL-4h-K9S"/>
                     </connections>
                 </button>
             </subviews>
@@ -350,16 +331,12 @@
                 <constraint firstItem="vmF-7a-DZa" firstAttribute="leading" secondItem="YSZ-JS-kvI" secondAttribute="leading" constant="25" id="EXY-Jf-VqJ"/>
                 <constraint firstItem="R8D-Wv-nyg" firstAttribute="top" secondItem="kk6-IU-ojS" secondAttribute="bottom" constant="11" id="F3y-cb-Z5b"/>
                 <constraint firstAttribute="trailing" secondItem="R8D-Wv-nyg" secondAttribute="trailing" constant="15" id="GDS-7J-Mei"/>
-                <constraint firstItem="G3V-4T-qHf" firstAttribute="trailing" secondItem="DUf-zj-3tx" secondAttribute="trailing" id="Jxw-qt-Uyl"/>
                 <constraint firstAttribute="trailing" secondItem="Wzj-Ct-hib" secondAttribute="trailing" constant="15" id="KaH-JU-kZy"/>
-                <constraint firstItem="vmF-7a-DZa" firstAttribute="top" secondItem="DUf-zj-3tx" secondAttribute="bottom" constant="10" id="KeU-p8-Seb"/>
                 <constraint firstItem="urX-Rd-KyT" firstAttribute="top" secondItem="R8D-Wv-nyg" secondAttribute="bottom" constant="7" id="N0r-m3-cLT"/>
                 <constraint firstItem="vmF-7a-DZa" firstAttribute="top" secondItem="Wzj-Ct-hib" secondAttribute="bottom" constant="12" id="PEH-pM-AOx"/>
                 <constraint firstItem="Xgv-KA-i2t" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" constant="41" id="Qy5-K1-ill"/>
                 <constraint firstItem="kk6-IU-ojS" firstAttribute="top" secondItem="Xgv-KA-i2t" secondAttribute="top" constant="6" id="SeG-nf-EUv"/>
                 <constraint firstItem="GWr-v4-Fkh" firstAttribute="top" secondItem="avq-p1-BvR" secondAttribute="top" id="VKn-HU-mLq"/>
-                <constraint firstItem="G3V-4T-qHf" firstAttribute="top" secondItem="Xgv-KA-i2t" secondAttribute="top" id="XUM-k1-O2a"/>
-                <constraint firstItem="G3V-4T-qHf" firstAttribute="leading" secondItem="DUf-zj-3tx" secondAttribute="leading" id="Xdg-eP-6by"/>
                 <constraint firstItem="urX-Rd-KyT" firstAttribute="trailing" secondItem="R8D-Wv-nyg" secondAttribute="trailing" id="Ysr-w3-6bl"/>
                 <constraint firstAttribute="trailing" secondItem="FuN-D3-tmG" secondAttribute="trailing" id="akT-q5-Ehg"/>
                 <constraint firstItem="avq-p1-BvR" firstAttribute="top" secondItem="Xgv-KA-i2t" secondAttribute="bottom" constant="63" id="b9f-NV-Li2"/>
@@ -369,12 +346,10 @@
                 <constraint firstAttribute="trailing" secondItem="vmF-7a-DZa" secondAttribute="trailing" constant="25" id="gol-hb-TwI"/>
                 <constraint firstItem="XCS-KK-IRX" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" constant="20" id="h6F-Cx-XAP"/>
                 <constraint firstItem="FuN-D3-tmG" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" id="jHT-Ox-dsC"/>
-                <constraint firstItem="kk6-IU-ojS" firstAttribute="leading" secondItem="Xgv-KA-i2t" secondAttribute="trailing" constant="30" id="kln-kq-IyG"/>
+                <constraint firstItem="kk6-IU-ojS" firstAttribute="leading" secondItem="Xgv-KA-i2t" secondAttribute="trailing" constant="25" id="kln-kq-IyG"/>
                 <constraint firstAttribute="trailing" secondItem="XCS-KK-IRX" secondAttribute="trailing" constant="15" id="krZ-qR-L4J"/>
                 <constraint firstItem="GWr-v4-Fkh" firstAttribute="leading" secondItem="YSZ-JS-kvI" secondAttribute="leading" constant="15" id="pTu-vv-ehK"/>
-                <constraint firstItem="DUf-zj-3tx" firstAttribute="centerX" secondItem="Ey1-K7-wc4" secondAttribute="centerX" id="pXo-Qb-5KF"/>
                 <constraint firstItem="snG-Jl-D0c" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" id="prX-WE-VSf"/>
-                <constraint firstItem="G3V-4T-qHf" firstAttribute="bottom" secondItem="DUf-zj-3tx" secondAttribute="bottom" id="ryZ-Zc-vns"/>
                 <constraint firstItem="urX-Rd-KyT" firstAttribute="leading" secondItem="R8D-Wv-nyg" secondAttribute="leading" id="zow-zu-25S"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -382,7 +357,7 @@
                 <outlet property="LblTel" destination="R8D-Wv-nyg" id="fxf-i7-NwI"/>
                 <outlet property="bottomView" destination="00v-Vh-Wcg" id="Ugz-Ky-qUk"/>
                 <outlet property="businessView" destination="GWr-v4-Fkh" id="t5F-aJ-S22"/>
-                <outlet property="changeStatusBtn" destination="G3V-4T-qHf" id="Tah-lj-ryP"/>
+                <outlet property="changeStatusBtn" destination="Wzj-Ct-hib" id="L4Y-9H-8OL"/>
                 <outlet property="changeStatusBtnConsWidth" destination="xAk-cR-l5n" id="FHf-BO-M4V"/>
                 <outlet property="consSetTopMargin" destination="h6F-Cx-XAP" id="maD-UL-WGQ"/>
                 <outlet property="cpBtn" destination="a9Q-GK-2rd" id="w2y-BQ-6qJ"/>
@@ -397,7 +372,6 @@
                 <outlet property="orderView" destination="avq-p1-BvR" id="usU-Qj-CFC"/>
                 <outlet property="receiveBtn" destination="VB6-eX-Mv8" id="eyC-1l-xYM"/>
                 <outlet property="refundBtn" destination="UEu-ia-fsg" id="p0O-Pd-dQb"/>
-                <outlet property="statusLbl" destination="DUf-zj-3tx" id="JhZ-pY-r7y"/>
                 <outlet property="viewLine" destination="Xgv-KA-i2t" id="4eF-L3-Z2a"/>
             </connections>
             <point key="canvasLocation" x="-1730.4000000000001" y="-412.89355322338832"/>

@@ -164,10 +164,10 @@
             NSArray *arr= responseObject.data[@"tbk_item_info_get_response"][@"results"][@"n_tbk_item"];
             if([arr isKindOfClass:[NSArray class]] && arr.count){
                 MECoupleModel *model = [MECoupleModel mj_objectWithKeyValues:arr[0]];
-                strongSelf->_detailModel.nick = model.nick;
-                strongSelf->_detailModel.num_iid = model.num_iid;
-                strongSelf->_detailModel.seller_id = model.seller_id;
-                strongSelf->_detailModel.user_type = model.user_type;
+                strongSelf->_detailModel.nick = kMeUnNilStr(model.nick);
+                strongSelf->_detailModel.num_iid = kMeUnNilStr(model.num_iid);
+                strongSelf->_detailModel.seller_id = kMeUnNilStr(model.seller_id);
+                strongSelf->_detailModel.user_type = kMeUnNilStr(model.user_type);
                 strongSelf->_detailModel.small_images = model.small_images;
 //                strongSelf->_detailModel.min_ratio = strongSelf->_min_ratio;
 //                strongSelf->_detailModel.coupon_amount = strongSelf->_coupon_amount;

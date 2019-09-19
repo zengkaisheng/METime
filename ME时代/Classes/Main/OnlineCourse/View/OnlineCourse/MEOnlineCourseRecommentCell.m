@@ -9,10 +9,12 @@
 #import "MEOnlineCourseRecommentCell.h"
 #import "MECourseAdvertisementCell.h"
 #import "MEOnlineCourseListCell.h"
+#import "MEPersonalCourseHeader.h"
 #import "MEOnlineCourseHomeModel.h"
 #import "MECourseDetailVC.h"
 #import "MEOnlineCourseVC.h"
 #import "MEOnlineCourseListModel.h"
+#import "MECourseVideoListVC.h"
 
 @interface MEOnlineCourseRecommentCell ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -28,6 +30,7 @@
     // Initialization code
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEOnlineCourseListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEOnlineCourseListCell class])];
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECourseAdvertisementCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECourseAdvertisementCell class])];
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPersonalCourseHeader class]) bundle:nil] forHeaderFooterViewReuseIdentifier:NSStringFromClass([MEPersonalCourseHeader class])];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.tableFooterView = [UIView new];
@@ -47,7 +50,8 @@
 
 #pragma mark -- UITableviewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+//    return 2;
+    return self.model.category.count+1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
@@ -57,7 +61,9 @@
             return 0;
         }
     }
-    return self.model.video_list.data.count;
+//    return self.model.video_list.data.count;
+    MECourseHomeCategoryModel *categoryModel = self.model.category[section-1];
+    return categoryModel.video_list.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -74,7 +80,10 @@
         return cell;
     }
     MEOnlineCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEOnlineCourseListCell class]) forIndexPath:indexPath];
-    MEOnlineCourseListModel *model = self.model.video_list.data[indexPath.row];
+//    MEOnlineCourseListModel *model = self.model.video_list.data[indexPath.row];
+//    [cell setUIWithModel:model isHomeVC:YES];
+    MECourseHomeCategoryModel *categoryModel = self.model.category[indexPath.section-1];
+    MEOnlineCourseListModel *model = categoryModel.video_list[indexPath.row];
     [cell setUIWithModel:model isHomeVC:YES];
     return cell;
 }
@@ -90,24 +99,44 @@
     if (section == 0) {
         return 40;
     }
-    return 0;
+    return 43;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 1, SCREEN_WIDTH-30, 40)];
-    headerView.backgroundColor = [UIColor whiteColor];
-    headerView.layer.cornerRadius = 5;
-    headerView.layer.masksToBounds = YES;
+    if (section == 0) {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 1, SCREEN_WIDTH-30, 40)];
+        headerView.backgroundColor = [UIColor whiteColor];
+        headerView.layer.cornerRadius = 5;
+        headerView.layer.masksToBounds = YES;
+        
+        UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 130, 21)];
+        titleLbl.font = [UIFont systemFontOfSize:15];
+        titleLbl.text = @"在线课程";
+        [headerView addSubview:titleLbl];
+        return headerView;
+    }
     
-    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 130, 21)];
-    titleLbl.font = [UIFont systemFontOfSize:15];
-    titleLbl.text = @"在线课程";
-    [headerView addSubview:titleLbl];
-    return headerView;
+    MEPersonalCourseHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass([MEPersonalCourseHeader class])];
+     MECourseHomeCategoryModel *categoryModel = self.model.category[section-1];
+    [header setUIWithTitle:kMeUnNilStr(categoryModel.video_type_name)];
+    kMeWEAKSELF
+    header.tapBlock = ^{
+        kMeSTRONGSELF
+         MEOnlineCourseVC *homevc = (MEOnlineCourseVC *)[MECommonTool getVCWithClassWtihClassName:[MEOnlineCourseVC class] targetResponderView:strongSelf];
+        MECourseVideoListVC *vc = [[MECourseVideoListVC alloc] initWithCategoryId:categoryModel.idField];
+        vc.title = kMeUnNilStr(categoryModel.video_type_name);
+        if (homevc) {
+            [homevc.navigationController pushViewController:vc animated:YES];
+        }
+    };
+    return header;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MEOnlineCourseListModel *model = self.model.video_list.data[indexPath.row];
+    MECourseHomeCategoryModel *categoryModel = self.model.category[indexPath.section-1];
+    MEOnlineCourseListModel *model = categoryModel.video_list[indexPath.row];
+    
+//    MEOnlineCourseListModel *model = self.model.video_list.data[indexPath.row];
     MEOnlineCourseVC *homevc = (MEOnlineCourseVC *)[MECommonTool getVCWithClassWtihClassName:[MEOnlineCourseVC class] targetResponderView:self];
     if (kMeUnNilStr(model.video_urls).length > 0) {
         MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:0];

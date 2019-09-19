@@ -54,6 +54,14 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+@interface MECourseHomeCategoryModel : MEBaseModel
+
+@property (nonatomic, assign) NSInteger idField;
+@property (nonatomic, strong) NSString * video_type_name;
+@property (nonatomic, strong) NSArray * video_list;
+
+@end
+
 
 @interface MEOnlineCourseHomeModel : MEBaseModel
 
@@ -65,6 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray * banner;
 @property (nonatomic, strong) MECourseHomeVideoListModel * hot_video;
 @property (nonatomic, strong) NSArray * menu_list;
+@property (nonatomic, strong) NSArray * category;
 
 @end
 

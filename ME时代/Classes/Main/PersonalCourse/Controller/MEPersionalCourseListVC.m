@@ -57,7 +57,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEPersionalCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPersionalCourseListCell class]) forIndexPath:indexPath];
     MECourseListModel *listModel = self.refresh.arrData[indexPath.row];
-    [cell setUIWithModel:listModel isFree:self.isFree];
+    [cell setUIWithModel:listModel];
     return cell;
 }
 

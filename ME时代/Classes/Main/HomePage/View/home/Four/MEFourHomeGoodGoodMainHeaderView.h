@@ -12,7 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEFourHomeGoodGoodMainHeaderView : UICollectionReusableView
 
-- (void)setupUIWithArray:(NSArray *)array;
+@property (nonatomic, assign) BOOL showHeader;
+
+- (void)setupUIWithArray:(NSArray *)array showFooter:(BOOL)show;
+
 
 @end
 

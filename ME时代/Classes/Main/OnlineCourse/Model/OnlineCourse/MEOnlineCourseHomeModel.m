@@ -27,9 +27,16 @@ MEModelObjectClassInArrayWithDic((@{@"data" : [MEOnlineCourseListModel class]}))
 @end
 
 
+@implementation MECourseHomeCategoryModel
+
+MEModelIdToIdField
+MEModelObjectClassInArrayWithDic((@{@"video_list":[MEOnlineCourseListModel class]}))
+
+@end
+
 
 @implementation MEOnlineCourseHomeModel
 
-MEModelObjectClassInArrayWithDic((@{@"top_banner" : [MEAdModel class], @"onLine_banner" : [MEAdModel class], @"banner" : [MEAdModel class], @"menu_list":[MECourseHomeMenuListModel class]}))
+MEModelObjectClassInArrayWithDic((@{@"top_banner" : [MEAdModel class], @"onLine_banner" : [MEAdModel class], @"banner" : [MEAdModel class], @"menu_list":[MECourseHomeMenuListModel class], @"category":[MECourseHomeCategoryModel class]}))
 
 @end

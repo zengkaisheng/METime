@@ -23,9 +23,15 @@
 #import "MEJoinPrizeVC.h"
 #import "MEFourHomeActivityCell.h"
 
+#import "MEPersonalCourseListModel.h"
+#import "MEPersonalCourseCell.h"
+#import "MEPersionalCourseDetailVC.h"
+
 @interface MEFourHomeGoodGoodMainHeaderView ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *_arrHot;
+    BOOL _isShow;
+    BOOL _showHeader;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -42,6 +48,7 @@
     
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([METhridHomeGoodGoodMainCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class])];
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeActivityCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEFourHomeActivityCell class])];
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPersonalCourseCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEPersonalCourseCell class])];
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([METhridHomeCommondSectionView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:NSStringFromClass([METhridHomeCommondSectionView class])];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.showsVerticalScrollIndicator = NO;
@@ -52,173 +59,202 @@
 }
 #pragma mark -- UITableviewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (_arrHot.count <= 0) {
+        if (_isShow) {
+            return 1;
+        }
+    }
     return _arrHot.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSDictionary *dict = _arrHot[section];
-    if (section == 0) {
-        NSArray *activity = dict[@"activity"];
-        return activity.count;
+    if (_arrHot.count > 0) {
+        NSDictionary *dict = _arrHot[section];
+        if ([dict.allKeys containsObject:@"activity"]) {
+            NSArray *activity = dict[@"activity"];
+            return activity.count;
+        }else if ([dict.allKeys containsObject:@"goods"]) {
+            NSArray *goods = dict[@"goods"];
+            return goods.count;
+        }else if ([dict.allKeys containsObject:@"excellent_course"]) {
+            NSArray *excellent_course = dict[@"excellent_course"];
+            return excellent_course.count;
+        }
     }
-    NSArray *goods = dict[@"goods"];
-    return goods.count;
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary *dict = _arrHot[indexPath.section];
-    if (indexPath.section == 0) {
-        NSArray *activity = dict[@"activity"];
-        MEHomeRecommendModel *model = activity[indexPath.row];
-        switch (model.type) {
-            case 1:
-            {//商品
-                METhridHomeGoodGoodMainCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class]) forIndexPath:indexPath];
-                MEGoodModel *goodModel = [MEGoodModel mj_objectWithKeyValues:model.mj_keyValues];
-                [cell setUIWithModel:goodModel];
-                kMeWEAKSELF
-                cell.buyBlock = ^{
-                    kMeSTRONGSELF
-                    METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-                    MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
-                    if (homevc) {
-                        [homevc.navigationController pushViewController:details animated:YES];
-                    }
-                };
-                return cell;
-            }
-                break;
-            case 2:
-            {//砍价
-                MEFourHomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEFourHomeActivityCell class]) forIndexPath:indexPath];
-                MEBargainListModel *bargainModel = [MEBargainListModel mj_objectWithKeyValues:model.mj_keyValues];
-                bargainModel.product_price = model.money;
-                [cell setUIWithBargainModel:bargainModel];
-                kMeWEAKSELF
-                cell.tapBlock = ^(NSInteger index) {
-                    kMeSTRONGSELF
-                    if([MEUserInfoModel isLogin]){
-                        MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.ids myList:NO];
+    if (_arrHot.count > 0) {
+        NSDictionary *dict = _arrHot[indexPath.section];
+        if ([dict.allKeys containsObject:@"activity"]) {
+            NSArray *activity = dict[@"activity"];
+            MEHomeRecommendModel *model = activity[indexPath.row];
+            switch (model.type) {
+                case 1:
+                {//商品
+                    METhridHomeGoodGoodMainCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class]) forIndexPath:indexPath];
+                    MEGoodModel *goodModel = [MEGoodModel mj_objectWithKeyValues:model.mj_keyValues];
+                    [cell setUIWithModel:goodModel];
+                    kMeWEAKSELF
+                    cell.buyBlock = ^{
+                        kMeSTRONGSELF
+                        METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
                         MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
                         if (homevc) {
                             [homevc.navigationController pushViewController:details animated:YES];
                         }
-                    }else {
-                        [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    };
+                    return cell;
+                }
+                    break;
+                case 2:
+                {//砍价
+                    MEFourHomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEFourHomeActivityCell class]) forIndexPath:indexPath];
+                    MEBargainListModel *bargainModel = [MEBargainListModel mj_objectWithKeyValues:model.mj_keyValues];
+                    bargainModel.product_price = model.money;
+                    [cell setUIWithBargainModel:bargainModel];
+                    kMeWEAKSELF
+                    cell.tapBlock = ^(NSInteger index) {
+                        kMeSTRONGSELF
+                        if([MEUserInfoModel isLogin]){
                             MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.ids myList:NO];
                             MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
                             if (homevc) {
                                 [homevc.navigationController pushViewController:details animated:YES];
                             }
-                        } failHandler:^(id object) {
-                        }];
-                    }
-                };
-                return cell;
-            }
-                break;
-            case 3:
-            {//拼团
-                MEFourHomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEFourHomeActivityCell class]) forIndexPath:indexPath];
-                MEGroupListModel *groupModel = [MEGroupListModel mj_objectWithKeyValues:model.mj_keyValues];
-                [cell setUIWithGroupModel:groupModel];
-                kMeWEAKSELF
-                cell.tapBlock = ^(NSInteger index) {
-                    kMeSTRONGSELF
-                    if([MEUserInfoModel isLogin]){
-                        MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
-                        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
-                        if (homevc) {
-                            [homevc.navigationController pushViewController:details animated:YES];
+                        }else {
+                            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                                MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.ids myList:NO];
+                                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                                if (homevc) {
+                                    [homevc.navigationController pushViewController:details animated:YES];
+                                }
+                            } failHandler:^(id object) {
+                            }];
                         }
-                    }else {
-                        [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    };
+                    return cell;
+                }
+                    break;
+                case 3:
+                {//拼团
+                    MEFourHomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEFourHomeActivityCell class]) forIndexPath:indexPath];
+                    MEGroupListModel *groupModel = [MEGroupListModel mj_objectWithKeyValues:model.mj_keyValues];
+                    [cell setUIWithGroupModel:groupModel];
+                    kMeWEAKSELF
+                    cell.tapBlock = ^(NSInteger index) {
+                        kMeSTRONGSELF
+                        if([MEUserInfoModel isLogin]){
                             MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
                             MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
                             if (homevc) {
                                 [homevc.navigationController pushViewController:details animated:YES];
                             }
-                        } failHandler:^(id object) {
-                        }];
-                    }
-                };
-                return cell;
-            }
-                break;
-            case 4:
-            {//秒杀
-                MEFourHomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEFourHomeActivityCell class]) forIndexPath:indexPath];
-                MEGoodModel *goodModel = [MEGoodModel mj_objectWithKeyValues:model.mj_keyValues];
-                [cell setUIWithGoodModel:goodModel];
-                kMeWEAKSELF
-                cell.tapBlock = ^(NSInteger index) {
-                    kMeSTRONGSELF
-                    METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-                    MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
-                    if (homevc) {
-                        [homevc.navigationController pushViewController:details animated:YES];
-                    }
-                };
-                return cell;
-            }
-                break;
-            case 5:
-            {//签到
-                MEFourHomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEFourHomeActivityCell class]) forIndexPath:indexPath];
-                MEGoodModel *goodModel = [MEGoodModel mj_objectWithKeyValues:model.mj_keyValues];
-                [cell setUIWithGoodModel:goodModel];
-                kMeWEAKSELF
-                cell.tapBlock = ^(NSInteger index) {
-                    kMeSTRONGSELF
-                    if([MEUserInfoModel isLogin]){
-                        MEJoinPrizeVC *details = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.ids]];
+                        }else {
+                            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                                MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
+                                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                                if (homevc) {
+                                    [homevc.navigationController pushViewController:details animated:YES];
+                                }
+                            } failHandler:^(id object) {
+                            }];
+                        }
+                    };
+                    return cell;
+                }
+                    break;
+                case 4:
+                {//秒杀
+                    MEFourHomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEFourHomeActivityCell class]) forIndexPath:indexPath];
+                    MEGoodModel *goodModel = [MEGoodModel mj_objectWithKeyValues:model.mj_keyValues];
+                    [cell setUIWithGoodModel:goodModel];
+                    kMeWEAKSELF
+                    cell.tapBlock = ^(NSInteger index) {
+                        kMeSTRONGSELF
+                        METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
                         MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
                         if (homevc) {
                             [homevc.navigationController pushViewController:details animated:YES];
                         }
-                    }else {
-                        [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    };
+                    return cell;
+                }
+                    break;
+                case 5:
+                {//签到
+                    MEFourHomeActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEFourHomeActivityCell class]) forIndexPath:indexPath];
+                    MEGoodModel *goodModel = [MEGoodModel mj_objectWithKeyValues:model.mj_keyValues];
+                    [cell setUIWithGoodModel:goodModel];
+                    kMeWEAKSELF
+                    cell.tapBlock = ^(NSInteger index) {
+                        kMeSTRONGSELF
+                        if([MEUserInfoModel isLogin]){
                             MEJoinPrizeVC *details = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.ids]];
                             MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
                             if (homevc) {
                                 [homevc.navigationController pushViewController:details animated:YES];
                             }
-                        } failHandler:^(id object) {
-                        }];
-                    }
-                };
-                return cell;
+                        }else {
+                            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                                MEJoinPrizeVC *details = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.ids]];
+                                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                                if (homevc) {
+                                    [homevc.navigationController pushViewController:details animated:YES];
+                                }
+                            } failHandler:^(id object) {
+                            }];
+                        }
+                    };
+                    return cell;
+                }
+                default:
+                    break;
             }
-            default:
-                break;
+        }else if ([dict.allKeys containsObject:@"goods"]) {
+            NSArray *goods = dict[@"goods"];
+            MEHomeRecommendModel *model = goods[indexPath.row];
+            METhridHomeGoodGoodMainCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class]) forIndexPath:indexPath];
+            MEGoodModel *goodModel = [MEGoodModel mj_objectWithKeyValues:model.mj_keyValues];
+            [cell setUIWithModel:goodModel];
+            kMeWEAKSELF
+            cell.buyBlock = ^{
+                kMeSTRONGSELF
+                METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
+                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                if (homevc) {
+                    [homevc.navigationController pushViewController:details animated:YES];
+                }
+            };
+            return cell;
+        }else if ([dict.allKeys containsObject:@"excellent_course"]) {
+            NSArray *excellent_course = dict[@"excellent_course"];
+            MECourseListModel *model = excellent_course[indexPath.row];
+            MEPersonalCourseCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPersonalCourseCell class]) forIndexPath:indexPath];
+            [cell setUIWithModel:model];
+            return cell;
         }
     }
-    NSArray *goods = dict[@"goods"];
-    MEHomeRecommendModel *model = goods[indexPath.row];
-    METhridHomeGoodGoodMainCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([METhridHomeGoodGoodMainCell class]) forIndexPath:indexPath];
-    MEGoodModel *goodModel = [MEGoodModel mj_objectWithKeyValues:model.mj_keyValues];
-    [cell setUIWithModel:goodModel];
-    kMeWEAKSELF
-    cell.buyBlock = ^{
-        kMeSTRONGSELF
-        METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
-        if (homevc) {
-            [homevc.navigationController pushViewController:details animated:YES];
-        }
-    };
-    return cell;
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        return kMMEFourHomeActivityCellHeight;
+    if (_arrHot.count > 0) {
+        NSDictionary *dict = _arrHot[indexPath.section];
+        if ([dict.allKeys containsObject:@"activity"]) {
+            return kMMEFourHomeActivityCellHeight;
+        }else if ([dict.allKeys containsObject:@"goods"]) {
+            return kMEThridHomeGoodGoodMainCellHeight;
+        }else if ([dict.allKeys containsObject:@"excellent_course"]) {
+            return kMEPersonalCourseCellHeight;
+        }
     }
-    return kMEThridHomeGoodGoodMainCellHeight;
+    return 0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dict = _arrHot[indexPath.section];
-    if (indexPath.section == 0) {
+    if ([dict.allKeys containsObject:@"activity"]) {
         NSArray *activity = dict[@"activity"];
         MEHomeRecommendModel *model = activity[indexPath.row];
         MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
@@ -296,7 +332,7 @@
             default:
                 break;
         }
-    }else if (indexPath.section == 1) {
+    }else if ([dict.allKeys containsObject:@"goods"]) {
         NSArray *goods = dict[@"goods"];
         MEHomeRecommendModel *model = goods[indexPath.row];
         MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
@@ -304,33 +340,79 @@
         if (homevc) {
             [homevc.navigationController pushViewController:details animated:YES];
         }
+    }else if ([dict.allKeys containsObject:@"excellent_course"]) {
+        NSArray *excellent_course = dict[@"excellent_course"];
+        MECourseListModel *model = excellent_course[indexPath.row];
+        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+        MEPersionalCourseDetailVC *vc = [[MEPersionalCourseDetailVC alloc] initWithCourseId:model.idField];
+        if (homevc) {
+            [homevc.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    NSDictionary *dict = _arrHot[section];
-    if (section == 0) {
-        NSArray *activity = dict[@"activity"];
-        if (activity.count > 0) {
-            return 35;
+    if (_arrHot.count > 0) {
+        NSDictionary *dict = _arrHot[section];
+        if ([dict.allKeys containsObject:@"activity"]) {
+            NSArray *activity = dict[@"activity"];
+            if (activity.count > 0) {
+                return 36;
+            }
+        }else if ([dict.allKeys containsObject:@"goods"]) {
+            NSArray *goods = dict[@"goods"];
+            if (goods.count > 0) {
+                return 42;
+            }
+        }else if ([dict.allKeys containsObject:@"excellent_course"]) {
+            NSArray *excellent_course = dict[@"excellent_course"];
+            if (excellent_course.count > 0) {
+                return 36;
+            }
         }
-    }else if (section == 1) {
-        NSArray *goods = dict[@"goods"];
-        if (goods.count > 0) {
-            return 42;
+    }else {
+        if (_showHeader) {
+            return 36;
         }
     }
     return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    METhridHomeCommondSectionView *headview = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass([METhridHomeCommondSectionView class])];
-    [headview setUIWithIndex:section];
-    return headview;
+    if (_arrHot.count > 0) {
+        METhridHomeCommondSectionView *headview = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass([METhridHomeCommondSectionView class])];
+        NSDictionary *dict = _arrHot[section];
+        NSInteger index = 0;
+        if ([dict.allKeys containsObject:@"activity"]) {
+            NSArray *activity = dict[@"activity"];
+            if (activity.count > 0) {
+                index = 0;
+            }
+        }else if ([dict.allKeys containsObject:@"goods"]) {
+            NSArray *goods = dict[@"goods"];
+            if (goods.count > 0) {
+                index = 1;
+            }
+        }else if ([dict.allKeys containsObject:@"excellent_course"]) {
+            NSArray *excellent_course = dict[@"excellent_course"];
+            if (excellent_course.count > 0) {
+                index = 4;
+            }
+        }
+        [headview setUIWithIndex:index];
+        return headview;
+    }else {
+        if (_showHeader) {
+            METhridHomeCommondSectionView *headview = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass([METhridHomeCommondSectionView class])];
+            [headview setUIWithIndex:3];
+            return headview;
+        }
+    }
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 1) {
+    if (_isShow) {
         return kMMEThridHomeCommondSectionViewHeight;
     }
     return 0;
@@ -342,8 +424,14 @@
     return footView;
 }
 
-- (void)setupUIWithArray:(NSArray *)array {
+- (void)setupUIWithArray:(NSArray *)array showFooter:(BOOL)show{
     _arrHot = [NSArray arrayWithArray:array];
+    _isShow = show;
+    [self.tableView reloadData];
+}
+
+- (void)setShowHeader:(BOOL)showHeader {
+    _showHeader = showHeader;
     [self.tableView reloadData];
 }
 

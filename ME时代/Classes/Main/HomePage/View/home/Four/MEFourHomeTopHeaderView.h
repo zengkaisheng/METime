@@ -13,12 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
 const static CGFloat kMEFourHomeTopHeaderViewHeight = 142;
 
 @class MEHomeRecommendAndSpreebuyModel;
+@class METhridHomeStudyTogetherModel;
 
 @interface MEFourHomeTopHeaderView : UICollectionReusableView
 
 @property (nonatomic,copy)kMeBasicBlock leftBlock;
 @property (nonatomic,copy)kMeBasicBlock rightBlock;
 - (void)setUiWithModel:(MEHomeRecommendAndSpreebuyModel *)model;
+
+- (void)setUIWithCourseModel:(METhridHomeStudyTogetherModel *)model;
 
 @end
 

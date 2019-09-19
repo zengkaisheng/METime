@@ -11,6 +11,7 @@
 #import "METhridProductDetailsVC.h"
 //#import "METhridHomeVC.h"
 #import "MEFourHomeVC.h"
+#import "METhridHomeModel.h"
 
 @interface MEFourHomeTopHeaderView ()<SDCycleScrollViewDelegate> {
     MEHomeRecommendAndSpreebuyModel *_model;
@@ -77,8 +78,7 @@
     }
 }
 
-- (void)
-setUiWithModel:(MEHomeRecommendAndSpreebuyModel *)model{
+- (void)setUiWithModel:(MEHomeRecommendAndSpreebuyModel *)model{
     _model = model;
 //    kSDLoadImg(_imgfPic, kMeUnNilStr(model.recommend_goods.images_url));
 //    NSString *ftitle = kMeUnNilStr(model.recommend_goods.title);
@@ -142,6 +142,28 @@ setUiWithModel:(MEHomeRecommendAndSpreebuyModel *)model{
     _sdViewRight.delegate = self;
     _sdViewRight.tag = 101;
     _sdViewRight.imageURLStringsGroup = @[kMeUnNilStr(model.recommend_right.ad_img)];
+    _sdViewRight.infiniteLoop = NO;
+    _sdViewRight.autoScroll = NO;
+}
+
+- (void)setUIWithCourseModel:(METhridHomeStudyTogetherModel *)model {
+    NSArray *leftBanner = kMeUnArr(model.left_banner);
+    METhridHomeAdModel *leftAdModel = (METhridHomeAdModel *)leftBanner.firstObject;
+    _sdViewLeft.contentMode = UIViewContentModeScaleAspectFill;
+    _sdViewLeft.clipsToBounds = YES;
+    _sdViewLeft.delegate = self;
+    _sdViewLeft.imageURLStringsGroup = @[kMeUnNilStr(leftAdModel.ad_img)];
+    _sdViewLeft.infiniteLoop = NO;
+    _sdViewLeft.tag = 100;
+    _sdViewLeft.autoScroll = NO;
+    
+    NSArray *rightBanner = kMeUnArr(model.right_banner);
+    METhridHomeAdModel *rightAdModel = (METhridHomeAdModel *)rightBanner.firstObject;
+    _sdViewRight.contentMode = UIViewContentModeScaleAspectFill;
+    _sdViewRight.clipsToBounds = YES;
+    _sdViewRight.delegate = self;
+    _sdViewRight.tag = 101;
+    _sdViewRight.imageURLStringsGroup = @[kMeUnNilStr(rightAdModel.ad_img)];
     _sdViewRight.infiniteLoop = NO;
     _sdViewRight.autoScroll = NO;
 }

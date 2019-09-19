@@ -39,6 +39,7 @@
 #import "MEHomeRecommendModel.h"
 #import "MECommonQuestionVC.h"
 #import "MELianTongListVC.h"
+#import "MEPersionalCourseDetailVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 #define kMEThridHomeNavViewHeight (((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 129 : 107))
@@ -63,6 +64,8 @@ const static CGFloat kImgStore = 50;
 @property (nonatomic, strong) NSString *net;
 @property (nonatomic, strong) NSArray *optionsArray;
 @property (nonatomic, strong) NSArray *noticeArray;
+@property (nonatomic, strong) NSArray *activityArray;
+@property (nonatomic, strong) NSArray *goodsArray;
 
 @end
 
@@ -229,7 +232,6 @@ const static CGFloat kImgStore = 50;
             kMeSTRONGSELF
             if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *data = (NSDictionary *)responseObject.data;
-                NSMutableArray *tempArr = [[NSMutableArray alloc] init];
                 NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
                 [tempDic setObject:@[] forKey:@"activity"];
                 if ([data.allKeys containsObject:@"activity"]) {
@@ -237,7 +239,7 @@ const static CGFloat kImgStore = 50;
                         [tempDic setObject:[MEHomeRecommendModel mj_objectArrayWithKeyValuesArray:data[@"activity"]] forKey:@"activity"];
                     }
                 }
-                [tempArr addObject:[tempDic copy]];
+                strongSelf.activityArray = [NSArray arrayWithObjects:[tempDic mutableCopy], nil];
                 [tempDic removeAllObjects];
                 [tempDic setObject:@[] forKey:@"goods"];
                 if ([data.allKeys containsObject:@"goods"]) {
@@ -245,16 +247,17 @@ const static CGFloat kImgStore = 50;
                         [tempDic setObject:[MEHomeRecommendModel mj_objectArrayWithKeyValuesArray:data[@"goods"]] forKey:@"goods"];
                     }
                 }
-                [tempArr addObject:[tempDic copy]];
+                strongSelf.goodsArray = [NSArray arrayWithObjects:[tempDic mutableCopy], nil];
                 [tempDic removeAllObjects];
-                strongSelf.arrHot = [tempArr copy];
             }else{
-                strongSelf.arrHot = [NSArray array];
+                strongSelf.activityArray = [NSArray array];
+                strongSelf.goodsArray = [NSArray array];
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
             kMeSTRONGSELF
-            strongSelf.arrHot = @[@{@"activity":@[]},@{@"goods":@[]}];
+            strongSelf.activityArray = [NSArray array];
+            strongSelf.goodsArray = [NSArray array];
             dispatch_semaphore_signal(semaphore);
         }];
 //        [MEPublicNetWorkTool postThridHomehomegetRecommendWithSuccessBlock:^(ZLRequestResponse *responseObject) {
@@ -543,6 +546,18 @@ const static CGFloat kImgStore = 50;
             [self.navigationController pushViewController:liantongVC animated:YES];
         }
             break;
+        case 21:
+        {//C端视频
+            MEPersionalCourseDetailVC *vc = [[MEPersionalCourseDetailVC alloc] initWithCourseId:model.video_id];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 22:
+        {//C端音频
+            MEPersionalCourseDetailVC *vc = [[MEPersionalCourseDetailVC alloc] initWithCourseId:model.audio_id];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
         default:
             break;
     }
@@ -601,14 +616,14 @@ const static CGFloat kImgStore = 50;
 #pragma mark- CollectionView Delegate And DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     if (_type == 0) {
-        return 7;
+        return 12;
     }
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (_type == 0) {
-        if (section == 0 || section == 2 || section == 3 || section == 4 || section == 5) {
+        if (section == 0 || section == 2 || section == 3 || section == 4 || section == 5 || section == 6 || section == 7 || section == 8 || section == 9 || section == 10) {
             return 0;
         }else if (section == 1) {
             return 1;
@@ -645,7 +660,7 @@ const static CGFloat kImgStore = 50;
                 }
             }
         }
-        if (indexPath.section == 6) {
+        if (indexPath.section == 11) {
             MECoupleModel *model = self.refresh.arrData[indexPath.row];
 
             NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
@@ -717,29 +732,57 @@ const static CGFloat kImgStore = 50;
                 return CGSizeMake(0, 0.1);;
             }
         }else if (section == 4) {
+            if(self.homeModel.study_together.left_banner.count>0 && self.homeModel.study_together.right_banner.count>0){
+                return CGSizeMake(SCREEN_WIDTH, 36);
+            }else{
+                return CGSizeMake(0, 0.1);;
+            }
+        }else if (section == 5) {
+            if(self.homeModel.study_together.left_banner.count>0 && self.homeModel.study_together.right_banner.count>0){
+                return CGSizeMake(SCREEN_WIDTH, kMEFourHomeTopHeaderViewHeight);
+            }else{
+                return CGSizeMake(0, 0.1);;
+            }
+        }else if (section == 6) {
 //            return CGSizeMake(SCREEN_WIDTH, [MEFourHomeGoodGoodFilterHeaderView getCellHeight]);
             return CGSizeZero;
-        }else if (section == 5) {
-            CGFloat height = 51;
-            if (self.arrHot.count > 0) {
-                for (int i = 0; i < self.arrHot.count; i++) {
-                    NSDictionary *data = self.arrHot[i];
-                    if ([data.allKeys containsObject:@"activity"]) {
-                        if ([data[@"activity"] isKindOfClass:[NSArray class]]) {
-                            NSArray *activity = data[@"activity"];
-                            if (activity.count > 0) {
-                                height += 35;
-                                height += activity.count*115;
-                            }
+        }else if (section == 7) {
+            CGFloat height = 0;
+            if (self.activityArray.count > 0) {
+                NSDictionary *data = self.activityArray.firstObject;
+                if ([data.allKeys containsObject:@"activity"]) {
+                    if ([data[@"activity"] isKindOfClass:[NSArray class]]) {
+                        NSArray *activity = data[@"activity"];
+                        if (activity.count > 0) {
+                            height += 36;
+                            height += activity.count*115;
                         }
                     }
-                    if ([data.allKeys containsObject:@"goods"]) {
-                        if ([data[@"goods"] isKindOfClass:[NSArray class]]) {
-                            NSArray *goods = data[@"goods"];
-                            if (goods.count > 0) {
-                                height += 42;
-                                height += goods.count * 135;
-                            }
+                }
+            }
+            return CGSizeMake(SCREEN_WIDTH, height);
+        }else if (section == 8) {
+            if(self.homeModel.study_together.left_banner.count>0 && self.homeModel.study_together.right_banner.count>0){
+                return CGSizeMake(SCREEN_WIDTH, 130*kMeFrameScaleY());
+            }else{
+                return CGSizeMake(0, 0.1);;
+            }
+        }else if (section == 9) {
+            CGFloat height = 0;
+            if (self.homeModel.excellent_course.count > 0) {
+                height += 36 +self.homeModel.excellent_course.count*179;
+            }
+            return CGSizeMake(SCREEN_WIDTH, height);
+        }else if (section == 10) {
+            CGFloat height = 51;
+            if (self.goodsArray.count > 0) {
+                NSDictionary *data = self.goodsArray.firstObject;
+                if ([data.allKeys containsObject:@"goods"]) {
+                    if ([data[@"goods"] isKindOfClass:[NSArray class]]) {
+                        NSArray *goods = data[@"goods"];
+                        if (goods.count > 0) {
+                            height += 42;
+                            height += goods.count * 135;
                         }
                     }
                 }
@@ -809,11 +852,56 @@ const static CGFloat kImgStore = 50;
                 }
                 headerView = header;
             }else if (indexPath.section == 4) {
-                MEFourHomeGoodGoodFilterHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodFilterHeaderView class]) forIndexPath:indexPath];
+                MEFourHomeGoodGoodMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) forIndexPath:indexPath];
+                if (self.homeModel.study_together.left_banner.count > 0 && self.homeModel.study_together.right_banner.count > 0) {
+                    header.showHeader = YES;
+                }
                 headerView = header;
             }else if (indexPath.section == 5) {
+                MEFourHomeTopHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeTopHeaderView class]) forIndexPath:indexPath];
+                if(self.homeModel.study_together.left_banner.count >0 && self.homeModel.study_together.right_banner.count >0){
+                    [header setUIWithCourseModel:self.homeModel.study_together];
+                    kMeWEAKSELF
+                    header.leftBlock = ^{
+                        kMeSTRONGSELF
+                        METhridHomeAdModel *adModel = (METhridHomeAdModel *)strongSelf.homeModel.study_together.left_banner.firstObject;
+                        MEAdModel *model = [MEAdModel mj_objectWithKeyValues:adModel.mj_keyValues];
+                        [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+                    };
+                    header.rightBlock = ^{
+                        kMeSTRONGSELF
+                        METhridHomeAdModel *adModel = (METhridHomeAdModel *)strongSelf.homeModel.study_together.right_banner.firstObject;
+                        MEAdModel *model = [MEAdModel mj_objectWithKeyValues:adModel.mj_keyValues];
+                        [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+                    };
+                }
+                headerView = header;
+            }else if (indexPath.section == 6) {
+                MEFourHomeGoodGoodFilterHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodFilterHeaderView class]) forIndexPath:indexPath];
+                headerView = header;
+            }else if (indexPath.section == 7) {
                 MEFourHomeGoodGoodMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) forIndexPath:indexPath];
-                [header setupUIWithArray:self.arrHot];
+                [header setupUIWithArray:self.activityArray showFooter:NO];
+                headerView = header;
+            }else if (indexPath.section == 8) {
+                MESpecialSaleHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MESpecialSaleHeaderView class]) forIndexPath:indexPath];
+                
+                [header setUIWithBannerImage:self.homeModel.media_banner];
+                kMeWEAKSELF
+                header.selectedIndexBlock = ^(NSInteger index) {
+                    kMeSTRONGSELF
+                    METhridHomeAdModel *adModel = strongSelf.homeModel.media_banner[index];
+                    MEAdModel *model = [MEAdModel mj_objectWithKeyValues:adModel.mj_keyValues];;
+                    [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+                };
+                headerView = header;
+            }else if (indexPath.section == 9) {
+                MEFourHomeGoodGoodMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) forIndexPath:indexPath];
+                [header setupUIWithArray:@[@{@"excellent_course":self.homeModel.excellent_course}] showFooter:NO];
+                headerView = header;
+            }else if (indexPath.section == 10) {
+                MEFourHomeGoodGoodMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) forIndexPath:indexPath];
+                [header setupUIWithArray:self.goodsArray showFooter:YES];
                 headerView = header;
             }
         }
@@ -823,7 +911,7 @@ const static CGFloat kImgStore = 50;
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     if (_type == 0) {
-        if (section != 6) {
+        if (section != 11) {
             return UIEdgeInsetsMake(0, 0, 0, 0);
         }
     }

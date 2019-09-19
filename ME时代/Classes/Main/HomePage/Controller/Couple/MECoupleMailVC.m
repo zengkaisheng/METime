@@ -297,7 +297,7 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        NSString *str = MEIPcommonTaobaokeGetCoupon;
+        NSString *str = MEIPcommonTaobaokeGetDgMaterialOptional;
         if(_isMater){
             if (self.isPDD) {
                 str = MEIPcommonGetRecommendGoodsLit;

@@ -22,7 +22,6 @@
 #import "MEJDCoupleHomeVC.h"
 
 #import "MEFourCouponSearchHomeVC.h"
-#import "MEPersonalCourseVC.h"
 
 @interface MEFourHomeVC ()<UIScrollViewDelegate>{
     METhridHomeModel *_homeModel;
@@ -155,7 +154,9 @@
 - (void)userLogin{
     [self getUnInfo];
     [MEPublicNetWorkTool getUserInvitationCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
-        kCurrentUser.invite_code = kMeUnNilStr(responseObject.data);
+        if ([responseObject.data isKindOfClass:[NSString class]]) {
+            kCurrentUser.invite_code = [responseObject.data mutableCopy];
+        }
     } failure:^(id object) {
     }];
     [self.choseVC reloadData];
@@ -242,8 +243,6 @@
         _navView.searchBlock = ^{
             kMeSTRONGSELF
             [strongSelf searchCoupon];
-//            MEPersonalCourseVC *vc = [[MEPersonalCourseVC alloc] init];
-//            [strongSelf.navigationController pushViewController:vc animated:YES];
         };
         _navView.selectIndexBlock = ^(NSInteger index) {
             kMeSTRONGSELF

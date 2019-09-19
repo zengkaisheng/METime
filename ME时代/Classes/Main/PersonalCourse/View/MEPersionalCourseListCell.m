@@ -33,20 +33,19 @@
     // Configure the view for the selected state
 }
 
-- (void)setUIWithModel:(MECourseListModel *)model isFree:(BOOL)isFree{
-    kSDLoadImg(_headerPic, kMeUnNilStr(model.images));
+- (void)setUIWithModel:(MECourseListModel *)model{
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.courses_images));
     _titleLbl.text = kMeUnNilStr(model.name);
     _descLbl.text = kMeUnNilStr(model.desc);
     _typeLbl.text = kMeUnNilStr(model.type_name);
     _freeLbl.text = kMeUnNilStr(model.charge_name);
     _countLbl.text = [NSString stringWithFormat:@"%@次学习",kMeUnNilStr(model.study_num)];
-    if (isFree) {
-        _descLbl.hidden = NO;
-        _freeLbl.hidden = YES;
-        
-    }else {
+    if (model.is_charge == 1) {
         _descLbl.hidden = YES;
         _freeLbl.hidden = NO;
+    }else {
+        _descLbl.hidden = NO;
+        _freeLbl.hidden = YES;
     }
 }
 

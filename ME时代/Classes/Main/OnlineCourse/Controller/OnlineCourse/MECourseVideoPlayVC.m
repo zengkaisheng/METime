@@ -414,8 +414,6 @@
         _playerView.frame = CGRectMake(0, kMeStatusBarHeight, palyerW, 210);
         _playerView.playerViewType = XMPlayerViewAiqiyiVideoType;
         _playerView.videoURL = [NSURL URLWithString:kMeUnNilStr(self.model.video_urls)];
-//                                @"https://www.xingyi888.com/xingyi/upload/video/201806/cbc13a1ed0309138ce559dfad8de42b8ca26234c.mp4"];
-        //                           @"http://wvideo.spriteapp.cn/video/2016/0328/56f8ec01d9bfe_wpd.mp4"];
         _playerView.isAllowCyclePlay = NO;
         _playerView.previewTime = self.listenTime;
         kMeWEAKSELF

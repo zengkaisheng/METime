@@ -68,6 +68,8 @@
     [self.bgView addSubview:confirmBtn];
     
 }
+
+
 //联通订单支付
 - (instancetype)initWithName:(NSString *)name phone:(NSString *)phone tips:(NSString *)tips superView:(UIView*)superView{
     if(self = [super init]){

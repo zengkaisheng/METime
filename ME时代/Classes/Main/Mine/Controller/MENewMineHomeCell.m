@@ -71,6 +71,7 @@
 #import "MEMineHomeMuneModel.h"
 #import "MELianTongOrderVC.h"
 #import "MELianTongCommissionVC.h"
+#import "MEMyVIPVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -621,6 +622,11 @@
             break;
         case MeMyMenuLianTongCommission:{//联通佣金
             MELianTongCommissionVC *vc = [[MELianTongCommissionVC alloc]init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMyMenuVIP:{//我的VIP
+            MEMyVIPVC *vc = [[MEMyVIPVC alloc]init];
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;

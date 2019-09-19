@@ -21,7 +21,7 @@
                         <constraint firstAttribute="height" constant="210" id="mpg-jQ-Wbx"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ceO-lf-q6d">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ceO-lf-q6d">
                     <rect key="frame" x="15" y="230" width="345" height="35"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="NBb-nZ-2Q0"/>
@@ -31,7 +31,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0次学习" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0Y-0V-vve">
-                    <rect key="frame" x="15" y="303" width="44.5" height="15"/>
+                    <rect key="frame" x="15" y="288" width="44.5" height="15"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="mk4-RH-nbK"/>
                     </constraints>
@@ -74,8 +74,8 @@
                         <action selector="courseListAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="4Hw-ps-CuM"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gus-l4-6lB">
-                    <rect key="frame" x="16" y="269" width="31" height="15"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gus-l4-6lB">
+                    <rect key="frame" x="16" y="269" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>

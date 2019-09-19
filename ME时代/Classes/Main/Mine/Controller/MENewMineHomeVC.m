@@ -84,7 +84,6 @@
 @interface MENewMineHomeVC ()<UITableViewDelegate,UITableViewDataSource>{
     NSArray *_arrtype;
     NSArray *_arrtypeTitle;
-    NSString *_invite_code;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -93,6 +92,8 @@
 @property (nonatomic, strong) NSArray *memuList;
 @property (nonatomic, strong) NSArray *orderList;
 @property (nonatomic, strong) UIView *maskView; //蒙版
+@property (nonatomic, strong) UIButton *changeStatusBtn;
+@property (nonatomic, copy) NSString *invite_code;
 
 @end
 
@@ -105,7 +106,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navBarHidden = YES;
-    _invite_code = @"";
+    self.invite_code = @"";
     [self.view addSubview:self.tableView];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
     [self.tableView.mj_header beginRefreshing];
@@ -153,6 +154,17 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
+- (void)changeStatusAction {
+    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+    if ([status isEqualToString:@"customer"]) {
+        [kMeUserDefaults setObject:@"business" forKey:kMENowStatus];
+    }else if ([status isEqualToString:@"business"]) {
+        [kMeUserDefaults setObject:@"customer" forKey:kMENowStatus];
+    }
+    [kMeUserDefaults synchronize];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate reloadTabBar];
+}
 
 - (void)getUnMeaasge{
     if([MEUserInfoModel isLogin] && _arrtype.count && self.tableView){
@@ -185,6 +197,8 @@
 }
 
 - (void)loadData{
+    _changeStatusBtn.hidden = YES;
+    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];;
     hud.mode = MBProgressHUDModeIndeterminate;
     // 隐藏时候从父控件中移除
@@ -198,7 +212,7 @@
     dispatch_group_async(group, queue, ^{
         [MEPublicNetWorkTool getUserGetUserWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             NSLog(@"%@",kCurrentUser.uid);
-            kMeSTRONGSELF
+//            kMeSTRONGSELF
             
 //            switch (kCurrentUser.user_type) {
 //                case 1:{
@@ -429,7 +443,7 @@
         [MEPublicNetWorkTool getUserInvitationCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             if ([responseObject.data isKindOfClass:[NSString class]]) {
-                strongSelf->_invite_code = responseObject.data;
+                strongSelf.invite_code = [responseObject.data mutableCopy];
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
@@ -444,7 +458,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             kMeSTRONGSELF
             [hud hideAnimated:YES];
-            kCurrentUser.invite_code = strongSelf->_invite_code;
+            kCurrentUser.invite_code = strongSelf.invite_code;
             [kCurrentUser save];
             if (strongSelf->_arrtypeTitle.count <=0 && strongSelf->_arrtype.count<=0) {
                 kNoticeUserLogout
@@ -465,6 +479,11 @@
                 if (!firstIn || firstIn.length <= 0) {
                     [strongSelf.view addSubview:strongSelf.maskView];
                 }
+            }
+            if (kCurrentUser.user_type == 4) {
+                strongSelf.changeStatusBtn.hidden = YES;
+            }else {
+                strongSelf.changeStatusBtn.hidden = NO;
             }
         });
     });
@@ -791,12 +810,7 @@
 - (MENewMineHomeHeaderView *)headerView{
     if(!_headerView){
         _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeHeaderView" owner:nil options:nil] lastObject];
-//        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeHeaderViewHeight);
         CGFloat height = kMENewMineHomeHeaderViewHeight+85;
-//        NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
-//        if ([status isEqualToString:@"business"]) {
-//            height = 210;
-//        }
         _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
         _headerView.orderList = self.orderList;
         _headerView.changeStatus = ^{
@@ -823,10 +837,6 @@
     if(!_headerCodeView){
         _headerCodeView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeCodeHeaderView" owner:nil options:nil] lastObject];
         CGFloat height = kMENewMineHomeCodeHeaderViewHeight+85;
-//        NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
-//        if ([status isEqualToString:@"business"]) {
-//            height = 210;
-//        }
         _headerCodeView.orderList = self.orderList;
         _headerCodeView.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
         _headerCodeView.changeStatus = ^{
@@ -858,23 +868,53 @@
         UITapGestureRecognizer *gesmask = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideTap:)];
         [_maskView addGestureRecognizer:gesmask];
         
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitle:@"切换样式 " forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:@"icon_changeStatus"] forState:UIControlStateNormal];
-        [btn.titleLabel setFont:[UIFont systemFontOfSize:12]];
-        btn.frame = CGRectMake(SCREEN_WIDTH-15-109, 87, 109, 32);
-        btn.layer.cornerRadius = 16;
-        btn.backgroundColor = [UIColor colorWithHexString:@"#19A8C9"];
-        btn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
-        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
-        btn.enabled = NO;
-        [_maskView addSubview:btn];
+//        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [btn setTitle:@"切换样式 " forState:UIControlStateNormal];
+//        [btn setImage:[UIImage imageNamed:@"icon_changeStatus"] forState:UIControlStateNormal];
+//        [btn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+//        btn.frame = CGRectMake(SCREEN_WIDTH-15-109, 87, 109, 32);
+//        btn.layer.cornerRadius = 16;
+//        btn.backgroundColor = [UIColor colorWithHexString:@"#19A8C9"];
+//        btn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+//        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
+//        btn.enabled = NO;
+        
+        UIButton *changeStatusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        changeStatusBtn.frame = CGRectMake(SCREEN_WIDTH-84, 88, 84, 32);
+        changeStatusBtn.backgroundColor = [UIColor colorWithHexString:@"#FFAFAF"];
+        [changeStatusBtn setImage:[UIImage imageNamed:@"icon_changeStatusNew"] forState:UIControlStateNormal];
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 84, 32) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(16, 16)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = CGRectMake(0, 0, 84, 32);
+        maskLayer.path = maskPath.CGPath;
+        changeStatusBtn.layer.mask = maskLayer;
+        
+        [_maskView addSubview:changeStatusBtn];
         
         UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mineGuide"]];
-        imgV.frame = CGRectMake(40, CGRectGetMaxY(btn.frame)+2, SCREEN_WIDTH-80, (SCREEN_WIDTH-80)*1.13);
+        imgV.frame = CGRectMake(40, CGRectGetMaxY(changeStatusBtn.frame)+2, SCREEN_WIDTH-80, (SCREEN_WIDTH-80)*1.13);
         [_maskView addSubview:imgV];
     }
     return _maskView;
+}
+
+- (UIButton *)changeStatusBtn {
+    if (!_changeStatusBtn) {
+        _changeStatusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _changeStatusBtn.frame = CGRectMake(SCREEN_WIDTH-84, 88, 84, 32);
+        _changeStatusBtn.backgroundColor = [UIColor colorWithHexString:@"#FFAFAF"];
+        [_changeStatusBtn setImage:[UIImage imageNamed:@"icon_changeStatusNew"] forState:UIControlStateNormal];
+        [_changeStatusBtn addTarget:self action:@selector(changeStatusAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_changeStatusBtn];
+        
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 84, 32) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(16, 16)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = CGRectMake(0, 0, 84, 32);
+        maskLayer.path = maskPath.CGPath;
+        _changeStatusBtn.layer.mask = maskLayer;
+        _changeStatusBtn.hidden = YES;
+    }
+    return _changeStatusBtn;
 }
 
 @end

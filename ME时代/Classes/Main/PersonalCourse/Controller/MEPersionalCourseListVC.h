@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEPersionalCourseListVC : MEBaseVC
 
-@property (nonatomic, assign) BOOL isFree;
-
 - (instancetype)initWithClassifyId:(NSInteger)classifyId;
 
 @end

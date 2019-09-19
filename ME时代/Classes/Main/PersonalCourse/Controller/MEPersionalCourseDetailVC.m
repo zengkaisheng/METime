@@ -14,6 +14,8 @@
 
 #import "MEPersionalCourseDetailModel.h"
 #import "MEPersonalCourseListModel.h"
+#import "MECustomBuyCourseView.h"
+#import "MEVIPViewController.h"
 
 @interface MEPersionalCourseDetailVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     NSInteger _courseId;
@@ -162,41 +164,16 @@
 - (void)buyBtnDidClick {
     
     if (self.detailModel.is_charge == 2 || self.detailModel.is_buy == 1) {
-//        if (self.type == 0 || self.type == 4 || self.type == 6) {
-//            MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }else if (self.type == 1 || self.type == 5 || self.type == 7) {
-//            MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithModel:self.detailModel audioList:[self.refresh.arrData copy]];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
+
     }else {
-//        NSString *orderType;
-//        if (self.type == 0 || self.type == 4 || self.type == 6) {
-//            orderType = @"1";
-//        }else if (self.type == 1 || self.type == 5 || self.type == 7) {
-//            orderType = @"2";
-//        }
-//        kMeWEAKSELF
-//        [MEPublicNetWorkTool postCreateOrderWithCourseId:[NSString stringWithFormat:@"%ld",(long)_courseId] orderType:orderType successBlock:^(ZLRequestResponse *responseObject) {
-//            kMeSTRONGSELF
-//            strongSelf->_order_sn = responseObject.data[@"order_sn"];
-//            strongSelf->_order_amount = responseObject.data[@"order_amount"];
-//            [MEPublicNetWorkTool postPayOnlineOrderWithOrderSn:strongSelf->_order_sn successBlock:^(ZLRequestResponse *responseObject) {
-//                kMeSTRONGSELF
-//                PAYPRE
-//                strongSelf->_isPayError = NO;
-//                MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-//
-//                BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:strongSelf->_order_amount];
-//                if(!isSucess){
-//                    [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
-//                }
-//            } failure:^(id object) {
-//
-//            }];
-//        } failure:^(id object) {
-//
-//        }];
+        kMeWEAKSELF
+        [MECustomBuyCourseView showCustomBuyVIPViewWithTitle:@"试看结束" confirmBtn:@"购买VIP" buyBlock:^{
+            kMeSTRONGSELF
+            MEVIPViewController *vc = [[MEVIPViewController alloc] init];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        } cancelBlock:^{
+            
+        } superView:kMeCurrentWindow];
     }
 }
 
@@ -244,7 +221,7 @@
     }
     MEPersionalCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEPersionalCourseListCell class]) forIndexPath:indexPath];
     MECourseListModel *listModel = self.refresh.arrData[indexPath.row];
-    [cell setUIWithModel:listModel isFree:NO];
+    [cell setUIWithModel:listModel];
     return cell;
 }
 
