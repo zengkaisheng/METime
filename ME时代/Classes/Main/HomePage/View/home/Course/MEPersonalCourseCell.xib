@@ -59,7 +59,6 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGk-Dg-O72">
                                 <rect key="frame" x="316" y="127.5" width="23" height="18"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="23" id="EWt-R0-app"/>
                                     <constraint firstAttribute="height" constant="18" id="vbt-uU-p9s"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>

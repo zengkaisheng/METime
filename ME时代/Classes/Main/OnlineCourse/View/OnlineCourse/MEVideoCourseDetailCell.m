@@ -11,6 +11,8 @@
 #import "MEOnlineCourseListModel.h"
 #import "MECourseDetailModel.h"
 
+#import "MEPersionalCourseDetailModel.h"
+
 @interface MEVideoCourseDetailCell ()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
 }
@@ -96,6 +98,16 @@
     
     _timeLbl.text = kMeUnNilStr(model.updated_at);
     _learnCountLbl.text = [NSString stringWithFormat:@"%ld次学习",model.browse];
+    [_courseCountBtn setTitle:[NSString stringWithFormat:@"共%ld课",arr.count] forState:UIControlStateNormal];
+    [_collectionView reloadData];
+}
+//C端课程
+- (void)setPersionalUIWithArr:(NSArray*)arr model:(MEPersionalCourseDetailModel *)model {
+    _arrModel = kMeUnArr(arr);
+    _titleLbl.text = kMeUnNilStr(model.name);
+    
+    _timeLbl.text = kMeUnNilStr(model.updated_at);
+    _learnCountLbl.text = [NSString stringWithFormat:@"%@次学习",kMeUnNilStr(model.study_num)];
     [_courseCountBtn setTitle:[NSString stringWithFormat:@"共%ld课",arr.count] forState:UIControlStateNormal];
     [_collectionView reloadData];
 }

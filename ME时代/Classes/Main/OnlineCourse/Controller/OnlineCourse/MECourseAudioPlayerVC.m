@@ -18,6 +18,10 @@
 #import "MEPayStatusVC.h"
 #import "MEMyOrderDetailVC.h"
 
+#import "MEPersionalCourseDetailModel.h"
+#import "MEVIPViewController.h"
+#import "MEPersonalCourseListModel.h"
+
 @interface MECourseAudioPlayerVC (){
     NSString *_order_sn;
     NSString *_order_amount;
@@ -46,6 +50,8 @@
 @property (nonatomic, assign) BOOL isFinished;
 @property (nonatomic, strong) id timeObserver;
 
+@property (nonatomic, strong) MEPersionalCourseDetailModel *detailModel;
+@property (nonatomic, assign) BOOL isC;
 @end
 
 @implementation MECourseAudioPlayerVC
@@ -54,6 +60,16 @@
     if (self = [super init]) {
         self.model = model;
         self.audioList = audioList;
+        self.isC = NO;
+    }
+    return self;
+}
+//C端课程
+- (instancetype)initWithCourseModel:(MEPersionalCourseDetailModel *)model audioList:(NSArray *)audioList {
+    if (self = [super init]) {
+        self.detailModel = model;
+        self.audioList = audioList;
+        self.isC = YES;
     }
     return self;
 }
@@ -72,20 +88,42 @@
     _backBtnConsTop.constant = kMeStatusBarHeight;
     _bottomViewConsHeight.constant += kMeTabbarSafeBottomMargin;
     
-    kSDLoadImg(_headerPic, kMeUnNilStr(self.model.images_url));
-    _nameLbl.text = kMeUnNilStr(self.model.audio_name);
-    
-    NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_collection_nor"},@{@"title":@"咨询",@"image":@"icon_consult_white"},@{@"title":@"诊断",@"image":@"icon_diagnose"}];
-    CGFloat btnHeight = 49;
     CGFloat btnWidth = SCREEN_WIDTH/4;
+    NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_collection_nor"},@{@"title":@"咨询",@"image":@"icon_consult_white"},@{@"title":@"诊断",@"image":@"icon_diagnose"}];
+    
+    if (self.isC) {
+        kSDLoadImg(_headerPic, kMeUnNilStr(self.detailModel.courses_images));
+        _nameLbl.text = kMeUnNilStr(self.detailModel.name);
+        
+        btnWidth = SCREEN_WIDTH/3;
+        btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_collection_nor"},@{@"title":@"点赞",@"image":@"icon_courseLike_nor"}];
+    }else {
+        kSDLoadImg(_headerPic, kMeUnNilStr(self.model.images_url));
+        _nameLbl.text = kMeUnNilStr(self.model.audio_name);
+    }
+    
+    CGFloat btnHeight = 49;
     for (int i = 0; i < btns.count; i++) {
         NSDictionary *dict = btns[i];
         UIButton *btn = [self createButtonWithTitle:dict[@"title"] normalImage:dict[@"image"] tag:100+i];
-        if (i == 1) {
-            if (self.model.is_collection == 1) {
-                [btn setImage:[UIImage imageNamed:@"icon_collection_sel"] forState:UIControlStateNormal];
+        if (self.isC) {
+            if (i == 1) {
+                if (self.detailModel.is_collection == 1) {
+                    [btn setImage:[UIImage imageNamed:@"icon_collection_sel"] forState:UIControlStateNormal];
+                }
+            }else if (i == 2) {
+                if (self.detailModel.is_like == 1) {
+                    [btn setImage:[UIImage imageNamed:@"icon_courseLike_sel"] forState:UIControlStateNormal];
+                }
+            }
+        }else {
+            if (i == 1) {
+                if (self.model.is_collection == 1) {
+                    [btn setImage:[UIImage imageNamed:@"icon_collection_sel"] forState:UIControlStateNormal];
+                }
             }
         }
+        
         btn.frame = CGRectMake(i*btnWidth, 0, btnWidth, btnHeight);
         [btn setImageEdgeInsets:UIEdgeInsetsMake(-8, 10, 8, -10)];
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(12, -10, -12, 10)];
@@ -124,13 +162,23 @@
                     [strongSelf.player pause];
                     strongSelf->_playBtn.selected = NO;
                     [strongSelf.player seekToTime:kCMTimeZero];
-                    [MEShowViewTool showMessage:@"试听已结束" view:strongSelf.view];
                     if (!strongSelf->_isShowBuy) {
-                        [MECustomBuyCourseView showCustomBuyCourseViewWithTitle:kMeUnNilStr(strongSelf.model.audio_name) content:kMeUnNilStr(strongSelf.model.audio_price) buyBlock:^{
-                            [strongSelf buyCourseWithNetworking];
-                        } cancelBlock:^{
-                            
-                        } superView:kMeCurrentWindow];
+                        if (strongSelf.isC) {
+                            [MECustomBuyCourseView showCustomBuyVIPViewWithTitle:@"试听结束" confirmBtn:@"购买VIP" buyBlock:^{
+                                kMeSTRONGSELF
+                                MEVIPViewController *vc = [[MEVIPViewController alloc] init];
+                                [strongSelf.navigationController pushViewController:vc animated:YES];
+                            } cancelBlock:^{
+                                
+                            } superView:kMeCurrentWindow];
+                        }else {
+                            [MEShowViewTool showMessage:@"试听已结束" view:strongSelf.view];
+                            [MECustomBuyCourseView showCustomBuyCourseViewWithTitle:kMeUnNilStr(strongSelf.model.audio_name) content:kMeUnNilStr(strongSelf.model.audio_price) buyBlock:^{
+                                [strongSelf buyCourseWithNetworking];
+                            } cancelBlock:^{
+                                
+                            } superView:kMeCurrentWindow];
+                        }
                         strongSelf->_isShowBuy = YES;
                     }else {
                         strongSelf->_isShowBuy = NO;
@@ -222,7 +270,9 @@
     if (self.player) {
         _playBtn.selected = NO;
         [self.player pause];
-        [self showPromptView];
+        if (!self.isC) {
+            [self showPromptView];
+        }
     }
 }
 
@@ -268,7 +318,9 @@
         [_player play];
     }else {
         [_player pause];
-        [self showPromptView];
+        if (!self.isC) {
+            [self showPromptView];
+        }
     }
 }
 - (IBAction)frontBtnAction:(id)sender {
@@ -317,13 +369,22 @@
             NSString *baseUrl = [BASEIP substringWithRange:NSMakeRange(5, BASEIP.length - 9)];
             baseUrl = [@"http" stringByAppendingString:baseUrl];
             
-            //http://test.meshidai.com/audioShare/newAuth.html?id=2&inviteCode=222
-            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@audioShare/newAuth.html?id=%ld&inviteCode=%@",baseUrl,(long)self.model.audio_id,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            if (self.isC) {
+                //http://test.meshidai.com/clientCourseShare/newAuth.html?id=18&inviteCode=P8786A
+                shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@clientCourseShare/newAuth.html?id=%ld&inviteCode=%@",baseUrl,(long)self.detailModel.idField,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+                
+                shareTool.shareTitle = kMeUnNilStr(self.detailModel.name);
+                shareTool.shareDescriptionBody = kMeUnNilStr(self.detailModel.desc);
+                shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(self.detailModel.courses_images)]]];
+            }else {
+                //http://test.meshidai.com/audioShare/newAuth.html?id=2&inviteCode=222
+                shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@audioShare/newAuth.html?id=%ld&inviteCode=%@",baseUrl,(long)self.model.audio_id,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+                
+                shareTool.shareTitle = kMeUnNilStr(self.model.audio_name);
+                shareTool.shareDescriptionBody = kMeUnNilStr(self.model.audio_desc);
+                shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(self.model.audio_images)]]];
+            }
             NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
-            
-            shareTool.shareTitle = kMeUnNilStr(self.model.audio_name);
-            shareTool.shareDescriptionBody = kMeUnNilStr(self.model.audio_desc);
-            shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(self.model.audio_images)]]];
             
             [shareTool showShareView:kShareWebPageContentType success:^(id data) {
                 [MEPublicNetWorkTool postAddShareWithSuccessBlock:nil failure:nil];
@@ -338,10 +399,14 @@
             break;
         case 2:
         {
-            self.playBtn.selected = NO;
-            [self.player pause];
-            MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc] initWithType:1];
-            [self.navigationController pushViewController:feedbackVC animated:YES];
+            if (self.isC) {
+                [self setLikeCourseWithNetWorking];
+            }else {
+                self.playBtn.selected = NO;
+                [self.player pause];
+                MEFeedBackVC *feedbackVC = [[MEFeedBackVC alloc] initWithType:1];
+                [self.navigationController pushViewController:feedbackVC animated:YES];
+            }
         }
             break;
         case 3:
@@ -360,13 +425,46 @@
 //收藏与取消收藏
 - (void)collectionAudioWithNetWorking {
     kMeWEAKSELF
-    [MEPublicNetWorkTool postSetCollectionWithCollectionId:self.model.audio_id type:2 SuccessBlock:^(ZLRequestResponse *responseObject) {
+    NSInteger courseId = 0;
+    NSInteger type = 0;
+    if (self.isC) {
+        courseId = self.detailModel.idField;
+        type = 3;
+    }else {
+        courseId = self.model.audio_id;
+        type = 2;
+    }
+    [MEPublicNetWorkTool postSetCollectionWithCollectionId:courseId type:type SuccessBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         [MEShowViewTool showMessage:kMeUnNilStr(responseObject.message) view:kMeCurrentWindow];
-        if (strongSelf.model.is_collection == 1) {
-            strongSelf.model.is_collection = 2;
+        if (strongSelf.isC) {
+            if (strongSelf.detailModel.is_collection == 1) {
+                strongSelf.detailModel.is_collection = 2;
+            }else {
+                strongSelf.detailModel.is_collection = 1;
+            }
         }else {
-            strongSelf.model.is_collection = 1;
+            if (strongSelf.model.is_collection == 1) {
+                strongSelf.model.is_collection = 2;
+            }else {
+                strongSelf.model.is_collection = 1;
+            }
+        }
+        [self reloadBottomView];
+    } failure:^(id object) {
+    }];
+}
+
+//点赞与取消点赞
+- (void)setLikeCourseWithNetWorking {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postSetLikeCourseWithCourseId:self.detailModel.idField SuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        [MEShowViewTool showMessage:kMeUnNilStr(responseObject.message) view:kMeCurrentWindow];
+        if (strongSelf.detailModel.is_like == 1) {
+            strongSelf.detailModel.is_like = 2;
+        }else {
+            strongSelf.detailModel.is_like = 1;
         }
         [self reloadBottomView];
     } failure:^(id object) {
@@ -375,20 +473,37 @@
 
 - (void)reloadDatas {
     kMeWEAKSELF
-    [MEPublicNetWorkTool postGetAudioDetailWithAudioId:self.model.audio_id successBlock:^(ZLRequestResponse *responseObject) {
-        kMeSTRONGSELF
-        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
-            strongSelf.model = [MECourseDetailModel mj_objectWithKeyValues:responseObject.data];
-        }else{
-            strongSelf.model = nil;
-        }
-        //若播放完成，则重播
-        [strongSelf.player seekToTime:kCMTimeZero];
-        strongSelf.listenTime = 0;
-    } failure:^(id object) {
-        kMeSTRONGSELF
-        [strongSelf.navigationController popViewControllerAnimated:YES];
-    }];
+    if (self.isC) {
+        [MEPublicNetWorkTool postGetCourseDetailWithCourseId:self.detailModel.idField successBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+                strongSelf.detailModel = [MEPersionalCourseDetailModel mj_objectWithKeyValues:responseObject.data];
+            }else{
+                strongSelf.model = nil;
+            }
+            //若播放完成，则重播
+            [strongSelf.player seekToTime:kCMTimeZero];
+            strongSelf.listenTime = 0;
+        } failure:^(id object) {
+            kMeSTRONGSELF
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        }];
+    }else {
+        [MEPublicNetWorkTool postGetAudioDetailWithAudioId:self.model.audio_id successBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+                strongSelf.model = [MECourseDetailModel mj_objectWithKeyValues:responseObject.data];
+            }else{
+                strongSelf.model = nil;
+            }
+            //若播放完成，则重播
+            [strongSelf.player seekToTime:kCMTimeZero];
+            strongSelf.listenTime = 0;
+        } failure:^(id object) {
+            kMeSTRONGSELF
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        }];
+    }
 }
 
 - (void)buyCourseWithNetworking {
@@ -472,11 +587,27 @@
     for (id obj in _bottomView.subviews) {
         if ([obj isKindOfClass:[UIButton class]]) {
             UIButton *btn = (UIButton *)obj;
-            if (btn.tag == 101) {
-                if (self.model.is_collection == 1) {
-                    [btn setImage:[UIImage imageNamed:@"icon_collection_sel"] forState:UIControlStateNormal];
-                }else {
-                    [btn setImage:[UIImage imageNamed:@"icon_collection_nor"] forState:UIControlStateNormal];
+            if (self.isC) {
+                if (btn.tag == 101) {
+                    if (self.detailModel.is_collection == 1) {
+                        [btn setImage:[UIImage imageNamed:@"icon_collection_sel"] forState:UIControlStateNormal];
+                    }else {
+                        [btn setImage:[UIImage imageNamed:@"icon_collection_nor"] forState:UIControlStateNormal];
+                    }
+                }else if (btn.tag == 102) {
+                    if (self.detailModel.is_like == 1) {
+                        [btn setImage:[UIImage imageNamed:@"icon_courseLike_sel"] forState:UIControlStateNormal];
+                    }else {
+                        [btn setImage:[UIImage imageNamed:@"icon_courseLike_nor"] forState:UIControlStateNormal];
+                    }
+                }
+            }else {
+                if (btn.tag == 101) {
+                    if (self.model.is_collection == 1) {
+                        [btn setImage:[UIImage imageNamed:@"icon_collection_sel"] forState:UIControlStateNormal];
+                    }else {
+                        [btn setImage:[UIImage imageNamed:@"icon_collection_nor"] forState:UIControlStateNormal];
+                    }
                 }
             }
         }
@@ -497,7 +628,13 @@
 #pragma setter&&getter
 - (AVPlayerItem *)playerItem {
     if (!_playerItem) {
-        _playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:kMeUnNilStr(self.model.audio_urls)]];
+        NSString *audioUrl = @"";
+        if (self.isC) {
+            audioUrl = kMeUnNilStr(self.detailModel.courses_url);
+        }else {
+            audioUrl = kMeUnNilStr(self.model.audio_urls);
+        }
+        _playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:audioUrl]];
     }
     return _playerItem;
 }
@@ -513,10 +650,17 @@
     if (!_itemsArr) {
         NSMutableArray *temp = [[NSMutableArray alloc] init];
         [temp addObject:self.player.currentItem];
-        [self.audioList enumerateObjectsUsingBlock:^(MEOnlineCourseListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-            AVPlayerItem *item = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:kMeUnNilStr(model.audio_urls)]];
-            [temp addObject:item];
-        }];
+        if (self.isC) {
+            [self.audioList enumerateObjectsUsingBlock:^(MECourseListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+                AVPlayerItem *item = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:kMeUnNilStr(model.courses_url)]];
+                [temp addObject:item];
+            }];
+        }else {
+            [self.audioList enumerateObjectsUsingBlock:^(MEOnlineCourseListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+                AVPlayerItem *item = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:kMeUnNilStr(model.audio_urls)]];
+                [temp addObject:item];
+            }];
+        }
         _itemsArr = [temp copy];
     }
     return _itemsArr;

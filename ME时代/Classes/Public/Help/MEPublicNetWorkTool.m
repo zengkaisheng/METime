@@ -5429,7 +5429,7 @@
 #pragma mark - C端课程
 //课程详情
 + (void)postGetCourseDetailWithCourseId:(NSInteger)courseId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
-    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+    NSDictionary *dic = @{@"member_id":kMeUnNilStr(kCurrentUser.uid),
                           @"id":@(courseId)
                           };
     MBProgressHUD *HUD = [self commitWithHUD:@""];
@@ -5493,6 +5493,26 @@
                           };
     MBProgressHUD *HUD = [self commitWithHUD:@""];
     NSString *url = kGetApiWithUrl(MEIPcommonCoursesGetMyCoursesVip);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//课程点赞
++ (void)postSetLikeCourseWithCourseId:(NSInteger)courseId SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"courses_id":@(courseId)
+                          };
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    NSString *url = kGetApiWithUrl(MEIPcommonCoursesAddLike);
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
         [HUD hideAnimated:YES];
         kMeCallBlock(successBlock,responseObject);

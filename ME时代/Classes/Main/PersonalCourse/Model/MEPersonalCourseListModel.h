@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger unreal_buy;
 @property (nonatomic, strong) NSString * updated_at;
 @property (nonatomic, strong) NSString * url;
+@property (nonatomic, strong) NSString * cover;
 //列表
 @property (nonatomic, strong) NSString * courses_images;
 @property (nonatomic, strong) NSString * courses_url;

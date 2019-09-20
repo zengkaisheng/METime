@@ -1066,6 +1066,8 @@
 #define MEIPcommonCoursesGetMyCoursesVip @"common/courses/myCoursesVip"
 //vip交易记录
 #define MEIPcommonCoursesGetMyCoursesVipLog @"common/courses/myCoursesVipLog"
+//课程点赞
+#define MEIPcommonCoursesAddLike @"common/courses/addLike"
 /*********************************************/
 
 #endif /* MEAPIMacros_h */

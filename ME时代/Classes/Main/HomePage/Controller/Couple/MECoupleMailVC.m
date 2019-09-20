@@ -234,13 +234,20 @@
         }
     }else{//搜索
         MECoupleModel *model = self.refresh.arrData[indexPath.row];
-        MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
-        vc.recordType = self.recordType;
         
         NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
         [self saveClickRecordsWithType:@"5" params:params];
         
-        [self.navigationController pushViewController:vc animated:YES];
+        if(kMeUnNilStr(model.coupon_id).length){
+            MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
+            dvc.recordType = self.recordType;
+            [self.navigationController pushViewController:dvc animated:YES];
+        }else{
+            model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
+            MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
+            vc.recordType = self.recordType;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 
@@ -325,12 +332,12 @@
                 _refresh.isCoupleMater = YES;
             }
         }else{
-            _refresh.isCouple = YES;
+            _refresh.isCoupleMater = YES;
         }
         _refresh.isDataInside = YES;
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
             failView.backgroundColor = [UIColor whiteColor];
-            failView.lblOfNodata.text = @"没有优惠产品";
+            failView.lblOfNodata.text = @"没有优惠券";
         }];
     }
     return _refresh;

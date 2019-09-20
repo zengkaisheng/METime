@@ -23,21 +23,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * detail;
 @property (nonatomic, assign) NSInteger idField;
 @property (nonatomic, strong) NSString * images;
+@property (nonatomic, assign) NSInteger is_buy;
 @property (nonatomic, assign) NSInteger is_charge;
+@property (nonatomic, assign) NSInteger is_collection;
 @property (nonatomic, assign) NSInteger is_del;
 @property (nonatomic, assign) NSInteger is_hot;
 @property (nonatomic, assign) NSInteger is_like;
 @property (nonatomic, assign) NSInteger is_show;
 @property (nonatomic, strong) NSString * name;
+@property (nonatomic, assign) NSInteger preview_time;
 @property (nonatomic, strong) NSString * price;
 @property (nonatomic, strong) NSString * study_num;
-@property (nonatomic, strong) NSString * time;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) NSInteger unreal_browse;
 @property (nonatomic, assign) NSInteger unreal_buy;
 @property (nonatomic, strong) NSString * updated_at;
 @property (nonatomic, strong) NSString * url;
-@property (nonatomic, assign) NSInteger is_buy;
 
 @end
 

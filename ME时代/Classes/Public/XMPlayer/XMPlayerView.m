@@ -216,7 +216,7 @@
             self.controlView.replayBtnView.hidden = NO;
             self.controlView.replayButton.hidden = NO;
             self.controlView.playButton.selected = YES;
-            [MECommonTool showMessage:@"试听已结束" view:kMeCurrentWindow];
+            [MECommonTool showMessage:@"试看已结束" view:kMeCurrentWindow];
             if (self.listenBlock) {
                 self.listenBlock();
             }
@@ -533,7 +533,7 @@
                 weakSelf.controlView.replayBtnView.hidden = NO;
                 weakSelf.controlView.replayButton.hidden = NO;
                 weakSelf.controlView.playButton.selected = YES;
-                [MECommonTool showMessage:@"试听已结束" view:kMeCurrentWindow];
+                [MECommonTool showMessage:@"试看已结束" view:kMeCurrentWindow];
                 if (weakSelf.listenBlock) {
                     weakSelf.listenBlock();
                 }

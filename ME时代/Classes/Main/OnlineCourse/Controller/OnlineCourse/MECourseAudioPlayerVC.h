@@ -10,11 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @class MECourseDetailModel;
+@class MEPersionalCourseDetailModel;
 
 @interface MECourseAudioPlayerVC : MEBaseVC
 
-//type 0视频 1音频
 - (instancetype)initWithModel:(MECourseDetailModel *)model audioList:(NSArray *)audioList;
+
+//C端课程
+- (instancetype)initWithCourseModel:(MEPersionalCourseDetailModel *)model audioList:(NSArray *)audioList;
 
 @property (nonatomic, assign) CGFloat listenTime; //试听时间
 

@@ -72,6 +72,7 @@
 #import "MELianTongOrderVC.h"
 #import "MELianTongCommissionVC.h"
 #import "MEMyVIPVC.h"
+#import "MEProductShoppingCartVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -630,6 +631,12 @@
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
+        case MeMyMenuShopCart:{//我的购物车
+            MEProductShoppingCartVC *vc = [[MEProductShoppingCartVC alloc]init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+            
         default:
             break;
     }

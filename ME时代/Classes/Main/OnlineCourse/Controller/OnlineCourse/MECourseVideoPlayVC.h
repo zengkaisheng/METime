@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECourseVideoPlayVC : MEBaseVC
 
-//type 0视频 1音频
 - (instancetype)initWithModel:(MECourseDetailModel *)model videoList:(NSArray *)videoList;
 
 @property (nonatomic, assign) NSInteger listenTime; //试听时间

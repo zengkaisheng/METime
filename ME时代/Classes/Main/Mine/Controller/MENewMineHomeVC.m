@@ -892,7 +892,7 @@
         [_maskView addSubview:changeStatusBtn];
         
         UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mineGuide"]];
-        imgV.frame = CGRectMake(40, CGRectGetMaxY(changeStatusBtn.frame)+2, SCREEN_WIDTH-80, (SCREEN_WIDTH-80)*1.13);
+        imgV.frame = CGRectMake(40, CGRectGetMaxY(changeStatusBtn.frame)+2, SCREEN_WIDTH-80, (SCREEN_WIDTH-80));
         [_maskView addSubview:imgV];
     }
     return _maskView;

@@ -35,7 +35,7 @@
 }
 
 - (void)setUIWithModel:(MECourseListModel *)model {
-    kSDLoadImg(_headerPic, kMeUnNilStr(model.courses_images));
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.cover));
     _titleLbl.text = kMeUnNilStr(model.name);
     _descLbl.text = kMeUnNilStr(model.desc);
     _countLbl.text = [NSString stringWithFormat:@"已有%@人学习",@(model.browse+model.unreal_browse)];

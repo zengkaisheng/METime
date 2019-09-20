@@ -505,7 +505,7 @@
 
 - (UILabel *)titleLbl {
     if (!_titleLbl) {
-        _titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+        _titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, SCREEN_WIDTH-120, 44)];
         _titleLbl.font = [UIFont systemFontOfSize:17];
         _titleLbl.textColor = [UIColor clearColor];
         _titleLbl.textAlignment = NSTextAlignmentCenter;

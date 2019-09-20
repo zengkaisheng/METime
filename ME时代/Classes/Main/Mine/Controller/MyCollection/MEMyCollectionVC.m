@@ -10,6 +10,7 @@
 #import "MEOnlineCourseListCell.h"
 #import "MECourseDetailVC.h"
 #import "MEMyCollectionModel.h"
+#import "MEPersionalCourseDetailVC.h"
 
 @interface MEMyCollectionVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -72,8 +73,13 @@
         [self reloadDeleteBtn];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }else {
-        MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.c_id type:model.c_type-1];
-        [self.navigationController pushViewController:vc animated:YES];
+        if (model.c_type == 3) {
+            MEPersionalCourseDetailVC *vc = [[MEPersionalCourseDetailVC alloc] initWithCourseId:model.idField];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else {
+            MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.c_id type:model.c_type-1];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 #pragma mark -- Action

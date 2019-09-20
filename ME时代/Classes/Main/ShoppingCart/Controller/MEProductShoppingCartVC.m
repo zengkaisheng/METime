@@ -35,6 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"购物车";
     if(![MEUserInfoModel isLogin]){
 //        [self.view addSubview:self.loginVC.view];
     }else{
@@ -44,7 +45,7 @@
         [_bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@(kMEShopppingCartBottomViewHeight));
             make.width.equalTo(@(SCREEN_WIDTH));
-            make.top.equalTo(@(SCREEN_HEIGHT-kMEShopppingCartBottomViewHeight-kMeTabBarHeight));
+            make.top.equalTo(@(SCREEN_HEIGHT-kMEShopppingCartBottomViewHeight));
         }];
     }
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogout) name:kUserLogout object:nil];
@@ -71,7 +72,7 @@
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(kMEShopppingCartBottomViewHeight));
         make.width.equalTo(@(SCREEN_WIDTH));
-        make.top.equalTo(@(SCREEN_HEIGHT-kMEShopppingCartBottomViewHeight-kMeTabBarHeight));
+        make.top.equalTo(@(SCREEN_HEIGHT-kMEShopppingCartBottomViewHeight));
     }];
 //    [self.loginVC.view removeFromSuperview];
 //    self.loginVC = nil;
@@ -280,7 +281,7 @@
 
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kMeTabBarHeight-kMEShopppingCartBottomViewHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kMEShopppingCartBottomViewHeight) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEShoppingCartCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEShoppingCartCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;

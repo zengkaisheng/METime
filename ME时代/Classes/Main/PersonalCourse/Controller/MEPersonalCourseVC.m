@@ -17,6 +17,7 @@
 #import "MEFilterMainModel.h"
 #import "MEPersonalCourseListModel.h"
 
+#import "MESearchCourseVC.h"
 #import "MEPersionalCourseListVC.h"
 #import "MEPersionalCourseDetailVC.h"
 
@@ -32,6 +33,9 @@
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
 @property (nonatomic, strong) NSArray *banners;
 @property (nonatomic, strong) NSArray *filterArr;
+@property (nonatomic, assign) CGFloat scrollHeight;
+
+@property (nonatomic, assign) CGFloat originalHeight;
 
 @end
 
@@ -44,6 +48,8 @@
     [self.view addSubview:self.navView];
     _filterArr = [NSArray array];
     _selectedIndex = 0;
+    self.scrollHeight = (166*kMeFrameScaleY()+36+260);
+    self.originalHeight = 0;
     
     self.tableView.tableHeaderView = self.headerView;
     [self.headerView setUIWithBannerImages:@[] titleArray:@[]];
@@ -79,7 +85,7 @@
 
 #pragma RefreshToolDelegate
 - (NSDictionary *)requestParameter{
-    return @{@"token":kMeUnNilStr(kCurrentUser.token)};
+    return @{@"member_id":kMeUnNilStr(kCurrentUser.uid)};
 }
 
 - (void)handleResponse:(id)data{
@@ -103,6 +109,9 @@
     if ([dict.allKeys containsObject:@"courseList"]) {
         self.refresh.arrData = [MEPersonalCourseListModel mj_objectArrayWithKeyValuesArray:kMeUnArr(dict[@"courseList"])];
     }
+    _selectedIndex = 0;
+    self.scrollHeight = (166*kMeFrameScaleY()+36+260);
+    self.originalHeight = 0;
     [self.headerView setUIWithBannerImages:self.banners titleArray:self.filterArr];
     self.categoryView.titles = self.filterArr;
     [self.categoryView reloadData];
@@ -183,7 +192,30 @@
         if (self.filterArr.count > 0) {
             if (scrollView.contentOffset.y >= 166*kMeFrameScaleY()) {
                 self.categoryView.hidden = NO;
+                
+                if (scrollView.contentOffset.y >= self.scrollHeight) {
+                    _selectedIndex++;
+                    MEPersonalCourseListModel *model = self.refresh.arrData[_selectedIndex];
+                    self.originalHeight = self.scrollHeight;
+                    self.scrollHeight += 36+130*model.courses.count;
+                } else {
+                    if (_selectedIndex > 1) {
+                        if (scrollView.contentOffset.y < self.originalHeight) {
+                            _selectedIndex--;
+                            MEPersonalCourseListModel *model = self.refresh.arrData[_selectedIndex];
+                            self.scrollHeight = self.originalHeight;
+                            self.originalHeight -= 36+130*model.courses.count;
+                        }
+                    }
+                }
+                [self.headerView reloadTitleViewWithIndex:_selectedIndex];
+                self.categoryView.defaultSelectedIndex = _selectedIndex;
+                [self.categoryView reloadData];
+                
             }else {
+                [self.headerView reloadTitleViewWithIndex:0];
+                self.categoryView.defaultSelectedIndex = 0;
+                [self.categoryView reloadData];
                 self.categoryView.hidden = YES;
             }
         }else {
@@ -234,7 +266,8 @@
         kMeWEAKSELF
         _navView.searchBlock = ^{
             kMeSTRONGSELF
-            //            [strongSelf searchCoupon];
+            MESearchCourseVC *searchVC = [[MESearchCourseVC alloc] init];
+            [strongSelf.navigationController pushViewController:searchVC animated:YES];
         };
     }
     return _navView;

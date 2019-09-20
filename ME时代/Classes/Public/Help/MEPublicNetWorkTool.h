@@ -825,6 +825,8 @@
 + (void)postCreateVIPOrderWithCourseId:(NSString *)courseId orderType:(NSString *)orderType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //我的VIP
 + (void)postGetMyCourseVIPDetailWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//课程点赞
++ (void)postSetLikeCourseWithCourseId:(NSInteger)courseId SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

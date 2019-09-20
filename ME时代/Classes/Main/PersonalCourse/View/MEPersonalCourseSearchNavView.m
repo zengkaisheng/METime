@@ -66,7 +66,7 @@
 
 - (UILabel *)placeholderLbl {
     if (!_placeholderLbl) {
-        _placeholderLbl = [[UILabel alloc] initWithFrame:CGRectMake(9, 0, 30, 29)];
+        _placeholderLbl = [[UILabel alloc] initWithFrame:CGRectMake(9, 0, 40, 29)];
         _placeholderLbl.text = @"搜索";
         _placeholderLbl.textColor = [UIColor colorWithHexString:@"#707070"];
         _placeholderLbl.font = [UIFont systemFontOfSize:15];

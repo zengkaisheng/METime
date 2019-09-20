@@ -14,8 +14,9 @@
 
 #import "MEPersionalCourseDetailModel.h"
 #import "MEPersonalCourseListModel.h"
-#import "MECustomBuyCourseView.h"
 #import "MEVIPViewController.h"
+#import "MEPersionalVideoPlayVC.h"
+#import "MECourseAudioPlayerVC.h"
 
 @interface MEPersionalCourseDetailVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     NSInteger _courseId;
@@ -150,30 +151,55 @@
 
 #pragma Action
 - (void)tryBtnDidClick {
-//    if (self.type == 0 || self.type == 4 || self.type == 6) {
-//        MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
-//        vc.listenTime = self.detailModel.preview_time;
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }else if (self.type == 1 || self.type == 5 || self.type == 7) {
-//        MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithModel:self.detailModel audioList:[self.refresh.arrData copy]];
-//        vc.listenTime = self.detailModel.preview_time;
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }
+    if (kMeUnNilStr(kCurrentUser.token).length <= 0) {
+        kMeWEAKSELF
+        [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+            kMeSTRONGSELF
+            [strongSelf tryBtnAction];
+        } failHandler:^(id object) {
+        }];
+    }else {
+        [self tryBtnAction];
+    }
+}
+
+- (void)tryBtnAction {
+    if (self.detailModel.type == 1) {//视频
+        MEPersionalVideoPlayVC *vc = [[MEPersionalVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
+        vc.listenTime = self.detailModel.preview_time;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (self.detailModel.type == 2) {//音频
+        MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithCourseModel:self.detailModel audioList:[self.refresh.arrData copy]];
+        vc.listenTime = self.detailModel.preview_time;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)buyBtnDidClick {
-    
-    if (self.detailModel.is_charge == 2 || self.detailModel.is_buy == 1) {
-
-    }else {
+    if (kMeUnNilStr(kCurrentUser.token).length <= 0) {
         kMeWEAKSELF
-        [MECustomBuyCourseView showCustomBuyVIPViewWithTitle:@"试看结束" confirmBtn:@"购买VIP" buyBlock:^{
+        [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
             kMeSTRONGSELF
-            MEVIPViewController *vc = [[MEVIPViewController alloc] init];
-            [strongSelf.navigationController pushViewController:vc animated:YES];
-        } cancelBlock:^{
-            
-        } superView:kMeCurrentWindow];
+            [strongSelf buyBtnAction];
+        } failHandler:^(id object) {
+        }];
+    }else {
+        [self buyBtnAction];
+    }
+}
+
+- (void)buyBtnAction {
+    if (self.detailModel.is_charge == 2 || self.detailModel.is_buy == 1) {
+        if (self.detailModel.type == 1) {//视频
+            MEPersionalVideoPlayVC *vc = [[MEPersionalVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if (self.detailModel.type == 2) {//音频
+            MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithCourseModel:self.detailModel audioList:[self.refresh.arrData copy]];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }else {
+        MEVIPViewController *vc = [[MEVIPViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -350,7 +376,7 @@
 
 - (UILabel *)titleLbl {
     if (!_titleLbl) {
-        _titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+        _titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, SCREEN_WIDTH-120, 44)];
         _titleLbl.font = [UIFont systemFontOfSize:17];
         _titleLbl.textColor = [UIColor clearColor];
         _titleLbl.textAlignment = NSTextAlignmentCenter;
