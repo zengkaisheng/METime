@@ -36,6 +36,7 @@
 @property (nonatomic, assign) CGFloat scrollHeight;
 
 @property (nonatomic, assign) CGFloat originalHeight;
+@property (nonatomic, assign) BOOL isSelectedTop;;
 
 @end
 
@@ -59,6 +60,7 @@
 
 - (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index{
 //    NSLog(@"index:%ld",(long)index);
+    self.isSelectedTop = YES;
     [self reloadProductsWithIndex:index];
 }
 //刷新优选商品
@@ -192,26 +194,33 @@
         if (self.filterArr.count > 0) {
             if (scrollView.contentOffset.y >= 166*kMeFrameScaleY()) {
                 self.categoryView.hidden = NO;
-                
-                if (scrollView.contentOffset.y >= self.scrollHeight) {
-                    _selectedIndex++;
-                    MEPersonalCourseListModel *model = self.refresh.arrData[_selectedIndex];
-                    self.originalHeight = self.scrollHeight;
-                    self.scrollHeight += 36+130*model.courses.count;
-                } else {
-                    if (_selectedIndex > 1) {
-                        if (scrollView.contentOffset.y < self.originalHeight) {
-                            _selectedIndex--;
-                            MEPersonalCourseListModel *model = self.refresh.arrData[_selectedIndex];
-                            self.scrollHeight = self.originalHeight;
-                            self.originalHeight -= 36+130*model.courses.count;
+                if (!self.isSelectedTop) {
+                    
+                    if (scrollView.contentOffset.y >= self.scrollHeight) {
+                        _selectedIndex++;
+                        MEPersonalCourseListModel *model = self.refresh.arrData[_selectedIndex];
+                        self.originalHeight = self.scrollHeight;
+                        self.scrollHeight += 36+130*model.courses.count;
+                    } else {
+                        if (_selectedIndex > 1) {
+                            if (scrollView.contentOffset.y < self.originalHeight) {
+                                _selectedIndex--;
+                                MEPersonalCourseListModel *model = self.refresh.arrData[_selectedIndex];
+                                self.scrollHeight = self.originalHeight;
+                                self.originalHeight -= 36+130*model.courses.count;
+                            }
+                        }else {
+                            if (scrollView.contentOffset.y < self.originalHeight) {
+                                _selectedIndex = 0;
+                                self.scrollHeight = (166*kMeFrameScaleY()+36+260);
+                                self.originalHeight = 0;
+                            }
                         }
                     }
+                    [self.headerView reloadTitleViewWithIndex:_selectedIndex];
+                    self.categoryView.defaultSelectedIndex = _selectedIndex;
+                    [self.categoryView reloadData];
                 }
-                [self.headerView reloadTitleViewWithIndex:_selectedIndex];
-                self.categoryView.defaultSelectedIndex = _selectedIndex;
-                [self.categoryView reloadData];
-                
             }else {
                 [self.headerView reloadTitleViewWithIndex:0];
                 self.categoryView.defaultSelectedIndex = 0;
@@ -220,6 +229,13 @@
             }
         }else {
             self.categoryView.hidden = YES;
+        }
+    }
+}
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if ([scrollView isEqual:self.tableView]) {
+        if (self.isSelectedTop) {
+            self.isSelectedTop = NO;
         }
     }
 }
@@ -321,7 +337,7 @@
 
 - (JXCategoryTitleView *)categoryView {
     if (!_categoryView) {
-        _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, 46*kMeFrameScaleY())];
+        _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, 46)];
         JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
         lineView.indicatorLineViewColor =  kMEPink;
         lineView.indicatorLineViewHeight = 1;

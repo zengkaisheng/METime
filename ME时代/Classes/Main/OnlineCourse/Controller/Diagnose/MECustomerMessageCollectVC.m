@@ -217,18 +217,18 @@
 
 - (UIView *)headerView {
     if (!_headerView) {
-        CGFloat height = [kMeUnNilStr(self.model.tips) boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-106, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0]} context:nil].size.height;
+        CGFloat height = [kMeUnNilStr(self.model.tips) boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-116, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12.0]} context:nil].size.height;
         _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, height+32)];
         _headerView.backgroundColor = [UIColor whiteColor];
         
-        UILabel *tips = [[UILabel alloc] initWithFrame:CGRectMake(33, 16, 40, 15)];
+        UILabel *tips = [[UILabel alloc] initWithFrame:CGRectMake(33, 16, 50, 15)];
         tips.text = @"小提示：";
-        tips.font = [UIFont systemFontOfSize:10.0];
+        tips.font = [UIFont systemFontOfSize:12.0];
         [_headerView addSubview:tips];
         
-        UILabel *content = [[UILabel alloc] initWithFrame:CGRectMake(73, 16, SCREEN_WIDTH-106, height)];
+        UILabel *content = [[UILabel alloc] initWithFrame:CGRectMake(78, 16, SCREEN_WIDTH-116, height)];
         content.text = kMeUnNilStr(self.model.tips);
-        content.font = [UIFont systemFontOfSize:10.0];
+        content.font = [UIFont systemFontOfSize:12.0];
         content.textColor = kMEPink;
         content.numberOfLines = 0;
         [_headerView addSubview:content];

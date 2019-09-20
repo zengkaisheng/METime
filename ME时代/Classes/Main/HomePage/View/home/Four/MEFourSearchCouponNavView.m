@@ -31,8 +31,8 @@
     self.backgroundColor = [UIColor whiteColor];
     _top = ((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 49 : 25);
 
-    [self addSubview:self.searchTF];
     [self addSubview:self.backBtn];
+    [self addSubview:self.searchTF];
     [self addSubview:self.cancelBtn];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 1, SCREEN_WIDTH, 1)];
@@ -121,6 +121,7 @@
         _searchTF.returnKeyType = UIReturnKeySearch;
         UIView *leftV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 36)];
         leftV.backgroundColor = kMEeeeeee;
+        leftV.layer.cornerRadius = 18;
         UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"common_nav_btn_search"]];
         imgV.frame = CGRectMake(18, 9, 18, 18);
         [leftV addSubview:imgV];

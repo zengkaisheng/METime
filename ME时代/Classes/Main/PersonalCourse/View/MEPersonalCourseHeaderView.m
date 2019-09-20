@@ -13,11 +13,17 @@
 
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
 @property (weak, nonatomic) IBOutlet UIView *titleView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sdViewConsHeight;
 
 @end
 
 
 @implementation MEPersonalCourseHeaderView
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    _sdViewConsHeight.constant = 166*kMeFrameScaleY();
+}
 
 - (void)setUIWithBannerImages:(NSArray *)images titleArray:(NSArray *)titles {
     
@@ -67,7 +73,7 @@
 
 - (JXCategoryTitleView *)categoryView {
     if (!_categoryView) {
-        _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, 46*kMeFrameScaleY())];
+        _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, 46)];
         JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
         lineView.indicatorLineViewColor =  kMEPink;
         lineView.indicatorLineViewHeight = 1;

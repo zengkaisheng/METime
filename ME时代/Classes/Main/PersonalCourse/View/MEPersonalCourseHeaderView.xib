@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="166"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="Z9y-YI-EVx" secondAttribute="height" multiplier="375:166" id="D6Z-Uw-Pot"/>
+                        <constraint firstAttribute="height" constant="166" id="0hQ-8R-TFt"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1SW-Fz-3v7">
@@ -40,6 +40,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="sdView" destination="Z9y-YI-EVx" id="sTM-7q-fz7"/>
+                <outlet property="sdViewConsHeight" destination="0hQ-8R-TFt" id="BsB-WZ-meK"/>
                 <outlet property="titleView" destination="1SW-Fz-3v7" id="gfL-PY-Jjb"/>
             </connections>
             <point key="canvasLocation" x="-258" y="120"/>

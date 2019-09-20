@@ -193,11 +193,11 @@
                         <constraint firstItem="SfI-np-U2l" firstAttribute="centerY" secondItem="Eo5-Zp-iOZ" secondAttribute="centerY" id="gqf-Om-LKD"/>
                         <constraint firstItem="0bY-GA-mal" firstAttribute="leading" secondItem="7YJ-bD-gEc" secondAttribute="trailing" constant="10" id="hcs-3R-dt0"/>
                         <constraint firstItem="GOC-MQ-kaS" firstAttribute="top" secondItem="m95-H8-rtU" secondAttribute="bottom" constant="64" id="i7u-eI-dxs"/>
-                        <constraint firstItem="Eo5-Zp-iOZ" firstAttribute="top" secondItem="7YJ-bD-gEc" secondAttribute="bottom" constant="86" id="ib8-x7-Pln"/>
                         <constraint firstItem="fEc-G2-db8" firstAttribute="top" secondItem="m95-H8-rtU" secondAttribute="bottom" constant="119" id="qsY-Eg-bxb"/>
                         <constraint firstItem="Eyr-tl-YA4" firstAttribute="top" secondItem="CLP-Vq-Poz" secondAttribute="bottom" constant="31" id="sm9-VJ-Nuj"/>
                         <constraint firstItem="fEc-G2-db8" firstAttribute="leading" secondItem="Eyr-tl-YA4" secondAttribute="trailing" constant="113" id="tgG-ng-tbE"/>
                         <constraint firstItem="FWt-Kn-uVp" firstAttribute="top" secondItem="0bY-GA-mal" secondAttribute="bottom" constant="4" id="uNq-64-Sto"/>
+                        <constraint firstItem="Eo5-Zp-iOZ" firstAttribute="bottom" secondItem="m95-H8-rtU" secondAttribute="bottom" constant="-18" id="uno-mz-4qW"/>
                         <constraint firstItem="m95-H8-rtU" firstAttribute="leading" secondItem="0XV-pu-Kll" secondAttribute="leading" id="vtK-Ym-W93"/>
                         <constraint firstAttribute="trailing" secondItem="m95-H8-rtU" secondAttribute="trailing" id="w4e-Yt-iwS"/>
                     </constraints>
@@ -222,7 +222,6 @@
                 <outlet property="nameLbl" destination="0bY-GA-mal" id="Sif-6A-NJm"/>
                 <outlet property="phoneLbl" destination="FWt-Kn-uVp" id="w4L-eo-Q2W"/>
                 <outlet property="priceLbl" destination="Eo5-Zp-iOZ" id="3vN-Ep-lbX"/>
-                <outlet property="priceLblConsTop" destination="ib8-x7-Pln" id="Wpi-jy-nFB"/>
                 <outlet property="tableView" destination="xMn-gk-HtA" id="jyg-iO-zzs"/>
                 <outlet property="vipBtn" destination="SfI-np-U2l" id="G79-91-2ET"/>
             </connections>

@@ -37,7 +37,7 @@
     // 1.初始化子控制器
     //在线课程
     MEOnlineCourseVC *course = [[MEOnlineCourseVC alloc] init];
-    [self addChildVc:course title:@"课程" image:@"tabbar_course_nor" selectedImage:@"tabbar_course_sel"];
+    [self addChildVc:course title:@"课程" image:@"course" selectedImage:@"course_s"];
     
     //运营
     MEOperateVC *operate = [[MEOperateVC alloc] init];
@@ -48,7 +48,7 @@
     [self addChildVc:statistics title:@"诊断反馈" image:@"tabbar_feedBack_nor" selectedImage:@"tabbar_feedBack_sel"];
     
     self.mine = [[MENewMineHomeVC alloc] init];
-    [self addChildVc:self.mine title:@"我的" image:@"tabbar_me_nor" selectedImage:@"tabbar_me_sel"];
+    [self addChildVc:self.mine title:@"我的" image:@"mine" selectedImage:@"mine_s"];
     
     [self getUnMeaasge];
     

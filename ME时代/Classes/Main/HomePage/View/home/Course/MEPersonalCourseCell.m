@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *descLbl;
 @property (weak, nonatomic) IBOutlet UILabel *countLbl;
 @property (weak, nonatomic) IBOutlet UILabel *vipLbl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *learnLblConsWidth;
 
 
 @end
@@ -26,6 +27,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    if (IS_iPhone5S) {
+        _learnLblConsWidth.constant = 75;
+    }else {
+        _learnLblConsWidth.constant = 91;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

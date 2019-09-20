@@ -110,6 +110,7 @@
                 <outlet property="countLbl" destination="pNs-lZ-j96" id="asX-aS-Wsj"/>
                 <outlet property="descLbl" destination="wSg-4h-z5l" id="Jy9-yg-g9v"/>
                 <outlet property="headerPic" destination="5mb-Ah-QED" id="t4c-On-t7B"/>
+                <outlet property="learnLblConsWidth" destination="CyY-O9-MAp" id="fdi-mc-s0V"/>
                 <outlet property="titleLbl" destination="4tA-KV-UQY" id="LN0-hm-WRY"/>
                 <outlet property="vipLbl" destination="tGk-Dg-O72" id="hrv-61-5pB"/>
             </connections>

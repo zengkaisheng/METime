@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *playCountLbl;
 @property (weak, nonatomic) IBOutlet UILabel *vipLbl;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerPicConsWidth;
+
 
 @end
 
@@ -25,6 +27,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    if (IS_iPhone5S) {
+        _headerPicConsWidth.constant = 165;
+    }else {
+        _headerPicConsWidth.constant = 195;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

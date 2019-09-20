@@ -21,7 +21,6 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bA0-qv-aJr">
                         <rect key="frame" x="17" y="1" width="195" height="111.5"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="bA0-qv-aJr" secondAttribute="height" multiplier="194:111" id="AT4-AK-10i"/>
                             <constraint firstAttribute="width" constant="195" id="jVb-Hv-jd6"/>
                         </constraints>
                     </imageView>
@@ -64,6 +63,7 @@
                 <constraints>
                     <constraint firstItem="qXr-NL-7zu" firstAttribute="leading" secondItem="bA0-qv-aJr" secondAttribute="trailing" constant="8" id="5tx-nJ-lkh"/>
                     <constraint firstItem="aJR-a0-41a" firstAttribute="leading" secondItem="bA0-qv-aJr" secondAttribute="trailing" constant="12" id="6Cf-kI-RI9"/>
+                    <constraint firstAttribute="bottom" secondItem="bA0-qv-aJr" secondAttribute="bottom" constant="17" id="BNX-qj-z1D"/>
                     <constraint firstItem="oTn-cf-17E" firstAttribute="leading" secondItem="bA0-qv-aJr" secondAttribute="trailing" constant="12" id="Bve-np-jVI"/>
                     <constraint firstItem="qXr-NL-7zu" firstAttribute="bottom" secondItem="bA0-qv-aJr" secondAttribute="bottom" id="HMW-tl-yrN"/>
                     <constraint firstItem="bA0-qv-aJr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="1" id="Ors-Qn-S9m"/>
@@ -80,6 +80,7 @@
             <connections>
                 <outlet property="descLbl" destination="qXr-NL-7zu" id="yO9-Ya-0vY"/>
                 <outlet property="headerPic" destination="bA0-qv-aJr" id="3oX-hw-B0j"/>
+                <outlet property="headerPicConsWidth" destination="jVb-Hv-jd6" id="Cpa-c7-3cJ"/>
                 <outlet property="nameLbl" destination="aJR-a0-41a" id="jlw-aY-4hL"/>
                 <outlet property="playCountLbl" destination="1z1-eW-rxo" id="5Th-Uo-Ezs"/>
                 <outlet property="vipLbl" destination="oTn-cf-17E" id="Ag7-Wp-ZNw"/>

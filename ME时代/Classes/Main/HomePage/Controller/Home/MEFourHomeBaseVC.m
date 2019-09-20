@@ -854,7 +854,7 @@ const static CGFloat kImgStore = 50;
             }else if (indexPath.section == 4) {
                 MEFourHomeGoodGoodMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) forIndexPath:indexPath];
                 if (self.homeModel.study_together.left_banner.count > 0 && self.homeModel.study_together.right_banner.count > 0) {
-                    header.showHeader = YES;
+                    [header setupUIWithArray:@[@{@"learn":@"1"}] showFooter:NO];
                 }
                 headerView = header;
             }else if (indexPath.section == 5) {

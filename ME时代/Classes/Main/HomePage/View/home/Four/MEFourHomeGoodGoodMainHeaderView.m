@@ -31,7 +31,6 @@
 {
     NSArray *_arrHot;
     BOOL _isShow;
-    BOOL _showHeader;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -364,15 +363,13 @@
             if (goods.count > 0) {
                 return 42;
             }
+        }else if ([dict.allKeys containsObject:@"learn"]) {
+            return 36;
         }else if ([dict.allKeys containsObject:@"excellent_course"]) {
             NSArray *excellent_course = dict[@"excellent_course"];
             if (excellent_course.count > 0) {
                 return 36;
             }
-        }
-    }else {
-        if (_showHeader) {
-            return 36;
         }
     }
     return 0;
@@ -393,6 +390,8 @@
             if (goods.count > 0) {
                 index = 1;
             }
+        }else if ([dict.allKeys containsObject:@"learn"]) {
+            index = 3;
         }else if ([dict.allKeys containsObject:@"excellent_course"]) {
             NSArray *excellent_course = dict[@"excellent_course"];
             if (excellent_course.count > 0) {
@@ -401,12 +400,6 @@
         }
         [headview setUIWithIndex:index];
         return headview;
-    }else {
-        if (_showHeader) {
-            METhridHomeCommondSectionView *headview = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass([METhridHomeCommondSectionView class])];
-            [headview setUIWithIndex:3];
-            return headview;
-        }
     }
     return nil;
 }
@@ -427,11 +420,6 @@
 - (void)setupUIWithArray:(NSArray *)array showFooter:(BOOL)show{
     _arrHot = [NSArray arrayWithArray:array];
     _isShow = show;
-    [self.tableView reloadData];
-}
-
-- (void)setShowHeader:(BOOL)showHeader {
-    _showHeader = showHeader;
     [self.tableView reloadData];
 }
 
