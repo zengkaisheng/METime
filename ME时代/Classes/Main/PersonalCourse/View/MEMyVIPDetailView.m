@@ -58,9 +58,6 @@
     _tableView.layer.cornerRadius = 9;
     _tableView.clipsToBounds = false;
     
-    CGFloat width = [UIScreen mainScreen].bounds.size.width - 30;
-    NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
-    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,@""] baseURL:nil];
 }
 
 - (CAGradientLayer *)getLayerWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint colors:(NSArray *)colors locations:(NSArray *)locations frame:(CGRect)frame {
@@ -91,8 +88,13 @@
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
     [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(model.vip_rule)] baseURL:nil];
     
-    _tableViewConsHeight.constant = model.ruleHeight>194?model.ruleHeight:194;
-    [_tableView reloadData];
+    kMeWEAKSELF
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        kMeSTRONGSELF
+        CGFloat height = [[strongSelf.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
+        strongSelf->_tableViewConsHeight.constant = height>194?height:194;
+        [strongSelf->_tableView reloadData];
+    });
 }
 
 - (IBAction)openVIPAction:(id)sender {
@@ -115,8 +117,7 @@
     if(!_webCell){
         return 0;
     }
-    return self.model.ruleHeight;
-//    return [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
+    return [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
 }
 
 - (TDWebViewCell *)webCell{

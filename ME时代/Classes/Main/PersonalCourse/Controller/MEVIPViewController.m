@@ -14,7 +14,9 @@
 #import "MEMyVIPVC.h"
 #import "MEPersionalCourseDetailVC.h"
 
-@interface MEVIPViewController ()<UIScrollViewDelegate>{
+#import "TDWebViewCell.h"
+
+@interface MEVIPViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>{
     NSString *_order_sn;
     NSString *_order_amount;
     BOOL _isPayError;//防止跳2次错误页面
@@ -23,6 +25,9 @@
 @property (nonatomic, strong) MEOpenVIPView *vipView;
 @property (nonatomic, strong) UIScrollView *scrollerView;
 @property (nonatomic, strong) MECourseVIPModel *model;
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (strong, nonatomic) TDWebViewCell *webCell;
 
 @end
 
@@ -37,6 +42,7 @@
     // Do any additional setup after loading the view.
     self.title = @"开通VIP";
     self.view.backgroundColor = [UIColor colorWithHexString:@"fbfbfb"];
+    [self.view addSubview:self.tableView];
     [self.view addSubview:self.scrollerView];
     [self.scrollerView addSubview:self.vipView];
     
@@ -52,10 +58,18 @@
 }
 
 - (void)reloadUI {
-    self.vipView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEOpenVIPView getViewHeightWithRuleHeight:self.model.ruleHeight]);
-    self.scrollerView.contentSize = CGSizeMake(SCREEN_WIDTH, [MEOpenVIPView getViewHeightWithRuleHeight:self.model.ruleHeight]);
+    CGFloat width = [UIScreen mainScreen].bounds.size.width - 146;
+    NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
+    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.model.vip_rule)] baseURL:nil];
     
-    [self.vipView setUIWithModel:self.model];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CGFloat height = [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
+        self.tableView.hidden = YES;
+        
+        self.vipView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEOpenVIPView getViewHeightWithRuleHeight:height]);
+        self.scrollerView.contentSize = CGSizeMake(SCREEN_WIDTH, [MEOpenVIPView getViewHeightWithRuleHeight:height]);
+        [self.vipView setUIWithModel:self.model];
+    });
 }
 
 #pragma mark -- Networking
@@ -152,6 +166,23 @@
         _isPayError = YES;
     }
 }
+
+#pragma mark - tableView deleagte and sourcedata
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return self.webCell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(!_webCell){
+        return 0;
+    }
+    return [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
+}
+
 #pragma mark -- setter&&getter
 - (UIScrollView *)scrollerView{
     if(!_scrollerView){
@@ -172,6 +203,28 @@
         _vipView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEOpenVIPView getViewHeightWithRuleHeight:0]);
     }
     return _vipView;
+}
+
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(73, 0, SCREEN_WIDTH-146, 100) style:UITableViewStylePlain];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TDWebViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TDWebViewCell class])];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.tableFooterView = [UIView new];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.scrollsToTop = NO;
+        _tableView.scrollEnabled = NO;
+    }
+    return _tableView;
+}
+
+- (TDWebViewCell *)webCell{
+    if(!_webCell){
+        _webCell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TDWebViewCell class])];
+    }
+    return _webCell;
 }
 
 @end

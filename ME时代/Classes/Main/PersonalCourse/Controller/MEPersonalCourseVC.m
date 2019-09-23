@@ -36,7 +36,9 @@
 @property (nonatomic, assign) CGFloat scrollHeight;
 
 @property (nonatomic, assign) CGFloat originalHeight;
-@property (nonatomic, assign) BOOL isSelectedTop;;
+@property (nonatomic, assign) BOOL isSelectedTop;
+@property (nonatomic, assign) NSInteger is_show_sourses;
+@property (nonatomic, strong) UIImageView *waitImgView;
 
 @end
 
@@ -111,6 +113,9 @@
     if ([dict.allKeys containsObject:@"courseList"]) {
         self.refresh.arrData = [MEPersonalCourseListModel mj_objectArrayWithKeyValuesArray:kMeUnArr(dict[@"courseList"])];
     }
+    if ([dict.allKeys containsObject:@"is_show_sourses"]) {
+        self.is_show_sourses = [dict[@"is_show_sourses"] integerValue];
+    }
     _selectedIndex = 0;
     self.scrollHeight = (166*kMeFrameScaleY()+36+260);
     self.originalHeight = 0;
@@ -118,6 +123,16 @@
     self.categoryView.titles = self.filterArr;
     [self.categoryView reloadData];
     [self.tableView reloadData];
+    
+    if (self.is_show_sourses == 1) {
+        self.waitImgView.hidden = YES;
+        self.tableView.hidden = NO;
+        self.navView.hidden = NO;
+    }else {
+        self.waitImgView.hidden = NO;
+        self.tableView.hidden = YES;
+        self.navView.hidden = YES;
+    }
 }
 
 #pragma mark - tableView deleagte and sourcedata
@@ -351,6 +366,17 @@
         _categoryView.hidden = YES;
     }
     return _categoryView;
+}
+
+- (UIImageView *)waitImgView {
+    if (!_waitImgView) {
+        _waitImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lookForward"]];
+        _waitImgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight);
+        _waitImgView.userInteractionEnabled = NO;
+        [self.view addSubview:_waitImgView];
+        _waitImgView.hidden = YES;
+    }
+    return _waitImgView;
 }
 
 @end

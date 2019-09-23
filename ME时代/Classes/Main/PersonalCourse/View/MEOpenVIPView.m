@@ -48,9 +48,6 @@
     _tableView.scrollsToTop = NO;
     _tableView.scrollEnabled = NO;
     
-    CGFloat width = [UIScreen mainScreen].bounds.size.width - 30;
-    NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
-    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,@""] baseURL:nil];
 }
 
 - (CAGradientLayer *)getLayerWithStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint colors:(NSArray *)colors locations:(NSArray *)locations frame:(CGRect)frame {
@@ -72,11 +69,15 @@
     _priceLbl.text = kMeUnNilStr(detailModel.name);
     _amountLbl.text = [NSString stringWithFormat:@"%@元",kMeUnNilStr(detailModel.price)];
     
-    CGFloat width = [UIScreen mainScreen].bounds.size.width - 30;
+    CGFloat width = [UIScreen mainScreen].bounds.size.width - 146;
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
     [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(model.vip_rule)] baseURL:nil];
     
-    [_tableView reloadData];
+    kMeWEAKSELF
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        kMeSTRONGSELF
+        [strongSelf->_tableView reloadData];
+    });
 }
 
 - (IBAction)payAction:(id)sender {
@@ -96,8 +97,7 @@
     if(!_webCell){
         return 0;
     }
-    return self.model.ruleHeight;
-    //    return [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
+    return [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
 }
 
 - (TDWebViewCell *)webCell{
@@ -108,9 +108,9 @@
 }
 
 + (CGFloat)getViewHeightWithRuleHeight:(CGFloat)ruleHeight {
-    CGFloat height = 660 - 194;
+    CGFloat height = 660 - 121;
     
-    height += ruleHeight>194?ruleHeight:194;
+    height += ruleHeight>121?ruleHeight:121;
     return height;
 }
 

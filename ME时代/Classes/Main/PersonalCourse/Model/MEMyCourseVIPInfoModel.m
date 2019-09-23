@@ -11,7 +11,7 @@
 @implementation MEMyCourseVIPInfoModel
 
 MEModelIdToIdField
-
+/*
 - (CGFloat)ruleHeight {
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 30;
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
@@ -21,5 +21,6 @@ MEModelIdToIdField
     CGFloat height = [[webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
     return height;
 }
+ */
 
 @end

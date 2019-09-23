@@ -155,7 +155,7 @@
         [self.topView addSubview:self.closeButton];
         
         [self addSubview:self.replayBtnView];
-        [self.replayBtnView addSubview:self.replayButton];
+        [self addSubview:self.replayButton];
 
         [self addSubview:self.bottomView];
         [self.bottomView addSubview:self.fullScreenButton];

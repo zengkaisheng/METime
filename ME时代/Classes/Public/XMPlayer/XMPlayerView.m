@@ -491,20 +491,28 @@
     // 手势滑动界面
     // 滑动界面中
     self.controlView.tapChangeimgValue = ^(float moveX) {
-        [weakSelf dragTheInterfaceWithMoveX:moveX withIsDraging:YES];
+        if (weakSelf.controlView.replayBtnView.hidden==YES) {
+            [weakSelf dragTheInterfaceWithMoveX:moveX withIsDraging:YES];
+        }
     };
     // 滑动界面结束
     self.controlView.tapChangedValue = ^(float moveX) {
-        [weakSelf dragTheInterfaceWithMoveX:moveX withIsDraging:NO];
+        if (weakSelf.controlView.replayBtnView.hidden==YES) {
+            [weakSelf dragTheInterfaceWithMoveX:moveX withIsDraging:NO];
+        }
     };
     // 手势拖动进度条
     // 拖动进度条中
     self.controlView.playerSilder.tapChangeimgValue = ^(float value) {
-        [weakSelf videoProgressWithChangeimgValue:value];
+        if (weakSelf.controlView.replayBtnView.hidden==YES) {
+            [weakSelf videoProgressWithChangeimgValue:value];
+        }
     };
     // 拖动进度条结束
     self.controlView.playerSilder.tapChangedValue = ^(float value) {
-        [weakSelf videoProgressWithchangedValue:value];
+        if (weakSelf.controlView.replayBtnView.hidden==YES) {
+            [weakSelf videoProgressWithchangedValue:value];
+        }
     };
 }
 

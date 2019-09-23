@@ -13,11 +13,16 @@
 #import "MEVIPViewController.h"
 #import "MEMyVIPPayRecordVC.h"
 
-@interface MEMyVIPVC ()<UIScrollViewDelegate>
+#import "TDWebViewCell.h"
+
+@interface MEMyVIPVC ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UIScrollView *scrollerView;
 @property (nonatomic, strong) MEMyVIPDetailView *vipView;
 @property (nonatomic, strong) MEMyCourseVIPInfoModel *model;
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (strong, nonatomic) TDWebViewCell *webCell;
 
 @end
 
@@ -28,6 +33,7 @@
     // Do any additional setup after loading the view.
     self.title = @"VIP详情";
     self.view.backgroundColor = [UIColor colorWithHexString:@"fbfbfb"];
+    [self.view addSubview:self.tableView];
     [self.view addSubview:self.scrollerView];
     [self.scrollerView addSubview:self.vipView];
     
@@ -35,8 +41,14 @@
 }
 
 - (void)reloadUI {
-    self.vipView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEMyVIPDetailView getViewHeightWithRuleHeight:self.model.ruleHeight]);
-    self.scrollerView.contentSize = CGSizeMake(SCREEN_WIDTH, [MEMyVIPDetailView getViewHeightWithRuleHeight:self.model.ruleHeight]);
+    CGFloat width = [UIScreen mainScreen].bounds.size.width - 30;
+    NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
+    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.model.vip_rule)] baseURL:nil];
+    
+    CGFloat height = [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
+    self.tableView.hidden = YES;
+    self.vipView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEMyVIPDetailView getViewHeightWithRuleHeight:height]);
+    self.scrollerView.contentSize = CGSizeMake(SCREEN_WIDTH, [MEMyVIPDetailView getViewHeightWithRuleHeight:height]);
 
     [self.vipView setUIWithModel:self.model];
     kMeWEAKSELF
@@ -50,6 +62,22 @@
             [strongSelf.navigationController pushViewController:vc animated:YES];
         }
     };
+}
+
+#pragma mark - tableView deleagte and sourcedata
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return self.webCell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(!_webCell){
+        return 0;
+    }
+    return [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
 }
 
 #pragma mark -- Networking
@@ -89,6 +117,28 @@
         _vipView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEMyVIPDetailView getViewHeightWithRuleHeight:0]);
     }
     return _vipView;
+}
+
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100) style:UITableViewStylePlain];
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TDWebViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TDWebViewCell class])];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.tableFooterView = [UIView new];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.scrollsToTop = NO;
+        _tableView.scrollEnabled = NO;
+    }
+    return _tableView;
+}
+
+- (TDWebViewCell *)webCell{
+    if(!_webCell){
+        _webCell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TDWebViewCell class])];
+    }
+    return _webCell;
 }
 
 @end

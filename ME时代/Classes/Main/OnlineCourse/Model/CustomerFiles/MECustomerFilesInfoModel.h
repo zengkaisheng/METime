@@ -76,11 +76,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * qq;
 @property (nonatomic, assign) NSInteger sex;
 @property (nonatomic, assign) NSInteger store_id;
-@property (nonatomic, assign) NSInteger tall;
+@property (nonatomic, strong) NSString * tall;
 @property (nonatomic, strong) NSString * traits_of_character;
 @property (nonatomic, strong) NSString * updated_at;
 @property (nonatomic, strong) NSString * wechat;
-@property (nonatomic, assign) CGFloat weight;
+@property (nonatomic, strong) NSString * weight;
 
 @end
 

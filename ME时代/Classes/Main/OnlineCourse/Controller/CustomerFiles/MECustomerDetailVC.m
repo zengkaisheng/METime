@@ -113,8 +113,8 @@
 //        qqModel.value = kMeUnNilStr(self.detailModel.qq);
         phoneModel.value = kMeUnNilStr(self.detailModel.phone);
         bestTimeModel.value = kMeUnNilStr(self.detailModel.best_communication_time);
-        tailModel.value = [NSString stringWithFormat:@"%@",@(self.detailModel.tall)];
-        weightModel.value = [NSString stringWithFormat:@"%@",@(self.detailModel.weight)];
+        tailModel.value = [NSString stringWithFormat:@"%@",kMeUnNilStr(self.detailModel.tall)];
+        weightModel.value = [NSString stringWithFormat:@"%@",kMeUnNilStr(self.detailModel.weight)];
         bloodModel.value = kMeUnNilStr(self.detailModel.blood_type);
         hobbyModel.value = kMeUnNilStr(self.detailModel.interest);
         natureModel.value = kMeUnNilStr(self.detailModel.traits_of_character);
