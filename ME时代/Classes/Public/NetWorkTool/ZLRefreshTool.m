@@ -116,7 +116,7 @@ NSUInteger const kSizeNum = 10;
             if (strongSelf.pageIndex == 1) {
                 [strongSelf.arrData removeAllObjects];
             }
-            if(self.isDataInside){
+            if (self.isDataInside){
                 if ([responseObject.data isEqual:@""]) {
                 }else {
                     //项目赶 以后优化
