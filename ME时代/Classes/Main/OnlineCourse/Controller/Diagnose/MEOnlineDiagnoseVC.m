@@ -24,47 +24,51 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"在线诊断";
+    UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"diagnose_bg"]];
+    imgV.frame = CGRectMake(36, kMeNavBarHeight+22, 50, 49);
+    [self.view addSubview:imgV];
+    
     [self.view addSubview:self.bgView];
     
     UILabel *nameLbl = [self createLabelWithTitle:@"姓名"];
-    nameLbl.frame = CGRectMake(15, 18, 36, 30);
+    nameLbl.frame = CGRectMake(55, 35, 36, 30);
     [self.bgView addSubview:nameLbl];
     
-    self.nameTF = [[UITextField alloc] initWithFrame:CGRectMake(68, 18, 190, 30)];
+    self.nameTF = [[UITextField alloc] initWithFrame:CGRectMake(108, 35, 180, 30)];
     self.nameTF.placeholder = @" 请输入姓名";
     self.nameTF.font = [UIFont systemFontOfSize:16.0];
     self.nameTF.returnKeyType = UIReturnKeyDone;
     self.nameTF.layer.borderWidth = 1.0;
+    self.nameTF.cornerRadius = 5;
     self.nameTF.layer.borderColor = [UIColor colorWithHexString:@"#707070"].CGColor;
     [self.bgView addSubview:self.nameTF];
     
     UILabel *phoneLbl = [self createLabelWithTitle:@"手机号"];
-    phoneLbl.frame = CGRectMake(15, 60, 50, 30);
+    phoneLbl.frame = CGRectMake(55, 82, 50, 30);
     [self.bgView addSubview:phoneLbl];
     
-    self.telephoneTF = [[UITextField alloc] initWithFrame:CGRectMake(68, 60, 190, 30)];
+    self.telephoneTF = [[UITextField alloc] initWithFrame:CGRectMake(108, 82, 180, 30)];
     self.telephoneTF.font = [UIFont systemFontOfSize:16.0];
     self.telephoneTF.layer.borderWidth = 1.0;
+    self.telephoneTF.cornerRadius = 5;
     self.telephoneTF.layer.borderColor = [UIColor colorWithHexString:@"#707070"].CGColor;
     self.telephoneTF.placeholder = @" 请输入手机号";
     self.telephoneTF.keyboardType = UIKeyboardTypeNumberPad;
     [self.bgView addSubview:self.telephoneTF];
     
     UILabel *tipsLbl = [self createLabelWithTitle:@"是否在线咨询过"];
-    tipsLbl.frame = CGRectMake(15, 110, 100, 21);
+    tipsLbl.frame = CGRectMake(55, 137, 100, 21);
     [self.bgView addSubview:tipsLbl];
     
-    UIButton *confirmBtn = [self createButtonWithTitle:@"是" font:12.0 frame:CGRectMake(226*kMeFrameScaleX(), 110, 45, 24) tag:1];
+    UIButton *confirmBtn = [self createButtonWithTitle:@"是" font:12.0 frame:CGRectMake(170*kMeFrameScaleX(), 135, 45, 24) tag:1];
     confirmBtn.selected = YES;
-    confirmBtn.backgroundColor = [UIColor whiteColor];
-    confirmBtn.layer.borderWidth = 1;
-    confirmBtn.layer.borderColor = [UIColor colorWithHexString:@"#FFD5D5"].CGColor;
+    confirmBtn.backgroundColor = kMEPink;
     [self.bgView addSubview:confirmBtn];
     
-    UIButton *denyBtn = [self createButtonWithTitle:@"否" font:12.0 frame:CGRectMake(289*kMeFrameScaleX(), 110, 45, 24) tag:2];
+    UIButton *denyBtn = [self createButtonWithTitle:@"否" font:12.0 frame:CGRectMake(230*kMeFrameScaleX(), 135, 45, 24) tag:2];
     [self.bgView addSubview:denyBtn];
     
-    UIButton *nextBtn = [self createButtonWithTitle:@"下一步" font:15.0 frame:CGRectMake(15, SCREEN_HEIGHT-19-40, SCREEN_WIDTH-30, 40) tag:10];
+    UIButton *nextBtn = [self createButtonWithTitle:@"下一步" font:15.0 frame:CGRectMake(15, SCREEN_HEIGHT-200-40-kMeNavBarHeight, SCREEN_WIDTH-30, 40) tag:10];
     [nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [nextBtn setBackgroundColor:[UIColor colorWithHexString:@"#FF88A4"]];
     [self.view addSubview:nextBtn];
@@ -98,14 +102,10 @@
                 UIButton *btn = (UIButton *)obj;
                 btn.selected = NO;
                 btn.backgroundColor = [UIColor colorWithHexString:@"#F1F1F1"];
-                btn.layer.borderWidth = 1;
-                btn.layer.borderColor = [UIColor colorWithHexString:@"#F1F1F1"].CGColor;
             }
         }
         sender.selected = YES;
-        sender.backgroundColor = [UIColor whiteColor];
-        sender.layer.borderWidth = 1;
-        sender.layer.borderColor = [UIColor colorWithHexString:@"#FFD5D5"].CGColor;
+        sender.backgroundColor = kMEPink;
         if (sender.tag == 1) {
             self.hasDiagnosed = YES;
         }else {
@@ -149,7 +149,7 @@
     UILabel *label = [[UILabel alloc] init];
     label.text = title;
     label.textColor = kME333333;
-    label.font = [UIFont systemFontOfSize:14];
+    label.font = [UIFont boldSystemFontOfSize:14];
     return label;
 }
 
@@ -161,7 +161,7 @@
     [btn.titleLabel setFont:[UIFont systemFontOfSize:font]];
     
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor colorWithHexString:@"#FFD5D5"] forState:UIControlStateSelected];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     [btn setBackgroundColor:[UIColor colorWithHexString:@"#F1F1F1"]];
     btn.layer.cornerRadius = frame.size.height/2.0;
     [btn addTarget:self action:@selector(btnDidClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -170,7 +170,7 @@
 
 - (UIView *)bgView {
     if (!_bgView) {
-        _bgView = [[UIView alloc] initWithFrame:CGRectMake(15, kMeNavBarHeight + 20, SCREEN_WIDTH-30, 160)];
+        _bgView = [[UIView alloc] initWithFrame:CGRectMake(26, kMeNavBarHeight + 48, SCREEN_WIDTH-52, 202)];
         _bgView.backgroundColor = [UIColor whiteColor];
         _bgView.layer.shadowOffset = CGSizeMake(0, 1);
         _bgView.layer.shadowOpacity = 1;

@@ -16,6 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, strong) NSString * logo;
 
+@property (nonatomic, assign) NSInteger idField;
+@property (nonatomic, assign) NSInteger ids;
+@property (nonatomic, assign) NSInteger order;
+@property (nonatomic, assign) NSInteger status;
+@property (nonatomic, assign) NSInteger is_del;
+
 @end
 
 NS_ASSUME_NONNULL_END

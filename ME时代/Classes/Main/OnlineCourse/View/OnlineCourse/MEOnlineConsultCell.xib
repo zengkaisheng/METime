@@ -18,6 +18,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="72.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="diagnoseBGImage" translatesAutoresizingMaskIntoConstraints="NO" id="cyn-PQ-BVq">
+                        <rect key="frame" x="11" y="2" width="353" height="62.5"/>
+                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0QJ-Fu-vCD">
                         <rect key="frame" x="15" y="2" width="345" height="62.5"/>
                         <subviews>
@@ -29,11 +32,11 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="报告诊断" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Knz-co-4wn">
-                                <rect key="frame" x="72" y="24" width="50" height="15"/>
+                                <rect key="frame" x="92" y="24" width="61.5" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="Nev-TP-5bK"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="textColor" red="0.22352941176470587" green="0.22352941176470587" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -51,10 +54,10 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="1Gv-Zv-laU" secondAttribute="trailing" constant="15" id="BRw-jA-Aoe"/>
-                            <constraint firstItem="Knz-co-4wn" firstAttribute="leading" secondItem="qod-vd-ifS" secondAttribute="trailing" constant="14" id="Jo0-U3-T6r"/>
+                            <constraint firstItem="Knz-co-4wn" firstAttribute="leading" secondItem="qod-vd-ifS" secondAttribute="trailing" constant="34" id="Jo0-U3-T6r"/>
                             <constraint firstItem="7LJ-z3-Yxf" firstAttribute="centerY" secondItem="qod-vd-ifS" secondAttribute="centerY" id="Mip-3j-HUq"/>
                             <constraint firstItem="1Gv-Zv-laU" firstAttribute="centerY" secondItem="0QJ-Fu-vCD" secondAttribute="centerY" id="WnR-Kl-vuD"/>
                             <constraint firstAttribute="trailing" secondItem="7LJ-z3-Yxf" secondAttribute="trailing" constant="26" id="dRB-uI-Wvr"/>
@@ -67,12 +70,17 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="0QJ-Fu-vCD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="0p2-Hv-ZeD"/>
+                    <constraint firstItem="cyn-PQ-BVq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="3KD-QE-fDP"/>
+                    <constraint firstItem="cyn-PQ-BVq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="YEo-IW-lpZ"/>
+                    <constraint firstAttribute="bottom" secondItem="cyn-PQ-BVq" secondAttribute="bottom" constant="8" id="Yh4-X1-S4B"/>
                     <constraint firstAttribute="bottom" secondItem="0QJ-Fu-vCD" secondAttribute="bottom" constant="8" id="g5x-U5-nUZ"/>
+                    <constraint firstAttribute="trailing" secondItem="cyn-PQ-BVq" secondAttribute="trailing" constant="11" id="jd0-3U-OCt"/>
                     <constraint firstItem="0QJ-Fu-vCD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="lb5-tg-CRq"/>
                     <constraint firstAttribute="trailing" secondItem="0QJ-Fu-vCD" secondAttribute="trailing" constant="15" id="xbR-Io-wco"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="BGimageView" destination="cyn-PQ-BVq" id="tKC-7g-tck"/>
                 <outlet property="bgView" destination="0QJ-Fu-vCD" id="cYn-XC-aAw"/>
                 <outlet property="leftImgV" destination="qod-vd-ifS" id="wlj-Ui-iHP"/>
                 <outlet property="leftImgVConsWidth" destination="lfm-2Z-JHE" id="8Qh-qQ-xah"/>
@@ -84,6 +92,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="diagnoseBGImage" width="354" height="72"/>
         <image name="icon_consult" width="26" height="24"/>
         <image name="inco-yytmtmda" width="7" height="13"/>
     </resources>

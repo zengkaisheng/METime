@@ -82,7 +82,7 @@
     if (indexPath.row == 1) {
         return kMEExportDiagnoseRemarkCellHeight;
     }
-    return kMEExpertDiagnoseListCellHeight;
+    return [MEExpertDiagnoseListCell getCellHeightWithContent:kMeUnNilStr(self.model.desc)];
 }
 
 #pragma mark -- Action

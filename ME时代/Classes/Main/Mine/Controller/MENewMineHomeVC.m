@@ -756,7 +756,7 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case MEMenuDiagnoseOrder:{//我的诊断订单/方案订单
+        case MEMenuDiagnoseOrder:{//我的诊断订单/方案订单/美店方案
             MEDiagnoseOrderListVC *vc = [[MEDiagnoseOrderListVC alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -810,8 +810,8 @@
 - (MENewMineHomeHeaderView *)headerView{
     if(!_headerView){
         _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeHeaderView" owner:nil options:nil] lastObject];
-        CGFloat height = kMENewMineHomeHeaderViewHeight+85;
-        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
+//        CGFloat height = kMENewMineHomeHeaderViewHeight+85;
+        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeHeaderViewHeight);
         _headerView.orderList = self.orderList;
         _headerView.changeStatus = ^{
             NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
@@ -836,9 +836,9 @@
 - (MENewMineHomeCodeHeaderView *)headerCodeView{
     if(!_headerCodeView){
         _headerCodeView = [[[NSBundle mainBundle]loadNibNamed:@"MENewMineHomeCodeHeaderView" owner:nil options:nil] lastObject];
-        CGFloat height = kMENewMineHomeCodeHeaderViewHeight+85;
+//        CGFloat height = kMENewMineHomeCodeHeaderViewHeight+85;
         _headerCodeView.orderList = self.orderList;
-        _headerCodeView.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
+        _headerCodeView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewMineHomeCodeHeaderViewHeight);
         _headerCodeView.changeStatus = ^{
             NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
             if ([status isEqualToString:@"customer"]) {

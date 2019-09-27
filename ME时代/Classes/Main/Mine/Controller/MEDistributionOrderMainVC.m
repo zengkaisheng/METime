@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"美豆订单";
+    self.title = @"积分订单";
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
     // Do any additional setup after loading the view.

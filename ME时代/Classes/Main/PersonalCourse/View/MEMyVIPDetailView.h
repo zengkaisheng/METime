@@ -10,12 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @class MEMyCourseVIPInfoModel;
+@class MEMyCourseVIPModel;
 
 @interface MEMyVIPDetailView : UIView
 
 @property (nonatomic, copy) kMeIndexBlock indexBlock;
 
 - (void)setUIWithModel:(MEMyCourseVIPInfoModel *)model;
+
+- (void)setUIWithVIPModel:(MEMyCourseVIPModel *)model;
 
 + (CGFloat)getViewHeightWithRuleHeight:(CGFloat)ruleHeight;
 

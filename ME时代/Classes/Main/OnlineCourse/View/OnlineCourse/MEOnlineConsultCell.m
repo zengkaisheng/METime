@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLbl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftImgVConsWidth;
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
+@property (weak, nonatomic) IBOutlet UIImageView *BGimageView;
 
 @end
 
@@ -37,15 +38,17 @@
 - (void)setUIWithDict:(NSDictionary *)dict {
     _titleLbl.text = [NSString stringWithFormat:@"%@",kMeUnNilStr(dict[@"title"])];
     _priceLbl.hidden = YES;
-    _rightArrow.hidden = NO;
-    if ([kMeUnNilStr(dict[@"title"]) isEqualToString:@"诊断服务"]) {
-        _titleLbl.font = [UIFont systemFontOfSize:15];
-        _leftImgV.image = [UIImage imageNamed:@"icon_diagnoseService"];
+    _rightArrow.hidden = YES;
+    if ([kMeUnNilStr(dict[@"title"]) isEqualToString:@"定制店铺专属方案"]) {
+        _titleLbl.font = [UIFont boldSystemFontOfSize:15];
+        _leftImgV.image = [UIImage imageNamed:@"icon_planDIY"];
         _leftImgVConsWidth.constant = 22.0;
-    }else if ([kMeUnNilStr(dict[@"title"]) isEqualToString:@"报告诊断"]) {
-        _titleLbl.font = [UIFont systemFontOfSize:12];
+        _BGimageView.image = [UIImage imageNamed:@"planDIY_BG"];
+    }else if ([kMeUnNilStr(dict[@"title"]) isEqualToString:@"免费诊断店铺问题"]) {
+        _titleLbl.font = [UIFont boldSystemFontOfSize:15];
         _leftImgV.image = [UIImage imageNamed:@"icon_consult"];
         _leftImgVConsWidth.constant = 26.0;
+        _BGimageView.image = [UIImage imageNamed:@"diagnoseBGImage"];
     }
 }
 

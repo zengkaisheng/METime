@@ -8,6 +8,7 @@
 
 #import "MEMyOrderVC.h"
 #import "MEMyOrderContentVC.h"
+#import "MERefundOrderListVC.h"
 
 @interface MEMyOrderVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>{
     NSArray *_arrType;
@@ -21,6 +22,8 @@
 @property (nonatomic, strong) MEMyOrderContentVC *deliveryVC;
 @property (nonatomic, strong) MEMyOrderContentVC *receivedVC;
 @property (nonatomic, strong) MEMyOrderContentVC *finishVC;
+@property (nonatomic, strong) UIButton *refundBtn;
+
 @end
 
 @implementation MEMyOrderVC
@@ -35,6 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的订单";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.refundBtn];
     _arrType = @[@"全部",@"待付款",@"待发货",@"待收货",@"已完成"] ;
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight)];
     self.scrollView.delegate = self;
@@ -65,9 +69,13 @@
     //self.scrollView.contentOffset = CGPointMake(SCREEN_WIDTH * _currentType, 0);
     // Do any additional setup after loading the view.
 }
+#pragma mark -- Action
+- (void)refundBtnAction {
+    MERefundOrderListVC *refundOrderVC = [[MERefundOrderListVC alloc] init];
+    [self.navigationController pushViewController:refundOrderVC animated:YES];
+}
 
 #pragma mark - Setter And Getter
-
 - (MEMyOrderContentVC *)allVC{
     if(!_allVC){
         _allVC = [[MEMyOrderContentVC alloc]initWithType:0];
@@ -116,6 +124,18 @@
         [self addChildViewController:_finishVC];
     }
     return _finishVC;
+}
+
+- (UIButton *)refundBtn {
+    if (!_refundBtn) {
+        _refundBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_refundBtn setTitle:@"退款/售后" forState:UIControlStateNormal];
+        [_refundBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
+        _refundBtn.frame = CGRectMake(0, 0, 80, 44);
+        [_refundBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_refundBtn addTarget:self action:@selector(refundBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _refundBtn;
 }
 
 @end

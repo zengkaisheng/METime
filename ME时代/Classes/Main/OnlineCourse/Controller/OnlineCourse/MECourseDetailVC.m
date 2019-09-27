@@ -20,6 +20,8 @@
 #import "MECourseDetailModel.h"
 #import "MEOnlineCourseListModel.h"
 #import "MECourseAudioPlayerVC.h"
+#import "MEVIPViewController.h"
+#import "MEMyCourseVIPModel.h"
 
 @interface MECourseDetailVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     NSInteger _detailsId;
@@ -39,8 +41,11 @@
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) MECourseDetailModel *detailModel;
 
+@property (nonatomic, strong) MEMyCourseVIPModel *vipModel;
+
 @property (nonatomic, strong) UIButton *tryBtn;
 @property (nonatomic, strong) UIButton *buyBtn;
+@property (nonatomic, strong) UIButton *vipBtn;
 @property (nonatomic, strong) UIButton *backButton;
 
 @end
@@ -102,12 +107,14 @@
     
     [bottomView addSubview:self.tryBtn];
     [bottomView addSubview:self.buyBtn];
+    [bottomView addSubview:self.vipBtn];
     [self.customNav addSubview:self.titleLbl];
     [self.view addSubview:self.customNav];
     [self.view addSubview:self.siftView];
     [self.view addSubview:self.backButton];
     
     [self reloadData];
+    [self requestMyCourseVIPWithNetWork];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WechatSuccess:) name:WX_PAY_RESULT object:nil];
 }
@@ -151,20 +158,56 @@
         [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.detailModel.audio_detail).length>0?kMeUnNilStr(self.detailModel.audio_detail):@"<p>暂无课程介绍</p>"] baseURL:nil];
     }
     
-    if (self.detailModel.is_charge == 2 || self.detailModel.is_buy == 1) {//免费或已购买
+    if (self.detailModel.is_charge == 2) {
         self.tryBtn.hidden = YES;
+        self.vipBtn.hidden = YES;
         [self.buyBtn setTitle:@"立即学习" forState:UIControlStateNormal];
         self.buyBtn.frame = CGRectMake(30, 4.5, SCREEN_WIDTH-60, 40);
     }else {
-        self.tryBtn.hidden = NO;
-        if (self.type == 0 || self.type == 4 || self.type == 6) {
-            [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.video_price)] forState:UIControlStateNormal];
-            [self.tryBtn setTitle:@" 试看" forState:UIControlStateNormal];
-        }else if (self.type == 1  || self.type == 5 || self.type == 7) {
-            [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.audio_price)] forState:UIControlStateNormal];
-            [self.tryBtn setTitle:@" 试听" forState:UIControlStateNormal];
+        if (self.detailModel.is_in_vip == 1) {//是否包含在VIP套餐里
+            if (self.detailModel.is_buy_vip == 1) {//是否购买vip
+                self.tryBtn.hidden = YES;
+                self.vipBtn.hidden = YES;
+                [self.buyBtn setTitle:@"立即学习" forState:UIControlStateNormal];
+                self.buyBtn.frame = CGRectMake(30, 4.5, SCREEN_WIDTH-60, 40);
+            }else {
+                if (self.detailModel.is_buy == 1) {
+                    self.tryBtn.hidden = YES;
+                    self.vipBtn.hidden = YES;
+                    [self.buyBtn setTitle:@"立即学习" forState:UIControlStateNormal];
+                    self.buyBtn.frame = CGRectMake(30, 4.5, SCREEN_WIDTH-60, 40);
+                }else {
+                    self.tryBtn.hidden = NO;
+                    self.vipBtn.hidden = NO;
+                    if (self.type == 0 || self.type == 4 || self.type == 6) {
+                        [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.video_price)] forState:UIControlStateNormal];
+                        [self.tryBtn setTitle:@" 试看" forState:UIControlStateNormal];
+                    }else if (self.type == 1  || self.type == 5 || self.type == 7) {
+                        [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.audio_price)] forState:UIControlStateNormal];
+                        [self.tryBtn setTitle:@" 试听" forState:UIControlStateNormal];
+                    }
+                    self.buyBtn.frame = CGRectMake(SCREEN_WIDTH-20-66*kMeFrameScaleX()-96*kMeFrameScaleX(), 4.5, 96*kMeFrameScaleX(), 40);
+                }
+            }
+        }else {
+            if (self.detailModel.is_buy == 1) {//免费或已购买
+                self.tryBtn.hidden = YES;
+                self.vipBtn.hidden = YES;
+                [self.buyBtn setTitle:@"立即学习" forState:UIControlStateNormal];
+                self.buyBtn.frame = CGRectMake(30, 4.5, SCREEN_WIDTH-60, 40);
+            }else {
+                self.tryBtn.hidden = NO;
+                self.vipBtn.hidden = YES;
+                if (self.type == 0 || self.type == 4 || self.type == 6) {
+                    [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.video_price)] forState:UIControlStateNormal];
+                    [self.tryBtn setTitle:@" 试看" forState:UIControlStateNormal];
+                }else if (self.type == 1  || self.type == 5 || self.type == 7) {
+                    [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.audio_price)] forState:UIControlStateNormal];
+                    [self.tryBtn setTitle:@" 试听" forState:UIControlStateNormal];
+                }
+                self.buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201*kMeFrameScaleX(), 4.5, 201*kMeFrameScaleX(), 40);
+            }
         }
-        self.buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201*kMeFrameScaleX(), 4.5, 201*kMeFrameScaleX(), 40);
     }
     
     [self.refresh addRefreshView];
@@ -204,6 +247,21 @@
     }];
 }
 
+//获取B端C端VIP
+- (void)requestMyCourseVIPWithNetWork {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetCourseVIPWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            strongSelf.vipModel = [MEMyCourseVIPModel mj_objectWithKeyValues:responseObject.data];
+        }else{
+            strongSelf.vipModel = nil;
+        }
+    } failure:^(id object) {
+//        kMeSTRONGSELF
+    }];
+}
+
 #pragma Action
 - (void)tryBtnDidClick {
     if (self.type == 0 || self.type == 4 || self.type == 6) {
@@ -217,9 +275,16 @@
     }
 }
 
-- (void)buyBtnDidClick {
+- (void)vipBtnDidClick {
+    //购买VIP
+    MEMyCourseVIPSubModel *b_vipModel = self.vipModel.B_vip;
+    MEMyCourseVIPDetailModel *b_vip_detail = b_vipModel.vip.firstObject;
+    MEVIPViewController *vc = [[MEVIPViewController alloc] initWithVIPModel:b_vip_detail];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
-    if (self.detailModel.is_charge == 2 || self.detailModel.is_buy == 1) {
+- (void)buyBtnDidClick {
+    if (self.detailModel.is_charge == 2) {
         if (self.type == 0 || self.type == 4 || self.type == 6) {
             MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
             [self.navigationController pushViewController:vc animated:YES];
@@ -228,34 +293,72 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     }else {
-        NSString *orderType;
-        if (self.type == 0 || self.type == 4 || self.type == 6) {
-            orderType = @"1";
-        }else if (self.type == 1 || self.type == 5 || self.type == 7) {
-            orderType = @"2";
-        }
-        kMeWEAKSELF
-        [MEPublicNetWorkTool postCreateOrderWithCourseId:[NSString stringWithFormat:@"%ld",(long)_detailsId] orderType:orderType successBlock:^(ZLRequestResponse *responseObject) {
-            kMeSTRONGSELF
-            strongSelf->_order_sn = responseObject.data[@"order_sn"];
-            strongSelf->_order_amount = responseObject.data[@"order_amount"];
-            [MEPublicNetWorkTool postPayOnlineOrderWithOrderSn:strongSelf->_order_sn successBlock:^(ZLRequestResponse *responseObject) {
-                kMeSTRONGSELF
-                PAYPRE
-                strongSelf->_isPayError = NO;
-                MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
-                
-                BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:strongSelf->_order_amount];
-                if(!isSucess){
-                    [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
+        if (self.detailModel.is_in_vip == 1) {
+            if (self.detailModel.is_buy_vip == 1) {//是否购买vip
+                if (self.type == 0 || self.type == 4 || self.type == 6) {
+                    MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else if (self.type == 1 || self.type == 5 || self.type == 7) {
+                    MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithModel:self.detailModel audioList:[self.refresh.arrData copy]];
+                    [self.navigationController pushViewController:vc animated:YES];
                 }
-            } failure:^(id object) {
-                
-            }];
+            }else {
+                if (self.detailModel.is_buy == 1) {
+                    if (self.type == 0 || self.type == 4 || self.type == 6) {
+                        MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }else if (self.type == 1 || self.type == 5 || self.type == 7) {
+                        MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithModel:self.detailModel audioList:[self.refresh.arrData copy]];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                }else {//去购买
+                    [self buyThisCourseWithOutVIP];
+                }
+            }
+        }else {
+            if (self.detailModel.is_buy == 1) {
+                if (self.type == 0 || self.type == 4 || self.type == 6) {
+                    MECourseVideoPlayVC *vc = [[MECourseVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else if (self.type == 1 || self.type == 5 || self.type == 7) {
+                    MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithModel:self.detailModel audioList:[self.refresh.arrData copy]];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            }else {//去购买
+                [self buyThisCourseWithOutVIP];
+            }
+        }
+    }
+}
+
+- (void)buyThisCourseWithOutVIP {
+    NSString *orderType;
+    if (self.type == 0 || self.type == 4 || self.type == 6) {
+        orderType = @"1";
+    }else if (self.type == 1 || self.type == 5 || self.type == 7) {
+        orderType = @"2";
+    }
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postCreateOrderWithCourseId:[NSString stringWithFormat:@"%ld",(long)_detailsId] orderType:orderType successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        strongSelf->_order_sn = responseObject.data[@"order_sn"];
+        strongSelf->_order_amount = responseObject.data[@"order_amount"];
+        [MEPublicNetWorkTool postPayOnlineOrderWithOrderSn:strongSelf->_order_sn successBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            PAYPRE
+            strongSelf->_isPayError = NO;
+            MEPayModel *model = [MEPayModel mj_objectWithKeyValues:responseObject.data];
+            
+            BOOL isSucess =  [LVWxPay wxPayWithPayModel:model VC:strongSelf price:strongSelf->_order_amount];
+            if(!isSucess){
+                [MEShowViewTool showMessage:@"支付错误" view:kMeCurrentWindow];
+            }
         } failure:^(id object) {
             
         }];
-    }
+    } failure:^(id object) {
+        
+    }];
 }
 
 - (void)backButtonPressed {
@@ -487,12 +590,26 @@
         [_buyBtn setTitle:@"￥100.00购买" forState:UIControlStateNormal];
         [_buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_buyBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
-        [_buyBtn setBackgroundColor:[UIColor colorWithHexString:@"#FE4B77"]];
-        _buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201*kMeFrameScaleX(), 4.5, 201*kMeFrameScaleX(), 40);
+        [_buyBtn setBackgroundColor:kMEPink];
+        _buyBtn.frame = CGRectMake(SCREEN_WIDTH-20-66*kMeFrameScaleX()-96*kMeFrameScaleX(), 4.5, 96*kMeFrameScaleX(), 40);
         _buyBtn.layer.cornerRadius = 20;
         [_buyBtn addTarget:self action:@selector(buyBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _buyBtn;
+}
+
+- (UIButton *)vipBtn {
+    if (!_vipBtn) {
+        _vipBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_vipBtn setTitle:@"VIP购买" forState:UIControlStateNormal];
+        [_vipBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_vipBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
+        [_vipBtn setBackgroundColor:[UIColor colorWithHexString:@"#FE4B77"]];
+        _vipBtn.frame = CGRectMake(SCREEN_WIDTH-15-66*kMeFrameScaleX(), 4.5, 66*kMeFrameScaleX(), 40);
+        _vipBtn.layer.cornerRadius = 20;
+        [_vipBtn addTarget:self action:@selector(vipBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _vipBtn;
 }
 
 - (UIView *)customNav {

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class MECourseVIPModel;
+@class MEMyCourseVIPDetailModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MEOpenVIPView : UIView
@@ -16,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) kMeBasicBlock finishBlock;
 
 - (void)setUIWithModel:(MECourseVIPModel *)model;
+
+- (void)setUIWithVIPModel:(MEMyCourseVIPDetailModel *)model;
 
 + (CGFloat)getViewHeightWithRuleHeight:(CGFloat)ruleHeight;
 @end

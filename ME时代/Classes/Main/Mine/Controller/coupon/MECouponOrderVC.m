@@ -32,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"优惠券明细";
+    self.title = @"优惠券佣金";
     _type = MECouponOrderSectionViewTBType;
     self.view.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
     self.tableView.tableHeaderView = self.headerView;

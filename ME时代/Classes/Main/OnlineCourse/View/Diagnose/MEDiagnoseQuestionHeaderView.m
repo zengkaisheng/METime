@@ -26,7 +26,7 @@
     _arrowBtn.hidden = isHidden;
     _editBtn.hidden = _lineView.hidden = YES;
     _titleLbl.text = title;
-    _titleLbl.font = [UIFont systemFontOfSize:font];
+    _titleLbl.font = [UIFont boldSystemFontOfSize:font];
     _arrowImageV.hidden = _rightArrowBtn.hidden = YES;
 }
 
@@ -35,7 +35,7 @@
     _editBtn.hidden = _lineView.hidden = YES;
     _arrowBtn.selected = model.isSpread;
     _titleLbl.text = kMeUnNilStr(model.classify_name);
-    _titleLbl.font = [UIFont systemFontOfSize:18.0];
+    _titleLbl.font = [UIFont boldSystemFontOfSize:18.0];
     _arrowImageV.hidden = _rightArrowBtn.hidden = YES;
 }
 
@@ -44,7 +44,7 @@
     _editBtn.hidden = _lineView.hidden = YES;
     _arrowBtn.selected = model.isSpread;
     _titleLbl.text = kMeUnNilStr(model.classify_name);
-    _titleLbl.font = [UIFont systemFontOfSize:18.0];
+    _titleLbl.font = [UIFont boldSystemFontOfSize:18.0];
     _arrowImageV.hidden = _rightArrowBtn.hidden = YES;
 }
 

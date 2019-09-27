@@ -51,12 +51,12 @@
     MEExpertDiagnoseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEExpertDiagnoseListCell class]) forIndexPath:indexPath];
     MEDiagnoseProductModel *model = self.refresh.arrData[indexPath.row];
     [cell setUIWithModel:model];
-    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return kMEExpertDiagnoseListCellHeight;
+    MEDiagnoseProductModel *model = self.refresh.arrData[indexPath.row];
+    return [MEExpertDiagnoseListCell getCellHeightWithContent:kMeUnNilStr(model.desc)];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

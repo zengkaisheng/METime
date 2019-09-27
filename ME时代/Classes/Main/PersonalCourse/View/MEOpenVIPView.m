@@ -9,6 +9,7 @@
 #import "MEOpenVIPView.h"
 #import "MECourseVIPModel.h"
 #import "TDWebViewCell.h"
+#import "MEMyCourseVIPModel.h"
 
 @interface MEOpenVIPView ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -18,12 +19,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLbl;
 @property (weak, nonatomic) IBOutlet UIButton *vipBtn;
 @property (weak, nonatomic) IBOutlet UILabel *amountLbl;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *priceLblConsTop;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) TDWebViewCell *webCell;
 
 @property (nonatomic, strong) MECourseVIPModel *model;
+
+@property (nonatomic, strong) MEMyCourseVIPDetailModel *vipModel;
 
 @end
 
@@ -34,10 +38,10 @@
     kSDLoadImg(_headerPic, kMeUnNilStr(kCurrentUser.header_pic));
     _nameLbl.text = [NSString stringWithFormat:@"用户:%@",kMeUnNilStr(kCurrentUser.name)];
     _phoneLbl.text = [NSString stringWithFormat:@"手机号:%@",kMeUnNilStr(kCurrentUser.mobile)];
-    _priceLblConsTop.constant = 85*kMeFrameScaleY();
+    _priceLbl.hidden = YES;
     
-    CAGradientLayer *layer = [self getLayerWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) colors:@[(__bridge id)[UIColor colorWithRed:195/255.0 green:164/255.0 blue:109/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:180/255.0 green:147/255.0 blue:89/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:164/255.0 green:130/255.0 blue:68/255.0 alpha:1.0].CGColor] locations:@[@(0),@(0.4f),@(1.0f)] frame:_vipBtn.bounds];
-    [_vipBtn.layer insertSublayer:layer atIndex:0];
+//    CAGradientLayer *layer = [self getLayerWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) colors:@[(__bridge id)[UIColor colorWithRed:195/255.0 green:164/255.0 blue:109/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:180/255.0 green:147/255.0 blue:89/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:164/255.0 green:130/255.0 blue:68/255.0 alpha:1.0].CGColor] locations:@[@(0),@(0.4f),@(1.0f)] frame:_vipBtn.bounds];
+//    [_vipBtn.layer insertSublayer:layer atIndex:0];
     
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TDWebViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TDWebViewCell class])];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -68,6 +72,41 @@
     MECourseVIPDetailModel *detailModel = model.vip.firstObject;
     _priceLbl.text = kMeUnNilStr(detailModel.name);
     _amountLbl.text = [NSString stringWithFormat:@"%@元",kMeUnNilStr(detailModel.price)];
+    
+    CGFloat width = [UIScreen mainScreen].bounds.size.width - 146;
+    NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
+    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(model.vip_rule)] baseURL:nil];
+    
+    kMeWEAKSELF
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        kMeSTRONGSELF
+        [strongSelf->_tableView reloadData];
+    });
+}
+
+- (void)setUIWithVIPModel:(MEMyCourseVIPDetailModel *)model {
+    self.vipModel = model;
+    if (model.vip_type == 1) {//C端
+        if (model.is_vip == 1) { //购买的VIP还没到期
+            _bgImageView.image = [UIImage imageNamed:@"c_vip_bgImage"];
+            _nameLbl.textColor = _phoneLbl.textColor = [UIColor colorWithHexString:@"#75623F"];
+        }else {
+            _bgImageView.image = [UIImage imageNamed:@"c_unvip_bgImage"];
+            _nameLbl.textColor = _phoneLbl.textColor = [UIColor whiteColor];
+        }
+        [_vipBtn setBackgroundImage:[UIImage imageNamed:@"c_openVIPBtn"] forState:UIControlStateNormal];
+    }else if (model.vip_type == 2) {//B端
+        if (model.is_vip == 1) { //购买的VIP还没到期
+            _bgImageView.image = [UIImage imageNamed:@"b_vip_bgImage"];
+            _nameLbl.textColor = _phoneLbl.textColor = [UIColor colorWithHexString:@"#692031"];
+        }else {
+            _bgImageView.image = [UIImage imageNamed:@"b_unvip_bgImage"];
+            _nameLbl.textColor = _phoneLbl.textColor = [UIColor whiteColor];
+        }
+        [_vipBtn setBackgroundImage:[UIImage imageNamed:@"b_openVIPBtn"] forState:UIControlStateNormal];
+    }
+    
+    _amountLbl.text = [NSString stringWithFormat:@"%@元",kMeUnNilStr(model.price)];
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 146;
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];

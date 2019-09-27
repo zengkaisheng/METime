@@ -23,6 +23,11 @@
                         <constraints>
                             <constraint firstAttribute="width" secondItem="nfP-G6-39v" secondAttribute="height" multiplier="111:79" id="01a-iv-mYi"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPa-PK-67e">
                         <rect key="frame" x="140" y="10" width="220" height="14.5"/>
@@ -58,13 +63,29 @@
                         <state key="selected" image="icon_delCollection_sel"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bqt-mB-i6r">
-                        <rect key="frame" x="140" y="34.5" width="0.0" height="15"/>
+                        <rect key="frame" x="140" y="31.5" width="0.0" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="xlG-PY-531"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsp-Qd-x0y">
+                        <rect key="frame" x="141" y="59" width="30" height="13"/>
+                        <color key="backgroundColor" red="0.99607843137254903" green="0.29411764705882354" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="13" id="4LG-p2-A7K"/>
+                            <constraint firstAttribute="width" constant="30" id="YjV-Ue-prl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
                 <constraints>
@@ -75,10 +96,12 @@
                     <constraint firstItem="jPa-PK-67e" firstAttribute="top" secondItem="nfP-G6-39v" secondAttribute="top" id="SIz-PO-f4b"/>
                     <constraint firstItem="4mO-x4-kfI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pIc-qn-zaM" secondAttribute="trailing" constant="5" id="UOQ-V0-1zN"/>
                     <constraint firstItem="pIc-qn-zaM" firstAttribute="bottom" secondItem="nfP-G6-39v" secondAttribute="bottom" constant="-1" id="V1G-D9-BlK"/>
+                    <constraint firstItem="pIc-qn-zaM" firstAttribute="top" secondItem="lsp-Qd-x0y" secondAttribute="bottom" constant="4" id="Wtp-vF-tQ3"/>
+                    <constraint firstItem="lsp-Qd-x0y" firstAttribute="leading" secondItem="nfP-G6-39v" secondAttribute="trailing" constant="12" id="b4w-Qo-MkO"/>
                     <constraint firstAttribute="trailing" secondItem="jPa-PK-67e" secondAttribute="trailing" constant="15" id="bY1-84-9YK"/>
                     <constraint firstItem="PRf-ph-vkU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cLa-rs-eYq"/>
                     <constraint firstItem="PRf-ph-vkU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="6" id="cS4-qX-K98"/>
-                    <constraint firstItem="Bqt-mB-i6r" firstAttribute="top" secondItem="jPa-PK-67e" secondAttribute="bottom" constant="10" id="eoa-Ok-FGb"/>
+                    <constraint firstItem="Bqt-mB-i6r" firstAttribute="top" secondItem="jPa-PK-67e" secondAttribute="bottom" constant="7" id="eoa-Ok-FGb"/>
                     <constraint firstItem="nfP-G6-39v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="kaY-1W-b0L"/>
                     <constraint firstAttribute="bottom" secondItem="nfP-G6-39v" secondAttribute="bottom" constant="7.5" id="pcv-JG-7Ba"/>
                     <constraint firstItem="4mO-x4-kfI" firstAttribute="centerY" secondItem="pIc-qn-zaM" secondAttribute="centerY" id="uQE-aC-uZh"/>
@@ -94,6 +117,7 @@
                 <outlet property="learnCountLbl" destination="pIc-qn-zaM" id="a6X-52-bdK"/>
                 <outlet property="priceLbl" destination="4mO-x4-kfI" id="aNb-H6-hGC"/>
                 <outlet property="titleLbl" destination="jPa-PK-67e" id="g5I-V5-7Wu"/>
+                <outlet property="typeLbl" destination="lsp-Qd-x0y" id="4Le-Ca-1cD"/>
             </connections>
             <point key="canvasLocation" x="-882.39999999999998" y="34.632683658170919"/>
         </tableViewCell>

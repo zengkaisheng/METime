@@ -14,12 +14,15 @@
 #import "MEMyVIPPayRecordVC.h"
 
 #import "TDWebViewCell.h"
+#import "MEMyCourseVIPModel.h"
 
 @interface MEMyVIPVC ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UIScrollView *scrollerView;
 @property (nonatomic, strong) MEMyVIPDetailView *vipView;
 @property (nonatomic, strong) MEMyCourseVIPInfoModel *model;
+
+@property (nonatomic, strong) MEMyCourseVIPModel *vipModel;
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) TDWebViewCell *webCell;
@@ -31,34 +34,54 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"VIP详情";
+    self.title = @"课程VIP";
     self.view.backgroundColor = [UIColor colorWithHexString:@"fbfbfb"];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.scrollerView];
     [self.scrollerView addSubview:self.vipView];
     
-    [self requestMyCourseVIPDetailWithNetWork];
+//    [self requestMyCourseVIPDetailWithNetWork];
+    [self requestMyCourseVIPWithNetWork];
 }
 
 - (void)reloadUI {
+    MEMyCourseVIPSubModel *c_vipModel = self.vipModel.C_vip;
+    
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 30;
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
-    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.model.vip_rule)] baseURL:nil];
+    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(c_vipModel.vip_rule)] baseURL:nil];
     
-    CGFloat height = [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
-    self.tableView.hidden = YES;
-    self.vipView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEMyVIPDetailView getViewHeightWithRuleHeight:height]);
-    self.scrollerView.contentSize = CGSizeMake(SCREEN_WIDTH, [MEMyVIPDetailView getViewHeightWithRuleHeight:height]);
-
-    [self.vipView setUIWithModel:self.model];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CGFloat height = [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
+        self.tableView.hidden = YES;
+        self.vipView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEMyVIPDetailView getViewHeightWithRuleHeight:height]);
+        self.scrollerView.contentSize = CGSizeMake(SCREEN_WIDTH, [MEMyVIPDetailView getViewHeightWithRuleHeight:height]);
+        
+        //    [self.vipView setUIWithModel:self.model];
+        [self.vipView setUIWithVIPModel:self.vipModel];
+    });
+    
     kMeWEAKSELF
     self.vipView.indexBlock = ^(NSInteger index) {
         kMeSTRONGSELF
-        if (index == 1) {//开通或续费
-            MEVIPViewController *vc = [[MEVIPViewController alloc] init];
+        if (index == 1) {//C端开通或续费
+            MEMyCourseVIPSubModel *c_vipModel = strongSelf.vipModel.C_vip;
+            MEMyCourseVIPDetailModel *c_vip_detail = c_vipModel.vip.firstObject;
+            MEVIPViewController *vc = [[MEVIPViewController alloc] initWithVIPModel:c_vip_detail];
+            vc.finishBlock = ^{
+                [strongSelf requestMyCourseVIPWithNetWork];
+            };
             [strongSelf.navigationController pushViewController:vc animated:YES];
         }else if (index == 2) {//查看交易记录
             MEMyVIPPayRecordVC *vc = [[MEMyVIPPayRecordVC alloc] init];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        }else if (index == 3) {//B端开通或续费
+            MEMyCourseVIPSubModel *b_vipModel = strongSelf.vipModel.B_vip;
+            MEMyCourseVIPDetailModel *b_vip_detail = b_vipModel.vip.firstObject;
+            MEVIPViewController *vc = [[MEVIPViewController alloc] initWithVIPModel:b_vip_detail];
+            vc.finishBlock = ^{
+                [strongSelf requestMyCourseVIPWithNetWork];
+            };
             [strongSelf.navigationController pushViewController:vc animated:YES];
         }
     };
@@ -90,6 +113,30 @@
             strongSelf.model = [MEMyCourseVIPInfoModel mj_objectWithKeyValues:responseObject.data];
         }else{
             strongSelf.model = nil;
+        }
+        [strongSelf reloadUI];
+    } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+    }];
+}
+//获取B端C端VIP
+- (void)requestMyCourseVIPWithNetWork {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetCourseVIPWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            strongSelf.vipModel = [MEMyCourseVIPModel mj_objectWithKeyValues:responseObject.data];
+            MEMyCourseVIPSubModel *c_vip = strongSelf.vipModel.C_vip;
+            MEMyCourseVIPSubModel *b_vip = strongSelf.vipModel.B_vip;
+            if (c_vip.vip.count <= 0 && b_vip.vip.count <= 0) {
+                [MECommonTool showMessage:@"暂无课程VIP信息" view:kMeCurrentWindow];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [strongSelf.navigationController popViewControllerAnimated:YES];
+                });
+            }
+        }else{
+            strongSelf.vipModel = nil;
         }
         [strongSelf reloadUI];
     } failure:^(id object) {

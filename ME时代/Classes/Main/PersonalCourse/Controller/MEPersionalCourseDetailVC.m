@@ -17,6 +17,7 @@
 #import "MEVIPViewController.h"
 #import "MEPersionalVideoPlayVC.h"
 #import "MECourseAudioPlayerVC.h"
+#import "MEMyCourseVIPModel.h"
 
 @interface MEPersionalCourseDetailVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     NSInteger _courseId;
@@ -31,6 +32,8 @@
 @property (strong, nonatomic) TDWebViewCell *webCell;
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) MEPersionalCourseDetailModel *detailModel;
+
+@property (nonatomic, strong) MEMyCourseVIPModel *vipModel;
 
 @property (nonatomic, strong) UIButton *tryBtn;
 @property (nonatomic, strong) UIButton *buyBtn;
@@ -149,6 +152,25 @@
     }];
 }
 
+//获取B端C端VIP
+- (void)requestMyCourseVIPWithNetWork {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetCourseVIPWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            strongSelf.vipModel = [MEMyCourseVIPModel mj_objectWithKeyValues:responseObject.data];
+            MEMyCourseVIPSubModel *c_vipModel = strongSelf.vipModel.C_vip;
+            MEMyCourseVIPDetailModel *c_vip_detail = c_vipModel.vip.firstObject;
+            MEVIPViewController *vc = [[MEVIPViewController alloc] initWithVIPModel:c_vip_detail];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        }else{
+            strongSelf.vipModel = nil;
+        }
+    } failure:^(id object) {
+        //        kMeSTRONGSELF
+    }];
+}
+
 #pragma Action
 - (void)tryBtnDidClick {
     if (kMeUnNilStr(kCurrentUser.token).length <= 0) {
@@ -198,8 +220,7 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     }else {
-        MEVIPViewController *vc = [[MEVIPViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self requestMyCourseVIPWithNetWork];
     }
 }
 

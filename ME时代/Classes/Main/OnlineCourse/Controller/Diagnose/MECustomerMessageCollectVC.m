@@ -40,7 +40,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"诊断问题";
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#FCFBFB"];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
     [self requestDiagnosisQuestionNetWork];
 }
 
@@ -192,7 +192,7 @@
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
         view.backgroundColor = kMEededed;
         _tableView.tableFooterView = [UIView new];//view;
-        _tableView.backgroundColor = [UIColor colorWithHexString:@"#FCFBFB"];
+        _tableView.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
     }
     return _tableView;
 }

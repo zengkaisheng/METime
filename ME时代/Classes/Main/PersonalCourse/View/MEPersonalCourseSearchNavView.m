@@ -15,6 +15,7 @@
 @property (nonatomic, strong)UIView *viewForSearch;
 @property (nonatomic, strong)UIImageView *imageForSearch;
 @property (nonatomic, strong)UILabel *placeholderLbl;
+@property (nonatomic, strong)UIButton *backBtn;
 
 @end
 
@@ -33,18 +34,38 @@
     self.userInteractionEnabled = YES;
     _top = ((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 52 : 28);
     
+    [self addSubview:self.backBtn];
+    self.backBtn.hidden = YES;
     [self addSubview:self.viewForSearch];
 //    [self.viewForSearch addSubview:self.imageForSearch];
     [self.viewForSearch addSubview:self.placeholderLbl];
+}
+
+- (void)setIsNoHome:(BOOL)isNoHome {
+    _isNoHome = isNoHome;
+    self.backBtn.hidden = !isNoHome;
 }
 
 - (void)searchProduct{
     kMeCallBlock(_searchBlock);
 }
 
+- (void)backBtnAction {
+    kMeCallBlock(_backBlock);
+}
+
+#pragma mark -- setter&&getter
+- (UIButton *)backBtn{
+    if(!_backBtn){
+        _backBtn = [MEView btnWithFrame:CGRectMake(10, _top, 29, 29) Img:[UIImage imageNamed:@"inc-xz"]];
+        [_backBtn addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _backBtn;
+}
+
 - (UIView *)viewForSearch{
     if(!_viewForSearch){
-        _viewForSearch = [[UIView alloc]initWithFrame:CGRectMake(37, _top, self.width-74, 29)];
+        _viewForSearch = [[UIView alloc]initWithFrame:CGRectMake(44, _top, self.width-88, 29)];
         _viewForSearch.backgroundColor = [UIColor colorWithHexString:@"#F6F6F6"];
         _viewForSearch.cornerRadius = 29/2;
         _viewForSearch.clipsToBounds = YES;

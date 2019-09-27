@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLbl;
 @property (weak, nonatomic) IBOutlet UIButton *collectionDelBtn;
 @property (weak, nonatomic) IBOutlet UILabel *descLbl;
+@property (weak, nonatomic) IBOutlet UILabel *typeLbl;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *ImageViewConsLeading;
 
@@ -50,19 +51,22 @@
         _titleLbl.text = kMeUnNilStr(model.video_name);
         _priceLbl.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.video_price)];
         _descLbl.text = kMeUnNilStr(model.video_desc);
+        _typeLbl.text = @"视频";
     }else if (kMeUnNilStr(model.audio_name).length > 0) {
         _titleLbl.text = kMeUnNilStr(model.audio_name);
         _priceLbl.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.audio_price)];
         _descLbl.text = kMeUnNilStr(model.audio_desc);
+        _typeLbl.text = @"音频";
     }
     _priceLbl.hidden = model.is_charge==2?YES:NO;
-    _learnCountLbl.text = [NSString stringWithFormat:@"%ld次学习",model.browse];
+    _learnCountLbl.text = [NSString stringWithFormat:@"%@次学习",@(model.browse)];
 }
 
 - (void)setUIWithCollectionModel:(MEMyCollectionModel *)model {
     kSDLoadImg(_headerPic, kMeUnNilStr(model.c_images_url));
     _titleLbl.text = kMeUnNilStr(model.c_name);
     _descLbl.text = kMeUnNilStr(model.c_desc);
+    _typeLbl.text = kMeUnNilStr(model.c_type_name);
     _priceLbl.text = @"";
     _learnCountLbl.text = @"";
     if (model.isEdit) {

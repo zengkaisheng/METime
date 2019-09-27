@@ -27,10 +27,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"联通订单";
+    self.title = @"联通兑换";
     _arrType = @[@"全部",@"待付款",@"待充值",@"已充值"];
     if (self.isTopUp) {
-        self.title = @"联通充值订单";
+        self.title = @"联通充值兑换";
         _arrType = @[@"全部",@"待充值",@"已充值"];
     }
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight)];

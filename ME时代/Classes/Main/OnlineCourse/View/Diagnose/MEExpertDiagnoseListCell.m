@@ -45,6 +45,12 @@
     _contentLbl.text = [NSString stringWithFormat:@"服务介绍：%@",kMeUnNilStr(model.desc)];
 }
 
++ (CGFloat)getCellHeightWithContent:(NSString *)content {
+    CGFloat height = 127-18;
+    CGFloat contentHeight = [[NSString stringWithFormat:@"服务介绍：%@",content] boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height;
+    return height+(contentHeight>18?contentHeight:18);
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     self.selectionStyle = UITableViewCellSelectionStyleNone;

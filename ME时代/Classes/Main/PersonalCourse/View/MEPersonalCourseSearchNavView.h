@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MEPersonalCourseSearchNavView : UIView
 
 @property (nonatomic ,copy) kMeBasicBlock searchBlock;
+@property (nonatomic ,copy) kMeBasicBlock backBlock;
+@property (nonatomic, assign) BOOL isNoHome;
 
 @end
 

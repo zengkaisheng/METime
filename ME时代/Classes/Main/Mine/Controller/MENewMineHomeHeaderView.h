@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-const static CGFloat kMENewMineHomeHeaderViewHeight = 286;
+const static CGFloat kMENewMineHomeHeaderViewHeight = 295;
 @interface MENewMineHomeHeaderView : UIView
 
 - (void)reloadUIWithUserInfo;

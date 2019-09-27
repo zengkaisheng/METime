@@ -9,8 +9,12 @@
 #import "MEBaseVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@class MEMyCourseVIPDetailModel;
 
 @interface MEVIPViewController : MEBaseVC
+
+- (instancetype)initWithVIPModel:(MEMyCourseVIPDetailModel *)model;
+@property (nonatomic, copy) kMeBasicBlock finishBlock;
 
 @end
 

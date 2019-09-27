@@ -1068,6 +1068,8 @@
 #define MEIPcommonCoursesGetMyCoursesVipLog @"common/courses/myCoursesVipLog"
 //课程点赞
 #define MEIPcommonCoursesAddLike @"common/courses/addLike"
+//获取B端C端VIP
+#define MEIPcommonCoursesGetCoursesVIPNew @"common/courses/getCoursesVip"
 /*********************************************/
 
 #endif /* MEAPIMacros_h */

@@ -11,11 +11,13 @@
 NS_ASSUME_NONNULL_BEGIN
 @class MEDiagnoseProductModel;
 
-#define kMEExpertDiagnoseListCellHeight 172
+#define kMEExpertDiagnoseListCellHeight 112
 
 @interface MEExpertDiagnoseListCell : UITableViewCell
 
 - (void)setUIWithModel:(MEDiagnoseProductModel *)model;
+
++ (CGFloat)getCellHeightWithContent:(NSString *)content;
 
 @end
 

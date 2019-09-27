@@ -40,6 +40,7 @@
 #import "MEGroupProductDetailVC.h"
 #import "MEJoinPrizeVC.h"
 #import "MEHomeOptionsModel.h"
+#import "MEPersonalCourseVC.h"
 
 typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     //    METhridHomeHeaderViewActiveNewType = 0,
@@ -577,6 +578,28 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
             {//联通兑换
                 MELianTongListVC *liantongVC = [[MELianTongListVC alloc] init];
                 [homeVC.navigationController pushViewController:liantongVC animated:YES];
+            }
+                break;
+            case 12:
+            {//课程
+                MEPersonalCourseVC *courseVC = [[MEPersonalCourseVC alloc] init];
+                courseVC.isHideTabBar = YES;
+                [homeVC.navigationController pushViewController:courseVC animated:YES];
+            }
+                break;
+            case 13:
+            {//商品详情  model.product_id
+                __block NSInteger productId = 0;
+                [_optionsArray enumerateObjectsUsingBlock:^(MEHomeOptionsModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (model.type == sender.tag) {
+                        productId = model.ids;
+                        *stop = YES;
+                    }
+                }];
+                if (productId != 0) {
+                    METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:productId];
+                    [homeVC.navigationController pushViewController:dvc animated:YES];
+                }
             }
                 break;
             default:

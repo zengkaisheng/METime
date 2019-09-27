@@ -15,6 +15,8 @@
 #import "MEPersionalCourseDetailVC.h"
 
 #import "TDWebViewCell.h"
+#import "MEMyCourseVIPModel.h"
+#import "MECourseDetailVC.h"
 
 @interface MEVIPViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>{
     NSString *_order_sn;
@@ -29,6 +31,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) TDWebViewCell *webCell;
 
+@property (nonatomic, strong) MEMyCourseVIPDetailModel *vipModel;
+
 @end
 
 @implementation MEVIPViewController
@@ -41,13 +45,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"开通VIP";
+    if (self.vipModel.is_vip == 1) {
+        self.title = @"续费VIP";
+    }
     self.view.backgroundColor = [UIColor colorWithHexString:@"fbfbfb"];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.scrollerView];
     [self.scrollerView addSubview:self.vipView];
     
-    [self requestVIPDetailWithNetWork];
-    
+//    [self requestVIPDetailWithNetWork];
+    [self reloadUI];
     kMeWEAKSELF
     self.vipView.finishBlock = ^{
         kMeSTRONGSELF
@@ -57,10 +64,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WechatSuccess:) name:WX_PAY_RESULT object:nil];
 }
 
+- (instancetype)initWithVIPModel:(MEMyCourseVIPDetailModel *)model {
+    if (self = [super init]) {
+        self.vipModel = model;
+    }
+    return self;
+}
+
 - (void)reloadUI {
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 146;
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
-    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.model.vip_rule)] baseURL:nil];
+    [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.vipModel.vip_rule)] baseURL:nil];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         CGFloat height = [[self.webCell.webView stringByEvaluatingJavaScriptFromString: @"document.body.scrollHeight"] intValue];
@@ -68,7 +82,8 @@
         
         self.vipView.frame = CGRectMake(0, 0, SCREEN_WIDTH, [MEOpenVIPView getViewHeightWithRuleHeight:height]);
         self.scrollerView.contentSize = CGSizeMake(SCREEN_WIDTH, [MEOpenVIPView getViewHeightWithRuleHeight:height]);
-        [self.vipView setUIWithModel:self.model];
+//        [self.vipView setUIWithModel:self.model];
+        [self.vipView setUIWithVIPModel:self.vipModel];
     });
 }
 
@@ -92,8 +107,11 @@
 //支付VIP
 - (void)createVIPOrder {
     kMeWEAKSELF
-    MECourseVIPDetailModel *vipModel = self.model.vip.firstObject;
-    [MEPublicNetWorkTool postCreateVIPOrderWithCourseId:[NSString stringWithFormat:@"%ld",vipModel.idField] orderType:@"4" successBlock:^(ZLRequestResponse *responseObject) {
+    NSString *type = @"4";
+    if (self.vipModel.vip_type == 2) {
+        type = @"5";
+    }
+    [MEPublicNetWorkTool postCreateVIPOrderWithCourseId:[NSString stringWithFormat:@"%ld",self.vipModel.idField] orderType:type successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         strongSelf->_order_sn = responseObject.data[@"order_sn"];
         strongSelf->_order_amount = responseObject.data[@"order_amount"];
@@ -128,12 +146,24 @@
         }
         MEPayStatusVC *svc = [[MEPayStatusVC alloc]initWithSucessConfireBlock:^{
             kMeSTRONGSELF
-            MEPersionalCourseDetailVC *vc = (MEPersionalCourseDetailVC *)[MECommonTool getClassWtihClassName:[MEPersionalCourseDetailVC class] targetVC:strongSelf];
-            [vc reloadUI];
-            if(vc){
-                [strongSelf.navigationController popToViewController:vc animated:YES];
-            }else{
-                [strongSelf.navigationController popToViewController:strongSelf animated:YES];
+            if (strongSelf.vipModel.vip_type == 1) {
+                MEPersionalCourseDetailVC *vc = (MEPersionalCourseDetailVC *)[MECommonTool getClassWtihClassName:[MEPersionalCourseDetailVC class] targetVC:strongSelf];
+                [vc reloadUI];
+                if(vc){
+                    [strongSelf.navigationController popToViewController:vc animated:YES];
+                }else{
+                    kMeCallBlock(strongSelf.finishBlock);
+                    [strongSelf.navigationController popToViewController:strongSelf animated:YES];
+                }
+            }else if (strongSelf.vipModel.vip_type == 2) {
+                MECourseDetailVC *vc = (MECourseDetailVC *)[MECommonTool getClassWtihClassName:[MECourseDetailVC class] targetVC:strongSelf];
+                [vc reloadData];
+                if(vc){
+                    [strongSelf.navigationController popToViewController:vc animated:YES];
+                }else{
+                    kMeCallBlock(strongSelf.finishBlock);
+                    [strongSelf.navigationController popToViewController:strongSelf animated:YES];
+                }
             }
         }];
         [self.navigationController pushViewController:svc animated:YES];

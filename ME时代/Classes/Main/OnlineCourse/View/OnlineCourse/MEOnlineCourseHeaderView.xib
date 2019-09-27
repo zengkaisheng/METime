@@ -34,10 +34,10 @@
                         <constraint firstAttribute="height" constant="42" id="Gv7-wK-dN1"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Wh-fT-CqG">
-                    <rect key="frame" x="34.5" y="227" width="21" height="12"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频课程" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Wh-fT-CqG">
+                    <rect key="frame" x="24.5" y="227" width="41" height="12"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="21" id="iEg-9a-grj"/>
+                        <constraint firstAttribute="width" constant="41" id="iEg-9a-grj"/>
                         <constraint firstAttribute="height" constant="12" id="kHY-lB-NYU"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -51,11 +51,11 @@
                         <constraint firstAttribute="height" constant="42" id="Dta-HG-mGw"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="音频" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opX-ro-WbQ">
-                    <rect key="frame" x="129.5" y="227" width="21" height="12"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="音频课程" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opX-ro-WbQ">
+                    <rect key="frame" x="119.5" y="227" width="41" height="12"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="7Bn-AY-GMD"/>
-                        <constraint firstAttribute="width" constant="21" id="k1l-Kc-FGY"/>
+                        <constraint firstAttribute="width" constant="41" id="k1l-Kc-FGY"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -68,11 +68,11 @@
                         <constraint firstAttribute="width" constant="42" id="kn2-7y-NAt"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNH-0F-pdB">
-                    <rect key="frame" x="224.5" y="227" width="21" height="12"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收费课程" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNH-0F-pdB">
+                    <rect key="frame" x="214.5" y="227" width="41" height="12"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="12" id="MBU-PA-Xmg"/>
-                        <constraint firstAttribute="width" constant="21" id="YLy-ud-ekV"/>
+                        <constraint firstAttribute="width" constant="41" id="YLy-ud-ekV"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -85,10 +85,10 @@
                         <constraint firstAttribute="width" constant="42" id="a1l-Gt-q4d"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiv-kg-cCi">
-                    <rect key="frame" x="319.5" y="227" width="21" height="12"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="免费课程" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiv-kg-cCi">
+                    <rect key="frame" x="309.5" y="227" width="41" height="12"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="21" id="Bon-Xh-sYj"/>
+                        <constraint firstAttribute="width" constant="41" id="Bon-Xh-sYj"/>
                         <constraint firstAttribute="height" constant="12" id="eQd-cE-MR2"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>

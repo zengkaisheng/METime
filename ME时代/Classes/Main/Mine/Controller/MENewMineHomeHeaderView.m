@@ -146,7 +146,7 @@
         MEMineHomeMuneChildrenModel *model = self.orderList[i];
         UIButton *btn = [self createBtnWithTitle:kMeUnNilStr(model.name) image:kMeUnNilStr(model.icon) tag:model.path.integerValue frame:CGRectMake(btnWidth*i, 0, btnWidth, 85)];
         UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(model.icon)]]]];
-        imgV.frame = CGRectMake((btnWidth*i+btnWidth/2-10), 10, 20, 25);
+        imgV.frame = CGRectMake((btnWidth*i+btnWidth/2-10), 15, 25, 25);
         [_bottomView addSubview:imgV];
         [_bottomView addSubview:btn];
     }

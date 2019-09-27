@@ -44,7 +44,7 @@
     kSDLoadImg(_headerPic, kMeUnNilStr(model.cover));
     _titleLbl.text = kMeUnNilStr(model.name);
     _descLbl.text = kMeUnNilStr(model.desc);
-    _countLbl.text = [NSString stringWithFormat:@"已有%@人学习",@(model.browse+model.unreal_browse)];
+    _countLbl.text = [NSString stringWithFormat:@"已有%@人学习",kMeUnNilStr(model.study_num)];
     if (model.is_charge == 1) {
         _vipLbl.text = @"VIP";
     }else {

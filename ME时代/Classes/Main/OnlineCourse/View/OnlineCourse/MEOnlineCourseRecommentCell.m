@@ -110,7 +110,7 @@
         headerView.layer.masksToBounds = YES;
         
         UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 130, 21)];
-        titleLbl.font = [UIFont systemFontOfSize:15];
+        titleLbl.font = [UIFont boldSystemFontOfSize:15];
         titleLbl.text = @"在线课程";
         [headerView addSubview:titleLbl];
         return headerView;

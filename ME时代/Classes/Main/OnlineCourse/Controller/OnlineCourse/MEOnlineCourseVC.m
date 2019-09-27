@@ -242,7 +242,7 @@
             }
         }
         if (hasSection) {
-            return 93;
+            return kMEOnlineConsultCellHeight;
         }
         return 0;
     }else if (indexPath.section == 2) {
@@ -331,7 +331,7 @@
     headerView.backgroundColor = [UIColor whiteColor];
     
     UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 130, 21)];
-    titleLbl.font = [UIFont systemFontOfSize:15];
+    titleLbl.font = [UIFont boldSystemFontOfSize:15];
     switch (section) {
         case 0:
             titleLbl.text = @"在线诊断";

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEPersonalCourseVC : MEBaseVC
 
+@property (nonatomic, assign) BOOL isHideTabBar;
+
 @end
 
 NS_ASSUME_NONNULL_END

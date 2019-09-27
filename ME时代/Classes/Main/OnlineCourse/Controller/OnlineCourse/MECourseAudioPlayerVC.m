@@ -21,6 +21,7 @@
 #import "MEPersionalCourseDetailModel.h"
 #import "MEVIPViewController.h"
 #import "MEPersonalCourseListModel.h"
+#import "MEMyCourseVIPModel.h"
 
 @interface MECourseAudioPlayerVC (){
     NSString *_order_sn;
@@ -52,6 +53,8 @@
 
 @property (nonatomic, strong) MEPersionalCourseDetailModel *detailModel;
 @property (nonatomic, assign) BOOL isC;
+
+@property (nonatomic, strong) MEMyCourseVIPModel *vipModel;
 @end
 
 @implementation MECourseAudioPlayerVC
@@ -166,8 +169,7 @@
                         if (strongSelf.isC) {
                             [MECustomBuyCourseView showCustomBuyVIPViewWithTitle:@"试听结束" confirmBtn:@"购买VIP" buyBlock:^{
                                 kMeSTRONGSELF
-                                MEVIPViewController *vc = [[MEVIPViewController alloc] init];
-                                [strongSelf.navigationController pushViewController:vc animated:YES];
+                                [strongSelf requestMyCourseVIPWithNetWork];
                             } cancelBlock:^{
                                 
                             } superView:kMeCurrentWindow];
@@ -421,7 +423,25 @@
             break;
     }
 }
-
+#pragma mark -- networking
+//获取B端C端VIP
+- (void)requestMyCourseVIPWithNetWork {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetCourseVIPWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            strongSelf.vipModel = [MEMyCourseVIPModel mj_objectWithKeyValues:responseObject.data];
+            MEMyCourseVIPSubModel *c_vipModel = strongSelf.vipModel.C_vip;
+            MEMyCourseVIPDetailModel *c_vip_detail = c_vipModel.vip.firstObject;
+            MEVIPViewController *vc = [[MEVIPViewController alloc] initWithVIPModel:c_vip_detail];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        }else{
+            strongSelf.vipModel = nil;
+        }
+    } failure:^(id object) {
+        //        kMeSTRONGSELF
+    }];
+}
 //收藏与取消收藏
 - (void)collectionAudioWithNetWorking {
     kMeWEAKSELF

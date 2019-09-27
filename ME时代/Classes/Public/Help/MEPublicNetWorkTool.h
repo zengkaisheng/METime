@@ -827,6 +827,8 @@
 + (void)postGetMyCourseVIPDetailWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //课程点赞
 + (void)postSetLikeCourseWithCourseId:(NSInteger)courseId SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取B端C端VIP
++ (void)postGetCourseVIPWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

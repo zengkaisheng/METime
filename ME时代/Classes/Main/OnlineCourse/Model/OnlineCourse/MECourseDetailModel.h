@@ -20,8 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger day_recommend;
 @property (nonatomic, assign) NSInteger idField;
 @property (nonatomic, strong) NSString * images_url;
-@property (nonatomic, assign) NSInteger is_buy;
+@property (nonatomic, assign) NSInteger is_buy;    //是否购买 1.是 2.否
+@property (nonatomic, assign) NSInteger is_buy_vip;//是否购买VIP还没过期 1.是 2.否
 @property (nonatomic, assign) NSInteger is_charge; //是否收费 1.是 2.否
+@property (nonatomic, assign) NSInteger is_in_vip; //是否包含VIP套餐 1.是 0.否
 @property (nonatomic, assign) NSInteger is_del;
 @property (nonatomic, assign) NSInteger is_hot;
 @property (nonatomic, assign) NSInteger is_show;
@@ -51,6 +53,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * audio_type_name;
 @property (nonatomic, strong) NSString * audio_url;
 @property (nonatomic, strong) NSString * audio_urls;
+
+@property (nonatomic, strong) NSString * after_sales_ratio;
+@property (nonatomic, strong) NSString * marketing_ratio;
+@property (nonatomic, assign) NSInteger sort;
+@property (nonatomic, strong) NSString * store_ratio;
 
 @end
 

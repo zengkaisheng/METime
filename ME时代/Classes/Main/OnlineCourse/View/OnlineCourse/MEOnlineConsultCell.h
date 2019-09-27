@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @class MEDiagnoseProductModel;
 
-#define kMEOnlineConsultCellHeight 73
+#define kMEOnlineConsultCellHeight 93
 
 @interface MEOnlineConsultCell : UITableViewCell
 

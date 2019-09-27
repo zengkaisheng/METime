@@ -128,14 +128,14 @@
         
         self.tableView.tableHeaderView = self.headerView;
         self.tableView.tableFooterView = [UIView new];
-        self.tableView.frame = CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kMeTabBarHeight);
+        self.tableView.frame = CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-(self.isHideTabBar?0:kMeTabBarHeight));
         self.navView.hidden = NO;
     }else {
         self.tableView.tableHeaderView = [UIView new];
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.waitImgView.frame.size.height)];
         [footerView addSubview:self.waitImgView];
         self.tableView.tableFooterView = footerView;
-        self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH,  SCREEN_HEIGHT-kMeTabBarHeight);
+        self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH,  SCREEN_HEIGHT-(self.isHideTabBar?0:kMeTabBarHeight));
         self.navView.hidden = YES;
     }
 }
@@ -299,7 +299,12 @@
 - (MEPersonalCourseSearchNavView *)navView{
     if(!_navView){
         _navView = [[MEPersonalCourseSearchNavView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kMeNavBarHeight)];
+        _navView.isNoHome = self.isHideTabBar;
         kMeWEAKSELF
+        _navView.backBlock = ^{
+           kMeSTRONGSELF
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        };
         _navView.searchBlock = ^{
             kMeSTRONGSELF
             MESearchCourseVC *searchVC = [[MESearchCourseVC alloc] init];
@@ -311,7 +316,7 @@
 
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kMeTabBarHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-(self.isHideTabBar?0:kMeTabBarHeight)) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPersonalCourseFreeCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEPersonalCourseFreeCell class])];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPersonalCourseListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEPersonalCourseListCell class])];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPersonalCourseHeader class]) bundle:nil] forHeaderFooterViewReuseIdentifier:NSStringFromClass([MEPersonalCourseHeader class])];
