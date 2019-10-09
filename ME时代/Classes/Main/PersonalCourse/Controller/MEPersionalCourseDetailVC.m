@@ -123,7 +123,7 @@
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
     
     [self.webCell.webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(self.detailModel.detail).length>0?kMeUnNilStr(self.detailModel.detail):@"<p>暂无课程介绍</p>"] baseURL:nil];
-    
+    /*
     if (self.detailModel.is_charge == 2 || self.detailModel.is_buy == 1) {//免费或已购买
         self.tryBtn.hidden = YES;
         [self.buyBtn setTitle:@"立即播放" forState:UIControlStateNormal];
@@ -133,6 +133,42 @@
         [self.buyBtn setTitle:@"VIP免费" forState:UIControlStateNormal];
         [self.tryBtn setTitle:@" 试看" forState:UIControlStateNormal];
         self.buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201*kMeFrameScaleX(), 4.5, 201*kMeFrameScaleX(), 40);
+    }
+    */
+    if (self.detailModel.is_charge == 2) {
+        self.tryBtn.hidden = YES;
+        [self.buyBtn setTitle:@"立即播放" forState:UIControlStateNormal];
+        self.buyBtn.frame = CGRectMake(30, 4.5, SCREEN_WIDTH-60, 40);
+    }else {
+        if (self.detailModel.is_in_vip == 1) {
+            if (self.detailModel.is_buy_vip == 1) {//是否购买vip
+                self.tryBtn.hidden = YES;
+                [self.buyBtn setTitle:@"立即播放" forState:UIControlStateNormal];
+                self.buyBtn.frame = CGRectMake(30, 4.5, SCREEN_WIDTH-60, 40);
+            }else {
+                if (self.detailModel.is_buy == 1) {
+                    self.tryBtn.hidden = YES;
+                    [self.buyBtn setTitle:@"立即播放" forState:UIControlStateNormal];
+                    self.buyBtn.frame = CGRectMake(30, 4.5, SCREEN_WIDTH-60, 40);
+                }else {//去购买
+                    self.tryBtn.hidden = NO;
+                    [self.buyBtn setTitle:@"VIP免费" forState:UIControlStateNormal];
+                    [self.tryBtn setTitle:@" 试看" forState:UIControlStateNormal];
+                    self.buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201*kMeFrameScaleX(), 4.5, 201*kMeFrameScaleX(), 40);
+                }
+            }
+        }else {
+            if (self.detailModel.is_buy == 1) {
+                self.tryBtn.hidden = YES;
+                [self.buyBtn setTitle:@"立即播放" forState:UIControlStateNormal];
+                self.buyBtn.frame = CGRectMake(30, 4.5, SCREEN_WIDTH-60, 40);
+            }else {//去购买
+                self.tryBtn.hidden = NO;
+                [self.buyBtn setTitle:@"VIP免费" forState:UIControlStateNormal];
+                [self.tryBtn setTitle:@" 试看" forState:UIControlStateNormal];
+                self.buyBtn.frame = CGRectMake(SCREEN_WIDTH-31-201*kMeFrameScaleX(), 4.5, 201*kMeFrameScaleX(), 40);
+            }
+        }
     }
     
     [self.refresh addRefreshView];

@@ -70,9 +70,9 @@
     kMeWEAKSELF
     self.vipView.finishBlock = ^{
         kMeSTRONGSELF
-        strongSelf.hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
         NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
         if ([status isEqualToString:@"customer"]) {//C端
+            strongSelf.hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
             //bundleid+xxx 就是你添加内购条目设置的产品ID
             if([SKPaymentQueue canMakePayments]){
                 //是否允许内购
