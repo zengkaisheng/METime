@@ -110,6 +110,10 @@
     [self.refresh.arrData addObjectsFromArray:[MECourseListModel mj_objectArrayWithKeyValuesArray:data]];
 }
 
+- (void)reloadDatas {
+    [self requestCourseDetailWithNetWork];
+}
+
 - (void)reloadUI {
     [self.headerView setUIWithCourseModel:self.detailModel index:self.index];
     

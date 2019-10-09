@@ -16,12 +16,17 @@
 
 @interface MEMoneyDetailedModel : MEBaseModel
 
+@property (nonatomic, assign) NSInteger member_id;
+@property (nonatomic, strong) NSString * product_name;
+@property (nonatomic, strong) NSString * product_image;
 @property (nonatomic, strong) NSString * created_at;
+@property (nonatomic, strong) NSString * all_amount;
+@property (nonatomic, strong) NSString * money;
+@property (nonatomic, strong) MEMoneyDetailedMemberModel * member;
+
+
 @property (nonatomic, strong) NSString * formula;
 @property (nonatomic, assign) NSInteger is_ratio;
-@property (nonatomic, strong) MEMoneyDetailedMemberModel * member;
-@property (nonatomic, assign) NSInteger member_id;
-@property (nonatomic, strong) NSString * money;
 @property (nonatomic, strong) NSString * order_goods_sn;
 @property (nonatomic, strong) NSString * order_sn;
 @property (nonatomic, assign) NSInteger product_ratio_id;

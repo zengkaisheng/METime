@@ -22,7 +22,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    _sdViewConsHeight.constant = 166*kMeFrameScaleY();
+    _sdViewConsHeight.constant = 166*kMeFrameScaleX();
 }
 
 - (void)setUIWithBannerImages:(NSArray *)images titleArray:(NSArray *)titles {

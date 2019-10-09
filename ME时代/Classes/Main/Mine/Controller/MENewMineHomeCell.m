@@ -74,6 +74,8 @@
 #import "MEMyVIPVC.h"
 #import "MEProductShoppingCartVC.h"
 
+#import "MECommissionBaseVC.h"
+
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
     MEClientTypeStyle _type;
@@ -485,7 +487,8 @@
             break;
         case MeMenuHomeorderall:{
             //C以上
-            MEMoneyDetailedVC *vc = [[MEMoneyDetailedVC alloc]init];
+//            MEMoneyDetailedVC *vc = [[MEMoneyDetailedVC alloc]init];
+            MECommissionBaseVC *vc = [[MECommissionBaseVC alloc]init];
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;

@@ -21,6 +21,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *amountLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *weChatImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *weChatImageVConsTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *weChatImageVConsHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *weChatLabelConsTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *weChatLabelConsHeight;
+@property (weak, nonatomic) IBOutlet UILabel *weChatLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *weChatSelectedImageView;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) TDWebViewCell *webCell;
@@ -40,8 +47,13 @@
     _phoneLbl.text = [NSString stringWithFormat:@"手机号:%@",kMeUnNilStr(kCurrentUser.mobile)];
     _priceLbl.hidden = YES;
     
-//    CAGradientLayer *layer = [self getLayerWithStartPoint:CGPointMake(0, 0) endPoint:CGPointMake(1, 1) colors:@[(__bridge id)[UIColor colorWithRed:195/255.0 green:164/255.0 blue:109/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:180/255.0 green:147/255.0 blue:89/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:164/255.0 green:130/255.0 blue:68/255.0 alpha:1.0].CGColor] locations:@[@(0),@(0.4f),@(1.0f)] frame:_vipBtn.bounds];
-//    [_vipBtn.layer insertSublayer:layer atIndex:0];
+    _weChatImageVConsTop.constant = 0.0;
+    _weChatImageVConsHeight.constant = 0.0;
+    _weChatLabelConsTop.constant = 0.0;
+    _weChatLabelConsHeight.constant = 0.0;
+    _weChatImageView.hidden = YES;
+    _weChatLabel.hidden = YES;
+    _weChatSelectedImageView.hidden = YES;
     
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([TDWebViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([TDWebViewCell class])];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -86,7 +98,15 @@
 
 - (void)setUIWithVIPModel:(MEMyCourseVIPDetailModel *)model {
     self.vipModel = model;
-    if (model.vip_type == 1) {//C端
+    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+    if ([status isEqualToString:@"customer"]) {//C端
+        _weChatImageVConsTop.constant = 0.0;
+        _weChatImageVConsHeight.constant = 0.0;
+        _weChatLabelConsTop.constant = 0.0;
+        _weChatLabelConsHeight.constant = 0.0;
+        _weChatImageView.hidden = YES;
+        _weChatLabel.hidden = YES;
+        _weChatSelectedImageView.hidden = YES;
         if (model.is_vip == 1) { //购买的VIP还没到期
             _bgImageView.image = [UIImage imageNamed:@"c_vip_bgImage"];
             _nameLbl.textColor = _phoneLbl.textColor = [UIColor colorWithHexString:@"#75623F"];
@@ -95,7 +115,22 @@
             _nameLbl.textColor = _phoneLbl.textColor = [UIColor whiteColor];
         }
         [_vipBtn setBackgroundImage:[UIImage imageNamed:@"c_openVIPBtn"] forState:UIControlStateNormal];
-    }else if (model.vip_type == 2) {//B端
+//        _amountLbl.text = @"388.00元";
+        _amountLbl.text = [NSString stringWithFormat:@"%@元",kMeUnNilStr(model.price)];
+    }else if ([status isEqualToString:@"business"]) {
+        _weChatImageVConsTop.constant = 29.0;
+        _weChatImageVConsHeight.constant = 25.0;
+        _weChatLabelConsTop.constant = 31.0;
+        _weChatLabelConsHeight.constant = 20.0;
+        _weChatImageView.hidden = NO;
+        _weChatLabel.hidden = NO;
+        _weChatSelectedImageView.hidden = NO;
+        
+//        if (self.vipModel.vip_type == 1) {//C端
+//            _amountLbl.text = @"388.00元";
+//        }else if (self.vipModel.vip_type == 2) {//B端
+//            _amountLbl.text = [NSString stringWithFormat:@"%@元",kMeUnNilStr(model.price)];
+//        }
         if (model.is_vip == 1) { //购买的VIP还没到期
             _bgImageView.image = [UIImage imageNamed:@"b_vip_bgImage"];
             _nameLbl.textColor = _phoneLbl.textColor = [UIColor colorWithHexString:@"#692031"];
@@ -104,9 +139,46 @@
             _nameLbl.textColor = _phoneLbl.textColor = [UIColor whiteColor];
         }
         [_vipBtn setBackgroundImage:[UIImage imageNamed:@"b_openVIPBtn"] forState:UIControlStateNormal];
+        _amountLbl.text = [NSString stringWithFormat:@"%@元",kMeUnNilStr(model.price)];
     }
     
-    _amountLbl.text = [NSString stringWithFormat:@"%@元",kMeUnNilStr(model.price)];
+//    if (model.vip_type == 1) {//C端
+//        _weChatImageVConsTop.constant = 0.0;
+//        _weChatImageVConsHeight.constant = 0.0;
+//        _weChatLabelConsTop.constant = 0.0;
+//        _weChatLabelConsHeight.constant = 0.0;
+//        _weChatImageView.hidden = YES;
+//        _weChatLabel.hidden = YES;
+//        _weChatSelectedImageView.hidden = YES;
+//        if (model.is_vip == 1) { //购买的VIP还没到期
+//            _bgImageView.image = [UIImage imageNamed:@"c_vip_bgImage"];
+//            _nameLbl.textColor = _phoneLbl.textColor = [UIColor colorWithHexString:@"#75623F"];
+//        }else {
+//            _bgImageView.image = [UIImage imageNamed:@"c_unvip_bgImage"];
+//            _nameLbl.textColor = _phoneLbl.textColor = [UIColor whiteColor];
+//        }
+//        [_vipBtn setBackgroundImage:[UIImage imageNamed:@"c_openVIPBtn"] forState:UIControlStateNormal];
+//        _amountLbl.text = @"366.00元";
+//    }else if (model.vip_type == 2) {//B端
+//        _weChatImageVConsTop.constant = 29.0;
+//        _weChatImageVConsHeight.constant = 25.0;
+//        _weChatLabelConsTop.constant = 31.0;
+//        _weChatLabelConsHeight.constant = 20.0;
+//        _weChatImageView.hidden = NO;
+//        _weChatLabel.hidden = NO;
+//        _weChatSelectedImageView.hidden = NO;
+//        if (model.is_vip == 1) { //购买的VIP还没到期
+//            _bgImageView.image = [UIImage imageNamed:@"b_vip_bgImage"];
+//            _nameLbl.textColor = _phoneLbl.textColor = [UIColor colorWithHexString:@"#692031"];
+//        }else {
+//            _bgImageView.image = [UIImage imageNamed:@"b_unvip_bgImage"];
+//            _nameLbl.textColor = _phoneLbl.textColor = [UIColor whiteColor];
+//        }
+//        [_vipBtn setBackgroundImage:[UIImage imageNamed:@"b_openVIPBtn"] forState:UIControlStateNormal];
+//        _amountLbl.text = [NSString stringWithFormat:@"%@元",kMeUnNilStr(model.price)];
+//    }
+    
+//    _amountLbl.text = [NSString stringWithFormat:@"%@元",kMeUnNilStr(model.price)];
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width - 146;
     NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
@@ -147,7 +219,13 @@
 }
 
 + (CGFloat)getViewHeightWithRuleHeight:(CGFloat)ruleHeight {
-    CGFloat height = 660 - 121;
+    CGFloat height = 660 - 121 - 25 - 29;
+    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+    if ([status isEqualToString:@"customer"]) {//C端
+        height = 660 - 121 - 25 - 29;
+    }else if ([status isEqualToString:@"business"]) {
+        height = 660 - 121;
+    }
     
     height += ruleHeight>121?ruleHeight:121;
     return height;

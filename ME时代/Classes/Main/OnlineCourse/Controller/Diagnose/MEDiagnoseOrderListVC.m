@@ -94,7 +94,7 @@
         _refresh.showMaskView = YES;
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
             failView.backgroundColor = [UIColor whiteColor];
-            failView.lblOfNodata.text = @"暂无相关订单";
+            failView.lblOfNodata.text = @"暂无相关方案";
         }];
     }
     return _refresh;

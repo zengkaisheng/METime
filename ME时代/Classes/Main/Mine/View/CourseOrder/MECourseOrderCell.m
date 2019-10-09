@@ -45,7 +45,7 @@
     kSDLoadImg(_headerPic, kMeUnNilStr(goodModel.product_images_url));
     _numberLbl.text = [NSString stringWithFormat:@"订单编号：%@",kMeUnNilStr(model.order_sn)];
     _titleLbl.text = kMeUnNilStr(goodModel.product_name);
-    _priceLbl.text = [NSString stringWithFormat:@"￥%@",kMeUnNilStr(goodModel.product_amount)];
+    _priceLbl.text = [NSString stringWithFormat:@"￥%@",kMeUnNilStr(goodModel.product_amount).length>0?kMeUnNilStr(goodModel.product_amount):@"0.00"];
     _timeLbl.text = [NSString stringWithFormat:@"购买时间：%@",kMeUnNilStr(model.created_at)];
 }
 

@@ -599,6 +599,10 @@
 #define MEIPcommonposterspostersVisitList @"common/posters/postersVisitList"
 //获客图文-文章
 #define MEIPcommonpostersarticleVisitList @"common/article/articleVisitList"
+
+
+//获取用户佣金订单
+#define MEIPcommonUserGetRatioOrder @"common/user/getRatioOrder"
 /*********************************************/
 
 
@@ -1070,6 +1074,9 @@
 #define MEIPcommonCoursesAddLike @"common/courses/addLike"
 //获取B端C端VIP
 #define MEIPcommonCoursesGetCoursesVIPNew @"common/courses/getCoursesVip"
+
+//苹果支付订单
+#define MEIPcommonOnlineApplePayNotify @"common/online/applePayNotify"
 /*********************************************/
 
 #endif /* MEAPIMacros_h */

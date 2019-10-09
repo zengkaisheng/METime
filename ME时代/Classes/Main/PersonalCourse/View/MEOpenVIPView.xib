@@ -143,10 +143,10 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIP权益" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3n-qb-jh8">
-                            <rect key="frame" x="58" y="494" width="45" height="17"/>
+                            <rect key="frame" x="58" y="494" width="55" height="17"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="17" id="Gxv-wi-KsP"/>
-                                <constraint firstAttribute="width" constant="45" id="rD5-vo-ier"/>
+                                <constraint firstAttribute="width" constant="55" id="rD5-vo-ier"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <nil key="textColor"/>
@@ -225,6 +225,13 @@
                 <outlet property="priceLbl" destination="Eo5-Zp-iOZ" id="3vN-Ep-lbX"/>
                 <outlet property="tableView" destination="xMn-gk-HtA" id="jyg-iO-zzs"/>
                 <outlet property="vipBtn" destination="SfI-np-U2l" id="G79-91-2ET"/>
+                <outlet property="weChatImageVConsHeight" destination="tCL-nz-uFv" id="8we-1W-ZCm"/>
+                <outlet property="weChatImageVConsTop" destination="NCa-Ix-RTa" id="kAb-EB-fVZ"/>
+                <outlet property="weChatImageView" destination="xVk-q7-33a" id="UpL-Xw-0rc"/>
+                <outlet property="weChatLabel" destination="Eyr-tl-YA4" id="zL8-7R-Pj3"/>
+                <outlet property="weChatLabelConsHeight" destination="GFL-q8-Is5" id="hQu-7e-sEY"/>
+                <outlet property="weChatLabelConsTop" destination="sm9-VJ-Nuj" id="H42-3o-giy"/>
+                <outlet property="weChatSelectedImageView" destination="fEc-G2-db8" id="ONc-d5-ZoZ"/>
             </connections>
             <point key="canvasLocation" x="132" y="154.27286356821591"/>
         </view>

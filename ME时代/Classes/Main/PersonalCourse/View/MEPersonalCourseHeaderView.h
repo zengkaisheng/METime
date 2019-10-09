@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define MEPersonalCourseHeaderViewHeight 166*kMeFrameScaleY()+47
+#define MEPersonalCourseHeaderViewHeight 166*kMeFrameScaleX()+47
 
 @interface MEPersonalCourseHeaderView : UIView
 

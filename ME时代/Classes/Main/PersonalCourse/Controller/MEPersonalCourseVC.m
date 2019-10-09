@@ -51,7 +51,7 @@
     [self.view addSubview:self.navView];
     _filterArr = [NSArray array];
     _selectedIndex = 0;
-    self.scrollHeight = (166*kMeFrameScaleY()+36+260);
+    self.scrollHeight = (166*kMeFrameScaleX()+36+260);
     self.originalHeight = 0;
     
     self.tableView.tableHeaderView = self.headerView;
@@ -76,9 +76,9 @@
         hasFree = YES;
     }
     if (index == 0) {
-        height = 166*kMeFrameScaleY();
+        height = 166*kMeFrameScaleX();
     }else {
-        height = 166*kMeFrameScaleY()+36+260;
+        height = 166*kMeFrameScaleX()+36+260;
         for (int i = 1; i < index; i++) {
             MEPersonalCourseListModel *model = self.refresh.arrData[i];
             height += (36+130*model.courses.count);
@@ -119,7 +119,7 @@
             self.refresh.arrData = [MEPersonalCourseListModel mj_objectArrayWithKeyValuesArray:kMeUnArr(dict[@"courseList"])];
         }
         _selectedIndex = 0;
-        self.scrollHeight = (166*kMeFrameScaleY()+36+260);
+        self.scrollHeight = (166*kMeFrameScaleX()+36+260);
         self.originalHeight = 0;
         [self.headerView setUIWithBannerImages:self.banners titleArray:self.filterArr];
         self.categoryView.titles = self.filterArr;
@@ -212,7 +212,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([scrollView isEqual:self.tableView]) {
         if (self.filterArr.count > 0) {
-            if (scrollView.contentOffset.y >= 166*kMeFrameScaleY()) {
+            if (scrollView.contentOffset.y >= 166*kMeFrameScaleX()) {
                 self.categoryView.hidden = NO;
                 if (!self.isSelectedTop) {
                     
@@ -232,7 +232,7 @@
                         }else {
                             if (scrollView.contentOffset.y < self.originalHeight) {
                                 _selectedIndex = 0;
-                                self.scrollHeight = (166*kMeFrameScaleY()+36+260);
+                                self.scrollHeight = (166*kMeFrameScaleX()+36+260);
                                 self.originalHeight = 0;
                             }
                         }

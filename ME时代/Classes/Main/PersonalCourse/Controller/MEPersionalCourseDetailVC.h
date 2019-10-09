@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithCourseId:(NSInteger)courseId;
 
-- (void)reloadUI;
+- (void)reloadDatas;
 
 @end
 
