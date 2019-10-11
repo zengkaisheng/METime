@@ -94,7 +94,7 @@
         _refresh.delegate = self;
         [_refresh setBlockEditFailVIew:^(ZLFailLoadView *failView) {
             failView.backgroundColor = [UIColor whiteColor];
-            failView.lblOfNodata.text = @"没有订单";
+            failView.lblOfNodata.text = @"没有提现明细";
         }];
     }
     return _refresh;

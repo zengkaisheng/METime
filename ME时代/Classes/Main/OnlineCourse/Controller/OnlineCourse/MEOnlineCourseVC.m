@@ -58,7 +58,6 @@
     // Do any additional setup after loading the view.
 //    self.title = @"在线课程";
     self.tableView.tableHeaderView = self.headerNewView;
-//    [self.headerView setUIWithArray:@[] type:0];
     [self.headerNewView setUIWithArray:@[]];
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];

@@ -1103,6 +1103,7 @@
 		EB623E7E21549C6B007C949B /* MEMyChildOrderContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB623E7C21549C6B007C949B /* MEMyChildOrderContentCell.xib */; };
 		EB623E822154CE39007C949B /* MEDistributionCentreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB623E812154CE39007C949B /* MEDistributionCentreModel.m */; };
 		EB623E852154D3A4007C949B /* MEDistrbutionOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB623E842154D3A4007C949B /* MEDistrbutionOrderModel.m */; };
+		EB63F4342350307C00EA5A87 /* MENewOnlineCourseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB63F4332350307C00EA5A87 /* MENewOnlineCourseVC.m */; };
 		EB64702E22CD956100AE2D1E /* MEShowGroupUserListView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB64702D22CD956100AE2D1E /* MEShowGroupUserListView.m */; };
 		EB6D029C2151D9380053B19E /* NSArray+MEErrorHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D029B2151D9380053B19E /* NSArray+MEErrorHandle.m */; };
 		EB6D029F2151D99A0053B19E /* NSMutableArray+MEErrorHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D029E2151D99A0053B19E /* NSMutableArray+MEErrorHandle.m */; };
@@ -3347,6 +3348,8 @@
 		EB623E812154CE39007C949B /* MEDistributionCentreModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEDistributionCentreModel.m; sourceTree = "<group>"; };
 		EB623E832154D3A4007C949B /* MEDistrbutionOrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEDistrbutionOrderModel.h; sourceTree = "<group>"; };
 		EB623E842154D3A4007C949B /* MEDistrbutionOrderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEDistrbutionOrderModel.m; sourceTree = "<group>"; };
+		EB63F4322350307C00EA5A87 /* MENewOnlineCourseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MENewOnlineCourseVC.h; sourceTree = "<group>"; };
+		EB63F4332350307C00EA5A87 /* MENewOnlineCourseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MENewOnlineCourseVC.m; sourceTree = "<group>"; };
 		EB64702C22CD956100AE2D1E /* MEShowGroupUserListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEShowGroupUserListView.h; sourceTree = "<group>"; };
 		EB64702D22CD956100AE2D1E /* MEShowGroupUserListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEShowGroupUserListView.m; sourceTree = "<group>"; };
 		EB6D029A2151D9380053B19E /* NSArray+MEErrorHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+MEErrorHandle.h"; sourceTree = "<group>"; };
@@ -7468,6 +7471,8 @@
 			children = (
 				EB5B08E522F2813100FCA7F9 /* MEOnlineCourseVC.h */,
 				EB5B08E622F2813100FCA7F9 /* MEOnlineCourseVC.m */,
+				EB63F4322350307C00EA5A87 /* MENewOnlineCourseVC.h */,
+				EB63F4332350307C00EA5A87 /* MENewOnlineCourseVC.m */,
 				EB5B08FF22F2D3A800FCA7F9 /* MEAudioCourseVC.h */,
 				EB5B090022F2D3A800FCA7F9 /* MEAudioCourseVC.m */,
 				EB5B090222F2D3CD00FCA7F9 /* MEAudioCourseBaseVC.h */,
@@ -9524,6 +9529,7 @@
 				366D5AF9214A09BB0021C1BB /* MEMakeOrderSelectAddressView.m in Sources */,
 				360057FF2189F2420010C21C /* MESearchHistoryModel.m in Sources */,
 				3683F7BA21CBA656008139B0 /* MEGiftMainCell.m in Sources */,
+				EB63F4342350307C00EA5A87 /* MENewOnlineCourseVC.m in Sources */,
 				EB9536E42306B86C0045952D /* MEDiagnoseFeedBackBaseVC.m in Sources */,
 				36F5E81A222F68F1000B0241 /* TResponderTextView.m in Sources */,
 				EB782163230D274100075779 /* DataPickerView.m in Sources */,

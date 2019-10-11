@@ -49,8 +49,8 @@
     _nameLbl.text = [NSString stringWithFormat:@"用户:%@",kMeUnNilStr(kCurrentUser.name)];
     _phoneLbl.text = [NSString stringWithFormat:@"手机号:%@",kMeUnNilStr(kCurrentUser.mobile)];
     
-    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
-    if ([status isEqualToString:@"customer"]) {
+//    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];//customer  business
+    if (kCurrentUser.user_type == 4) {
         _b_headerPic.hidden = YES;
         _b_nameLbl.hidden = YES;
         _b_phoneLbl.hidden = YES;
@@ -59,7 +59,7 @@
         _b_vipBGImageConsHeight.constant = 0.0;
         _b_vipBGImageConsTop.constant = 0.0;
         _b_vipBGImageV.hidden = YES;
-    }else if ([status isEqualToString:@"business"]) {
+    }else {
         _b_headerPic.hidden = NO;
         _b_nameLbl.hidden = NO;
         _b_phoneLbl.hidden = NO;
@@ -109,11 +109,11 @@
 - (void)setUIWithModel:(MEMyCourseVIPInfoModel *)model {
     self.model = model;
     _tipsLbl.text = kMeUnNilStr(model.expire_time).length>0?kMeUnNilStr(model.expire_time):@"您当前不是VIP";
-    if (model.is_buy == 1) {
-        _payRecordBtn.hidden = NO;
-    }else {
-        _payRecordBtn.hidden = YES;
-    }
+//    if (model.is_buy == 1) {
+//        _payRecordBtn.hidden = NO;
+//    }else {
+//        _payRecordBtn.hidden = YES;
+//    }
     if (model.is_vip == 1) {
         [_vipBtn setTitle:@"立即续费" forState:UIControlStateNormal];
     }else {
@@ -222,8 +222,8 @@
 + (CGFloat)getViewHeightWithRuleHeight:(CGFloat)ruleHeight {
     CGFloat height = 727 - 194;
     
-    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
-    if ([status isEqualToString:@"customer"]) {
+//    NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
+    if (kCurrentUser.user_type == 4) {
         height -= 200;
     }
 

@@ -251,7 +251,7 @@
 }
 
 - (void)buyBtnAction {
-    if (self.detailModel.is_charge == 2 || self.detailModel.is_buy == 1) {
+    if (self.detailModel.is_charge == 2) {
         if (self.detailModel.type == 1) {//视频
             MEPersionalVideoPlayVC *vc = [[MEPersionalVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
             [self.navigationController pushViewController:vc animated:YES];
@@ -260,8 +260,53 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     }else {
-        [self requestMyCourseVIPWithNetWork];
+        if (self.detailModel.is_in_vip == 1) {
+            if (self.detailModel.is_buy_vip == 1) {//是否购买vip
+                if (self.detailModel.type == 1) {//视频
+                    MEPersionalVideoPlayVC *vc = [[MEPersionalVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else if (self.detailModel.type == 2) {//音频
+                    MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithCourseModel:self.detailModel audioList:[self.refresh.arrData copy]];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            }else {
+                if (self.detailModel.is_buy == 1) {
+                    if (self.detailModel.type == 1) {//视频
+                        MEPersionalVideoPlayVC *vc = [[MEPersionalVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }else if (self.detailModel.type == 2) {//音频
+                        MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithCourseModel:self.detailModel audioList:[self.refresh.arrData copy]];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                }else {//去购买
+                    [self requestMyCourseVIPWithNetWork];
+                }
+            }
+        }else {
+            if (self.detailModel.is_buy == 1) {
+                if (self.detailModel.type == 1) {//视频
+                    MEPersionalVideoPlayVC *vc = [[MEPersionalVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else if (self.detailModel.type == 2) {//音频
+                    MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithCourseModel:self.detailModel audioList:[self.refresh.arrData copy]];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            }else {//去购买
+                [self requestMyCourseVIPWithNetWork];
+            }
+        }
     }
+//    if (self.detailModel.is_charge == 2 || self.detailModel.is_buy == 1) {
+//        if (self.detailModel.type == 1) {//视频
+//            MEPersionalVideoPlayVC *vc = [[MEPersionalVideoPlayVC alloc] initWithModel:self.detailModel videoList:[self.refresh.arrData copy]];
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }else if (self.detailModel.type == 2) {//音频
+//            MECourseAudioPlayerVC *vc = [[MECourseAudioPlayerVC alloc] initWithCourseModel:self.detailModel audioList:[self.refresh.arrData copy]];
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+//    }else {
+//        [self requestMyCourseVIPWithNetWork];
+//    }
 }
 
 - (void)backButtonPressed {
