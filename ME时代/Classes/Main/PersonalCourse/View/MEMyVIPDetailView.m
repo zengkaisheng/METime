@@ -66,7 +66,7 @@
         _b_tipsLbl.hidden = NO;
         _b_vipBtn.hidden = NO;
         _b_vipBGImageV.hidden = NO;
-        _b_vipBGImageConsHeight.constant = (SCREEN_WIDTH-30)*175/345;
+        _b_vipBGImageConsHeight.constant = 175*kMeFrameScaleX();
         _b_vipBGImageConsTop.constant = 25.0;
         
         kSDLoadImg(_b_headerPic, kMeUnNilStr(kCurrentUser.header_pic));
@@ -228,7 +228,7 @@
     }
 
     height += ruleHeight>194?ruleHeight:194;
-    return height;
+    return height*kMeFrameScaleX();
 }
 
 @end

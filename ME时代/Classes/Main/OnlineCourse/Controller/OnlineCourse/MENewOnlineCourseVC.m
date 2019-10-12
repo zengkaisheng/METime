@@ -416,7 +416,7 @@
 #pragma setter&&getter
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeStatusBarHeight-20, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-(kMeStatusBarHeight-20)) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MERecommendCourseCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MERecommendCourseCell class])];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MENewCourseCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MENewCourseCell class])];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECourseAdvertisementCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECourseAdvertisementCell class])];
