@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setUIWithTitle:(NSString *)title;
 
+- (void)setNewUIWithTitle:(NSString *)title;
+
 @end
 
 NS_ASSUME_NONNULL_END

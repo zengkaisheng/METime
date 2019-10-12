@@ -74,6 +74,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MECourseHomeVideoListModel * hot_video;
 @property (nonatomic, strong) NSArray * menu_list;
 @property (nonatomic, strong) NSArray * category;
+//新版本相关
+@property (nonatomic, strong) NSArray * recommend; //精品推荐
+@property (nonatomic, strong) NSArray * courseNew; //最新上线
+@property (nonatomic, strong) NSArray * j_goods;   //精品视频
+@property (nonatomic, strong) NSArray * b_audio;   //必听音频
 
 @end
 

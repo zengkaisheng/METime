@@ -1,8 +1,8 @@
 //
-//  MECourseVideoListVC.h
+//  MECourseAudioListVC.h
 //  ME时代
 //
-//  Created by gao lei on 2019/9/18.
+//  Created by gao lei on 2019/10/11.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MECourseVideoListVC : MEBaseVC
+@interface MECourseAudioListVC : MEBaseVC
 
 - (instancetype)initWithCategoryId:(NSInteger)categoryId listType:(NSString *)listType;
 

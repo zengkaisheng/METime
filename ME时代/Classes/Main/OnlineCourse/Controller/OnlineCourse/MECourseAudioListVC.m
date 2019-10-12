@@ -1,17 +1,17 @@
 //
-//  MECourseVideoListVC.m
+//  MECourseAudioListVC.m
 //  ME时代
 //
-//  Created by gao lei on 2019/9/18.
+//  Created by gao lei on 2019/10/11.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MECourseVideoListVC.h"
+#import "MECourseAudioListVC.h"
 #import "MEOnlineCourseListModel.h"
 #import "MEOnlineCourseListCell.h"
 #import "MECourseDetailVC.h"
 
-@interface MECourseVideoListVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
+@interface MECourseAudioListVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
     NSInteger _categoryId;
 }
 
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation MECourseVideoListVC
+@implementation MECourseAudioListVC
 
 - (instancetype)initWithCategoryId:(NSInteger)categoryId listType:(NSString *)listType{
     if (self = [super init]) {
@@ -34,7 +34,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
 }
@@ -43,12 +42,12 @@
 - (NSDictionary *)requestParameter{
     if (kMeUnNilStr(self.listType).length > 0) {
         return @{@"token":kMeUnNilStr(kCurrentUser.token),
-//                 @"video_type":@(_categoryId),
+//                 @"audio_type":@(_categoryId),
                  self.listType:@"1"
                  };
     }
     return @{@"token":kMeUnNilStr(kCurrentUser.token),
-             @"video_type":@(_categoryId)
+             @"audio_type":@(_categoryId)
              };
 }
 
@@ -100,7 +99,7 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        NSString *url = kGetApiWithUrl(MEIPcommonVideoList);
+        NSString *url = kGetApiWithUrl(MEIPcommonAudioList);
         _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:url];
         _refresh.delegate = self;
         _refresh.isDataInside = YES;

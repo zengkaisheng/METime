@@ -214,7 +214,9 @@
             vc.title = @"详情";
             
             UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
-            [webView loadHTMLString:model.content baseURL:nil];
+            CGFloat width = [UIScreen mainScreen].bounds.size.width-15;
+            NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
+            [webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(model.content)] baseURL:nil];
             [vc.view addSubview:webView];
             [self.navigationController pushViewController:vc animated:YES];
         }

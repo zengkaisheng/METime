@@ -40,7 +40,7 @@
     self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH * _arrImage.count, SCREEN_HEIGHT);
     self.pageController.numberOfPages = _arrImage.count;
     CGFloat imageW = SCREEN_WIDTH;
-    CGFloat imageH = (667 * imageW)/375;
+    CGFloat imageH = SCREEN_HEIGHT;//    (667 * imageW)/375;
     for (NSInteger i=0; i<_arrImage.count; i++) {
         UIImageView *v = [[UIImageView alloc]init];
         [self.scrollView addSubview:v];
@@ -52,6 +52,8 @@
              make.top.mas_equalTo(0);
         }];
         v.image = [UIImage imageNamed:kMeUnNilStr(_arrImage[i])];
+        v.contentMode = UIViewContentModeScaleAspectFill;
+//        v.clipsToBounds = YES;
     }
     [self.view addSubview:self.scrollView];
     [self.view addSubview:self.pageController];

@@ -15,6 +15,8 @@
 #import "MEStatisticsVC.h"
 #import "MENewMineHomeVC.h"
 
+#import "MENewOnlineCourseVC.h"
+
 @interface MENewTabBarVC ()<UITabBarControllerDelegate>
 
 @property (nonatomic, strong) MENewMineHomeVC *mine;
@@ -36,8 +38,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     // 1.初始化子控制器
     //在线课程
-    MEOnlineCourseVC *course = [[MEOnlineCourseVC alloc] init];
-    [self addChildVc:course title:@"课程" image:@"course" selectedImage:@"course_s"];
+//    MEOnlineCourseVC *course = [[MEOnlineCourseVC alloc] init];
+//    [self addChildVc:course title:@"课程" image:@"course" selectedImage:@"course_s"];
+    //新
+    MENewOnlineCourseVC *home = [[MENewOnlineCourseVC alloc] init];
+    [self addChildVc:home title:@"首页" image:@"course" selectedImage:@"course_s"];
     
     //运营
     MEOperateVC *operate = [[MEOperateVC alloc] init];

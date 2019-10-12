@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setUIWithArray:(NSArray *)array;
 
+- (void)setNewCourseUIWithArray:(NSArray *)array;
+
 @end
 
 NS_ASSUME_NONNULL_END

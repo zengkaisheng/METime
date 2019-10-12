@@ -37,6 +37,10 @@ MEModelObjectClassInArrayWithDic((@{@"video_list":[MEOnlineCourseListModel class
 
 @implementation MEOnlineCourseHomeModel
 
-MEModelObjectClassInArrayWithDic((@{@"top_banner" : [MEAdModel class], @"onLine_banner" : [MEAdModel class], @"banner" : [MEAdModel class], @"menu_list":[MECourseHomeMenuListModel class], @"category":[MECourseHomeCategoryModel class]}))
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{@"courseNew":@"new"};
+}
+
+MEModelObjectClassInArrayWithDic((@{@"top_banner" : [MEAdModel class], @"onLine_banner" : [MEAdModel class], @"banner" : [MEAdModel class], @"menu_list":[MECourseHomeMenuListModel class], @"category":[MECourseHomeCategoryModel class], @"recommend":[MEOnlineCourseListModel class], @"courseNew":[MEOnlineCourseListModel class], @"j_goods":[MEOnlineCourseListModel class], @"b_audio":[MEOnlineCourseListModel class]}))
 
 @end

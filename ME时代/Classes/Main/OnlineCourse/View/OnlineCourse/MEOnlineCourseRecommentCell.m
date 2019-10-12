@@ -123,7 +123,7 @@
     header.tapBlock = ^{
         kMeSTRONGSELF
          MEOnlineCourseVC *homevc = (MEOnlineCourseVC *)[MECommonTool getVCWithClassWtihClassName:[MEOnlineCourseVC class] targetResponderView:strongSelf];
-        MECourseVideoListVC *vc = [[MECourseVideoListVC alloc] initWithCategoryId:categoryModel.idField];
+        MECourseVideoListVC *vc = [[MECourseVideoListVC alloc] initWithCategoryId:categoryModel.idField listType:@""];
         vc.title = kMeUnNilStr(categoryModel.video_type_name);
         if (homevc) {
             [homevc.navigationController pushViewController:vc animated:YES];

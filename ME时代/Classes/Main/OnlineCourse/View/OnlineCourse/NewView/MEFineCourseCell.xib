@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MEFineCourseCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="183"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="182.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stortpcapic" translatesAutoresizingMaskIntoConstraints="NO" id="ecC-7U-peQ">
+                        <rect key="frame" x="15" y="0.0" width="345" height="117"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="117" id="woH-J9-nRs"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLr-vY-LCD">
+                        <rect key="frame" x="25" y="126" width="325" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Mv8-RA-Z7h"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eHq-of-nLb">
+                        <rect key="frame" x="25" y="146" width="325" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="5fm-BT-IIV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ecC-7U-peQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="3dm-K2-99a"/>
+                    <constraint firstAttribute="trailing" secondItem="ecC-7U-peQ" secondAttribute="trailing" constant="15" id="Irw-5R-GiO"/>
+                    <constraint firstItem="ecC-7U-peQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="JjI-8P-s9p"/>
+                    <constraint firstAttribute="trailing" secondItem="gLr-vY-LCD" secondAttribute="trailing" constant="25" id="Xgs-7y-DqE"/>
+                    <constraint firstItem="gLr-vY-LCD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="bOS-1x-Ug6"/>
+                    <constraint firstAttribute="trailing" secondItem="eHq-of-nLb" secondAttribute="trailing" constant="25" id="fbl-hi-fN9"/>
+                    <constraint firstItem="gLr-vY-LCD" firstAttribute="top" secondItem="ecC-7U-peQ" secondAttribute="bottom" constant="9" id="gUo-HM-XSK"/>
+                    <constraint firstItem="eHq-of-nLb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="tqm-mk-woT"/>
+                    <constraint firstItem="eHq-of-nLb" firstAttribute="top" secondItem="gLr-vY-LCD" secondAttribute="bottom" id="zkA-zE-oDk"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="descLbl" destination="eHq-of-nLb" id="gqT-1Z-Dlu"/>
+                <outlet property="headerPic" destination="ecC-7U-peQ" id="KGM-P4-x4L"/>
+                <outlet property="nameLbl" destination="gLr-vY-LCD" id="hoT-Ph-Z6d"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="stortpcapic" width="89" height="60"/>
+    </resources>
+</document>

@@ -37,6 +37,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="sdView" destination="6yD-xE-dCZ" id="j8o-tM-W1b"/>
+                <outlet property="sdViewConsLeading" destination="NHr-ZE-fvK" id="8Gr-Nx-rgW"/>
+                <outlet property="sdViewConsTrailing" destination="77k-la-Mlw" id="8i0-v7-3Qs"/>
             </connections>
             <point key="canvasLocation" x="39.200000000000003" y="46.776611694152926"/>
         </tableViewCell>

@@ -37,20 +37,34 @@
                         <action selector="checkMoreAction:" destination="-2" eventType="touchUpInside" id="80G-ur-qd0"/>
                     </connections>
                 </button>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_redTrigonometry" translatesAutoresizingMaskIntoConstraints="NO" id="AfA-nA-j1Y">
+                    <rect key="frame" x="15" y="7.5" width="13" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="13" id="B8q-RF-9Eb"/>
+                        <constraint firstAttribute="height" constant="16" id="gTk-Y8-Qlb"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <constraints>
+                <constraint firstItem="AfA-nA-j1Y" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="3NC-XY-ulw"/>
                 <constraint firstItem="p9c-3D-dIN" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="EHX-qO-WtD"/>
                 <constraint firstItem="p9c-3D-dIN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="17" id="SVV-wJ-TVE"/>
                 <constraint firstAttribute="trailing" secondItem="n4m-cs-c02" secondAttribute="trailing" constant="3" id="aRp-88-cWI"/>
                 <constraint firstItem="n4m-cs-c02" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="azs-oE-CqJ"/>
                 <constraint firstAttribute="bottom" secondItem="n4m-cs-c02" secondAttribute="bottom" id="bAy-4u-Or7"/>
+                <constraint firstItem="AfA-nA-j1Y" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="km6-GD-viT"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="checkBtn" destination="n4m-cs-c02" id="Cxv-Os-e1b"/>
+                <outlet property="redImageView" destination="AfA-nA-j1Y" id="a7f-kB-hd3"/>
                 <outlet property="titleLbl" destination="p9c-3D-dIN" id="aZd-X4-RQu"/>
+                <outlet property="titleLblConsLeading" destination="SVV-wJ-TVE" id="ftl-Ih-lca"/>
             </connections>
             <point key="canvasLocation" x="132" y="154.27286356821591"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_redTrigonometry" width="7" height="8"/>
+    </resources>
 </document>

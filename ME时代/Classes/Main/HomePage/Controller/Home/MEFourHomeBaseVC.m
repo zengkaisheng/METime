@@ -260,19 +260,6 @@ const static CGFloat kImgStore = 50;
             strongSelf.goodsArray = [NSArray array];
             dispatch_semaphore_signal(semaphore);
         }];
-//        [MEPublicNetWorkTool postThridHomehomegetRecommendWithSuccessBlock:^(ZLRequestResponse *responseObject) {
-//            kMeSTRONGSELF
-//            if ([responseObject.data isKindOfClass:[NSArray class]]) {
-//                strongSelf->_arrHot = [MEGoodModel mj_objectArrayWithKeyValuesArray:responseObject.data];
-//            }else{
-//                strongSelf->_arrHot = [NSArray array];
-//            }
-//            dispatch_semaphore_signal(semaphore);
-//        } failure:^(id object) {
-//            kMeSTRONGSELF
-//            strongSelf->_arrHot = [NSArray array];
-//            dispatch_semaphore_signal(semaphore);
-//        }];
     });
     
     dispatch_group_async(group, queue, ^{
@@ -455,7 +442,9 @@ const static CGFloat kImgStore = 50;
             vc.title = @"详情";
             
             UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
-            [webView loadHTMLString:model.content baseURL:nil];
+            CGFloat width = [UIScreen mainScreen].bounds.size.width-15;
+            NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
+            [webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(model.content)] baseURL:nil];
             [vc.view addSubview:webView];
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -671,7 +660,7 @@ const static CGFloat kImgStore = 50;
                 dvc.recordType = 1;
                 [self.navigationController pushViewController:dvc animated:YES];
             }else{
-                model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
+                model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];
                 MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
                 vc.recordType = 1;
                 [self.navigationController pushViewController:vc animated:YES];
@@ -688,7 +677,7 @@ const static CGFloat kImgStore = 50;
             dvc.recordType = 1;
             [self.navigationController pushViewController:dvc animated:YES];
         }else{
-            model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];//;
+            model.coupon_click_url = [NSString stringWithFormat:@"https:%@",kMeUnNilStr(model.coupon_share_url)];
             MECoupleMailDetalVC *vc = [[MECoupleMailDetalVC alloc]initWithModel:model];
             vc.recordType = 1;
             [self.navigationController pushViewController:vc animated:YES];
@@ -721,7 +710,7 @@ const static CGFloat kImgStore = 50;
             }
         }else if (section == 2) {
             if (self.arrPPTM.count > 0) {
-                return CGSizeMake(SCREEN_WIDTH, 100*kMeFrameScaleY());
+                return CGSizeMake(SCREEN_WIDTH, 100*kMeFrameScaleX());
             }else {
                 return CGSizeMake(0, 0);
             }
@@ -762,8 +751,8 @@ const static CGFloat kImgStore = 50;
             }
             return CGSizeMake(SCREEN_WIDTH, height);
         }else if (section == 8) {
-            if(self.homeModel.study_together.left_banner.count>0 && self.homeModel.study_together.right_banner.count>0){
-                return CGSizeMake(SCREEN_WIDTH, 130*kMeFrameScaleY());
+            if(self.homeModel.media_banner.count>0){
+                return CGSizeMake(SCREEN_WIDTH, 130*kMeFrameScaleX());
             }else{
                 return CGSizeMake(0, 0.1);;
             }
