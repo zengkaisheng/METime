@@ -659,6 +659,15 @@
 + (void)postPayOnlineOrderWithOrderSn:(NSString *)order_sn successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //轮询订单状态
 + (void)postGetOrderStatusWithOrderSn:(NSString *)order_sn successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//音视频点赞
++ (void)postPraiseCourseWithCourseId:(NSInteger)courseId courseType:(NSInteger)courseType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//学习（播放时调用）
++ (void)postStudyCourseWithCourseId:(NSInteger)courseId courseType:(NSInteger)courseType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//一起创业banner
++ (void)postGetBannerWithAdType:(NSInteger)adType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//一起创业分类
++ (void)postGetCareerCategoryWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

@@ -16,6 +16,8 @@
 #import "MENewMineHomeVC.h"
 
 #import "MENewOnlineCourseVC.h"
+#import "MEStudyPlanVC.h"
+#import "MECareerVC.h"
 
 @interface MENewTabBarVC ()<UITabBarControllerDelegate>
 
@@ -42,23 +44,29 @@
 //    [self addChildVc:course title:@"课程" image:@"course" selectedImage:@"course_s"];
     //新
     MENewOnlineCourseVC *home = [[MENewOnlineCourseVC alloc] init];
-    [self addChildVc:home title:@"首页" image:@"course" selectedImage:@"course_s"];
+    [self addChildVc:home title:@"首页" image:@"tabbar_course_nor" selectedImage:@"tabbar_course_sel"];
     
     //运营
-    MEOperateVC *operate = [[MEOperateVC alloc] init];
-    [self addChildVc:operate title:@"运营" image:@"tabbar_operate_nor" selectedImage:@"tabbar_operate_sel"];
+//    MEOperateVC *operate = [[MEOperateVC alloc] init];
+//    [self addChildVc:operate title:@"运营" image:@"tabbar_operate_nor" selectedImage:@"tabbar_operate_sel"];
+    //学习计划
+    MEStudyPlanVC *studyVC = [[MEStudyPlanVC alloc] init];
+    [self addChildVc:studyVC title:@"学习计划" image:@"tabbar_studyPlan_nor" selectedImage:@"tabbar_studyPlan_sel"];
     
     //数据统计
-    MEStatisticsVC *statistics = [[MEStatisticsVC alloc] init];
-    [self addChildVc:statistics title:@"诊断反馈" image:@"tabbar_feedBack_nor" selectedImage:@"tabbar_feedBack_sel"];
+//    MEStatisticsVC *statistics = [[MEStatisticsVC alloc] init];
+//    [self addChildVc:statistics title:@"诊断反馈" image:@"tabbar_feedBack_nor" selectedImage:@"tabbar_feedBack_sel"];
+    //一起创业
+    MECareerVC *careerVC = [[MECareerVC alloc] init];
+    [self addChildVc:careerVC title:@"一起创业" image:@"tabbar_career_nor" selectedImage:@"tabbar_career_sel"];
     
     self.mine = [[MENewMineHomeVC alloc] init];
-    [self addChildVc:self.mine title:@"我的" image:@"mine" selectedImage:@"mine_s"];
+    [self addChildVc:self.mine title:@"我的" image:@"tabbar_me_nor" selectedImage:@"tabbar_me_sel"];
     
     [self getUnMeaasge];
     
     [[UITabBarItem appearance] setTitleTextAttributes:@{
-                                                        NSForegroundColorAttributeName :kMEPink
+                                                        NSForegroundColorAttributeName :[UIColor colorWithHexString:@"#FE4B77"]
                                                         } forState:UIControlStateSelected];
     [[UITabBarItem appearance] setTitleTextAttributes:@{
                                                         NSForegroundColorAttributeName :kMEblack

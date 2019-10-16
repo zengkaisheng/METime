@@ -80,7 +80,7 @@
         categoryViewHeight = 1;
     }
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+categoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight)];
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
     self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *_arrType.count, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight);
@@ -91,7 +91,7 @@
         MECourseListBaseVC *VC = [[MECourseListBaseVC alloc] initWithType:self.type index:i materialArray:[_arrModel copy]];
         VC.title = self.title;
         VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        VC.view.frame = CGRectMake(SCREEN_WIDTH*i,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
+        VC.view.frame = CGRectMake(SCREEN_WIDTH*i,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight);
         [self addChildViewController:VC];
         [self.scrollView addSubview:VC.view];
     }

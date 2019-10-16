@@ -358,17 +358,14 @@
     MEPersonalCourseHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass([MEPersonalCourseHeader class])];
     MECourseHomeMenuListModel *menuModel = self.model.menu_list[section+5];
     [header setNewUIWithTitle:kMeUnNilStr(menuModel.menu_name)];
-    header.backgroundColor = [UIColor whiteColor];
     kMeWEAKSELF
     header.tapBlock = ^{
         kMeSTRONGSELF
-        MENewOnlineCourseVC *homevc = (MENewOnlineCourseVC *)[MECommonTool getVCWithClassWtihClassName:[MENewOnlineCourseVC class] targetResponderView:strongSelf];
+        
         if (menuModel.idField == 20) {
             MECourseAudioListVC *vc = [[MECourseAudioListVC alloc] initWithCategoryId:menuModel.idField listType:@"is_will"];
             vc.title = kMeUnNilStr(menuModel.menu_name);
-            if (homevc) {
-                [homevc.navigationController pushViewController:vc animated:YES];
-            }
+            [strongSelf.navigationController pushViewController:vc animated:YES];
         }else {
             NSString *type = @"";
             if (menuModel.idField == 17) {
@@ -380,25 +377,10 @@
             }
             MECourseVideoListVC *vc = [[MECourseVideoListVC alloc] initWithCategoryId:menuModel.idField listType:type];
             vc.title = kMeUnNilStr(menuModel.menu_name);
-            if (homevc) {
-                [homevc.navigationController pushViewController:vc animated:YES];
-            }
+            [strongSelf.navigationController pushViewController:vc animated:YES];
         }
     };
     return header;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 2) {
-        return 12;
-    }
-    return 0;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 12)];
-    footerView.backgroundColor = [UIColor whiteColor];
-    return footerView;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

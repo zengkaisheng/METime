@@ -4244,6 +4244,88 @@
         kMeCallBlock(failure,error);
     }];
 }
+
+//音视频点赞
++ (void)postPraiseCourseWithCourseId:(NSInteger)courseId courseType:(NSInteger)courseType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"id":@(courseId),
+                          @"type":@(courseType)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonVideoLikePraise);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//学习（播放时调用）
++ (void)postStudyCourseWithCourseId:(NSInteger)courseId courseType:(NSInteger)courseType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"c_id":@(courseId),
+                          @"c_type":@(courseType)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonOnlineStudy);
+//    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+//        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+//        if([error isKindOfClass:[ZLRequestResponse class]]){
+//            ZLRequestResponse *res = (ZLRequestResponse*)error;
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+//        }else{
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+//        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//一起创业banner
++ (void)postGetBannerWithAdType:(NSInteger)adType successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"ad_type":@(adType)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonADGetTypeBanner);
+//    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+//        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+//        if([error isKindOfClass:[ZLRequestResponse class]]){
+//            ZLRequestResponse *res = (ZLRequestResponse*)error;
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+//        }else{
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+//        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//一起创业分类
++ (void)postGetCareerCategoryWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          };
+//    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    NSString *url = kGetApiWithUrl(MEIPcommonOnlineGetCategory);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+//        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+//        if([error isKindOfClass:[ZLRequestResponse class]]){
+//            ZLRequestResponse *res = (ZLRequestResponse*)error;
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+//        }else{
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+//        }
+        kMeCallBlock(failure,error);
+    }];
+}
 /*********************************************/
 
 

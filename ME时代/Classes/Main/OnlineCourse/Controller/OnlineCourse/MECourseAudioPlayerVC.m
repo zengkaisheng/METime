@@ -91,8 +91,8 @@
     _backBtnConsTop.constant = kMeStatusBarHeight;
     _bottomViewConsHeight.constant += kMeTabbarSafeBottomMargin;
     
-    CGFloat btnWidth = SCREEN_WIDTH/4;
-    NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_collection_nor"},@{@"title":@"咨询",@"image":@"icon_consult_white"},@{@"title":@"诊断",@"image":@"icon_diagnose"}];
+    NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_collection_nor"}];//,@{@"title":@"咨询",@"image":@"icon_consult_white"},@{@"title":@"诊断",@"image":@"icon_diagnose"}
+    CGFloat btnWidth = SCREEN_WIDTH/btns.count;
     
     if (self.isC) {
         kSDLoadImg(_headerPic, kMeUnNilStr(self.detailModel.courses_images));
@@ -175,11 +175,20 @@
                             } superView:kMeCurrentWindow];
                         }else {
                             [MEShowViewTool showMessage:@"试听已结束" view:strongSelf.view];
-                            [MECustomBuyCourseView showCustomBuyCourseViewWithTitle:kMeUnNilStr(strongSelf.model.audio_name) content:kMeUnNilStr(strongSelf.model.audio_price) buyBlock:^{
-                                [strongSelf buyCourseWithNetworking];
-                            } cancelBlock:^{
-                                
-                            } superView:kMeCurrentWindow];
+                            if (strongSelf.model.is_in_vip==1&&strongSelf.model.is_buy_vip!=1&&strongSelf.model.is_buy!=1) {
+                                [MECustomBuyCourseView showCustomBuyVIPViewWithTitle:@"购买VIP可查看完整视频" confirmBtn:@"购买VIP" buyBlock:^{
+                                    kMeSTRONGSELF
+                                    [strongSelf requestMyCourseVIPWithNetWork];
+                                } cancelBlock:^{
+                                    
+                                } superView:kMeCurrentWindow];
+                            }else if (strongSelf.model.is_buy != 1) {
+                                [MECustomBuyCourseView showCustomBuyCourseViewWithTitle:kMeUnNilStr(strongSelf.model.audio_name) content:kMeUnNilStr(strongSelf.model.audio_price) buyBlock:^{
+                                    [strongSelf buyCourseWithNetworking];
+                                } cancelBlock:^{
+                                    
+                                } superView:kMeCurrentWindow];
+                            }
                         }
                         strongSelf->_isShowBuy = YES;
                     }else {
@@ -242,6 +251,9 @@
                 [self.player play];
                 _playBtn.selected = YES;
                 NSLog(@"准备播放");
+                if (!self.isC) {
+                    [self studyVideoWithNetWorking];
+                }
                 break;
             case AVPlayerStatusFailed:
                 NSLog(@"加载失败");
@@ -296,13 +308,30 @@
 
 - (void)showPromptView {
     //弹窗提示诊断
-    if (self.model.is_diagnosis_report == 0) {
+//    if (self.model.is_diagnosis_report == 0) {
+//        kMeWEAKSELF
+//        [MEDiagnosePromptView showDiagnosePromptViewWithSuccessBlock:^{
+//            kMeSTRONGSELF
+//            MEOnlineDiagnoseVC *diagnoseVC = [[MEOnlineDiagnoseVC alloc] init];
+//            [strongSelf.navigationController pushViewController:diagnoseVC animated:YES];
+//        } superView:self.view];
+//    }
+    if (self.model.is_in_vip==1&&self.model.is_buy_vip!=1&&self.model.is_buy!=1) {
         kMeWEAKSELF
-        [MEDiagnosePromptView showDiagnosePromptViewWithSuccessBlock:^{
+        [MECustomBuyCourseView showCustomBuyVIPViewWithTitle:@"购买VIP可查看完整视频" confirmBtn:@"购买VIP" buyBlock:^{
             kMeSTRONGSELF
-            MEOnlineDiagnoseVC *diagnoseVC = [[MEOnlineDiagnoseVC alloc] init];
-            [strongSelf.navigationController pushViewController:diagnoseVC animated:YES];
-        } superView:self.view];
+            [strongSelf requestMyCourseVIPWithNetWork];
+        } cancelBlock:^{
+            
+        } superView:kMeCurrentWindow];
+    }else if (self.model.is_buy != 1) {
+        kMeWEAKSELF
+        [MECustomBuyCourseView showCustomBuyCourseViewWithTitle:kMeUnNilStr(self.model.audio_name) content:kMeUnNilStr(self.model.audio_price) buyBlock:^{
+            kMeSTRONGSELF
+            [strongSelf buyCourseWithNetworking];
+        } cancelBlock:^{
+            
+        } superView:kMeCurrentWindow];
     }
 }
 
@@ -487,6 +516,16 @@
             strongSelf.detailModel.is_like = 1;
         }
         [self reloadBottomView];
+    } failure:^(id object) {
+    }];
+}
+
+//学习（播放时调用）
+- (void)studyVideoWithNetWorking {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postStudyCourseWithCourseId:self.model.audio_id courseType:2 successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        strongSelf.model.browse++;
     } failure:^(id object) {
     }];
 }

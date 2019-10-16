@@ -22,6 +22,8 @@
 #import "MECustomBuyCourseView.h"
 #import "MEPayStatusVC.h"
 #import "MEMyOrderDetailVC.h"
+#import "MEMyCourseVIPModel.h"
+#import "MEVIPViewController.h"
 
 @interface MECourseVideoPlayVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -94,21 +96,54 @@
     self.playerView.pauseBlock = ^{
         //弹窗提示诊断
         kMeSTRONGSELF
-        if (strongSelf.model.is_diagnosis_report == 0) {
-            [MEDiagnosePromptView showDiagnosePromptViewWithSuccessBlock:^{
-                MEOnlineDiagnoseVC *diagnoseVC = [[MEOnlineDiagnoseVC alloc] init];
-                [strongSelf.navigationController pushViewController:diagnoseVC animated:YES];
-            } superView:strongSelf.view];
+//        if (strongSelf.model.is_diagnosis_report == 0) {
+//            [MEDiagnosePromptView showDiagnosePromptViewWithSuccessBlock:^{
+//                MEOnlineDiagnoseVC *diagnoseVC = [[MEOnlineDiagnoseVC alloc] init];
+//                [strongSelf.navigationController pushViewController:diagnoseVC animated:YES];
+//            } superView:strongSelf.view];
+//        }
+        if (!strongSelf->_isShowBuy) {
+            if (self.model.is_in_vip==1&&self.model.is_buy_vip!=1&&self.model.is_buy!=1) {
+                [MECustomBuyCourseView showCustomBuyVIPViewWithTitle:@"购买VIP可查看完整视频" confirmBtn:@"购买VIP" buyBlock:^{
+                    kMeSTRONGSELF
+                    [strongSelf requestMyCourseVIPWithNetWork];
+                } cancelBlock:^{
+                    
+                } superView:kMeCurrentWindow];
+            }else if (self.model.is_buy != 1) {
+                [MECustomBuyCourseView showCustomBuyCourseViewWithTitle:kMeUnNilStr(strongSelf.model.video_name) content:kMeUnNilStr(strongSelf.model.video_price) buyBlock:^{
+                    [strongSelf buyCourseWithNetworking];
+                } cancelBlock:^{
+                    
+                } superView:kMeCurrentWindow];
+            }
+            strongSelf->_isShowBuy = YES;
+        }else {
+            strongSelf->_isShowBuy = NO;
         }
     };
     self.playerView.listenBlock = ^{
         kMeSTRONGSELF
         if (!strongSelf->_isShowBuy) {
-            [MECustomBuyCourseView showCustomBuyCourseViewWithTitle:kMeUnNilStr(strongSelf.model.video_name) content:kMeUnNilStr(strongSelf.model.video_price) buyBlock:^{
-                [strongSelf buyCourseWithNetworking];
-            } cancelBlock:^{
-                
-            } superView:kMeCurrentWindow];
+//            [MECustomBuyCourseView showCustomBuyCourseViewWithTitle:kMeUnNilStr(strongSelf.model.video_name) content:kMeUnNilStr(strongSelf.model.video_price) buyBlock:^{
+//                [strongSelf buyCourseWithNetworking];
+//            } cancelBlock:^{
+//
+//            } superView:kMeCurrentWindow];
+            if (self.model.is_in_vip==1&&self.model.is_buy_vip!=1&&self.model.is_buy!=1) {
+                [MECustomBuyCourseView showCustomBuyVIPViewWithTitle:@"购买VIP可查看完整视频" confirmBtn:@"购买VIP" buyBlock:^{
+                    kMeSTRONGSELF
+                    [strongSelf requestMyCourseVIPWithNetWork];
+                } cancelBlock:^{
+                    
+                } superView:kMeCurrentWindow];
+            }else if (self.model.is_buy != 1) {
+                [MECustomBuyCourseView showCustomBuyCourseViewWithTitle:kMeUnNilStr(strongSelf.model.video_name) content:kMeUnNilStr(strongSelf.model.video_price) buyBlock:^{
+                    [strongSelf buyCourseWithNetworking];
+                } cancelBlock:^{
+                    
+                } superView:kMeCurrentWindow];
+            }
             strongSelf->_isShowBuy = YES;
         }else {
             strongSelf->_isShowBuy = NO;
@@ -145,7 +180,7 @@
 //        }
 //    }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
+        [self studyVideoWithNetWorking];
     });
 }
 
@@ -206,6 +241,34 @@
         }];
     } failure:^(id object) {
         
+    }];
+}
+
+//学习（播放时调用）
+- (void)studyVideoWithNetWorking {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postStudyCourseWithCourseId:self.model.video_id courseType:1 successBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        strongSelf.model.browse++;
+        [self.tableView reloadData];
+    } failure:^(id object) {
+    }];
+}
+
+//获取B端C端VIP
+- (void)requestMyCourseVIPWithNetWork {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetCourseVIPWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            MEMyCourseVIPModel *vipModel = [MEMyCourseVIPModel mj_objectWithKeyValues:responseObject.data];
+            MEMyCourseVIPSubModel *b_vipModel = vipModel.B_vip;
+            MEMyCourseVIPDetailModel *b_vip_detail = b_vipModel.vip.firstObject;
+            MEVIPViewController *vc = [[MEVIPViewController alloc] initWithVIPModel:b_vip_detail];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        }
+    } failure:^(id object) {
+        //        kMeSTRONGSELF
     }];
 }
 
@@ -433,9 +496,10 @@
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
         line.backgroundColor = [UIColor colorWithHexString:@"#707070"];
         [_bottomView addSubview:line];
-        NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_collection_nor"},@{@"title":@"咨询",@"image":@"icon_consult_white"},@{@"title":@"诊断",@"image":@"icon_diagnose"}];
+        NSArray *btns = @[@{@"title":@"分享",@"image":@"icon_share"},@{@"title":@"收藏",@"image":@"icon_collection_nor"}];
+        //,@{@"title":@"咨询",@"image":@"icon_consult_white"},@{@"title":@"诊断",@"image":@"icon_diagnose"}
         CGFloat btnHeight = 49;
-        CGFloat btnWidth = SCREEN_WIDTH/4;
+        CGFloat btnWidth = SCREEN_WIDTH/btns.count;
         for (int i = 0; i < btns.count; i++) {
             NSDictionary *dict = btns[i];
             UIButton *btn = [self createButtonWithTitle:dict[@"title"] normalImage:dict[@"image"] tag:100+i];

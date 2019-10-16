@@ -861,6 +861,28 @@
 
 //订单列表
 #define MEIPcommonOnlineGetOrderList @"common/online/orderList"
+
+
+#pragma 新版B端
+//学习计划首页
+#define MEIPcommonOnlineHomeStudied @"common/home/studied"
+//学习计划 音视频点赞
+#define MEIPcommonVideoLikePraise @"common/online/videoLike"
+//推荐学习（更多）
+#define MEIPcommonHomeRecommentStudyList @"common/home/recommentStudyList"
+//学习过的（更多）
+#define MEIPcommonHomeStudiedList @"common/home/studiedList"
+//收藏过的（更多）
+#define MEIPcommonHomeCollectedList @"common/home/collectedList"
+//学习（播放时调用）
+#define MEIPcommonOnlineStudy @"common/online/study"
+
+//获取一起创业banner
+#define MEIPcommonADGetTypeBanner @"common/ad/getTypeBanner"
+//获取一起创业banner
+#define MEIPcommonOnlineGetCategory @"common/online/getCategory"
+//一起创业列表
+#define MEIPcommonOnlineGetLists @"common/online/getLists"
 /*********************************************/
 
 
