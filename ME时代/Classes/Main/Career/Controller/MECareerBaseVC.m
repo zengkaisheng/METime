@@ -59,7 +59,7 @@
 //课程点赞
 - (void)praiseCourseWithCourseModel:(MECareerCourseListModel *)model {
     kMeWEAKSELF
-    [MEPublicNetWorkTool postPraiseCourseWithCourseId:model.idField courseType:model.type successBlock:^(ZLRequestResponse *responseObject) {
+    [MEPublicNetWorkTool postPraiseCourseWithCourseId:model.a_id courseType:model.type successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         if ([responseObject.status_code intValue] == 200) {
             if (model.is_like == 1) {
@@ -86,7 +86,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEStudiedRecommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEStudiedRecommentCell class]) forIndexPath:indexPath];
     MECareerCourseListModel *model = self.refresh.arrData[indexPath.row];
-//    model.img_urls = @"http://private.meshidai.com/Fg29Iq-gadunAJDocvHk2ah61hbO?e=1571212338&token=EG_ycBh6gAjShDjK9yTuUuR-UrM-6nldFIKnzusp:U4iGfuXiRz5zftK3kQG2iKY_dt0=";
     [cell setCareerUIWithModel:model];
     kMeWEAKSELF
     cell.likeCourseBlock = ^{
@@ -102,7 +101,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MECareerCourseListModel *model = self.refresh.arrData[indexPath.row];
-    MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:model.type-1];
+    MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.a_id type:model.type-1];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -113,7 +112,7 @@
         if (self.categorys.count < 2) {
             categoryViewHeight = 1;
         }
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT- kMENewOnlineCourseHeaderViewHeight - categoryViewHeight - kMeTabBarHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT- kMENewOnlineCourseHeaderViewHeight - categoryViewHeight - kMeTabBarHeight-(kMeStatusBarHeight-20)) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEStudiedRecommentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEStudiedRecommentCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;

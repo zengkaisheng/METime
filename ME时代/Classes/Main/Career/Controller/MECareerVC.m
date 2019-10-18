@@ -98,10 +98,10 @@
         [categoryTitles addObject:model.name];
     }];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake( 0, kMENewOnlineCourseHeaderViewHeight + categoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT- kMENewOnlineCourseHeaderViewHeight - categoryViewHeight-kMeTabBarHeight)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake( 0, (kMeStatusBarHeight-20) + kMENewOnlineCourseHeaderViewHeight + categoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT- kMENewOnlineCourseHeaderViewHeight - categoryViewHeight-kMeTabBarHeight-(kMeStatusBarHeight-20))];
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *self.categorys.count, SCREEN_HEIGHT-kMENewOnlineCourseHeaderViewHeight - categoryViewHeight-kMeTabBarHeight);
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *self.categorys.count, SCREEN_HEIGHT-kMENewOnlineCourseHeaderViewHeight - categoryViewHeight-kMeTabBarHeight-(kMeStatusBarHeight-20));
     self.scrollView.bounces = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -110,7 +110,7 @@
         MECareerBaseVC *VC = [[MECareerBaseVC alloc] initWithCategoryId:model.idField categorys:self.categorys];
         VC.title = kMeUnNilStr(model.name);
         VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        VC.view.frame = CGRectMake( SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMENewOnlineCourseHeaderViewHeight - categoryViewHeight-kMeTabBarHeight);
+        VC.view.frame = CGRectMake( SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMENewOnlineCourseHeaderViewHeight - categoryViewHeight-kMeTabBarHeight-(kMeStatusBarHeight-20));
         [self addChildViewController:VC];
         [self.scrollView addSubview:VC.view];
     }
@@ -118,7 +118,7 @@
     [self.view addSubview:self.scrollView];
     
     //1、初始化JXCategoryTitleView
-    self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake( 0, kMENewOnlineCourseHeaderViewHeight, SCREEN_WIDTH, categoryViewHeight)];
+    self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake( 0, (kMeStatusBarHeight-20)+kMENewOnlineCourseHeaderViewHeight, SCREEN_WIDTH, categoryViewHeight)];
     JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
     lineView.indicatorLineWidth = 30 *kMeFrameScaleX();
     lineView.indicatorLineViewColor = kMEPink;
@@ -158,7 +158,7 @@
 - (MENewOnlineCourseHeaderView *)headerView {
     if(!_headerView){
         _headerView = [[[NSBundle mainBundle]loadNibNamed:@"MENewOnlineCourseHeaderView" owner:nil options:nil] lastObject];
-        _headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, kMENewOnlineCourseHeaderViewHeight);
+        _headerView.frame = CGRectMake(0, kMeStatusBarHeight-20, SCREEN_WIDTH, kMENewOnlineCourseHeaderViewHeight);
         kMeWEAKSELF
         _headerView.selectedBlock = ^(NSInteger index) {
             kMeSTRONGSELF

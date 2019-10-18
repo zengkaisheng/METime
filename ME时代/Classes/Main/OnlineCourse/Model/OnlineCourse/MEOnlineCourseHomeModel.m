@@ -41,6 +41,6 @@ MEModelObjectClassInArrayWithDic((@{@"video_list":[MEOnlineCourseListModel class
     return @{@"courseNew":@"new"};
 }
 
-MEModelObjectClassInArrayWithDic((@{@"top_banner" : [MEAdModel class], @"onLine_banner" : [MEAdModel class], @"banner" : [MEAdModel class], @"menu_list":[MECourseHomeMenuListModel class], @"category":[MECourseHomeCategoryModel class], @"recommend":[MEOnlineCourseListModel class], @"courseNew":[MEOnlineCourseListModel class], @"j_goods":[MEOnlineCourseListModel class], @"b_audio":[MEOnlineCourseListModel class]}))
+MEModelObjectClassInArrayWithDic((@{@"top_banner" : [MEAdModel class], @"hot_video":[MEOnlineCourseListModel class], @"onLine_banner" : [MEAdModel class], @"banner" : [MEAdModel class], @"menu_list":[MECourseHomeMenuListModel class], @"category":[MECourseHomeCategoryModel class], @"recommend":[MEOnlineCourseListModel class], @"courseNew":[MEOnlineCourseListModel class], @"j_goods":[MEOnlineCourseListModel class], @"b_audio":[MEOnlineCourseListModel class]}))
 
 @end

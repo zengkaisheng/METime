@@ -93,6 +93,9 @@
     }else if (section == 2) {
         return self.model.collected.count;
     }
+    if (self.model.recomment.c_id == 0) {
+        return 0;
+    }
     return 1;
 }
 
@@ -122,6 +125,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
+        if (self.model.recomment.c_id == 0) {
+            return 0;
+        }
         return kMEStudiedRecommentCellHeight;
     }
     return kMENewBCourseListCellHeight;
@@ -151,21 +157,21 @@
     kMeWEAKSELF
     header.tapBlock = ^{
         kMeSTRONGSELF
-        NSInteger type = 0;
-        switch (section) {
-            case 0:
-                type = 1;
-                break;
-            case 1:
-                type = 2;
-                break;
-            case 2:
-                type = 3;
-                break;
-            default:
-                break;
-        }
-        MECourseVideoListVC *vc = [[MECourseVideoListVC alloc] initWithType:type];
+//        NSInteger type = 0;
+//        switch (section) {
+//            case 0:
+//                type = 1;
+//                break;
+//            case 1:
+//                type = 2;
+//                break;
+//            case 2:
+//                type = 3;
+//                break;
+//            default:
+//                break;
+//        }
+        MECourseVideoListVC *vc = [[MECourseVideoListVC alloc] initWithType:section+1];
         vc.title = title;
         [strongSelf.navigationController pushViewController:vc animated:YES];
     };
@@ -183,7 +189,7 @@
         NSArray *array = kMeUnArr(self.model.collected);
         model = array[indexPath.row];
     }
-    MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:model.c_type-1];
+    MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.c_id type:model.c_type-1];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

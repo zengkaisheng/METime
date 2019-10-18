@@ -148,7 +148,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (_type > 0) {
         MEStudiedCourseModel *model = self.refresh.arrData[indexPath.row];
-        MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:model.c_type-1];
+        MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.c_id type:model.c_type-1];
         [self.navigationController pushViewController:vc animated:YES];
     }else {
         MEOnlineCourseListModel *model = self.refresh.arrData[indexPath.row];
