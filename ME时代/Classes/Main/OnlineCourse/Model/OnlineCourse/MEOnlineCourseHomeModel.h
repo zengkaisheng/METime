@@ -71,8 +71,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 //视/音频首页相关内容
 @property (nonatomic, strong) NSArray * banner;
-//@property (nonatomic, strong) MECourseHomeVideoListModel * hot_video;
-@property (nonatomic, strong) NSArray * hot_video;
+@property (nonatomic, strong) MECourseHomeVideoListModel * hot_video;
+//@property (nonatomic, strong) NSArray * hot_video;
 @property (nonatomic, strong) NSArray * menu_list;
 @property (nonatomic, strong) NSArray * category;
 //新版本相关

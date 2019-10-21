@@ -108,9 +108,9 @@
         }else {
             strongSelf.homeModel = [[MEOnlineCourseHomeModel alloc] init];;
         }
-        [strongSelf.headerView setUIWithArray:strongSelf.homeModel.banner type:1];
+        [strongSelf.headerView setUIWithArray:kMeUnArr(strongSelf.homeModel.banner) type:1];
         strongSelf.tableView.tableHeaderView = strongSelf.headerView;
-        [strongSelf.refresh.arrData addObjectsFromArray:strongSelf.homeModel.hot_video];
+        [strongSelf.refresh.arrData addObjectsFromArray:kMeUnArr(strongSelf.homeModel.hot_video.data)];
         [strongSelf.tableView reloadData];
     } failure:^(id object) {
         kMeSTRONGSELF
@@ -127,9 +127,9 @@
         }else {
             strongSelf.homeModel = [[MEOnlineCourseHomeModel alloc] init];;
         }
-        [strongSelf.headerView setUIWithArray:strongSelf.homeModel.banner type:1];
+        [strongSelf.headerView setUIWithArray:kMeUnArr(strongSelf.homeModel.banner) type:1];
         strongSelf.tableView.tableHeaderView = strongSelf.headerView;
-        [strongSelf.refresh.arrData addObjectsFromArray:strongSelf.homeModel.hot_video];
+        [strongSelf.refresh.arrData addObjectsFromArray:kMeUnArr(strongSelf.homeModel.hot_video.data)];
         [strongSelf.tableView reloadData];
     } failure:^(id object) {
         kMeSTRONGSELF

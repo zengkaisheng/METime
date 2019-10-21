@@ -157,20 +157,6 @@
     kMeWEAKSELF
     header.tapBlock = ^{
         kMeSTRONGSELF
-//        NSInteger type = 0;
-//        switch (section) {
-//            case 0:
-//                type = 1;
-//                break;
-//            case 1:
-//                type = 2;
-//                break;
-//            case 2:
-//                type = 3;
-//                break;
-//            default:
-//                break;
-//        }
         MECourseVideoListVC *vc = [[MECourseVideoListVC alloc] initWithType:section+1];
         vc.title = title;
         [strongSelf.navigationController pushViewController:vc animated:YES];
