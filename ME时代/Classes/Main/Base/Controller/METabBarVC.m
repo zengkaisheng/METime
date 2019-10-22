@@ -30,6 +30,8 @@
 #import "MEFourHomeVC.h"
 #import "MEPersonalCourseVC.h"
 
+#import "MEFiveHomeVC.h"
+
 @interface METabBarVC ()<UITabBarControllerDelegate>
 
 @property (nonatomic, strong) MENewMineHomeVC *mine;
@@ -48,8 +50,12 @@
     self.view.backgroundColor = [UIColor whiteColor];
     // 1.初始化子控制器
 //    METhridHomeVC *home = [[METhridHomeVC alloc] init];
-    MEFourHomeVC *home = [[MEFourHomeVC alloc] init];
+//    第四版
+//    MEFourHomeVC *home = [[MEFourHomeVC alloc] init];
+//    第五版
+    MEFiveHomeVC *home = [[MEFiveHomeVC alloc] init];
     [self addChildVc:home title:@"首页" image:@"home" selectedImage:@"home_s"];
+    
     //课程
     MEPersonalCourseVC *courseVC = [[MEPersonalCourseVC alloc] init];
     [self addChildVc:courseVC title:@"课程" image:@"course" selectedImage:@"course_s"];

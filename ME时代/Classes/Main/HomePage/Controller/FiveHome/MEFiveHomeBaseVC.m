@@ -1,13 +1,12 @@
 //
-//  MEFourHomeBaseVC.m
+//  MEFiveHomeBaseVC.m
 //  ME时代
 //
-//  Created by gao lei on 2019/6/13.
+//  Created by gao lei on 2019/10/21.
 //  Copyright © 2019年 hank. All rights reserved.
 //
 
-#import "MEFourHomeBaseVC.h"
-
+#import "MEFiveHomeBaseVC.h"
 #import "MEAdModel.h"
 #import "MEStoreModel.h"
 #import "MECoupleModel.h"
@@ -15,7 +14,7 @@
 #import "MERedeemgetStatusModel.h"
 #import "MEHomeRecommendAndSpreebuyModel.h"
 
-#import "MEFourHomeHeaderView.h"
+//#import "MEFourHomeHeaderView.h"
 #import "MEFourHomeNoticeHeaderView.h"
 #import "MEFourHomeExchangeCell.h"
 #import "MECoupleMailCell.h"
@@ -40,17 +39,19 @@
 #import "MELianTongListVC.h"
 #import "MEPersionalCourseDetailVC.h"
 
+#import "MEFiveHomeNavView.h"
+#import "MEFiveHomeHeaderView.h"
+
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
-#define kMEThridHomeNavViewHeight (((IS_iPhoneX==YES||IS_IPHONE_Xr==YES||IS_IPHONE_Xs==YES||IS_IPHONE_Xs_Max==YES) ? 129 : 107))
 
-const static CGFloat kImgStore = 50;
+const static CGFloat kImgStoreH = 50;
 
-@interface MEFourHomeBaseVC ()<UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>{
+@interface MEFiveHomeBaseVC ()<UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>{
     NSInteger _type;
 }
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) MEFourHomeHeaderView *headerView;
+@property (nonatomic, strong) MEFiveHomeHeaderView *headerView;
 @property (nonatomic, strong) UIImageView *imgStore;
 @property (nonatomic, strong) ZLRefreshTool    *refresh;
 @property (nonatomic, strong) MEAdModel *leftBanner;
@@ -68,7 +69,7 @@ const static CGFloat kImgStore = 50;
 
 @end
 
-@implementation MEFourHomeBaseVC
+@implementation MEFiveHomeBaseVC
 
 - (void)dealloc {
     kNSNotificationCenterDealloc
@@ -86,23 +87,21 @@ const static CGFloat kImgStore = 50;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kMEf5f4f4;
-//    _arrDicParm = @[@{@"material_id":@"9660"},@{@"material_id":@"3756"},@{@"material_id":@"3786"},@{@"material_id":@"3767"},@{@"material_id":@"3763"},@{@"material_id":@"3760"}];
-    //@[@{@"type":@"3"},@{@"material_id":@"3756"},@{@"material_id":@"3786"},@{@"material_id":@"3767"},@{@"material_id":@"3763"},@{@"material_id":@"3760"}];
     
     self.navBarHidden = YES;
     [self.view addSubview:self.collectionView];
-
+    
     _net = @"";
     
     [self.refresh addRefreshView];
-    self.collectionView.mj_header.backgroundColor = [UIColor colorWithHexString:@"#E52E26"];
+    self.collectionView.mj_header.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
     
     MJRefreshNormalHeader *header = (MJRefreshNormalHeader *)self.collectionView.mj_header;
     header.stateLabel.textColor = [UIColor whiteColor];
     header.lastUpdatedTimeLabel.textColor = [UIColor whiteColor];
     
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#E52E26"];
-    self.headerView.ViewForBack.backgroundColor = [UIColor colorWithHexString:@"#E52E26"];
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+    self.headerView.ViewForBack.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
     
     if (_type == 0) {
         [self.view addSubview:self.imgStore];
@@ -124,7 +123,7 @@ const static CGFloat kImgStore = 50;
     if(kMeUnNilStr(model.color_start).length){
         UIColor *color = [UIColor colorWithHexString:kMeUnNilStr(model.color_start)];
         if(!color){
-            color = [UIColor colorWithHexString:@"#E52E26"];
+            color = [UIColor colorWithHexString:@"#2ED9A4"];
         }
         self.collectionView.mj_header.backgroundColor = color;
         if (self.changeColorBlock) {
@@ -147,7 +146,7 @@ const static CGFloat kImgStore = 50;
         uint8_t c;
         [data getBytes:&c length:1];
         dispatch_async(dispatch_get_main_queue(), ^{
-            strongSelf.imgStore.frame = CGRectMake(SCREEN_WIDTH-k15Margin-kImgStore, SCREEN_HEIGHT-kMeTabBarHeight-k15Margin-kImgStore-kMEThridHomeNavViewHeight-25, kImgStore, kImgStore+15);
+            strongSelf.imgStore.frame = CGRectMake(SCREEN_WIDTH-k15Margin-kImgStoreH, SCREEN_HEIGHT-kMeTabBarHeight-k15Margin-kImgStoreH-kMEFiveHomeNavViewHeight-25, kImgStoreH, kImgStoreH+15);
             if (c == 0x47) {//gif
                 strongSelf.imgStore.image = [UIImage sd_animatedGIFWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(strongSelf->_homeModel.right_bottom_img.ad_img)]]];
             }else {
@@ -157,12 +156,13 @@ const static CGFloat kImgStore = 50;
     });
 }
 
-- (void)setHeaderViewUIWithModel:(METhridHomeModel *)model stroeModel:(MEStoreModel *)storemodel optionsArray:(NSArray *)options{
-    [self.headerView setUIWithModel:model stroeModel:storemodel optionsArray:options];
-}
-
 - (void)reloadData {
     [self.refresh reload];
+}
+
+- (void)setCurrentIndex:(NSInteger)currentIndex {
+    self.headerView.categoryView.defaultSelectedIndex = currentIndex;
+    [self.headerView.categoryView reloadData];
 }
 
 - (void)getNetWork{
@@ -338,15 +338,9 @@ const static CGFloat kImgStore = 50;
             [self getNetWork];
         }
     }
-//    if (_type == 2) {
-//        return @{@"os":@"ios",
-//                 @"ip":[NSString stringWithFormat:@"%s",[[MECommonTool getIpAddresses] UTF8String]],
-//                 @"ua":@"Safari/525.13",
-//                 @"net":@"wifi"
-//                 };
-//    }
+
     NSDictionary *dic = _arrDicParm[_type];
-//    NSLog(@"---------%@",dic);
+    //    NSLog(@"---------%@",dic);
     return dic;
 }
 
@@ -376,7 +370,6 @@ const static CGFloat kImgStore = 50;
 }
 
 - (void)toStore{
-    //    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     kMeWEAKSELF
     if([MEUserInfoModel isLogin]){
         [weakSelf checkRelationIdWithUrl:nil];
@@ -517,7 +510,7 @@ const static CGFloat kImgStore = 50;
                     MEJoinPrizeVC *prizeVC = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.activity_id]];
                     [strongSelf.navigationController pushViewController:prizeVC animated:YES];
                 } failHandler:^(id object) {
-
+                    
                 }];
             }
         }
@@ -650,10 +643,10 @@ const static CGFloat kImgStore = 50;
         }
         if (indexPath.section == 11) {
             MECoupleModel *model = self.refresh.arrData[indexPath.row];
-
+            
             NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
             [self saveClickRecordsWithType:@"3" params:params];
-
+            
             if(kMeUnNilStr(model.coupon_id).length){
                 MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc] initWithProductrId:kMeUnNilStr(model.num_iid) couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
                 dvc.recordType = 1;
@@ -667,10 +660,10 @@ const static CGFloat kImgStore = 50;
         }
     }else {
         MECoupleModel *model = self.refresh.arrData[indexPath.row];
-
+        
         NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
         [self saveClickRecordsWithType:@"3" params:params];
-
+        
         if(kMeUnNilStr(model.coupon_id).length){
             MECoupleMailDetalVC *dvc = [[MECoupleMailDetalVC alloc]initWithProductrId:model.num_iid couponId:kMeUnNilStr(model.coupon_id) couponurl:kMeUnNilStr(model.coupon_share_url) Model:model];
             dvc.recordType = 1;
@@ -700,7 +693,7 @@ const static CGFloat kImgStore = 50;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     if (_type == 0) {
         if (section == 0) {
-            return CGSizeMake(SCREEN_WIDTH, [MEFourHomeHeaderView getViewHeightWithOptionsArray:_optionsArray]);
+            return CGSizeMake(SCREEN_WIDTH, [MEFiveHomeHeaderView getViewHeightWithOptionsArray:_optionsArray materArray:_arrDicParm]);
         }else if (section == 1) {
             if (self.noticeArray.count > 0) {
                 return CGSizeMake(SCREEN_WIDTH, 70);
@@ -732,7 +725,7 @@ const static CGFloat kImgStore = 50;
                 return CGSizeMake(0, 0.1);;
             }
         }else if (section == 6) {
-//            return CGSizeMake(SCREEN_WIDTH, [MEFourHomeGoodGoodFilterHeaderView getCellHeight]);
+            //            return CGSizeMake(SCREEN_WIDTH, [MEFourHomeGoodGoodFilterHeaderView getCellHeight]);
             return CGSizeZero;
         }else if (section == 7) {
             CGFloat height = 0;
@@ -786,8 +779,11 @@ const static CGFloat kImgStore = 50;
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         if (_type == 0) {
             if (indexPath.section == 0) {
-                MEFourHomeHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeHeaderView class]) forIndexPath:indexPath];
-                [header setUIWithModel:self.homeModel stroeModel:self.stroeModel optionsArray:self.optionsArray];
+                MEFiveHomeHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFiveHomeHeaderView class]) forIndexPath:indexPath];
+                [header setUIWithModel:self.homeModel materArray:_arrDicParm optionsArray:self.optionsArray];
+                if (self.selectedIndexBlock) {
+                    kMeCallBlock(self.selectedIndexBlock,0);
+                }
                 if(header.sdView){
                     [header.sdView makeScrollViewScrollToIndex:0];
                 }
@@ -796,6 +792,10 @@ const static CGFloat kImgStore = 50;
                 header.scrollToIndexBlock = ^(NSInteger index) {
                     kMeSTRONGSELF
                     [strongSelf setSdBackgroundColorWithIndex:index];
+                };
+                header.selectIndexBlock = ^(NSInteger index) {
+                    kMeSTRONGSELF
+                    kMeCallBlock(strongSelf.selectedIndexBlock,index);
                 };
                 header.reloadBlock = ^{
                     [weakSelf.refresh reload];
@@ -918,10 +918,10 @@ const static CGFloat kImgStore = 50;
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEThridHomeNavViewHeight) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight) collectionViewLayout:layout];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeExchangeCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MEFourHomeExchangeCell class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MECoupleMailCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MECoupleMailCell class])];
-        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeHeaderView class])];
+        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFiveHomeHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFiveHomeHeaderView class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeNoticeHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeNoticeHeaderView class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeTopHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeTopHeaderView class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFourHomeGoodGoodFilterHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodFilterHeaderView class])];
@@ -938,24 +938,19 @@ const static CGFloat kImgStore = 50;
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
         NSString *str = MEIPcommonTaobaokeGetDgMaterialOptional;
-//        if(_type == 2){
-//            str = MEIPcommonTaobaokeGetGuessLike;
-//        }
         _refresh = [[ZLRefreshTool alloc]initWithContentView:self.collectionView url:kGetApiWithUrl(str)];
         _refresh.delegate = self;
         _refresh.isCoupleMater = YES;
         _refresh.isPinduoduoCoupleMater = NO;
         _refresh.isDataInside = YES;
         _refresh.showFailView = NO;
-        //        _refresh.showMaskView = YES;
     }
     return _refresh;
 }
 
 - (UIImageView *)imgStore{
     if(!_imgStore){
-        _imgStore = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-k15Margin-kImgStore, SCREEN_HEIGHT-kMeTabBarHeight-k15Margin-kImgStore-kMEThridHomeNavViewHeight, kImgStore, kImgStore)];
-        //        _imgStore.cornerRadius = kImgStore/2;
+        _imgStore = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-k15Margin-kImgStoreH, SCREEN_HEIGHT-kMeTabBarHeight-k15Margin-kImgStoreH-kMEFiveHomeNavViewHeight, kImgStoreH, kImgStoreH)];
         _imgStore.clipsToBounds = YES;
         _imgStore.hidden = YES;
         _imgStore.userInteractionEnabled = YES;
