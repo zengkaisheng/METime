@@ -10,6 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface MEFiveHomeModulesModel : MEBaseModel
+
+@property (nonatomic, strong) NSArray * left_img;         //左图入口
+@property (nonatomic, strong) NSArray * right_top_img;    //右上入口
+@property (nonatomic, strong) NSArray * right_bottom_img; //右下入口
+@property (nonatomic, strong) NSArray * modules_list;     //入口列表
+
+@end
+
+
 @interface METhridHomeStudyTogetherModel : MEBaseModel
 
 @property (nonatomic, strong) NSArray * left_banner;      //左图
@@ -34,15 +44,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface METhridHomeAdModel : MEBaseModel
 
 @property (nonatomic, strong) NSString * ad_id;
-@property (nonatomic, strong) NSString * ad_name;
 @property (nonatomic, strong) NSString * ad_img;
+@property (nonatomic, strong) NSString * ad_name;
 @property (nonatomic, assign) NSInteger ad_position_id;
 @property (nonatomic, strong) NSString * ad_url;
 @property (nonatomic, assign) NSInteger product_id;
 @property (nonatomic, strong) NSString * color_start;
 @property (nonatomic, strong) NSString * color_end;
 @property (nonatomic, strong) NSString * content;
+@property (nonatomic, strong) NSString * created_at;
+@property (nonatomic, strong) NSString * createtime;
 @property (nonatomic, strong) NSString * deleted_at;
+@property (nonatomic, strong) NSString * end_at;
+@property (nonatomic, strong) NSString * show_level;
+@property (nonatomic, strong) NSString * start_at;
 @property (nonatomic, strong) NSString * keywork;
 @property (nonatomic, assign) NSInteger  show_type; //0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
 @property (nonatomic, assign) NSInteger status;
@@ -104,6 +119,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray * media_banner;      //首页课程banner
 @property (nonatomic, strong) NSArray * excellent_course;  //精品课程
 @property (nonatomic, strong) METhridHomeStudyTogetherModel *study_together;//一起学习
+//新版入口
+@property (nonatomic, strong) MEFiveHomeModulesModel *modules;
 
 @end
 

@@ -356,6 +356,8 @@
 
 /*********************************************/
 #pragma makr - home
+//获取首页导航分类-新2019-10-22
+#define MEIPcommonGetHomeNav @"common/home/getHomeNav"
 //获取淘宝客首页导航分类
 #define MEIPcommonGetMaterial @"common/taobaoke/getMaterial"
 

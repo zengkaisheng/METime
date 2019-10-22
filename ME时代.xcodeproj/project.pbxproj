@@ -1115,6 +1115,10 @@
 		EB63F44923505D7C00EA5A87 /* MENewCourseListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB63F44723505D7C00EA5A87 /* MENewCourseListCell.xib */; };
 		EB63F44C23508BC600EA5A87 /* MECourseAudioListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB63F44B23508BC600EA5A87 /* MECourseAudioListVC.m */; };
 		EB64702E22CD956100AE2D1E /* MEShowGroupUserListView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB64702D22CD956100AE2D1E /* MEShowGroupUserListView.m */; };
+		EB683268235EE70200422807 /* MEFiveHomeVolunteerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB683266235EE70200422807 /* MEFiveHomeVolunteerHeaderView.m */; };
+		EB683269235EE70200422807 /* MEFiveHomeVolunteerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB683267235EE70200422807 /* MEFiveHomeVolunteerHeaderView.xib */; };
+		EB68326D235EF40300422807 /* MEFiveHomeEntranceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB68326B235EF40300422807 /* MEFiveHomeEntranceCell.m */; };
+		EB68326E235EF40300422807 /* MEFiveHomeEntranceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB68326C235EF40300422807 /* MEFiveHomeEntranceCell.xib */; };
 		EB6BCDD823540F1000178E6B /* MEStudyPlanVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BCDD723540F1000178E6B /* MEStudyPlanVC.m */; };
 		EB6BCDDB2354124800178E6B /* MECareerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BCDDA2354124800178E6B /* MECareerVC.m */; };
 		EB6BCDDE23547D2500178E6B /* MEStudiedHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BCDDD23547D2500178E6B /* MEStudiedHomeModel.m */; };
@@ -3393,6 +3397,12 @@
 		EB63F44B23508BC600EA5A87 /* MECourseAudioListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECourseAudioListVC.m; sourceTree = "<group>"; };
 		EB64702C22CD956100AE2D1E /* MEShowGroupUserListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEShowGroupUserListView.h; sourceTree = "<group>"; };
 		EB64702D22CD956100AE2D1E /* MEShowGroupUserListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEShowGroupUserListView.m; sourceTree = "<group>"; };
+		EB683265235EE70200422807 /* MEFiveHomeVolunteerHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFiveHomeVolunteerHeaderView.h; sourceTree = "<group>"; };
+		EB683266235EE70200422807 /* MEFiveHomeVolunteerHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFiveHomeVolunteerHeaderView.m; sourceTree = "<group>"; };
+		EB683267235EE70200422807 /* MEFiveHomeVolunteerHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEFiveHomeVolunteerHeaderView.xib; sourceTree = "<group>"; };
+		EB68326A235EF40300422807 /* MEFiveHomeEntranceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFiveHomeEntranceCell.h; sourceTree = "<group>"; };
+		EB68326B235EF40300422807 /* MEFiveHomeEntranceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFiveHomeEntranceCell.m; sourceTree = "<group>"; };
+		EB68326C235EF40300422807 /* MEFiveHomeEntranceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEFiveHomeEntranceCell.xib; sourceTree = "<group>"; };
 		EB6BCDD623540F1000178E6B /* MEStudyPlanVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEStudyPlanVC.h; sourceTree = "<group>"; };
 		EB6BCDD723540F1000178E6B /* MEStudyPlanVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEStudyPlanVC.m; sourceTree = "<group>"; };
 		EB6BCDD92354124800178E6B /* MECareerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECareerVC.h; sourceTree = "<group>"; };
@@ -8264,6 +8274,12 @@
 				EB7E807A235D5AD100AE9565 /* MEFiveHomeHeaderView.h */,
 				EB7E807B235D5AD100AE9565 /* MEFiveHomeHeaderView.m */,
 				EB7E807C235D5AD100AE9565 /* MEFiveHomeHeaderView.xib */,
+				EB683265235EE70200422807 /* MEFiveHomeVolunteerHeaderView.h */,
+				EB683266235EE70200422807 /* MEFiveHomeVolunteerHeaderView.m */,
+				EB683267235EE70200422807 /* MEFiveHomeVolunteerHeaderView.xib */,
+				EB68326A235EF40300422807 /* MEFiveHomeEntranceCell.h */,
+				EB68326B235EF40300422807 /* MEFiveHomeEntranceCell.m */,
+				EB68326C235EF40300422807 /* MEFiveHomeEntranceCell.xib */,
 			);
 			path = FiveHome;
 			sourceTree = "<group>";
@@ -8758,8 +8774,10 @@
 				36F69B41225C9D4E008E8DB0 /* MEAIDataHomeActiveHomeView.xib in Resources */,
 				EB5ABA2122E94F8700ADF22D /* MEHomeAddTestDecCell.xib in Resources */,
 				369D7E6A2241D1EF00A35DBB /* MEBdataTopCell.xib in Resources */,
+				EB68326E235EF40300422807 /* MEFiveHomeEntranceCell.xib in Resources */,
 				36FDEFEC21B0CB0C0022D374 /* MECreatePosterVC.xib in Resources */,
 				360EE80021F5AA800048490E /* MECommondCouponCell.xib in Resources */,
+				EB683269235EE70200422807 /* MEFiveHomeVolunteerHeaderView.xib in Resources */,
 				36FFE962217DAE2200010AED /* MEExchangDetailsBottomView.xib in Resources */,
 				36E78C9A2276D028009EC0E8 /* METhridHomeGoodGoodFilterCell.xib in Resources */,
 				363D8E852146891D00D746DF /* MESkuBuyContentCell.xib in Resources */,
@@ -9710,6 +9728,7 @@
 				368E066C221A9D5300B125DE /* MEJDCoupleHomeVC.m in Sources */,
 				36E1BF0C2148F96900E28301 /* MEMineExchangeDetailVC.m in Sources */,
 				3691309322363B6E008B1836 /* AAYAxis.m in Sources */,
+				EB68326D235EF40300422807 /* MEFiveHomeEntranceCell.m in Sources */,
 				36E78C932276C75A009EC0E8 /* METhridHomeCommondSectionView.m in Sources */,
 				36F5E81E222F68F1000B0241 /* TKeyValueCell.m in Sources */,
 				3691309A22363B6E008B1836 /* AAArea.m in Sources */,
@@ -10154,6 +10173,7 @@
 				36F5E852222F68F1000B0241 /* ImageViewController.m in Sources */,
 				36F561462241D8B20070519E /* MEBdataVC.m in Sources */,
 				EB71640E22D48D770060D58F /* MEHomeOptionsModel.m in Sources */,
+				EB683268235EE70200422807 /* MEFiveHomeVolunteerHeaderView.m in Sources */,
 				EB72EA3D22FC250400D7A101 /* MECourseDetailModel.m in Sources */,
 				36E284E122375465009F1563 /* MEBrandAbilityVisterCell.m in Sources */,
 				EB77B0FA232A3C50008BBB60 /* MEPersonalCourseHeaderView.m in Sources */,

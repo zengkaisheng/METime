@@ -218,6 +218,9 @@
 /***************************************/
 
 #pragma mark - HomePage
+//获取首页导航分类-新 2019-10-22
++ (void)postGetHomeNavWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
 //获取淘宝客首页导航分类
 + (void)postGetMaterialWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //审核状态

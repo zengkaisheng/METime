@@ -9,6 +9,13 @@
 #import "METhridHomeModel.h"
 #import "MEPersonalCourseListModel.h"
 
+@implementation MEFiveHomeModulesModel
+
+MEModelObjectClassInArrayWithDic((@{@"left_img" : [METhridHomeAdModel class], @"right_top_img" : [METhridHomeAdModel class], @"right_bottom_img" : [METhridHomeAdModel class], @"modules_list" : [METhridHomeAdModel class],}))
+
+@end
+
+
 @implementation METhridHomeStudyTogetherModel
 
 MEModelObjectClassInArrayWithDic((@{@"left_banner" : [METhridHomeAdModel class], @"right_banner" : [METhridHomeAdModel class]}))

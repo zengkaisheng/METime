@@ -57,7 +57,8 @@
 
 - (void)requestMaterialData {
     kMeWEAKSELF
-    [MEPublicNetWorkTool postGetMaterialWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+    //新
+    [MEPublicNetWorkTool postGetHomeNavWithSuccessBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         if ([responseObject.data isKindOfClass:[NSArray class]]) {
             strongSelf->_arrDicParm = [NSArray arrayWithArray:(NSArray *)responseObject.data];
@@ -68,6 +69,17 @@
     } failure:^(id object) {
         
     }];
+//    [MEPublicNetWorkTool postGetMaterialWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+//        kMeSTRONGSELF
+//        if ([responseObject.data isKindOfClass:[NSArray class]]) {
+//            strongSelf->_arrDicParm = [NSArray arrayWithArray:(NSArray *)responseObject.data];
+//        }else {
+//            strongSelf->_arrDicParm = [[NSArray alloc] init];
+//        }
+//        [strongSelf setUpUI];
+//    } failure:^(id object) {
+//
+//    }];
 }
 
 - (void)setUpUI {
