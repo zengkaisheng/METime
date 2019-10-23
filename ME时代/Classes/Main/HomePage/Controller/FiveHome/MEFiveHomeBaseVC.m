@@ -42,6 +42,8 @@
 #import "MEFiveHomeHeaderView.h"
 #import "MEFiveHomeVolunteerHeaderView.h"
 #import "MEFiveHomeEntranceCell.h"
+#import "MEFiveHomeCouponView.h"
+#import "MEFiveCategoryView.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
@@ -66,6 +68,10 @@ const static CGFloat kImgStoreH = 50;
 @property (nonatomic, strong) NSArray *noticeArray;
 @property (nonatomic, strong) NSArray *activityArray;
 @property (nonatomic, strong) NSArray *goodsArray;
+
+@property (nonatomic, strong) NSArray *categorysArray;
+@property (nonatomic, strong) MEFiveCategoryView *categoryView;
+@property (nonatomic, strong) MEFiveHomeCouponView *couponView;
 
 @end
 
@@ -292,7 +298,22 @@ const static CGFloat kImgStoreH = 50;
         }];
     });
     
+    dispatch_group_async(group, queue, ^{
+        [MEPublicNetWorkTool postGetMaterialWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+            kMeSTRONGSELF
+            if ([responseObject.data isKindOfClass:[NSArray class]]) {
+                strongSelf.categorysArray = [NSArray arrayWithArray:(NSArray *)responseObject.data];
+            }else {
+                strongSelf.categorysArray = [[NSArray alloc] init];
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(id object) {
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    
     dispatch_group_notify(group, queue, ^{
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -336,7 +357,8 @@ const static CGFloat kImgStoreH = 50;
     if(![data isKindOfClass:[NSArray class]]){
         return;
     }
-    [self.refresh.arrData addObjectsFromArray:[MECoupleModel mj_objectArrayWithKeyValuesArray:data]];
+//    [self.refresh.arrData addObjectsFromArray:[MECoupleModel mj_objectArrayWithKeyValuesArray:data]];
+    [self.refresh.arrData addObjectsFromArray:@[]];
 }
 
 #pragma mark -- Action
@@ -582,17 +604,40 @@ const static CGFloat kImgStoreH = 50;
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
+#pragma mark -- ScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if ([scrollView isEqual:self.collectionView]) {
+        if (![self.categoryView.categoryView.titles.firstObject isEqualToString:@""]) {
+            CGPoint point = [self.couponView convertPoint:CGPointMake(0,0) toView:[UIApplication sharedApplication].windows.lastObject];
+            if (point.y > kMEFiveHomeNavViewHeight) {
+                [self.couponView setScrollViewCanScroll:NO];
+            }else {
+                [self.couponView setScrollViewCanScroll:YES];
+            }
+            if (scrollView.contentOffset.y >= self.couponView.frame.origin.y) {
+                if (self.categoryView.hidden) {
+                    self.categoryView.hidden = NO;
+                    [self.couponView setScrollViewCanScroll:YES];
+                }
+            }else {
+                self.categoryView.hidden = YES;
+                [self.couponView setScrollViewCanScroll:NO];
+            }
+        }
+    }
+}
+
 #pragma mark- CollectionView Delegate And DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     if (_type == 0) {
-        return 13;
+        return 14;
     }
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (_type == 0) {
-        if (section == 0 || section == 2 || section == 3 || section == 4 || section == 5 || section == 6 || section == 7 || section == 8 || section == 9 || section == 11) {
+        if (section == 0 || section == 2 || section == 3 || section == 4 || section == 5 || section == 6 || section == 7 || section == 8 || section == 9 || section == 11 || section == 12) {
             return 0;
         }else if (section == 1) {
             return 1;
@@ -640,7 +685,7 @@ const static CGFloat kImgStoreH = 50;
             NSLog(@"name:%@",kMeUnNilStr(adModel.ad_name));
             
             
-        }else if (indexPath.section == 12) {
+        }else if (indexPath.section == 13) {
             MECoupleModel *model = self.refresh.arrData[indexPath.row];
             
             NSDictionary *params = @{@"num_iid":kMeUnNilStr(model.num_iid),@"item_title":kMeUnNilStr(model.title),@"uid":kMeUnNilStr(kCurrentUser.uid)};
@@ -765,7 +810,9 @@ const static CGFloat kImgStoreH = 50;
             }
             return CGSizeMake(SCREEN_WIDTH, kMEFiveHomeVolunteerHeaderViewHeight);
         }else if (section == 11) {
-            CGFloat height = 51;
+            return CGSizeMake(SCREEN_WIDTH, kMEFiveHomeCouponViewHeight);
+        }else if (section == 12) {
+            CGFloat height = 0;
             if (self.goodsArray.count > 0) {
                 NSDictionary *data = self.goodsArray.firstObject;
                 if ([data.allKeys containsObject:@"goods"]) {
@@ -917,8 +964,30 @@ const static CGFloat kImgStoreH = 50;
                 };
                 headerView = header;
             }else if (indexPath.section == 11) {
+                MEFiveHomeCouponView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFiveHomeCouponView class]) forIndexPath:indexPath];
+                [header setUIWithMaterialArray:self.categorysArray];
+                kMeWEAKSELF
+                header.selectIndexBlock = ^(NSInteger index) {
+                    kMeSTRONGSELF
+                    strongSelf.categoryView.categoryView.defaultSelectedIndex = index;
+                    [strongSelf.categoryView.categoryView reloadData];
+                };
+                header.scrollBlock = ^{
+                   kMeSTRONGSELF
+                    [strongSelf.collectionView setContentOffset:CGPointMake(0, CGRectGetMinY(header.frame)-60) animated:YES];
+                };
+                
+                [self.categoryView setMaterArray:self.categorysArray];
+                [self.categoryView.categoryView reloadData];
+                self.categoryView.categoryView.contentScrollView = header.scrollView;
+                [self.view addSubview:self.categoryView];
+                self.categoryView.hidden = YES;
+                
+                self.couponView = header;
+                headerView = header;
+            }else if (indexPath.section == 12) {
                 MEFourHomeGoodGoodMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) forIndexPath:indexPath];
-                [header setupUIWithArray:self.goodsArray showFooter:YES];
+                [header setupUIWithArray:self.goodsArray showFooter:NO];
                 headerView = header;
             }
         }
@@ -961,6 +1030,8 @@ const static CGFloat kImgStoreH = 50;
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFiveHomeVolunteerHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFiveHomeVolunteerHeaderView class])];
          [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFiveHomeEntranceCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MEFiveHomeEntranceCell class])];
         
+        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFiveHomeCouponView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFiveHomeCouponView class])];
+        
         _collectionView.backgroundColor = kMEf5f4f4;
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
@@ -991,6 +1062,30 @@ const static CGFloat kImgStoreH = 50;
         [_imgStore addGestureRecognizer:ges];
     }
     return _imgStore;
+}
+
+- (MEFiveCategoryView *)categoryView {
+    if (!_categoryView) {
+        _categoryView = [[MEFiveCategoryView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 52)];
+        _categoryView.categoryView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 52);
+        _categoryView.backgroundColor = [UIColor whiteColor];
+        JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
+        lineView.indicatorLineViewColor =  [UIColor colorWithHexString:@"#2ED9A4"];
+        lineView.indicatorLineViewHeight = 10;
+        _categoryView.categoryView.indicators = @[lineView];
+        
+        _categoryView.categoryView.titleSelectedColor = [UIColor colorWithHexString:@"#2ED9A4"];
+        _categoryView.categoryView.titleColor =  kME333333;
+        
+        kMeWEAKSELF
+        _categoryView.selectIndexBlock = ^(NSInteger index) {
+            kMeSTRONGSELF
+            if(index>=0 && index < strongSelf.categorysArray.count){
+                [strongSelf.couponView reloadCategoryTitlesWithIndex:index];
+            }
+        };
+    }
+    return _categoryView;
 }
 
 @end

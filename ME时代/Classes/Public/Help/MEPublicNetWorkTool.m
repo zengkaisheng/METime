@@ -1322,17 +1322,17 @@
 + (void)postGetMaterialWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{};
     NSString *url = kGetApiWithUrl(MEIPcommonGetMaterial);
-    MBProgressHUD *HUD = [self commitWithHUD:@""];
+//    MBProgressHUD *HUD = [self commitWithHUD:@""];
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
-        [HUD hideAnimated:YES];
+//        [HUD hideAnimated:YES];
         kMeCallBlock(successBlock,responseObject);
     } failure:^(id error) {
-        if([error isKindOfClass:[ZLRequestResponse class]]){
-            ZLRequestResponse *res = (ZLRequestResponse*)error;
-            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
-        }else{
-            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
-        }
+//        if([error isKindOfClass:[ZLRequestResponse class]]){
+//            ZLRequestResponse *res = (ZLRequestResponse*)error;
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+//        }else{
+//            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+//        }
         kMeCallBlock(failure,error);
     }];
 }

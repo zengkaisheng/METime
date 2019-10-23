@@ -272,7 +272,7 @@
                         strongSelf.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
                         strongSelf.categoryView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
                     }else {
-                        [strongSelf.choseVC setCurrentIndex:0];;
+                        [strongSelf.choseVC setCurrentIndex:0];
                     }
                 }
             }

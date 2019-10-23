@@ -62,7 +62,7 @@
     self.categoryView.titles = [titleArray copy];
 }
 
-- (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index{
+- (void)categoryView:(JXCategoryBaseView *)categoryView didSelectedItemAtIndex:(NSInteger)index{
     kMeCallBlock(_selectIndexBlock,index);
 }
 
