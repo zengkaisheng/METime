@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECustomerServiceBaseVC : MEBaseVC
 
-- (instancetype)initWithClassifyId:(NSInteger)classifyId;
+- (instancetype)initWithClassifyId:(NSInteger)classifyId materialArray:(NSArray *)materialArray;
 
 - (void)reloadDatas;
 

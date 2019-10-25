@@ -24,7 +24,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_more" translatesAutoresizingMaskIntoConstraints="NO" id="HcX-N6-JPR">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inco-yytmtmda" translatesAutoresizingMaskIntoConstraints="NO" id="HcX-N6-JPR">
                         <rect key="frame" x="349" y="19" width="8" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="8" id="P47-9f-C2q"/>
@@ -91,6 +91,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icon_more" width="7" height="11"/>
+        <image name="inco-yytmtmda" width="7" height="13"/>
     </resources>
 </document>

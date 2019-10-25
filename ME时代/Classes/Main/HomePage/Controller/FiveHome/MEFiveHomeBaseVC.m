@@ -13,7 +13,6 @@
 #import "MERedeemgetStatusModel.h"
 #import "MEHomeRecommendAndSpreebuyModel.h"
 
-//#import "MEFourHomeHeaderView.h"
 #import "MEFourHomeNoticeHeaderView.h"
 #import "MEFourHomeExchangeCell.h"
 #import "MECoupleMailCell.h"
@@ -44,6 +43,10 @@
 #import "MEFiveHomeEntranceCell.h"
 #import "MEFiveHomeCouponView.h"
 #import "MEFiveCategoryView.h"
+#import "MECourseDetailVC.h"
+
+#import "MERegisteVolunteerVC.h"
+#import "MECommunityServiceHomeVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
@@ -410,7 +413,7 @@ const static CGFloat kImgStoreH = 50;
     NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
     [self saveClickRecordsWithType:@"1" params:params];
     
-    switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标
+    switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标(跳活动)10 跳拼多多 11 跳京东 12 跳秒杀商品 13 跳拼多多推荐商品列表 14 跳砍价活动 15 跳拼团活动 16 跳签到活动 17 跳常见问题 18 跳视频详情页面 19 跳音频详情页面 20 联通兑换商品列表 21 跳C端视频详情页面 22 跳C端音频详情页面 23 跳公益课程 24 跳志愿者注册 25 跳活动招募 26 跳精选好物 27 跳公益活动 28 跳社区服务 29 跳福利领取 30 跳福利活动 31 跳视力预约 32 跳爱心榜 33 跳志愿保障
         case 1:
         {
             METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
@@ -531,6 +534,18 @@ const static CGFloat kImgStoreH = 50;
             [self.navigationController pushViewController:questionVC animated:YES];
         }
             break;
+        case 18:
+        {
+            MECourseDetailVC *dvc = [[MECourseDetailVC alloc] initWithId:model.video_id type:0];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        case 19:
+        {
+            MECourseDetailVC *dvc = [[MECourseDetailVC alloc] initWithId:model.audio_id type:1];
+            [self.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
         case 20:
         {//联通兑换专区
             MELianTongListVC *liantongVC = [[MELianTongListVC alloc] init];
@@ -547,6 +562,64 @@ const static CGFloat kImgStoreH = 50;
         {//C端音频
             MEPersionalCourseDetailVC *vc = [[MEPersionalCourseDetailVC alloc] initWithCourseId:model.audio_id];
             [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 23:
+        {//跳公益课程
+            NSLog(@"跳公益课程");
+//            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 24:
+        {//跳志愿者注册
+            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 25:
+        {//跳活动招募
+            //            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 26:
+        {//跳精选好物
+            //            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 27:
+        {//跳公益活动
+            //            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 28:
+        {//跳社区服务
+            MECommunityServiceHomeVC *vc = [[MECommunityServiceHomeVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 29:
+        {//跳福利领取
+            //            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 30:
+        {//跳福利活动
+            //            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 31:
+        {//跳视力预约
+            //            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 32:
+        {//跳爱心榜
+            //            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 33:
+        {//跳志愿保障
+            //            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:
@@ -682,8 +755,8 @@ const static CGFloat kImgStoreH = 50;
             }
         }else if (indexPath.section == 10) {
             METhridHomeAdModel *adModel = self.homeModel.modules.modules_list[indexPath.row];
-            NSLog(@"name:%@",kMeUnNilStr(adModel.ad_name));
-            
+            MEAdModel *model = [MEAdModel mj_objectWithKeyValues:adModel.mj_keyValues];
+            [self cycleScrollViewDidSelectItemWithModel:model];
             
         }else if (indexPath.section == 13) {
             MECoupleModel *model = self.refresh.arrData[indexPath.row];
@@ -947,16 +1020,40 @@ const static CGFloat kImgStoreH = 50;
             }else if (indexPath.section == 10) {
                 MEFiveHomeVolunteerHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFiveHomeVolunteerHeaderView class]) forIndexPath:indexPath];
                 [header setUIWithModel:self.homeModel];
+                kMeWEAKSELF
                 header.selectIndexBlock = ^(NSInteger index) {
+                    kMeSTRONGSELF
+                    MEFiveHomeModulesModel *modulesModel = strongSelf.homeModel.modules;
                     switch (index) {
                         case 0:
-                            NSLog(@"点击了左图");
+                        {
+                            NSArray *left_img = kMeUnArr(modulesModel.left_img);
+                            if (left_img.count > 0) {
+                                METhridHomeAdModel *adModel = (METhridHomeAdModel *)left_img.firstObject;
+                                MEAdModel *model = [MEAdModel mj_objectWithKeyValues:adModel.mj_keyValues];
+                                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+                            }
+                        }
                             break;
                         case 1:
-                            NSLog(@"点击了右上图");
+                        {
+                            NSArray *right_top_img = kMeUnArr(modulesModel.right_top_img);
+                            if (right_top_img.count > 0) {
+                                METhridHomeAdModel *adModel = (METhridHomeAdModel *)right_top_img.firstObject;
+                                MEAdModel *model = [MEAdModel mj_objectWithKeyValues:adModel.mj_keyValues];
+                                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+                            }
+                        }
                             break;
                         case 2:
-                            NSLog(@"点击了右下图");
+                        {
+                            NSArray *right_bottom_img = kMeUnArr(modulesModel.right_bottom_img);
+                            if (right_bottom_img.count > 0) {
+                                METhridHomeAdModel *adModel = (METhridHomeAdModel *)right_bottom_img.firstObject;
+                                MEAdModel *model = [MEAdModel mj_objectWithKeyValues:adModel.mj_keyValues];
+                                [strongSelf cycleScrollViewDidSelectItemWithModel:model];
+                            }
+                        }
                             break;
                         default:
                             break;
@@ -1070,8 +1167,11 @@ const static CGFloat kImgStoreH = 50;
         _categoryView.categoryView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 52);
         _categoryView.backgroundColor = [UIColor whiteColor];
         JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
-        lineView.indicatorLineViewColor =  [UIColor colorWithHexString:@"#2ED9A4"];
+        lineView.indicatorLineViewColor = [UIColor whiteColor];
+        //    [UIColor colorWithHexString:@"#2ED9A4"];
         lineView.indicatorLineViewHeight = 10;
+        lineView.indicatorLineWidth = 30;
+        [lineView setLineFontImage:@"icon_categoryViewImage"];
         _categoryView.categoryView.indicators = @[lineView];
         
         _categoryView.categoryView.titleSelectedColor = [UIColor colorWithHexString:@"#2ED9A4"];

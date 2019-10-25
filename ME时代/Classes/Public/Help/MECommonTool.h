@@ -23,6 +23,11 @@
  */
 + (BOOL)isValidPhoneNum:(NSString *)strPhoneNum;
 
+/**
+ *  校验身份证号码是否正确
+ */
++ (BOOL)CkechIdentityStringValid:(NSString *)identityString;
+
 //color->image
 + (UIImage*) createImageWithColor:(UIColor*) color;
 

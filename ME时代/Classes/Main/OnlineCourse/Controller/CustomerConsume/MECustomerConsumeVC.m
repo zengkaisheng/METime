@@ -39,7 +39,7 @@
 - (void)setupUI {
     CGFloat categoryViewHeight = kCategoryViewHeight;
     if (self.arrModel.count < 2) {
-        categoryViewHeight = 1;
+        categoryViewHeight = 0.1;
     }
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight)];
@@ -51,7 +51,7 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     for (int i = 0; i < _arrType.count; i++) {
         MECustomerClassifyListModel *mode = _arrModel[i];
-        MECustomerConsumeBaseVC *VC = [[MECustomerConsumeBaseVC alloc] initWithClassifyId:mode.idField];
+        MECustomerConsumeBaseVC *VC = [[MECustomerConsumeBaseVC alloc] initWithClassifyId:mode.idField materialArray:_arrModel];
         VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         VC.view.frame = CGRectMake(SCREEN_WIDTH*i,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight);
         [self addChildViewController:VC];

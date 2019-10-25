@@ -23,8 +23,11 @@
     // Initialization code
     
     JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
-    lineView.indicatorLineViewColor =  [UIColor colorWithHexString:@"#2ED9A4"];
+    lineView.indicatorLineViewColor = [UIColor whiteColor];
+//    [UIColor colorWithHexString:@"#2ED9A4"];
     lineView.indicatorLineViewHeight = 10;
+    lineView.indicatorLineWidth = 30;
+    [lineView setLineFontImage:@"icon_categoryViewImage"];
     self.categoryView.indicators = @[lineView];
     
     self.categoryView.titles = @[@""];
@@ -63,10 +66,10 @@
                 kMeSTRONGSELF
                 kMeCallBlock(strongSelf.scrollBlock);
             };
-            int R = (arc4random() % 256);
-            int G = (arc4random() % 256);
-            int B = (arc4random() % 256);
-            view.backgroundColor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1];
+//            int R = (arc4random() % 256);
+//            int G = (arc4random() % 256);
+//            int B = (arc4random() % 256);
+//            view.backgroundColor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1];
             [self.scrollView addSubview:view];
         }
         

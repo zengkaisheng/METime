@@ -80,7 +80,6 @@
     if (viewPoint.y > kMEFiveHomeNavViewHeight+52) {
         self.collectionView.mj_footer.hidden = YES;
         self.collectionView.scrollEnabled = NO;
-//        return NO;
     }else {
         if (self.collectionView.contentOffset.y < 0) {
             kMeCallBlock(_scrollBlock);

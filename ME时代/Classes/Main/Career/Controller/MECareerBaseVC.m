@@ -110,7 +110,7 @@
     if(!_tableView){
         CGFloat categoryViewHeight = kCategoryViewHeight;
         if (self.categorys.count < 2) {
-            categoryViewHeight = 1;
+            categoryViewHeight = 0.1;
         }
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT- kMENewOnlineCourseHeaderViewHeight - categoryViewHeight - kMeTabBarHeight-(kMeStatusBarHeight-20)) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEStudiedRecommentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEStudiedRecommentCell class])];

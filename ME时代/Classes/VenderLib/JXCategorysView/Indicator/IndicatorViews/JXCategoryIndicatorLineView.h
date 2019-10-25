@@ -32,4 +32,6 @@ typedef NS_ENUM(NSUInteger, JXCategoryIndicatorLineStyle) {
 
 @property (nonatomic, strong) UIColor *indicatorLineViewColor;   //默认为[UIColor redColor]
 
+- (void)setLineFontImage:(NSString *)imageName;
+
 @end

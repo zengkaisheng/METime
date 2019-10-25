@@ -27,6 +27,7 @@
 #import "MEAddServiceModel.h"
 #import "MEAddCustomerExpenseModel.h"
 #import "MEAddCustomerAppointmentModel.h"
+#import "MERegisterVolunteerModel.h"
 
 @implementation MEPublicNetWorkTool
 
@@ -5649,6 +5650,69 @@
 }
 
 /*********************************************/
+
+
+/*********************************************/
+#pragma mark - 志愿者
+//申请志愿者
++ (void)postRegisterVolunteerWithModel:(MERegisterVolunteerModel *)model successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+     NSDictionary *dic = [model mj_keyValues];
+    NSString *url = kGetApiWithUrl(MEIPcommonUserRegisterVolunteer);
+    MBProgressHUD *HUD = [self commitWithHUD:@"提交中"];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//获取社区服务分类
++ (void)postGetCommunityServericeClassifyListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonCommunityServericeGetClassify);
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//社区服务详情
++ (void)postGetServiceDetailWithServiceId:(NSInteger)serviceId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"id":@(serviceId),
+                          };
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    NSString *url = kGetApiWithUrl(MEIPcommonCommunityServericeInfo);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+/*********************************************/
+
 
 
 /*********************************************/

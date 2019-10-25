@@ -90,7 +90,7 @@
     
     CGFloat categoryViewHeight = kCategoryViewHeight;
     if (self.categorys.count < 2) {
-        categoryViewHeight = 1;
+        categoryViewHeight = 0.1;
     }
     
     NSMutableArray *categoryTitles = [[NSMutableArray alloc] init];

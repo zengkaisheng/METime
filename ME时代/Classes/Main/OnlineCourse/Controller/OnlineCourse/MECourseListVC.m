@@ -77,7 +77,7 @@
 - (void)setupUI {
     CGFloat categoryViewHeight = kCategoryViewHeight;
     if (self.arrModel.count < 2) {
-        categoryViewHeight = 1;
+        categoryViewHeight = 0.1;
     }
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+categoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight)];

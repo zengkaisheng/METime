@@ -1350,6 +1350,16 @@
 		EB825E9E23129457007F7005 /* MEServiceCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB825E9C23129457007F7005 /* MEServiceCardCell.m */; };
 		EB825E9F23129457007F7005 /* MEServiceCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB825E9D23129457007F7005 /* MEServiceCardCell.xib */; };
 		EB8371C322C4C59B00B57D99 /* MEBargainDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8371C222C4C59B00B57D99 /* MEBargainDetailVC.m */; };
+		EB840FBD236189C5007A9C50 /* MECommunityServiceHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB840FBC236189C5007A9C50 /* MECommunityServiceHomeVC.m */; };
+		EB840FC0236189E1007A9C50 /* MECommunityServiceBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB840FBF236189E1007A9C50 /* MECommunityServiceBaseVC.m */; };
+		EB840FC323619341007A9C50 /* MECommunityServericeListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB840FC223619341007A9C50 /* MECommunityServericeListModel.m */; };
+		EB840FC72361949B007A9C50 /* MECommunityServiceListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB840FC52361949B007A9C50 /* MECommunityServiceListCell.m */; };
+		EB840FC82361949B007A9C50 /* MECommunityServiceListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB840FC62361949B007A9C50 /* MECommunityServiceListCell.xib */; };
+		EB840FCC2361A32C007A9C50 /* MECommunityServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB840FCA2361A32C007A9C50 /* MECommunityServiceCell.m */; };
+		EB840FCD2361A32C007A9C50 /* MECommunityServiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB840FCB2361A32C007A9C50 /* MECommunityServiceCell.xib */; };
+		EB840FD02361AED4007A9C50 /* MECommunityServiceDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB840FCF2361AED4007A9C50 /* MECommunityServiceDetailVC.m */; };
+		EB840FD42361AFCF007A9C50 /* MECommunityServiceDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB840FD22361AFCF007A9C50 /* MECommunityServiceDetailCell.m */; };
+		EB840FD52361AFCF007A9C50 /* MECommunityServiceDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB840FD32361AFCF007A9C50 /* MECommunityServiceDetailCell.xib */; };
 		EB8421D522F182830026236D /* MEFourHomeActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8421D322F182830026236D /* MEFourHomeActivityCell.m */; };
 		EB8421D622F182830026236D /* MEFourHomeActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB8421D422F182830026236D /* MEFourHomeActivityCell.xib */; };
 		EB84603122A641FE00AA283D /* MENewAddTelView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB84603022A641FE00AA283D /* MENewAddTelView.m */; };
@@ -1423,6 +1433,9 @@
 		EB9FA00322F3D2C100AA4FB1 /* MECourseDetailListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9FA00122F3D2C100AA4FB1 /* MECourseDetailListCell.xib */; };
 		EB9FA00722F3DB8E00AA4FB1 /* MECourseDetailCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9FA00522F3DB8E00AA4FB1 /* MECourseDetailCommentCell.m */; };
 		EB9FA00822F3DB8E00AA4FB1 /* MECourseDetailCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9FA00622F3DB8E00AA4FB1 /* MECourseDetailCommentCell.xib */; };
+		EBABD7FC23604FE300A33AB2 /* MERegisteVolunteerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EBABD7FA23604FE300A33AB2 /* MERegisteVolunteerVC.m */; };
+		EBABD7FD23604FE300A33AB2 /* MERegisteVolunteerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBABD7FB23604FE300A33AB2 /* MERegisteVolunteerVC.xib */; };
+		EBABD80023605ED400A33AB2 /* MERegisterVolunteerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EBABD7FF23605ED400A33AB2 /* MERegisterVolunteerModel.m */; };
 		EBABDF9022D2F435001CBF41 /* MEGroupOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EBABDF8F22D2F435001CBF41 /* MEGroupOrderDetailVC.m */; };
 		EBBA1EB1234C74BF00A61B82 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBBA1EB0234C74BF00A61B82 /* StoreKit.framework */; };
 		EBBA1EB4234CA0F400A61B82 /* MECommissionBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA1EB3234CA0F400A61B82 /* MECommissionBaseVC.m */; };
@@ -3803,6 +3816,23 @@
 		EB825E9D23129457007F7005 /* MEServiceCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEServiceCardCell.xib; sourceTree = "<group>"; };
 		EB8371C122C4C59B00B57D99 /* MEBargainDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEBargainDetailVC.h; sourceTree = "<group>"; };
 		EB8371C222C4C59B00B57D99 /* MEBargainDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEBargainDetailVC.m; sourceTree = "<group>"; };
+		EB840FBB236189C5007A9C50 /* MECommunityServiceHomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECommunityServiceHomeVC.h; sourceTree = "<group>"; };
+		EB840FBC236189C5007A9C50 /* MECommunityServiceHomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECommunityServiceHomeVC.m; sourceTree = "<group>"; };
+		EB840FBE236189E1007A9C50 /* MECommunityServiceBaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECommunityServiceBaseVC.h; sourceTree = "<group>"; };
+		EB840FBF236189E1007A9C50 /* MECommunityServiceBaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECommunityServiceBaseVC.m; sourceTree = "<group>"; };
+		EB840FC123619341007A9C50 /* MECommunityServericeListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECommunityServericeListModel.h; sourceTree = "<group>"; };
+		EB840FC223619341007A9C50 /* MECommunityServericeListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECommunityServericeListModel.m; sourceTree = "<group>"; };
+		EB840FC42361949B007A9C50 /* MECommunityServiceListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECommunityServiceListCell.h; sourceTree = "<group>"; };
+		EB840FC52361949B007A9C50 /* MECommunityServiceListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECommunityServiceListCell.m; sourceTree = "<group>"; };
+		EB840FC62361949B007A9C50 /* MECommunityServiceListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MECommunityServiceListCell.xib; sourceTree = "<group>"; };
+		EB840FC92361A32C007A9C50 /* MECommunityServiceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECommunityServiceCell.h; sourceTree = "<group>"; };
+		EB840FCA2361A32C007A9C50 /* MECommunityServiceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECommunityServiceCell.m; sourceTree = "<group>"; };
+		EB840FCB2361A32C007A9C50 /* MECommunityServiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MECommunityServiceCell.xib; sourceTree = "<group>"; };
+		EB840FCE2361AED4007A9C50 /* MECommunityServiceDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECommunityServiceDetailVC.h; sourceTree = "<group>"; };
+		EB840FCF2361AED4007A9C50 /* MECommunityServiceDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECommunityServiceDetailVC.m; sourceTree = "<group>"; };
+		EB840FD12361AFCF007A9C50 /* MECommunityServiceDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECommunityServiceDetailCell.h; sourceTree = "<group>"; };
+		EB840FD22361AFCF007A9C50 /* MECommunityServiceDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECommunityServiceDetailCell.m; sourceTree = "<group>"; };
+		EB840FD32361AFCF007A9C50 /* MECommunityServiceDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MECommunityServiceDetailCell.xib; sourceTree = "<group>"; };
 		EB8421D222F182830026236D /* MEFourHomeActivityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFourHomeActivityCell.h; sourceTree = "<group>"; };
 		EB8421D322F182830026236D /* MEFourHomeActivityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFourHomeActivityCell.m; sourceTree = "<group>"; };
 		EB8421D422F182830026236D /* MEFourHomeActivityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEFourHomeActivityCell.xib; sourceTree = "<group>"; };
@@ -3932,6 +3962,11 @@
 		EB9FA00422F3DB8E00AA4FB1 /* MECourseDetailCommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECourseDetailCommentCell.h; sourceTree = "<group>"; };
 		EB9FA00522F3DB8E00AA4FB1 /* MECourseDetailCommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECourseDetailCommentCell.m; sourceTree = "<group>"; };
 		EB9FA00622F3DB8E00AA4FB1 /* MECourseDetailCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MECourseDetailCommentCell.xib; sourceTree = "<group>"; };
+		EBABD7F923604FE300A33AB2 /* MERegisteVolunteerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERegisteVolunteerVC.h; sourceTree = "<group>"; };
+		EBABD7FA23604FE300A33AB2 /* MERegisteVolunteerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERegisteVolunteerVC.m; sourceTree = "<group>"; };
+		EBABD7FB23604FE300A33AB2 /* MERegisteVolunteerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MERegisteVolunteerVC.xib; sourceTree = "<group>"; };
+		EBABD7FE23605ED400A33AB2 /* MERegisterVolunteerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERegisterVolunteerModel.h; sourceTree = "<group>"; };
+		EBABD7FF23605ED400A33AB2 /* MERegisterVolunteerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERegisterVolunteerModel.m; sourceTree = "<group>"; };
 		EBABDF8E22D2F435001CBF41 /* MEGroupOrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEGroupOrderDetailVC.h; sourceTree = "<group>"; };
 		EBABDF8F22D2F435001CBF41 /* MEGroupOrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEGroupOrderDetailVC.m; sourceTree = "<group>"; };
 		EBBA1EB0234C74BF00A61B82 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -5582,6 +5617,7 @@
 				EB8CC2EE23052FD000BB99FC /* Statistics */,
 				EB6BCDCE23540EBF00178E6B /* StudyPlan */,
 				EB6BCDD223540ECA00178E6B /* Career */,
+				EBABD7F523604F2D00A33AB2 /* Volunteer */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -8679,6 +8715,59 @@
 			path = Refund;
 			sourceTree = "<group>";
 		};
+		EBABD7F523604F2D00A33AB2 /* Volunteer */ = {
+			isa = PBXGroup;
+			children = (
+				EBABD7F623604F2D00A33AB2 /* Controller */,
+				EBABD7F723604F2D00A33AB2 /* Model */,
+				EBABD7F823604F2D00A33AB2 /* View */,
+			);
+			path = Volunteer;
+			sourceTree = "<group>";
+		};
+		EBABD7F623604F2D00A33AB2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EBABD7F923604FE300A33AB2 /* MERegisteVolunteerVC.h */,
+				EBABD7FA23604FE300A33AB2 /* MERegisteVolunteerVC.m */,
+				EBABD7FB23604FE300A33AB2 /* MERegisteVolunteerVC.xib */,
+				EB840FBB236189C5007A9C50 /* MECommunityServiceHomeVC.h */,
+				EB840FBC236189C5007A9C50 /* MECommunityServiceHomeVC.m */,
+				EB840FBE236189E1007A9C50 /* MECommunityServiceBaseVC.h */,
+				EB840FBF236189E1007A9C50 /* MECommunityServiceBaseVC.m */,
+				EB840FCE2361AED4007A9C50 /* MECommunityServiceDetailVC.h */,
+				EB840FCF2361AED4007A9C50 /* MECommunityServiceDetailVC.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EBABD7F723604F2D00A33AB2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EBABD7FE23605ED400A33AB2 /* MERegisterVolunteerModel.h */,
+				EBABD7FF23605ED400A33AB2 /* MERegisterVolunteerModel.m */,
+				EB840FC123619341007A9C50 /* MECommunityServericeListModel.h */,
+				EB840FC223619341007A9C50 /* MECommunityServericeListModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EBABD7F823604F2D00A33AB2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EB840FC42361949B007A9C50 /* MECommunityServiceListCell.h */,
+				EB840FC52361949B007A9C50 /* MECommunityServiceListCell.m */,
+				EB840FC62361949B007A9C50 /* MECommunityServiceListCell.xib */,
+				EB840FC92361A32C007A9C50 /* MECommunityServiceCell.h */,
+				EB840FCA2361A32C007A9C50 /* MECommunityServiceCell.m */,
+				EB840FCB2361A32C007A9C50 /* MECommunityServiceCell.xib */,
+				EB840FD12361AFCF007A9C50 /* MECommunityServiceDetailCell.h */,
+				EB840FD22361AFCF007A9C50 /* MECommunityServiceDetailCell.m */,
+				EB840FD32361AFCF007A9C50 /* MECommunityServiceDetailCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		EBBA1EB8234CA85800A61B82 /* CommissionOrder */ = {
 			isa = PBXGroup;
 			children = (
@@ -8898,6 +8987,7 @@
 				3628E7ED21C0E17400D5405B /* MEAppointmentDetailBootomView.xib in Resources */,
 				EB6BCDE32354822500178E6B /* MEStudiedRecommentCell.xib in Resources */,
 				EB80F96822B21961006F105D /* MEFourHomeTopHeaderView.xib in Resources */,
+				EBABD7FD23604FE300A33AB2 /* MERegisteVolunteerVC.xib in Resources */,
 				EB70E5AD22FAD8F500F00046 /* btn_player_pause@3x.png in Resources */,
 				36021AFE214BA5E9001B8DAF /* MEOrderSelectStoreCell.xib in Resources */,
 				EB92DEA922C9B2EE00928D6B /* MEBargainUsresCell.xib in Resources */,
@@ -9041,6 +9131,7 @@
 				EB0DE0A02318CA7D00D41802 /* MEAddObjectCell.xib in Resources */,
 				36021ACB214B5F4C001B8DAF /* MEAppointmentStoreCell.xib in Resources */,
 				EB7E807E235D5AD100AE9565 /* MEFiveHomeHeaderView.xib in Resources */,
+				EB840FCD2361A32C007A9C50 /* MECommunityServiceCell.xib in Resources */,
 				EB2523722317F4A9003521F7 /* MENewStoreApplyView.xib in Resources */,
 				36E284EE22375A10009F1563 /* MEBrandAbilityAnalysisCell.xib in Resources */,
 				366D5B10214A2F840021C1BB /* MEMakeOrderHeaderCell.xib in Resources */,
@@ -9120,11 +9211,13 @@
 				EB77B101232A4572008BBB60 /* MEPersonalCourseHeader.xib in Resources */,
 				EB70E5AC22FAD8F500F00046 /* btn_player_pause@2x.png in Resources */,
 				36F4C0AB2255DDE9005E2713 /* MEPAVistorCell.xib in Resources */,
+				EB840FC82361949B007A9C50 /* MECommunityServiceListCell.xib in Resources */,
 				36F10ABB224E6D7A0006E5C1 /* richText_editor.html in Resources */,
 				36F19EBC224C6FF600AD2E56 /* MEGoodManngerSpecBasicCell.xib in Resources */,
 				EB782FDE22CEDC7700D0A165 /* MECreateGroupShareVC.xib in Resources */,
 				3694C4872277D80F00CF11C5 /* MEAddTbView.xib in Resources */,
 				3600A7302159C54C00195484 /* MEImageCell.xib in Resources */,
+				EB840FD52361AFCF007A9C50 /* MECommunityServiceDetailCell.xib in Resources */,
 				36022E002190123700DC9A8B /* MENewHomeMainCell.xib in Resources */,
 				EB33F2F222B22A9F00765E2A /* MEFourHomeGoodGoodFilterHeaderView.xib in Resources */,
 				EB5B08FE22F2BE5A00FCA7F9 /* MEOnlineCourseListCell.xib in Resources */,
@@ -9275,6 +9368,7 @@
 				EB2810202153A107006A765A /* MENetListModel.m in Sources */,
 				36B31DD52225403A004BA07B /* MEBDataDealStructContentView.m in Sources */,
 				3691309222363B6E008B1836 /* AASubtitle.m in Sources */,
+				EB840FD42361AFCF007A9C50 /* MECommunityServiceDetailCell.m in Sources */,
 				360EE7F521F599580048490E /* MERushBuyCell.m in Sources */,
 				367C85072147C61E00BEC7B1 /* MEMyOrderDetailCell.m in Sources */,
 				EB8485A92313B0A600C3026F /* MECustomerServiceLogsVC.m in Sources */,
@@ -9286,6 +9380,7 @@
 				EB708EE623092A920001F9E1 /* MEDiagnoseReportModel.m in Sources */,
 				36E1BF2121492F4D00E28301 /* MEAppointmentInfoVC.m in Sources */,
 				EB825E9E23129457007F7005 /* MEServiceCardCell.m in Sources */,
+				EBABD80023605ED400A33AB2 /* MERegisterVolunteerModel.m in Sources */,
 				EB63F44823505D7C00EA5A87 /* MENewCourseListCell.m in Sources */,
 				360EE7FA21F599980048490E /* MERushBuyContentCell.m in Sources */,
 				EB367FC623161368006CB057 /* MEAppointmentCustomerListVC.m in Sources */,
@@ -9343,6 +9438,7 @@
 				36472AED21C8E15C00CC3E48 /* JXCategoryIndicatorImageView.m in Sources */,
 				36FB9E202199536300B3DDD3 /* MEUserPathModel.m in Sources */,
 				36FD63F8213FAA20009743C5 /* NSObject+MERelation.m in Sources */,
+				EB840FCC2361A32C007A9C50 /* MECommunityServiceCell.m in Sources */,
 				EB73454B22B8BC4100FA0D84 /* MEPrizeListVC.m in Sources */,
 				EB4BB507229F726A00924774 /* MEAICustomerCheckDetailVC.m in Sources */,
 				36445B4A21C23B8A00CDBCBA /* MEGetCaseMainSVC.m in Sources */,
@@ -9357,6 +9453,7 @@
 				EB708EEE2309390B0001F9E1 /* MEDiagnoseConsultDetailVC.m in Sources */,
 				36B31DCD22253632004BA07B /* MEBDataDealStoreAchievementView.m in Sources */,
 				36E3EEC9221D519F006C79F6 /* MEJDCoupleMailDetalVC.m in Sources */,
+				EB840FC0236189E1007A9C50 /* MECommunityServiceBaseVC.m in Sources */,
 				36D9E0C221F5BA5000687580 /* METhridNavView.m in Sources */,
 				3637F06B224A0A11002C661E /* MEDynamicGoodApplyCell.m in Sources */,
 				3648D7D4226EED0900134F75 /* MEPNewAVistorVC.m in Sources */,
@@ -9376,6 +9473,7 @@
 				36F5E826222F68F1000B0241 /* TMessageView.m in Sources */,
 				366019C221E878ED00F1BB37 /* MEMineMyActityDetailVC.m in Sources */,
 				36526017216F3DD3003E3CB4 /* MENewStoreDetailsVC.m in Sources */,
+				EB840FD02361AED4007A9C50 /* MECommunityServiceDetailVC.m in Sources */,
 				EB2475EC230AC71C0088BBC0 /* MECustomerClassifyListModel.m in Sources */,
 				36472B0121C8E15C00CC3E48 /* JXCategoryNumberCell.m in Sources */,
 				365151D421414C1B0044C763 /* MEBaoQiangCell.m in Sources */,
@@ -9785,6 +9883,7 @@
 				EB367FDE23168437006CB057 /* MEOperationCountCell.m in Sources */,
 				3645BBCB221BDC2F0042748C /* MEBStoreMannagerVC.m in Sources */,
 				EB782FDD22CEDC7700D0A165 /* MECreateGroupShareVC.m in Sources */,
+				EB840FBD236189C5007A9C50 /* MECommunityServiceHomeVC.m in Sources */,
 				3691308422363B6E008B1836 /* AAOptions.m in Sources */,
 				EB6F125722CB46F900619D4D /* MECoupleFilterNavView.m in Sources */,
 				366D5AF9214A09BB0021C1BB /* MEMakeOrderSelectAddressView.m in Sources */,
@@ -10050,6 +10149,7 @@
 				36021B0A214BCA9F001B8DAF /* MEUserInfoModel.m in Sources */,
 				3650F3F72179F17C007EA97F /* MELogistModel.m in Sources */,
 				360A992E21468598009775F4 /* MESkuBuyCell.m in Sources */,
+				EBABD7FC23604FE300A33AB2 /* MERegisteVolunteerVC.m in Sources */,
 				EB77A79123040D0700191E10 /* MEQuestionHeaderCell.m in Sources */,
 				36021AD7214B6730001B8DAF /* MEServiceDetailsVC.m in Sources */,
 				EB8485A623138A6500C3026F /* MEServiceListVC.m in Sources */,
@@ -10161,6 +10261,7 @@
 				36FEEBE0214CF39C00060209 /* MEAppointmentDetailVC.m in Sources */,
 				36F5E830222F68F1000B0241 /* TTextMessageCell.m in Sources */,
 				36F6AF5221F8548A00CF6684 /* MEBynamicLikeCell.m in Sources */,
+				EB840FC323619341007A9C50 /* MECommunityServericeListModel.m in Sources */,
 				360034C521AE8A4F00BAF337 /* MEVisterSectionView.m in Sources */,
 				36FEC25921AD39E200BB64A5 /* MEArticelSearchVC.m in Sources */,
 				36C01991214262230048734E /* MEProductCell.m in Sources */,
@@ -10193,6 +10294,7 @@
 				EB72EA3D22FC250400D7A101 /* MECourseDetailModel.m in Sources */,
 				36E284E122375465009F1563 /* MEBrandAbilityVisterCell.m in Sources */,
 				EB77B0FA232A3C50008BBB60 /* MEPersonalCourseHeaderView.m in Sources */,
+				EB840FC72361949B007A9C50 /* MECommunityServiceListCell.m in Sources */,
 				EB825E8123126BB5007F7005 /* MECustomerServiceVC.m in Sources */,
 				EB9FA00222F3D2C100AA4FB1 /* MECourseDetailListCell.m in Sources */,
 				36F43DD0216C942100FBA16E /* BankTransferAccountsVC.m in Sources */,

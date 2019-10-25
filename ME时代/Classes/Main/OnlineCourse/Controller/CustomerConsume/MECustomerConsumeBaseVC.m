@@ -11,7 +11,9 @@
 #import "MECustomerServiceListCell.h"
 #import "MECustomerConsumeDetailVC.h"
 
-@interface MECustomerConsumeBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
+@interface MECustomerConsumeBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>{
+    NSArray *_arrDicParm;
+}
 
 @property (nonatomic, assign) NSInteger classifyId;
 @property (nonatomic, strong) UITableView *tableView;
@@ -21,9 +23,10 @@
 
 @implementation MECustomerConsumeBaseVC
 
-- (instancetype)initWithClassifyId:(NSInteger)classifyId {
+- (instancetype)initWithClassifyId:(NSInteger)classifyId materialArray:(NSArray *)materialArray {
     if (self = [super init]) {
         _classifyId = classifyId;
+        _arrDicParm = [materialArray copy];
     }
     return self;
 }
@@ -107,7 +110,7 @@
 #pragma setter&&getter
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-(_arrDicParm.count<2?0.1:kCategoryViewHeight)) style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECustomerServiceListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECustomerServiceListCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;

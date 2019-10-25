@@ -1103,5 +1103,19 @@
 #define MEIPcommonOnlineApplePayNotify @"common/online/applePayNotify"
 /*********************************************/
 
+
+/*********************************************/
+#pragma makr - 志愿者
+//申请志愿者
+#define MEIPcommonUserRegisterVolunteer @"common/user/registerVolunteer"
+//获取社区服务分类
+#define MEIPcommonCommunityServericeGetClassify @"common/communityserverice/getClassify"
+//社区服务列表
+#define MEIPcommonCommunityServericeGetList @"common/communityserverice/getList"
+//社区服务详情
+#define MEIPcommonCommunityServericeInfo @"common/communityserverice/info"
+/*********************************************/
+
+
 #endif /* MEAPIMacros_h */
 

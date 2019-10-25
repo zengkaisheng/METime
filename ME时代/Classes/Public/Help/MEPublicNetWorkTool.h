@@ -29,6 +29,7 @@
 @class MEAddServiceModel;
 @class MEAddCustomerExpenseModel;
 @class MEAddCustomerAppointmentModel;
+@class MERegisterVolunteerModel;
 
 @interface MEPublicNetWorkTool : NSObject
 
@@ -841,6 +842,17 @@
 + (void)postSetLikeCourseWithCourseId:(NSInteger)courseId SuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取B端C端VIP
 + (void)postGetCourseVIPWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+/*********************************************/
+
+
+/*********************************************/
+#pragma mark - 志愿者
+//申请志愿者
++ (void)postRegisterVolunteerWithModel:(MERegisterVolunteerModel *)model successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取社区服务分类
++ (void)postGetCommunityServericeClassifyListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//社区服务详情
++ (void)postGetServiceDetailWithServiceId:(NSInteger)serviceId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

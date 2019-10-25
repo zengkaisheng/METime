@@ -11,6 +11,8 @@
 #import "MENoticeVC.h"
 #import "MECoupleFilterVC.h"
 
+#import "MEFeedBackVC.h"
+
 @interface MEFiveHomeNavView (){
     CGFloat _top;
 }
@@ -69,7 +71,8 @@
 - (void)sortAction:(UIButton*)btn{
     MEFiveHomeVC *homeVC = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
     if(homeVC){
-        MECoupleFilterVC *svc = [[MECoupleFilterVC alloc]init];
+//        MECoupleFilterVC *svc = [[MECoupleFilterVC alloc]init];
+        MEFeedBackVC *svc = [[MEFeedBackVC alloc] init];
         [homeVC.navigationController pushViewController:svc animated:YES];
     }
 }
@@ -109,7 +112,7 @@
 
 - (UIButton *)btnSort{
     if(!_btnSort){
-        _btnSort = [MEView btnWithFrame:CGRectMake(self.viewForSearch.right+10, self.viewForSearch.top, 32, 32) Img:[UIImage imageNamed:@"fourHomeSort"]];
+        _btnSort = [MEView btnWithFrame:CGRectMake(self.viewForSearch.right+10, self.viewForSearch.top, 32, 32) Img:[UIImage imageNamed:@"icon_volunteer_sign"]];
         [_btnSort addTarget:self action:@selector(sortAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnSort;

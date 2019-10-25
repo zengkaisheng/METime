@@ -128,6 +128,8 @@ static NSString *kTokenKey = @"kTokenKey";
 //平台身份 0无 1专家 2客服 3专家+客服
 @property (nonatomic, assign) NSInteger identity_type;
 
+@property (nonatomic, assign) NSInteger is_volunteer; //1为志愿者，0否
+
 //个人中心C端
 //@property (nonatomic, assign) NSInteger admin_team;
 //@property (nonatomic, assign) CGFloat ratio_money;

@@ -131,4 +131,10 @@
     return self.indicatorLineWidth;
 }
 
+- (void)setLineFontImage:(NSString *)imageName {
+    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 1, 30, 8)];
+    imageV.image = [UIImage imageNamed:imageName];
+    [self addSubview:imageV];
+}
+
 @end
