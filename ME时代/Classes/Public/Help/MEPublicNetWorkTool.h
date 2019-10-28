@@ -849,10 +849,17 @@
 #pragma mark - 志愿者
 //申请志愿者
 + (void)postRegisterVolunteerWithModel:(MERegisterVolunteerModel *)model successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//申请志愿者-协议
++ (void)postGetVolunteerProtocolWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取社区服务分类
 + (void)postGetCommunityServericeClassifyListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //社区服务详情
 + (void)postGetServiceDetailWithServiceId:(NSInteger)serviceId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//获取公益秀分类列表
++ (void)postGetUsefulactivityClassifyListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//点赞/取消点赞
++ (void)postPraiseShowWithShowId:(NSInteger)showId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

@@ -16,6 +16,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *imageV;
 
+@property (weak, nonatomic) IBOutlet UIImageView *locationImageView;
+@property (weak, nonatomic) IBOutlet UILabel *addressLbl;
+@property (weak, nonatomic) IBOutlet UIButton *likeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *commentBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentBtnConsWidth;
+
 @end
 
 @implementation MECommunityServiceCell
@@ -30,6 +36,9 @@
     _bgView.layer.masksToBounds = false;
     _bgView.layer.cornerRadius = 14;
     _bgView.clipsToBounds = false;
+    
+    _commentBtnConsWidth.constant = 0.0;
+    _commentBtn.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -39,6 +48,11 @@
 }
 
 - (void)setUIWithModel:(MECommunityServericeListModel *)model {
+    _timeLbl.hidden = NO;
+    _locationImageView.hidden = YES;
+    _addressLbl.hidden = YES;
+    _likeBtn.hidden = YES;
+    
     _titleLbl.text = kMeUnNilStr(model.title);
     NSArray *timeArr = [kMeUnNilStr(model.created_at) componentsSeparatedByString:@" "];
     _timeLbl.text = [NSString stringWithFormat:@"%@%@",kMeUnNilStr(model.address),kMeUnNilStr(timeArr.firstObject)];
@@ -48,6 +62,34 @@
         _imageV.hidden = NO;
         kSDLoadImg(_imageV, kMeUnNilStr(model.images.firstObject));
     }
+}
+
+- (void)setShowUIWithModel:(MECommunityServericeListModel *)model {
+    _timeLbl.hidden = YES;
+    _locationImageView.hidden = NO;
+    _addressLbl.hidden = NO;
+    _likeBtn.hidden = NO;
+    
+    _titleLbl.text = kMeUnNilStr(model.title);
+    _addressLbl.text = kMeUnNilStr(model.address);
+    [_likeBtn setTitle:[NSString stringWithFormat:@"%@",@(model.praise_num)] forState:UIControlStateNormal];
+    if (model.is_praise == 1) {
+        [_likeBtn setImage:[UIImage imageNamed:@"icon_voluniteer_like_sel"] forState:UIControlStateNormal];
+    }else {
+        [_likeBtn setImage:[UIImage imageNamed:@"icon_voluniteer_like_nor"] forState:UIControlStateNormal];
+    }
+    if (kMeUnArr(model.images).count <= 0) {
+        _imageV.hidden = YES;
+    } else {
+        _imageV.hidden = NO;
+        kSDLoadImg(_imageV, kMeUnNilStr(model.images.firstObject));
+    }
+}
+- (IBAction)likeBtnAction:(id)sender {
+    kMeCallBlock(self.indexBlock,0);
+}
+- (IBAction)commentBtnAction:(id)sender {
+    kMeCallBlock(self.indexBlock,1);
 }
 
 @end

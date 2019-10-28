@@ -48,16 +48,66 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_voluniteer_location" translatesAutoresizingMaskIntoConstraints="NO" id="fER-G0-Jmh">
+                                <rect key="frame" x="13" y="51.5" width="12" height="12"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjX-4V-SKh">
+                                <rect key="frame" x="31" y="49.5" width="29" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="c99-jQ-CGd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="95f-v2-Pf7">
+                                <rect key="frame" x="283" y="50" width="55" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="55" id="V1m-aP-38J"/>
+                                    <constraint firstAttribute="height" constant="25" id="xzy-3G-xld"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="0" image="icon_voluniteer_comment">
+                                    <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="commentBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="TNj-WI-SCp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKO-bU-21m">
+                                <rect key="frame" x="223" y="50" width="55" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="Cxb-XQ-BPd"/>
+                                    <constraint firstAttribute="width" constant="55" id="GBm-2S-tHc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="0" image="icon_voluniteer_like_nor">
+                                    <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="likeBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Wvb-Vl-pN0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="cKO-bU-21m" firstAttribute="centerY" secondItem="95f-v2-Pf7" secondAttribute="centerY" id="3Sa-lj-Jsg"/>
+                            <constraint firstAttribute="trailing" secondItem="95f-v2-Pf7" secondAttribute="trailing" constant="7" id="6SO-ve-X56"/>
                             <constraint firstAttribute="bottom" secondItem="0rM-mL-2l3" secondAttribute="bottom" constant="12" id="7uw-mI-OC6"/>
+                            <constraint firstAttribute="bottom" secondItem="95f-v2-Pf7" secondAttribute="bottom" constant="6.5" id="Bwt-Pb-KdK"/>
+                            <constraint firstItem="fER-G0-Jmh" firstAttribute="leading" secondItem="TTe-Dg-kEb" secondAttribute="leading" constant="13" id="DAx-Tl-MLi"/>
                             <constraint firstItem="eRU-cq-Y54" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fR5-lj-67Z" secondAttribute="trailing" constant="25" id="K7O-hu-SU7"/>
                             <constraint firstItem="eRU-cq-Y54" firstAttribute="top" secondItem="TTe-Dg-kEb" secondAttribute="top" constant="8" id="LxL-g1-sDi"/>
+                            <constraint firstAttribute="bottom" secondItem="fER-G0-Jmh" secondAttribute="bottom" constant="18" id="TFy-tH-q8E"/>
                             <constraint firstItem="0rM-mL-2l3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fR5-lj-67Z" secondAttribute="bottom" constant="10" id="UQd-sa-Hbg"/>
                             <constraint firstItem="fR5-lj-67Z" firstAttribute="leading" secondItem="TTe-Dg-kEb" secondAttribute="leading" constant="14" id="cvH-ZH-lSf"/>
+                            <constraint firstItem="xjX-4V-SKh" firstAttribute="centerY" secondItem="fER-G0-Jmh" secondAttribute="centerY" id="d2e-dt-ZrD"/>
+                            <constraint firstItem="xjX-4V-SKh" firstAttribute="leading" secondItem="fER-G0-Jmh" secondAttribute="trailing" constant="6" id="iBb-CM-T2Y"/>
                             <constraint firstItem="fR5-lj-67Z" firstAttribute="top" secondItem="TTe-Dg-kEb" secondAttribute="top" constant="9" id="lI4-b8-YDE"/>
                             <constraint firstAttribute="trailing" secondItem="eRU-cq-Y54" secondAttribute="trailing" constant="7" id="qBh-Yg-hZI"/>
+                            <constraint firstItem="95f-v2-Pf7" firstAttribute="leading" secondItem="cKO-bU-21m" secondAttribute="trailing" constant="5" id="xkv-fm-Bxh"/>
                             <constraint firstItem="0rM-mL-2l3" firstAttribute="leading" secondItem="TTe-Dg-kEb" secondAttribute="leading" constant="14" id="yOj-vc-BnC"/>
                         </constraints>
                     </view>
@@ -70,12 +120,22 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="addressLbl" destination="xjX-4V-SKh" id="TXp-if-uhn"/>
                 <outlet property="bgView" destination="TTe-Dg-kEb" id="LFk-fb-DFP"/>
+                <outlet property="commentBtn" destination="95f-v2-Pf7" id="78P-H9-41i"/>
+                <outlet property="commentBtnConsWidth" destination="V1m-aP-38J" id="3oz-TF-As2"/>
                 <outlet property="imageV" destination="eRU-cq-Y54" id="SGv-BQ-KWQ"/>
+                <outlet property="likeBtn" destination="cKO-bU-21m" id="8sl-Dt-p6s"/>
+                <outlet property="locationImageView" destination="fER-G0-Jmh" id="yhL-dj-RC5"/>
                 <outlet property="timeLbl" destination="0rM-mL-2l3" id="BqI-6C-sC9"/>
                 <outlet property="titleLbl" destination="fR5-lj-67Z" id="uw9-c2-O7k"/>
             </connections>
             <point key="canvasLocation" x="132" y="154.27286356821591"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_voluniteer_comment" width="10" height="10"/>
+        <image name="icon_voluniteer_like_nor" width="14" height="14"/>
+        <image name="icon_voluniteer_location" width="12" height="12"/>
+    </resources>
 </document>

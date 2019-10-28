@@ -75,19 +75,19 @@
         return;
     }
     self.model = [MEOnlineCourseHomeModel mj_objectWithKeyValues:data];
-    BOOL hasSection = NO;
-    for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-        if (model.idField == 1) {
-            hasSection = YES;
-        }
-    }
-    if (hasSection) {
+//    BOOL hasSection = NO;
+//    for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//        if (model.idField == 1) {
+//            hasSection = YES;
+//        }
+//    }
+//    if (hasSection) {
         self.tableView.tableHeaderView = self.headerView;
         [self.headerView setUIWithArray:self.model.top_banner type:0];
-    }else {
-        self.tableView.tableHeaderView = self.headerNewView;
-        [self.headerNewView setUIWithArray:self.model.top_banner];
-    }
+//    }else {
+//        self.tableView.tableHeaderView = self.headerNewView;
+//        [self.headerNewView setUIWithArray:self.model.top_banner];
+//    }
     [self.tableView reloadData];
 }
 
@@ -129,13 +129,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        BOOL hasSection = NO;
-        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-            if (model.idField == 17) {
-                hasSection = YES;
-            }
-        }
-        if (hasSection) {
+//        BOOL hasSection = NO;
+//        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//            if (model.idField == 17) {
+//                hasSection = YES;
+//            }
+//        }
+//        if (hasSection) {
             MERecommendCourseCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MERecommendCourseCell class]) forIndexPath:indexPath];
             [cell setUIWithArray:self.model.recommend];
             kMeWEAKSELF
@@ -162,16 +162,16 @@
                 }
             };
             return cell;
-        }
-        return [UITableViewCell new];
+//        }
+//        return [UITableViewCell new];
     }else if (indexPath.section == 1) {
-        BOOL hasSection = NO;
-        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-            if (model.idField == 18) {
-                hasSection = YES;
-            }
-        }
-        if (hasSection) {
+//        BOOL hasSection = NO;
+//        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//            if (model.idField == 18) {
+//                hasSection = YES;
+//            }
+//        }
+//        if (hasSection) {
             if (indexPath.row == 0) {
                 MENewCourseCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MENewCourseCell class]) forIndexPath:indexPath];
                 [cell setUIWithArray:self.model.courseNew];
@@ -179,7 +179,6 @@
                 cell.indexBlock = ^(NSInteger index) {
                     kMeSTRONGSELF
                     if (index == 0) {
-//                        NSLog(@"点击了左边课程");
                         MEOnlineCourseListModel *model = strongSelf.model.courseNew[0];
                         NSInteger type = 0;
                         if (kMeUnNilStr(model.audio_name).length > 0) {
@@ -188,7 +187,6 @@
                         MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:type];
                         [strongSelf.navigationController pushViewController:vc animated:YES];
                     }else if (index == 1) {
-//                        NSLog(@"点击了上边课程");
                         MEOnlineCourseListModel *model = strongSelf.model.courseNew[1];
                         NSInteger type = 0;
                         if (kMeUnNilStr(model.audio_name).length > 0) {
@@ -197,7 +195,6 @@
                         MECourseDetailVC *vc = [[MECourseDetailVC alloc] initWithId:model.idField type:type];
                         [strongSelf.navigationController pushViewController:vc animated:YES];
                     }else if (index == 2) {
-//                        NSLog(@"点击了下边课程");
                         MEOnlineCourseListModel *model = strongSelf.model.courseNew[2];
                         NSInteger type = 0;
                         if (kMeUnNilStr(model.audio_name).length > 0) {
@@ -218,59 +215,59 @@
                 [strongSelf cycleScrollViewDidSelectItemWithModel:model];
             };
             return cell;
-        }
-        return [UITableViewCell new];
+//        }
+//        return [UITableViewCell new];
     }else if (indexPath.section == 2) {
-        BOOL hasSection = NO;
-        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-            if (model.idField == 19) {
-                hasSection = YES;
-            }
-        }
-        if (hasSection) {
+//        BOOL hasSection = NO;
+//        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//            if (model.idField == 19) {
+//                hasSection = YES;
+//            }
+//        }
+//        if (hasSection) {
             MEFineCourseCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEFineCourseCell class]) forIndexPath:indexPath];
             MEOnlineCourseListModel *model = self.model.j_goods[indexPath.row];
             [cell setUIWithModel:model];
             return cell;
-        }
-        return [UITableViewCell new];
+//        }
+//        return [UITableViewCell new];
     }
     
-    BOOL hasSection = NO;
-    for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-        if (model.idField == 20) {
-            hasSection = YES;
-        }
-    }
-    if (hasSection) {
+//    BOOL hasSection = NO;
+//    for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//        if (model.idField == 20) {
+//            hasSection = YES;
+//        }
+//    }
+//    if (hasSection) {
         MENewCourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MENewCourseListCell class]) forIndexPath:indexPath];
         MEOnlineCourseListModel *model = self.model.b_audio[indexPath.row];
         [cell setUIWithModel:model];
         return cell;
-    }
-    return [UITableViewCell new];
+//    }
+//    return [UITableViewCell new];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        BOOL hasSection = NO;
-        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-            if (model.idField == 17) {
-                hasSection = YES;
-            }
-        }
-        if (hasSection) {
+//        BOOL hasSection = NO;
+//        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//            if (model.idField == 17) {
+//                hasSection = YES;
+//            }
+//        }
+//        if (hasSection) {
             return kMERecommendCourseCellHeight;
-        }
-        return 0;
+//        }
+//        return 0;
     }else if (indexPath.section == 1) {
-        BOOL hasSection = NO;
-        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-            if (model.idField == 18) {
-                hasSection = YES;
-            }
-        }
-        if (hasSection) {
+//        BOOL hasSection = NO;
+//        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//            if (model.idField == 18) {
+//                hasSection = YES;
+//            }
+//        }
+//        if (hasSection) {
             if (indexPath.row == 0) {
                 return kMENewCourseCellHeight;
             }else if (indexPath.row == 1) {
@@ -280,103 +277,165 @@
                     return 0;
                 }
             }
-        }
+//        }
         return 0;
     }else if (indexPath.section == 2) {
-        BOOL hasSection = NO;
-        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-            if (model.idField == 19) {
-                hasSection = YES;
-            }
-        }
-        if (hasSection) {
+//        BOOL hasSection = NO;
+//        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//            if (model.idField == 19) {
+//                hasSection = YES;
+//            }
+//        }
+//        if (hasSection) {
             return kMEFineCourseCellHeight;
-        }
-        return 0;
+//        }
+//        return 0;
     }
     
-    BOOL hasSection = NO;
-    for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-        if (model.idField == 20) {
-            hasSection = YES;
-        }
-    }
-    if (hasSection) {
+//    BOOL hasSection = NO;
+//    for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//        if (model.idField == 20) {
+//            hasSection = YES;
+//        }
+//    }
+//    if (hasSection) {
         return kMENewCourseListCellHeight;
-    }
-    return 0;
+//    }
+//    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        BOOL hasSection = NO;
-        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-            if (model.idField == 17) {
-                hasSection = YES;
-            }
-        }
-        if (hasSection) {
-            return 43;
-        }
-        return 0;
-    }else if (section == 1) {
-        BOOL hasSection = NO;
-        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-            if (model.idField == 18) {
-                hasSection = YES;
-            }
-        }
-        if (hasSection) {
-            return 43;
-        }
-        return 0;
-    }else if (section == 2) {
-        BOOL hasSection = NO;
-        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-            if (model.idField == 19) {
-                hasSection = YES;
-            }
-        }
-        if (hasSection) {
-            return 43;
-        }
-        return 0;
-    }
-    BOOL hasSection = NO;
-    for (MECourseHomeMenuListModel *model in self.model.menu_list) {
-        if (model.idField == 20) {
-            hasSection = YES;
-        }
-    }
-    if (hasSection) {
+//    if (section == 0) {
+//        BOOL hasSection = NO;
+//        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//            if (model.idField == 17) {
+//                hasSection = YES;
+//            }
+//        }
+//        if (hasSection) {
+//            return 43;
+//        }
+//        return 0;
+//    }else if (section == 1) {
+//        BOOL hasSection = NO;
+//        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//            if (model.idField == 18) {
+//                hasSection = YES;
+//            }
+//        }
+//        if (hasSection) {
+//            return 43;
+//        }
+//        return 0;
+//    }else if (section == 2) {
+//        BOOL hasSection = NO;
+//        for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//            if (model.idField == 19) {
+//                hasSection = YES;
+//            }
+//        }
+//        if (hasSection) {
+//            return 43;
+//        }
+//        return 0;
+//    }
+//    BOOL hasSection = NO;
+//    for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//        if (model.idField == 20) {
+//            hasSection = YES;
+//        }
+//    }
+//    if (hasSection) {
         return 43;
-    }
-    return 0;
+//    }
+//    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     MEPersonalCourseHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass([MEPersonalCourseHeader class])];
-    MECourseHomeMenuListModel *menuModel = self.model.menu_list[section+5];
-    [header setNewUIWithTitle:kMeUnNilStr(menuModel.menu_name)];
+//    MECourseHomeMenuListModel *menuModel = nil;
+//    switch (section) {
+//        case 0:
+//        {
+//            for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//                if (model.idField == 17) {
+//                    menuModel = model;
+//                }
+//            }
+//        }
+//            break;
+//        case 1:
+//        {
+//            for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//                if (model.idField == 18) {
+//                    menuModel = model;
+//                }
+//            }
+//        }
+//            break;
+//        case 2:
+//        {
+//            for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//                if (model.idField == 19) {
+//                    menuModel = model;
+//                }
+//            }
+//        }
+//            break;
+//        case 3:
+//        {
+//            for (MECourseHomeMenuListModel *model in self.model.menu_list) {
+//                if (model.idField == 20) {
+//                    menuModel = model;
+//                }
+//            }
+//        }
+//            break;
+//        default:
+//            break;
+//    }
+    NSString *titleStr = @"";
+    switch (section) {
+        case 0:
+            titleStr = @"精品课程";
+            break;
+        case 1:
+            titleStr = @"最新上线";
+            break;
+        case 2:
+            titleStr = @"精品视频";
+            break;
+        case 3:
+            titleStr = @"必听音频";
+            break;
+        default:
+            break;
+    }
+//    [header setNewUIWithTitle:kMeUnNilStr(menuModel.menu_name)];
+    [header setNewUIWithTitle:titleStr];
     kMeWEAKSELF
     header.tapBlock = ^{
         kMeSTRONGSELF
         
-        if (menuModel.idField == 20) {
-            MECourseAudioListVC *vc = [[MECourseAudioListVC alloc] initWithCategoryId:menuModel.idField listType:@"is_will"];
-            vc.title = kMeUnNilStr(menuModel.menu_name);
+//        if (menuModel.idField == 20) {
+        if (section == 3) {
+            MECourseAudioListVC *vc = [[MECourseAudioListVC alloc] initWithCategoryId:0 listType:@"is_will"];
+            vc.title = titleStr;
             [strongSelf.navigationController pushViewController:vc animated:YES];
         }else {
             NSString *type = @"";
-            if (menuModel.idField == 17) {
+//            if (menuModel.idField == 17) {
+            if (section == 0) {
                 type = @"day_recommend";
-            }else if (menuModel.idField == 18) {
+//            }else if (menuModel.idField == 18) {
+            }else if (section == 1) {
                 type = @"is_new";
-            }else if (menuModel.idField == 19) {
+//            }else if (menuModel.idField == 19) {
+            }else if (section == 2) {
                 type = @"is_goods";
             }
-            MECourseVideoListVC *vc = [[MECourseVideoListVC alloc] initWithCategoryId:menuModel.idField listType:type];
-            vc.title = kMeUnNilStr(menuModel.menu_name);
+            MECourseVideoListVC *vc = [[MECourseVideoListVC alloc] initWithCategoryId:0 listType:type];
+            vc.title = titleStr;
             [strongSelf.navigationController pushViewController:vc animated:YES];
         }
     };

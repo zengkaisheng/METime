@@ -15,7 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECommunityServiceListCell : UITableViewCell
 
+@property (nonatomic, copy) kMeIndexBlock indexBlock; 
+
 - (void)setUIWithModel:(MECommunityServericeListModel *)model;
+
+- (void)setShowUIWithModel:(MECommunityServericeListModel *)model;
 
 @end
 

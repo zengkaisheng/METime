@@ -23,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * created_at;
 @property (nonatomic, strong) NSString * updated_at;
 
+//公益秀相关
+@property (nonatomic, assign) NSInteger praise_num;  //点赞数
+@property (nonatomic, assign) NSInteger comment_num; //评论数
+@property (nonatomic, assign) NSInteger is_praise;   //是否点赞 1是 0 否
+
 @end
 
 NS_ASSUME_NONNULL_END

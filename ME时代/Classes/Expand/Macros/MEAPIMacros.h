@@ -1108,12 +1108,22 @@
 #pragma makr - 志愿者
 //申请志愿者
 #define MEIPcommonUserRegisterVolunteer @"common/user/registerVolunteer"
+//申请志愿者-协议
+#define MEIPcommonRegisterVolunteerProtocol @"common/user/registerVolunteerProtocol"
 //获取社区服务分类
 #define MEIPcommonCommunityServericeGetClassify @"common/communityserverice/getClassify"
 //社区服务列表
 #define MEIPcommonCommunityServericeGetList @"common/communityserverice/getList"
 //社区服务详情
 #define MEIPcommonCommunityServericeInfo @"common/communityserverice/info"
+
+//获取公益秀分类
+#define MEIPcommonUsefulactivityGetClassify @"common/usefulactivity/getClassify"
+//公益秀列表
+#define MEIPcommonUsefulactivityGetList @"common/usefulactivity/getList"
+//点赞/取消点赞
+#define MEIPcommonUsefulactivityPraise @"common/usefulactivity/praise"
+
 /*********************************************/
 
 

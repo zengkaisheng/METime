@@ -1126,6 +1126,8 @@
 		EB6BCDDE23547D2500178E6B /* MEStudiedHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BCDDD23547D2500178E6B /* MEStudiedHomeModel.m */; };
 		EB6BCDE22354822500178E6B /* MEStudiedRecommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BCDE02354822500178E6B /* MEStudiedRecommentCell.m */; };
 		EB6BCDE32354822500178E6B /* MEStudiedRecommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6BCDE12354822500178E6B /* MEStudiedRecommentCell.xib */; };
+		EB6BEF1B2362FFEE000974AD /* MEPublicShowHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BEF1A2362FFEE000974AD /* MEPublicShowHomeVC.m */; };
+		EB6BEF1E23630004000974AD /* MEPublicShowBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BEF1D23630004000974AD /* MEPublicShowBaseVC.m */; };
 		EB6D029C2151D9380053B19E /* NSArray+MEErrorHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D029B2151D9380053B19E /* NSArray+MEErrorHandle.m */; };
 		EB6D029F2151D99A0053B19E /* NSMutableArray+MEErrorHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D029E2151D99A0053B19E /* NSMutableArray+MEErrorHandle.m */; };
 		EB6D02A32151DEDD0053B19E /* MEAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D02A22151DEDD0053B19E /* MEAddressPickerView.m */; };
@@ -3431,6 +3433,10 @@
 		EB6BCDDF2354822500178E6B /* MEStudiedRecommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEStudiedRecommentCell.h; sourceTree = "<group>"; };
 		EB6BCDE02354822500178E6B /* MEStudiedRecommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEStudiedRecommentCell.m; sourceTree = "<group>"; };
 		EB6BCDE12354822500178E6B /* MEStudiedRecommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEStudiedRecommentCell.xib; sourceTree = "<group>"; };
+		EB6BEF192362FFEE000974AD /* MEPublicShowHomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEPublicShowHomeVC.h; sourceTree = "<group>"; };
+		EB6BEF1A2362FFEE000974AD /* MEPublicShowHomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEPublicShowHomeVC.m; sourceTree = "<group>"; };
+		EB6BEF1C23630004000974AD /* MEPublicShowBaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEPublicShowBaseVC.h; sourceTree = "<group>"; };
+		EB6BEF1D23630004000974AD /* MEPublicShowBaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEPublicShowBaseVC.m; sourceTree = "<group>"; };
 		EB6D029A2151D9380053B19E /* NSArray+MEErrorHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+MEErrorHandle.h"; sourceTree = "<group>"; };
 		EB6D029B2151D9380053B19E /* NSArray+MEErrorHandle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MEErrorHandle.m"; sourceTree = "<group>"; };
 		EB6D029D2151D99A0053B19E /* NSMutableArray+MEErrorHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+MEErrorHandle.h"; sourceTree = "<group>"; };
@@ -8737,6 +8743,10 @@
 				EB840FBF236189E1007A9C50 /* MECommunityServiceBaseVC.m */,
 				EB840FCE2361AED4007A9C50 /* MECommunityServiceDetailVC.h */,
 				EB840FCF2361AED4007A9C50 /* MECommunityServiceDetailVC.m */,
+				EB6BEF192362FFEE000974AD /* MEPublicShowHomeVC.h */,
+				EB6BEF1A2362FFEE000974AD /* MEPublicShowHomeVC.m */,
+				EB6BEF1C23630004000974AD /* MEPublicShowBaseVC.h */,
+				EB6BEF1D23630004000974AD /* MEPublicShowBaseVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -9452,6 +9462,7 @@
 				EB708EE3230926B30001F9E1 /* MEDiagnoseConsultModel.m in Sources */,
 				EB708EEE2309390B0001F9E1 /* MEDiagnoseConsultDetailVC.m in Sources */,
 				36B31DCD22253632004BA07B /* MEBDataDealStoreAchievementView.m in Sources */,
+				EB6BEF1B2362FFEE000974AD /* MEPublicShowHomeVC.m in Sources */,
 				36E3EEC9221D519F006C79F6 /* MEJDCoupleMailDetalVC.m in Sources */,
 				EB840FC0236189E1007A9C50 /* MECommunityServiceBaseVC.m in Sources */,
 				36D9E0C221F5BA5000687580 /* METhridNavView.m in Sources */,
@@ -9734,6 +9745,7 @@
 				36E409C8219161AC0090F7E1 /* MERushBuyView.m in Sources */,
 				360A98DB2146093D009775F4 /* MELocationTool.m in Sources */,
 				EB7E807D235D5AD100AE9565 /* MEFiveHomeHeaderView.m in Sources */,
+				EB6BEF1E23630004000974AD /* MEPublicShowBaseVC.m in Sources */,
 				360351D3215C816D004BDD62 /* MEShopCartMakeOrderVC.m in Sources */,
 				36F53270225EDC2600BF289F /* MEAiCustomerDetailVC.m in Sources */,
 				EB2E1AB82150DB5200A26BE3 /* MEShoppingCartAttrModel.m in Sources */,

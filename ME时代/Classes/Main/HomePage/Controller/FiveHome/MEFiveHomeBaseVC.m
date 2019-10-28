@@ -47,6 +47,7 @@
 
 #import "MERegisteVolunteerVC.h"
 #import "MECommunityServiceHomeVC.h"
+#import "MEPublicShowHomeVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
@@ -587,8 +588,9 @@ const static CGFloat kImgStoreH = 50;
         }
             break;
         case 27:
-        {//跳公益活动
-            //            [self.navigationController pushViewController:vc animated:YES];
+        {//跳公益秀
+            MEPublicShowHomeVC *vc = [[MEPublicShowHomeVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 28:
@@ -809,6 +811,7 @@ const static CGFloat kImgStoreH = 50;
                 return CGSizeZero;
             }
         }
+        return CGSizeZero;
     }
     return CGSizeMake(kMECoupleMailCellWdith, kMECoupleMailCellHeight);
 }

@@ -31,6 +31,7 @@
 @property (nonatomic, strong) MERegisterVolunteerModel *model;
 @property (nonatomic, strong) NSString *cardFontPath;
 @property (nonatomic, strong) NSString *cardBackPath;
+@property (nonatomic, strong) NSString *register_protocol;
 
 @end
 
@@ -118,6 +119,26 @@
 
 - (IBAction)agreementAction:(id)sender {
     //查看注册协议
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetVolunteerProtocolWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *data = (NSDictionary *)responseObject.data;
+            strongSelf.register_protocol = kMeUnNilStr(data[@"volunteer_register_protocol"]);
+            
+            MEBaseVC *vc = [[MEBaseVC alloc] init];
+            vc.title = @"注册协议";
+            
+            UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
+            CGFloat width = [UIScreen mainScreen].bounds.size.width-15;
+            NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
+            [webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(strongSelf.register_protocol)] baseURL:nil];
+            [vc.view addSubview:webView];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        }
+    } failure:^(id object) {
+        
+    }];
 }
 
 - (IBAction)registerAction:(id)sender {

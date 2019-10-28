@@ -63,22 +63,76 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_voluniteer_location" translatesAutoresizingMaskIntoConstraints="NO" id="skY-a1-ZT9">
+                                <rect key="frame" x="13" y="124.5" width="12" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="5ep-DG-mMH"/>
+                                    <constraint firstAttribute="width" constant="12" id="xs6-Ol-7N7"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lw7-sJ-ZcG">
+                                <rect key="frame" x="31" y="122.5" width="29" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="WSZ-oY-YjF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1q-pl-P0f">
+                                <rect key="frame" x="223" y="125" width="55" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="55" id="NBV-CJ-To2"/>
+                                    <constraint firstAttribute="height" constant="25" id="sJs-jK-Dag"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="0" image="icon_voluniteer_like_nor">
+                                    <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="likeBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lmr-Nr-AdB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUQ-nv-I2k">
+                                <rect key="frame" x="283" y="125" width="55" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="GHN-0I-6Pp"/>
+                                    <constraint firstAttribute="width" constant="55" id="xkJ-V8-G4L"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="0" image="icon_voluniteer_comment">
+                                    <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="recommentBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="SUO-xC-rbh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="lw7-sJ-ZcG" firstAttribute="centerY" secondItem="skY-a1-ZT9" secondAttribute="centerY" id="7Cb-lw-Cwd"/>
                             <constraint firstAttribute="bottom" secondItem="D3q-dU-K9k" secondAttribute="bottom" constant="11" id="9ZG-b8-dL3"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="w42-bp-5VU" secondAttribute="trailing" constant="14" id="AiM-fV-QME"/>
+                            <constraint firstItem="lUQ-nv-I2k" firstAttribute="leading" secondItem="d1q-pl-P0f" secondAttribute="trailing" constant="5" id="DGD-eb-4qb"/>
                             <constraint firstItem="wFn-J4-34b" firstAttribute="centerY" secondItem="KCl-qd-HPq" secondAttribute="centerY" id="GUX-W2-NLh"/>
                             <constraint firstItem="w42-bp-5VU" firstAttribute="leading" secondItem="KUs-hC-5rZ" secondAttribute="leading" constant="14" id="GuC-Ty-l5b"/>
+                            <constraint firstItem="d1q-pl-P0f" firstAttribute="centerY" secondItem="lUQ-nv-I2k" secondAttribute="centerY" id="IJU-SS-BAD"/>
+                            <constraint firstAttribute="bottom" secondItem="skY-a1-ZT9" secondAttribute="bottom" constant="18" id="JB3-u8-Oxx"/>
+                            <constraint firstAttribute="trailing" secondItem="lUQ-nv-I2k" secondAttribute="trailing" constant="7" id="Ppj-as-IKY"/>
                             <constraint firstItem="x10-f5-8P4" firstAttribute="width" secondItem="KCl-qd-HPq" secondAttribute="width" id="SYp-ne-vSH"/>
                             <constraint firstItem="KCl-qd-HPq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="w42-bp-5VU" secondAttribute="bottom" constant="9" id="TmL-mK-6oj"/>
                             <constraint firstItem="D3q-dU-K9k" firstAttribute="top" secondItem="KCl-qd-HPq" secondAttribute="bottom" constant="14" id="VgF-Ee-gLh"/>
                             <constraint firstItem="KCl-qd-HPq" firstAttribute="leading" secondItem="KUs-hC-5rZ" secondAttribute="leading" constant="14" id="YWY-57-wip"/>
+                            <constraint firstItem="lw7-sJ-ZcG" firstAttribute="leading" secondItem="skY-a1-ZT9" secondAttribute="trailing" constant="6" id="bwy-3g-xXF"/>
                             <constraint firstAttribute="trailing" secondItem="x10-f5-8P4" secondAttribute="trailing" constant="7" id="fWI-qt-cZJ"/>
+                            <constraint firstItem="skY-a1-ZT9" firstAttribute="leading" secondItem="KUs-hC-5rZ" secondAttribute="leading" constant="13" id="g2i-Oj-TRx"/>
                             <constraint firstItem="w42-bp-5VU" firstAttribute="top" secondItem="KUs-hC-5rZ" secondAttribute="top" constant="24" id="hSe-Ua-R3s"/>
                             <constraint firstItem="x10-f5-8P4" firstAttribute="height" secondItem="KCl-qd-HPq" secondAttribute="height" id="hUn-8w-pHU"/>
                             <constraint firstItem="x10-f5-8P4" firstAttribute="centerY" secondItem="KCl-qd-HPq" secondAttribute="centerY" id="hhe-Sf-ZuI"/>
                             <constraint firstItem="wFn-J4-34b" firstAttribute="leading" secondItem="KCl-qd-HPq" secondAttribute="trailing" constant="6" id="jmc-aP-eFB"/>
+                            <constraint firstAttribute="bottom" secondItem="lUQ-nv-I2k" secondAttribute="bottom" constant="4.5" id="lHq-8k-rAk"/>
                             <constraint firstItem="wFn-J4-34b" firstAttribute="height" secondItem="KCl-qd-HPq" secondAttribute="height" id="n1W-Gb-o4y"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="D3q-dU-K9k" secondAttribute="trailing" constant="11" id="sY4-b1-yZT"/>
                             <constraint firstItem="wFn-J4-34b" firstAttribute="width" secondItem="KCl-qd-HPq" secondAttribute="width" id="tMN-Ld-U11"/>
@@ -100,9 +154,15 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="addressLbl" destination="lw7-sJ-ZcG" id="q3P-AR-pAB"/>
                 <outlet property="bgView" destination="KUs-hC-5rZ" id="UXg-Uh-Ye8"/>
+                <outlet property="bgViewConsTop" destination="hSe-Ua-R3s" id="4cz-ak-nRr"/>
                 <outlet property="centerImageView" destination="wFn-J4-34b" id="LZT-T1-Qv5"/>
+                <outlet property="commentBtn" destination="lUQ-nv-I2k" id="1HE-2N-DkO"/>
+                <outlet property="commentBtnConsWidth" destination="xkJ-V8-G4L" id="kbg-yM-zJM"/>
                 <outlet property="leftImageView" destination="KCl-qd-HPq" id="Eda-pC-DAi"/>
+                <outlet property="likeBtn" destination="d1q-pl-P0f" id="NzQ-mM-w1H"/>
+                <outlet property="locationImageView" destination="skY-a1-ZT9" id="ViK-vz-OVJ"/>
                 <outlet property="rightImageView" destination="x10-f5-8P4" id="R2I-5b-iqq"/>
                 <outlet property="timeLbl" destination="D3q-dU-K9k" id="Pj4-pf-APX"/>
                 <outlet property="titleLbl" destination="w42-bp-5VU" id="K3I-zW-CNc"/>
@@ -110,4 +170,9 @@
             <point key="canvasLocation" x="40.799999999999997" y="46.776611694152926"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_voluniteer_comment" width="10" height="10"/>
+        <image name="icon_voluniteer_like_nor" width="14" height="14"/>
+        <image name="icon_voluniteer_location" width="12" height="12"/>
+    </resources>
 </document>
