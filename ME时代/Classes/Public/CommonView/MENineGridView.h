@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (CGFloat)getDymmaincViewHeightWIth:(NSArray *)arr;
 - (void)setImageViewWithArr:(NSArray *)arr;
 - (void)setImageDymamicViewWithArr:(NSArray *)arr;
+
+- (void)setImagePublicShowWithArr:(NSArray *)arr;
++ (CGFloat)getPublicShowViewHeightWithArr:(NSArray *)arr;
+
 @property (nonatomic, copy)NSMutableArray *arrImageView;
 @property (nonatomic, copy) kMeIndexBlock selectBlock;
 @end

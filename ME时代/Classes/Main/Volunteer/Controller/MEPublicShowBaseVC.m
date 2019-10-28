@@ -10,7 +10,7 @@
 #import "MECommunityServericeListModel.h"
 #import "MECommunityServiceListCell.h"
 #import "MECommunityServiceCell.h"
-#import "MECommunityServiceDetailVC.h"
+#import "MEPublicShowDetailVC.h"
 
 @interface MEPublicShowBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -138,8 +138,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MECommunityServericeListModel *model = self.refresh.arrData[indexPath.row];
-//    MECommunityServiceDetailVC *vc = [[MECommunityServiceDetailVC alloc] initWithServiceId:model.idField];
-//    [self.navigationController pushViewController:vc animated:YES];
+    MEPublicShowDetailVC *vc = [[MEPublicShowDetailVC alloc] initWithShowId:model.idField];
+    kMeWEAKSELF
+    vc.praiseBlock = ^(NSInteger index) {
+        kMeSTRONGSELF
+        model.is_praise = index;
+        [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma setter&&getter

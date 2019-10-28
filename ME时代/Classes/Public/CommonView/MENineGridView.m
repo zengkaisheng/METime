@@ -117,6 +117,45 @@ const static CGFloat kMENineGridViewpadding = 3;
     }
 }
 
+- (void)setImagePublicShowWithArr:(NSArray *)arr {
+    CGFloat allW = SCREEN_WIDTH -15-14-15;
+    for (UIImageView *img in self.subviews) {
+        [img removeFromSuperview];
+    }
+    if(kMeUnArr(arr).count == 1){
+        UIImageView *img = _arrImageView[0];
+        CGFloat w = (allW - ((kMENineGridViewMagin-3)*2))/2;
+        img.frame = CGRectMake((kMENineGridViewMagin-3), 0, w, w);
+        kSDLoadImg(img, kMeUnNilStr(arr[0]));
+        [self addSubview:img];
+    } else if(kMeUnArr(arr).count == 2){
+        UIImageView *img = _arrImageView[0];
+        img.contentMode = UIViewContentModeScaleAspectFill;
+        img.clipsToBounds = YES;
+        CGFloat w = (allW - (kMENineGridViewMagin-3)*2)/2;
+        img.frame = CGRectMake(kMENineGridViewMagin-3, 0, w, w);
+        [self addSubview:img];
+        kSDLoadImg(img, kMeUnNilStr(arr[0]));
+        UIImageView *imgOne = _arrImageView[1];
+        imgOne.frame = CGRectMake((kMENineGridViewMagin-3)+w+(kMENineGridViewMagin-3), 0, w, w);
+        [self addSubview:imgOne];
+        kSDLoadImg(imgOne, kMeUnNilStr(arr[1]));
+    }else{
+        CGFloat w = (allW - ((kMENineGridViewMagin-3)*2))/3;
+        for (NSInteger i = 0; i<arr.count; i++) {
+            UIImageView *img = _arrImageView[i];
+            NSInteger row = i/3;//行
+            NSInteger col = i%3;//列
+            CGFloat picX = (w+(kMENineGridViewMagin-3)) * col;
+            CGFloat picY = kMeUnArr(arr).count==3?0:(kMENineGridViewMagin-3)+(w+(kMENineGridViewMagin-3)) * row;
+            img.frame = CGRectMake(picX, picY, w, w);
+            [self addSubview:img];
+            NSString *str  = arr[i];
+            kSDLoadImg(img, kMeUnNilStr(str));
+        }
+    }
+}
+
 - (void)tapAction:(UITapGestureRecognizer *)tap{
     UIImageView *view = (UIImageView *)tap.view;
     NSInteger index = view.tag;
@@ -156,6 +195,24 @@ const static CGFloat kMENineGridViewpadding = 3;
             return (((allW - (kMENineGridViewMagin*2) - (kMENineGridViewpadding*2))/3)*2)+(kMENineGridViewpadding*3);
         case 7:case 8:case 9:
             return (((allW - (kMENineGridViewMagin*2) - (kMENineGridViewpadding*2))/3)*3)+(kMENineGridViewpadding*4);
+        default:
+            return 0;
+    }
+}
+
++ (CGFloat)getPublicShowViewHeightWithArr:(NSArray *)arr {
+    CGFloat allW = SCREEN_WIDTH - 15-14-15;
+    switch (kMeUnArr(arr).count) {
+        case 0:
+            return 0;
+        case 1:case 2:
+            return (allW - (kMENineGridViewMagin-3)*2)/2+(kMENineGridViewMagin-3);
+        case 3:
+            return (allW - (kMENineGridViewMagin-3)*2)/3+(kMENineGridViewMagin-3);
+        case 4:case 5:case 6:
+            return (((allW - (kMENineGridViewMagin-3)*2)/3)*2)+(kMENineGridViewMagin-3)*2;
+        case 7:case 8:case 9:
+            return (((allW - (kMENineGridViewMagin-3)*2)/3)*3)+(kMENineGridViewMagin-3)*4;
         default:
             return 0;
     }

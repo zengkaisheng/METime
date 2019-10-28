@@ -860,6 +860,8 @@
 + (void)postGetUsefulactivityClassifyListWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //点赞/取消点赞
 + (void)postPraiseShowWithShowId:(NSInteger)showId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//公益秀详情
++ (void)postGetPublicShowDetailWithShowId:(NSInteger)showId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

@@ -1123,6 +1123,8 @@
 #define MEIPcommonUsefulactivityGetList @"common/usefulactivity/getList"
 //点赞/取消点赞
 #define MEIPcommonUsefulactivityPraise @"common/usefulactivity/praise"
+//公益秀详情
+#define MEIPcommonUsefulactivityInfo @"common/usefulactivity/info"
 
 /*********************************************/
 
