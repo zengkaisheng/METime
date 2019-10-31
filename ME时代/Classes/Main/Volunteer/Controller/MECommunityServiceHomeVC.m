@@ -10,6 +10,9 @@
 #import "MECustomerClassifyListModel.h"
 #import "MECommunityServiceBaseVC.h"
 
+#import "MEFiveHomeNavView.h"
+#import "MEFiveCategoryView.h"
+
 @interface MECommunityServiceHomeVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
@@ -27,6 +30,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"社区服务";
+    self.navBarHidden = self.isHome;
     
     [self requestMaterialData];
 }
@@ -59,19 +63,23 @@
     if (self.arrModel.count < 2) {
         categoryViewHeight = 0.1;
     }
-    
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight)];
+    CGRect frame = CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight);
+    if (self.isHome) {
+        frame = CGRectMake(0, categoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight-categoryViewHeight);
+    }
+    self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *_arrType.count, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight);
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *_arrType.count, frame.size.height);
     self.scrollView.bounces = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     for (int i = 0; i < _arrType.count; i++) {
         MECustomerClassifyListModel *mode = _arrModel[i];
-        MECommunityServiceBaseVC *VC = [[MECommunityServiceBaseVC alloc] initWithClassifyId:mode.idField categoryHeight:categoryViewHeight];
+        MECommunityServiceBaseVC *VC = [[MECommunityServiceBaseVC alloc] initWithClassifyId:mode.idField categoryHeight:categoryViewHeight+(self.isHome?kMeTabBarHeight+kMEFiveCategoryViewHeight:0)];
+        VC.isHome = self.isHome;
         VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        VC.view.frame = CGRectMake(SCREEN_WIDTH*i,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight);
+        VC.view.frame = CGRectMake(SCREEN_WIDTH*i,0, SCREEN_WIDTH, frame.size.height);
         [self addChildViewController:VC];
         [self.scrollView addSubview:VC.view];
     }
@@ -79,16 +87,16 @@
     [self.view addSubview:self.scrollView];
     
     //1、初始化JXCategoryTitleView
-    self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeNavBarHeight, SCREEN_WIDTH, categoryViewHeight)];
+    self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,self.isHome?0:kMeNavBarHeight, SCREEN_WIDTH, categoryViewHeight)];
     JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
     lineView.indicatorLineWidth = 30 *kMeFrameScaleX();
-    lineView.indicatorLineViewColor = kMEPink;
+    lineView.indicatorLineViewColor = [UIColor colorWithHexString:@"#2ED9A4"];
     lineView.indicatorLineViewHeight = 2;
     self.categoryView.indicators = @[lineView];
     
     self.categoryView.titles = _arrType;
     self.categoryView.delegate = self;
-    self.categoryView.titleSelectedColor = kMEPink;
+    self.categoryView.titleSelectedColor = [UIColor colorWithHexString:@"#2ED9A4"];
     self.categoryView.contentScrollView = self.scrollView;
     self.categoryView.titleColor =  [UIColor colorWithHexString:@"999999"];
     [self.view addSubview:self.categoryView];

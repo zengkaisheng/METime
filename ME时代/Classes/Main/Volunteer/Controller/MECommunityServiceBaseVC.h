@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECommunityServiceBaseVC : MEBaseVC
 
+@property (nonatomic, assign) BOOL isHome;
 - (instancetype)initWithClassifyId:(NSInteger)classifyId categoryHeight:(CGFloat)categoryHeight;
 
 - (void)reloadDatas;

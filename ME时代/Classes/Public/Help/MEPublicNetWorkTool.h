@@ -862,6 +862,14 @@
 + (void)postPraiseShowWithShowId:(NSInteger)showId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //公益秀详情
 + (void)postGetPublicShowDetailWithShowId:(NSInteger)showId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取服务类型
++ (void)postGetRecruitServiceTypeWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//招募活动详情
++ (void)postGetRecruitDetailWithRecruitId:(NSInteger)recruitId latitude:(NSString *)latitude longitude:(NSString *)longitude successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//招募活动-关注/取消关注
++ (void)postPraiseRecruitWithRecruitId:(NSInteger)recruitId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//招募活动-报名/取消报名
++ (void)postJoinRecruitWithRecruitId:(NSInteger)recruitId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

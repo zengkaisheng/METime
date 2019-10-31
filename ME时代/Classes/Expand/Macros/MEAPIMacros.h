@@ -1125,7 +1125,18 @@
 #define MEIPcommonUsefulactivityPraise @"common/usefulactivity/praise"
 //公益秀详情
 #define MEIPcommonUsefulactivityInfo @"common/usefulactivity/info"
-
+//获取服务类型
+#define MEIPcommonRecruitGetClassify @"common/recruit/getClassify"
+//招募活动列表
+#define MEIPcommonRecruitGetList @"common/recruit/getList"
+//招募活动详情
+#define MEIPcommonRecruitInfo @"common/recruit/info"
+//招募活动-关注/取消关注
+#define MEIPcommonRecruitAttention @"common/recruit/attention"
+//获取报名人员列表
+#define MEIPcommonRecruitJoinUsersList @"common/recruit/joinUsersList"
+//招募活动-报名/取消报名
+#define MEIPcommonRecruitJoin @"common/recruit/join"
 /*********************************************/
 
 

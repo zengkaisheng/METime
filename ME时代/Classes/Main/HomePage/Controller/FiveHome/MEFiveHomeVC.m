@@ -16,7 +16,7 @@
 #import "MEFiveHomeBaseVC.h"
 #import "METhridProductDetailsVC.h"
 #import "MEFourCouponSearchHomeVC.h"
-
+#import "MECommunityServiceHomeVC.h"
 
 @interface MEFiveHomeVC ()<UIScrollViewDelegate>{
     NSInteger _currentIndex;
@@ -91,40 +91,50 @@
     self.scrollview.showsVerticalScrollIndicator = NO;
     self.scrollview.showsHorizontalScrollIndicator = NO;
     for (int i = 0; i < _arrDicParm.count; i++) {
-        MEFiveHomeBaseVC *VC = [[MEFiveHomeBaseVC alloc] initWithType:i materialArray:_arrDicParm];
-        VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         CGFloat top = 0.0;
         if (i > 0) {
             top = kMEFiveCategoryViewHeight;
         }
-        VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
-        [self addChildViewController:VC];
-        if (i == 0) {
-            kMeWEAKSELF
-            self.choseVC = VC;
-            VC.selectedIndexBlock = ^(NSInteger index) {
-                kMeSTRONGSELF
-                if (index == 0) {
-                    strongSelf.categoryView.hidden = YES;
-                }else {
-                    strongSelf.categoryView.hidden = NO;
-                }
-                strongSelf.categoryView.categoryView.defaultSelectedIndex = index;
-                [strongSelf.categoryView.categoryView reloadData];
-            };
-            VC.changeColorBlock = ^(id object) {
-                kMeSTRONGSELF
-                if (strongSelf->_contentOffSetX <= SCREEN_WIDTH) {
-                    if ([object isKindOfClass:[UIColor class]]) {
-                        UIColor *color = (UIColor *)object;
-                        strongSelf.navView.backgroundColor = color;
-                        strongSelf.categoryView.backgroundColor = color;
-                        strongSelf.currentColor = color;
+        NSDictionary *dict = _arrDicParm[i];
+        if ([dict[@"title"] isEqualToString:@"社区服务"]) {
+            MECommunityServiceHomeVC *VC = [[MECommunityServiceHomeVC alloc] init];
+            VC.isHome = YES;
+            VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
+            [self addChildViewController:VC];
+            [self.scrollview addSubview:VC.view];
+        }else {
+            MEFiveHomeBaseVC *VC = [[MEFiveHomeBaseVC alloc] initWithType:i materialArray:_arrDicParm];
+            VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
+            [self addChildViewController:VC];
+            if (i == 0) {
+                kMeWEAKSELF
+                self.choseVC = VC;
+                VC.selectedIndexBlock = ^(NSInteger index) {
+                    kMeSTRONGSELF
+                    if (index == 0) {
+                        strongSelf.categoryView.hidden = YES;
+                    }else {
+                        strongSelf.categoryView.hidden = NO;
                     }
-                }
-            };
+                    strongSelf.categoryView.categoryView.defaultSelectedIndex = index;
+                    [strongSelf.categoryView.categoryView reloadData];
+                };
+                VC.changeColorBlock = ^(id object) {
+                    kMeSTRONGSELF
+                    if (strongSelf->_contentOffSetX <= SCREEN_WIDTH) {
+                        if ([object isKindOfClass:[UIColor class]]) {
+                            UIColor *color = (UIColor *)object;
+                            strongSelf.navView.backgroundColor = color;
+                            strongSelf.categoryView.backgroundColor = color;
+                            strongSelf.currentColor = color;
+                        }
+                    }
+                };
+            }
+            [self.scrollview addSubview:VC.view];
         }
-        [self.scrollview addSubview:VC.view];
     }
     
     [self.view addSubview:self.scrollview];

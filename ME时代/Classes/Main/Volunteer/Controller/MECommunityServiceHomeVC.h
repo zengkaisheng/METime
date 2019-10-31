@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECommunityServiceHomeVC : MEBaseVC
 
+@property (nonatomic, assign) BOOL isHome;
+
 @end
 
 NS_ASSUME_NONNULL_END

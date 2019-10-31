@@ -118,7 +118,7 @@ const static CGFloat kMENineGridViewpadding = 3;
 }
 
 - (void)setImagePublicShowWithArr:(NSArray *)arr {
-    CGFloat allW = SCREEN_WIDTH -15-14-15;
+    CGFloat allW = SCREEN_WIDTH -15-15;
     for (UIImageView *img in self.subviews) {
         [img removeFromSuperview];
     }
@@ -126,6 +126,7 @@ const static CGFloat kMENineGridViewpadding = 3;
         UIImageView *img = _arrImageView[0];
         CGFloat w = (allW - ((kMENineGridViewMagin-3)*2))/2;
         img.frame = CGRectMake((kMENineGridViewMagin-3), 0, w, w);
+        img.layer.cornerRadius = 4;
         kSDLoadImg(img, kMeUnNilStr(arr[0]));
         [self addSubview:img];
     } else if(kMeUnArr(arr).count == 2){
@@ -134,11 +135,13 @@ const static CGFloat kMENineGridViewpadding = 3;
         img.clipsToBounds = YES;
         CGFloat w = (allW - (kMENineGridViewMagin-3)*2)/2;
         img.frame = CGRectMake(kMENineGridViewMagin-3, 0, w, w);
+        img.layer.cornerRadius = 4;
         [self addSubview:img];
         kSDLoadImg(img, kMeUnNilStr(arr[0]));
         UIImageView *imgOne = _arrImageView[1];
         imgOne.frame = CGRectMake((kMENineGridViewMagin-3)+w+(kMENineGridViewMagin-3), 0, w, w);
         [self addSubview:imgOne];
+        imgOne.layer.cornerRadius = 4;
         kSDLoadImg(imgOne, kMeUnNilStr(arr[1]));
     }else{
         CGFloat w = (allW - ((kMENineGridViewMagin-3)*2))/3;
@@ -149,6 +152,7 @@ const static CGFloat kMENineGridViewpadding = 3;
             CGFloat picX = (w+(kMENineGridViewMagin-3)) * col;
             CGFloat picY = kMeUnArr(arr).count==3?0:(kMENineGridViewMagin-3)+(w+(kMENineGridViewMagin-3)) * row;
             img.frame = CGRectMake(picX, picY, w, w);
+            img.layer.cornerRadius = 4;
             [self addSubview:img];
             NSString *str  = arr[i];
             kSDLoadImg(img, kMeUnNilStr(str));
@@ -201,7 +205,7 @@ const static CGFloat kMENineGridViewpadding = 3;
 }
 
 + (CGFloat)getPublicShowViewHeightWithArr:(NSArray *)arr {
-    CGFloat allW = SCREEN_WIDTH - 15-14-15;
+    CGFloat allW = SCREEN_WIDTH - 15-15;
     switch (kMeUnArr(arr).count) {
         case 0:
             return 0;

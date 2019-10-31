@@ -48,6 +48,7 @@
 #import "MERegisteVolunteerVC.h"
 #import "MECommunityServiceHomeVC.h"
 #import "MEPublicShowHomeVC.h"
+#import "MEActivityRecruitVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
@@ -573,13 +574,18 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 24:
         {//跳志愿者注册
-            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+            if (kCurrentUser.is_volunteer == 1) {
+                [MECommonTool showMessage:@"您已经是志愿者" view:kMeCurrentWindow];
+            }else {
+                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
             break;
         case 25:
         {//跳活动招募
-            //            [self.navigationController pushViewController:vc animated:YES];
+            MEActivityRecruitVC *vc = [[MEActivityRecruitVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 26:
