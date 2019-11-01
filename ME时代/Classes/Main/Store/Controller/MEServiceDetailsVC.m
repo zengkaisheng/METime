@@ -1,6 +1,6 @@
 //
 //  MEServiceDetailsVC.m
-//  ME时代
+//  志愿星
 //
 //  Created by hank on 2018/9/14.
 //  Copyright © 2018年 hank. All rights reserved.
@@ -66,7 +66,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"服务详情";
-    _arrTitle = @[@"产品介绍",@"ME时代美店",@"预约了这件商品的人也预约了"];
+    _arrTitle = @[@"产品介绍",@"志愿星美店",@"预约了这件商品的人也预约了"];
     [self initWithSomeThing];
     kTDWebViewCellDidFinishLoadNotification
     // Do any additional setup after loading the view.

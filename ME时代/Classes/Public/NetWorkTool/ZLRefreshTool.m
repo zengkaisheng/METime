@@ -150,6 +150,14 @@ NSUInteger const kSizeNum = 10;
                                 }else {
                                     strongSelf.allRows = 0;
                                 }
+                            }else if(strongSelf->_isActivity){
+                                if (!kMeUnObjectIsEmpty(responseObject.data)) {
+                                    NSInteger count = [responseObject.data[@"data_list"][@"count"] integerValue];
+                                    strongSelf.allRows = count;
+                                    [strongSelf.delegate handleResponse:responseObject.data];
+                                }else {
+                                    strongSelf.allRows = 0;
+                                }
                             }else{
                                 strongSelf->_response = [MENetListModel mj_objectWithKeyValues:responseObject.data];
                                 MENetListModel *nlModel = [MENetListModel mj_objectWithKeyValues:responseObject.data];

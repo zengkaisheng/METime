@@ -1,6 +1,6 @@
 //
 //  MECoupleHomeNavView.h
-//  ME时代
+//  志愿星
 //
 //  Created by hank on 2019/1/3.
 //  Copyright © 2019 hank. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  MEPersionalCourseListCell.m
-//  ME时代
+//  志愿星
 //
 //  Created by gao lei on 2019/9/16.
 //  Copyright © 2019年 hank. All rights reserved.
@@ -47,6 +47,23 @@
         _descLbl.hidden = NO;
         _freeLbl.hidden = YES;
     }
+    _typeLbl.hidden = NO;
+    _freeLbl.backgroundColor = [UIColor colorWithHexString:@"#FE4B77"];
+    _freeLbl.textColor = [UIColor whiteColor];
+}
+
+- (void)setPublicServiceUIWithModel:(MECourseListModel *)model {
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.courses_images));
+    _titleLbl.text = kMeUnNilStr(model.name);
+    _descLbl.text = kMeUnNilStr(model.desc);
+//    _typeLbl.text = kMeUnNilStr(model.type_name);
+    _freeLbl.text = kMeUnNilStr(model.charge_name);
+    _countLbl.text = [NSString stringWithFormat:@"%@次学习",kMeUnNilStr(model.study_num)];
+    
+    _typeLbl.hidden = YES;
+    _freeLbl.text = kMeUnNilStr(model.type_name);
+    _freeLbl.backgroundColor = [UIColor clearColor];
+    _freeLbl.textColor = [UIColor colorWithHexString:@"#2ED9A4"];
 }
 
 @end

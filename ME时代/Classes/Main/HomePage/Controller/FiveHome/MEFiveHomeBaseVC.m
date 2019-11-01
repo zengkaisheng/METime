@@ -1,6 +1,6 @@
 //
 //  MEFiveHomeBaseVC.m
-//  ME时代
+//  志愿星
 //
 //  Created by gao lei on 2019/10/21.
 //  Copyright © 2019年 hank. All rights reserved.
@@ -49,6 +49,8 @@
 #import "MECommunityServiceHomeVC.h"
 #import "MEPublicShowHomeVC.h"
 #import "MEActivityRecruitVC.h"
+#import "MENewAvtivityVC.h"
+#import "MEPublicServiceCourseVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
@@ -568,8 +570,13 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 23:
         {//跳公益课程
-            NSLog(@"跳公益课程");
-//            [self.navigationController pushViewController:vc animated:YES];
+            if (kCurrentUser.is_volunteer == 1) {
+                MEPublicServiceCourseVC *vc = [[MEPublicServiceCourseVC alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }else {
+                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
             break;
         case 24:
@@ -584,35 +591,53 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 25:
         {//跳活动招募
-            MEActivityRecruitVC *vc = [[MEActivityRecruitVC alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+            if (kCurrentUser.is_volunteer == 1) {
+                MEActivityRecruitVC *vc = [[MEActivityRecruitVC alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }else {
+                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
             break;
         case 26:
         {//跳精选好物
-            //            [self.navigationController pushViewController:vc animated:YES];
+            MENewAvtivityVC *vc = [[MENewAvtivityVC alloc] initWithType:@"goods"];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 27:
         {//跳公益秀
-            MEPublicShowHomeVC *vc = [[MEPublicShowHomeVC alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+            if (kCurrentUser.is_volunteer == 1) {
+                MEPublicShowHomeVC *vc = [[MEPublicShowHomeVC alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }else {
+                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
             break;
         case 28:
         {//跳社区服务
-            MECommunityServiceHomeVC *vc = [[MECommunityServiceHomeVC alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+            if (kCurrentUser.is_volunteer == 1) {
+                MECommunityServiceHomeVC *vc = [[MECommunityServiceHomeVC alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }else {
+                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
             break;
         case 29:
         {//跳福利领取
-            //            [self.navigationController pushViewController:vc animated:YES];
+            MELianTongListVC *liantongVC = [[MELianTongListVC alloc] init];
+            [self.navigationController pushViewController:liantongVC animated:YES];
         }
             break;
         case 30:
         {//跳福利活动
-            //            [self.navigationController pushViewController:vc animated:YES];
+            MENewAvtivityVC *vc = [[MENewAvtivityVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 31:
@@ -934,7 +959,17 @@ const static CGFloat kImgStoreH = 50;
                 };
                 header.selectIndexBlock = ^(NSInteger index) {
                     kMeSTRONGSELF
-                    kMeCallBlock(strongSelf.selectedIndexBlock,index);
+                    NSDictionary *dict = strongSelf->_arrDicParm[index];
+                    if ([dict[@"title"] isEqualToString:@"公益课堂"] || [dict[@"title"] isEqualToString:@"社区服务"]) {
+                        if (kCurrentUser.is_volunteer != 1) {
+                            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                            [strongSelf.navigationController pushViewController:vc animated:YES];
+                        }else {
+                           kMeCallBlock(strongSelf.selectedIndexBlock,index);
+                        }
+                    }else {
+                        kMeCallBlock(strongSelf.selectedIndexBlock,index);
+                    }
                 };
                 header.reloadBlock = ^{
                     [weakSelf.refresh reload];

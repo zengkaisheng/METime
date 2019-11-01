@@ -1,6 +1,6 @@
 //
 //  MERegisteVolunteerVC.m
-//  ME时代
+//  志愿星
 //
 //  Created by gao lei on 2019/10/23.
 //  Copyright © 2019年 hank. All rights reserved.
@@ -234,7 +234,8 @@
                 
                 [MEPublicNetWorkTool postRegisterVolunteerWithModel:strongSelf.model successBlock:^(ZLRequestResponse *responseObject) {
                     kMeSTRONGSELF
-                    [MEShowViewTool showMessage:@"提交成功" view:self.view];
+                    [MEShowViewTool showMessage:@"您已成为志愿者" view:self.view];
+                    kCurrentUser.is_volunteer = 1;
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [strongSelf.navigationController popViewControllerAnimated:YES];
                     });

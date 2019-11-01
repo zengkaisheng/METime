@@ -1,6 +1,6 @@
 //
 //  MENewAddTelView.m
-//  ME时代
+//  志愿星
 //
 //  Created by gao lei on 2019/6/4.
 //  Copyright © 2019年 hank. All rights reserved.
@@ -60,7 +60,7 @@
 //    [self addGestureRecognizer:tap];
     if (kMeUnObjectIsEmpty(kCurrentUser.parent_header)) {
         _headerImgV.image = [UIImage imageNamed:@"icon-wgvilogo"];
-        self.headerNameLbl.text = @"ME时代优选";
+        self.headerNameLbl.text = @"志愿星";
         self.invationLbl.hidden = YES;
     }else {
         kSDLoadImg(_headerImgV, kMeUnNilStr(kCurrentUser.parent_header.parent_header_pic));

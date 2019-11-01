@@ -1,6 +1,6 @@
 //
 //  MELoginVC.m
-//  ME时代
+//  志愿星
 //
 //  Created by hank on 2018/9/14.
 //  Copyright © 2018年 hank. All rights reserved.
@@ -184,7 +184,7 @@
 
 - (void)tfVerficationTextDidChange:(UITextField *)textField{
     if(textField.text.length > kLimitVerficationNum){
-        [_btnLogin setBackgroundColor:kMEPink];
+        [_btnLogin setBackgroundColor:[UIColor colorWithHexString:@"#2ED9A4"]];
         _btnLogin.enabled = YES;
     }else{
         [_btnLogin setBackgroundColor:[UIColor colorWithHexString:@"bbbbbb"]];

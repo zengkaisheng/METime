@@ -1,6 +1,6 @@
 //
 //  MEAPIMacros.h
-//  ME时代
+//  志愿星
 //
 //  Created by hank on 2018/9/5.
 //  Copyright © 2018年 hank. All rights reserved.
@@ -11,7 +11,7 @@
 
 //#warning -mustNotes 上线一定要注释/海报分享产品分享
 
-#define TestVersion
+//#define TestVersion
 
 //域名 develop
 #ifdef TestVersion
@@ -1143,6 +1143,11 @@
 #define MEIPcommonSigninSignIn @"common/signin/signIn"
 //签到
 #define MEIPcommonSigninSignOut @"common/signin/signOut"
+
+//活动页数据
+#define MEIPcommonHomeGetRecommendGoodsAndActivity @"common/home/getRecommendGoodsAndActivity"
+//公益课程
+#define MEIPcommonCoursesCoursesList @"common/courses/coursesList"
 
 /*********************************************/
 

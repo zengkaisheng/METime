@@ -1,6 +1,6 @@
 //
 //  MEPersionalCourseListCell.h
-//  ME时代
+//  志愿星
 //
 //  Created by gao lei on 2019/9/16.
 //  Copyright © 2019年 hank. All rights reserved.
@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MEPersionalCourseListCell : UITableViewCell
 
 - (void)setUIWithModel:(MECourseListModel *)model;
+//公益课堂
+- (void)setPublicServiceUIWithModel:(MECourseListModel *)model;
 
 @end
 

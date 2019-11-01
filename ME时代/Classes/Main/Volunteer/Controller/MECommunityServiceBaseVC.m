@@ -1,6 +1,6 @@
 //
 //  MECommunityServiceBaseVC.m
-//  ME时代
+//  志愿星
 //
 //  Created by gao lei on 2019/10/24.
 //  Copyright © 2019年 hank. All rights reserved.
@@ -11,6 +11,7 @@
 #import "MECommunityServiceListCell.h"
 #import "MECommunityServiceCell.h"
 #import "MECommunityServiceDetailVC.h"
+#import "MERegisteVolunteerVC.h"
 
 @interface MECommunityServiceBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -84,9 +85,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MECommunityServericeListModel *model = self.refresh.arrData[indexPath.row];
-    MECommunityServiceDetailVC *vc = [[MECommunityServiceDetailVC alloc] initWithServiceId:model.idField];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (kCurrentUser.is_volunteer == 1) {
+        MECommunityServericeListModel *model = self.refresh.arrData[indexPath.row];
+        MECommunityServiceDetailVC *vc = [[MECommunityServiceDetailVC alloc] initWithServiceId:model.idField];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else {
+        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma setter&&getter

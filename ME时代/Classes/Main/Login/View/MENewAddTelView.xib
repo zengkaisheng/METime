@@ -34,8 +34,8 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ME时代优选" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRF-q9-wOM">
-                            <rect key="frame" x="96" y="73" width="83" height="15"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="志愿星" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRF-q9-wOM">
+                            <rect key="frame" x="114.5" y="73" width="46" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="15" id="800-LX-Raf"/>
                             </constraints>
@@ -44,7 +44,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="（ 我的邀请人 ）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5C-no-mGT">
-                            <rect key="frame" x="188" y="74.5" width="78" height="12"/>
+                            <rect key="frame" x="169.5" y="74.5" width="78" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="78" id="E72-e9-ObT"/>
                                 <constraint firstAttribute="height" constant="12" id="f9A-am-Gn3"/>

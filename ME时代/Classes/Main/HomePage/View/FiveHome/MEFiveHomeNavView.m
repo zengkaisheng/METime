@@ -1,6 +1,6 @@
 //
 //  MEFiveHomeNavView.m
-//  ME时代
+//  志愿星
 //
 //  Created by gao lei on 2019/10/21.
 //  Copyright © 2019年 hank. All rights reserved.
@@ -12,7 +12,7 @@
 #import "MECoupleFilterVC.h"
 
 #import "MENewSginUpVC.h"
-#import "MENewStoreApplyVC.h"
+#import "MERegisteVolunteerVC.h"
 
 @interface MEFiveHomeNavView (){
     CGFloat _top;
@@ -73,9 +73,14 @@
     MEFiveHomeVC *homeVC = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
     if(homeVC){
 //        MECoupleFilterVC *svc = [[MECoupleFilterVC alloc]init];
-        MENewSginUpVC *svc = [[MENewSginUpVC alloc] init];
-//        MENewStoreApplyVC *svc = [[MENewStoreApplyVC alloc] init];
-        [homeVC.navigationController pushViewController:svc animated:YES];
+        if (kCurrentUser.is_volunteer == 1) {
+            MENewSginUpVC *svc = [[MENewSginUpVC alloc] init];
+            [homeVC.navigationController pushViewController:svc animated:YES];
+        }else {
+            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+            [homeVC.navigationController pushViewController:vc animated:YES];
+        }
+        
     }
 }
 

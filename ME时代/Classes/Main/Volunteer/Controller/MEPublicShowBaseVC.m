@@ -1,6 +1,6 @@
 //
 //  MEPublicShowBaseVC.m
-//  ME时代
+//  志愿星
 //
 //  Created by gao lei on 2019/10/25.
 //  Copyright © 2019年 hank. All rights reserved.
@@ -11,6 +11,7 @@
 #import "MECommunityServiceListCell.h"
 #import "MECommunityServiceCell.h"
 #import "MEPublicShowDetailVC.h"
+#import "MERegisteVolunteerVC.h"
 
 @interface MEPublicShowBaseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -137,15 +138,20 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    MECommunityServericeListModel *model = self.refresh.arrData[indexPath.row];
-    MEPublicShowDetailVC *vc = [[MEPublicShowDetailVC alloc] initWithShowId:model.idField];
-    kMeWEAKSELF
-    vc.praiseBlock = ^(NSInteger index) {
-        kMeSTRONGSELF
-        model.is_praise = index;
-        [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    };
-    [self.navigationController pushViewController:vc animated:YES];
+    if (kCurrentUser.is_volunteer == 1) {
+        MECommunityServericeListModel *model = self.refresh.arrData[indexPath.row];
+        MEPublicShowDetailVC *vc = [[MEPublicShowDetailVC alloc] initWithShowId:model.idField];
+        kMeWEAKSELF
+        vc.praiseBlock = ^(NSInteger index) {
+            kMeSTRONGSELF
+            model.is_praise = index;
+            [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        };
+        [self.navigationController pushViewController:vc animated:YES];
+    }else {
+        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma setter&&getter

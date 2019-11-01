@@ -1,6 +1,6 @@
 //
 //  MEFiveHomeVC.m
-//  ME时代
+//  志愿星
 //
 //  Created by gao lei on 2019/10/21.
 //  Copyright © 2019年 hank. All rights reserved.
@@ -17,6 +17,9 @@
 #import "METhridProductDetailsVC.h"
 #import "MEFourCouponSearchHomeVC.h"
 #import "MECommunityServiceHomeVC.h"
+#import "MELianTongListVC.h"
+#import "MEPublicServiceCourseVC.h"
+#import "MERegisteVolunteerVC.h"
 
 @interface MEFiveHomeVC ()<UIScrollViewDelegate>{
     NSInteger _currentIndex;
@@ -96,8 +99,22 @@
             top = kMEFiveCategoryViewHeight;
         }
         NSDictionary *dict = _arrDicParm[i];
-        if ([dict[@"title"] isEqualToString:@"社区服务"]) {
+        if ([dict[@"title"] isEqualToString:@"公益课堂"]) {
+            MEPublicServiceCourseVC *VC = [[MEPublicServiceCourseVC alloc] init];
+            VC.isHome = YES;
+            VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
+            [self addChildViewController:VC];
+            [self.scrollview addSubview:VC.view];
+        }else  if ([dict[@"title"] isEqualToString:@"社区服务"]) {
             MECommunityServiceHomeVC *VC = [[MECommunityServiceHomeVC alloc] init];
+            VC.isHome = YES;
+            VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
+            [self addChildViewController:VC];
+            [self.scrollview addSubview:VC.view];
+        }else if ([dict[@"title"] isEqualToString:@"福利领取"]) {
+            MELianTongListVC *VC = [[MELianTongListVC alloc] init];
             VC.isHome = YES;
             VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
@@ -139,11 +156,13 @@
     
     [self.view addSubview:self.scrollview];
     
+    self.scrollview.scrollEnabled = NO;
     self.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
     [self.view addSubview:self.navView];
     
     [self.categoryView setMaterArray:_arrDicParm];
     self.categoryView.categoryView.contentScrollView = self.scrollview;
+    
     [self.view addSubview:self.categoryView];
     self.categoryView.hidden = YES;
     
@@ -277,13 +296,33 @@
             kMeSTRONGSELF
             if(index>=0 && index<6){
                 if(strongSelf->_currentIndex != index){
-                    strongSelf->_currentIndex = index;
-                    if (index > 0) {
-                        strongSelf.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
-                        strongSelf.categoryView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+                    NSDictionary *dict = strongSelf->_arrDicParm[index];
+                    if ([dict[@"title"] isEqualToString:@"公益课堂"] || [dict[@"title"] isEqualToString:@"社区服务"]) {
+                        if (kCurrentUser.is_volunteer != 1) {
+                            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                            [strongSelf.navigationController pushViewController:vc animated:YES];
+                            strongSelf->_categoryView.categoryView.defaultSelectedIndex = strongSelf->_currentIndex;
+                            [strongSelf->_categoryView.categoryView reloadData];
+                            [strongSelf.choseVC setCurrentIndex:0];
+                        }else {
+                            strongSelf->_currentIndex = index;
+                            if (index > 0) {
+                                strongSelf.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+                                strongSelf.categoryView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+                            }else {
+                                [strongSelf.choseVC setCurrentIndex:0];
+                            }
+                        }
                     }else {
-                        [strongSelf.choseVC setCurrentIndex:0];
+                        strongSelf->_currentIndex = index;
+                        if (index > 0) {
+                            strongSelf.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+                            strongSelf.categoryView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+                        }else {
+                            [strongSelf.choseVC setCurrentIndex:0];
+                        }
                     }
+                    
                 }
             }
         };

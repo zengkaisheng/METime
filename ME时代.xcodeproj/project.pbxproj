@@ -1134,6 +1134,8 @@
 		EB68326E235EF40300422807 /* MEFiveHomeEntranceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB68326C235EF40300422807 /* MEFiveHomeEntranceCell.xib */; };
 		EB683272235EFC4800422807 /* MEFiveHomeCouponView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB683270235EFC4800422807 /* MEFiveHomeCouponView.m */; };
 		EB683273235EFC4800422807 /* MEFiveHomeCouponView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB683271235EFC4800422807 /* MEFiveHomeCouponView.xib */; };
+		EB685CC1236BFE93000385CF /* MENewAvtivityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB685CC0236BFE93000385CF /* MENewAvtivityVC.m */; };
+		EB685CC4236C15FD000385CF /* MEPublicServiceCourseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB685CC3236C15FD000385CF /* MEPublicServiceCourseVC.m */; };
 		EB6BCDD823540F1000178E6B /* MEStudyPlanVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BCDD723540F1000178E6B /* MEStudyPlanVC.m */; };
 		EB6BCDDB2354124800178E6B /* MECareerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BCDDA2354124800178E6B /* MECareerVC.m */; };
 		EB6BCDDE23547D2500178E6B /* MEStudiedHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BCDDD23547D2500178E6B /* MEStudiedHomeModel.m */; };
@@ -3481,6 +3483,10 @@
 		EB68326F235EFC4800422807 /* MEFiveHomeCouponView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFiveHomeCouponView.h; sourceTree = "<group>"; };
 		EB683270235EFC4800422807 /* MEFiveHomeCouponView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFiveHomeCouponView.m; sourceTree = "<group>"; };
 		EB683271235EFC4800422807 /* MEFiveHomeCouponView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEFiveHomeCouponView.xib; sourceTree = "<group>"; };
+		EB685CBF236BFE93000385CF /* MENewAvtivityVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MENewAvtivityVC.h; sourceTree = "<group>"; };
+		EB685CC0236BFE93000385CF /* MENewAvtivityVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MENewAvtivityVC.m; sourceTree = "<group>"; };
+		EB685CC2236C15FD000385CF /* MEPublicServiceCourseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEPublicServiceCourseVC.h; sourceTree = "<group>"; };
+		EB685CC3236C15FD000385CF /* MEPublicServiceCourseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEPublicServiceCourseVC.m; sourceTree = "<group>"; };
 		EB6BCDD623540F1000178E6B /* MEStudyPlanVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEStudyPlanVC.h; sourceTree = "<group>"; };
 		EB6BCDD723540F1000178E6B /* MEStudyPlanVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEStudyPlanVC.m; sourceTree = "<group>"; };
 		EB6BCDD92354124800178E6B /* MECareerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECareerVC.h; sourceTree = "<group>"; };
@@ -8423,6 +8429,10 @@
 				EB7E8075235D545400AE9565 /* MEFiveHomeVC.m */,
 				EB7E8077235D546700AE9565 /* MEFiveHomeBaseVC.h */,
 				EB7E8078235D546700AE9565 /* MEFiveHomeBaseVC.m */,
+				EB685CBF236BFE93000385CF /* MENewAvtivityVC.h */,
+				EB685CC0236BFE93000385CF /* MENewAvtivityVC.m */,
+				EB685CC2236C15FD000385CF /* MEPublicServiceCourseVC.h */,
+				EB685CC3236C15FD000385CF /* MEPublicServiceCourseVC.m */,
 			);
 			path = FiveHome;
 			sourceTree = "<group>";
@@ -9533,6 +9543,7 @@
 				36F19EB6224C6E5200AD2E56 /* MEGoodManngerSpecMainCell.m in Sources */,
 				EB710543231E63F200C1E8B6 /* MELianTongOrderVC.m in Sources */,
 				36472AEE21C8E15C00CC3E48 /* JXCategoryIndicatorBallView.m in Sources */,
+				EB685CC1236BFE93000385CF /* MENewAvtivityVC.m in Sources */,
 				364B64F9217496B200094027 /* MEWxLoginVC.m in Sources */,
 				EB683272235EFC4800422807 /* MEFiveHomeCouponView.m in Sources */,
 				36FD63FC213FAAD5009743C5 /* NSAttributedString+MESize.m in Sources */,
@@ -10175,6 +10186,7 @@
 				EB70E59C22FAD8F500F00046 /* XMWaves.m in Sources */,
 				EB708EF823095E660001F9E1 /* MEDiagnoseReportCell.m in Sources */,
 				EB70E56922FAA84600F00046 /* MECustomerMessageCollectVC.m in Sources */,
+				EB685CC4236C15FD000385CF /* MEPublicServiceCourseVC.m in Sources */,
 				EB2D2B2322F9663F00FC1F85 /* MEDiagnoseListVC.m in Sources */,
 				EB8CC30C230562DF00BB99FC /* MEDiagnoseFeedBackVC.m in Sources */,
 				EB5B08FD22F2BE5A00FCA7F9 /* MEOnlineCourseListCell.m in Sources */,

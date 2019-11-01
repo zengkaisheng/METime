@@ -1,6 +1,6 @@
 //
 //  METabBarVC.m
-//  ME时代
+//  志愿星
 //
 //  Created by hank on 2018/9/5.
 //  Copyright © 2018年 hank. All rights reserved.
@@ -58,7 +58,7 @@
     
     //课程
     MEPersonalCourseVC *courseVC = [[MEPersonalCourseVC alloc] init];
-    [self addChildVc:courseVC title:@"课程" image:@"course" selectedImage:@"course_s"];
+    [self addChildVc:courseVC title:@"公益课堂" image:@"course" selectedImage:@"course_s"];
     
 //    MEIMageVC *store = [[MEIMageVC alloc]initWithType:MEMainStoreStyle];
 //    MEStoreHomeVC *store = [[MEStoreHomeVC alloc] init];
@@ -79,7 +79,7 @@
 //    MEProductShoppingCartVC *shopcart = [[MEProductShoppingCartVC alloc] init];
 //    [self addChildVc:shopcart title:@"购物车" image:@"shopcart" selectedImage:@"shopcart_s"];
     MENewFilterGoodVC *filter = [[MENewFilterGoodVC alloc] init];
-    [self addChildVc:filter title:@"优选" image:@"store" selectedImage:@"store_s"];
+    [self addChildVc:filter title:@"志愿优选" image:@"store" selectedImage:@"store_s"];
     
     self.mine = [[MENewMineHomeVC alloc] init];
     [self addChildVc:self.mine title:@"我的" image:@"mine" selectedImage:@"mine_s"];
@@ -129,7 +129,7 @@
     childVc.title=title;
     MENavigationVC *nav = [[MENavigationVC alloc] initWithRootViewController:childVc];
     if([title isEqualToString:@"首页"]){
-        childVc.title =@"ME时代会员优选";
+        childVc.title =@"志愿星";
         childVc.tabBarItem.title=@"首页";
     }
 //    if([title isEqualToString:@"店铺"]){

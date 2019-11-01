@@ -1,6 +1,6 @@
 //
 //  MEMineHomeVC.m
-//  ME时代
+//  志愿星
 //
 //  Created by Hank on 2018/9/11.
 //  Copyright © 2018年 hank. All rights reserved.

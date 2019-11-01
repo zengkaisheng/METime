@@ -1,6 +1,6 @@
 //
 //  MEShareTool.m
-//  ME时代
+//  志愿星
 //
 //  Created by hank on 2018/9/5.
 //  Copyright © 2018年 hank. All rights reserved.
@@ -118,12 +118,12 @@
     if (self.shareTitle) {
         
     }else{
-        self.shareTitle = @"ME时代优选";
+        self.shareTitle = @"志愿星";
     }
     if (self.shareDescriptionBody) {
         
     }else{
-        self.shareDescriptionBody = @"ME时代优选";
+        self.shareDescriptionBody = @"志愿星";
     }
     id image;
     if (self.shareImage) {

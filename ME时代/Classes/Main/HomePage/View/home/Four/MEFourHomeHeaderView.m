@@ -1,6 +1,6 @@
 //
 //  MEFourHomeHeaderView.m
-//  ME时代
+//  志愿星
 //
 //  Created by gao lei on 2019/6/13.
 //  Copyright © 2019年 hank. All rights reserved.
@@ -390,7 +390,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
         _lblStoreDesc.text = kMeUnNilStr(storemodel.cellphone);
     }else{
         _imgStore.image = [UIImage imageNamed:@"icon-wgvilogo"];
-        _lblStoreName.text = @"ME时代旗舰店";
+        _lblStoreName.text = @"志愿星旗舰店";
         _lblStoreDesc.text = @"33302156";
     }
     

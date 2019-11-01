@@ -37,6 +37,10 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="sdView" destination="KM1-gY-GDM" id="IeX-9B-ihH"/>
+                <outlet property="sdViewConsHeight" destination="wA8-6R-vmN" id="D8y-oS-6pG"/>
+                <outlet property="sdViewConsLeading" destination="H8F-6E-l2W" id="AiR-de-xo3"/>
+                <outlet property="sdViewConsTop" destination="Bf2-JT-4NU" id="E1W-sF-BWy"/>
+                <outlet property="sdViewConsTrailing" destination="Atr-sd-p30" id="IGl-Ri-hOL"/>
             </connections>
         </view>
     </objects>

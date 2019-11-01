@@ -1,6 +1,6 @@
 //
 //  MELianTongListVC.m
-//  ME时代
+//  志愿星
 //
 //  Created by gao lei on 2019/9/2.
 //  Copyright © 2019年 hank. All rights reserved.
@@ -10,6 +10,9 @@
 #import "MELianTongListCell.h"
 #import "MEGoodModel.h"
 #import "METhridProductDetailsVC.h"
+
+#import "MEFiveHomeNavView.h"
+#import "MEFiveCategoryView.h"
 
 @interface MELianTongListVC ()<UICollectionViewDelegate,UICollectionViewDataSource,RefreshToolDelegate>
 
@@ -25,7 +28,7 @@
     // Do any additional setup after loading the view.
     self.title = @"联通话费兑换区";
     self.view.backgroundColor = kMEf5f4f4;
-    
+    self.navBarHidden = self.isHome;
     [self.view addSubview:self.collectionView];
     [self.refresh addRefreshView];
 }
@@ -81,7 +84,11 @@
     if(!_collectionView){
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight) collectionViewLayout:layout];
+        CGRect frame = CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight);
+        if (self.isHome) {
+            frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight);
+        }
+        _collectionView = [[UICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
         _collectionView.backgroundColor = [UIColor colorWithHexString:@"kMEf5f4f4"];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MELianTongListCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MELianTongListCell class])];
         _collectionView.dataSource = self;

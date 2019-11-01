@@ -1,6 +1,6 @@
 //
 //  MEProductDetailsHeaderView.m
-//  ME时代
+//  志愿星
 //
 //  Created by hank on 2018/9/8.
 //  Copyright © 2018年 hank. All rights reserved.
@@ -68,7 +68,7 @@
     if(model.product_id == 4){
         _lblMember.text = @"每人限领一支,分享后可以再购买一支.";
     }else{
-        _lblMember.text = @"ME时代会员优选";
+        _lblMember.text = @"志愿星";
     }
     
 }
