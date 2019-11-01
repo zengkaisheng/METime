@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"0f0100"];//[UIColor colorWithRed:15 green:106 blue:180 alpha:1];
-    _arrImage = @[@"guideone",@"guidetwo",@"guidethree",@"guidefour"];
+    _arrImage = @[@"guideone",@"guidetwo",@"guidethree"];
     self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH * _arrImage.count, SCREEN_HEIGHT);
     self.pageController.numberOfPages = _arrImage.count;
     CGFloat imageW = SCREEN_WIDTH;

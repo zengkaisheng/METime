@@ -11,7 +11,8 @@
 #import "MENoticeVC.h"
 #import "MECoupleFilterVC.h"
 
-#import "MEFeedBackVC.h"
+#import "MENewSginUpVC.h"
+#import "MENewStoreApplyVC.h"
 
 @interface MEFiveHomeNavView (){
     CGFloat _top;
@@ -72,7 +73,8 @@
     MEFiveHomeVC *homeVC = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
     if(homeVC){
 //        MECoupleFilterVC *svc = [[MECoupleFilterVC alloc]init];
-        MEFeedBackVC *svc = [[MEFeedBackVC alloc] init];
+        MENewSginUpVC *svc = [[MENewSginUpVC alloc] init];
+//        MENewStoreApplyVC *svc = [[MENewStoreApplyVC alloc] init];
         [homeVC.navigationController pushViewController:svc animated:YES];
     }
 }

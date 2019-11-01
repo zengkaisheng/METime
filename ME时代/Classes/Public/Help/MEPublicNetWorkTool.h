@@ -870,6 +870,12 @@
 + (void)postPraiseRecruitWithRecruitId:(NSInteger)recruitId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //招募活动-报名/取消报名
 + (void)postJoinRecruitWithRecruitId:(NSInteger)recruitId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//验证活动编码
++ (void)postCheckSignInCodeWithCode:(NSString *)code successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//签到
++ (void)posSignUpWithSignInCode:(NSString *)signInCode latitude:(NSString *)latitude longitude:(NSString *)longitude successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//签退
++ (void)posSignOutWithSignInCode:(NSString *)signInCode latitude:(NSString *)latitude longitude:(NSString *)longitude successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

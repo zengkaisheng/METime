@@ -1137,6 +1137,13 @@
 #define MEIPcommonRecruitJoinUsersList @"common/recruit/joinUsersList"
 //招募活动-报名/取消报名
 #define MEIPcommonRecruitJoin @"common/recruit/join"
+//验证活动编码
+#define MEIPcommonSigninCheckSignInCode @"common/signin/checkSignInCode"
+//签到
+#define MEIPcommonSigninSignIn @"common/signin/signIn"
+//签到
+#define MEIPcommonSigninSignOut @"common/signin/signOut"
+
 /*********************************************/
 
 

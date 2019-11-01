@@ -336,11 +336,11 @@ const static CGFloat kImgStoreH = 50;
                 strongSelf.imgStore.hidden = YES;
             }
 #pragma 隐藏数据
-            strongSelf.homeModel.excellent_course = @[];
-            strongSelf.activityArray = [NSArray array];
-            strongSelf.goodsArray = [NSArray array];
-            strongSelf.spreebugmodel = nil;
-            strongSelf.arrPPTM = [NSArray array];
+//            strongSelf.homeModel.excellent_course = @[];
+//            strongSelf.activityArray = [NSArray array];
+//            strongSelf.goodsArray = [NSArray array];
+//            strongSelf.spreebugmodel = nil;
+//            strongSelf.arrPPTM = [NSArray array];
             [strongSelf.collectionView reloadData];
         });
     });
