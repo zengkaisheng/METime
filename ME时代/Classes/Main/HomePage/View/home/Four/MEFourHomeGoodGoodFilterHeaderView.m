@@ -13,6 +13,8 @@
 #import "MECoupleFilterVC.h"
 #import "MEChartsVC.h"
 
+#import "MEFiveHomeVC.h"
+
 @interface MEFourHomeGoodGoodFilterHeaderView ()
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consHeight;
@@ -53,7 +55,7 @@
     [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
-    MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+    MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
     if(homevc){
 //        MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchGoodGoodsType];
         MEChartsVC *vc = [[MEChartsVC alloc] init];
@@ -69,7 +71,7 @@
     [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
-    MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+    MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTeHuiType];
         vc.titleStr = @"超值特惠专场";
@@ -84,7 +86,7 @@
     [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
-    MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+    MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchShiShangType];
         vc.recordType = 1;
@@ -98,7 +100,7 @@
     [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
-    MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+    MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearch99BuyType];
         vc.recordType = 1;
@@ -112,7 +114,7 @@
     [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
-    MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+    MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
     if(homevc){
 //        MECoupleMailVC *vc = [[MECoupleMailVC alloc]initWithType:MECouponSearchTopBuyType];
         MEChartsVC *vc = [[MEChartsVC alloc] init];
@@ -129,7 +131,7 @@
     [self saveClickRecordsWithType:@"2" params:params];
     
 //    METhridHomeVC *homevc = [MECommonTool getVCWithClassWtihClassName:[METhridHomeVC class] targetResponderView:self];
-    MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+    MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
     if(homevc){
         MECoupleFilterVC *vc = [[MECoupleFilterVC alloc]init];
         vc.recordType = 1;

@@ -53,6 +53,8 @@
         MERecruitJoinUserModel *user = model.join_users[i];
         UIImageView *headerPic = [self creatreHeaderPicWithImage:kMeUnNilStr(user.header_pic) frame:CGRectMake(15+(itemW+14)*i, 42, itemW, itemW)];
         headerPic.tag = 100+i;
+        headerPic.layer.cornerRadius = itemW/2.0;
+        headerPic.layer.masksToBounds = YES;
         [self.bgView addSubview:headerPic];
     }
 }

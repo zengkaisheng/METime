@@ -70,9 +70,21 @@
 }
 
 - (void)sortAction:(UIButton*)btn{
+    if([MEUserInfoModel isLogin]){
+        [self toSignIn];
+    }else{
+        kMeWEAKSELF
+        [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+            kMeSTRONGSELF
+            [strongSelf toSignIn];
+        } failHandler:nil];
+    }
+}
+
+- (void)toSignIn {
     MEFiveHomeVC *homeVC = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
     if(homeVC){
-//        MECoupleFilterVC *svc = [[MECoupleFilterVC alloc]init];
+        //        MECoupleFilterVC *svc = [[MECoupleFilterVC alloc]init];
         if (kCurrentUser.is_volunteer == 1) {
             MENewSginUpVC *svc = [[MENewSginUpVC alloc] init];
             [homeVC.navigationController pushViewController:svc animated:YES];
@@ -80,7 +92,6 @@
             MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
             [homeVC.navigationController pushViewController:vc animated:YES];
         }
-        
     }
 }
 

@@ -298,20 +298,42 @@
                 if(strongSelf->_currentIndex != index){
                     NSDictionary *dict = strongSelf->_arrDicParm[index];
                     if ([dict[@"title"] isEqualToString:@"公益课堂"] || [dict[@"title"] isEqualToString:@"社区服务"]) {
-                        if (kCurrentUser.is_volunteer != 1) {
-                            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
-                            [strongSelf.navigationController pushViewController:vc animated:YES];
-                            strongSelf->_categoryView.categoryView.defaultSelectedIndex = strongSelf->_currentIndex;
-                            [strongSelf->_categoryView.categoryView reloadData];
-                            [strongSelf.choseVC setCurrentIndex:0];
-                        }else {
-                            strongSelf->_currentIndex = index;
-                            if (index > 0) {
-                                strongSelf.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
-                                strongSelf.categoryView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
-                            }else {
+                        if([MEUserInfoModel isLogin]){
+                            if (kCurrentUser.is_volunteer != 1) {
+                                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                                [strongSelf.navigationController pushViewController:vc animated:YES];
+                                strongSelf->_categoryView.categoryView.defaultSelectedIndex = strongSelf->_currentIndex;
+                                [strongSelf->_categoryView.categoryView reloadData];
                                 [strongSelf.choseVC setCurrentIndex:0];
+                            }else {
+                                strongSelf->_currentIndex = index;
+                                if (index > 0) {
+                                    strongSelf.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+                                    strongSelf.categoryView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+                                }else {
+                                    [strongSelf.choseVC setCurrentIndex:0];
+                                }
                             }
+                        }else {
+                            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                                if (kCurrentUser.is_volunteer != 1) {
+                                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                                    [strongSelf.navigationController pushViewController:vc animated:YES];
+                                    strongSelf->_categoryView.categoryView.defaultSelectedIndex = strongSelf->_currentIndex;
+                                    [strongSelf->_categoryView.categoryView reloadData];
+                                    [strongSelf.choseVC setCurrentIndex:0];
+                                }else {
+                                    strongSelf->_currentIndex = index;
+                                    if (index > 0) {
+                                        strongSelf.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+                                        strongSelf.categoryView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+                                    }else {
+                                        [strongSelf.choseVC setCurrentIndex:0];
+                                    }
+                                }
+                            } failHandler:^(id object) {
+                                
+                            }];
                         }
                     }else {
                         strongSelf->_currentIndex = index;

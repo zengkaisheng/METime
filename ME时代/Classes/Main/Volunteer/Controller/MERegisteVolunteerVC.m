@@ -147,30 +147,71 @@
 }
 //选择照片
 - (void)chooseIDCardImageWithIndex:(NSInteger)index {
+    BOOL isNotFirstChoosePhoto = [kMeUserDefaults boolForKey:kMEIsNotFirstChoosePhoto];
+    
     TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:1 delegate:self pushPhotoPickerVc:YES];
     imagePicker.allowPickingOriginalPhoto = NO;
     imagePicker.allowPickingVideo = NO;
-    kMeWEAKSELF
-    [imagePicker setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto, NSArray<NSDictionary *> *infos) {
-        kMeSTRONGSELF
-        for (int i = 0; i < assets.count; i ++) {
-            PHAsset *phAsset = assets[i];
-            if (phAsset.mediaType == PHAssetMediaTypeImage) {
-                UIImage *image = photos[i];
-//                NSDictionary *info = infos[i];
-                NSString *filename = [phAsset valueForKey:@"filename"];
-                NSString *filePath = [MECommonTool getImagePath:image filename:filename];
-                if (index == 0) {
-                    strongSelf.cardFontPath = filePath;
-                    strongSelf->_IDCardFontImageView.image = image;
-                }else if (index == 1) {
-                    strongSelf.cardBackPath = filePath;
-                    strongSelf->_IDCardBackImageView.image = image;
+
+    if (!isNotFirstChoosePhoto) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\"志愿星\"想访问您的相册" message:@"App需要您的同意才能使用相册" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"不允许" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [kMeUserDefaults setBool:NO forKey:kMEIsNotFirstChoosePhoto];
+            [kMeUserDefaults synchronize];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [kMeUserDefaults setBool:YES forKey:kMEIsNotFirstChoosePhoto];
+            [kMeUserDefaults synchronize];
+            imagePicker.allowPickingImage = YES;
+            kMeWEAKSELF
+            [imagePicker setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto, NSArray<NSDictionary *> *infos) {
+                kMeSTRONGSELF
+                for (int i = 0; i < assets.count; i ++) {
+                    PHAsset *phAsset = assets[i];
+                    if (phAsset.mediaType == PHAssetMediaTypeImage) {
+                        UIImage *image = photos[i];
+                        //                NSDictionary *info = infos[i];
+                        NSString *filename = [phAsset valueForKey:@"filename"];
+                        NSString *filePath = [MECommonTool getImagePath:image filename:filename];
+                        if (index == 0) {
+                            strongSelf.cardFontPath = filePath;
+                            strongSelf->_IDCardFontImageView.image = image;
+                        }else if (index == 1) {
+                            strongSelf.cardBackPath = filePath;
+                            strongSelf->_IDCardBackImageView.image = image;
+                        }
+                    }
+                }
+            }];
+            [self presentViewController:imagePicker animated:YES completion:nil];
+        }];
+        [alert addAction:action];
+        [alert addAction:action1];
+        [self presentViewController:alert animated:YES completion:nil];
+    }else {
+        kMeWEAKSELF
+        [imagePicker setDidFinishPickingPhotosWithInfosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto, NSArray<NSDictionary *> *infos) {
+            kMeSTRONGSELF
+            for (int i = 0; i < assets.count; i ++) {
+                PHAsset *phAsset = assets[i];
+                if (phAsset.mediaType == PHAssetMediaTypeImage) {
+                    UIImage *image = photos[i];
+                    //                NSDictionary *info = infos[i];
+                    NSString *filename = [phAsset valueForKey:@"filename"];
+                    NSString *filePath = [MECommonTool getImagePath:image filename:filename];
+                    if (index == 0) {
+                        strongSelf.cardFontPath = filePath;
+                        strongSelf->_IDCardFontImageView.image = image;
+                    }else if (index == 1) {
+                        strongSelf.cardBackPath = filePath;
+                        strongSelf->_IDCardBackImageView.image = image;
+                    }
                 }
             }
-        }
-    }];
-    [self presentViewController:imagePicker animated:YES completion:nil];
+        }];
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }
 }
 #pragma mark -- Networking
 - (void)registerVolunteer{

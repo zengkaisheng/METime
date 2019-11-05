@@ -570,13 +570,30 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 23:
         {//跳公益课程
-            if (kCurrentUser.is_volunteer == 1) {
-                MEPublicServiceCourseVC *vc = [[MEPublicServiceCourseVC alloc] init];
-                [self.navigationController pushViewController:vc animated:YES];
+            if([MEUserInfoModel isLogin]){
+                if (kCurrentUser.is_volunteer == 1) {
+                    MEPublicServiceCourseVC *vc = [[MEPublicServiceCourseVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else {
+                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
             }else {
-                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
-                [self.navigationController pushViewController:vc animated:YES];
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MEPublicServiceCourseVC *vc = [[MEPublicServiceCourseVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                } failHandler:^(id object) {
+                    
+                }];
             }
+            
         }
             break;
         case 24:
@@ -591,12 +608,28 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 25:
         {//跳活动招募
-            if (kCurrentUser.is_volunteer == 1) {
-                MEActivityRecruitVC *vc = [[MEActivityRecruitVC alloc] init];
-                [self.navigationController pushViewController:vc animated:YES];
+            if([MEUserInfoModel isLogin]){
+                if (kCurrentUser.is_volunteer == 1) {
+                    MEActivityRecruitVC *vc = [[MEActivityRecruitVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else {
+                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
             }else {
-                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
-                [self.navigationController pushViewController:vc animated:YES];
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MEActivityRecruitVC *vc = [[MEActivityRecruitVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                } failHandler:^(id object) {
+                    
+                }];
             }
         }
             break;
@@ -608,23 +641,55 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 27:
         {//跳公益秀
-            if (kCurrentUser.is_volunteer == 1) {
-                MEPublicShowHomeVC *vc = [[MEPublicShowHomeVC alloc] init];
-                [self.navigationController pushViewController:vc animated:YES];
+            if([MEUserInfoModel isLogin]){
+                if (kCurrentUser.is_volunteer == 1) {
+                    MEPublicShowHomeVC *vc = [[MEPublicShowHomeVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else {
+                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
             }else {
-                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
-                [self.navigationController pushViewController:vc animated:YES];
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MEPublicShowHomeVC *vc = [[MEPublicShowHomeVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                } failHandler:^(id object) {
+                    
+                }];
             }
         }
             break;
         case 28:
         {//跳社区服务
-            if (kCurrentUser.is_volunteer == 1) {
-                MECommunityServiceHomeVC *vc = [[MECommunityServiceHomeVC alloc] init];
-                [self.navigationController pushViewController:vc animated:YES];
+            if([MEUserInfoModel isLogin]){
+                if (kCurrentUser.is_volunteer == 1) {
+                    MECommunityServiceHomeVC *vc = [[MECommunityServiceHomeVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else {
+                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
             }else {
-                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
-                [self.navigationController pushViewController:vc animated:YES];
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MECommunityServiceHomeVC *vc = [[MECommunityServiceHomeVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                } failHandler:^(id object) {
+                    
+                }];
             }
         }
             break;
@@ -743,11 +808,11 @@ const static CGFloat kImgStoreH = 50;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (_type == 0) {
-        if (section == 0 || section == 2 || section == 3 || section == 4 || section == 5 || section == 6 || section == 7 || section == 8 || section == 9 || section == 11 || section == 12) {
+        if (section == 0 || section == 2 || section == 3 || section == 4 || section == 5 || section == 6 || section == 7 || section == 8 || section == 9 || section == 10 || section == 12) {
             return 0;
         }else if (section == 1) {
             return 1;
-        }else if (section == 10) {
+        }else if (section == 11) {
             return self.homeModel.modules.modules_list.count;
         }
     }
@@ -762,7 +827,7 @@ const static CGFloat kImgStoreH = 50;
                 kSDLoadImg(cell.imgPic, kMeUnNilStr(self.homeModel.member_of_the_ritual_image));
             }
             return cell;
-        }else if (indexPath.section == 10) {
+        }else if (indexPath.section == 11) {
             MEFiveHomeEntranceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MEFiveHomeEntranceCell class]) forIndexPath:indexPath];
             METhridHomeAdModel *adModel = self.homeModel.modules.modules_list[indexPath.row];
             [cell setUIWithModel:adModel];
@@ -786,7 +851,7 @@ const static CGFloat kImgStoreH = 50;
                     } failHandler:nil];
                 }
             }
-        }else if (indexPath.section == 10) {
+        }else if (indexPath.section == 11) {
             METhridHomeAdModel *adModel = self.homeModel.modules.modules_list[indexPath.row];
             MEAdModel *model = [MEAdModel mj_objectWithKeyValues:adModel.mj_keyValues];
             [self cycleScrollViewDidSelectItemWithModel:model];
@@ -835,7 +900,7 @@ const static CGFloat kImgStoreH = 50;
             }else{
                 return CGSizeMake(SCREEN_WIDTH, 0.1);
             }
-        }else if (indexPath.section == 10) {
+        }else if (indexPath.section == 11) {
             if (self.homeModel.modules.modules_list.count > 0) {
                 return CGSizeMake(kMEFiveHomeEntranceCellWdith, kMEFiveHomeEntranceCellHeight);
             }else {
@@ -912,13 +977,6 @@ const static CGFloat kImgStoreH = 50;
             }
             return CGSizeMake(SCREEN_WIDTH, height);
         }else if (section == 10) {
-            if (self.homeModel.modules.left_img.count <= 0 && self.homeModel.modules.right_top_img.count <= 0 && self.homeModel.modules.right_bottom_img.count <= 0) {
-                return CGSizeMake(SCREEN_WIDTH, 0.1);
-            }
-            return CGSizeMake(SCREEN_WIDTH, kMEFiveHomeVolunteerHeaderViewHeight);
-        }else if (section == 11) {
-            return CGSizeMake(SCREEN_WIDTH, kMEFiveHomeCouponViewHeight);
-        }else if (section == 12) {
             CGFloat height = 0;
             if (self.goodsArray.count > 0) {
                 NSDictionary *data = self.goodsArray.firstObject;
@@ -933,6 +991,13 @@ const static CGFloat kImgStoreH = 50;
                 }
             }
             return CGSizeMake(SCREEN_WIDTH, height);
+        }else if (section == 11) {
+            if (self.homeModel.modules.left_img.count <= 0 && self.homeModel.modules.right_top_img.count <= 0 && self.homeModel.modules.right_bottom_img.count <= 0) {
+                return CGSizeMake(SCREEN_WIDTH, 0.1);
+            }
+            return CGSizeMake(SCREEN_WIDTH, kMEFiveHomeVolunteerHeaderViewHeight);
+        }else if (section == 12) {
+            return CGSizeMake(SCREEN_WIDTH, kMEFiveHomeCouponViewHeight);
         }
     }
     return CGSizeMake(0, 0);
@@ -1062,6 +1127,10 @@ const static CGFloat kImgStoreH = 50;
                 [header setupUIWithArray:@[@{@"excellent_course":self.homeModel.excellent_course}] showFooter:NO];
                 headerView = header;
             }else if (indexPath.section == 10) {
+                MEFourHomeGoodGoodMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) forIndexPath:indexPath];
+                [header setupUIWithArray:self.goodsArray showFooter:NO];
+                headerView = header;
+            }else if (indexPath.section == 11) {
                 MEFiveHomeVolunteerHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFiveHomeVolunteerHeaderView class]) forIndexPath:indexPath];
                 [header setUIWithModel:self.homeModel];
                 kMeWEAKSELF
@@ -1104,7 +1173,7 @@ const static CGFloat kImgStoreH = 50;
                     }
                 };
                 headerView = header;
-            }else if (indexPath.section == 11) {
+            }else if (indexPath.section == 12) {
                 MEFiveHomeCouponView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFiveHomeCouponView class]) forIndexPath:indexPath];
                 [header setUIWithMaterialArray:self.categorysArray];
                 kMeWEAKSELF
@@ -1126,10 +1195,6 @@ const static CGFloat kImgStoreH = 50;
                 
                 self.couponView = header;
                 headerView = header;
-            }else if (indexPath.section == 12) {
-                MEFourHomeGoodGoodMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) forIndexPath:indexPath];
-                [header setupUIWithArray:self.goodsArray showFooter:NO];
-                headerView = header;
             }
         }
     }
@@ -1138,7 +1203,7 @@ const static CGFloat kImgStoreH = 50;
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     if (_type == 0) {
-        if (section == 10) {
+        if (section == 11) {
             return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin+2, kMEGoodsMargin, kMEGoodsMargin+2);
         }else if (section != 12) {
             return UIEdgeInsetsMake(0, 0, 0, 0);

@@ -54,6 +54,8 @@ img.style.maxWidth = %f;   \
 #define kMENowStatus @"kMENowStatus"
 //是否提交了诊断
 #define kMEHasConsult @"kMEHasConsult"
+//是否第一次选择相册
+#define kMEIsNotFirstChoosePhoto @"kMEIsNotFirstChoosePhoto"
 
 // RGB颜色
 #define kMeColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]

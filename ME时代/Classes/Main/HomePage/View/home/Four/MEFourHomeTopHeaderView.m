@@ -12,6 +12,7 @@
 //#import "METhridHomeVC.h"
 #import "MEFourHomeVC.h"
 #import "METhridHomeModel.h"
+#import "MEFiveHomeVC.h"
 
 @interface MEFourHomeTopHeaderView ()<SDCycleScrollViewDelegate> {
     MEHomeRecommendAndSpreebuyModel *_model;
@@ -59,7 +60,7 @@
 
 - (void)tapF{
     if(_model.recommend_goods){
-        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+        MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
         if(homevc){
             METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:_model.recommend_goods.product_id];
             [homevc.navigationController pushViewController:details animated:YES];
@@ -69,7 +70,7 @@
 
 - (void)tapS{
     if(_model.spreebuy_goods){
-        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+        MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
         if(homevc){
             METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:_model.spreebuy_goods.product_id];
 //            details.time = kMeUnNilStr(_model.spreebuy_goods.time);

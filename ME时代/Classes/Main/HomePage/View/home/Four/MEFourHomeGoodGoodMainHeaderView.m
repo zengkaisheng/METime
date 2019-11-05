@@ -27,6 +27,8 @@
 #import "MEPersonalCourseCell.h"
 #import "MEPersionalCourseDetailVC.h"
 
+#import "MEFiveHomeVC.h"
+
 @interface MEFourHomeGoodGoodMainHeaderView ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *_arrHot;
@@ -52,6 +54,7 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.tableFooterView = [UIView new];
+    _tableView.backgroundColor = [UIColor colorWithHexString:@"#F6F6F6"];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.scrollsToTop = NO;
@@ -98,7 +101,7 @@
                     cell.buyBlock = ^{
                         kMeSTRONGSELF
                         METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-                        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                        MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:strongSelf];
                         if (homevc) {
                             [homevc.navigationController pushViewController:details animated:YES];
                         }
@@ -117,14 +120,14 @@
                         kMeSTRONGSELF
                         if([MEUserInfoModel isLogin]){
                             MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.ids myList:NO];
-                            MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                            MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:strongSelf];
                             if (homevc) {
                                 [homevc.navigationController pushViewController:details animated:YES];
                             }
                         }else {
                             [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
                                 MEBargainDetailVC *details = [[MEBargainDetailVC alloc] initWithBargainId:model.ids myList:NO];
-                                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                                MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:strongSelf];
                                 if (homevc) {
                                     [homevc.navigationController pushViewController:details animated:YES];
                                 }
@@ -145,14 +148,14 @@
                         kMeSTRONGSELF
                         if([MEUserInfoModel isLogin]){
                             MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
-                            MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                            MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:strongSelf];
                             if (homevc) {
                                 [homevc.navigationController pushViewController:details animated:YES];
                             }
                         }else {
                             [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
                                 MEGroupProductDetailVC *details = [[MEGroupProductDetailVC alloc] initWithProductId:model.product_id];
-                                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                                MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:strongSelf];
                                 if (homevc) {
                                     [homevc.navigationController pushViewController:details animated:YES];
                                 }
@@ -172,7 +175,7 @@
                     cell.tapBlock = ^(NSInteger index) {
                         kMeSTRONGSELF
                         METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-                        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                        MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:strongSelf];
                         if (homevc) {
                             [homevc.navigationController pushViewController:details animated:YES];
                         }
@@ -190,14 +193,14 @@
                         kMeSTRONGSELF
                         if([MEUserInfoModel isLogin]){
                             MEJoinPrizeVC *details = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.ids]];
-                            MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                            MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:strongSelf];
                             if (homevc) {
                                 [homevc.navigationController pushViewController:details animated:YES];
                             }
                         }else {
                             [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
                                 MEJoinPrizeVC *details = [[MEJoinPrizeVC alloc] initWithActivityId:[NSString stringWithFormat:@"%ld",(long)model.ids]];
-                                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                                MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:strongSelf];
                                 if (homevc) {
                                     [homevc.navigationController pushViewController:details animated:YES];
                                 }
@@ -220,7 +223,7 @@
             cell.buyBlock = ^{
                 kMeSTRONGSELF
                 METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
-                MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:strongSelf];
+                MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:strongSelf];
                 if (homevc) {
                     [homevc.navigationController pushViewController:details animated:YES];
                 }
@@ -256,7 +259,7 @@
     if ([dict.allKeys containsObject:@"activity"]) {
         NSArray *activity = dict[@"activity"];
         MEHomeRecommendModel *model = activity[indexPath.row];
-        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+        MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
         switch (model.type) {
             case 1:
             {
@@ -334,7 +337,7 @@
     }else if ([dict.allKeys containsObject:@"goods"]) {
         NSArray *goods = dict[@"goods"];
         MEHomeRecommendModel *model = goods[indexPath.row];
-        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+        MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
         METhridProductDetailsVC *details = [[METhridProductDetailsVC alloc]initWithId:model.ids];
         if (homevc) {
             [homevc.navigationController pushViewController:details animated:YES];
@@ -342,7 +345,7 @@
     }else if ([dict.allKeys containsObject:@"excellent_course"]) {
         NSArray *excellent_course = dict[@"excellent_course"];
         MECourseListModel *model = excellent_course[indexPath.row];
-        MEFourHomeVC *homevc = (MEFourHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFourHomeVC class] targetResponderView:self];
+        MEFiveHomeVC *homevc = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
         MEPersionalCourseDetailVC *vc = [[MEPersionalCourseDetailVC alloc] initWithCourseId:model.idField];
         if (homevc) {
             [homevc.navigationController pushViewController:vc animated:YES];
