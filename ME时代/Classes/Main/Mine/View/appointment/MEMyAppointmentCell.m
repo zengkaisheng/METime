@@ -59,6 +59,11 @@
     CGFloat price = [kMeUnNilStr(model.money) floatValue] * [kMeUnNilStr(model.reserve_number) floatValue];
     _lblPrice.text = [NSString stringWithFormat:@"¥%@",@(price)];
     _lblOrderNum.text = kMeUnNilStr(_model.reserve_sn);
+    if (model.product_type == 18) {
+        _lblPrice.textColor = _lblStatus.textColor = [UIColor colorWithHexString:@"#2ED9A4"];
+    }else {
+        _lblPrice.textColor = _lblStatus.textColor = kMEPink;
+    }
 }
 
 - (IBAction)cancelAppointAction:(UIButton *)sender {

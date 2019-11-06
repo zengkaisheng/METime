@@ -139,7 +139,10 @@
 }
 
 - (void)setAppointUIWithModel:(MEAppointDetailModel *)model orderType:(MEAppointmenyStyle)type{
+    _logistViewConsHeight.constant = 0.0;
     _viewForLogist.hidden = YES;
+    _topUpViewConsHeight.constant = 0.0;
+    _topUpView.hidden = YES;
     _viewForLogist.userInteractionEnabled = NO;
     _lblOrderStatus.text = [NSString stringWithFormat:@"订单%@",_arrAppointType[type]];
     

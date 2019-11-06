@@ -18,4 +18,6 @@
 @property (nonatomic, strong) NSString * images;
 @property (nonatomic, strong) NSString * money;
 @property (nonatomic, strong) NSString * reserve_number;
+
+@property (nonatomic, assign) NSInteger product_type;     //类型 18为视力预约
 @end

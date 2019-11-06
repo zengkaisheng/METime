@@ -749,7 +749,8 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 32:
         {//跳爱心榜
-            //            [self.navigationController pushViewController:vc animated:YES];
+
+//            [self.navigationController pushViewController:dvc animated:YES];
         }
             break;
         case 33:

@@ -65,10 +65,11 @@
     self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeNavBarHeight, SCREEN_WIDTH, kCategoryViewHeight)];
 //    self.categoryView.lineStyle = JXCategoryLineStyle_None;
     JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
+    lineView.indicatorLineViewColor = [UIColor colorWithHexString:@"#2ED9A4"];
     self.categoryView.indicators = @[lineView];
     self.categoryView.titles = _arrType;
     self.categoryView.delegate = self;
-    self.categoryView.titleSelectedColor = kMEPink;
+    self.categoryView.titleSelectedColor = [UIColor colorWithHexString:@"#2ED9A4"];
     self.categoryView.contentScrollView = self.scrollView;
     [self.view addSubview:self.categoryView];
     self.categoryView.defaultSelectedIndex = _currentType;

@@ -70,12 +70,23 @@
                                     <action selector="CallPhotoAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="TKb-wc-fGV"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Zv-WJ-wu0">
+                                <rect key="frame" x="136" y="8.5" width="35.5" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="rXE-uN-HFu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ocs-Ae-7ED" firstAttribute="leading" secondItem="bah-kK-P3s" secondAttribute="leading" constant="23" id="8IW-9k-0Pc"/>
+                            <constraint firstItem="5Zv-WJ-wu0" firstAttribute="leading" secondItem="eEw-hs-WSp" secondAttribute="trailing" constant="51" id="E1w-gU-jLp"/>
                             <constraint firstItem="eEw-hs-WSp" firstAttribute="top" secondItem="bah-kK-P3s" secondAttribute="top" constant="7" id="Jl2-co-aF4"/>
                             <constraint firstItem="Ocs-Ae-7ED" firstAttribute="top" secondItem="eEw-hs-WSp" secondAttribute="bottom" constant="9" id="Kik-QL-Eba"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Zv-WJ-wu0" secondAttribute="trailing" constant="8" id="Nb6-xm-ih2"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eEw-hs-WSp" secondAttribute="trailing" constant="10" id="Waj-PA-pB8"/>
                             <constraint firstItem="km8-fR-PNU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EBt-ID-OXB" secondAttribute="trailing" constant="8" id="YOX-y4-fhb"/>
                             <constraint firstItem="EBt-ID-OXB" firstAttribute="top" secondItem="Ocs-Ae-7ED" secondAttribute="bottom" constant="6" id="dgg-hr-TPD"/>
@@ -84,6 +95,7 @@
                             <constraint firstAttribute="bottom" secondItem="AEn-jN-uGa" secondAttribute="bottom" constant="9.5" id="gDN-bo-R4l"/>
                             <constraint firstAttribute="trailing" secondItem="AEn-jN-uGa" secondAttribute="trailing" constant="13" id="j6q-7W-14b"/>
                             <constraint firstItem="AEn-jN-uGa" firstAttribute="leading" secondItem="km8-fR-PNU" secondAttribute="trailing" constant="4" id="jnL-lg-YnW"/>
+                            <constraint firstItem="5Zv-WJ-wu0" firstAttribute="centerY" secondItem="eEw-hs-WSp" secondAttribute="centerY" id="qub-JB-tzx"/>
                             <constraint firstItem="EBt-ID-OXB" firstAttribute="leading" secondItem="bah-kK-P3s" secondAttribute="leading" constant="23" id="xq5-nv-iQR"/>
                             <constraint firstItem="eEw-hs-WSp" firstAttribute="leading" secondItem="bah-kK-P3s" secondAttribute="leading" constant="23" id="yTj-K5-bOu"/>
                         </constraints>
@@ -105,6 +117,8 @@
                 <outlet property="StoreNameLbl" destination="Ocs-Ae-7ED" id="WnP-UU-z6k"/>
                 <outlet property="addressLbl" destination="EBt-ID-OXB" id="Vqw-mj-gAX"/>
                 <outlet property="bgView" destination="bah-kK-P3s" id="VFt-rt-OuG"/>
+                <outlet property="storeNameLblConsHeight" destination="g0U-iK-3YH" id="YSo-HY-BP8"/>
+                <outlet property="topStoreNameLbl" destination="5Zv-WJ-wu0" id="7yL-LJ-f7d"/>
             </connections>
         </tableViewCell>
     </objects>

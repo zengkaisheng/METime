@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MEAppointmentStatusCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JwC-aT-Otu">
+                        <rect key="frame" x="26" y="4" width="328" height="84.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单已预约" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VBe-s5-aI1">
+                                <rect key="frame" x="18" y="13" width="76.5" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="i53-ki-rRo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" red="0.18039215689999999" green="0.85098039219999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单号码:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kEQ-tb-P3z">
+                                <rect key="frame" x="18" y="46" width="65.5" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="DU7-Zk-h5D"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="VBe-s5-aI1" firstAttribute="leading" secondItem="JwC-aT-Otu" secondAttribute="leading" constant="18" id="1cb-Te-5Uh"/>
+                            <constraint firstItem="kEQ-tb-P3z" firstAttribute="top" secondItem="VBe-s5-aI1" secondAttribute="bottom" constant="12" id="G2G-KZ-FvH"/>
+                            <constraint firstItem="VBe-s5-aI1" firstAttribute="top" secondItem="JwC-aT-Otu" secondAttribute="top" constant="13" id="adG-kr-MCV"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VBe-s5-aI1" secondAttribute="trailing" constant="8" id="dEg-Py-kDK"/>
+                            <constraint firstItem="kEQ-tb-P3z" firstAttribute="leading" secondItem="JwC-aT-Otu" secondAttribute="leading" constant="18" id="oum-Wc-E9n"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kEQ-tb-P3z" secondAttribute="trailing" constant="8" id="p8f-Xa-dVb"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="14"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="JwC-aT-Otu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="47F-KQ-COK"/>
+                    <constraint firstAttribute="bottom" secondItem="JwC-aT-Otu" secondAttribute="bottom" constant="11" id="EhH-uw-vgm"/>
+                    <constraint firstItem="JwC-aT-Otu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="26" id="Vtc-k3-05A"/>
+                    <constraint firstAttribute="trailing" secondItem="JwC-aT-Otu" secondAttribute="trailing" constant="21" id="jSU-sp-5jP"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bgView" destination="JwC-aT-Otu" id="837-yc-ROG"/>
+                <outlet property="reserveNumLbl" destination="kEQ-tb-P3z" id="wAa-9H-LtO"/>
+                <outlet property="statusLbl" destination="VBe-s5-aI1" id="15f-D9-IY4"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

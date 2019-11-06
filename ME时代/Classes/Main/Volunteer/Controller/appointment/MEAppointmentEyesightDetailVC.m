@@ -16,6 +16,7 @@
 #import "UIButton+ImageTitleSpacing.h"
 
 #import "MEAppointmentInfoVC.h"
+#import "MEEyesightAppointmentInfoVC.h"
 
 @interface MEAppointmentEyesightDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -28,6 +29,10 @@
 @end
 
 @implementation MEAppointmentEyesightDetailVC
+
+- (void)dealloc{
+    kNSNotificationCenterDealloc
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,6 +68,8 @@
         UIButton *btn = [self createBtnWithTitle:dict[@"title"] image:dict[@"image"] frame:CGRectMake(10+itemW*i, 0, itemW, 56) tag:100+i];
         [bottomView addSubview:btn];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoAppointInfo:) name:kEyesightAppointOrder object:nil];
 }
 
 - (UIButton *)createBtnWithTitle:(NSString *)title image:(NSString *)image frame:(CGRect)frame tag:(NSInteger)tag {
@@ -105,6 +112,15 @@
         default:
             break;
     }
+}
+
+- (void)gotoAppointInfo:(NSNotification *)notification {
+    NSString *reserve_sn = notification.userInfo[@"reserve_sn"];
+    NSLog(@"reserve_sn:%@",reserve_sn);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        MEEyesightAppointmentInfoVC *vc = [[MEEyesightAppointmentInfoVC alloc] initWithOrderReserve_sn:kMeUnNilStr(reserve_sn)];
+        [self.navigationController pushViewController:vc animated:YES];
+    });
 }
 
 - (void)appointmentBtnAction {

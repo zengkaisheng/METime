@@ -8,13 +8,17 @@
 
 #import "MEEyesightStoreCell.h"
 #import "MEGoodDetailModel.h"
+#import "MEAppointDetailModel.h"
 
 @interface MEEyesightStoreCell ()
 
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UILabel *StoreNameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *addressLbl;
-@property (nonatomic, strong) MEGoodDetailModel *model;
+@property (nonatomic, strong) NSString *cellPhone;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *storeNameLblConsHeight;
+
+@property (weak, nonatomic) IBOutlet UILabel *topStoreNameLbl;
 
 @end
 
@@ -40,8 +44,20 @@
 }
 
 - (void)setUIWithModel:(MEGoodDetailModel *)model {
-    self.model = model;
+    self.topStoreNameLbl.hidden = YES;
+    self.StoreNameLbl.hidden = NO;
+    _storeNameLblConsHeight.constant = 18;
+    self.cellPhone = kMeUnNilStr(model.company_phone);
     _StoreNameLbl.text = kMeUnNilStr(model.company_name);
+    _addressLbl.text = [NSString stringWithFormat:@"地址：%@%@%@%@",kMeUnNilStr(model.company_province),kMeUnNilStr(model.company_city),kMeUnNilStr(model.company_area),kMeUnNilStr(model.company_addr_detail)];
+}
+
+- (void)setAppointmentInfoUIWithModel:(MEAppointDetailModel *)model {
+    self.topStoreNameLbl.hidden = NO;
+    self.StoreNameLbl.hidden = YES;
+    _storeNameLblConsHeight.constant = 0;
+    self.cellPhone = kMeUnNilStr(model.company_phone);
+    self.topStoreNameLbl.text = kMeUnNilStr(model.company_name);
     _addressLbl.text = [NSString stringWithFormat:@"地址：%@%@%@%@",kMeUnNilStr(model.company_province),kMeUnNilStr(model.company_city),kMeUnNilStr(model.company_area),kMeUnNilStr(model.company_addr_detail)];
 }
 
@@ -51,7 +67,9 @@
 }
 - (IBAction)CallPhotoAction:(id)sender {
     //打电话
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@",kMeUnNilStr(self.model.company_phone)]]];
+    if (kMeUnNilStr(self.cellPhone).length > 0) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@",kMeUnNilStr(self.cellPhone)]]];
+    }
 }
 
 @end

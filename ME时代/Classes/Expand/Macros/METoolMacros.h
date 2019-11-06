@@ -287,6 +287,9 @@ NS_INLINE NSString *kMeFilePathAtDocumentWithName(NSString *fileNAme){
 #define kGroupOrderReload @"kGroupOrderReload"
 #define kNoticeGroupOrderReload [[NSNotificationCenter defaultCenter] postNotificationName:kGroupOrderReload object:nil];
 
+//通知跳转到预约订单详情
+#define kEyesightAppointOrder @"kEyesightAppointOrder"
+
 //通知用户刷新融云信息
 #define kUnMessage @"kUnMessage"
 #define kNoticeReloadkUnMessage [[NSNotificationCenter defaultCenter] postNotificationName:kUnMessage object:nil];

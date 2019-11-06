@@ -33,4 +33,16 @@
 
 @property (nonatomic, strong) NSString * name;//用户名称
 @property (nonatomic, strong) NSString * member_cellphone;//用户手机号
+
+//视力预约相关信息
+@property (nonatomic, strong) NSString * company_addr_detail;
+@property (nonatomic, assign) NSInteger only_weapp_show;
+@property (nonatomic, strong) NSString * company_name;
+@property (nonatomic, strong) NSString * company_province;
+@property (nonatomic, strong) NSString * company_city;
+@property (nonatomic, strong) NSString * company_area;
+@property (nonatomic, strong) NSString * company_longitude;
+@property (nonatomic, strong) NSString * company_latitude;
+@property (nonatomic, strong) NSString * company_phone;
+
 @end

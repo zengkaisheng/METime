@@ -44,7 +44,6 @@
 #import "MEClerkManngerVC.h"
 //#import "MEBDataDealVC.h"
 #import "MEBdataVC.h"
-#import "MEMyAppointmentVC.h"
 #import "MEGetCaseMainSVC.h"
 #import "MEWithdrawalVC.h"
 #import "MEClerkStatisticsVC.h"
@@ -380,11 +379,6 @@
             [homeVc.navigationController pushViewController:dvc animated:YES];
         }
             break;
-//        case MeMyMenuAppointment:{
-//            MEMyAppointmentVC *dvc = [[MEMyAppointmentVC alloc]initWithType:MEAppointmenyUseing];
-//            [homeVc.navigationController pushViewController:dvc animated:YES];
-//        }
-//            break;
         case MeMyMenuExchange:{
             MEInteralExchangVC *dvc = [[MEInteralExchangVC alloc]init];
             [homeVc.navigationController pushViewController:dvc animated:YES];
@@ -639,7 +633,11 @@
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
-            
+        case MeMyMenuAppointment:{
+            MEMyAppointmentVC *dvc = [[MEMyAppointmentVC alloc]initWithType:MEAppointmenyUseing];
+            [homeVc.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
         default:
             break;
     }

@@ -10,7 +10,7 @@
 #import "MEMyAppointmentCell.h"
 #import "MEAppointmentDetailVC.h"
 #import "MEAppointmentModel.h"
-
+#import "MEEyesightAppointmentInfoVC.h"
 
 @interface MEMyAppointmentContentVC ()<UITableViewDelegate, UITableViewDataSource,RefreshToolDelegate>{
     MEAppointmenyStyle _type;
@@ -85,8 +85,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MEAppointmentModel *model = self.refresh.arrData[indexPath.row];
-    MEAppointmentDetailVC *vc = [[MEAppointmentDetailVC alloc]initWithReserve_sn:kMeUnNilStr(model.reserve_sn) userType:_userType];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (model.product_type == 18) {
+        MEEyesightAppointmentInfoVC *vc = [[MEEyesightAppointmentInfoVC alloc] initWithOrderReserve_sn:kMeUnNilStr(model.reserve_sn)];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else {
+        MEAppointmentDetailVC *vc = [[MEAppointmentDetailVC alloc]initWithReserve_sn:kMeUnNilStr(model.reserve_sn) userType:_userType];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 

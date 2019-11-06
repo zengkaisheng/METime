@@ -73,9 +73,11 @@ const static CGFloat kSectionHeight = 40;
         }
         [MEPublicNetWorkTool getUserCheckFirstBuyWithSuccessBlock:nil failure:nil];
         MEServiceDetailsVC *dvc = (MEServiceDetailsVC *)[MECommonTool getClassWtihClassName:[MEServiceDetailsVC class] targetVC:strongSelf];
+        NSDictionary *info = @{@"reserve_sn":[NSString stringWithFormat:@"%@",responseObject.data]};
         if(dvc){
             [strongSelf.navigationController popToViewController:dvc animated:YES];
         }else {
+            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kEyesightAppointOrder object:nil userInfo:info]];
             NSArray *vcs = strongSelf.navigationController.viewControllers;
             UIViewController *vc = [vcs objectAtIndex:vcs.count-3];
             [strongSelf.navigationController popToViewController:vc animated:YES];
@@ -204,7 +206,7 @@ const static CGFloat kSectionHeight = 40;
     if(!_btnSubmit){
         _btnSubmit = [UIButton buttonWithType:UIButtonTypeCustom];
         _btnSubmit.frame = CGRectMake(0, SCREEN_HEIGHT - kSubmitBtnHeight, SCREEN_WIDTH, kSubmitBtnHeight);
-        [_btnSubmit setTitle:@"提交" forState:UIControlStateNormal];
+        [_btnSubmit setTitle:@"确认提交" forState:UIControlStateNormal];
         _btnSubmit.titleLabel.font = kMeFont(15);
         [_btnSubmit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_btnSubmit setBackgroundColor:kMEHexColor(@"#2ED9A4")];

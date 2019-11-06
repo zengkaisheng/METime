@@ -151,7 +151,7 @@ kTDWebViewCellDidFinishLoadNotificationMethod
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%ld",indexPath.section);
+    NSLog(@"%ld",(long)indexPath.section);
     
 }
 

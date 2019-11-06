@@ -33,6 +33,7 @@
 @property (nonatomic, strong) UIScrollView *scrollview;
 @property (nonatomic, strong) MEFiveHomeBaseVC *choseVC;//精选
 @property (nonatomic, strong) UIColor *currentColor;
+@property (nonatomic, strong) UIButton *reloadBtn;
 
 @end
 
@@ -49,6 +50,8 @@
     self.view.backgroundColor = kMEf5f4f4;
     _currentIndex = 0;
     self.currentColor = [UIColor colorWithHexString:@"#2ED9A4"];
+    [self.view addSubview:self.reloadBtn];
+    self.reloadBtn.hidden = YES;
     [self requestMaterialData];
     
     [self getUnInfo];
@@ -76,6 +79,13 @@
 }
 
 - (void)setUpUI {
+    if (_arrDicParm.count <= 0) {
+        if (_reloadBtn.hidden) {
+            _reloadBtn.hidden = NO;
+        }
+    }else {
+        _reloadBtn.hidden = YES;
+    }
     self.scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMEFiveHomeNavViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight)];
     self.scrollview.delegate = self;
     self.scrollview.pagingEnabled = YES;
@@ -166,6 +176,10 @@
     self.navBarHidden = YES;
     
     [self getRushGood];
+}
+
+- (void)reloadBtnDidClick {
+    [self requestMaterialData];
 }
 
 - (void)requestNetWorhWithClickRecord {
@@ -349,5 +363,16 @@
     return _categoryView;
 }
 
+- (UIButton *)reloadBtn {
+    if (!_reloadBtn) {
+        _reloadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _reloadBtn.frame = CGRectMake(50, (SCREEN_HEIGHT-40)/2, SCREEN_WIDTH-100, 40);
+        [_reloadBtn setTitle:@"重新加载数据" forState:UIControlStateNormal];
+        [_reloadBtn setTitleColor:[UIColor colorWithHexString:@"#2ED9A4"] forState:UIControlStateNormal];
+        [_reloadBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:18]];
+        [_reloadBtn addTarget:self action:@selector(reloadBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _reloadBtn;
+}
 
 @end
