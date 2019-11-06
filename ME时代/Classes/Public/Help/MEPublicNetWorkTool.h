@@ -876,6 +876,9 @@
 + (void)posSignUpWithSignInCode:(NSString *)signInCode latitude:(NSString *)latitude longitude:(NSString *)longitude successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //签退
 + (void)posSignOutWithSignInCode:(NSString *)signInCode latitude:(NSString *)latitude longitude:(NSString *)longitude successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//志愿者视力预约详情
++ (void)postGetVolunteerReserveDetailWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

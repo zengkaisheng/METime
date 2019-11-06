@@ -28,6 +28,15 @@
 #import "MEHomeOptionsModel.h"
 #import "MEPersonalCourseVC.h"
 
+#import "MENewSginUpVC.h"
+#import "MERegisteVolunteerVC.h"
+#import "MEPublicServiceCourseVC.h"
+#import "MEActivityRecruitVC.h"
+#import "MENewAvtivityVC.h"
+#import "MEPublicShowHomeVC.h"
+#import "MECommunityServiceHomeVC.h"
+#import "MEPublicServiceEyesightVC.h"
+
 @interface MEFiveHomeHeaderView ()<SDCycleScrollViewDelegate,JXCategoryViewDelegate>
 {
     METhridHomeModel *_model;
@@ -87,6 +96,7 @@
     _sdView.clipsToBounds = YES;
     _sdView.imageURLStringsGroup = arrImage;
     _sdView.autoScrollTimeInterval = 4;
+    _sdView.backgroundColor = [UIColor clearColor];
     
     for (UIView *view in self.optionsView.subviews) {
         [view removeFromSuperview];
@@ -526,6 +536,205 @@
                     METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:productId];
                     [homeVC.navigationController pushViewController:dvc animated:YES];
                 }
+            }
+                break;
+            case 14:
+            {//志愿签到
+                if([MEUserInfoModel isLogin]){
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MENewSginUpVC *svc = [[MENewSginUpVC alloc] init];
+                        [homeVC.navigationController pushViewController:svc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }
+                }else{
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        if (kCurrentUser.is_volunteer == 1) {
+                            MENewSginUpVC *svc = [[MENewSginUpVC alloc] init];
+                            [homeVC.navigationController pushViewController:svc animated:YES];
+                        }else {
+                            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }
+                    } failHandler:nil];
+                }
+            }
+                break;
+            case 15:
+            {//公益课堂
+                if([MEUserInfoModel isLogin]){
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MEPublicServiceCourseVC *vc = [[MEPublicServiceCourseVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        if (kCurrentUser.is_volunteer == 1) {
+                            MEPublicServiceCourseVC *vc = [[MEPublicServiceCourseVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }else {
+                            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }
+            }
+                break;
+            case 16:
+            {//志愿者注册
+                if([MEUserInfoModel isLogin]){
+                    if (kCurrentUser.is_volunteer == 1) {
+                        [MECommonTool showMessage:@"您已经是志愿者" view:kMeCurrentWindow];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        if (kCurrentUser.is_volunteer == 1) {
+                            [MECommonTool showMessage:@"您已经是志愿者" view:kMeCurrentWindow];
+                        }else {
+                            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }
+            }
+                break;
+            case 17:
+            {//活动招募
+                if([MEUserInfoModel isLogin]){
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MEActivityRecruitVC *vc = [[MEActivityRecruitVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        if (kCurrentUser.is_volunteer == 1) {
+                            MEActivityRecruitVC *vc = [[MEActivityRecruitVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }else {
+                            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }
+            }
+                break;
+            case 18:
+            {//精选好物
+                MENewAvtivityVC *vc = [[MENewAvtivityVC alloc] initWithType:@"goods"];
+                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 19:
+            {//公益秀
+                if([MEUserInfoModel isLogin]){
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MEPublicShowHomeVC *vc = [[MEPublicShowHomeVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        if (kCurrentUser.is_volunteer == 1) {
+                            MEPublicShowHomeVC *vc = [[MEPublicShowHomeVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }else {
+                            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }
+            }
+                break;
+            case 20:
+            {//社区服务
+                if([MEUserInfoModel isLogin]){
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MECommunityServiceHomeVC *vc = [[MECommunityServiceHomeVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        if (kCurrentUser.is_volunteer == 1) {
+                            MECommunityServiceHomeVC *vc = [[MECommunityServiceHomeVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }else {
+                            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }
+            }
+                break;
+            case 21:
+            {//福利领取
+                MELianTongListVC *liantongVC = [[MELianTongListVC alloc] init];
+                [homeVC.navigationController pushViewController:liantongVC animated:YES];
+            }
+                break;
+            case 22:
+            {//福利活动
+                MENewAvtivityVC *vc = [[MENewAvtivityVC alloc] init];
+                [homeVC.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 23:
+            {//视力预约
+                if([MEUserInfoModel isLogin]){
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MEPublicServiceEyesightVC *vc = [[MEPublicServiceEyesightVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [homeVC.navigationController pushViewController:vc animated:YES];
+                    }
+                }else {
+                    [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                        if (kCurrentUser.is_volunteer == 1) {
+                            MEPublicServiceEyesightVC *vc = [[MEPublicServiceEyesightVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }else {
+                            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                            [homeVC.navigationController pushViewController:vc animated:YES];
+                        }
+                    } failHandler:^(id object) {
+                        
+                    }];
+                }
+            }
+                break;
+            case 24:
+            {//爱心榜
+                
+            }
+                break;
+            case 25:
+            {//志愿保障
+                
             }
                 break;
             default:

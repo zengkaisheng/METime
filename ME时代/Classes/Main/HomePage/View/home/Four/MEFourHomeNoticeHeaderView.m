@@ -67,7 +67,7 @@
     _sdView.onlyDisplayText = YES;
     _sdView.delegate = self;
     _sdView.titleLabelBackgroundColor = [UIColor whiteColor];
-    _sdView.backgroundColor = [UIColor whiteColor];
+    _sdView.backgroundColor = [UIColor clearColor];
     _sdView.scrollDirection = UICollectionViewScrollDirectionVertical;
     _sdView.titleLabelTextFont = [UIFont systemFontOfSize:13];
     _sdView.titleLabelTextColor = kME333333;
@@ -84,7 +84,7 @@
     _sdView1.onlyDisplayText = YES;
     _sdView1.delegate = self;
     _sdView1.titleLabelBackgroundColor = [UIColor whiteColor];
-    _sdView1.backgroundColor = [UIColor whiteColor];
+    _sdView1.backgroundColor = [UIColor clearColor];
     _sdView1.scrollDirection = UICollectionViewScrollDirectionVertical;
     _sdView1.titleLabelTextFont = [UIFont systemFontOfSize:13];
     _sdView1.titleLabelTextColor = kME333333;

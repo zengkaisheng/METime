@@ -75,6 +75,10 @@ const static CGFloat kSectionHeight = 40;
         MEServiceDetailsVC *dvc = (MEServiceDetailsVC *)[MECommonTool getClassWtihClassName:[MEServiceDetailsVC class] targetVC:strongSelf];
         if(dvc){
             [strongSelf.navigationController popToViewController:dvc animated:YES];
+        }else {
+            NSArray *vcs = strongSelf.navigationController.viewControllers;
+            UIViewController *vc = [vcs objectAtIndex:vcs.count-3];
+            [strongSelf.navigationController popToViewController:vc animated:YES];
         }
     } failure:^(id object) {
         
@@ -203,7 +207,7 @@ const static CGFloat kSectionHeight = 40;
         [_btnSubmit setTitle:@"提交" forState:UIControlStateNormal];
         _btnSubmit.titleLabel.font = kMeFont(15);
         [_btnSubmit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_btnSubmit setBackgroundColor:kMEHexColor(@"cc9e69")];
+        [_btnSubmit setBackgroundColor:kMEHexColor(@"#2ED9A4")];
         [_btnSubmit addTarget:self action:@selector(toSubmit:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnSubmit;

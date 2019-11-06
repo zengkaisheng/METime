@@ -61,7 +61,20 @@
     _countLbl.text = [NSString stringWithFormat:@"%@次学习",kMeUnNilStr(model.study_num)];
     
     _typeLbl.hidden = YES;
-    _freeLbl.text = kMeUnNilStr(model.type_name);
+    switch (model.type) {
+        case 1:
+            _freeLbl.text = @"视频";
+            break;
+        case 2:
+            _freeLbl.text = @"音频";
+            break;
+        case 3:
+            _freeLbl.text = @"文本";
+            break;
+        default:
+            break;
+    }
+//    _freeLbl.text = kMeUnNilStr(model.type_name);
     _freeLbl.backgroundColor = [UIColor clearColor];
     _freeLbl.textColor = [UIColor colorWithHexString:@"#2ED9A4"];
 }

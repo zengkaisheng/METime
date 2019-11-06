@@ -156,7 +156,7 @@ const static CGFloat kBtnAppointHeight = 50;
         [_btnAppoint setTitle:@"提交预约" forState:UIControlStateNormal];
         _btnAppoint.titleLabel.font = kMeFont(15);
         [_btnAppoint setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_btnAppoint setBackgroundColor:kMEHexColor(@"cc9e69")];
+        [_btnAppoint setBackgroundColor:kMEHexColor(@"#2ED9A4")];
         [_btnAppoint addTarget:self action:@selector(toAppoint:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnAppoint;

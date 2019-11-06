@@ -154,7 +154,7 @@
     imagePicker.allowPickingVideo = NO;
 
     if (!isNotFirstChoosePhoto) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\"志愿星\"想访问您的相册" message:@"App需要您的同意才能使用相册" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"\"志愿星\"想访问您的相册" message:@"App需要您的同意才能使用相册以供您选择要上传的照片" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *action = [UIAlertAction actionWithTitle:@"不允许" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [kMeUserDefaults setBool:NO forKey:kMEIsNotFirstChoosePhoto];
             [kMeUserDefaults synchronize];
@@ -231,6 +231,15 @@
     content = kMeUnNilStr(_addressTF.text);
     if(!content.length){
         [MEShowViewTool showMessage:@"请选择注册地址" view:self.view];
+        return;
+    }
+    
+    if (self.cardFontPath.length < 0) {
+        [MEShowViewTool showMessage:@"请选择身份证正面照片" view:self.view];
+        return;
+    }
+    if (self.cardBackPath.length < 0) {
+        [MEShowViewTool showMessage:@"请选择身份证反面照片" view:self.view];
         return;
     }
     

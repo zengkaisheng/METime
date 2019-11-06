@@ -137,6 +137,7 @@
     _sdViewLeft.infiniteLoop = NO;
     _sdViewLeft.tag = 100;
     _sdViewLeft.autoScroll = NO;
+    _sdViewLeft.backgroundColor = [UIColor clearColor];
     
     _sdViewRight.contentMode = UIViewContentModeScaleAspectFill;
     _sdViewRight.clipsToBounds = YES;
@@ -145,6 +146,7 @@
     _sdViewRight.imageURLStringsGroup = @[kMeUnNilStr(model.recommend_right.ad_img)];
     _sdViewRight.infiniteLoop = NO;
     _sdViewRight.autoScroll = NO;
+    _sdViewRight.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setUIWithCourseModel:(METhridHomeStudyTogetherModel *)model {
@@ -157,6 +159,7 @@
     _sdViewLeft.infiniteLoop = NO;
     _sdViewLeft.tag = 100;
     _sdViewLeft.autoScroll = NO;
+    _sdViewLeft.backgroundColor = [UIColor clearColor];
     
     NSArray *rightBanner = kMeUnArr(model.right_banner);
     METhridHomeAdModel *rightAdModel = (METhridHomeAdModel *)rightBanner.firstObject;
@@ -167,6 +170,7 @@
     _sdViewRight.imageURLStringsGroup = @[kMeUnNilStr(rightAdModel.ad_img)];
     _sdViewRight.infiniteLoop = NO;
     _sdViewRight.autoScroll = NO;
+    _sdViewRight.backgroundColor = [UIColor clearColor];
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{

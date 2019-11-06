@@ -1082,7 +1082,7 @@
 #pragma makr - 个人课程
 //首页课程列表
 #define MEIPcommonCoursesGetCourses @"common/courses/getCourses"
-//查看更多
+//查看更多、公益课程、公益视力
 #define MEIPcommonCoursesGetCoursesList @"common/courses/getCoursesList"
 //课程详情
 #define MEIPcommonCoursesGetCoursesDetail @"common/courses/getCoursesDetail"
@@ -1148,7 +1148,8 @@
 #define MEIPcommonHomeGetRecommendGoodsAndActivity @"common/home/getRecommendGoodsAndActivity"
 //公益课程
 #define MEIPcommonCoursesCoursesList @"common/courses/coursesList"
-
+//志愿者视力预约详情
+#define MEIPcommonGoodsVolunteerReserve @"common/goods/volunteerReserve"
 /*********************************************/
 
 

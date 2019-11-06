@@ -51,6 +51,7 @@
 #import "MEActivityRecruitVC.h"
 #import "MENewAvtivityVC.h"
 #import "MEPublicServiceCourseVC.h"
+#import "MEPublicServiceEyesightVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
@@ -593,16 +594,30 @@ const static CGFloat kImgStoreH = 50;
                     
                 }];
             }
-            
         }
             break;
         case 24:
         {//跳志愿者注册
-            if (kCurrentUser.is_volunteer == 1) {
-                [MECommonTool showMessage:@"您已经是志愿者" view:kMeCurrentWindow];
+            if([MEUserInfoModel isLogin]){
+                if (kCurrentUser.is_volunteer == 1) {
+                    [MECommonTool showMessage:@"您已经是志愿者" view:kMeCurrentWindow];
+                }else {
+                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
             }else {
-                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
-                [self.navigationController pushViewController:vc animated:YES];
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    if (kCurrentUser.is_volunteer == 1) {
+                        [MECommonTool showMessage:@"您已经是志愿者" view:kMeCurrentWindow];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                } failHandler:^(id object) {
+                    
+                }];
             }
         }
             break;
@@ -707,7 +722,29 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 31:
         {//跳视力预约
-            //            [self.navigationController pushViewController:vc animated:YES];
+            if([MEUserInfoModel isLogin]){
+                if (kCurrentUser.is_volunteer == 1) {
+                    MEPublicServiceEyesightVC *vc = [[MEPublicServiceEyesightVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else {
+                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            }else {
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MEPublicServiceEyesightVC *vc = [[MEPublicServiceEyesightVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                } failHandler:^(id object) {
+
+                }];
+            }
         }
             break;
         case 32:
@@ -1025,7 +1062,7 @@ const static CGFloat kImgStoreH = 50;
                 header.selectIndexBlock = ^(NSInteger index) {
                     kMeSTRONGSELF
                     NSDictionary *dict = strongSelf->_arrDicParm[index];
-                    if ([dict[@"title"] isEqualToString:@"公益课堂"] || [dict[@"title"] isEqualToString:@"社区服务"]) {
+                    if ([dict[@"type"] integerValue] == 15 || [dict[@"type"] integerValue] == 20 || [dict[@"type"] integerValue] == 23) {
                         if (kCurrentUser.is_volunteer != 1) {
                             MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
                             [strongSelf.navigationController pushViewController:vc animated:YES];

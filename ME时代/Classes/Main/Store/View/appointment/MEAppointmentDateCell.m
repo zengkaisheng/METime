@@ -25,7 +25,7 @@
 }
 
 - (void)setUIWithModel:(METimeModel *)model isSelect:(BOOL)isSelect{
-    self.backgroundColor = isSelect?kMEHexColor(@"cc9e69"):[UIColor whiteColor];
+    self.backgroundColor = isSelect?kMEHexColor(@"#2ED9A4"):[UIColor whiteColor];
     _lblWeek.textColor = isSelect?[UIColor whiteColor]:kMEblack;
     _lblDate.textColor = isSelect?[UIColor whiteColor]:kMEblack;
     _lblWeek.text = kMeUnNilStr(model.week);

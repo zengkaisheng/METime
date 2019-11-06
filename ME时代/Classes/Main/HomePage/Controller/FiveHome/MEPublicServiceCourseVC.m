@@ -13,7 +13,6 @@
 
 #import "MEFiveHomeNavView.h"
 #import "MEFiveCategoryView.h"
-#import "MERegisteVolunteerVC.h"
 
 @interface MEPublicServiceCourseVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -38,7 +37,7 @@
 #pragma RefreshToolDelegate
 - (NSDictionary *)requestParameter{
     return @{@"token":kMeUnNilStr(kCurrentUser.token),
-             @"id":@(8)
+             @"classify_id":@(8)
              };
 }
 
@@ -66,12 +65,19 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (kCurrentUser.is_volunteer == 1) {
-        MECourseListModel *listModel = self.refresh.arrData[indexPath.row];
-        MEPersionalCourseDetailVC *vc = [[MEPersionalCourseDetailVC alloc] initWithCourseId:listModel.idField];
+    MECourseListModel *listModel = self.refresh.arrData[indexPath.row];
+    if (listModel.type == 3) {
+        MEBaseVC *vc = [[MEBaseVC alloc] init];
+        vc.title = @"详情";
+        
+        UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
+        CGFloat width = [UIScreen mainScreen].bounds.size.width-15;
+        NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
+        [webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(listModel.detail)] baseURL:nil];
+        [vc.view addSubview:webView];
         [self.navigationController pushViewController:vc animated:YES];
     }else {
-        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+        MEPersionalCourseDetailVC *vc = [[MEPersionalCourseDetailVC alloc] initWithCourseId:listModel.idField];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -100,7 +106,7 @@
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonCoursesCoursesList)];
+        _refresh = [[ZLRefreshTool alloc]initWithContentView:self.tableView url:kGetApiWithUrl(MEIPcommonCoursesGetCoursesList)];
         _refresh.delegate = self;
         _refresh.isDataInside = YES;
         _refresh.showMaskView = YES;

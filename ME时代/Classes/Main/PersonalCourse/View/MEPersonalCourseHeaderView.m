@@ -30,6 +30,7 @@
     _sdView.contentMode = UIViewContentModeScaleAspectFill;
     _sdView.clipsToBounds = YES;
     _sdView.delegate = self;
+    _sdView.backgroundColor = [UIColor clearColor];
     
     __block NSMutableArray *arrImage = [NSMutableArray array];
     [images enumerateObjectsUsingBlock:^(MEAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {

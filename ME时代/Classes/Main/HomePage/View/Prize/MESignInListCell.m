@@ -44,6 +44,7 @@
     _sdView.autoScroll = NO;
     _sdView.imageURLStringsGroup = @[model.image];
 //    _sdView.autoScrollTimeInterval = 4;
+    _sdView.backgroundColor = [UIColor clearColor];
     
     _titleLbl.text = model.title;
     _countLbl.text = [NSString stringWithFormat:@"份数%ld",(long)model.total];

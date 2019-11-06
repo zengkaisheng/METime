@@ -110,7 +110,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>App需要您的同意,才能访问日历</string>
 	<key>NSCameraUsageDescription</key>
-	<string>App需要您的同意,才能访问相机</string>
+	<string>App需要您的同意,才能访问相机以便拍照上传图片</string>
 	<key>NSContactsUsageDescription</key>
 	<string>App需要您的同意,才能访问通讯录</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -120,11 +120,11 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>App需要您的同意,才能在使用期间访问位置获取附近门店</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>App需要您的同意,才能访问麦克风</string>
+	<string>App需要您的同意,才能访问麦克风以供发送语音消息</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>App需要您的同意,才能添加相册</string>
+	<string>App需要您的同意,才能添加相册以供添加照片到您的相册</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App需要您的同意,才能访问相册</string>
+	<string>App需要您的同意,才能访问相册以供您选择要上传的照片</string>
 	<key>NSRemindersUsageDescription</key>
 	<string>App需要您的同意,才能访问提醒事项</string>
 	<key>UIBackgroundModes</key>

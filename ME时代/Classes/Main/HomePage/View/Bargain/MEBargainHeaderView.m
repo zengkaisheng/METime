@@ -30,7 +30,7 @@
     _sdView.delegate = self;
     _sdView.infiniteLoop = NO;
     _sdView.autoScroll = NO;
-    
+    _sdView.backgroundColor = [UIColor clearColor];
     
     NSArray *banners = dic[@"top_banner"];
     __block NSMutableArray *arrImage =[NSMutableArray array];

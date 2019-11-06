@@ -22,7 +22,7 @@
 }
 
 - (void)setUIWithModel:(METimeModel *)model isSelect:(BOOL)isSelect{
-    self.backgroundColor = isSelect?kMEHexColor(@"cc9e69"):[UIColor whiteColor];
+    self.backgroundColor = isSelect?kMEHexColor(@"#2ED9A4"):[UIColor whiteColor];
     _lblTitle.textColor = isSelect?[UIColor whiteColor]:kMEblack;
     _lblTitle.text = kMeUnNilStr(model.time);
 }

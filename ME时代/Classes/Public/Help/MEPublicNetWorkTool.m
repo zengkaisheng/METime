@@ -5936,6 +5936,24 @@
         kMeCallBlock(failure,error);
     }];
 }
+
+//志愿者视力预约详情
++ (void)postGetVolunteerReserveDetailWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    NSString *url = kGetApiWithUrl(MEIPcommonGoodsVolunteerReserve);
+    [THTTPManager postWithParameter:nil strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
 /*********************************************/
 
 

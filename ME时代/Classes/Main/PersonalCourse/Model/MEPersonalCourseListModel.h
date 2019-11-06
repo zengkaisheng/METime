@@ -12,10 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MECourseListModel : MEBaseModel
 
+@property (nonatomic, assign) NSInteger after_sales_ratio;
 @property (nonatomic, assign) NSInteger browse;
 @property (nonatomic, assign) NSInteger buy_num;
 @property (nonatomic, strong) NSString * charge_name;
 @property (nonatomic, assign) NSInteger classify_id;
+@property (nonatomic, assign) NSInteger clerk_ratio;
 @property (nonatomic, strong) NSString * created_at;
 @property (nonatomic, assign) NSInteger day_recommend;
 @property (nonatomic, strong) NSString * desc;
@@ -24,9 +26,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger is_charge;
 @property (nonatomic, assign) NSInteger is_del;
 @property (nonatomic, assign) NSInteger is_hot;
+@property (nonatomic, assign) NSInteger is_in_vip;
 @property (nonatomic, assign) NSInteger is_show;
+@property (nonatomic, assign) NSInteger marketing_ratio;
+@property (nonatomic, assign) NSInteger member_parent_ratio;
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSString * price;
+@property (nonatomic, assign) NSInteger self_ratio;
+@property (nonatomic, assign) NSInteger sort;
+@property (nonatomic, assign) NSInteger store_ratio;
 @property (nonatomic, strong) NSString * study_num;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, strong) NSString * type_name;

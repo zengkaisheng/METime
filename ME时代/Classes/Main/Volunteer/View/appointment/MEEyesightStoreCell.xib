@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MEEyesightStoreCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="117.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bah-kK-P3s">
+                        <rect key="frame" x="15" y="4" width="345" height="97.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="门店信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEw-hs-WSp">
+                                <rect key="frame" x="23" y="7" width="62" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="sAS-xf-g4t"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视力矫正工作室" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ocs-Ae-7ED">
+                                <rect key="frame" x="23" y="37" width="93" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="g0U-iK-3YH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBt-ID-OXB">
+                                <rect key="frame" x="23" y="61" width="40" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="Cj7-Q7-u6M"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="km8-fR-PNU">
+                                <rect key="frame" x="248" y="48" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="DHL-hy-jrY"/>
+                                    <constraint firstAttribute="width" constant="40" id="aVP-Ov-eoF"/>
+                                </constraints>
+                                <state key="normal" image="icon_sginUp_location"/>
+                                <connections>
+                                    <action selector="locationAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iCp-Hp-eol"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEn-jN-uGa">
+                                <rect key="frame" x="292" y="48" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="5A0-iE-5HW"/>
+                                    <constraint firstAttribute="height" constant="40" id="Hwg-dY-L0c"/>
+                                </constraints>
+                                <state key="normal" image="icon_phone"/>
+                                <connections>
+                                    <action selector="CallPhotoAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="TKb-wc-fGV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ocs-Ae-7ED" firstAttribute="leading" secondItem="bah-kK-P3s" secondAttribute="leading" constant="23" id="8IW-9k-0Pc"/>
+                            <constraint firstItem="eEw-hs-WSp" firstAttribute="top" secondItem="bah-kK-P3s" secondAttribute="top" constant="7" id="Jl2-co-aF4"/>
+                            <constraint firstItem="Ocs-Ae-7ED" firstAttribute="top" secondItem="eEw-hs-WSp" secondAttribute="bottom" constant="9" id="Kik-QL-Eba"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eEw-hs-WSp" secondAttribute="trailing" constant="10" id="Waj-PA-pB8"/>
+                            <constraint firstItem="km8-fR-PNU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EBt-ID-OXB" secondAttribute="trailing" constant="8" id="YOX-y4-fhb"/>
+                            <constraint firstItem="EBt-ID-OXB" firstAttribute="top" secondItem="Ocs-Ae-7ED" secondAttribute="bottom" constant="6" id="dgg-hr-TPD"/>
+                            <constraint firstItem="km8-fR-PNU" firstAttribute="centerY" secondItem="AEn-jN-uGa" secondAttribute="centerY" id="eM3-rb-b2A"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ocs-Ae-7ED" secondAttribute="trailing" constant="10" id="fRf-1B-Tfq"/>
+                            <constraint firstAttribute="bottom" secondItem="AEn-jN-uGa" secondAttribute="bottom" constant="9.5" id="gDN-bo-R4l"/>
+                            <constraint firstAttribute="trailing" secondItem="AEn-jN-uGa" secondAttribute="trailing" constant="13" id="j6q-7W-14b"/>
+                            <constraint firstItem="AEn-jN-uGa" firstAttribute="leading" secondItem="km8-fR-PNU" secondAttribute="trailing" constant="4" id="jnL-lg-YnW"/>
+                            <constraint firstItem="EBt-ID-OXB" firstAttribute="leading" secondItem="bah-kK-P3s" secondAttribute="leading" constant="23" id="xq5-nv-iQR"/>
+                            <constraint firstItem="eEw-hs-WSp" firstAttribute="leading" secondItem="bah-kK-P3s" secondAttribute="leading" constant="23" id="yTj-K5-bOu"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="14"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="bah-kK-P3s" secondAttribute="trailing" constant="15" id="1py-66-Wsl"/>
+                    <constraint firstAttribute="bottom" secondItem="bah-kK-P3s" secondAttribute="bottom" constant="16" id="MOQ-9B-Res"/>
+                    <constraint firstItem="bah-kK-P3s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="NLr-xl-b5P"/>
+                    <constraint firstItem="bah-kK-P3s" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="sC3-it-pW3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="StoreNameLbl" destination="Ocs-Ae-7ED" id="WnP-UU-z6k"/>
+                <outlet property="addressLbl" destination="EBt-ID-OXB" id="Vqw-mj-gAX"/>
+                <outlet property="bgView" destination="bah-kK-P3s" id="VFt-rt-OuG"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_phone" width="18" height="18"/>
+        <image name="icon_sginUp_location" width="15" height="15"/>
+    </resources>
+</document>

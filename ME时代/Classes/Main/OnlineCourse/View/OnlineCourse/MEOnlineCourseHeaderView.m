@@ -23,6 +23,7 @@
     _sdView.delegate = self;
     _sdView.infiniteLoop = NO;
     _sdView.autoScroll = NO;
+    _sdView.backgroundColor = [UIColor clearColor];
 
     __block NSMutableArray *arrImage =[NSMutableArray array];
     [array enumerateObjectsUsingBlock:^(MEAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {

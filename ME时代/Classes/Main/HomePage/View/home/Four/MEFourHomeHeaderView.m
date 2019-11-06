@@ -382,6 +382,7 @@ typedef NS_ENUM(NSUInteger, METhridHomeHeaderViewActiveType) {
     _sdView.clipsToBounds = YES;
     _sdView.imageURLStringsGroup = arrImage;
     _sdView.autoScrollTimeInterval = 4;
+    _sdView.backgroundColor = [UIColor clearColor];
     
     //店铺
     if(storemodel){

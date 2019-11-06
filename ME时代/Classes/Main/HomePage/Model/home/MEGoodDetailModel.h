@@ -135,6 +135,17 @@
 @property (nonatomic, assign) BOOL isPrize;
 @property (nonatomic, strong) NSString * activity_id;
 
+//视力预约
+@property (nonatomic, assign) NSInteger only_weapp_show;
+@property (nonatomic, strong) NSString * company_name;
+@property (nonatomic, strong) NSString * company_province;
+@property (nonatomic, strong) NSString * company_city;
+@property (nonatomic, strong) NSString * company_area;
+@property (nonatomic, strong) NSString * company_addr_detail;
+@property (nonatomic, strong) NSString * company_longitude;
+@property (nonatomic, strong) NSString * company_latitude;
+@property (nonatomic, strong) NSString * company_phone;
+
 @end
 
 

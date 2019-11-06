@@ -30,6 +30,7 @@
     _sdViewConsHeight.constant = 143;
     _sdViewConsTop.constant = 19;
     _sdViewConsLeading.constant = _sdViewConsTrailing.constant = 15;
+    _sdView.backgroundColor = [UIColor clearColor];
     self.backgroundColor = [UIColor whiteColor];
     
     __block NSMutableArray *arrImage =[NSMutableArray array];
@@ -61,7 +62,8 @@
     _sdViewConsLeading.constant = _sdViewConsTrailing.constant = 0;
     
     _sdView.imageURLStringsGroup = @[kMeUnNilStr(model.ad_img)];
-    self.backgroundColor = _sdView.backgroundColor = [UIColor colorWithHexString:kMeUnNilStr(model.color_start)];
+    _sdView.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor colorWithHexString:kMeUnNilStr(model.color_start)];
 }
 
 #pragma mark - SDCycleScrollViewDelegate

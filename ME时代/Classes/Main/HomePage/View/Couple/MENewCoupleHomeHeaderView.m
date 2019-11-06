@@ -60,6 +60,7 @@
     _sdView.contentMode = UIViewContentModeScaleAspectFill;
     _sdView.clipsToBounds = YES;
     _sdView.imageURLStringsGroup = arrImage;
+    _sdView.backgroundColor = [UIColor clearColor];
     
     if (Model.count <= 0) {
         _sdView.hidden = YES;

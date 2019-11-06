@@ -34,6 +34,7 @@
     _sdView.clipsToBounds = YES;
     _sdView.delegate = self;
     _sdViewConsLeading.constant = _sdViewConsTrailing.constant = 9;
+    _sdView.backgroundColor = [UIColor clearColor];
     
     __block NSMutableArray *arrImage =[NSMutableArray array];
     [array enumerateObjectsUsingBlock:^(MEAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -57,6 +58,7 @@
     _sdView.delegate = self;
     _sdViewConsLeading.constant = _sdViewConsTrailing.constant = 0;
     _sdView.layer.cornerRadius = 0;
+    _sdView.backgroundColor = [UIColor clearColor];
     
     __block NSMutableArray *arrImage =[NSMutableArray array];
     [array enumerateObjectsUsingBlock:^(MEAdModel *model, NSUInteger idx, BOOL * _Nonnull stop) {

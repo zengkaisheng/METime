@@ -942,8 +942,16 @@
 		EB0DE0A52319100C00D41802 /* MENewOnlineCourseHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB0DE0A42319100C00D41802 /* MENewOnlineCourseHeaderView.xib */; };
 		EB0DE0A82319165A00D41802 /* MEMineHomeMuneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0DE0A72319165A00D41802 /* MEMineHomeMuneModel.m */; };
 		EB12D71522B113D10006C217 /* MEFourHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB12D71422B113D10006C217 /* MEFourHomeVC.m */; };
+		EB20E3C52371712400085A88 /* MEEyesightStoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB20E3C32371712400085A88 /* MEEyesightStoreCell.m */; };
+		EB20E3C62371712400085A88 /* MEEyesightStoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB20E3C42371712400085A88 /* MEEyesightStoreCell.xib */; };
+		EB20E3CA237178F300085A88 /* MEEyesightBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB20E3C8237178F300085A88 /* MEEyesightBottomCell.m */; };
+		EB20E3CB237178F300085A88 /* MEEyesightBottomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB20E3C9237178F300085A88 /* MEEyesightBottomCell.xib */; };
 		EB21E74B22B7B12700F48DF5 /* MEFeedBackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB21E74922B7B12700F48DF5 /* MEFeedBackVC.m */; };
 		EB21E74C22B7B12700F48DF5 /* MEFeedBackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB21E74A22B7B12700F48DF5 /* MEFeedBackVC.xib */; };
+		EB22A6B623714C8E00B01072 /* MEPublicServiceEyesightVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB22A6B523714C8E00B01072 /* MEPublicServiceEyesightVC.m */; };
+		EB22A6B92371629100B01072 /* MEAppointmentEyesightDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB22A6B82371629100B01072 /* MEAppointmentEyesightDetailVC.m */; };
+		EB22A6BD2371648400B01072 /* MEEyesightDetailTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB22A6BB2371648400B01072 /* MEEyesightDetailTopCell.m */; };
+		EB22A6BE2371648400B01072 /* MEEyesightDetailTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB22A6BC2371648400B01072 /* MEEyesightDetailTopCell.xib */; };
 		EB2475E0230AAA3E0088BBC0 /* MECourseChargeOrFreeBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2475DF230AAA3E0088BBC0 /* MECourseChargeOrFreeBaseVC.m */; };
 		EB2475E6230AC4860088BBC0 /* MECustomerFilesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2475E5230AC4860088BBC0 /* MECustomerFilesVC.m */; };
 		EB2475E9230AC49A0088BBC0 /* MECustomerFilesBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2475E8230AC49A0088BBC0 /* MECustomerFilesBaseVC.m */; };
@@ -3153,9 +3161,22 @@
 		EB0DE0A72319165A00D41802 /* MEMineHomeMuneModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEMineHomeMuneModel.m; sourceTree = "<group>"; };
 		EB12D71322B113D10006C217 /* MEFourHomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFourHomeVC.h; sourceTree = "<group>"; };
 		EB12D71422B113D10006C217 /* MEFourHomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFourHomeVC.m; sourceTree = "<group>"; };
+		EB20E3C22371712400085A88 /* MEEyesightStoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEEyesightStoreCell.h; sourceTree = "<group>"; };
+		EB20E3C32371712400085A88 /* MEEyesightStoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEEyesightStoreCell.m; sourceTree = "<group>"; };
+		EB20E3C42371712400085A88 /* MEEyesightStoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEEyesightStoreCell.xib; sourceTree = "<group>"; };
+		EB20E3C7237178F300085A88 /* MEEyesightBottomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEEyesightBottomCell.h; sourceTree = "<group>"; };
+		EB20E3C8237178F300085A88 /* MEEyesightBottomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEEyesightBottomCell.m; sourceTree = "<group>"; };
+		EB20E3C9237178F300085A88 /* MEEyesightBottomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEEyesightBottomCell.xib; sourceTree = "<group>"; };
 		EB21E74822B7B12700F48DF5 /* MEFeedBackVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEFeedBackVC.h; sourceTree = "<group>"; };
 		EB21E74922B7B12700F48DF5 /* MEFeedBackVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEFeedBackVC.m; sourceTree = "<group>"; };
 		EB21E74A22B7B12700F48DF5 /* MEFeedBackVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEFeedBackVC.xib; sourceTree = "<group>"; };
+		EB22A6B423714C8E00B01072 /* MEPublicServiceEyesightVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEPublicServiceEyesightVC.h; sourceTree = "<group>"; };
+		EB22A6B523714C8E00B01072 /* MEPublicServiceEyesightVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEPublicServiceEyesightVC.m; sourceTree = "<group>"; };
+		EB22A6B72371629100B01072 /* MEAppointmentEyesightDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEAppointmentEyesightDetailVC.h; sourceTree = "<group>"; };
+		EB22A6B82371629100B01072 /* MEAppointmentEyesightDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEAppointmentEyesightDetailVC.m; sourceTree = "<group>"; };
+		EB22A6BA2371648400B01072 /* MEEyesightDetailTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEEyesightDetailTopCell.h; sourceTree = "<group>"; };
+		EB22A6BB2371648400B01072 /* MEEyesightDetailTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEEyesightDetailTopCell.m; sourceTree = "<group>"; };
+		EB22A6BC2371648400B01072 /* MEEyesightDetailTopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEEyesightDetailTopCell.xib; sourceTree = "<group>"; };
 		EB2475DE230AAA3E0088BBC0 /* MECourseChargeOrFreeBaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECourseChargeOrFreeBaseVC.h; sourceTree = "<group>"; };
 		EB2475DF230AAA3E0088BBC0 /* MECourseChargeOrFreeBaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECourseChargeOrFreeBaseVC.m; sourceTree = "<group>"; };
 		EB2475E4230AC4860088BBC0 /* MECustomerFilesVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECustomerFilesVC.h; sourceTree = "<group>"; };
@@ -7365,6 +7386,40 @@
 			path = Four;
 			sourceTree = "<group>";
 		};
+		EB22A6B123714C2A00B01072 /* appointment */ = {
+			isa = PBXGroup;
+			children = (
+				EB22A6B423714C8E00B01072 /* MEPublicServiceEyesightVC.h */,
+				EB22A6B523714C8E00B01072 /* MEPublicServiceEyesightVC.m */,
+				EB22A6B72371629100B01072 /* MEAppointmentEyesightDetailVC.h */,
+				EB22A6B82371629100B01072 /* MEAppointmentEyesightDetailVC.m */,
+			);
+			path = appointment;
+			sourceTree = "<group>";
+		};
+		EB22A6B223714C5900B01072 /* appointment */ = {
+			isa = PBXGroup;
+			children = (
+				EB22A6BA2371648400B01072 /* MEEyesightDetailTopCell.h */,
+				EB22A6BB2371648400B01072 /* MEEyesightDetailTopCell.m */,
+				EB22A6BC2371648400B01072 /* MEEyesightDetailTopCell.xib */,
+				EB20E3C22371712400085A88 /* MEEyesightStoreCell.h */,
+				EB20E3C32371712400085A88 /* MEEyesightStoreCell.m */,
+				EB20E3C42371712400085A88 /* MEEyesightStoreCell.xib */,
+				EB20E3C7237178F300085A88 /* MEEyesightBottomCell.h */,
+				EB20E3C8237178F300085A88 /* MEEyesightBottomCell.m */,
+				EB20E3C9237178F300085A88 /* MEEyesightBottomCell.xib */,
+			);
+			path = appointment;
+			sourceTree = "<group>";
+		};
+		EB22A6B323714C6200B01072 /* appointment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = appointment;
+			sourceTree = "<group>";
+		};
 		EB2475E1230AC4550088BBC0 /* CustomerFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -8864,6 +8919,7 @@
 		EBABD7F623604F2D00A33AB2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EB22A6B123714C2A00B01072 /* appointment */,
 				EBABD7F923604FE300A33AB2 /* MERegisteVolunteerVC.h */,
 				EBABD7FA23604FE300A33AB2 /* MERegisteVolunteerVC.m */,
 				EBABD7FB23604FE300A33AB2 /* MERegisteVolunteerVC.xib */,
@@ -8904,6 +8960,7 @@
 		EBABD7F723604F2D00A33AB2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EB22A6B323714C6200B01072 /* appointment */,
 				EBABD7FE23605ED400A33AB2 /* MERegisterVolunteerModel.h */,
 				EBABD7FF23605ED400A33AB2 /* MERegisterVolunteerModel.m */,
 				EB840FC123619341007A9C50 /* MECommunityServericeListModel.h */,
@@ -8925,6 +8982,7 @@
 		EBABD7F823604F2D00A33AB2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EB22A6B223714C5900B01072 /* appointment */,
 				EB840FC42361949B007A9C50 /* MECommunityServiceListCell.h */,
 				EB840FC52361949B007A9C50 /* MECommunityServiceListCell.m */,
 				EB840FC62361949B007A9C50 /* MECommunityServiceListCell.xib */,
@@ -9175,6 +9233,7 @@
 				36F10ABF224E6D7A0006E5C1 /* article_editor.js in Resources */,
 				36F27DF82243830D00276A77 /* MEStoreApplyStatusVC.xib in Resources */,
 				366D1CCD21B503460004295E /* MESNewHomeActiveCommondCell.xib in Resources */,
+				EB20E3C62371712400085A88 /* MEEyesightStoreCell.xib in Resources */,
 				3628E7ED21C0E17400D5405B /* MEAppointmentDetailBootomView.xib in Resources */,
 				EB6BCDE32354822500178E6B /* MEStudiedRecommentCell.xib in Resources */,
 				EB80F96822B21961006F105D /* MEFourHomeTopHeaderView.xib in Resources */,
@@ -9195,6 +9254,7 @@
 				3600346421AE816900BAF337 /* MEVisterTodyCell.xib in Resources */,
 				EB70E5A622FAD8F500F00046 /* btn_player_slider_thumb@2x.png in Resources */,
 				EB70E5A422FAD8F500F00046 /* btn_player_scale02@2x.png in Resources */,
+				EB20E3CB237178F300085A88 /* MEEyesightBottomCell.xib in Resources */,
 				EB6F123A22CB46F900619D4D /* MECoupleHomeMainContentCell.xib in Resources */,
 				366D5B15214A3C440021C1BB /* MEMyAddressCell.xib in Resources */,
 				EB0DE0A52319100C00D41802 /* MENewOnlineCourseHeaderView.xib in Resources */,
@@ -9346,6 +9406,7 @@
 				EB77A78D2304086100191E10 /* MEDiagnoseQuestionHeaderView.xib in Resources */,
 				36F6AF4E21F8546800CF6684 /* MEBynamicCommentCell.xib in Resources */,
 				367C84F42147A50600BEC7B1 /* MEOrderCell.xib in Resources */,
+				EB22A6BE2371648400B01072 /* MEEyesightDetailTopCell.xib in Resources */,
 				EB9FA00322F3D2C100AA4FB1 /* MECourseDetailListCell.xib in Resources */,
 				EB939D13229D6638006088AB /* MERefundDetailHeaderView.xib in Resources */,
 				36D9FAE922362CCE001EC4D9 /* MEBrandPieCell.xib in Resources */,
@@ -10092,6 +10153,7 @@
 				EB7376E022C5E4AF00901DD2 /* MEBargainSuccessView.m in Sources */,
 				36F5E82B222F68F1000B0241 /* TVoiceMessageCell.m in Sources */,
 				36F5E853222F68F1000B0241 /* VideoViewController.m in Sources */,
+				EB22A6B623714C8E00B01072 /* MEPublicServiceEyesightVC.m in Sources */,
 				36EBA97721FC2B240065BC92 /* MEGoodsCommentModel.m in Sources */,
 				36472B0421C8E15C00CC3E48 /* JXCategoryFactory.m in Sources */,
 				3686090E228E95350074D401 /* MEHomeAddRedeemcodeVC.m in Sources */,
@@ -10192,6 +10254,7 @@
 				EB5B08FD22F2BE5A00FCA7F9 /* MEOnlineCourseListCell.m in Sources */,
 				EB8485B52313E8FD00C3026F /* MECustomerConsumeBaseVC.m in Sources */,
 				3602A18B21424091004A6E1F /* UIWebView+FLUIWebView.m in Sources */,
+				EB22A6B92371629100B01072 /* MEAppointmentEyesightDetailVC.m in Sources */,
 				36472B0A21C8E15C00CC3E48 /* JXCategoryBaseCellModel.m in Sources */,
 				36F10AB2224E6D650006E5C1 /* UIWebView+KWWebViewJSTool.m in Sources */,
 				366C771221F81BA90095EBE2 /* MEProductDetailCommentVC.m in Sources */,
@@ -10432,6 +10495,7 @@
 				36F5E80F222F68F1000B0241 /* TAddIndexView.m in Sources */,
 				EB2D18A822BA535B00DAB646 /* MEWaitPublishPrizeCell.m in Sources */,
 				366019B021E83B4B00F1BB37 /* MENewMineHomeHeaderView.m in Sources */,
+				EB22A6BD2371648400B01072 /* MEEyesightDetailTopCell.m in Sources */,
 				EB6F126022CB488500619D4D /* MEGroupListCell.m in Sources */,
 				EB247603230AD9F30088BBC0 /* MECustomerContentCell.m in Sources */,
 				36015284215F72D2003EEC8C /* MERCConversationListVC.m in Sources */,
@@ -10472,6 +10536,7 @@
 				EB9536D92306892C0045952D /* MEDiagnoseOrderListVC.m in Sources */,
 				36EEC2F02181BAB700DEFCCB /* MEActiveCell.m in Sources */,
 				3630071C2148DF7E00C88264 /* MEMineExchangeCell.m in Sources */,
+				EB20E3C52371712400085A88 /* MEEyesightStoreCell.m in Sources */,
 				3602A18C21424091004A6E1F /* ZLWebVC.m in Sources */,
 				EB8CC2FA230536AF00BB99FC /* MENewTabBarVC.m in Sources */,
 				36017661215B1F490080EB00 /* MEMoneyDetailedVC.m in Sources */,
@@ -10497,6 +10562,7 @@
 				EB25236D2317F396003521F7 /* MENewStoreApplyVC.m in Sources */,
 				36F5E81B222F68F1000B0241 /* TAddHelper.m in Sources */,
 				EB77B105232A495F008BBB60 /* MEPersonalCourseFreeCell.m in Sources */,
+				EB20E3CA237178F300085A88 /* MEEyesightBottomCell.m in Sources */,
 				EB7131A2232204B800652204 /* METopUpTipsView.m in Sources */,
 				360057FC2189F1B60010C21C /* MESearchHistoryView.m in Sources */,
 				36FDE3C9218A8EF300633C40 /* MEHomeSearchView.m in Sources */,

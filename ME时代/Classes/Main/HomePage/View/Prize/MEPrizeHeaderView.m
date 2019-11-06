@@ -26,6 +26,7 @@
     _sdView.infiniteLoop = NO;
     _sdView.autoScroll = NO;
     _sdView.imageURLStringsGroup = @[model.image];
+    _sdView.backgroundColor = [UIColor clearColor];
     
     _titleLbl.text = model.title;
     _countLbl.text = [NSString stringWithFormat:@"%ld份",(long)model.total];
