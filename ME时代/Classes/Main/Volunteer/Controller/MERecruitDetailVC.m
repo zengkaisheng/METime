@@ -11,6 +11,7 @@
 #import "MERecruitInfoCell.h"
 #import "MERecruitDetailCell.h"
 #import "MERecruitJoinUsersCell.h"
+#import "MERecruitCommentCell.h"
 #import "MEJoinusersListVC.h"
 
 @interface MERecruitDetailVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -48,7 +49,7 @@
 }
 
 #pragma mark -- Networking
-//公益秀详情
+//活动招募详情
 - (void)requestRecruitDetailWithNetWork {
     kMeWEAKSELF
     [MEPublicNetWorkTool postGetRecruitDetailWithRecruitId:self.recruitId latitude:kMeUnNilStr(self.latitude) longitude:kMeUnNilStr(self.longitude) successBlock:^(ZLRequestResponse *responseObject) {
@@ -132,6 +133,10 @@
         MERecruitDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MERecruitDetailCell class]) forIndexPath:indexPath];
         [cell setUIWithContent:kMeUnNilStr(self.model.detail)];
         return cell;
+    }else if (indexPath.row == 3) {
+//        MERecruitCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MERecruitCommentCell class]) forIndexPath:indexPath];
+//        [cell setUIWithArray:kMeUnArr(self.model.comment)];
+//        return cell;
     }
     MERecruitJoinUsersCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MERecruitJoinUsersCell class]) forIndexPath:indexPath];
     [cell setUIWithModel:self.model];
@@ -143,6 +148,13 @@
         return 382-168+168*kMeFrameScaleX();
     }else if (indexPath.row == 1) {
         [MERecruitDetailCell getCellHeightWithContent:kMeUnNilStr(self.model.detail)];
+    }else if (indexPath.row == 3) {
+//        CGFloat height = 44+8+16;
+//        for (MERecruitCommentModel *model in self.model.comment) {
+//            height += model.contentHeight;
+//        }
+//        return height;
+#warning 暂时隐藏
     }
     return 92;
 }
@@ -161,6 +173,8 @@
     }else if (indexPath.row == 2) {
         MEJoinusersListVC *vc = [[MEJoinusersListVC alloc] initWithRecruitId:self.model.idField];
         [self.navigationController pushViewController:vc animated:YES];
+    }else if (indexPath.row == 3) {
+        
     }
 }
 
@@ -171,7 +185,7 @@
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MERecruitInfoCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MERecruitInfoCell class])];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MERecruitDetailCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MERecruitDetailCell class])];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MERecruitJoinUsersCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MERecruitJoinUsersCell class])];
-        
+        [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MERecruitCommentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MERecruitCommentCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.delegate = self;
