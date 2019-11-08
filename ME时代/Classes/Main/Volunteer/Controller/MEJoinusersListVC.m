@@ -9,6 +9,7 @@
 #import "MEJoinusersListVC.h"
 #import "MERecruitJoinUserListCell.h"
 #import "MERecruitDetailModel.h"
+#import "MEVolunteerInfoVC.h"
 
 @interface MEJoinusersListVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -67,7 +68,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    MERecruitJoinUserModel *model = self.refresh.arrData[indexPath.row];
+    MEVolunteerInfoVC *vc = [[MEVolunteerInfoVC alloc] initWithVolunteerId:model.member_id name:kMeUnNilStr(model.nick_name)];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma setter&&getter

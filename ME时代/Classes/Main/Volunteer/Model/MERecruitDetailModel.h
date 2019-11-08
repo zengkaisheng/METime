@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * header_pic;
 @property (nonatomic, strong) NSString * nick_name;
 @property (nonatomic, strong) NSString * join_time;
+@property (nonatomic, assign) NSInteger member_id;
+@property (nonatomic, strong) NSString * signature;
 
 @end
 

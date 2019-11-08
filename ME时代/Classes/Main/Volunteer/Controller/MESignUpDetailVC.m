@@ -47,7 +47,7 @@
         [self.locationManager requestWhenInUseAuthorization];
         
         [self.locationManager startUpdatingLocation];
-        [MECommonTool showMessage:@"定位中..." view:kMeCurrentWindow];
+        [MECommonTool showMessage:@"获取定位中..." view:kMeCurrentWindow];
     }
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.maskView];

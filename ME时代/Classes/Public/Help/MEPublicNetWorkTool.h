@@ -879,6 +879,12 @@
 
 //志愿者视力预约详情
 + (void)postGetVolunteerReserveDetailWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//志愿者详情
++ (void)postGetVolunteerDetailWithVolunteerId:(NSInteger)volunteerId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//点赞志愿者
++ (void)postPraiseVolunteerWithVolunteerId:(NSInteger)volunteerId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//关注志愿者
++ (void)postAttentionVolunteerWithVolunteerId:(NSInteger)volunteerId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

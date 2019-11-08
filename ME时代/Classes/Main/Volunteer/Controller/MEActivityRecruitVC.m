@@ -64,7 +64,7 @@
         [self.locationManager requestWhenInUseAuthorization];
 
         [self.locationManager startUpdatingLocation];
-        [MECommonTool showMessage:@"定位中..." view:kMeCurrentWindow];
+        [MECommonTool showMessage:@"获取定位中..." view:kMeCurrentWindow];
     }
     kMeWEAKSELF
     self.headerMenuView =

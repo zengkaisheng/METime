@@ -67,7 +67,7 @@ static NSString *kTokenKey = @"kTokenKey";
 
 - (void)setterWithDict:(NSDictionary *)dict;
 
-@property (nonatomic, copy) NSString *uid;
+@property (nonatomic, copy) NSString *uid;//member_id
 @property (nonatomic, copy) NSString *token;
 //@property (nonatomic, assign) NSInteger userId;
 @property (nonatomic, copy) NSString *mobile;

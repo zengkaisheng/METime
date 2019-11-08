@@ -25,6 +25,21 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * province;       //省
 @property (nonatomic, strong) NSString * title;
 
+
+@property (nonatomic, strong) NSString * desc;
+@property (nonatomic, strong) NSString * detail;
+@property (nonatomic, assign) NSInteger attention_num;
+@property (nonatomic, strong) NSString * tel;
+@property (nonatomic, strong) NSString * start_date;
+@property (nonatomic, strong) NSString * end_date;
+@property (nonatomic, strong) NSString * join_start_date;
+@property (nonatomic, strong) NSString * join_end_date;
+@property (nonatomic, strong) NSString * organizers;
+@property (nonatomic, assign) NSInteger status;
+@property (nonatomic, assign) NSInteger is_del;
+@property (nonatomic, strong) NSString * created_at;
+@property (nonatomic, strong) NSString * updated_at;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -54,11 +54,11 @@
 //    MEFourHomeVC *home = [[MEFourHomeVC alloc] init];
 //    第五版
     MEFiveHomeVC *home = [[MEFiveHomeVC alloc] init];
-    [self addChildVc:home title:@"首页" image:@"home" selectedImage:@"home_s"];
+    [self addChildVc:home title:@"首页" image:@"home" selectedImage:@"icon_Home_sel"];
     
     //课程
     MEPersonalCourseVC *courseVC = [[MEPersonalCourseVC alloc] init];
-    [self addChildVc:courseVC title:@"公益课堂" image:@"course" selectedImage:@"course_s"];
+    [self addChildVc:courseVC title:@"课堂" image:@"course" selectedImage:@"course_s"];
     
 //    MEIMageVC *store = [[MEIMageVC alloc]initWithType:MEMainStoreStyle];
 //    MEStoreHomeVC *store = [[MEStoreHomeVC alloc] init];
@@ -79,7 +79,7 @@
 //    MEProductShoppingCartVC *shopcart = [[MEProductShoppingCartVC alloc] init];
 //    [self addChildVc:shopcart title:@"购物车" image:@"shopcart" selectedImage:@"shopcart_s"];
     MENewFilterGoodVC *filter = [[MENewFilterGoodVC alloc] init];
-    [self addChildVc:filter title:@"志愿优选" image:@"store" selectedImage:@"store_s"];
+    [self addChildVc:filter title:@"福利" image:@"store" selectedImage:@"store_s"];
     
     self.mine = [[MENewMineHomeVC alloc] init];
     [self addChildVc:self.mine title:@"我的" image:@"mine" selectedImage:@"mine_s"];
@@ -126,23 +126,27 @@
     childVc.tabBarItem.image = [[UIImage imageNamed:image] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [childVc.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, -4)];
-    childVc.title=title;
+    childVc.title = title;
     MENavigationVC *nav = [[MENavigationVC alloc] initWithRootViewController:childVc];
     if([title isEqualToString:@"首页"]){
         childVc.title =@"志愿星";
-        childVc.tabBarItem.title=@"首页";
+        childVc.tabBarItem.title = @"";
+        childVc.tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
     }
-//    if([title isEqualToString:@"店铺"]){
-//        childVc.title =@"店铺";
-//        childVc.tabBarItem.title=@"店铺";
-//    }
     [self addChildViewController:nav];
 }
 
 #pragma mark - UITabBarControllerDelegate
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{//每次点击都会执行的方法
-    if([viewController.tabBarItem.title isEqualToString:@"购物车"]||[viewController.tabBarItem.title isEqualToString:@"我的"]||[viewController.tabBarItem.title isEqualToString:@"动态"]){
+    if([viewController.tabBarItem.title isEqualToString:@"我的"]||[viewController.tabBarItem.title isEqualToString:@"动态"]){
+        for (UIViewController *vc in tabBarController.viewControllers) {
+            if ([vc.title isEqualToString:@"志愿星"]) {
+                vc.tabBarItem.image = [[UIImage imageNamed:@"home"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+                vc.tabBarItem.title = @"首页";
+                [vc.tabBarItem setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+            }
+        }
         if([MEUserInfoModel isLogin]){
             return YES;
         }
@@ -153,8 +157,22 @@
         }];
         return NO;
         
+    }else if ([viewController.tabBarItem.title isEqualToString:@"课堂"] || [viewController.tabBarItem.title isEqualToString:@"福利"]) {
+        for (UIViewController *vc in tabBarController.viewControllers) {
+            if ([vc.title isEqualToString:@"志愿星"]) {
+                vc.tabBarItem.image = [[UIImage imageNamed:@"home"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+                vc.tabBarItem.title = @"首页";
+                [vc.tabBarItem setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+            }
+        }
+        return YES;
+    }else if ([viewController.title isEqualToString:@"志愿星"]) {
+        viewController.tabBarItem.selectedImage = [[UIImage imageNamed:@"icon_Home_sel"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        viewController.tabBarItem.title = @"";
+        [viewController.tabBarItem setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)];
+        return YES;
     }
     return YES;
-    
 }
+
 @end

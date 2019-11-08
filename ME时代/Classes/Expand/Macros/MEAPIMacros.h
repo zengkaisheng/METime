@@ -1150,6 +1150,20 @@
 #define MEIPcommonCoursesCoursesList @"common/courses/coursesList"
 //志愿者视力预约详情
 #define MEIPcommonGoodsVolunteerReserve @"common/goods/volunteerReserve"
+
+
+//已报名的活动
+#define MEIPcommonRecruitMyJoinActivity @"common/recruit/myJoinActivity"
+//已报名的活动
+#define MEIPcommonSigninSignInActivity @"common/signin/signInActivity"
+//我的关注
+#define MEIPcommonUserMyAttention @"common/user/myAttention"
+//志愿者详情
+#define MEIPcommonUserVolunteerDetail @"common/user/volunteerDetail"
+//点赞志愿者
+#define MEIPcommonUserPraiseVolunteer @"common/user/praiseVolunteer"
+//关注志愿者
+#define MEIPcommonUserAttentionVolunteer @"common/user/attentionVolunteer"
 /*********************************************/
 
 

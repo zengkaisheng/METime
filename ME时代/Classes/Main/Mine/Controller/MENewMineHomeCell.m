@@ -74,6 +74,9 @@
 #import "MEProductShoppingCartVC.h"
 
 #import "MECommissionBaseVC.h"
+#import "MESignUpActivityVC.h"
+#import "MESignInActivityVC.h"
+#import "MEMyAttentionVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -633,10 +636,37 @@
             [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case MeMyMenuAppointment:{
+        case MeMyMenuAppointment:{//我的预约
             MEMyAppointmentVC *dvc = [[MEMyAppointmentVC alloc]initWithType:MEAppointmenyUseing];
             [homeVc.navigationController pushViewController:dvc animated:YES];
         }
+            break;
+        case MeMyMenuOrganizationEnter:{//组织入驻
+            
+        }
+            break;
+        case MeMyMenuMyFunds:{//我的资金
+            
+        }
+            break;
+        case MeMyMenuMyComment:{//我的评论
+
+        }
+            break;
+        case MeMyMenuMySignUpActivity:{//已报名的活动
+            MESignUpActivityVC *vc = [[MESignUpActivityVC alloc] init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case MeMyMenuMySignInActivity:{//已签到的活动
+            MESignInActivityVC *dvc = [[MESignInActivityVC alloc] init];
+            [homeVc.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        case MeMyMenuMyAttention:{//我的关注
+            MEMyAttentionVC *dvc = [[MEMyAttentionVC alloc] init];
+            [homeVc.navigationController pushViewController:dvc animated:YES];
+            }
             break;
         default:
             break;
