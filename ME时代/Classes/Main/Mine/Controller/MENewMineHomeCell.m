@@ -77,6 +77,9 @@
 #import "MESignUpActivityVC.h"
 #import "MESignInActivityVC.h"
 #import "MEMyAttentionVC.h"
+#import "MECreateOrganizationVC.h"
+#import "MEJoinedOrganizationVC.h"
+#import "MECreatedOrganizationVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -642,7 +645,8 @@
         }
             break;
         case MeMyMenuOrganizationEnter:{//组织入驻
-            
+            MECreateOrganizationVC *vc = [[MECreateOrganizationVC alloc] init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
         case MeMyMenuMyFunds:{//我的资金
@@ -667,6 +671,16 @@
             MEMyAttentionVC *dvc = [[MEMyAttentionVC alloc] init];
             [homeVc.navigationController pushViewController:dvc animated:YES];
             }
+            break;
+        case MeMyMenuMyCreateOrganization:{//我创建的组织
+            MECreatedOrganizationVC *dvc = [[MECreatedOrganizationVC alloc] init];
+            [homeVc.navigationController pushViewController:dvc animated:YES];
+        }
+            break;
+        case MeMyMenuMyJoinedOrganization:{//我加入的组织
+            MEJoinedOrganizationVC *dvc = [[MEJoinedOrganizationVC alloc] init];
+            [homeVc.navigationController pushViewController:dvc animated:YES];
+        }
             break;
         default:
             break;

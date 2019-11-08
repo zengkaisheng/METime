@@ -83,7 +83,9 @@ typedef enum : NSUInteger {
     
     MeMyMenuMySignUpActivity,  //已报名的活动
     MeMyMenuMySignInActivity,  //已签到的活动
-    MeMyMenuMyAttention  //我的关注
+    MeMyMenuMyAttention,  //我的关注
+    MeMyMenuMyCreateOrganization, //我创建的组织
+    MeMyMenuMyJoinedOrganization  //我加入的组织
 } MEMineHomeMenuCellStyle;
 #define MEMineHomeMenuCellStyleTitle @[@"我的佣金",@"我的美豆",@"美豆订单",@"佣金订单",@"我的团队",@"我的上级",@"店员管理",@"预约管理",@"数据统计",@"店铺管理",@"提现明细",@"优惠券佣金",@"自提订单",@"AI雷达",@"推广二维码",@"佣金统计",@"品牌管理",@"获客海报",@"获客文章",@"访客统计",@"获客图文",@"我的砍价",@"我的拼团",@"兑换中心",@"我的活动",@"ME聊",@"客服微信",@"收货地址",@"绑定手机",@"门店申请",@"新手指南",@"常见问题",@"意见反馈",@"项目设置",@"课程订单",@"问题咨询",@"诊断反馈",@"方案订单",@"我的收藏",@"诊断回复",@"联通兑换",@"联通充值",@"联通佣金",@"我的VIP",@"我的购物车",@"我的预约",@"组织入驻",@"我的资金",@"我的评论",@"已报名的活动",@"已签到的活动",@"我的关注"]
 #define MEMineHomeMenuCellStyleImage @[@"mineyongjing",@"minemeidou",@"meidouorder",@"mineorderall",@"minetuandui",@"mineshangji",@"minedianyuan",@"mineyuyue",@"minedatatj",@"minedianpu",@"minetixian",@"minejuanyongjin",@"mineziti",@"homeailei",@"minetuigcode",@"mineyongjintongji",@"minepinpai",@"mineposter",@"minearticel",@"minedata",@"minepa",@"icon_bargain",@"icon_group",@"icon_zhuceyoujiang",@"iqpgweqq",@"icon-qrpteb",@"icon-qrptebjnyt",@"nhwxfbfh",@"qlru",@"uyyhjhyg",@"minenewguid",@"icon_commonQuestion",@"icon_feedBack",@"icon_projectSet",@"icon_courseOrder",@"icon_consultQuestion",@"icon_diagnoseFeed",@"icon_diagnoseOrder",@"icon_wodeshoucang",@"icon_diagnoseAnswer"]

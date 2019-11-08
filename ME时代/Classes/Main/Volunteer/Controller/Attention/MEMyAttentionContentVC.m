@@ -16,6 +16,7 @@
 
 #import "MEVolunteerInfoVC.h"
 #import "MERecruitDetailVC.h"
+#import "MEOrganizationDetailVC.h"
 
 @interface MEMyAttentionContentVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
@@ -128,7 +129,9 @@
         MEVolunteerInfoVC *vc = [[MEVolunteerInfoVC alloc] initWithVolunteerId:model.member_id name:kMeUnNilStr(model.name)];
         [self.navigationController pushViewController:vc animated:YES];
     }else if (self.type == 3) {
-        
+        MEAttentionOrganizationsModel *model = self.refresh.arrData[indexPath.row];
+        MEOrganizationDetailVC *vc = [[MEOrganizationDetailVC alloc] initWithOrganizationId:model.idField];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

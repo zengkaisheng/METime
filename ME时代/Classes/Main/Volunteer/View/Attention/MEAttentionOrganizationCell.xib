@@ -107,9 +107,26 @@
                                     <action selector="cancelBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hmX-64-zCd"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已通过" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AzJ-iz-eDM">
+                                <rect key="frame" x="295" y="0.0" width="50" height="25"/>
+                                <color key="backgroundColor" red="0.18039215689999999" green="0.85098039219999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="198-iZ-4Np"/>
+                                    <constraint firstAttribute="height" constant="25" id="Zq3-10-44a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="12.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="AzJ-iz-eDM" firstAttribute="top" secondItem="6me-AC-qO2" secondAttribute="top" id="2wO-jv-XqL"/>
                             <constraint firstItem="w0N-Vi-8j5" firstAttribute="centerX" secondItem="hpJ-IG-rGb" secondAttribute="centerX" id="3O7-Ik-T3b"/>
                             <constraint firstAttribute="bottom" secondItem="hpJ-IG-rGb" secondAttribute="bottom" constant="8" id="7Bp-Tb-7cN"/>
                             <constraint firstItem="T4O-ya-vwf" firstAttribute="leading" secondItem="aMQ-1n-xgR" secondAttribute="trailing" constant="2" id="CGU-6L-Mhk"/>
@@ -124,6 +141,7 @@
                             <constraint firstAttribute="trailing" secondItem="X38-Sz-XZm" secondAttribute="trailing" constant="-2" id="duP-2v-BR8"/>
                             <constraint firstItem="0Is-aZ-Rx5" firstAttribute="leading" secondItem="SSt-LO-xSw" secondAttribute="trailing" constant="17" id="fL6-vL-3PU"/>
                             <constraint firstItem="qBr-4i-2e2" firstAttribute="top" secondItem="l80-iK-VFA" secondAttribute="bottom" constant="1" id="hEH-Ih-ptN"/>
+                            <constraint firstAttribute="trailing" secondItem="AzJ-iz-eDM" secondAttribute="trailing" id="m3P-4Q-YHU"/>
                             <constraint firstAttribute="bottom" secondItem="qBr-4i-2e2" secondAttribute="bottom" constant="8" id="oIx-La-JQu"/>
                             <constraint firstItem="hpJ-IG-rGb" firstAttribute="top" secondItem="w0N-Vi-8j5" secondAttribute="bottom" constant="1" id="t8V-Um-d7U"/>
                             <constraint firstItem="l80-iK-VFA" firstAttribute="centerX" secondItem="qBr-4i-2e2" secondAttribute="centerX" id="vLi-aQ-UEX"/>
@@ -157,6 +175,7 @@
                 <outlet property="nameLbl" destination="0Is-aZ-Rx5" id="WNH-bb-Ioh"/>
                 <outlet property="organizersNumLbl" destination="w0N-Vi-8j5" id="SXb-LD-yyF"/>
                 <outlet property="organizersNumTipLbl" destination="hpJ-IG-rGb" id="N76-kE-sbp"/>
+                <outlet property="statusLbl" destination="AzJ-iz-eDM" id="r0Q-jr-7pn"/>
             </connections>
             <point key="canvasLocation" x="39.200000000000003" y="46.776611694152926"/>
         </tableViewCell>

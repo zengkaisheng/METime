@@ -1164,6 +1164,22 @@
 #define MEIPcommonUserPraiseVolunteer @"common/user/praiseVolunteer"
 //关注志愿者
 #define MEIPcommonUserAttentionVolunteer @"common/user/attentionVolunteer"
+//获取机构服务类型
+#define MEIPcommonVolunteerOrganizationGetType @"common/volunteerOrganization/getType"
+//申请志愿者组织
+#define MEIPcommonVolunteerOrganizationApply @"common/volunteerOrganization/apply"
+//获取组织列表
+#define MEIPcommonVolunteerOrganizationGetList @"common/volunteerOrganization/getList"
+//获取加入的组织列表
+#define MEIPcommonVolunteerOrganizationJoinList @"common/volunteerOrganization/joinList"
+//获取创建的组织列表
+#define MEIPcommonVolunteerOrganizationMyOrganization @"common/volunteerOrganization/myOrganization"
+//组织详情
+#define MEIPcommonVolunteerOrganizationGetDetail @"common/volunteerOrganization/getDetail"
+//关注组织
+#define MEIPcommonVolunteerOrganizationAttention @"common/volunteerOrganization/attention"
+//加入组织
+#define MEIPcommonVolunteerOrganizationJoinOrg @"common/volunteerOrganization/joinOrg"
 /*********************************************/
 
 

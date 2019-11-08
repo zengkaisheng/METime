@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"公益课程";
+    self.title = @"课程";
     self.navBarHidden = self.isHome;
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];

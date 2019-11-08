@@ -31,7 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * province;
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, strong) NSString * updated_at;
-@property (nonatomic, strong) NSString * volunteer_num;
+@property (nonatomic, assign) NSInteger volunteer_num;
+@property (nonatomic, strong) NSString * org_images;
+
+@property (nonatomic, assign) NSInteger is_own;
 
 @end
 

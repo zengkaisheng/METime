@@ -349,7 +349,7 @@
 }
 
 #pragma mark -- Networking
-//公益秀详情
+//招募活动类型
 - (void)requestRecruitServiceTypeWithNetWork {
     kMeWEAKSELF
     [MEPublicNetWorkTool postGetRecruitServiceTypeWithSuccessBlock:^(ZLRequestResponse *responseObject) {

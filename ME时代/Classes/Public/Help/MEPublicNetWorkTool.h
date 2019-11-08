@@ -30,6 +30,7 @@
 @class MEAddCustomerExpenseModel;
 @class MEAddCustomerAppointmentModel;
 @class MERegisterVolunteerModel;
+@class MEApplyOrganizationModel;
 
 @interface MEPublicNetWorkTool : NSObject
 
@@ -885,6 +886,16 @@
 + (void)postPraiseVolunteerWithVolunteerId:(NSInteger)volunteerId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //关注志愿者
 + (void)postAttentionVolunteerWithVolunteerId:(NSInteger)volunteerId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取机构服务类型
++ (void)postGetServiceTypeWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//申请志愿者组织
++ (void)postApplyOrganizationWithApplyModel:(MEApplyOrganizationModel *)model successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//组织详情
++ (void)postGetOrganizationDetailWithOrganizationId:(NSInteger)organizationId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//关注机构
++ (void)postAttentionOrganizationWithOrganizationId:(NSInteger)organizationId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//加入/退出机构
++ (void)postJoinOrganizationWithOrganizationId:(NSInteger)organizationId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

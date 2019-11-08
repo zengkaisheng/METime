@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *locationImgConsW;
+@property (weak, nonatomic) IBOutlet UILabel *statusLbl;
 
 @end
 
@@ -41,6 +42,7 @@
     _bgView.clipsToBounds = false;
     
     self.cancelBtn.hidden = YES;
+    self.statusLbl.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -57,12 +59,47 @@
     
     _nameLbl.text = kMeUnNilStr(model.org_name);
     _contentLbl.text = [NSString stringWithFormat:@"%@ %@ %@ %@",kMeUnNilStr(model.province),kMeUnNilStr(model.city),kMeUnNilStr(model.county),kMeUnNilStr(model.address)];
-    _durationLbl.text = kMeUnNilStr(model.duration);
-    _organizersNumLbl.text = kMeUnNilStr(model.volunteer_num);
+    _durationLbl.text = kMeUnNilStr(model.duration).length>0?kMeUnNilStr(model.duration):@"0";
+    _organizersNumLbl.text = [NSString stringWithFormat:@"%@",@(model.volunteer_num)];
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.org_images));
+    if (model.is_own) {
+        self.statusLbl.hidden = NO;
+        switch (model.status) {
+            case 1:
+            {
+                self.statusLbl.text = @"待审核";
+                self.statusLbl.backgroundColor = [UIColor colorWithHexString:@"#FFA158"];
+            }
+                break;
+            case 2:
+            {
+                self.statusLbl.text = @"已通过";
+                self.statusLbl.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+            }
+                break;
+            case 3:
+            {
+                self.statusLbl.text = @"未通过";
+                self.statusLbl.backgroundColor = [UIColor colorWithHexString:@"#FF5858"];
+            }
+                break;
+            case 4:
+            {
+                self.statusLbl.text = @"禁用";
+                self.statusLbl.backgroundColor = [UIColor colorWithHexString:@"#999999"];
+            }
+                break;
+            default:
+                break;
+        }
+    }else {
+        self.statusLbl.hidden = YES;
+    }
 }
 
 - (void)setVolunteerUIWithModel:(MEVolunteerInfoModel *)model {
     _cancelBtn.hidden = NO;
+    self.statusLbl.hidden = YES;
     _locationImgConsW.constant = 0;
     _locationImageV.hidden = YES;
     _durationLbl.hidden = _durationTipLbl.hidden = _organizersNumLbl.hidden = _organizersNumTipLbl.hidden = YES;

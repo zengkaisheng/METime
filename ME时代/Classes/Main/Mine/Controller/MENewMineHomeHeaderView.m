@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *receiveBtn;
 @property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *deliveryBtn;
 @property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *refundBtn;
+@property (weak, nonatomic) IBOutlet UILabel *DurationLbl;
 
 @end
 
@@ -94,6 +95,7 @@
     
     kSDLoadImg(_imgPic, kMeUnNilStr(kCurrentUser.header_pic));
     _lblTel.text = [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
+    _DurationLbl.text = [NSString stringWithFormat:@"信用时数: %@",kMeUnNilStr(kCurrentUser.duration)];
     switch (kCurrentUser.client_type ) {
         case MEClientTypeClerkStyle:{
             _lblLeve.text = [NSString stringWithFormat:@"我的等级:店员"];

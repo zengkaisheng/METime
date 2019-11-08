@@ -33,6 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CGFloat cellHeight;
 
+@property (nonatomic, assign) BOOL isCanCheck;  //是否有查看按钮
+@property (nonatomic, strong) UIImage *image;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger store_id;
 @property (nonatomic, strong) NSString * updated_at;
 
+@property (nonatomic, strong) NSString * type_name;
+
 @end
 
 NS_ASSUME_NONNULL_END

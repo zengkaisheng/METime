@@ -53,8 +53,8 @@
 #import "MEPublicServiceCourseVC.h"
 #import "MEPublicServiceEyesightVC.h"
 
-
-#import "MESignInActivityVC.h"
+#import "MEJoinOrganizationVC.h"
+#import "MECreateOrganizationVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
@@ -421,7 +421,7 @@ const static CGFloat kImgStoreH = 50;
     NSDictionary *params = @{@"type":@(model.type), @"show_type":@(model.show_type), @"ad_id":kMeUnNilStr(model.ad_id), @"product_id":@(model.product_id), @"keywork":kMeUnNilStr(model.keywork)};
     [self saveClickRecordsWithType:@"1" params:params];
     
-    switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标(跳活动)10 跳拼多多 11 跳京东 12 跳秒杀商品 13 跳拼多多推荐商品列表 14 跳砍价活动 15 跳拼团活动 16 跳签到活动 17 跳常见问题 18 跳视频详情页面 19 跳音频详情页面 20 联通兑换商品列表 21 跳C端视频详情页面 22 跳C端音频详情页面 23 跳公益课程 24 跳志愿者注册 25 跳活动招募 26 跳精选好物 27 跳公益活动 28 跳社区服务 29 跳福利领取 30 跳福利活动 31 跳视力预约 32 跳爱心榜 33 跳志愿保障
+    switch (model.show_type) {//0无操作,1跳商品祥情,2跳服务祥情,3跳内链接,4跳外链接,5跳H5（富文本）,6跳文章,7跳海报，8跳淘宝活动需添加渠道,9首页右下角图标(跳活动)10 跳拼多多 11 跳京东 12 跳秒杀商品 13 跳拼多多推荐商品列表 14 跳砍价活动 15 跳拼团活动 16 跳签到活动 17 跳常见问题 18 跳视频详情页面 19 跳音频详情页面 20 联通兑换商品列表 21 跳C端视频详情页面 22 跳C端音频详情页面 23 跳公益课程 24 跳志愿者注册 25 跳活动招募 26 跳精选好物 27 跳公益活动 28 跳社区服务 29 跳福利领取 30 跳福利活动 31 跳视力预约 32 跳爱心榜 33 跳志愿保障 34 组织入驻 35 加入组织
         case 1:
         {
             METhridProductDetailsVC *dvc = [[METhridProductDetailsVC alloc]initWithId:model.product_id];
@@ -759,6 +759,18 @@ const static CGFloat kImgStoreH = 50;
         case 33:
         {//跳志愿保障
 //            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 34:
+        {//组织入驻
+            MECreateOrganizationVC *vc = [[MECreateOrganizationVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 35:
+        {//加入组织
+            MEJoinOrganizationVC *vc = [[MEJoinOrganizationVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:

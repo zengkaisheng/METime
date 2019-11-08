@@ -68,7 +68,7 @@
 - (void)fullCellWithModel:(DataPickerViewModel *)model {
     self.titleLab.text = model.name;
     if (model.isSelected == YES) {
-        self.titleLab.textColor = kMEPink;
+        self.titleLab.textColor = [UIColor colorWithHexString:@"#2ED9A4"];
     }else {
         self.titleLab.textColor = [UIColor blackColor];
     }
