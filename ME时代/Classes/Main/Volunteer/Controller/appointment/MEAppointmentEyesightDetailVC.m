@@ -56,18 +56,18 @@
     [appointmentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [appointmentBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
     appointmentBtn.backgroundColor = [UIColor colorWithHexString:@"#2DD9A4"];
-    appointmentBtn.frame = CGRectMake(SCREEN_WIDTH-15-115, 5, 115, 46);
+    appointmentBtn.frame = CGRectMake(15, 5, SCREEN_WIDTH-30, 46);
     appointmentBtn.layer.cornerRadius = 8.0;
     [appointmentBtn addTarget:self action:@selector(appointmentBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:appointmentBtn];
     
-    NSArray *btns = @[@{@"title":@"首页",@"image":@"icon_toHome"},@{@"title":@"好友",@"image":@"icon_toFriends"},@{@"title":@"朋友圈",@"image":@"icon_toPengYouQuan"}];
-    CGFloat itemW = (SCREEN_WIDTH-15-115-20)/btns.count;
-    for (int i = 0; i < btns.count; i++) {
-        NSDictionary *dict = btns[i];
-        UIButton *btn = [self createBtnWithTitle:dict[@"title"] image:dict[@"image"] frame:CGRectMake(10+itemW*i, 0, itemW, 56) tag:100+i];
-        [bottomView addSubview:btn];
-    }
+//    NSArray *btns = @[@{@"title":@"首页",@"image":@"icon_toHome"},@{@"title":@"好友",@"image":@"icon_toFriends"},@{@"title":@"朋友圈",@"image":@"icon_toPengYouQuan"}];
+//    CGFloat itemW = (SCREEN_WIDTH-15-115-20)/btns.count;
+//    for (int i = 0; i < btns.count; i++) {
+//        NSDictionary *dict = btns[i];
+//        UIButton *btn = [self createBtnWithTitle:dict[@"title"] image:dict[@"image"] frame:CGRectMake(10+itemW*i, 0, itemW, 56) tag:100+i];
+//        [bottomView addSubview:btn];
+//    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotoAppointInfo:) name:kEyesightAppointOrder object:nil];
 }

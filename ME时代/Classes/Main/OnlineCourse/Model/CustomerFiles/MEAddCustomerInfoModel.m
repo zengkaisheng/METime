@@ -22,4 +22,12 @@
     return height+15>75?height+15:75;
 }
 
+- (CGFloat)orgCellHeight {
+    CGFloat height = 25+11;
+    if (kMeUnNilStr(self.value).length > 0) {
+        height += [[NSString stringWithFormat:@"%@",kMeUnNilStr(self.value)] boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height+20;
+    }
+    return height>(77+(self.isTextView?18:0))?height:(77+(self.isTextView?18:0));
+}
+
 @end

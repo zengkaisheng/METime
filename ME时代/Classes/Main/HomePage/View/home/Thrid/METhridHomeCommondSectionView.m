@@ -43,7 +43,7 @@
         case 2:
         {
             _titleLbl.text = @"为你推荐";
-            _titleLbl.textColor = [UIColor colorWithHexString:@"#E74192"];
+            _titleLbl.textColor = [UIColor colorWithHexString:@"#2ED9A4"];
             _leftImageV.hidden = _rightImageV.hidden = NO;
             _leftView.hidden = _rightView.hidden = YES;
             _bgImageV.hidden = YES;

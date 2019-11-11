@@ -10,7 +10,7 @@
 #define MEColorMacros_h
 
 #define kMEblack [UIColor colorWithHexString:@"333333"]
-#define kMEPink [UIColor colorWithHexString:@"ff88a4"]
+#define kMEPink [UIColor colorWithHexString:@"#2ED9A4"]// ff88a4
 #define kMELightPink [UIColor colorWithHexString:@"FAC7D3"]
 #define kMEUnSelect [UIColor colorWithHexString:@"c2c2c2"]
 #define kMEFinish [UIColor colorWithHexString:@"07C160"]

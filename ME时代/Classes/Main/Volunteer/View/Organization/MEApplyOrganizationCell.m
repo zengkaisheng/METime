@@ -9,7 +9,7 @@
 #import "MEApplyOrganizationCell.h"
 #import "MEAddCustomerInfoModel.h"
 
-@interface MEApplyOrganizationCell ()<UITextFieldDelegate>
+@interface MEApplyOrganizationCell ()<UITextFieldDelegate,UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *uploadBtn;
 @property (weak, nonatomic) IBOutlet UIButton *reviewBtn;
 @property (weak, nonatomic) IBOutlet UIButton *checkBtn;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *placeHolderLbl;
 
 @end
 
@@ -41,6 +43,10 @@
     self.uploadBtn.hidden = YES;
     self.reviewBtn.hidden = YES;
     self.checkBtn.hidden = YES;
+    self.textView.hidden = YES;
+    self.textView.delegate = self;
+    self.textView.returnKeyType = UIReturnKeyDone;
+    self.placeHolderLbl.hidden = YES;
     self.textField.delegate = self;
     self.textField.returnKeyType = UIReturnKeyDone;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldChange) name:UITextFieldTextDidChangeNotification object:self.textField];
@@ -55,34 +61,48 @@
 - (void)setUIWithCustomerModel:(MEAddCustomerInfoModel *)model {
     _titleLbl.text = kMeUnNilStr(model.title);
     self.downImageV.hidden = model.isHideArrow;
-    if (model.isTextField) {
-        self.textField.hidden = NO;
+    if (model.isTextView) {
+        self.textView.hidden = NO;
+        self.textField.hidden = YES;
         self.uploadBtn.hidden = YES;
         self.reviewBtn.hidden = YES;
         self.checkBtn.hidden = YES;
-        if (!model.isHideArrow) {
-            self.textField.enabled = NO;
-        }else {
-            self.textField.enabled = YES;
-        }
-        self.textField.placeholder = kMeUnNilStr(model.placeHolder);
+        self.placeHolderLbl.hidden = kMeUnNilStr(model.value).length>0?YES:NO;
+        self.placeHolderLbl.text = kMeUnNilStr(model.placeHolder);
+        self.textView.text = kMeUnNilStr(model.value);
         self.maxCount = model.maxInputWord>0?model.maxInputWord:50;
-        if (model.isNumberType) {
-            self.textField.keyboardType = UIKeyboardTypeNumberPad;
-        }else {
-            self.textField.keyboardType = UIKeyboardTypeDefault;
-        }
-        self.textField.text = kMeUnNilStr(model.value);
-        
     }else {
-        self.textField.hidden = YES;
-        self.uploadBtn.hidden = NO;
-        self.reviewBtn.hidden = NO;
-        self.checkBtn.hidden = !model.isCanCheck;
-        if (model.image != nil) {
-            [self.reviewBtn setBackgroundImage:model.image forState:UIControlStateNormal];
+        self.textView.hidden = YES;
+        self.placeHolderLbl.hidden = YES;
+        if (model.isTextField) {
+            self.textField.hidden = NO;
+            self.uploadBtn.hidden = YES;
+            self.reviewBtn.hidden = YES;
+            self.checkBtn.hidden = YES;
+            if (!model.isHideArrow) {
+                self.textField.enabled = NO;
+            }else {
+                self.textField.enabled = YES;
+            }
+            self.textField.placeholder = kMeUnNilStr(model.placeHolder);
+            self.maxCount = model.maxInputWord>0?model.maxInputWord:50;
+            if (model.isNumberType) {
+                self.textField.keyboardType = UIKeyboardTypeNumberPad;
+            }else {
+                self.textField.keyboardType = UIKeyboardTypeDefault;
+            }
+            self.textField.text = kMeUnNilStr(model.value);
+            
         }else {
-            [self.reviewBtn setBackgroundImage:[UIImage imageNamed:@"icon_review"] forState:UIControlStateNormal];
+            self.textField.hidden = YES;
+            self.uploadBtn.hidden = NO;
+            self.reviewBtn.hidden = NO;
+            self.checkBtn.hidden = !model.isCanCheck;
+            if (model.image != nil) {
+                [self.reviewBtn setBackgroundImage:model.image forState:UIControlStateNormal];
+            }else {
+                [self.reviewBtn setBackgroundImage:[UIImage imageNamed:@"icon_review"] forState:UIControlStateNormal];
+            }
         }
     }
 }
@@ -116,13 +136,53 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self endEditing:YES];
+    kMeCallBlock(_reloadBlock);
     return YES;
+}
+#pragma mark -- textViewDelegate
+- (void)textViewDidChange:(UITextView *)textView {
+    self.placeHolderLbl.hidden = textView.text.length>0?YES:NO;
+    kMeCallBlock(_textBlock,self.textView.text);
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    self.placeHolderLbl.hidden = YES;
+    return YES;
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    NSString *tem = [[text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]componentsJoinedByString:@""];
+    if (![text isEqualToString:tem]) {
+        return NO;
+    }
+    
+    if (text.length == 0 && range.location == 0) {
+        self.placeHolderLbl.hidden = NO;
+    }else{
+        self.placeHolderLbl.hidden =YES;
+    }
+    
+    if ([text isEqualToString:@"\n"]) {
+        text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        if (text.length == 0 && range.location == 0) {
+            self.placeHolderLbl.hidden = NO;
+        }
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    self.placeHolderLbl.hidden = textView.text.length>0?YES:NO;
+    kMeCallBlock(_reloadBlock);
 }
 
 #pragma mark - select methods
 - (void)textFieldChange {
     kMeCallBlock(_textBlock,self.textField.text);
 }
+
 - (IBAction)uploadAction:(id)sender {
     //上传
     kMeCallBlock(_indexBlock,0);

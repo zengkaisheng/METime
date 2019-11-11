@@ -96,6 +96,7 @@
     kSDLoadImg(_imgPic, kMeUnNilStr(kCurrentUser.header_pic));
     _lblTel.text = [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
     _DurationLbl.text = [NSString stringWithFormat:@"信用时数: %@",kMeUnNilStr(kCurrentUser.duration)];
+    _DurationLbl.hidden = kCurrentUser.is_volunteer==1?NO:YES;
     switch (kCurrentUser.client_type ) {
         case MEClientTypeClerkStyle:{
             _lblLeve.text = [NSString stringWithFormat:@"我的等级:店员"];

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MEApplyOrganizationCell : UITableViewCell
 
 @property (nonatomic, copy) kMeTextBlock textBlock;
+@property (nonatomic, copy) kMeBasicBlock reloadBlock;
 @property (nonatomic, copy) kMeIndexBlock indexBlock;
 - (void)setUIWithCustomerModel:(MEAddCustomerInfoModel *)model;
 

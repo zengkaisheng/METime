@@ -92,21 +92,42 @@
                                     <action selector="checkAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="urB-9Y-ljn"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KdP-Mx-v73">
+                                <rect key="frame" x="11" y="0.0" width="316" height="35.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wjc-0i-SyP">
+                                <rect key="frame" x="11" y="6" width="38" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="Kbd-gf-yFB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.79607843140000001" green="0.79607843140000001" blue="0.79607843140000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="KdP-Mx-v73" firstAttribute="bottom" secondItem="Ml6-8h-nV1" secondAttribute="bottom" id="1ON-vM-NFO"/>
                             <constraint firstItem="SaD-yL-Uq4" firstAttribute="centerY" secondItem="YMB-Zb-0Wo" secondAttribute="centerY" id="58g-w8-F7e"/>
                             <constraint firstItem="Ml6-8h-nV1" firstAttribute="top" secondItem="YMB-Zb-0Wo" secondAttribute="top" id="60Y-k0-fjP"/>
                             <constraint firstItem="IMC-2E-byp" firstAttribute="leading" secondItem="TeB-nD-7yo" secondAttribute="trailing" constant="20" id="8AR-eJ-50L"/>
+                            <constraint firstItem="KdP-Mx-v73" firstAttribute="top" secondItem="Ml6-8h-nV1" secondAttribute="top" id="Cy4-Lb-JiH"/>
+                            <constraint firstItem="Wjc-0i-SyP" firstAttribute="top" secondItem="KdP-Mx-v73" secondAttribute="top" constant="6" id="DbA-R1-G1H"/>
                             <constraint firstAttribute="bottom" secondItem="TeB-nD-7yo" secondAttribute="bottom" constant="3" id="K2S-wf-eKx"/>
                             <constraint firstItem="Ml6-8h-nV1" firstAttribute="leading" secondItem="YMB-Zb-0Wo" secondAttribute="leading" constant="11" id="Ksg-9j-Cpg"/>
                             <constraint firstItem="TeB-nD-7yo" firstAttribute="leading" secondItem="HXi-zh-Vce" secondAttribute="trailing" constant="21" id="L53-qc-EnG"/>
                             <constraint firstAttribute="bottom" secondItem="IMC-2E-byp" secondAttribute="bottom" id="R7J-wH-pOv"/>
+                            <constraint firstItem="KdP-Mx-v73" firstAttribute="trailing" secondItem="Ml6-8h-nV1" secondAttribute="trailing" id="YZg-fc-arG"/>
                             <constraint firstItem="HXi-zh-Vce" firstAttribute="top" secondItem="YMB-Zb-0Wo" secondAttribute="top" constant="3" id="gFN-k8-pZl"/>
+                            <constraint firstItem="KdP-Mx-v73" firstAttribute="leading" secondItem="Ml6-8h-nV1" secondAttribute="leading" id="h36-rC-AAn"/>
                             <constraint firstAttribute="bottom" secondItem="HXi-zh-Vce" secondAttribute="bottom" constant="3" id="has-YC-Dy3"/>
                             <constraint firstAttribute="trailing" secondItem="SaD-yL-Uq4" secondAttribute="trailing" constant="11" id="iaK-ab-4cA"/>
                             <constraint firstItem="HXi-zh-Vce" firstAttribute="leading" secondItem="YMB-Zb-0Wo" secondAttribute="leading" id="own-nu-FgU"/>
                             <constraint firstItem="IMC-2E-byp" firstAttribute="top" secondItem="YMB-Zb-0Wo" secondAttribute="top" id="qJR-AS-3N7"/>
+                            <constraint firstItem="Wjc-0i-SyP" firstAttribute="leading" secondItem="KdP-Mx-v73" secondAttribute="leading" id="ryF-zv-RBF"/>
                             <constraint firstAttribute="bottom" secondItem="Ml6-8h-nV1" secondAttribute="bottom" id="vFI-yM-17e"/>
                             <constraint firstItem="TeB-nD-7yo" firstAttribute="top" secondItem="YMB-Zb-0Wo" secondAttribute="top" constant="3" id="y4R-wh-C7z"/>
                             <constraint firstAttribute="trailing" secondItem="Ml6-8h-nV1" secondAttribute="trailing" constant="11" id="yLB-5N-ph2"/>
@@ -126,8 +147,10 @@
                 <outlet property="bgView" destination="YMB-Zb-0Wo" id="BcD-yr-Bct"/>
                 <outlet property="checkBtn" destination="IMC-2E-byp" id="yai-TU-Vrf"/>
                 <outlet property="downImageV" destination="SaD-yL-Uq4" id="hsz-aC-uIt"/>
+                <outlet property="placeHolderLbl" destination="Wjc-0i-SyP" id="Dp3-jr-LnO"/>
                 <outlet property="reviewBtn" destination="TeB-nD-7yo" id="mTd-cq-nZV"/>
                 <outlet property="textField" destination="Ml6-8h-nV1" id="9P1-oU-0gq"/>
+                <outlet property="textView" destination="KdP-Mx-v73" id="yFp-lh-9hQ"/>
                 <outlet property="titleLbl" destination="rZv-tB-wOH" id="gVm-ey-tsm"/>
                 <outlet property="uploadBtn" destination="HXi-zh-Vce" id="j2c-2e-qaX"/>
             </connections>

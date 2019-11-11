@@ -881,7 +881,7 @@
         
         UIButton *changeStatusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         changeStatusBtn.frame = CGRectMake(SCREEN_WIDTH-84, 88, 84, 32);
-        changeStatusBtn.backgroundColor = [UIColor colorWithHexString:@"#FFAFAF"];
+        changeStatusBtn.backgroundColor = [UIColor colorWithHexString:@"#FFAFAF"];//#2ED9A4
         [changeStatusBtn setImage:[UIImage imageNamed:@"icon_changeStatusNew"] forState:UIControlStateNormal];
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 84, 32) byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(16, 16)];
         CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];

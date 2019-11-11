@@ -74,7 +74,8 @@
         }
         [strongSelf setUpUI];
     } failure:^(id object) {
-        
+        kMeSTRONGSELF
+        strongSelf.reloadBtn.hidden = NO;
     }];
 }
 
@@ -179,6 +180,7 @@
 }
 
 - (void)reloadBtnDidClick {
+    self.reloadBtn.hidden = YES;
     [self requestMaterialData];
 }
 

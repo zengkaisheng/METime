@@ -389,7 +389,7 @@
     [siftBtn setTitle:title forState:UIControlStateNormal];
     [siftBtn.titleLabel setFont:[UIFont fontWithName:@"PingFang-SC-Medium" size:14]];
     [siftBtn setTitleColor:[UIColor colorWithHexString:@"#000000"] forState:UIControlStateNormal];
-    [siftBtn setTitleColor:[UIColor colorWithHexString:@"#E74192"] forState:UIControlStateSelected];
+    [siftBtn setTitleColor:[UIColor colorWithHexString:@"#2ED9A4"] forState:UIControlStateSelected];
     if (tag != 100) {
         [siftBtn setImage:[UIImage imageNamed:@"jiagenomal"] forState:UIControlStateNormal];
         [siftBtn setImage:[UIImage imageNamed:@"jiageup"] forState:UIControlStateSelected];

@@ -110,11 +110,14 @@
     MEAddCustomerInfoModel *fileModel = [self creatModelWithTitle:@"组织申请函" andPlaceHolder:@"请上传你的组织申请函" andMaxInputWords:0 andIsTextField:NO andIsMustInput:YES andToastStr:@"请上传你的组织申请函"];
     fileModel.isCanCheck = YES;
     
-    MEAddCustomerInfoModel *reasonModel = [self creatModelWithTitle:@"申请理由" andPlaceHolder:@"不少于50字" andMaxInputWords:100 andIsTextField:YES andIsMustInput:YES andToastStr:@"不少于50字"];
+    MEAddCustomerInfoModel *reasonModel = [self creatModelWithTitle:@"申请理由" andPlaceHolder:@"不少于50字" andMaxInputWords:100 andIsTextField:NO andIsMustInput:YES andToastStr:@"不少于50字"];
+    reasonModel.isTextView = YES;
     
     MEAddCustomerInfoModel *remarkModel = [self creatModelWithTitle:@"备注" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:YES andIsMustInput:NO andToastStr:@""];
+    remarkModel.isTextView = YES;
     
-    MEAddCustomerInfoModel *introduceModel = [self creatModelWithTitle:@"组织详情介绍" andPlaceHolder:@"" andMaxInputWords:0 andIsTextField:YES andIsMustInput:YES andToastStr:@""];
+    MEAddCustomerInfoModel *introduceModel = [self creatModelWithTitle:@"组织详情介绍" andPlaceHolder:@"请输入你的组织详情介绍" andMaxInputWords:0 andIsTextField:NO andIsMustInput:YES andToastStr:@"请输入你的组织详情介绍"];
+    introduceModel.isTextView = YES;
     
     MEAddCustomerInfoModel *signModel = [self creatModelWithTitle:@"组织宣言" andPlaceHolder:@"限制20字以内" andMaxInputWords:20 andIsTextField:YES andIsMustInput:YES andToastStr:@"请输入你的组织宣言"];
     
@@ -320,10 +323,17 @@
     MEApplyOrganizationCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEApplyOrganizationCell class]) forIndexPath:indexPath];
     MEAddCustomerInfoModel *model = self.dataSource[indexPath.row];
     [cell setUIWithCustomerModel:model];
+    kMeWEAKSELF
     cell.textBlock = ^(NSString *str) {
         model.value = str;
+        CGFloat height = 25+11;
+        height += [str boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-60, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size.height+20;
+        model.orgCellHeight = height>(77+(model.isTextView?18:0))?height:(77+(model.isTextView?18:0));
     };
-    kMeWEAKSELF
+    cell.reloadBlock = ^{
+        kMeSTRONGSELF
+        [strongSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
     cell.indexBlock = ^(NSInteger index) {
         kMeSTRONGSELF
         if (index == 0) {
@@ -349,11 +359,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     MEAddCustomerInfoModel *model = self.dataSource[indexPath.row];
-    if (!model.isTextField) {
-        return 100;
-    }
-    if ([model.title isEqualToString:@"申请理由"] || [model.title isEqualToString:@"组织详情介绍"]) {
-        return 98;
+    if (model.isTextView) {
+        if ([model.title isEqualToString:@"申请理由"] || [model.title isEqualToString:@"组织详情介绍"] || [model.title isEqualToString:@"备注"]) {
+            return model.orgCellHeight;
+        }
+    }else {
+        if (!model.isTextField) {
+            return 100;
+        }
     }
     return 77;
 }
