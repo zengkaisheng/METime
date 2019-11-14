@@ -331,6 +331,12 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="30M-LY-hrn">
+                    <rect key="frame" x="30" y="41" width="71" height="71"/>
+                    <connections>
+                        <action selector="changeInfoAction:" destination="YSZ-JS-kvI" eventType="touchUpInside" id="gYM-8y-755"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -363,11 +369,15 @@
                 <constraint firstAttribute="trailing" secondItem="vmF-7a-DZa" secondAttribute="trailing" constant="25" id="gol-hb-TwI"/>
                 <constraint firstItem="XCS-KK-IRX" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" constant="20" id="h6F-Cx-XAP"/>
                 <constraint firstItem="FuN-D3-tmG" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" id="jHT-Ox-dsC"/>
+                <constraint firstItem="30M-LY-hrn" firstAttribute="leading" secondItem="Xgv-KA-i2t" secondAttribute="leading" id="juk-Bg-0D5"/>
                 <constraint firstItem="kk6-IU-ojS" firstAttribute="leading" secondItem="Xgv-KA-i2t" secondAttribute="trailing" constant="25" id="kln-kq-IyG"/>
                 <constraint firstAttribute="trailing" secondItem="XCS-KK-IRX" secondAttribute="trailing" constant="15" id="krZ-qR-L4J"/>
+                <constraint firstItem="30M-LY-hrn" firstAttribute="trailing" secondItem="Xgv-KA-i2t" secondAttribute="trailing" id="n6g-vH-xl1"/>
+                <constraint firstItem="30M-LY-hrn" firstAttribute="top" secondItem="Xgv-KA-i2t" secondAttribute="top" id="oNf-Zn-luo"/>
                 <constraint firstItem="7dW-M8-wJR" firstAttribute="leading" secondItem="wqK-bb-ndL" secondAttribute="leading" id="oUw-Jk-rt1"/>
                 <constraint firstItem="GWr-v4-Fkh" firstAttribute="leading" secondItem="YSZ-JS-kvI" secondAttribute="leading" constant="15" id="pTu-vv-ehK"/>
                 <constraint firstItem="snG-Jl-D0c" firstAttribute="top" secondItem="YSZ-JS-kvI" secondAttribute="top" id="prX-WE-VSf"/>
+                <constraint firstItem="30M-LY-hrn" firstAttribute="bottom" secondItem="Xgv-KA-i2t" secondAttribute="bottom" id="wjw-qp-t5y"/>
                 <constraint firstItem="7dW-M8-wJR" firstAttribute="bottom" secondItem="wqK-bb-ndL" secondAttribute="bottom" id="y7S-Uf-4mb"/>
                 <constraint firstItem="urX-Rd-KyT" firstAttribute="leading" secondItem="R8D-Wv-nyg" secondAttribute="leading" id="zow-zu-25S"/>
             </constraints>
@@ -376,6 +386,7 @@
                 <outlet property="LblTel" destination="R8D-Wv-nyg" id="fxf-i7-NwI"/>
                 <outlet property="bottomView" destination="00v-Vh-Wcg" id="Ugz-Ky-qUk"/>
                 <outlet property="businessView" destination="GWr-v4-Fkh" id="t5F-aJ-S22"/>
+                <outlet property="changeInfoBtn" destination="30M-LY-hrn" id="vkh-Dm-46x"/>
                 <outlet property="changeStatusBtn" destination="Wzj-Ct-hib" id="L4Y-9H-8OL"/>
                 <outlet property="changeStatusBtnConsWidth" destination="xAk-cR-l5n" id="FHf-BO-M4V"/>
                 <outlet property="consSetTopMargin" destination="h6F-Cx-XAP" id="maD-UL-WGQ"/>

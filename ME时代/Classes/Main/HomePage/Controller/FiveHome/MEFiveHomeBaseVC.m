@@ -55,6 +55,7 @@
 
 #import "MEJoinOrganizationVC.h"
 #import "MECreateOrganizationVC.h"
+#import "MELoveListHomeVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
@@ -752,8 +753,8 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 32:
         {//跳爱心榜
-            
-//            [self.navigationController pushViewController:vc animated:YES];
+            MELoveListHomeVC *vc = [[MELoveListHomeVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 33:

@@ -8,6 +8,7 @@
 
 #import "MERecruitJoinUserListCell.h"
 #import "MERecruitDetailModel.h"
+#import "MELoveListModel.h"
 
 @interface MERecruitJoinUserListCell ()
 
@@ -41,8 +42,16 @@
 
 - (void)setUIWithModel:(MERecruitJoinUserModel *)model {
     kSDLoadImg(_headerPic,kMeUnNilStr(model.header_pic));
-    _nameLbl.text =  kMeUnNilStr(model.nick_name);
-    _timeLbl.text =  kMeUnNilStr(model.join_time);
+    _nameLbl.text = kMeUnNilStr(model.nick_name);
+    _timeLbl.text = kMeUnNilStr(model.join_time);
+    _timeLbl.textColor = [UIColor colorWithHexString:@"#999999"];
+}
+
+- (void)setLoveListUIWithModel:(MELoveListModel *)model {
+    kSDLoadImg(_headerPic,kMeUnNilStr(model.header_pic));
+    _nameLbl.text = kMeUnNilStr(model.name);
+    _timeLbl.text = [NSString stringWithFormat:@"%@小时",kMeUnNilStr(model.duration)];
+    _timeLbl.textColor = kMEPink;
 }
 
 @end

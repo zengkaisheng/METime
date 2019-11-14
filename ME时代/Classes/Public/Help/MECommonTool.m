@@ -87,7 +87,7 @@
 }
 
 //校验身份证号码是否正确
-+ (BOOL)CkechIdentityStringValid:(NSString *)identityString {
++ (BOOL)checkIdentityStringValid:(NSString *)identityString {
     
     //首先第一步判断传入身份证号码长度是否为18位，如果不是直接返回NO
     if (identityString.length != 18) return NO;

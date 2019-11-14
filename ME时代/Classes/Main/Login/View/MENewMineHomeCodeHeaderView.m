@@ -13,6 +13,7 @@
 #import "MEMineSetVC.h"
 #import "MERefundOrderListVC.h"
 #import "MEMineHomeMuneModel.h"
+#import "MEMyInfoVC.h"
 
 @interface MENewMineHomeCodeHeaderView ()
 
@@ -42,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *finishBtn;
 @property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *refundBtn;
 @property (weak, nonatomic) IBOutlet UILabel *durationLbl;
+@property (weak, nonatomic) IBOutlet UIButton *changeInfoBtn;
 
 
 @end
@@ -115,32 +117,37 @@
     self.invationLbl.attributedText = string;
     
     kSDLoadImg(_imgPic, kMeUnNilStr(kCurrentUser.header_pic));
-    _LblTel.text = [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
     _durationLbl.text = [NSString stringWithFormat:@"信用时数: %@",kMeUnNilStr(kCurrentUser.duration)];
     _durationLbl.hidden = kCurrentUser.is_volunteer==1?NO:YES;
+    _changeInfoBtn.hidden = kCurrentUser.is_volunteer==1?NO:YES;
+    if (kCurrentUser.is_volunteer == 1) {
+        _lblLeve.text = kMeUnNilStr(kCurrentUser.signature);
+    }else {
+        _lblLeve.text = [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
+    }
     switch (kCurrentUser.client_type ) {
         case MEClientTypeClerkStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"我的等级:店员"];
+            _LblTel.text = [NSString stringWithFormat:@"我的等级:店员"];
         }
             break;
         case MEClientBTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"我的等级:体验中心"];
+            _LblTel.text = [NSString stringWithFormat:@"我的等级:体验中心"];
         }
             break;
         case MEClientCTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"我的等级:会员"];
+            _LblTel.text = [NSString stringWithFormat:@"我的等级:会员"];
         }
             break;
         case MEClientOneTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"我的等级:售后中心"];
+            _LblTel.text = [NSString stringWithFormat:@"我的等级:售后中心"];
         }
             break;
         case MEClientTwoTypeStyle:{
-            _lblLeve.text = [NSString stringWithFormat:@"我的等级:营销中心"];
+            _LblTel.text = [NSString stringWithFormat:@"我的等级:营销中心"];
         }
             break;
         default:
-            _lblLeve.text = @"";
+            _LblTel.text = @"";
             break;
     }
     
@@ -267,6 +274,13 @@
 }
 - (IBAction)changeStatus:(id)sender {
     kMeCallBlock(_changeStatus);
+}
+- (IBAction)changeInfoAction:(id)sender {
+    MENewMineHomeVC *home = (MENewMineHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MENewMineHomeVC class] targetResponderView:self];
+    MEMyInfoVC *infoVC = [[MEMyInfoVC alloc] init];
+    if(home){
+        [home.navigationController pushViewController:infoVC animated:YES];
+    }
 }
 
 @end

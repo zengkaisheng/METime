@@ -13,7 +13,6 @@
 
 @interface MEMyAttentionVC ()<JXCategoryViewDelegate,UIScrollViewDelegate,CLLocationManagerDelegate>{
     NSArray *_arrType;
-    MEOrderStyle _currentType;
 }
 
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
@@ -75,7 +74,7 @@
     self.categoryView.titleSelectedColor = [UIColor colorWithHexString:@"#2ED9A4"];
     self.categoryView.contentScrollView = self.scrollView;
     [self.view addSubview:self.categoryView];
-    self.categoryView.defaultSelectedIndex = _currentType;
+    self.categoryView.defaultSelectedIndex = 0;
 }
 
 #pragma mark -- CLLocationManagerDelegate

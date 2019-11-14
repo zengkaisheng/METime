@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isTextView;  //是否是textView
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, assign) CGFloat orgCellHeight;
+@property (nonatomic, assign) BOOL isShowImage;  //是否是展示头像
 
 @end
 

@@ -168,7 +168,12 @@
                 [MECommonTool showMessage:model.toastStr view:kMeCurrentWindow];
                 return;
             }else {
-                self.applyModel.id_number = model.value;
+                if (![MECommonTool checkIdentityStringValid:kMeUnNilStr(model.value)]) {
+                    [MECommonTool showMessage:@"身份证号码格式不正确" view:kMeCurrentWindow];
+                    return;
+                }else {
+                    self.applyModel.link_name = model.value;
+                }
             }
         }
         if ([model.title isEqualToString:@"手机号"]) {

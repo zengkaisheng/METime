@@ -904,6 +904,12 @@
 + (void)postJoinOrganizationWithOrganizationId:(NSInteger)organizationId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //删除评论
 + (void)postDeleteCommentWithCommentId:(NSString *)commentId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//个人资料
++ (void)postGetMyInfoWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//修改昵称
++ (void)postEditNickNameWithNickName:(NSString *)nickName successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//修改签名
++ (void)postEditSignatureWithSignature:(NSString *)signature successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

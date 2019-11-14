@@ -289,9 +289,17 @@
                         <action selector="changeStatus:" destination="iN0-l3-epB" eventType="touchUpInside" id="tL0-bl-xNA"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txW-Rs-2Uu">
+                    <rect key="frame" x="20" y="44" width="87" height="87"/>
+                    <connections>
+                        <action selector="changeInfoAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="EHF-as-fhp"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="txW-Rs-2Uu" firstAttribute="top" secondItem="1hG-ou-a3L" secondAttribute="top" id="2bH-jM-OUa"/>
+                <constraint firstItem="txW-Rs-2Uu" firstAttribute="leading" secondItem="1hG-ou-a3L" secondAttribute="leading" id="3Ax-b7-8m4"/>
                 <constraint firstItem="1hG-ou-a3L" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="5pm-z5-sjB"/>
                 <constraint firstItem="1hG-ou-a3L" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="44" id="6cQ-dw-gTh"/>
                 <constraint firstAttribute="trailing" secondItem="drv-dw-k8v" secondAttribute="trailing" id="84k-Wp-TGM"/>
@@ -319,8 +327,10 @@
                 <constraint firstItem="PZL-KA-joQ" firstAttribute="bottom" secondItem="7Ib-3z-9cO" secondAttribute="bottom" id="hjK-MC-xl5"/>
                 <constraint firstItem="m7A-EC-Atk" firstAttribute="top" secondItem="07M-vF-6qS" secondAttribute="bottom" constant="7.5" id="hpa-VZ-ZDV"/>
                 <constraint firstItem="07M-vF-6qS" firstAttribute="top" secondItem="drv-dw-k8v" secondAttribute="bottom" constant="12" id="knx-Zw-xvK"/>
+                <constraint firstItem="txW-Rs-2Uu" firstAttribute="trailing" secondItem="1hG-ou-a3L" secondAttribute="trailing" id="lhQ-f3-Aaf"/>
                 <constraint firstAttribute="trailing" secondItem="FEf-R2-Bw7" secondAttribute="trailing" constant="15" id="ls9-Id-JCE"/>
                 <constraint firstItem="PZL-KA-joQ" firstAttribute="top" secondItem="7Ib-3z-9cO" secondAttribute="top" id="twx-M1-Lyv"/>
+                <constraint firstItem="txW-Rs-2Uu" firstAttribute="bottom" secondItem="1hG-ou-a3L" secondAttribute="bottom" id="u5a-d4-0dD"/>
                 <constraint firstAttribute="trailing" secondItem="07M-vF-6qS" secondAttribute="trailing" constant="15" id="wGZ-Ky-Kel"/>
                 <constraint firstItem="PZL-KA-joQ" firstAttribute="trailing" secondItem="7Ib-3z-9cO" secondAttribute="trailing" id="xh3-aZ-nua"/>
                 <constraint firstItem="fXN-ef-9Wj" firstAttribute="top" secondItem="1hG-ou-a3L" secondAttribute="top" constant="15" id="yR4-04-FiB"/>
@@ -328,13 +338,14 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="DurationLbl" destination="PZL-KA-joQ" id="rYE-1N-MlN"/>
                 <outlet property="bottomView" destination="0tv-3k-RPN" id="MYZ-SB-4a9"/>
                 <outlet property="businessView" destination="FEf-R2-Bw7" id="8C7-zB-xRe"/>
+                <outlet property="changeInfoBtn" destination="txW-Rs-2Uu" id="uRO-5o-rHx"/>
                 <outlet property="changeStatusBtn" destination="6Xo-sz-eGN" id="BlH-cC-TYr"/>
                 <outlet property="changeStatusBtnConsWidth" destination="HQT-3a-OPW" id="Vuk-hp-n0d"/>
                 <outlet property="consSetTopMargin" destination="SSI-Rz-eam" id="Cg1-HY-vLf"/>
                 <outlet property="deliveryBtn" destination="YHW-Ax-JMJ" id="a7a-9q-i2W"/>
+                <outlet property="durationLbl" destination="PZL-KA-joQ" id="u9o-K4-xrt"/>
                 <outlet property="finishBtn" destination="hvu-g0-btn" id="Lue-69-5UJ"/>
                 <outlet property="imgPic" destination="EiY-Z9-hT3" id="gMI-2r-Tlk"/>
                 <outlet property="lblLeve" destination="m7A-EC-Atk" id="4vF-kP-sQy"/>

@@ -1195,6 +1195,15 @@
 #define MEIPcommonUserMyComment @"common/user/myComment"
 //删除评论
 #define MEIPcommonRecruitCommentDel @"common/recruit/commentDel"
+
+//爱心榜
+#define MEIPcommonSigninListOfLove @"common/signin/listOfLove"
+//个人资料
+#define MEIPcommonUserVolunteerInfo @"common/user/volunteerInfo"
+//修改昵称
+#define MEIPcommonUserEditNickName @"common/user/editNickName"
+//修改签名
+#define MEIPcommonUserEditSignature @"common/user/editSignature"
 /*********************************************/
 
 

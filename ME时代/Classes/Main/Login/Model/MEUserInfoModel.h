@@ -73,6 +73,7 @@ static NSString *kTokenKey = @"kTokenKey";
 @property (nonatomic, copy) NSString *mobile;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *duration; //信用时数
+@property (nonatomic, copy) NSString *signature; //签名
 
 @property (nonatomic, copy) NSString *rongcloud_token;
 

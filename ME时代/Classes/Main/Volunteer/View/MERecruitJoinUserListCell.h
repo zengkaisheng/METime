@@ -10,10 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @class MERecruitJoinUserModel;
+@class MELoveListModel;
 
 @interface MERecruitJoinUserListCell : UITableViewCell
 
 - (void)setUIWithModel:(MERecruitJoinUserModel *)model;
+
+- (void)setLoveListUIWithModel:(MELoveListModel *)model;
 
 @end
 
