@@ -68,6 +68,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="arrowImageV" destination="pDK-HD-gXC" id="3ef-gf-pLn"/>
                 <outlet property="bgView" destination="2U2-HC-7Oe" id="Rc0-dd-nEE"/>
                 <outlet property="tableView" destination="BKu-ih-FVg" id="a6W-bn-fO3"/>
                 <outlet property="titleLbl" destination="54D-o4-nFk" id="vd8-Fd-3Zp"/>

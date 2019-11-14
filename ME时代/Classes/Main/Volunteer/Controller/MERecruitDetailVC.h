@@ -12,7 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MERecruitDetailVC : MEBaseVC
 
+- (instancetype)initWithRecruitId:(NSInteger)recruitId;
+
 - (instancetype)initWithRecruitId:(NSInteger)recruitId latitude:(NSString *)latitude longitude:(NSString *)longitude;
+
 
 @end
 

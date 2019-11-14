@@ -58,6 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger is_praise;
 @property (nonatomic, strong) NSString * nick_name;
 
+//我的评论相关
+@property (nonatomic, strong) NSString * activity;
+@property (nonatomic, assign) NSInteger c_type; //1招募活动 2g公益秀
+@property (nonatomic, assign) NSInteger comment_id;
+
 @end
 
 

@@ -21,6 +21,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *answerBtn;
 @property (nonatomic, strong) NSArray *dataSource;
 
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UILabel *activityTitleLbl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewConsHeight;
+
 @end
 
 @implementation MEVolunteerCommentCell
@@ -37,6 +41,9 @@
     _tableView.dataSource = self;
     _tableView.scrollsToTop = NO;
     _tableView.scrollEnabled = NO;
+    
+    _bottomViewConsHeight.constant = 0.0;
+    _bottomView.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -46,6 +53,8 @@
 }
 
 - (void)setUIWithModel:(MERecruitCommentModel *)model {
+    _bottomViewConsHeight.constant = 0.0;
+    _bottomView.hidden = YES;
     _headerPicConsLeading.constant = 12.0;
     kSDLoadImg(_headerPic, kMeUnNilStr(model.header_pic));
     _nameLbl.text = [NSString stringWithFormat:@"%@",kMeUnNilStr(model.name)];
@@ -56,6 +65,8 @@
 }
 
 - (void)setListUIWithModel:(MERecruitCommentModel *)model {
+    _bottomViewConsHeight.constant = 0.0;
+    _bottomView.hidden = YES;
     _headerPicConsLeading.constant = 34.0;
     kSDLoadImg(_headerPic, kMeUnNilStr(model.header_pic));
     _nameLbl.text = [NSString stringWithFormat:@"%@",kMeUnNilStr(model.name)];
@@ -73,6 +84,10 @@
     self.dataSource = model.comment_back;
     [_answerBtn setTitle:@"删除" forState:UIControlStateNormal];
     [self.tableView reloadData];
+    
+    _bottomViewConsHeight.constant = 36.5;
+    self.bottomView.hidden = NO;
+    _activityTitleLbl.text = kMeUnNilStr(model.activity);
 }
 
 #pragma mark -- UITableviewDelegate
@@ -105,5 +120,8 @@
     kMeCallBlock(_answerBlock,btn.titleLabel.text);
 }
 
+- (IBAction)checkDetailAction:(id)sender {
+    kMeCallBlock(_answerBlock,@"详情");
+}
 
 @end

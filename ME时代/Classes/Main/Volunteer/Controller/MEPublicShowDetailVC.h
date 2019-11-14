@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MEPublicShowDetailVC : MEBaseVC
 
 @property (nonatomic, copy) kMeIndexBlock praiseBlock;
+
 - (instancetype)initWithShowId:(NSInteger)showId;
 
 @end

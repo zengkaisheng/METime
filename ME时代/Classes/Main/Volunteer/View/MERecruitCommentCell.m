@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataSource;
 @property (weak, nonatomic) IBOutlet UILabel *titleLbl;
+@property (weak, nonatomic) IBOutlet UIImageView *arrowImageV;
 
 @end
 
@@ -57,6 +58,13 @@
 - (void)setShowUIWithArray:(NSArray *)array {
     self.dataSource = array;
     _titleLbl.text = @"评论";
+    if (array.count <= 0) {
+        _titleLbl.hidden = YES;
+        _arrowImageV.hidden = YES;
+    }else {
+        _titleLbl.hidden = NO;
+        _arrowImageV.hidden = NO;
+    }
     [self.tableView reloadData];
 }
 

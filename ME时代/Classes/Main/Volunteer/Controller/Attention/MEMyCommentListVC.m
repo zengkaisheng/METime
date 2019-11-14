@@ -10,6 +10,9 @@
 #import "MERecruitDetailModel.h"
 #import "MEVolunteerCommentCell.h"
 
+#import "MERecruitDetailVC.h"
+#import "MEPublicShowDetailVC.h"
+
 @interface MEMyCommentListVC ()<UITableViewDelegate,UITableViewDataSource,RefreshToolDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -41,11 +44,6 @@
     [self.refresh.arrData addObjectsFromArray:[MERecruitCommentModel mj_objectArrayWithKeyValuesArray:data]];
 }
 
-//删除留言回复
-- (void)deleteCommentWithCommentId:(NSString *)commentId{
-    
-}
-
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.refresh.arrData.count;
@@ -60,16 +58,31 @@
     cell.answerBlock = ^(NSString *str) {
         kMeSTRONGSELF
         if ([str isEqualToString:@"删除"]) {
-            [MEPublicNetWorkTool postDeleteCommentWithCommentId:[NSString stringWithFormat:@"%@",@(model.idField)] successBlock:^(ZLRequestResponse *responseObject) {
-                if ([responseObject.status_code integerValue] == 200) {
-                    [MECommonTool showMessage:@"删除成功" view:kMeCurrentWindow];
-                    [strongSelf.refresh.arrData removeObjectAtIndex:indexPath.row];
-                    NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
-                    [strongSelf.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
-                }
-            } failure:^(id object) {
-                
+            MEAlertView *aler = [[MEAlertView alloc] initWithTitle:@"" message:@"确定删除该评论?"];
+            kMeWEAKSELF
+            [aler addButtonWithTitle:@"删除" block:^{
+                kMeSTRONGSELF
+                [MEPublicNetWorkTool postDeleteCommentWithCommentId:[NSString stringWithFormat:@"%@",@(model.idField)] successBlock:^(ZLRequestResponse *responseObject) {
+                    if ([responseObject.status_code integerValue] == 200) {
+                        [MECommonTool showMessage:@"删除成功" view:kMeCurrentWindow];
+                        [strongSelf.refresh.arrData removeObjectAtIndex:indexPath.row];
+                        NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+                        [strongSelf.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+                    }
+                } failure:^(id object) {
+                    
+                }];
             }];
+            [aler addButtonWithTitle:@"取消"];
+            [aler show];
+        }else if ([str isEqualToString:@"详情"]) {
+            if (model.type == 1) {
+                MERecruitDetailVC *vc = [[MERecruitDetailVC alloc] initWithRecruitId:model.activity_id];
+                [strongSelf.navigationController pushViewController:vc animated:YES];
+            }else if (model.type == 2) {
+                MEPublicShowDetailVC *vc = [[MEPublicShowDetailVC alloc] initWithShowId:model.activity_id];
+                [strongSelf.navigationController pushViewController:vc animated:YES];
+            }
         }
     };
     [cell setSelfCommentUIWithModel:model];
@@ -78,7 +91,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MERecruitCommentModel *model = self.refresh.arrData[indexPath.row];
-    return model.contentHeight;
+    return model.contentHeight+35;
 }
 
 #pragma setter&&getter

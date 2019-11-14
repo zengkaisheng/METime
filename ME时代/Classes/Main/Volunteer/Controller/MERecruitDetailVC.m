@@ -17,8 +17,9 @@
 #import "IQKeyboardManager.h"
 #import "MECommentInputView.h"
 #import "MEVolunteerCommentsView.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface MERecruitDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface MERecruitDetailVC ()<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate>
 
 @property (nonatomic, assign) NSInteger recruitId;
 @property (nonatomic, strong) NSString * latitude;       //纬度
@@ -31,9 +32,19 @@
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) MECommentInputView *inputView;
 
+@property (nonatomic, strong) CLLocationManager *locationManager;  //定位管理器
+
 @end
 
 @implementation MERecruitDetailVC
+
+- (instancetype)initWithRecruitId:(NSInteger)recruitId {
+    if (self = [super init]) {
+        self.recruitId = recruitId;
+        
+    }
+    return self;
+}
 
 - (instancetype)initWithRecruitId:(NSInteger)recruitId latitude:(NSString *)latitude longitude:(NSString *)longitude {
     if (self = [super init]) {
@@ -51,7 +62,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.index = -1;
     [self.view addSubview:self.tableView];
-    [self requestRecruitDetailWithNetWork];
+    if (kMeUnNilStr(self.latitude).length <= 0 ||kMeUnNilStr(self.longitude).length <= 0) {
+        [self getCurrentLocation];
+    }else {
+        [self requestRecruitDetailWithNetWork];
+    }
     [self.view addSubview:self.commentBtn];
     [self.view addSubview:self.attentionBtn];
     [self.view addSubview:self.signUpBtn];
@@ -70,6 +85,52 @@
             [strongSelf commentBackRecruitActivityWithContent:str commentId:[NSString stringWithFormat:@"%@",@(model.idField)]];
         }
     };
+}
+
+- (void)getCurrentLocation {
+    //判断定位功能是否打开
+    if ([CLLocationManager locationServicesEnabled]) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        [self.locationManager requestAlwaysAuthorization];
+        [self.locationManager requestWhenInUseAuthorization];
+        
+        [self.locationManager startUpdatingLocation];
+        [MECommonTool showMessage:@"获取定位中..." view:kMeCurrentWindow];
+    }
+}
+
+#pragma mark -- CLLocationManagerDelegate
+/*定位失败则执行此代理方法*/
+/*定位失败弹出提示窗，点击打开定位按钮 按钮，会打开系统设置，提示打开定位服务*/
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    /*设置提示提示用户打开定位服务*/
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"允许\"定位\"提示" message:@"请在设置中打开定位" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * ok =[UIAlertAction actionWithTitle:@"打开定位" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        /*打开定位设置*/
+        NSURL * settingsURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        [[UIApplication sharedApplication]openURL:settingsURL];
+    }];
+    UIAlertAction * cacel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:ok];
+    [alert addAction:cacel];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+/*定位成功后则执行此代理方法*/
+#pragma mark 定位成功
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    /*旧值*/
+    CLLocation * currentLocation = [locations lastObject];
+    CLGeocoder * geoCoder = [[CLGeocoder alloc]init];
+    /*打印当前经纬度*/
+    NSLog(@"%f%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
+    self.latitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.latitude];
+    self.longitude = [NSString stringWithFormat:@"%f",currentLocation.coordinate.longitude];
+    
+    [self requestRecruitDetailWithNetWork];
+    [_locationManager stopUpdatingLocation];
 }
 
 #pragma mark -- Networking

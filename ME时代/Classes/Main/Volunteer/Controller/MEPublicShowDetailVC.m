@@ -182,8 +182,12 @@
         return [MEPublicShowContentCell getCellHeightithModel:self.model];
     }
     CGFloat height = 44+8+22;
-    for (MERecruitCommentModel *model in self.model.comment) {
-        height += model.contentHeight;
+    if (self.model.comment.count <= 0) {
+        height = 0;
+    }else {
+        for (MERecruitCommentModel *model in self.model.comment) {
+            height += model.contentHeight;
+        }
     }
     return height;
 }

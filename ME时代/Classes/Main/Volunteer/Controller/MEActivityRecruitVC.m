@@ -383,7 +383,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MERecruitListModel *model = self.refresh.arrData[indexPath.row];
-    MERecruitDetailVC *vc = [[MERecruitDetailVC alloc] initWithRecruitId:model.idField latitude:kMeUnNilStr(model.latitude) longitude:kMeUnNilStr(model.longitude)];
+    MERecruitDetailVC *vc = [[MERecruitDetailVC alloc] initWithRecruitId:model.idField latitude:kMeUnNilStr(self.requestModel.latitude) longitude:kMeUnNilStr(self.requestModel.longitude)];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

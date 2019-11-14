@@ -86,7 +86,7 @@
     [self getUnMeaasge];
     
     [[UITabBarItem appearance] setTitleTextAttributes:@{
-                                                        NSForegroundColorAttributeName :kMEPink
+                                                        NSForegroundColorAttributeName :[UIColor colorWithHexString:@"#ff88a4"]
                                                         } forState:UIControlStateSelected];
     [[UITabBarItem appearance] setTitleTextAttributes:@{
                                                         NSForegroundColorAttributeName :kMEblack

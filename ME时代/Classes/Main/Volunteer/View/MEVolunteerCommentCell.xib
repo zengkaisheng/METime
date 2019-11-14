@@ -68,6 +68,42 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tableView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xb9-kl-fe5">
+                        <rect key="frame" x="36" y="66" width="305" height="36.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Cz-Kl-wMi">
+                                <rect key="frame" x="11" y="10.5" width="28.5" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="Wpy-we-pFu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7pk-CU-Kmd">
+                                <rect key="frame" x="0.0" y="0.0" width="305" height="36.5"/>
+                                <connections>
+                                    <action selector="checkDetailAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ds2-LY-cWf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="0Cz-Kl-wMi" firstAttribute="leading" secondItem="xb9-kl-fe5" secondAttribute="leading" constant="11" id="1fe-Cv-rE1"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0Cz-Kl-wMi" secondAttribute="trailing" constant="10" id="8SO-5N-KfW"/>
+                            <constraint firstItem="7pk-CU-Kmd" firstAttribute="height" secondItem="xb9-kl-fe5" secondAttribute="height" id="8pp-zB-8hc"/>
+                            <constraint firstItem="0Cz-Kl-wMi" firstAttribute="centerY" secondItem="xb9-kl-fe5" secondAttribute="centerY" id="KB1-Go-JpJ"/>
+                            <constraint firstAttribute="height" constant="36.5" id="jBF-nr-wer"/>
+                            <constraint firstItem="7pk-CU-Kmd" firstAttribute="centerX" secondItem="xb9-kl-fe5" secondAttribute="centerX" id="pqd-w2-S2s"/>
+                            <constraint firstItem="7pk-CU-Kmd" firstAttribute="width" secondItem="xb9-kl-fe5" secondAttribute="width" id="quD-1R-XuY"/>
+                            <constraint firstItem="7pk-CU-Kmd" firstAttribute="centerY" secondItem="xb9-kl-fe5" secondAttribute="centerY" id="uB7-a5-rCS"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="11"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="9Ir-lb-8c6" secondAttribute="trailing" constant="34" id="3PP-oQ-UDx"/>
@@ -79,7 +115,10 @@
                     <constraint firstItem="FIp-t3-v94" firstAttribute="top" secondItem="KFF-QR-dJY" secondAttribute="bottom" constant="8" id="Ebd-mz-U2S"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FIp-t3-v94" secondAttribute="trailing" constant="8" id="Ee3-9a-KbA"/>
                     <constraint firstItem="KFF-QR-dJY" firstAttribute="centerY" secondItem="JI7-LX-qrc" secondAttribute="centerY" id="KTU-UM-sOg"/>
+                    <constraint firstItem="xb9-kl-fe5" firstAttribute="leading" secondItem="FIp-t3-v94" secondAttribute="leading" id="Kgo-bz-nUQ"/>
+                    <constraint firstAttribute="trailing" secondItem="xb9-kl-fe5" secondAttribute="trailing" constant="34" id="QPY-Vu-R5s"/>
                     <constraint firstItem="n0l-0V-oVF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KFF-QR-dJY" secondAttribute="trailing" constant="2" id="TTh-9G-4vX"/>
+                    <constraint firstItem="xb9-kl-fe5" firstAttribute="top" secondItem="FIp-t3-v94" secondAttribute="bottom" constant="11" id="XSE-aE-X0F"/>
                     <constraint firstItem="9Ir-lb-8c6" firstAttribute="top" secondItem="FIp-t3-v94" secondAttribute="bottom" constant="11" id="ddz-yd-6pE"/>
                     <constraint firstItem="FIp-t3-v94" firstAttribute="leading" secondItem="KFF-QR-dJY" secondAttribute="leading" id="f8h-Ey-CZN"/>
                     <constraint firstItem="9Ir-lb-8c6" firstAttribute="leading" secondItem="FIp-t3-v94" secondAttribute="leading" id="pRm-m1-j5s"/>
@@ -87,7 +126,10 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="activityTitleLbl" destination="0Cz-Kl-wMi" id="MRM-px-uNI"/>
                 <outlet property="answerBtn" destination="n0l-0V-oVF" id="s8t-Zi-gLc"/>
+                <outlet property="bottomView" destination="xb9-kl-fe5" id="5H8-74-BTF"/>
+                <outlet property="bottomViewConsHeight" destination="jBF-nr-wer" id="gh0-oO-KXj"/>
                 <outlet property="contentLbl" destination="FIp-t3-v94" id="IiE-gm-35Q"/>
                 <outlet property="headerPic" destination="JI7-LX-qrc" id="JZ7-SS-fdG"/>
                 <outlet property="headerPicConsLeading" destination="5q3-wc-y1D" id="QSQ-NF-Wjm"/>
