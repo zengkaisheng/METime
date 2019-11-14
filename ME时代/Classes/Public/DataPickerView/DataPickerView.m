@@ -42,7 +42,6 @@
 - (void)setupUI {
     self.bgView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, self.pickerHeight ? self.pickerHeight : 208)];
     self.bgView.backgroundColor = [UIColor whiteColor];
-    //                                   colorWithHex:@"#f2f4fa"];
     [self addSubview:self.bgView];
     //标题
     self.titleLabel = [[UILabel alloc] init];

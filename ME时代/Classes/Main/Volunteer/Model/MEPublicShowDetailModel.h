@@ -7,25 +7,9 @@
 //
 
 #import "MEBaseModel.h"
+#import "MERecruitDetailModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-@interface MEPublicShowCommentModel : MEBaseModel
-
-@property (nonatomic, assign) NSInteger activity_id;
-@property (nonatomic, strong) NSString * content;
-@property (nonatomic, strong) NSString * created_at;
-@property (nonatomic, strong) NSString * header_pic;
-@property (nonatomic, assign) NSInteger idField;
-@property (nonatomic, assign) NSInteger is_del;
-@property (nonatomic, assign) NSInteger is_own;
-@property (nonatomic, assign) NSInteger is_praise;
-@property (nonatomic, assign) NSInteger member_id;
-@property (nonatomic, strong) NSString * nick_name;
-@property (nonatomic, assign) NSInteger praise_num;
-@property (nonatomic, strong) NSString * updated_at;
-
-@end
 
 
 @interface MEPublicShowDetailModel : MEBaseModel

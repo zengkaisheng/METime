@@ -36,13 +36,13 @@ MEModelIdToIdField
 MEModelObjectClassInArrayWithDic((@{@"comment_back" : [MERecruitCommentBackModel class]}))
 - (CGFloat)contentHeight {
     if (!_contentHeight) {
-        _contentHeight = 14+19+8+11+6;
+        _contentHeight = 14+19+8+11;
         if (kMeUnNilStr(self.content).length > 0) {
             _contentHeight += [kMeUnNilStr(self.content) boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-73, MAXFLOAT) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11]} context:nil].size.height;
         }
         if (kMeUnArr(self.comment_back).count > 0) {
             for (MERecruitCommentBackModel *model in self.comment_back) {
-                _contentHeight += 10+model.contentHeight+10;
+                _contentHeight += 15+model.contentHeight;
             }
         }
     }

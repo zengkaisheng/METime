@@ -54,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, strong) NSString * updated_at;
 @property (nonatomic, assign) CGFloat contentHeight;
+//公益秀相关
+@property (nonatomic, assign) NSInteger is_praise;
+@property (nonatomic, strong) NSString * nick_name;
 
 @end
 

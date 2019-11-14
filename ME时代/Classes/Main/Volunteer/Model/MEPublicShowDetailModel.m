@@ -8,17 +8,9 @@
 
 #import "MEPublicShowDetailModel.h"
 
-@implementation MEPublicShowCommentModel
-
-MEModelIdToIdField
-
-@end
-
-
-
 @implementation MEPublicShowDetailModel
 
 MEModelIdToIdField
-MEModelObjectClassInArrayWithDic((@{@"comment" : [MEPublicShowCommentModel class]}))
+MEModelObjectClassInArrayWithDic((@{@"comment" : [MERecruitCommentModel class]}))
 
 @end

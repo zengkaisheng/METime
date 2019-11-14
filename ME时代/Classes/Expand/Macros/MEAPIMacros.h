@@ -1121,6 +1121,10 @@
 #define MEIPcommonUsefulactivityGetClassify @"common/usefulactivity/getClassify"
 //公益秀列表
 #define MEIPcommonUsefulactivityGetList @"common/usefulactivity/getList"
+//公益秀评论
+#define MEIPcommonUsefulactivityComment @"common/usefulactivity/comment"
+//公益秀 评论列表
+#define MEIPcommonUsefulactivityCommentList @"common/usefulactivity/commentList"
 //点赞/取消点赞
 #define MEIPcommonUsefulactivityPraise @"common/usefulactivity/praise"
 //公益秀详情
@@ -1137,6 +1141,12 @@
 #define MEIPcommonRecruitJoinUsersList @"common/recruit/joinUsersList"
 //招募活动-报名/取消报名
 #define MEIPcommonRecruitJoin @"common/recruit/join"
+//招募活动留言咨询 列表
+#define MEIPcommonRecruitActivityComment @"common/recruit/activityComment"
+//招募活动留言咨询
+#define MEIPcommonRecruitComment @"common/recruit/comment"
+//招募活动留言咨询 回复
+#define MEIPcommonRecruitCommentBack @"common/recruit/commentBack"
 //验证活动编码
 #define MEIPcommonSigninCheckSignInCode @"common/signin/checkSignInCode"
 //签到
@@ -1180,6 +1190,11 @@
 #define MEIPcommonVolunteerOrganizationAttention @"common/volunteerOrganization/attention"
 //加入组织
 #define MEIPcommonVolunteerOrganizationJoinOrg @"common/volunteerOrganization/joinOrg"
+
+//我的评论
+#define MEIPcommonUserMyComment @"common/user/myComment"
+//删除评论
+#define MEIPcommonRecruitCommentDel @"common/recruit/commentDel"
 /*********************************************/
 
 

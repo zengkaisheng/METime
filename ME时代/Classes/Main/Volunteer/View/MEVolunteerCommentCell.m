@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headerPic;
 @property (weak, nonatomic) IBOutlet UILabel *nameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *contentLbl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerPicConsLeading;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *answerBtn;
@@ -30,8 +31,8 @@
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MECommentContentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MECommentContentCell class])];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.tableFooterView = [UIView new];
-    _tableView.backgroundColor = [UIColor colorWithHexString:@"#F2F2F2"];
-    _tableView.layer.cornerRadius = 8;
+//    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.layer.cornerRadius = 11;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.scrollsToTop = NO;
@@ -45,10 +46,32 @@
 }
 
 - (void)setUIWithModel:(MERecruitCommentModel *)model {
+    _headerPicConsLeading.constant = 12.0;
     kSDLoadImg(_headerPic, kMeUnNilStr(model.header_pic));
     _nameLbl.text = [NSString stringWithFormat:@"%@",kMeUnNilStr(model.name)];
     _contentLbl.text = kMeUnNilStr(model.content);
     self.dataSource = model.comment_back;
+    [_answerBtn setTitle:@"回复" forState:UIControlStateNormal];
+    [self.tableView reloadData];
+}
+
+- (void)setListUIWithModel:(MERecruitCommentModel *)model {
+    _headerPicConsLeading.constant = 34.0;
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.header_pic));
+    _nameLbl.text = [NSString stringWithFormat:@"%@",kMeUnNilStr(model.name)];
+    _contentLbl.text = kMeUnNilStr(model.content);
+    self.dataSource = model.comment_back;
+    [_answerBtn setTitle:@"回复" forState:UIControlStateNormal];
+    [self.tableView reloadData];
+}
+
+- (void)setSelfCommentUIWithModel:(MERecruitCommentModel *)model {
+    _headerPicConsLeading.constant = 15.0;
+    kSDLoadImg(_headerPic, kMeUnNilStr(model.header_pic));
+    _nameLbl.text = [NSString stringWithFormat:@"%@",kMeUnNilStr(model.name)];
+    _contentLbl.text = kMeUnNilStr(model.content);
+    self.dataSource = model.comment_back;
+    [_answerBtn setTitle:@"删除" forState:UIControlStateNormal];
     [self.tableView reloadData];
 }
 
@@ -66,7 +89,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MERecruitCommentBackModel *model = self.dataSource[indexPath.row];
-    return model.contentHeight+20;
+    return model.contentHeight+15;
 }
 
 - (NSArray *)dataSource {
@@ -78,7 +101,8 @@
 
 - (IBAction)answerAction:(id)sender {
     UIButton *btn = (UIButton *)sender;
-    NSLog(@"title:%@",btn.titleLabel.text);
+//    NSLog(@"title:%@",btn.titleLabel.text);
+    kMeCallBlock(_answerBlock,btn.titleLabel.text);
 }
 
 

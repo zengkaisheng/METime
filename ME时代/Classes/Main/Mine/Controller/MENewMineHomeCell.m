@@ -80,6 +80,7 @@
 #import "MECreateOrganizationVC.h"
 #import "MEJoinedOrganizationVC.h"
 #import "MECreatedOrganizationVC.h"
+#import "MEMyCommentListVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -654,7 +655,8 @@
         }
             break;
         case MeMyMenuMyComment:{//我的评论
-
+            MEMyCommentListVC *vc = [[MEMyCommentListVC alloc] init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
         case MeMyMenuMySignUpActivity:{//已报名的活动

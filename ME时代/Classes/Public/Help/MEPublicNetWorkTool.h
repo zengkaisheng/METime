@@ -863,6 +863,8 @@
 + (void)postPraiseShowWithShowId:(NSInteger)showId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //公益秀详情
 + (void)postGetPublicShowDetailWithShowId:(NSInteger)showId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//公益秀评论
++ (void)postCommentPublicShowWithShowId:(NSString *)showId content:(NSString *)content successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //获取服务类型
 + (void)postGetRecruitServiceTypeWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //招募活动详情
@@ -871,6 +873,10 @@
 + (void)postPraiseRecruitWithRecruitId:(NSInteger)recruitId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //招募活动-报名/取消报名
 + (void)postJoinRecruitWithRecruitId:(NSInteger)recruitId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//招募活动留言咨询
++ (void)postCommentRecruitActivityWithActivityId:(NSString *)activityId content:(NSString *)content successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//招募活动留言咨询 回复
++ (void)postCommentBackRecruitActivityWithCommentId:(NSString *)commentId content:(NSString *)content successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //验证活动编码
 + (void)postCheckSignInCodeWithCode:(NSString *)code successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //签到
@@ -896,6 +902,8 @@
 + (void)postAttentionOrganizationWithOrganizationId:(NSInteger)organizationId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //加入/退出机构
 + (void)postJoinOrganizationWithOrganizationId:(NSInteger)organizationId status:(NSInteger)status successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//删除评论
++ (void)postDeleteCommentWithCommentId:(NSString *)commentId successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

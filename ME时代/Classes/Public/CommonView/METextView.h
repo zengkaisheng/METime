@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype )placeholderTextView;
 @property (nonatomic, copy) kMeTextBlock contenBlock;
+@property (nonatomic, copy) kMeBasicBlock cancelBlock; //取消l输入状态
+@property (nonatomic, copy) kMeTextBlock doneBlock;    //完成输入后
 
 @end
 

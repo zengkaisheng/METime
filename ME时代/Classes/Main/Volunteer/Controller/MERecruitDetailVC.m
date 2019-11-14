@@ -14,6 +14,10 @@
 #import "MERecruitCommentCell.h"
 #import "MEJoinusersListVC.h"
 
+#import "IQKeyboardManager.h"
+#import "MECommentInputView.h"
+#import "MEVolunteerCommentsView.h"
+
 @interface MERecruitDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, assign) NSInteger recruitId;
@@ -21,8 +25,11 @@
 @property (nonatomic, strong) NSString * longitude;      //经度
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) MERecruitDetailModel *model;
+@property (nonatomic, strong) UIButton *commentBtn;
 @property (nonatomic, strong) UIButton *attentionBtn;
 @property (nonatomic, strong) UIButton *signUpBtn;
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, strong) MECommentInputView *inputView;
 
 @end
 
@@ -42,10 +49,27 @@
     // Do any additional setup after loading the view.
     self.title = @"活动招募详情";
     self.view.backgroundColor = [UIColor whiteColor];
+    self.index = -1;
     [self.view addSubview:self.tableView];
     [self requestRecruitDetailWithNetWork];
+    [self.view addSubview:self.commentBtn];
     [self.view addSubview:self.attentionBtn];
     [self.view addSubview:self.signUpBtn];
+    
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    
+    [self.view addSubview:self.inputView];
+    kMeWEAKSELF
+    self.inputView.contentBlock = ^(NSString *str) {
+        kMeSTRONGSELF
+        if (strongSelf.index == -1) {
+            [strongSelf commentRecruitActivityWithContent:kMeUnNilStr(str)];
+        }else {
+            MERecruitCommentModel *model = strongSelf.model.comment[strongSelf.index];
+            [strongSelf commentBackRecruitActivityWithContent:str commentId:[NSString stringWithFormat:@"%@",@(model.idField)]];
+        }
+    };
 }
 
 #pragma mark -- Networking
@@ -67,7 +91,6 @@
         [strongSelf.navigationController popViewControllerAnimated:YES];
     }];
 }
-
 //点赞/取消点赞
 - (void)praiseRecruitActivity{
     [MEPublicNetWorkTool postPraiseRecruitWithRecruitId:self.model.idField status:self.model.attention_status==1?0:1 successBlock:^(ZLRequestResponse *responseObject) {
@@ -87,7 +110,6 @@
         
     }];
 }
-
 //报名/取消报名
 - (void)joinRecruitActivity{
     [MEPublicNetWorkTool postJoinRecruitWithRecruitId:self.model.idField status:self.model.join_status==1?0:1 successBlock:^(ZLRequestResponse *responseObject) {
@@ -107,8 +129,51 @@
         
     }];
 }
+//留言
+- (void)commentRecruitActivityWithContent:(NSString *)content {
+    [MEPublicNetWorkTool postCommentRecruitActivityWithActivityId:[NSString stringWithFormat:@"%@",@(self.model.idField)] content:content successBlock:^(ZLRequestResponse *responseObject) {
+        kMeWEAKSELF
+        if ([responseObject.status_code integerValue] == 200) {
+            kMeSTRONGSELF
+            [MECommonTool showMessage:@"留言成功" view:kMeCurrentWindow];
+            if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+                MERecruitCommentModel *model = [MERecruitCommentModel mj_objectWithKeyValues:responseObject.data];
+                NSMutableArray *comment = [NSMutableArray arrayWithArray:strongSelf.model.comment];
+                [comment insertObject:model atIndex:0];
+                strongSelf.model.comment = [comment copy];
+                NSIndexPath *path = [NSIndexPath indexPathForRow:3 inSection:0];
+                [strongSelf.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+            }else {
+                [strongSelf requestRecruitDetailWithNetWork];
+            }
+        }
+    } failure:^(id object) {
+        
+    }];
+}
+//活动留言回复
+- (void)commentBackRecruitActivityWithContent:(NSString *)content commentId:(NSString *)commentId{
+    [MEPublicNetWorkTool postCommentBackRecruitActivityWithCommentId:commentId content:content successBlock:^(ZLRequestResponse *responseObject) {
+        kMeWEAKSELF
+        if ([responseObject.status_code integerValue] == 200) {
+            kMeSTRONGSELF
+            [MECommonTool showMessage:@"回复成功" view:kMeCurrentWindow];
+            [strongSelf requestRecruitDetailWithNetWork];
+        }
+    } failure:^(id object) {
+        
+    }];
+}
 
 #pragma mark -- Action
+- (void)commentBtnAction {
+    //评论
+//    self.inputView.frame = CGRectMake(0, SCREEN_HEIGHT-20-34, SCREEN_WIDTH, 34+20);
+    self.inputView.frame = CGRectMake(0, SCREEN_HEIGHT-34-20-200, SCREEN_WIDTH, 34+20);
+    [self.inputView.textView.textView becomeFirstResponder];
+    self.index = -1;
+}
+
 - (void)attentionBtnAction {
     //关注
     [self praiseRecruitActivity];
@@ -121,7 +186,7 @@
 
 #pragma mark - tableView deleagte and sourcedata
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -134,9 +199,19 @@
         [cell setUIWithContent:kMeUnNilStr(self.model.detail)];
         return cell;
     }else if (indexPath.row == 3) {
-//        MERecruitCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MERecruitCommentCell class]) forIndexPath:indexPath];
-//        [cell setUIWithArray:kMeUnArr(self.model.comment)];
-//        return cell;
+        MERecruitCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MERecruitCommentCell class]) forIndexPath:indexPath];
+        [cell setUIWithArray:kMeUnArr(self.model.comment)];
+        kMeWEAKSELF
+        cell.tapBlock = ^(NSString * str, NSInteger index) {
+            kMeSTRONGSELF
+            strongSelf.index = index;
+            if ([str isEqualToString:@"回复"]) {
+//                strongSelf.inputView.frame = CGRectMake(0, SCREEN_HEIGHT-20-34, SCREEN_WIDTH, 34+20);
+                strongSelf.inputView.frame = CGRectMake(0, SCREEN_HEIGHT-34-20-200, SCREEN_WIDTH, 34+20);
+                [strongSelf.inputView.textView.textView becomeFirstResponder];
+            }
+        };
+        return cell;
     }
     MERecruitJoinUsersCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MERecruitJoinUsersCell class]) forIndexPath:indexPath];
     [cell setUIWithModel:self.model];
@@ -149,12 +224,11 @@
     }else if (indexPath.row == 1) {
         [MERecruitDetailCell getCellHeightWithContent:kMeUnNilStr(self.model.detail)];
     }else if (indexPath.row == 3) {
-//        CGFloat height = 44+8+16;
-//        for (MERecruitCommentModel *model in self.model.comment) {
-//            height += model.contentHeight;
-//        }
-//        return height;
-#warning 暂时隐藏
+        CGFloat height = 44+8+22;
+        for (MERecruitCommentModel *model in self.model.comment) {
+            height += model.contentHeight;
+        }
+        return height;
     }
     return 92;
 }
@@ -174,7 +248,13 @@
         MEJoinusersListVC *vc = [[MEJoinusersListVC alloc] initWithRecruitId:self.model.idField];
         [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.row == 3) {
-        
+        MEVolunteerCommentsView *commentView = [[MEVolunteerCommentsView alloc] initWithActivityId:[NSString stringWithFormat:@"%@",@(self.model.idField)]];
+        kMeWEAKSELF
+        commentView.reloadBlock = ^{
+           kMeSTRONGSELF
+            [strongSelf requestRecruitDetailWithNetWork];
+        };
+        [self.view addSubview:commentView];
     }
 }
 
@@ -195,9 +275,25 @@
     return _tableView;
 }
 
+- (UIButton *)commentBtn {
+    if (!_commentBtn) {
+        _commentBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-49, (SCREEN_WIDTH-141)/2, 49)];
+        _commentBtn.backgroundColor = [UIColor whiteColor];
+        [_commentBtn setTitle:@"留言" forState:UIControlStateNormal];
+        [_commentBtn setImage:[UIImage imageNamed:@"icon_recruit_comment_nor"] forState:UIControlStateNormal];
+        [_commentBtn setTitleColor:[UIColor colorWithHexString:@"#666666"] forState:UIControlStateNormal];
+        [_commentBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    
+        _commentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+        _commentBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
+        [_commentBtn addTarget:self action:@selector(commentBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _commentBtn;
+}
+
 - (UIButton *)attentionBtn {
     if (!_attentionBtn) {
-        _attentionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-49, SCREEN_WIDTH/2, 49)];
+        _attentionBtn = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-141)/2, SCREEN_HEIGHT-49, (SCREEN_WIDTH-141)/2, 49)];
         _attentionBtn.backgroundColor = [UIColor whiteColor];
         [_attentionBtn setTitle:@"关注" forState:UIControlStateNormal];
         [_attentionBtn setImage:[UIImage imageNamed:@"icon_recruit_attention_nor"] forState:UIControlStateNormal];
@@ -216,7 +312,7 @@
 
 - (UIButton *)signUpBtn {
     if (!_signUpBtn) {
-        _signUpBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2, SCREEN_HEIGHT-49, SCREEN_WIDTH/2, 49)];
+        _signUpBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-141, SCREEN_HEIGHT-49, 141, 49)];
         _signUpBtn.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
         [_signUpBtn setTitle:@"我要报名" forState:UIControlStateNormal];
         [_signUpBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -227,6 +323,18 @@
         [_signUpBtn addTarget:self action:@selector(signUpBtnAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _signUpBtn;
+}
+
+- (MECommentInputView *)inputView {
+    if (!_inputView) {
+        _inputView = [[MECommentInputView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 34+20)];
+        kMeWEAKSELF
+        _inputView.cancelBlock = ^{
+            kMeSTRONGSELF
+            strongSelf->_inputView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 34+20);
+        };
+    }
+    return _inputView;
 }
 
 @end

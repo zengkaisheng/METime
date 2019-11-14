@@ -60,7 +60,7 @@
                         </connections>
                     </button>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Ir-lb-8c6">
-                        <rect key="frame" x="34" y="66" width="307" height="36.5"/>
+                        <rect key="frame" x="36" y="66" width="305" height="36.5"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -70,19 +70,19 @@
                     </tableView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="9Ir-lb-8c6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="34" id="3KN-qb-nJZ"/>
-                    <constraint firstAttribute="bottom" secondItem="9Ir-lb-8c6" secondAttribute="bottom" id="42e-Yp-uHw"/>
+                    <constraint firstAttribute="trailing" secondItem="9Ir-lb-8c6" secondAttribute="trailing" constant="34" id="3PP-oQ-UDx"/>
                     <constraint firstAttribute="trailing" secondItem="n0l-0V-oVF" secondAttribute="trailing" constant="10" id="46L-cJ-isc"/>
                     <constraint firstItem="n0l-0V-oVF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="4dI-JL-jwT"/>
                     <constraint firstItem="JI7-LX-qrc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="5q3-wc-y1D"/>
+                    <constraint firstAttribute="bottom" secondItem="9Ir-lb-8c6" secondAttribute="bottom" id="AOO-dE-0va"/>
                     <constraint firstItem="JI7-LX-qrc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="DOM-sG-r54"/>
                     <constraint firstItem="FIp-t3-v94" firstAttribute="top" secondItem="KFF-QR-dJY" secondAttribute="bottom" constant="8" id="Ebd-mz-U2S"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FIp-t3-v94" secondAttribute="trailing" constant="8" id="Ee3-9a-KbA"/>
-                    <constraint firstItem="9Ir-lb-8c6" firstAttribute="top" secondItem="FIp-t3-v94" secondAttribute="bottom" constant="11" id="Hgt-JE-T1I"/>
                     <constraint firstItem="KFF-QR-dJY" firstAttribute="centerY" secondItem="JI7-LX-qrc" secondAttribute="centerY" id="KTU-UM-sOg"/>
-                    <constraint firstAttribute="trailing" secondItem="9Ir-lb-8c6" secondAttribute="trailing" constant="34" id="OOr-2U-UEX"/>
                     <constraint firstItem="n0l-0V-oVF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KFF-QR-dJY" secondAttribute="trailing" constant="2" id="TTh-9G-4vX"/>
-                    <constraint firstItem="FIp-t3-v94" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="36" id="bYw-5d-C24"/>
+                    <constraint firstItem="9Ir-lb-8c6" firstAttribute="top" secondItem="FIp-t3-v94" secondAttribute="bottom" constant="11" id="ddz-yd-6pE"/>
+                    <constraint firstItem="FIp-t3-v94" firstAttribute="leading" secondItem="KFF-QR-dJY" secondAttribute="leading" id="f8h-Ey-CZN"/>
+                    <constraint firstItem="9Ir-lb-8c6" firstAttribute="leading" secondItem="FIp-t3-v94" secondAttribute="leading" id="pRm-m1-j5s"/>
                     <constraint firstItem="KFF-QR-dJY" firstAttribute="leading" secondItem="JI7-LX-qrc" secondAttribute="trailing" constant="5" id="zlD-bU-7B4"/>
                 </constraints>
             </tableViewCellContentView>
@@ -90,6 +90,7 @@
                 <outlet property="answerBtn" destination="n0l-0V-oVF" id="s8t-Zi-gLc"/>
                 <outlet property="contentLbl" destination="FIp-t3-v94" id="IiE-gm-35Q"/>
                 <outlet property="headerPic" destination="JI7-LX-qrc" id="JZ7-SS-fdG"/>
+                <outlet property="headerPicConsLeading" destination="5q3-wc-y1D" id="QSQ-NF-Wjm"/>
                 <outlet property="nameLbl" destination="KFF-QR-dJY" id="8C7-7e-nIy"/>
                 <outlet property="tableView" destination="9Ir-lb-8c6" id="bKh-Y6-H3V"/>
             </connections>

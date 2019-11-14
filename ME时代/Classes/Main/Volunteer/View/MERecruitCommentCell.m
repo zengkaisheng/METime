@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataSource;
+@property (weak, nonatomic) IBOutlet UILabel *titleLbl;
 
 @end
 
@@ -34,7 +35,7 @@
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEVolunteerCommentCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEVolunteerCommentCell class])];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.tableFooterView = [UIView new];
-    _tableView.backgroundColor = [UIColor whiteColor];
+//    _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.scrollsToTop = NO;
@@ -49,6 +50,13 @@
 
 - (void)setUIWithArray:(NSArray *)array {
     self.dataSource = array;
+    _titleLbl.text = @"留言咨询";
+    [self.tableView reloadData];
+}
+
+- (void)setShowUIWithArray:(NSArray *)array {
+    self.dataSource = array;
+    _titleLbl.text = @"评论";
     [self.tableView reloadData];
 }
 
@@ -60,6 +68,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEVolunteerCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEVolunteerCommentCell class]) forIndexPath:indexPath];
     MERecruitCommentModel *model = self.dataSource[indexPath.row];
+    kMeWEAKSELF
+    cell.answerBlock = ^(NSString *str) {
+        kMeSTRONGSELF
+//        NSLog(@"str:%@",str);
+        kMeCallBlock(strongSelf->_tapBlock,str,indexPath.row);
+    };
     [cell setUIWithModel:model];
     return cell;
 }

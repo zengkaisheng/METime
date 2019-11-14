@@ -56,6 +56,10 @@
     return YES;
 }
 
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    kMeCallBlock(self.cancelBlock);
+}
+
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if (text.length == 0 && range.location == 0) {
         self.placeholderTextView.hidden = NO;
@@ -67,6 +71,11 @@
         text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
         if (text.length == 0 && range.location == 0) {
             self.placeholderTextView.hidden = NO;
+            if ([textView.text length] > 0) {
+                kMeCallBlock(self.doneBlock,[textView.text trimSpace]);
+            }
+        }else {
+            kMeCallBlock(self.doneBlock,[textView.text trimSpace]);
         }
         [textView resignFirstResponder];
         return NO;
@@ -84,7 +93,7 @@
         self.textView.backgroundColor = [UIColor clearColor];
     }else{
         self.placeholderTextView.hidden = YES;
-        self.textView.backgroundColor =  [UIColor colorWithHexString:@"#F8F8F8"];;;
+        self.textView.backgroundColor =  [UIColor colorWithHexString:@"#F8F8F8"];
     }
     kMeCallBlock(self.contenBlock,[textView.text trimSpace]);
 //    //该判断用于联想输入
@@ -120,6 +129,7 @@
         _placeholderTextView = [[UITextView alloc]init];
         _placeholderTextView.font = kMeFont(17);
         _placeholderTextView.textColor = kME999999;
+        _placeholderTextView.backgroundColor = [UIColor colorWithHexString:@"#F8F8F8"];
     }
     return _placeholderTextView;
 }

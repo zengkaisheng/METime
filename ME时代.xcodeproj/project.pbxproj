@@ -1176,6 +1176,8 @@
 		EB6BCDE32354822500178E6B /* MEStudiedRecommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6BCDE12354822500178E6B /* MEStudiedRecommentCell.xib */; };
 		EB6BEF1B2362FFEE000974AD /* MEPublicShowHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BEF1A2362FFEE000974AD /* MEPublicShowHomeVC.m */; };
 		EB6BEF1E23630004000974AD /* MEPublicShowBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6BEF1D23630004000974AD /* MEPublicShowBaseVC.m */; };
+		EB6C7403237A885C00E93C9B /* MEVolunteerCommentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6C7402237A885C00E93C9B /* MEVolunteerCommentsView.m */; };
+		EB6C7406237AC4FE00E93C9B /* MEMyCommentListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6C7405237AC4FE00E93C9B /* MEMyCommentListVC.m */; };
 		EB6D029C2151D9380053B19E /* NSArray+MEErrorHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D029B2151D9380053B19E /* NSArray+MEErrorHandle.m */; };
 		EB6D029F2151D99A0053B19E /* NSMutableArray+MEErrorHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D029E2151D99A0053B19E /* NSMutableArray+MEErrorHandle.m */; };
 		EB6D02A32151DEDD0053B19E /* MEAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D02A22151DEDD0053B19E /* MEAddressPickerView.m */; };
@@ -1517,6 +1519,7 @@
 		EB9FA00322F3D2C100AA4FB1 /* MECourseDetailListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9FA00122F3D2C100AA4FB1 /* MECourseDetailListCell.xib */; };
 		EB9FA00722F3DB8E00AA4FB1 /* MECourseDetailCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9FA00522F3DB8E00AA4FB1 /* MECourseDetailCommentCell.m */; };
 		EB9FA00822F3DB8E00AA4FB1 /* MECourseDetailCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9FA00622F3DB8E00AA4FB1 /* MECourseDetailCommentCell.xib */; };
+		EBA0D42C23796F8E0021E0D6 /* MECommentInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA0D42B23796F8E0021E0D6 /* MECommentInputView.m */; };
 		EBABD7FC23604FE300A33AB2 /* MERegisteVolunteerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EBABD7FA23604FE300A33AB2 /* MERegisteVolunteerVC.m */; };
 		EBABD7FD23604FE300A33AB2 /* MERegisteVolunteerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBABD7FB23604FE300A33AB2 /* MERegisteVolunteerVC.xib */; };
 		EBABD80023605ED400A33AB2 /* MERegisterVolunteerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EBABD7FF23605ED400A33AB2 /* MERegisterVolunteerModel.m */; };
@@ -3601,6 +3604,10 @@
 		EB6BEF1A2362FFEE000974AD /* MEPublicShowHomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEPublicShowHomeVC.m; sourceTree = "<group>"; };
 		EB6BEF1C23630004000974AD /* MEPublicShowBaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEPublicShowBaseVC.h; sourceTree = "<group>"; };
 		EB6BEF1D23630004000974AD /* MEPublicShowBaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEPublicShowBaseVC.m; sourceTree = "<group>"; };
+		EB6C7401237A885C00E93C9B /* MEVolunteerCommentsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEVolunteerCommentsView.h; sourceTree = "<group>"; };
+		EB6C7402237A885C00E93C9B /* MEVolunteerCommentsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEVolunteerCommentsView.m; sourceTree = "<group>"; };
+		EB6C7404237AC4FE00E93C9B /* MEMyCommentListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEMyCommentListVC.h; sourceTree = "<group>"; };
+		EB6C7405237AC4FE00E93C9B /* MEMyCommentListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEMyCommentListVC.m; sourceTree = "<group>"; };
 		EB6D029A2151D9380053B19E /* NSArray+MEErrorHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+MEErrorHandle.h"; sourceTree = "<group>"; };
 		EB6D029B2151D9380053B19E /* NSArray+MEErrorHandle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MEErrorHandle.m"; sourceTree = "<group>"; };
 		EB6D029D2151D99A0053B19E /* NSMutableArray+MEErrorHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+MEErrorHandle.h"; sourceTree = "<group>"; };
@@ -4190,6 +4197,8 @@
 		EB9FA00422F3DB8E00AA4FB1 /* MECourseDetailCommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECourseDetailCommentCell.h; sourceTree = "<group>"; };
 		EB9FA00522F3DB8E00AA4FB1 /* MECourseDetailCommentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECourseDetailCommentCell.m; sourceTree = "<group>"; };
 		EB9FA00622F3DB8E00AA4FB1 /* MECourseDetailCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MECourseDetailCommentCell.xib; sourceTree = "<group>"; };
+		EBA0D42A23796F8E0021E0D6 /* MECommentInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECommentInputView.h; sourceTree = "<group>"; };
+		EBA0D42B23796F8E0021E0D6 /* MECommentInputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECommentInputView.m; sourceTree = "<group>"; };
 		EBABD7F923604FE300A33AB2 /* MERegisteVolunteerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERegisteVolunteerVC.h; sourceTree = "<group>"; };
 		EBABD7FA23604FE300A33AB2 /* MERegisteVolunteerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERegisteVolunteerVC.m; sourceTree = "<group>"; };
 		EBABD7FB23604FE300A33AB2 /* MERegisteVolunteerVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MERegisteVolunteerVC.xib; sourceTree = "<group>"; };
@@ -4440,14 +4449,14 @@
 			isa = PBXGroup;
 			children = (
 				360830CC219AAE4200C72B22 /* HDAlertView.h */,
+				360830D1219AAE4200C72B22 /* HDAlertView.m */,
+				360830D0219AAE4200C72B22 /* UIView+HDExtension.h */,
 				360830CD219AAE4200C72B22 /* UIView+HDExtension.m */,
+				360830D3219AAE4200C72B22 /* NSString+HDExtension.h */,
 				360830CE219AAE4200C72B22 /* NSString+HDExtension.m */,
 				360830CF219AAE4200C72B22 /* UIImage+HDExtension.h */,
-				360830D0219AAE4200C72B22 /* UIView+HDExtension.h */,
-				360830D1219AAE4200C72B22 /* HDAlertView.m */,
-				360830D2219AAE4200C72B22 /* HDMacro.h */,
-				360830D3219AAE4200C72B22 /* NSString+HDExtension.h */,
 				360830D4219AAE4200C72B22 /* UIImage+HDExtension.m */,
+				360830D2219AAE4200C72B22 /* HDMacro.h */,
 			);
 			path = HDAlertView;
 			sourceTree = "<group>";
@@ -7792,6 +7801,8 @@
 				EB765250231FAD8F00A102FF /* MECustomBuyCourseView.m */,
 				EB7131A0232204B800652204 /* METopUpTipsView.h */,
 				EB7131A1232204B800652204 /* METopUpTipsView.m */,
+				EBA0D42A23796F8E0021E0D6 /* MECommentInputView.h */,
+				EBA0D42B23796F8E0021E0D6 /* MECommentInputView.m */,
 			);
 			path = CustomInputView;
 			sourceTree = "<group>";
@@ -8110,6 +8121,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		EB6C7400237A883D00E93C9B /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				EB6C7401237A885C00E93C9B /* MEVolunteerCommentsView.h */,
+				EB6C7402237A885C00E93C9B /* MEVolunteerCommentsView.m */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
 		EB6D02992151D9060053B19E /* NSArray */ = {
 			isa = PBXGroup;
 			children = (
@@ -8137,6 +8157,8 @@
 				EB6E0A832374FC1B00B4B20E /* MEMyAttentionVC.m */,
 				EB6E0A852374FC5100B4B20E /* MEMyAttentionContentVC.h */,
 				EB6E0A862374FC5100B4B20E /* MEMyAttentionContentVC.m */,
+				EB6C7404237AC4FE00E93C9B /* MEMyCommentListVC.h */,
+				EB6C7405237AC4FE00E93C9B /* MEMyCommentListVC.m */,
 			);
 			path = Attention;
 			sourceTree = "<group>";
@@ -9200,6 +9222,7 @@
 		EBABD7F823604F2D00A33AB2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EB6C7400237A883D00E93C9B /* Comment */,
 				EB6E0A9C237543AF00B4B20E /* Organization */,
 				EB6E0A812374FBF300B4B20E /* Attention */,
 				EB22A6B223714C5900B01072 /* appointment */,
@@ -9951,6 +9974,7 @@
 				EB73454B22B8BC4100FA0D84 /* MEPrizeListVC.m in Sources */,
 				EB4BB507229F726A00924774 /* MEAICustomerCheckDetailVC.m in Sources */,
 				36445B4A21C23B8A00CDBCBA /* MEGetCaseMainSVC.m in Sources */,
+				EB6C7403237A885C00E93C9B /* MEVolunteerCommentsView.m in Sources */,
 				EB623E822154CE39007C949B /* MEDistributionCentreModel.m in Sources */,
 				36E4EBA6213FDA3F00BCB1AA /* MEShowViewTool.m in Sources */,
 				365151C6214136F50044C763 /* MEHomePageHeaderView.m in Sources */,
@@ -10564,6 +10588,7 @@
 				36445B3F21C20C2C00CDBCBA /* MEAddClerksVC.m in Sources */,
 				36F5E816222F68F1000B0241 /* TUnReadView.m in Sources */,
 				36A401C52143F0FE00B0BD4F /* MEShoppingCartCell.m in Sources */,
+				EB6C7406237AC4FE00E93C9B /* MEMyCommentListVC.m in Sources */,
 				EB825E8F231278E9007F7005 /* MECustomerServiceDetailVC.m in Sources */,
 				36F6B2C6224D0D53007FDD7A /* MEAddGoodStoreGoodsTypeVC.m in Sources */,
 				3686090B228E92190074D401 /* MERedeemcodeInfoModel.m in Sources */,
@@ -10851,6 +10876,7 @@
 				EB72EA3D22FC250400D7A101 /* MECourseDetailModel.m in Sources */,
 				36E284E122375465009F1563 /* MEBrandAbilityVisterCell.m in Sources */,
 				EB77B0FA232A3C50008BBB60 /* MEPersonalCourseHeaderView.m in Sources */,
+				EBA0D42C23796F8E0021E0D6 /* MECommentInputView.m in Sources */,
 				EB840FC72361949B007A9C50 /* MECommunityServiceListCell.m in Sources */,
 				EB825E8123126BB5007F7005 /* MECustomerServiceVC.m in Sources */,
 				EB9FA00222F3D2C100AA4FB1 /* MECourseDetailListCell.m in Sources */,
