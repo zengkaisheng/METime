@@ -21,11 +21,6 @@
 
 #import <StoreKit/StoreKit.h>
 
-//沙盒测试环境验证
-#define SANDBOX @"https://sandbox.itunes.apple.com/verifyReceipt"
-//正式环境验证
-#define AppStore @"https://buy.itunes.apple.com/verifyReceipt"
-
 #define courseProductNumber1 @"MEShiDaiCourse100001"
 
 @interface MEVIPViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,SKPaymentTransactionObserver,SKProductsRequestDelegate>{

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="METopUpSuccessVC">
+            <connections>
+                <outlet property="consTop" destination="5A9-F3-I7p" id="zoX-Il-fW0"/>
+                <outlet property="moneyLbl" destination="cu9-Xb-vtD" id="0f4-3T-fiy"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="topUpSuccess" translatesAutoresizingMaskIntoConstraints="NO" id="hx5-U3-Epe">
+                    <rect key="frame" x="68" y="126" width="238" height="178"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="hx5-U3-Epe" secondAttribute="height" multiplier="119:89" id="Ala-9N-MM2"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="充值成功" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhS-sl-oz9">
+                    <rect key="frame" x="150.5" y="334" width="74" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="5nN-lc-9NW"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cu9-Xb-vtD">
+                    <rect key="frame" x="126" y="365" width="123.5" height="54"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="54" id="Eth-tA-Cbf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="39"/>
+                    <color key="textColor" red="0.1803921568627451" green="0.85098039215686272" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzd-aE-0td">
+                    <rect key="frame" x="109.5" y="438" width="156" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="HKL-sE-UG9"/>
+                        <constraint firstAttribute="width" constant="156" id="VX1-K2-je9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <state key="normal" title="完成">
+                        <color key="titleColor" red="0.18039215689999999" green="0.85098039219999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="14"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.18039215689999999" green="0.85098039219999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="finishAction:" destination="-1" eventType="touchUpInside" id="U1o-9E-7au"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="hx5-U3-Epe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="126" id="5A9-F3-I7p"/>
+                <constraint firstItem="jhS-sl-oz9" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="CKI-6f-FXL"/>
+                <constraint firstItem="cu9-Xb-vtD" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Ioi-La-rI3"/>
+                <constraint firstItem="cu9-Xb-vtD" firstAttribute="top" secondItem="jhS-sl-oz9" secondAttribute="bottom" constant="6" id="UPg-ha-YaI"/>
+                <constraint firstAttribute="trailing" secondItem="hx5-U3-Epe" secondAttribute="trailing" constant="69" id="eaj-Ux-fmW"/>
+                <constraint firstItem="jzd-aE-0td" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hCK-LL-EhX"/>
+                <constraint firstItem="jhS-sl-oz9" firstAttribute="top" secondItem="hx5-U3-Epe" secondAttribute="bottom" constant="30" id="jeb-AY-RDu"/>
+                <constraint firstItem="hx5-U3-Epe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="68" id="t2f-L6-uHR"/>
+                <constraint firstItem="jzd-aE-0td" firstAttribute="top" secondItem="cu9-Xb-vtD" secondAttribute="bottom" constant="19" id="t6S-a1-jsZ"/>
+            </constraints>
+            <point key="canvasLocation" x="-410" y="151"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="topUpSuccess" width="238" height="178"/>
+    </resources>
+</document>

@@ -81,6 +81,7 @@
 #import "MEJoinedOrganizationVC.h"
 #import "MECreatedOrganizationVC.h"
 #import "MEMyCommentListVC.h"
+#import "MEMyAccountVC.h"
 
 @interface MENewMineHomeCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSArray *_arrModel;
@@ -651,7 +652,8 @@
         }
             break;
         case MeMyMenuMyFunds:{//我的资金
-            
+            MEMyAccountVC *vc = [[MEMyAccountVC alloc] init];
+            [homeVc.navigationController pushViewController:vc animated:YES];
         }
             break;
         case MeMyMenuMyComment:{//我的评论

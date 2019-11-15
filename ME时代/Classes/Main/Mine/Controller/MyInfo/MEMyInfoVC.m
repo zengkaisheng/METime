@@ -156,6 +156,7 @@
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.bounces = NO;
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
         view.backgroundColor = kMEededed;
         _tableView.tableFooterView = [UIView new];//view;

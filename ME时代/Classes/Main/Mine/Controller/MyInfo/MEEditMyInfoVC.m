@@ -118,6 +118,7 @@
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEMyInfoListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEMyInfoListCell class])];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.bounces = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];

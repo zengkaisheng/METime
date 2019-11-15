@@ -910,6 +910,9 @@
 + (void)postEditNickNameWithNickName:(NSString *)nickName successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //修改签名
 + (void)postEditSignatureWithSignature:(NSString *)signature successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+
+//获取我的资金
++ (void)postGetMyAccountWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

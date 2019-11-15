@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -70,14 +70,14 @@
                 <constraint firstItem="wVs-Ro-wSP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="weU-M4-PBS"/>
                 <constraint firstItem="ORm-LM-3s6" firstAttribute="leading" secondItem="WaA-D3-dRo" secondAttribute="trailing" constant="12" id="yAJ-jR-Byx"/>
             </constraints>
-            <point key="canvasLocation" x="85.5" y="97.5"/>
+            <point key="canvasLocation" x="-302" y="90"/>
         </view>
     </objects>
     <resources>
         <image name="homeb" width="750" height="1334"/>
         <image name="meyyuj" width="350" height="230"/>
         <image name="tgdnitrb" width="350" height="230"/>
-        <image name="umkkumfd" width="350" height="230"/>
-        <image name="uyyhebtl" width="350" height="230"/>
+        <image name="umkkumfd" width="355" height="239"/>
+        <image name="uyyhebtl" width="355" height="239"/>
     </resources>
 </document>

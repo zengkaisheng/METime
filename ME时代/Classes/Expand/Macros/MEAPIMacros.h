@@ -39,6 +39,14 @@
 #define kNetInvateCode @"502"
 
 /*********************************************/
+//苹果内购
+//沙盒测试环境验证
+#define SANDBOX @"https://sandbox.itunes.apple.com/verifyReceipt"
+//正式环境验证
+#define AppStore @"https://buy.itunes.apple.com/verifyReceipt"
+/*********************************************/
+
+/*********************************************/
 #pragma makr - ai
 //查询 雷达(底部导航) 时间 访问人数数据信息
 #define MEIPcommonairadartime @"common/airadar/time"
@@ -1204,6 +1212,16 @@
 #define MEIPcommonUserEditNickName @"common/user/editNickName"
 //修改签名
 #define MEIPcommonUserEditSignature @"common/user/editSignature"
+
+
+//获取我的资金
+#define MEIPcommonMoneyGetMoney @"common/money/getMoney"
+//获取充值记录
+#define MEIPcommonMoneyGetMoneyLog @"common/money/getMoneyLog"
+//生成充值订单
+#define MEIPcommonMoneyMemberRecharge @"common/money/memberRecharge"
+//苹果支付回调成功
+#define MEIPcommonMoneyAppleSuccess @"common/money/appleSuccess"
 /*********************************************/
 
 

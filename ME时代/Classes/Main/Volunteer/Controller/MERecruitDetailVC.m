@@ -178,7 +178,7 @@
         if ([responseObject.status_code integerValue] == 200) {
             kMeSTRONGSELF
             if (strongSelf.model.join_status == 0) {
-                [MECommonTool showMessage:@"报名成功" view:kMeCurrentWindow];
+                [MECommonTool showMessage:@"恭喜您报名成功,请耐心等待审核结果" view:kMeCurrentWindow];
                 strongSelf.model.join_status = 1;
             }else {
                 [MECommonTool showMessage:@"取消报名成功" view:kMeCurrentWindow];
