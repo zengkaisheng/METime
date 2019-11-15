@@ -94,7 +94,7 @@
     width = [_commissionLbl.text boundingRectWithSize:CGSizeMake(300, 17) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil].size.width;
     _commissionWidthCons.constant = width+6;
     
-    _textView.text = [NSString stringWithFormat:@"%@\n【价格】%@元\n【券后价】%.2f元\n%@\n复制邀请码：%@\n下载APP：https://a.app.qq.com/o/simple.jsp?pkgname=com.times.metimes领取更多优惠",model.title,@(kMeUnNilStr(model.zk_final_price).floatValue),kMeUnNilStr(model.truePrice).floatValue,self.codeword,kMeUnNilStr(kCurrentUser.invite_code)];
+    _textView.text = [NSString stringWithFormat:@"%@\n【价格】%@元\n【券后价】%.2f元\n%@\n复制邀请码：%@\n下载APP：https://a.app.qq.com/o/simple.jsp?pkgname=com.times.metimes领取更多优惠",model.title,@(kMeUnNilStr(model.zk_final_price).floatValue),kMeUnNilStr(model.truePrice).floatValue,self.codeword,kMeUnNilStr(kCurrentUser.invitation_code)];
 }
 
 - (void)setPinduoduoUIWithModel:(MEPinduoduoCoupleInfoModel *)model{
@@ -116,7 +116,7 @@
     _couponWidthCons.constant = width+6;
     width = [_commissionLbl.text boundingRectWithSize:CGSizeMake(300, 17) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil].size.width;
     _commissionWidthCons.constant = width+6;
-    _textView.text = [NSString stringWithFormat:@"%@\n【价格】%@元\n【券后价】%@元\n领券地址：%@\n复制邀请码：%@\n下载APP：https://a.app.qq.com/o/simple.jsp?pkgname=com.times.metimes领取更多优惠",model.goods_name,[MECommonTool changeformatterWithFen:@(model.min_group_price)],[MECommonTool changeformatterWithFen:@(model.min_group_price-model.coupon_discount)],self.codeword,kMeUnNilStr(kCurrentUser.invite_code)];
+    _textView.text = [NSString stringWithFormat:@"%@\n【价格】%@元\n【券后价】%@元\n领券地址：%@\n复制邀请码：%@\n下载APP：https://a.app.qq.com/o/simple.jsp?pkgname=com.times.metimes领取更多优惠",model.goods_name,[MECommonTool changeformatterWithFen:@(model.min_group_price)],[MECommonTool changeformatterWithFen:@(model.min_group_price-model.coupon_discount)],self.codeword,kMeUnNilStr(kCurrentUser.invitation_code)];
 }
 
 - (void)setJDUIWithModel:(MEJDCoupleModel *)model{
@@ -154,7 +154,7 @@
     width = [_commissionLbl.text boundingRectWithSize:CGSizeMake(300, 17) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil].size.width;
     _commissionWidthCons.constant = width+6;
     
-    _textView.text = [NSString stringWithFormat:@"%@\n【价格】%@元\n【券后价】%@元\n领券地址：%@\n复制邀请码：%@\n下载APP：https://a.app.qq.com/o/simple.jsp?pkgname=com.times.metimes领取更多优惠",model.skuName,kMeUnNilStr(model.priceInfo.price),strPrice,self.codeword,kMeUnNilStr(kCurrentUser.invite_code)];
+    _textView.text = [NSString stringWithFormat:@"%@\n【价格】%@元\n【券后价】%@元\n领券地址：%@\n复制邀请码：%@\n下载APP：https://a.app.qq.com/o/simple.jsp?pkgname=com.times.metimes领取更多优惠",model.skuName,kMeUnNilStr(model.priceInfo.price),strPrice,self.codeword,kMeUnNilStr(kCurrentUser.invitation_code)];
 }
 
 - (IBAction)copyContentAction:(id)sender {
@@ -172,7 +172,7 @@
     
     if (self.tbModel) {
         //https://test.meshidai.com/shopShare/newAuth.html
-        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%.2f&oprice=%@&type=1&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.tbModel.title),kMeUnNilStr(self.tbModel.truePrice).floatValue,@(kMeUnNilStr(self.tbModel.zk_final_price).floatValue),kMeUnNilStr(self.tbModel.pict_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" ",kMeUnNilStr(self.tbModel.couponPrice)];
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%.2f&oprice=%@&type=1&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.tbModel.title),kMeUnNilStr(self.tbModel.truePrice).floatValue,@(kMeUnNilStr(self.tbModel.zk_final_price).floatValue),kMeUnNilStr(self.tbModel.pict_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invitation_code) length]>0?kMeUnNilStr(kCurrentUser.invitation_code):@" ",kMeUnNilStr(self.tbModel.couponPrice)];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
         
         shareTool.shareTitle = self.tbModel.title;
@@ -181,7 +181,7 @@
         
     }else if (self.pddModel) {
         //https://test.meshidai.com/shopShare/newAuth.html
-        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%@&oprice=%@&type=2&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.pddModel.goods_name),[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price-self.pddModel.coupon_discount)],[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price)],kMeUnNilStr(self.pddModel.goods_thumbnail_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" ",[MECommonTool changeformatterWithFen:@(self.pddModel.coupon_discount)]];
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%@&oprice=%@&type=2&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.pddModel.goods_name),[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price-self.pddModel.coupon_discount)],[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price)],kMeUnNilStr(self.pddModel.goods_thumbnail_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invitation_code) length]>0?kMeUnNilStr(kCurrentUser.invitation_code):@" ",[MECommonTool changeformatterWithFen:@(self.pddModel.coupon_discount)]];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
         
         shareTool.shareTitle = self.pddModel.goods_name;
@@ -209,7 +209,7 @@
         }
         
         //https://test.meshidai.com/shopShare/newAuth.html
-        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%@&oprice=%.2f&type=3&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.jdModel.skuName),strPrice,oPrice,str,kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" ",kMeUnNilStr(couponInfoModel.discount)];
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%@&oprice=%.2f&type=3&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.jdModel.skuName),strPrice,oPrice,str,kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invitation_code) length]>0?kMeUnNilStr(kCurrentUser.invitation_code):@" ",kMeUnNilStr(couponInfoModel.discount)];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
         
         shareTool.shareTitle = self.jdModel.skuName;
@@ -234,7 +234,7 @@
     
     if (self.tbModel) {
         //https://test.meshidai.com/shopShare/newAuth.html
-        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%.2f&oprice=%@&type=1&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.tbModel.title),kMeUnNilStr(self.tbModel.truePrice).floatValue,@(kMeUnNilStr(self.tbModel.zk_final_price).floatValue),kMeUnNilStr(self.tbModel.pict_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" ",kMeUnNilStr(self.tbModel.couponPrice)];
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%.2f&oprice=%@&type=1&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.tbModel.title),kMeUnNilStr(self.tbModel.truePrice).floatValue,@(kMeUnNilStr(self.tbModel.zk_final_price).floatValue),kMeUnNilStr(self.tbModel.pict_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invitation_code) length]>0?kMeUnNilStr(kCurrentUser.invitation_code):@" ",kMeUnNilStr(self.tbModel.couponPrice)];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
         
         shareTool.shareTitle = self.tbModel.title;
@@ -243,7 +243,7 @@
         
     }else if (self.pddModel) {
         //https://test.meshidai.com/shopShare/newAuth.html
-        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%@&oprice=%@&type=2&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.pddModel.goods_name),[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price-self.pddModel.coupon_discount)],[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price)],kMeUnNilStr(self.pddModel.goods_thumbnail_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" ",[MECommonTool changeformatterWithFen:@(self.pddModel.coupon_discount)]];
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%@&oprice=%@&type=2&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.pddModel.goods_name),[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price-self.pddModel.coupon_discount)],[MECommonTool changeformatterWithFen:@(self.pddModel.min_group_price)],kMeUnNilStr(self.pddModel.goods_thumbnail_url),kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invitation_code) length]>0?kMeUnNilStr(kCurrentUser.invitation_code):@" ",[MECommonTool changeformatterWithFen:@(self.pddModel.coupon_discount)]];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
         
         shareTool.shareTitle = self.pddModel.goods_name;
@@ -271,7 +271,7 @@
         }
         
         //https://test.meshidai.com/shopShare/newAuth.html
-        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%@&oprice=%.2f&type=3&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.jdModel.skuName),strPrice,oPrice,str,kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" ",kMeUnNilStr(couponInfoModel.discount)];
+        shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@shopShare/newAuth.html?name=%@&price=%@&oprice=%.2f&type=3&image=%@&url=%@&command=%@&discount=%@",baseUrl,kMeUnNilStr(self.jdModel.skuName),strPrice,oPrice,str,kMeUnNilStr(self.codeword),[kMeUnNilStr(kCurrentUser.invitation_code) length]>0?kMeUnNilStr(kCurrentUser.invitation_code):@" ",kMeUnNilStr(couponInfoModel.discount)];
         NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
         
         shareTool.shareTitle = self.jdModel.skuName;

@@ -957,6 +957,8 @@
 		EB22A6B92371629100B01072 /* MEAppointmentEyesightDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB22A6B82371629100B01072 /* MEAppointmentEyesightDetailVC.m */; };
 		EB22A6BD2371648400B01072 /* MEEyesightDetailTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB22A6BB2371648400B01072 /* MEEyesightDetailTopCell.m */; };
 		EB22A6BE2371648400B01072 /* MEEyesightDetailTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB22A6BC2371648400B01072 /* MEEyesightDetailTopCell.xib */; };
+		EB23AA0B237EAFB300C14EC8 /* MEChangePayPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB23AA09237EAFB300C14EC8 /* MEChangePayPasswordVC.m */; };
+		EB23AA0C237EAFB300C14EC8 /* MEChangePayPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB23AA0A237EAFB300C14EC8 /* MEChangePayPasswordVC.xib */; };
 		EB2475E0230AAA3E0088BBC0 /* MECourseChargeOrFreeBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2475DF230AAA3E0088BBC0 /* MECourseChargeOrFreeBaseVC.m */; };
 		EB2475E6230AC4860088BBC0 /* MECustomerFilesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2475E5230AC4860088BBC0 /* MECustomerFilesVC.m */; };
 		EB2475E9230AC49A0088BBC0 /* MECustomerFilesBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2475E8230AC49A0088BBC0 /* MECustomerFilesBaseVC.m */; };
@@ -1188,6 +1190,12 @@
 		EB6D13972356C62100B56917 /* MECareerCourseListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6D13962356C62100B56917 /* MECareerCourseListModel.m */; };
 		EB6DA42D237E83AF0063B269 /* METopUpSuccessVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6DA42B237E83AF0063B269 /* METopUpSuccessVC.m */; };
 		EB6DA42E237E83AF0063B269 /* METopUpSuccessVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6DA42C237E83AF0063B269 /* METopUpSuccessVC.xib */; };
+		EB6DA431237E93870063B269 /* MEConfirmPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6DA430237E93870063B269 /* MEConfirmPayVC.m */; };
+		EB6DA435237E94800063B269 /* MEconfirmPayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6DA433237E94800063B269 /* MEconfirmPayCell.m */; };
+		EB6DA436237E94800063B269 /* MEconfirmPayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6DA434237E94800063B269 /* MEconfirmPayCell.xib */; };
+		EB6DA43A237E9C750063B269 /* MEInputPayPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6DA439237E9C750063B269 /* MEInputPayPasswordView.m */; };
+		EB6DA43E237EA68E0063B269 /* MESetPayPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6DA43C237EA68E0063B269 /* MESetPayPasswordVC.m */; };
+		EB6DA43F237EA68E0063B269 /* MESetPayPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6DA43D237EA68E0063B269 /* MESetPayPasswordVC.xib */; };
 		EB6E0A842374FC1B00B4B20E /* MEMyAttentionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6E0A832374FC1B00B4B20E /* MEMyAttentionVC.m */; };
 		EB6E0A872374FC5100B4B20E /* MEMyAttentionContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6E0A862374FC5100B4B20E /* MEMyAttentionContentVC.m */; };
 		EB6E0A8B2374FDEC00B4B20E /* MEAttentionOrganizationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6E0A892374FDEC00B4B20E /* MEAttentionOrganizationCell.m */; };
@@ -3246,6 +3254,9 @@
 		EB22A6BA2371648400B01072 /* MEEyesightDetailTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEEyesightDetailTopCell.h; sourceTree = "<group>"; };
 		EB22A6BB2371648400B01072 /* MEEyesightDetailTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEEyesightDetailTopCell.m; sourceTree = "<group>"; };
 		EB22A6BC2371648400B01072 /* MEEyesightDetailTopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEEyesightDetailTopCell.xib; sourceTree = "<group>"; };
+		EB23AA08237EAFB300C14EC8 /* MEChangePayPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEChangePayPasswordVC.h; sourceTree = "<group>"; };
+		EB23AA09237EAFB300C14EC8 /* MEChangePayPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEChangePayPasswordVC.m; sourceTree = "<group>"; };
+		EB23AA0A237EAFB300C14EC8 /* MEChangePayPasswordVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEChangePayPasswordVC.xib; sourceTree = "<group>"; };
 		EB2475DE230AAA3E0088BBC0 /* MECourseChargeOrFreeBaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECourseChargeOrFreeBaseVC.h; sourceTree = "<group>"; };
 		EB2475DF230AAA3E0088BBC0 /* MECourseChargeOrFreeBaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MECourseChargeOrFreeBaseVC.m; sourceTree = "<group>"; };
 		EB2475E4230AC4860088BBC0 /* MECustomerFilesVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MECustomerFilesVC.h; sourceTree = "<group>"; };
@@ -3645,6 +3656,16 @@
 		EB6DA42A237E83AF0063B269 /* METopUpSuccessVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = METopUpSuccessVC.h; sourceTree = "<group>"; };
 		EB6DA42B237E83AF0063B269 /* METopUpSuccessVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = METopUpSuccessVC.m; sourceTree = "<group>"; };
 		EB6DA42C237E83AF0063B269 /* METopUpSuccessVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = METopUpSuccessVC.xib; sourceTree = "<group>"; };
+		EB6DA42F237E93870063B269 /* MEConfirmPayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEConfirmPayVC.h; sourceTree = "<group>"; };
+		EB6DA430237E93870063B269 /* MEConfirmPayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEConfirmPayVC.m; sourceTree = "<group>"; };
+		EB6DA432237E94800063B269 /* MEconfirmPayCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEconfirmPayCell.h; sourceTree = "<group>"; };
+		EB6DA433237E94800063B269 /* MEconfirmPayCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEconfirmPayCell.m; sourceTree = "<group>"; };
+		EB6DA434237E94800063B269 /* MEconfirmPayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEconfirmPayCell.xib; sourceTree = "<group>"; };
+		EB6DA438237E9C750063B269 /* MEInputPayPasswordView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEInputPayPasswordView.h; sourceTree = "<group>"; };
+		EB6DA439237E9C750063B269 /* MEInputPayPasswordView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEInputPayPasswordView.m; sourceTree = "<group>"; };
+		EB6DA43B237EA68E0063B269 /* MESetPayPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MESetPayPasswordVC.h; sourceTree = "<group>"; };
+		EB6DA43C237EA68E0063B269 /* MESetPayPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MESetPayPasswordVC.m; sourceTree = "<group>"; };
+		EB6DA43D237EA68E0063B269 /* MESetPayPasswordVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MESetPayPasswordVC.xib; sourceTree = "<group>"; };
 		EB6E0A822374FC1B00B4B20E /* MEMyAttentionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEMyAttentionVC.h; sourceTree = "<group>"; };
 		EB6E0A832374FC1B00B4B20E /* MEMyAttentionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEMyAttentionVC.m; sourceTree = "<group>"; };
 		EB6E0A852374FC5100B4B20E /* MEMyAttentionContentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEMyAttentionContentVC.h; sourceTree = "<group>"; };
@@ -5921,6 +5942,7 @@
 		36D66ED1213F80DD000476FF /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				EB6DA437237E9C350063B269 /* AccountView */,
 				EB6EE656236817AB00153D5E /* MenuHeaderView */,
 				EB352D6E230D4452008036F5 /* CustomInputView */,
 				EB782160230D26FD00075779 /* DatePickerView */,
@@ -8208,6 +8230,15 @@
 			path = MEAddressPickerView;
 			sourceTree = "<group>";
 		};
+		EB6DA437237E9C350063B269 /* AccountView */ = {
+			isa = PBXGroup;
+			children = (
+				EB6DA438237E9C750063B269 /* MEInputPayPasswordView.h */,
+				EB6DA439237E9C750063B269 /* MEInputPayPasswordView.m */,
+			);
+			path = AccountView;
+			sourceTree = "<group>";
+		};
 		EB6E0A7F2374FBDC00B4B20E /* Attention */ = {
 			isa = PBXGroup;
 			children = (
@@ -8907,6 +8938,14 @@
 				EB6DA42A237E83AF0063B269 /* METopUpSuccessVC.h */,
 				EB6DA42B237E83AF0063B269 /* METopUpSuccessVC.m */,
 				EB6DA42C237E83AF0063B269 /* METopUpSuccessVC.xib */,
+				EB6DA42F237E93870063B269 /* MEConfirmPayVC.h */,
+				EB6DA430237E93870063B269 /* MEConfirmPayVC.m */,
+				EB6DA43B237EA68E0063B269 /* MESetPayPasswordVC.h */,
+				EB6DA43C237EA68E0063B269 /* MESetPayPasswordVC.m */,
+				EB6DA43D237EA68E0063B269 /* MESetPayPasswordVC.xib */,
+				EB23AA08237EAFB300C14EC8 /* MEChangePayPasswordVC.h */,
+				EB23AA09237EAFB300C14EC8 /* MEChangePayPasswordVC.m */,
+				EB23AA0A237EAFB300C14EC8 /* MEChangePayPasswordVC.xib */,
 			);
 			path = MyAccount;
 			sourceTree = "<group>";
@@ -8928,6 +8967,9 @@
 				EB808412237D5C00003D8E8D /* MEMyAccountRecordCell.h */,
 				EB808413237D5C00003D8E8D /* MEMyAccountRecordCell.m */,
 				EB808414237D5C00003D8E8D /* MEMyAccountRecordCell.xib */,
+				EB6DA432237E94800063B269 /* MEconfirmPayCell.h */,
+				EB6DA433237E94800063B269 /* MEconfirmPayCell.m */,
+				EB6DA434237E94800063B269 /* MEconfirmPayCell.xib */,
 			);
 			path = MyAccount;
 			sourceTree = "<group>";
@@ -9624,6 +9666,7 @@
 				EB28BE1F22CDDEBE00C92EC2 /* MEGroupUserContentCell.xib in Resources */,
 				EB5B08F422F2B6A800FCA7F9 /* MEOnlineConsultCell.xib in Resources */,
 				36FEC25621AD345B00BB64A5 /* MEArticleCell.xib in Resources */,
+				EB6DA43F237EA68E0063B269 /* MESetPayPasswordVC.xib in Resources */,
 				360A992F21468598009775F4 /* MESkuBuyCell.xib in Resources */,
 				368E70BF21E5EE2D003009CA /* MENewProductDetailsHeaderView.xib in Resources */,
 				EB4BB504229F6CB000924774 /* MEAICustomerCheckDetailCell.xib in Resources */,
@@ -9654,6 +9697,7 @@
 				EBABD7FD23604FE300A33AB2 /* MERegisteVolunteerVC.xib in Resources */,
 				EB70E5AD22FAD8F500F00046 /* btn_player_pause@3x.png in Resources */,
 				EB97994E2366D4C500670B3F /* MEPublicShowContentCell.xib in Resources */,
+				EB23AA0C237EAFB300C14EC8 /* MEChangePayPasswordVC.xib in Resources */,
 				36021AFE214BA5E9001B8DAF /* MEOrderSelectStoreCell.xib in Resources */,
 				EB92DEA922C9B2EE00928D6B /* MEBargainUsresCell.xib in Resources */,
 				EB8D601E22C33EE500D86B37 /* MEBargainLisCell.xib in Resources */,
@@ -9890,6 +9934,7 @@
 				EB6EE6552367E1D000153D5E /* MEActivityRecruitListCell.xib in Resources */,
 				EB708EF923095E660001F9E1 /* MEDiagnoseReportCell.xib in Resources */,
 				EB77B101232A4572008BBB60 /* MEPersonalCourseHeader.xib in Resources */,
+				EB6DA436237E94800063B269 /* MEconfirmPayCell.xib in Resources */,
 				EB70E5AC22FAD8F500F00046 /* btn_player_pause@2x.png in Resources */,
 				36F4C0AB2255DDE9005E2713 /* MEPAVistorCell.xib in Resources */,
 				EB840FC82361949B007A9C50 /* MECommunityServiceListCell.xib in Resources */,
@@ -10149,6 +10194,7 @@
 				EB708EE3230926B30001F9E1 /* MEDiagnoseConsultModel.m in Sources */,
 				EB708EEE2309390B0001F9E1 /* MEDiagnoseConsultDetailVC.m in Sources */,
 				36B31DCD22253632004BA07B /* MEBDataDealStoreAchievementView.m in Sources */,
+				EB23AA0B237EAFB300C14EC8 /* MEChangePayPasswordVC.m in Sources */,
 				EB6BEF1B2362FFEE000974AD /* MEPublicShowHomeVC.m in Sources */,
 				36E3EEC9221D519F006C79F6 /* MEJDCoupleMailDetalVC.m in Sources */,
 				EB840FC0236189E1007A9C50 /* MECommunityServiceBaseVC.m in Sources */,
@@ -10367,6 +10413,7 @@
 				36FB9E2D21997A9100B3DDD3 /* MENoticeTypeVC.m in Sources */,
 				EB4A743922B38FF50027B4DE /* MEFourCoupleVC.m in Sources */,
 				3691308C22363B6E008B1836 /* AAXAxis.m in Sources */,
+				EB6DA43E237EA68E0063B269 /* MESetPayPasswordVC.m in Sources */,
 				EB66411C23696EFD00C3E64C /* MERecruitDetailCell.m in Sources */,
 				36E3EEC5221CFCDC006C79F6 /* MESearchNearAddressVC.m in Sources */,
 				EB710546231E652F00C1E8B6 /* MELianTongContentVC.m in Sources */,
@@ -10431,6 +10478,7 @@
 				EB28BE1422CD9C5400C92EC2 /* MEGroupUserListCell.m in Sources */,
 				EB4BB503229F6CB000924774 /* MEAICustomerCheckDetailCell.m in Sources */,
 				EB7418F1230A9D7000A6B5E4 /* MEReportFooterView.m in Sources */,
+				EB6DA435237E94800063B269 /* MEconfirmPayCell.m in Sources */,
 				36ECE1002262F21500215472 /* METhridHomeHotGoodModel.m in Sources */,
 				36FEC24021AD1AED00BB64A5 /* MEPosterContentListContentCell.m in Sources */,
 				EB28EA7F2315070F002E23BA /* MEExpenseSourceModel.m in Sources */,
@@ -10774,6 +10822,7 @@
 				360AF12021AFEB1E0039AB79 /* MEVistorPathCell.m in Sources */,
 				3600A72B2159C52B00195484 /* MEIMageVC.m in Sources */,
 				36F5E82A222F68F1000B0241 /* TSystemMessageCell.m in Sources */,
+				EB6DA43A237E9C750063B269 /* MEInputPayPasswordView.m in Sources */,
 				36371554218ACE9E0057E59F /* UIButton+ImageTitleStyle.m in Sources */,
 				3600B855217EF10700049F49 /* YBRectConst.m in Sources */,
 				EB8CC3182305769F00BB99FC /* MECourseOrderModel.m in Sources */,
@@ -10891,6 +10940,7 @@
 				3695C3AB21D4C3D700EDBCDF /* MECouponOrderHeaderView.m in Sources */,
 				36021B0A214BCA9F001B8DAF /* MEUserInfoModel.m in Sources */,
 				3650F3F72179F17C007EA97F /* MELogistModel.m in Sources */,
+				EB6DA431237E93870063B269 /* MEConfirmPayVC.m in Sources */,
 				360A992E21468598009775F4 /* MESkuBuyCell.m in Sources */,
 				EBABD7FC23604FE300A33AB2 /* MERegisteVolunteerVC.m in Sources */,
 				EB77A79123040D0700191E10 /* MEQuestionHeaderCell.m in Sources */,

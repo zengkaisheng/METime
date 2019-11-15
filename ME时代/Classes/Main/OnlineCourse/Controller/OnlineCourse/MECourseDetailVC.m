@@ -186,7 +186,7 @@
                         [self.buyBtn setTitle:[NSString stringWithFormat:@"¥%@购买",kMeUnNilStr(self.detailModel.audio_price)] forState:UIControlStateNormal];
                         [self.tryBtn setTitle:@" 试听" forState:UIControlStateNormal];
                     }
-                    self.buyBtn.frame = CGRectMake(SCREEN_WIDTH-20-66*kMeFrameScaleX()-96*kMeFrameScaleX(), 4.5, 96*kMeFrameScaleX(), 40);
+                    self.buyBtn.frame = CGRectMake(SCREEN_WIDTH-20-80*kMeFrameScaleX()-120*kMeFrameScaleX(), 4.5, 120*kMeFrameScaleX(), 40);
                 }
             }
         }else {
@@ -591,7 +591,7 @@
         [_buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_buyBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
         [_buyBtn setBackgroundColor:kMEPink];
-        _buyBtn.frame = CGRectMake(SCREEN_WIDTH-20-66*kMeFrameScaleX()-96*kMeFrameScaleX(), 4.5, 96*kMeFrameScaleX(), 40);
+        _buyBtn.frame = CGRectMake(SCREEN_WIDTH-20-80*kMeFrameScaleX()-120*kMeFrameScaleX(), 4.5, 120*kMeFrameScaleX(), 40);
         _buyBtn.layer.cornerRadius = 20;
         [_buyBtn addTarget:self action:@selector(buyBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -605,7 +605,7 @@
         [_vipBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_vipBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
         [_vipBtn setBackgroundColor:[UIColor colorWithHexString:@"#FE4B77"]];
-        _vipBtn.frame = CGRectMake(SCREEN_WIDTH-15-66*kMeFrameScaleX(), 4.5, 66*kMeFrameScaleX(), 40);
+        _vipBtn.frame = CGRectMake(SCREEN_WIDTH-15-80*kMeFrameScaleX(), 4.5, 80*kMeFrameScaleX(), 40);
         _vipBtn.layer.cornerRadius = 20;
         [_vipBtn addTarget:self action:@selector(vipBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
     }

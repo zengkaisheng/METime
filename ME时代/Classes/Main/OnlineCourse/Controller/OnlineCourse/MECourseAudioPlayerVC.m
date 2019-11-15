@@ -402,14 +402,14 @@
             
             if (self.isC) {
                 //http://test.meshidai.com/clientCourseShare/newAuth.html?id=18&inviteCode=P8786A
-                shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@clientCourseShare/newAuth.html?id=%ld&inviteCode=%@",baseUrl,(long)self.detailModel.idField,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+                shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@clientCourseShare/newAuth.html?id=%ld&inviteCode=%@",baseUrl,(long)self.detailModel.idField,[kMeUnNilStr(kCurrentUser.invitation_code) length]>0?kMeUnNilStr(kCurrentUser.invitation_code):@" "];
                 
                 shareTool.shareTitle = kMeUnNilStr(self.detailModel.name);
                 shareTool.shareDescriptionBody = kMeUnNilStr(self.detailModel.desc);
                 shareTool.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:kMeUnNilStr(self.detailModel.courses_images)]]];
             }else {
                 //http://test.meshidai.com/audioShare/newAuth.html?id=2&inviteCode=222
-                shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@audioShare/newAuth.html?id=%ld&inviteCode=%@",baseUrl,(long)self.model.audio_id,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+                shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@audioShare/newAuth.html?id=%ld&inviteCode=%@",baseUrl,(long)self.model.audio_id,[kMeUnNilStr(kCurrentUser.invitation_code) length]>0?kMeUnNilStr(kCurrentUser.invitation_code):@" "];
                 
                 shareTool.shareTitle = kMeUnNilStr(self.model.audio_name);
                 shareTool.shareDescriptionBody = kMeUnNilStr(self.model.audio_desc);

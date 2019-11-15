@@ -913,6 +913,12 @@
 
 //获取我的资金
 + (void)postGetMyAccountWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//设置/修改支付密码
++ (void)postSetPayPasswordWithPassword:(NSString *)password rPassword:(NSString *)rPassword type:(NSString *)type phone:(NSString *)phone code:(NSString *)code successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取短信验证码--New
++ (void)postGetNewCodeWithPhone:(NSString *)phone type:(NSString *)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//余额支付
++ (void)postBuyCourseWithOrderSn:(NSString *)orderSn type:(NSString *)type password:(NSString *)password successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

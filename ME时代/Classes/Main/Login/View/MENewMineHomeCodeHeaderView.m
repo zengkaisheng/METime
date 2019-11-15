@@ -112,7 +112,7 @@
 - (void)reloadUIWithUserInfo{
     _lblName.text = kMeUnNilStr(kCurrentUser.name);
 
-    NSString *invationStr = [NSString stringWithFormat:@"邀请码：%@",kMeUnNilStr(kCurrentUser.invite_code)];
+    NSString *invationStr = [NSString stringWithFormat:@"邀请码：%@",kMeUnNilStr(kCurrentUser.invitation_code)];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:invationStr attributes:@{NSFontAttributeName: [UIFont fontWithName:@"PingFang-SC-Medium" size: 15],NSForegroundColorAttributeName: [UIColor colorWithRed:205/255.0 green:177/255.0 blue:126/255.0 alpha:1.0]}];
     self.invationLbl.attributedText = string;
     
@@ -213,7 +213,7 @@
 - (IBAction)copyBtnAction:(id)sender {
     UIPasteboard * pastboard = [UIPasteboard generalPasteboard];
     
-    pastboard.string = kMeUnNilStr(kCurrentUser.invite_code);
+    pastboard.string = kMeUnNilStr(kCurrentUser.invitation_code);
     [MECommonTool showMessage:@"复制成功" view:kMeCurrentWindow];
 }
 

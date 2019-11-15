@@ -93,7 +93,7 @@
 @property (nonatomic, strong) NSArray *orderList;
 @property (nonatomic, strong) UIView *maskView; //蒙版
 @property (nonatomic, strong) UIButton *changeStatusBtn;
-@property (nonatomic, copy) NSString *invite_code;
+@property (nonatomic, copy) NSString *invitation_code;
 
 @end
 
@@ -106,7 +106,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navBarHidden = YES;
-    self.invite_code = @"";
+    self.invitation_code = @"";
     [self.view addSubview:self.tableView];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
     [self.tableView.mj_header beginRefreshing];
@@ -443,7 +443,7 @@
         [MEPublicNetWorkTool getUserInvitationCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
             kMeSTRONGSELF
             if ([responseObject.data isKindOfClass:[NSString class]]) {
-                strongSelf.invite_code = [responseObject.data mutableCopy];
+                strongSelf.invitation_code = [responseObject.data mutableCopy];
             }
             dispatch_semaphore_signal(semaphore);
         } failure:^(id object) {
@@ -458,7 +458,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             kMeSTRONGSELF
             [hud hideAnimated:YES];
-            kCurrentUser.invite_code = strongSelf.invite_code;
+            kCurrentUser.invitation_code = strongSelf.invitation_code;
             [kCurrentUser save];
             if (strongSelf->_arrtypeTitle.count <=0 && strongSelf->_arrtype.count<=0) {
                 kNoticeUserLogout

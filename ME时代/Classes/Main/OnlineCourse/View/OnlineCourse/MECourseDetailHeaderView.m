@@ -72,7 +72,8 @@
     kSDLoadImg(_headerPic, kMeUnNilStr(model.courses_images));
     
     _titleLbl.text = kMeUnNilStr(model.name);
-    _priceLbl.hidden = YES;
+    _priceLbl.hidden = NO;
+    _priceLbl.text = [NSString stringWithFormat:@"¥%@",kMeUnNilStr(model.price)];
     _descLbl.text = kMeUnNilStr(model.desc);
     _learnCountLbl.text = [NSString stringWithFormat:@"%@次学习",kMeUnNilStr(model.study_num)];
 }

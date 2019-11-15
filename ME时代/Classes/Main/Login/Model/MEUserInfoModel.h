@@ -124,13 +124,15 @@ static NSString *kTokenKey = @"kTokenKey";
 
 @property (nonatomic, strong) MEUserInfoModelParentData *parent_header;
 //邀请码，体验店以上才显示
-@property (nonatomic, copy) NSString *invite_code;
+@property (nonatomic, copy) NSString *invitation_code;
 
 @property (nonatomic, assign) NSInteger is_invitation;
 //平台身份 0无 1专家 2客服 3专家+客服
 @property (nonatomic, assign) NSInteger identity_type;
 
 @property (nonatomic, assign) NSInteger is_volunteer; //1为志愿者，0否
+//是否设置支付密码 1是 2否
+@property (nonatomic, assign) NSInteger is_set_pay_pass;
 
 //个人中心C端
 //@property (nonatomic, assign) NSInteger admin_team;

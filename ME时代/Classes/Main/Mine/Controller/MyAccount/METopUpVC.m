@@ -311,12 +311,12 @@
         
         NSString *productIdentifier = dicInApp[@"product_id"];//读取产品标识
         //如果是消耗品则记录购买数量，非消耗品则记录是否购买过
-        if ([productIdentifier isEqualToString:courseTopUpNumber1] ||
-            [productIdentifier isEqualToString:courseTopUpNumber2] ||
-            [productIdentifier isEqualToString:courseTopUpNumber3] ||
-            [productIdentifier isEqualToString:courseTopUpNumber4] ||
-            [productIdentifier isEqualToString:courseTopUpNumber5] ||
-            [productIdentifier isEqualToString:courseTopUpNumber6]) {
+//        if ([productIdentifier isEqualToString:courseTopUpNumber1] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber2] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber3] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber4] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber5] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber6]) {
         
             payModel.order_price_true = _order_amount;
             
@@ -343,7 +343,7 @@
             } failure:^(id error) {
                 NSLog(@"error:%@",error);
             }];
-        }
+//        }
     }else if([dic[@"status"] intValue] == 21007){
         
     }else{

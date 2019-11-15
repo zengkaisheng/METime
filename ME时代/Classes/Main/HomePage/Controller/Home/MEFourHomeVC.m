@@ -155,7 +155,7 @@
     [self getUnInfo];
     [MEPublicNetWorkTool getUserInvitationCodeWithSuccessBlock:^(ZLRequestResponse *responseObject) {
         if ([responseObject.data isKindOfClass:[NSString class]]) {
-            kCurrentUser.invite_code = [responseObject.data mutableCopy];
+            kCurrentUser.invitation_code = [responseObject.data mutableCopy];
         }
     } failure:^(id object) {
     }];

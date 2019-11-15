@@ -73,9 +73,9 @@
     MEShareTool *shareTool = [MEShareTool me_instanceForTarget:self];
     
 #ifdef TestVersion
-    NSString *shareIP = [NSString stringWithFormat:@"https://develop.meshidai.com/meAuth.html?entrance=start&bank_id=%@&uid=%@&inviteCode=%@",kMeUnNilStr(model.idField),kMeUnNilStr(kCurrentUser.uid),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+    NSString *shareIP = [NSString stringWithFormat:@"https://develop.meshidai.com/meAuth.html?entrance=start&bank_id=%@&uid=%@&inviteCode=%@",kMeUnNilStr(model.idField),kMeUnNilStr(kCurrentUser.uid),[kMeUnNilStr(kCurrentUser.invitation_code) length]>0?kMeUnNilStr(kCurrentUser.invitation_code):@" "];
 #else
-      NSString *shareIP = [NSString stringWithFormat:@"https://msd.meshidai.com/meAuth.html?entrance=start&bank_id=%@&uid=%@&inviteCode=%@",kMeUnNilStr(model.idField),kMeUnNilStr(kCurrentUser.uid),[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+      NSString *shareIP = [NSString stringWithFormat:@"https://msd.meshidai.com/meAuth.html?entrance=start&bank_id=%@&uid=%@&inviteCode=%@",kMeUnNilStr(model.idField),kMeUnNilStr(kCurrentUser.uid),[kMeUnNilStr(kCurrentUser.invitation_code) length]>0?kMeUnNilStr(kCurrentUser.invitation_code):@" "];
 #endif
 
     shareTool.sharWebpageUrl = shareIP;

@@ -80,7 +80,7 @@
     _consCodeH.constant = 50* kMeFrameScaleX();
     _consCodeW.constant = 50* kMeFrameScaleX();
     _consBtnheight.constant = 49 * kMeFrameScaleX();
-    _invitationCodeLbl.text = kMeUnNilStr(kCurrentUser.invite_code);
+    _invitationCodeLbl.text = kMeUnNilStr(kCurrentUser.invitation_code);
     kMeWEAKSELF
     if(_isActive){
         [_imgposter sd_setImageWithURL:[NSURL URLWithString:kMeUnNilStr(_activeModel.image)] placeholderImage:kImgPlaceholder completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {

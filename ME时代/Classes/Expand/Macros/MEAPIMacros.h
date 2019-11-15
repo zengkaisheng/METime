@@ -1222,6 +1222,12 @@
 #define MEIPcommonMoneyMemberRecharge @"common/money/memberRecharge"
 //苹果支付回调成功
 #define MEIPcommonMoneyAppleSuccess @"common/money/appleSuccess"
+//设置/修改支付密码
+#define MEIPcommonMoneySetPayPassword @"common/money/setPayPassword"
+//app获取验证码---New
+#define MEIPAppNewGetCodelByType @"getCodeByType"
+//余额支付
+#define MEIPcommonMoneyPayOther @"common/money/payOther"
 /*********************************************/
 
 

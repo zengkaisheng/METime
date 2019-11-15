@@ -3214,7 +3214,7 @@
         return;
     }
     
-    NSDictionary *dic = @{@"phone":kMeUnNilStr(phone),@"code":kMeUnNilStr(code),@"token":kMeUnNilStr(kCurrentUser.token),@"invite_code":kMeUnNilStr(invate)};
+    NSDictionary *dic = @{@"phone":kMeUnNilStr(phone),@"code":kMeUnNilStr(code),@"token":kMeUnNilStr(kCurrentUser.token),@"invitation_code":kMeUnNilStr(invate)};
     NSString *url = kGetApiWithUrl(MEIPaddPhone);
     MBProgressHUD *HUD = [self commitWithHUD:@"绑定手机号..."];
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
@@ -6264,6 +6264,80 @@
                           };
     MBProgressHUD *HUD = [self commitWithHUD:@""];
     NSString *url = kGetApiWithUrl(MEIPcommonMoneyGetMoney);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//设置/修改支付密码
++ (void)postSetPayPasswordWithPassword:(NSString *)password rPassword:(NSString *)rPassword type:(NSString *)type phone:(NSString *)phone code:(NSString *)code successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"password":kMeUnNilStr(password),
+                          @"r_password":kMeUnNilStr(rPassword),
+                          @"type":kMeUnNilStr(type),
+                          @"phone":kMeUnNilStr(phone),
+                          @"code":kMeUnNilStr(code)
+                          };
+    MBProgressHUD *HUD = [self commitWithHUD:@""];
+    NSString *url = kGetApiWithUrl(MEIPcommonMoneySetPayPassword);
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//获取短信验证码--New
++ (void)postGetNewCodeWithPhone:(NSString *)phone type:(NSString *)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    if(!kMeUnNilStr(phone).length){
+        [MEShowViewTool showMessage:@"手机号不能为空" view:kMeCurrentWindow];
+        return;
+        if(![MECommonTool isValidPhoneNum:kMeUnNilStr(phone)]){
+            [MEShowViewTool showMessage:@"请填写正确的手机号码" view:kMeCurrentWindow];
+            return;
+        }
+    }
+    
+    NSDictionary *dic = @{@"phone":kMeUnNilStr(phone),@"type":kMeUnNilStr(type)};
+    NSString *url = kGetApiWithUrl(MEIPAppNewGetCodelByType);
+    MBProgressHUD *HUD = [self commitWithHUD:@"获取验证码中..."];
+    [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
+        [HUD hideAnimated:YES];
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kMeUnNilStr(res.message)];
+        }else{
+            [MEShowViewTool SHOWHUDWITHHUD:HUD test:kApiError];
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+//余额支付
++ (void)postBuyCourseWithOrderSn:(NSString *)orderSn type:(NSString *)type password:(NSString *)password successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
+                          @"password":kMeUnNilStr(password),
+                          @"order_sn":kMeUnNilStr(orderSn),
+                          @"type":kMeUnNilStr(type)
+                          };
+    NSString *url = kGetApiWithUrl(MEIPcommonMoneyPayOther);
+     MBProgressHUD *HUD = [self commitWithHUD:@""];
     [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
         [HUD hideAnimated:YES];
         kMeCallBlock(successBlock,responseObject);

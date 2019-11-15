@@ -396,7 +396,7 @@
             baseUrl = [@"http" stringByAppendingString:baseUrl];
             
             //http://test.meshidai.com/videoShare/newAuth.html?id=2&inviteCode=222
-            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@videoShare/newAuth.html?id=%ld&inviteCode=%@",baseUrl,(long)self.model.video_id,[kMeUnNilStr(kCurrentUser.invite_code) length]>0?kMeUnNilStr(kCurrentUser.invite_code):@" "];
+            shareTool.sharWebpageUrl = [NSString stringWithFormat:@"%@videoShare/newAuth.html?id=%ld&inviteCode=%@",baseUrl,(long)self.model.video_id,[kMeUnNilStr(kCurrentUser.invitation_code) length]>0?kMeUnNilStr(kCurrentUser.invitation_code):@" "];
             NSLog(@"sharWebpageUrl:%@",shareTool.sharWebpageUrl);
             
             shareTool.shareTitle = kMeUnNilStr(self.model.video_name);

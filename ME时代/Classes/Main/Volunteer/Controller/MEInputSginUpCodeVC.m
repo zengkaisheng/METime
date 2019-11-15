@@ -135,6 +135,7 @@
         }else if ([textField isEqual:self.tf5]) {
             [self.tf6 becomeFirstResponder];
         }else if ([textField isEqual:self.tf6]) {
+            self.tf6.text = [textField.text substringWithRange:NSMakeRange(0, 1)];
             [self.view endEditing:YES];
             [self checkSignInCodeWithNetWork];
         }
@@ -156,6 +157,12 @@
 #pragma mark -- Networking
 //验证活动编码
 - (void)checkSignInCodeWithNetWork {
+    if (self.tf1.text <= 0 || self.tf2.text <= 0 || self.tf3.text <= 0 || self.tf4.text <= 0 || self.tf5.text <= 0 || self.tf6.text <= 0) {
+        [MECommonTool showMessage:@"您的活动编码格式不正确" view:kMeCurrentWindow];
+        self.tf1.text = self.tf2.text = self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
+        [self.tf1 becomeFirstResponder];
+        return;
+    }
     kMeWEAKSELF
     NSString *code = [NSString stringWithFormat:@"%@%@%@%@%@%@",kMeUnNilStr(self.tf1.text),kMeUnNilStr(self.tf2.text),kMeUnNilStr(self.tf3.text),kMeUnNilStr(self.tf4.text),kMeUnNilStr(self.tf5.text),kMeUnNilStr(self.tf6.text)];
     [MEPublicNetWorkTool postCheckSignInCodeWithCode:code successBlock:^(ZLRequestResponse *responseObject) {

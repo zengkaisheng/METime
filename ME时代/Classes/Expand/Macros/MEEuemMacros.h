@@ -270,7 +270,8 @@ typedef enum : NSUInteger {
     MESetCompandNoticeStyle = 4,
     MESetNoticeStyle = 5,
     MESetFeedbackStyle = 6,
-    MESetVersionStyle = 7
+    MESetVersionStyle = 7,
+    MESetPayPasswordStyle = 8
 }  MESetStyle;
 
 typedef enum : NSUInteger {

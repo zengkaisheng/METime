@@ -71,7 +71,7 @@
     kSDLoadImg(_imgHeader, kMeUnNilStr(kCurrentUser.header_pic));
     _lblName.text = kMeUnNilStr(kCurrentUser.name);
     _lblLevel.text = kMeUnNilStr(levStr);
-    _invitationCodeLbl.text = kMeUnNilStr(kCurrentUser.invite_code);
+    _invitationCodeLbl.text = kMeUnNilStr(kCurrentUser.invitation_code);
 }
 
 + (CGFloat)getViewHeight{
