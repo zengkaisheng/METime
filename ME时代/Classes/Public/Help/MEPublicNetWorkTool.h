@@ -919,6 +919,8 @@
 + (void)postGetNewCodeWithPhone:(NSString *)phone type:(NSString *)type successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 //余额支付
 + (void)postBuyCourseWithOrderSn:(NSString *)orderSn type:(NSString *)type password:(NSString *)password successBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//充值协议
++ (void)postGetTopUpProtocolWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /*********************************************/
 
 

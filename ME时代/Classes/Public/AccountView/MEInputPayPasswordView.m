@@ -8,10 +8,10 @@
 
 #import "MEInputPayPasswordView.h"
 
-#define BGViewWidth (308*(kMeFrameScaleY()>1?kMeFrameScaleY():1))
-#define BGViewHeight (224*(kMeFrameScaleY()>1?kMeFrameScaleY():1))
+#define BGViewWidth (308*(kMeFrameScaleX()>1?kMeFrameScaleX():1))
+#define BGViewHeight (224*(kMeFrameScaleX()>1?kMeFrameScaleX():1))
 
-@interface MEInputPayPasswordView ()
+@interface MEInputPayPasswordView ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UIView *maskView;
 
@@ -20,6 +20,8 @@
 @property (nonatomic, copy) kMeBasicBlock cancelBlock;
 @property (nonatomic, copy) kMeBasicBlock forgetBlock;
 @property (nonatomic, copy) kMeTextBlock confirmBlock;
+
+@property (nonatomic, strong) UITextField *passTF;
 
 @property (nonatomic, strong) UITextField *tf1;
 @property (nonatomic, strong) UITextField *tf2;
@@ -77,11 +79,17 @@
     moneyLbl.font = [UIFont boldSystemFontOfSize:19];
     [self.bgView addSubview:moneyLbl];
     
+    _passTF = [[UITextField alloc] init];
+    _passTF.frame = CGRectMake(0, 0, 0, 0);
+    _passTF.delegate = self;
+    _passTF.keyboardType = UIKeyboardTypeNumberPad;
+    [_passTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.bgView addSubview:_passTF];
+    
     CGFloat itemW = 31;
     CGFloat spec = (BGViewWidth-27*2-itemW*6)/5;
     for (int i = 0; i < 6; i++) {
         UITextField *textF = [self createTextFieldWithFrame:CGRectMake(27+(itemW+spec)*i, CGRectGetMaxY(moneyLbl.frame)+9, itemW, itemW)];
-        [textF addTarget:self action:@selector(tfCodeTextDidChange:) forControlEvents:UIControlEventEditingChanged];
         switch (i) {
             case 0:
             {
@@ -123,6 +131,8 @@
     UIButton *forgetBtn = [self createButtonWithTitle:@"忘记密码?"];
     forgetBtn.frame = CGRectMake(BGViewWidth-22-78, CGRectGetMaxY(moneyLbl.frame)+47, 78, 31);
     [self.bgView addSubview:forgetBtn];
+    
+    [_passTF becomeFirstResponder];
 }
 #pragma mark -- Action
 - (void)hide{
@@ -144,44 +154,45 @@
     [self hide];
 }
 
-- (void)tfCodeTextDidChange:(UITextField *)textField {
-    if (textField.text.length >= 1) {
-        NSString *text = textField.text;
-        textField.text = [text substringWithRange:NSMakeRange(0, 1)];
-        if ([textField isEqual:self.tf1]) {
-            [self.tf2 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf2]) {
-            [self.tf3 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf3]) {
-            [self.tf4 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf4]) {
-            [self.tf5 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf5]) {
-            [self.tf6 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf6]) {
-            self.tf6.text = [textField.text substringWithRange:NSMakeRange(0, 1)];
+#pragma mark - 文本框内容发生改变
+- (void)textFieldDidChange:(UITextField*) sender {
+    UITextField *_field = sender;
+    switch (_field.text.length) {
+        case 0:
+            self.tf1.text = self.tf2.text = self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 1:
+            self.tf1.text = [_field.text substringWithRange:NSMakeRange(0, 1)];
+            self.tf2.text = self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 2:
+            self.tf2.text = [_field.text substringWithRange:NSMakeRange(1, 1)];
+            self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 3:
+            self.tf3.text = [_field.text substringWithRange:NSMakeRange(2, 1)];
+            self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 4:
+            self.tf4.text = [_field.text substringWithRange:NSMakeRange(3, 1)];
+            self.tf5.text = self.tf6.text = @"";
+            break;
+        case 5:
+            self.tf5.text = [_field.text substringWithRange:NSMakeRange(4, 1)];
+            self.tf6.text = @"";
+            break;
+        case 6:
+            self.tf6.text = [_field.text substringWithRange:NSMakeRange(5, 1)];
             [self.bgView endEditing:YES];
-            if (self.tf1.text <= 0 || self.tf2.text <= 0 || self.tf3.text <= 0 || self.tf4.text <= 0 || self.tf5.text <= 0 || self.tf6.text <= 0) {
-                [MECommonTool showMessage:@"您的密码格式不正确" view:kMeCurrentWindow];
-                self.tf1.text = self.tf2.text = self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
-                [self.tf1 becomeFirstResponder];
-                return;
-            }
-            kMeCallBlock(_confirmBlock,[NSString stringWithFormat:@"%@%@%@%@%@%@",kMeUnNilStr(self.tf1.text),kMeUnNilStr(self.tf2.text),kMeUnNilStr(self.tf3.text),kMeUnNilStr(self.tf4.text),kMeUnNilStr(self.tf5.text),kMeUnNilStr(self.tf6.text)]);
+            break;
+        default:
+            break;
+    }
+    if (_field.text.length >= 6) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            kMeCallBlock(self.confirmBlock,kMeUnNilStr(_field.text));
             [self hide];
-        }
-    }else {
-        if ([textField isEqual:self.tf6]) {
-            [self.tf5 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf5]) {
-            [self.tf4 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf4]) {
-            [self.tf3 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf3]) {
-            [self.tf2 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf2]) {
-            [self.tf1 becomeFirstResponder];
-        }
+        });
     }
 }
 
@@ -190,6 +201,8 @@
     tf.textAlignment = NSTextAlignmentCenter;
     tf.keyboardType = UIKeyboardTypeNumberPad;
     tf.borderStyle = UITextBorderStyleNone;
+    [tf setSecureTextEntry:YES];
+    tf.enabled = NO;
     tf.layer.cornerRadius = 5;
     
     tf.layer.borderColor = [UIColor colorWithRed:46/255.0 green:217/255.0 blue:164/255.0 alpha:1.0].CGColor;

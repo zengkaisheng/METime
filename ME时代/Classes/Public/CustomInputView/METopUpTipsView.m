@@ -8,8 +8,8 @@
 
 #import "METopUpTipsView.h"
 
-#define BGViewWidth (310*(kMeFrameScaleY()>1?kMeFrameScaleY():1))
-#define BGViewHeight (251*(kMeFrameScaleY()>1?kMeFrameScaleY():1))
+#define BGViewWidth (310*(kMeFrameScaleX()>1?kMeFrameScaleX():1))
+#define BGViewHeight (251*(kMeFrameScaleX()>1?kMeFrameScaleX():1))
 
 @interface METopUpTipsView ()
 

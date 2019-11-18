@@ -42,6 +42,8 @@
 @property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *receiveBtn;
 @property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *finishBtn;
 @property (weak, nonatomic) IBOutlet MEMidelMiddelImageButton *refundBtn;
+
+@property (weak, nonatomic) IBOutlet UIImageView *durationImageV;
 @property (weak, nonatomic) IBOutlet UILabel *durationLbl;
 @property (weak, nonatomic) IBOutlet UIButton *changeInfoBtn;
 
@@ -118,7 +120,7 @@
     
     kSDLoadImg(_imgPic, kMeUnNilStr(kCurrentUser.header_pic));
     _durationLbl.text = [NSString stringWithFormat:@"信用时数: %@",kMeUnNilStr(kCurrentUser.duration)];
-    _durationLbl.hidden = kCurrentUser.is_volunteer==1?NO:YES;
+    _durationImageV.hidden = _durationLbl.hidden = kCurrentUser.is_volunteer==1?NO:YES;
     _changeInfoBtn.hidden = kCurrentUser.is_volunteer==1?NO:YES;
     if (kCurrentUser.is_volunteer == 1) {
         _lblLeve.text = kMeUnNilStr(kCurrentUser.signature);

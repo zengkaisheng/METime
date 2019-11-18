@@ -345,6 +345,7 @@
                 <outlet property="changeStatusBtnConsWidth" destination="HQT-3a-OPW" id="Vuk-hp-n0d"/>
                 <outlet property="consSetTopMargin" destination="SSI-Rz-eam" id="Cg1-HY-vLf"/>
                 <outlet property="deliveryBtn" destination="YHW-Ax-JMJ" id="a7a-9q-i2W"/>
+                <outlet property="durationImageV" destination="7Ib-3z-9cO" id="GDu-R3-WaW"/>
                 <outlet property="durationLbl" destination="PZL-KA-joQ" id="u9o-K4-xrt"/>
                 <outlet property="finishBtn" destination="hvu-g0-btn" id="Lue-69-5UJ"/>
                 <outlet property="imgPic" destination="EiY-Z9-hT3" id="gMI-2r-Tlk"/>

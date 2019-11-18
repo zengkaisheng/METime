@@ -392,6 +392,7 @@
                 <outlet property="consSetTopMargin" destination="h6F-Cx-XAP" id="maD-UL-WGQ"/>
                 <outlet property="cpBtn" destination="a9Q-GK-2rd" id="w2y-BQ-6qJ"/>
                 <outlet property="deliveryBtn" destination="nvd-Cv-aEF" id="AvD-3R-Ej1"/>
+                <outlet property="durationImageV" destination="wqK-bb-ndL" id="2El-2M-1Ha"/>
                 <outlet property="durationLbl" destination="7dW-M8-wJR" id="3dl-Nc-bbU"/>
                 <outlet property="finishBtn" destination="FPx-IQ-261" id="hel-dh-bAS"/>
                 <outlet property="imgPic" destination="Ey1-K7-wc4" id="kbn-q8-8Yl"/>

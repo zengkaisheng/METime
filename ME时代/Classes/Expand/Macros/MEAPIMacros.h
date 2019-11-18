@@ -1228,6 +1228,8 @@
 #define MEIPAppNewGetCodelByType @"getCodeByType"
 //余额支付
 #define MEIPcommonMoneyPayOther @"common/money/payOther"
+//充值协议
+#define MEIPcommonWebTopUpProtocol @"common/web/topUpProtocol"
 /*********************************************/
 
 

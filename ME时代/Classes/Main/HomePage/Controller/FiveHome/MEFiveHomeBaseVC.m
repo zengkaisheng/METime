@@ -753,8 +753,29 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 32:
         {//跳爱心榜
-            MELoveListHomeVC *vc = [[MELoveListHomeVC alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+            if([MEUserInfoModel isLogin]){
+                if (kCurrentUser.is_volunteer == 1) {
+                    MELoveListHomeVC *vc = [[MELoveListHomeVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else {
+                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            }else {
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MELoveListHomeVC *vc = [[MELoveListHomeVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                } failHandler:^(id object) {
+                    
+                }];
+            }
         }
             break;
         case 33:
@@ -764,14 +785,56 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 34:
         {//组织入驻
-            MECreateOrganizationVC *vc = [[MECreateOrganizationVC alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+            if([MEUserInfoModel isLogin]){
+                if (kCurrentUser.is_volunteer == 1) {
+                    MECreateOrganizationVC *vc = [[MECreateOrganizationVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else {
+                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            }else {
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MECreateOrganizationVC *vc = [[MECreateOrganizationVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                } failHandler:^(id object) {
+                    
+                }];
+            }
         }
             break;
         case 35:
         {//加入组织
-            MEJoinOrganizationVC *vc = [[MEJoinOrganizationVC alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+            if([MEUserInfoModel isLogin]){
+                if (kCurrentUser.is_volunteer == 1) {
+                    MEJoinOrganizationVC *vc = [[MEJoinOrganizationVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else {
+                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            }else {
+                kMeWEAKSELF
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    kMeSTRONGSELF
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MEJoinOrganizationVC *vc = [[MEJoinOrganizationVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [strongSelf.navigationController pushViewController:vc animated:YES];
+                    }
+                } failHandler:^(id object) {
+                    
+                }];
+            }
         }
             break;
         default:

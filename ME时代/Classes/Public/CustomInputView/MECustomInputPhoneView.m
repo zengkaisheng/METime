@@ -9,8 +9,8 @@
 #import "MECustomInputPhoneView.h"
 #import "MEBlockTextField.h"
 
-#define BGViewWidth (270*(kMeFrameScaleY()>1?kMeFrameScaleY():1))
-#define BGViewHeight (186*(kMeFrameScaleY()>1?kMeFrameScaleY():1))
+#define BGViewWidth (270*(kMeFrameScaleX()>1?kMeFrameScaleX():1))
+#define BGViewHeight (186*(kMeFrameScaleX()>1?kMeFrameScaleX():1))
 
 @interface MECustomInputPhoneView ()<UITextFieldDelegate>
 

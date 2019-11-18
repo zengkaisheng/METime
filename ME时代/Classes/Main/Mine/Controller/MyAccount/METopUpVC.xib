@@ -63,6 +63,30 @@
                         <constraint firstAttribute="height" constant="111" id="kZJ-V8-NZ3"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="充值即代表同意" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6J-s9-3Y5">
+                    <rect key="frame" x="184" y="350" width="79" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="Nq1-Yf-ngn"/>
+                        <constraint firstAttribute="width" constant="79" id="UoX-bP-CLG"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4TD-E3-ufr">
+                    <rect key="frame" x="263" y="344" width="79" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="79" id="2oH-ZW-PfA"/>
+                        <constraint firstAttribute="height" constant="28" id="wH2-RG-Man"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <state key="normal" title="志愿星充值协议">
+                        <color key="titleColor" red="0.18039215689999999" green="0.85098039219999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="checkTopUpProtocolAction:" destination="-1" eventType="touchUpInside" id="zL2-Ew-rWx"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -71,12 +95,16 @@
                 <constraint firstAttribute="trailing" secondItem="Xq5-Rd-Lhl" secondAttribute="trailing" constant="37" id="A9M-xS-ABX"/>
                 <constraint firstItem="i8Z-hs-EbN" firstAttribute="top" secondItem="muq-iK-Yrf" secondAttribute="bottom" constant="27" id="Itu-91-ZsF"/>
                 <constraint firstItem="7c1-li-uPc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="114" id="QOz-7S-szs"/>
+                <constraint firstItem="4TD-E3-ufr" firstAttribute="leading" secondItem="o6J-s9-3Y5" secondAttribute="trailing" id="Sr5-fx-GWC"/>
                 <constraint firstItem="Xq5-Rd-Lhl" firstAttribute="top" secondItem="i8Z-hs-EbN" secondAttribute="bottom" constant="79" id="XbI-J0-Ow6"/>
+                <constraint firstAttribute="trailing" secondItem="4TD-E3-ufr" secondAttribute="trailing" constant="33" id="YOV-9g-81R"/>
+                <constraint firstItem="4TD-E3-ufr" firstAttribute="top" secondItem="i8Z-hs-EbN" secondAttribute="bottom" constant="1" id="ZJE-o3-kYD"/>
                 <constraint firstAttribute="trailing" secondItem="muq-iK-Yrf" secondAttribute="trailing" constant="37" id="cc4-lT-kmv"/>
                 <constraint firstItem="muq-iK-Yrf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="37" id="hlY-xM-CqR"/>
                 <constraint firstItem="i8Z-hs-EbN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="25" id="mkg-6U-Bgg"/>
                 <constraint firstAttribute="trailing" secondItem="i8Z-hs-EbN" secondAttribute="trailing" constant="25" id="rer-55-coM"/>
                 <constraint firstItem="7c1-li-uPc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="38" id="vfV-XF-fdw"/>
+                <constraint firstItem="o6J-s9-3Y5" firstAttribute="centerY" secondItem="4TD-E3-ufr" secondAttribute="centerY" id="zEF-xT-wIa"/>
             </constraints>
             <point key="canvasLocation" x="132" y="154.27286356821591"/>
         </view>

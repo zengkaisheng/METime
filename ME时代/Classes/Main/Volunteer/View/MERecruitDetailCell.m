@@ -37,7 +37,8 @@
 }
 
 - (void)setUIWithContent:(NSString *)content {
-    _detailLbl.text = kMeUnNilStr(content);
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithData:[kMeUnNilStr(content) dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    _detailLbl.attributedText = attrStr;
 }
 
 + (CGFloat)getCellHeightWithContent:(NSString *)content {

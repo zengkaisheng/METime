@@ -8,9 +8,11 @@
 
 #import "MESetPayPasswordVC.h"
 
-@interface MESetPayPasswordVC ()
+@interface MESetPayPasswordVC ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consTop;
+
+@property (nonatomic, strong) UITextField *passTF;
 
 @property (weak, nonatomic) IBOutlet UITextField *tf1;
 @property (weak, nonatomic) IBOutlet UITextField *tf2;
@@ -27,56 +29,64 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"设置支付密码";
-    [self.tf1 addTarget:self action:@selector(tfCodeTextDidChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.tf2 addTarget:self action:@selector(tfCodeTextDidChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.tf3 addTarget:self action:@selector(tfCodeTextDidChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.tf4 addTarget:self action:@selector(tfCodeTextDidChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.tf5 addTarget:self action:@selector(tfCodeTextDidChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.tf6 addTarget:self action:@selector(tfCodeTextDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    self.passTF = [[UITextField alloc] init];
+    self.passTF.frame = CGRectMake(0, 0, 0, 0);
+    self.passTF.delegate = self;
+    self.passTF.keyboardType = UIKeyboardTypeNumberPad;
+    [self.passTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.view addSubview:self.passTF];
+    
     self.tf1.keyboardType = self.tf2.keyboardType = self.tf3.keyboardType = self.tf4.keyboardType = self.tf5.keyboardType = self.tf6.keyboardType = UIKeyboardTypeNumberPad;
-    [self.tf1 becomeFirstResponder];
+    
+    [self.passTF becomeFirstResponder];
 }
 
-- (void)tfCodeTextDidChange:(UITextField *)textField {
-    if (textField.text.length >= 1) {
-        if ([textField isEqual:self.tf1]) {
-            [self.tf2 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf2]) {
-            [self.tf3 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf3]) {
-            [self.tf4 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf4]) {
-            [self.tf5 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf5]) {
-            [self.tf6 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf6]) {
-            self.tf6.text = [textField.text substringWithRange:NSMakeRange(0, 1)];
+#pragma mark - 文本框内容发生改变
+- (void)textFieldDidChange:(UITextField*) sender {
+    UITextField *_field = sender;
+    switch (_field.text.length) {
+        case 0:
+            self.tf1.text = self.tf2.text = self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 1:
+            self.tf1.text = [_field.text substringWithRange:NSMakeRange(0, 1)];
+            self.tf2.text = self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 2:
+            self.tf2.text = [_field.text substringWithRange:NSMakeRange(1, 1)];
+            self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 3:
+            self.tf3.text = [_field.text substringWithRange:NSMakeRange(2, 1)];
+            self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 4:
+            self.tf4.text = [_field.text substringWithRange:NSMakeRange(3, 1)];
+            self.tf5.text = self.tf6.text = @"";
+            break;
+        case 5:
+            self.tf5.text = [_field.text substringWithRange:NSMakeRange(4, 1)];
+            self.tf6.text = @"";
+            break;
+        case 6:
+            self.tf6.text = [_field.text substringWithRange:NSMakeRange(5, 1)];
             [self.view endEditing:YES];
-//            [self checkSignInCodeWithNetWork];
-        }
-    }else {
-        if ([textField isEqual:self.tf6]) {
-            [self.tf5 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf5]) {
-            [self.tf4 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf4]) {
-            [self.tf3 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf3]) {
-            [self.tf2 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf2]) {
-            [self.tf1 becomeFirstResponder];
-        }
+            break;
+        default:
+            break;
     }
 }
 
 #pragma mark -- Networking
 //设置支付密码
 - (void)setPayPasswordWithNetWork {
-    NSString *password = [NSString stringWithFormat:@"%@%@%@%@%@%@",kMeUnNilStr(self.tf1.text),kMeUnNilStr(self.tf2.text),kMeUnNilStr(self.tf3.text),kMeUnNilStr(self.tf4.text),kMeUnNilStr(self.tf5.text),kMeUnNilStr(self.tf6.text)];
-    if (self.tf1.text <= 0 || self.tf2.text <= 0 || self.tf3.text <= 0 || self.tf4.text <= 0 || self.tf5.text <= 0 || self.tf6.text <= 0) {
+    NSString *password = [NSString stringWithFormat:@"%@",kMeUnNilStr(self.passTF.text)];
+    if (password.length < 6 ) {
         [MECommonTool showMessage:@"您的密码格式不正确" view:kMeCurrentWindow];
         self.tf1.text = self.tf2.text = self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
-        [self.tf1 becomeFirstResponder];
+        self.passTF.text = @"";
+        [self.passTF becomeFirstResponder];
         return;
     }
     kMeWEAKSELF

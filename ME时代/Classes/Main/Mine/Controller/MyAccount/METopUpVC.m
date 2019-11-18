@@ -42,6 +42,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"充值";
+    _order_amount = @"";
     self.view.backgroundColor = [UIColor whiteColor];
     _consTop.constant = kMeNavBarHeight+50;
     
@@ -311,12 +312,12 @@
         
         NSString *productIdentifier = dicInApp[@"product_id"];//读取产品标识
         //如果是消耗品则记录购买数量，非消耗品则记录是否购买过
-//        if ([productIdentifier isEqualToString:courseTopUpNumber1] ||
-//            [productIdentifier isEqualToString:courseTopUpNumber2] ||
-//            [productIdentifier isEqualToString:courseTopUpNumber3] ||
-//            [productIdentifier isEqualToString:courseTopUpNumber4] ||
-//            [productIdentifier isEqualToString:courseTopUpNumber5] ||
-//            [productIdentifier isEqualToString:courseTopUpNumber6]) {
+        if ([productIdentifier isEqualToString:courseTopUpNumber1] ||
+            [productIdentifier isEqualToString:courseTopUpNumber2] ||
+            [productIdentifier isEqualToString:courseTopUpNumber3] ||
+            [productIdentifier isEqualToString:courseTopUpNumber4] ||
+            [productIdentifier isEqualToString:courseTopUpNumber5] ||
+            [productIdentifier isEqualToString:courseTopUpNumber6]) {
         
             payModel.order_price_true = _order_amount;
             
@@ -343,7 +344,7 @@
             } failure:^(id error) {
                 NSLog(@"error:%@",error);
             }];
-//        }
+        }
     }else if([dic[@"status"] intValue] == 21007){
         
     }else{
@@ -440,6 +441,10 @@
 }
 
 - (IBAction)topUpAction:(id)sender {
+    if (kMeUnNilStr(_order_amount).length <= 0) {
+        [MECommonTool showMessage:@"请先选择要充值的金额" view:kMeCurrentWindow];
+        return;
+    }
     NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
     if ([status isEqualToString:@"customer"]) {//C端
         self.hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
@@ -470,6 +475,33 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WechatSuccess:) name:WX_PAY_RESULT object:nil];
+}
+- (IBAction)checkTopUpProtocolAction:(id)sender {
+    [self requestTopUpProtocolWithNetWork];
+}
+
+#pragma mark -- Networking
+//资金明细
+- (void)requestTopUpProtocolWithNetWork {
+    kMeWEAKSELF
+    [MEPublicNetWorkTool postGetTopUpProtocolWithSuccessBlock:^(ZLRequestResponse *responseObject) {
+        kMeSTRONGSELF
+        if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
+            NSString *topUpProtocol = kMeUnNilStr(responseObject.data[@"top_up_protocol"]);
+            MEBaseVC *vc = [[MEBaseVC alloc] init];
+            vc.title = @"充值协议";
+            
+            UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight)];
+            CGFloat width = [UIScreen mainScreen].bounds.size.width-15;
+            NSString *header = [NSString stringWithFormat:@"<head><style>img{max-width:%fpx !important;}</style></head>",width];
+            [webView loadHTMLString:[NSString stringWithFormat:@"%@%@",header,kMeUnNilStr(topUpProtocol)] baseURL:nil];
+            [vc.view addSubview:webView];
+            [strongSelf.navigationController pushViewController:vc animated:YES];
+        }
+        
+    } failure:^(id object) {
+        
+    }];
 }
 
 @end

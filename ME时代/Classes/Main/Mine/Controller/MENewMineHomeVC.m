@@ -139,11 +139,61 @@
     if ([MEUserInfoModel isLogin]) {
         if (kCurrentUser.user_type > 3) {
             if (_headerView) {
-                _headerView.lblTel.text =  [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
+//                _headerView.lblTel.text = [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
+                switch (kCurrentUser.client_type ) {
+                    case MEClientTypeClerkStyle:{
+                        _headerView.lblTel.text = [NSString stringWithFormat:@"我的等级:店员"];
+                    }
+                        break;
+                    case MEClientBTypeStyle:{
+                        _headerView.lblTel.text = [NSString stringWithFormat:@"我的等级:体验中心"];
+                    }
+                        break;
+                    case MEClientCTypeStyle:{
+                        _headerView.lblTel.text = [NSString stringWithFormat:@"我的等级:会员"];
+                    }
+                        break;
+                    case MEClientOneTypeStyle:{
+                        _headerView.lblTel.text = [NSString stringWithFormat:@"我的等级:售后中心"];
+                    }
+                        break;
+                    case MEClientTwoTypeStyle:{
+                        _headerView.lblTel.text = [NSString stringWithFormat:@"我的等级:营销中心"];
+                    }
+                        break;
+                    default:
+                        _headerView.lblTel.text = @"";
+                        break;
+                }
             }
         }else {
             if (_headerCodeView) {
-                _headerCodeView.LblTel.text =  [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
+//                _headerCodeView.LblTel.text = [NSString stringWithFormat:@"手机:%@",kMeUnNilStr(kCurrentUser.mobile)];
+                switch (kCurrentUser.client_type ) {
+                    case MEClientTypeClerkStyle:{
+                        _headerCodeView.LblTel.text = [NSString stringWithFormat:@"我的等级:店员"];
+                    }
+                        break;
+                    case MEClientBTypeStyle:{
+                        _headerCodeView.LblTel.text = [NSString stringWithFormat:@"我的等级:体验中心"];
+                    }
+                        break;
+                    case MEClientCTypeStyle:{
+                        _headerCodeView.LblTel.text = [NSString stringWithFormat:@"我的等级:会员"];
+                    }
+                        break;
+                    case MEClientOneTypeStyle:{
+                        _headerCodeView.LblTel.text = [NSString stringWithFormat:@"我的等级:售后中心"];
+                    }
+                        break;
+                    case MEClientTwoTypeStyle:{
+                        _headerCodeView.LblTel.text = [NSString stringWithFormat:@"我的等级:营销中心"];
+                    }
+                        break;
+                    default:
+                        _headerCodeView.LblTel.text = @"";
+                        break;
+                }
             }
         }
     }
