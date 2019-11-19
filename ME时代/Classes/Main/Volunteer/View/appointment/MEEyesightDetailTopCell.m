@@ -47,7 +47,7 @@
 }
 
 - (void)setUIWithModel:(MEGoodDetailModel *)model {
-    self.sdView.imageURLStringsGroup = @[MELoadQiniuImagesWithUrl(kMeUnNilStr(model.images))];
+    self.sdView.imageURLStringsGroup = @[kMeUnNilStr(model.images_url)];
     _titleLbl.text = kMeUnNilStr(model.title);
     _priceLbl.text = [NSString stringWithFormat:@"￥%@",kMeUnNilStr(model.money)];
 }

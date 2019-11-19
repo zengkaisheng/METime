@@ -145,6 +145,7 @@
 @property (nonatomic, strong) NSString * company_longitude;
 @property (nonatomic, strong) NSString * company_latitude;
 @property (nonatomic, strong) NSString * company_phone;
+@property (nonatomic, strong) NSString * images_url;
 
 @end
 

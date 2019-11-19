@@ -1147,12 +1147,25 @@ const static CGFloat kImgStoreH = 50;
                 header.selectIndexBlock = ^(NSInteger index) {
                     kMeSTRONGSELF
                     NSDictionary *dict = strongSelf->_arrDicParm[index];
-                    if ([dict[@"type"] integerValue] == 15 || [dict[@"type"] integerValue] == 20 || [dict[@"type"] integerValue] == 23) {
-                        if (kCurrentUser.is_volunteer != 1) {
-                            MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
-                            [strongSelf.navigationController pushViewController:vc animated:YES];
+                    if ([dict[@"type"] integerValue] == 15 || [dict[@"type"] integerValue] == 16 || [dict[@"type"] integerValue] == 17 || [dict[@"type"] integerValue] == 19 || [dict[@"type"] integerValue] == 20 || [dict[@"type"] integerValue] == 23 || [dict[@"type"] integerValue] == 24 || [dict[@"type"] integerValue] == 25) {
+                        if([MEUserInfoModel isLogin]){
+                            if (kCurrentUser.is_volunteer != 1) {
+                                MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                                [strongSelf.navigationController pushViewController:vc animated:YES];
+                            }else {
+                                kMeCallBlock(strongSelf.selectedIndexBlock,index);
+                            }
                         }else {
-                           kMeCallBlock(strongSelf.selectedIndexBlock,index);
+                            [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                                if (kCurrentUser.is_volunteer != 1) {
+                                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                                    [strongSelf.navigationController pushViewController:vc animated:YES];
+                                }else {
+                                    kMeCallBlock(strongSelf.selectedIndexBlock,index);
+                                }
+                            } failHandler:^(id object) {
+                                
+                            }];
                         }
                     }else {
                         kMeCallBlock(strongSelf.selectedIndexBlock,index);

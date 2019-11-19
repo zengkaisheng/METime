@@ -45,6 +45,7 @@
     self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeNavBarHeight+7, SCREEN_WIDTH, kCategoryViewHeight)];
     //    self.categoryView.lineStyle = JXCategoryLineStyle_None;
     JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
+    lineView.indicatorLineViewColor = kMEPink;
     self.categoryView.indicators = @[lineView];
     
     self.categoryView.titles = _arrType;

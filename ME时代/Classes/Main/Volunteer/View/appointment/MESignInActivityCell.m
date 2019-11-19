@@ -45,7 +45,7 @@
     _titleLbl.text = kMeUnNilStr(model.title);
     _activityTimeLbl.text = [NSString stringWithFormat:@"活动时间：%@",kMeUnNilStr(model.activity_start_time)];
     _signInTimeLbl.text = [NSString stringWithFormat:@"签到时间 %@",kMeUnNilStr(model.start_time)];
-    _signOutTimeLbl.text = [NSString stringWithFormat:@"签退时间 %@",kMeUnNilStr(model.start_time).length>0?kMeUnNilStr(model.start_time):@"无"];
+    _signOutTimeLbl.text = [NSString stringWithFormat:@"签退时间 %@",kMeUnNilStr(model.end_time)];
     _statusLbl.text = kMeUnNilStr(model.status_name);
     if (model.status == 1) {
         _statusLbl.backgroundColor = [UIColor colorWithHexString:@"#38CFB0"];

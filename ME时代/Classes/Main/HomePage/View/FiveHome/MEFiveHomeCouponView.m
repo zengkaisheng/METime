@@ -33,7 +33,7 @@
     self.categoryView.titles = @[@""];
     self.categoryView.delegate = self;
     self.categoryView.titleSelectedColor = [UIColor colorWithHexString:@"#2ED9A4"];
-    self.categoryView.titleColor =  kME333333;
+    self.categoryView.titleColor = kME333333;
     self.categoryView.defaultSelectedIndex = 0;
 }
 
@@ -66,10 +66,6 @@
                 kMeSTRONGSELF
                 kMeCallBlock(strongSelf.scrollBlock);
             };
-//            int R = (arc4random() % 256);
-//            int G = (arc4random() % 256);
-//            int B = (arc4random() % 256);
-//            view.backgroundColor = [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1];
             [self.scrollView addSubview:view];
         }
         
