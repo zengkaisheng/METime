@@ -94,10 +94,9 @@
 #pragma setter && getter
 - (UITableView *)tableView{
     if(!_tableView){
-        
-        CGRect frame = CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight);
+        CGRect frame = CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-15-44);
         if (self.isHome) {
-            frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight);
+            frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight-15-44);
         }
         _tableView = [[UITableView alloc]initWithFrame:frame style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPersionalCourseListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEPersionalCourseListCell class])];
@@ -130,7 +129,11 @@
 - (UIButton *)appointmentBtn{
     if(!_appointmentBtn){
         _appointmentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _appointmentBtn.frame = CGRectMake(15, SCREEN_HEIGHT -15-44, SCREEN_WIDTH-30, 44);
+        CGRect frame = CGRectMake(15, SCREEN_HEIGHT-15-44, SCREEN_WIDTH-30, 44);
+        if (self.isHome) {
+            frame = CGRectMake(15, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight-15-44, SCREEN_WIDTH-30, 44);
+        }
+        _appointmentBtn.frame = frame;
         [_appointmentBtn setTitle:@"视力预约" forState:UIControlStateNormal];
         [_appointmentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_appointmentBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:18]];

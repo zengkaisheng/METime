@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEActivityRecruitVC : MEBaseVC
 
+@property (nonatomic, assign) BOOL isHome;
+
+- (void)hideSiftView;
+
 @end
 
 NS_ASSUME_NONNULL_END

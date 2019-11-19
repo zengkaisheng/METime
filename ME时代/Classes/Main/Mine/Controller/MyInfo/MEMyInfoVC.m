@@ -43,6 +43,8 @@
     MEAddCustomerInfoModel *nickNameModel = [self creatModelWithTitle:@"昵称" andValue:kMeUnNilStr(self.model.nick_name)];
     nickNameModel.isHideArrow = NO;
     
+    MEAddCustomerInfoModel *phoneModel = [self creatModelWithTitle:@"手机号码" andValue:kMeUnNilStr(kCurrentUser.mobile)];
+    
     MEAddCustomerInfoModel *signatureModel = [self creatModelWithTitle:@"公益签名" andValue:kMeUnNilStr(self.model.signature)];
     signatureModel.isHideArrow = NO;
     signatureModel.maxInputWord = 20;
@@ -50,7 +52,7 @@
 //    NSString *name = [self replaceStringWithOrgStr:kMeUnNilStr(self.model.name) range:NSMakeRange(0, 1)];
     MEAddCustomerInfoModel *nameModel = [self creatModelWithTitle:@"姓名" andValue:kMeUnNilStr(self.model.name)];
     
-    MEAddCustomerInfoModel *idCardTypeModel = [self creatModelWithTitle:@"证件类型" andValue:@"内地舒居民身份证"];
+    MEAddCustomerInfoModel *idCardTypeModel = [self creatModelWithTitle:@"证件类型" andValue:@"内地居民身份证"];
     
 //    NSString *idCard = [self replaceStringWithOrgStr:kMeUnNilStr(self.model.id_number) range:NSMakeRange(8, 5)];
     MEAddCustomerInfoModel *idCardModel = [self creatModelWithTitle:@"证件号码" andValue:kMeUnNilStr(self.model.id_number)];
@@ -73,7 +75,7 @@
     }
     MEAddCustomerInfoModel *sexModel = [self creatModelWithTitle:@"性别" andValue:sex];
     
-    [self.dataSource addObjectsFromArray:@[headerPicModel,nickNameModel,signatureModel,nameModel,idCardTypeModel,idCardModel,timeModel,sexModel]];
+    [self.dataSource addObjectsFromArray:@[@[headerPicModel,nickNameModel,phoneModel,signatureModel,],@[nameModel,idCardTypeModel,idCardModel,timeModel,sexModel]]];
     [self.tableView reloadData];
 }
 
@@ -116,35 +118,60 @@
 }
 
 #pragma mark - tableView deleagte and sourcedata
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSArray *subArr = self.dataSource[section];
+    return subArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MEMyInfoListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEMyInfoListCell class]) forIndexPath:indexPath];
-    MEAddCustomerInfoModel *model = self.dataSource[indexPath.row];
+    NSArray *subArr = self.dataSource[indexPath.section];
+    MEAddCustomerInfoModel *model = subArr[indexPath.row];
     [cell setUIWithCustomerModel:model];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0 && indexPath.row == 0) {
         return 67;
     }
     return 53;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 1 || indexPath.row == 2) {
-        MEAddCustomerInfoModel *model = self.dataSource[indexPath.row];
-        MEEditMyInfoVC *vc = [[MEEditMyInfoVC alloc] initWithModel:model];
-        kMeWEAKSELF
-        vc.finishBlock = ^{
-            kMeSTRONGSELF
-            [strongSelf requestMyInfoWithNetWork];
-        };
-        [self.navigationController pushViewController:vc animated:YES];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1 || indexPath.row == 3) {
+            NSArray *subArr = self.dataSource[indexPath.section];
+            MEAddCustomerInfoModel *model = subArr[indexPath.row];
+            MEEditMyInfoVC *vc = [[MEEditMyInfoVC alloc] initWithModel:model];
+            kMeWEAKSELF
+            vc.finishBlock = ^{
+                kMeSTRONGSELF
+                [strongSelf requestMyInfoWithNetWork];
+            };
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0;
+    }
+    return 25;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 25)];
+        view.backgroundColor = [UIColor whiteColor];
+        return view;
+    }
+    return [UIView new];
 }
 
 #pragma setter&&getter

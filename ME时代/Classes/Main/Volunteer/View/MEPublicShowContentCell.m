@@ -59,7 +59,9 @@
     _nameLbl.text = kMeUnNilStr(model.nick_name);
     NSArray *timeArr = [kMeUnNilStr(model.created_at) componentsSeparatedByString:@" "];
     _addressLbl.text = [NSString stringWithFormat:@"%@%@",kMeUnNilStr(model.address),kMeUnNilStr(timeArr.firstObject)];
-    [_contentLbl setAtsWithStr:kMeUnNilStr(model.content) lineGap:0];
+//    [_contentLbl setAtsWithStr:kMeUnNilStr(model.content) lineGap:0];
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithData:[kMeUnNilStr(model.content) dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    _contentLbl.attributedText = attrStr;
     
     _consGridViewHeight.constant = [MENineGridView getPublicShowViewHeightWithArr:kMeUnArr(model.images)];
     [_gridView setImagePublicShowWithArr:kMeUnArr(model.images)];

@@ -21,6 +21,8 @@
 @property (nonatomic, strong)NSMutableArray *arrType;
 @property (nonatomic, strong)NSMutableArray *arrModel;
 
+@property (nonatomic, strong) UIButton *reloadBtn;
+
 @end
 
 @implementation MECommunityServiceHomeVC
@@ -31,6 +33,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"社区服务";
     self.navBarHidden = self.isHome;
+    
+    [self.view addSubview:self.reloadBtn];
+    self.reloadBtn.hidden = YES;
     
     [self requestMaterialData];
 }
@@ -54,11 +59,23 @@
         [strongSelf setUpUI];
     } failure:^(id object) {
         kMeSTRONGSELF
-        [strongSelf.navigationController popViewControllerAnimated:YES];
+        if (strongSelf.isHome) {
+            strongSelf.reloadBtn.hidden = NO;
+        }else {
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+        }
     }];
 }
 
 - (void)setUpUI {
+    if (self.arrModel.count <= 0) {
+        if (_reloadBtn.hidden) {
+            _reloadBtn.hidden = NO;
+        }
+    }else {
+        _reloadBtn.hidden = YES;
+    }
+    
     CGFloat categoryViewHeight = kCategoryViewHeight;
     if (self.arrModel.count < 2) {
         categoryViewHeight = 0.1;
@@ -67,6 +84,7 @@
     if (self.isHome) {
         frame = CGRectMake(0, categoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight-categoryViewHeight);
     }
+    
     self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
@@ -103,6 +121,11 @@
     self.categoryView.defaultSelectedIndex = 0;
 }
 
+- (void)reloadBtnDidClick {
+    self.reloadBtn.hidden = YES;
+    [self requestMaterialData];
+}
+
 #pragma mark -- setter && getter
 - (NSMutableArray *)arrType {
     if (!_arrType) {
@@ -116,6 +139,23 @@
         _arrModel = [[NSMutableArray alloc] init];
     }
     return _arrModel;
+}
+
+- (UIButton *)reloadBtn {
+    if (!_reloadBtn) {
+        _reloadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        CGRect frame = CGRectMake(50, (SCREEN_HEIGHT-40)/2, SCREEN_WIDTH-100, 40);
+        if (self.isHome) {
+            frame = CGRectMake(50, (SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight-40)/2-40, SCREEN_WIDTH-100, 40);
+        }
+        _reloadBtn.frame = frame;
+        [_reloadBtn setTitle:@"暂无相关数据" forState:UIControlStateNormal];
+//        [_reloadBtn setTitleColor:[UIColor colorWithHexString:@"#2ED9A4"] forState:UIControlStateNormal];
+        [_reloadBtn setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
+        [_reloadBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_reloadBtn addTarget:self action:@selector(reloadBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _reloadBtn;
 }
 
 @end

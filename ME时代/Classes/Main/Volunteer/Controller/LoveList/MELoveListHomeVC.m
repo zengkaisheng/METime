@@ -9,6 +9,9 @@
 #import "MELoveListHomeVC.h"
 #import "MELoveListContentVC.h"
 
+#import "MEFiveHomeNavView.h"
+#import "MEFiveCategoryView.h"
+
 @interface MELoveListHomeVC ()<JXCategoryViewDelegate,UIScrollViewDelegate>{
     NSArray *_arrType;
 }
@@ -30,14 +33,20 @@
     // Do any additional setup after loading the view.
     self.title = @"爱心榜";
     self.type = 2;
+    self.navBarHidden = self.isHome;
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
     
     _arrType = @[@"月榜",@"年榜"];
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight)];
+    CGRect frame = CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
+    if (self.isHome) {
+        frame = CGRectMake(0, kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight-kCategoryViewHeight);
+    }
+    self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *_arrType.count,  SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight-kCategoryViewHeight);
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH *_arrType.count,  frame.size.height);
     self.scrollView.bounces = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -46,7 +55,7 @@
     [self.view addSubview:self.scrollView];
     
     //1、初始化JXCategoryTitleView
-    self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kMeNavBarHeight, SCREEN_WIDTH, kCategoryViewHeight)];
+    self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,self.isHome?0:kMeNavBarHeight, SCREEN_WIDTH, kCategoryViewHeight)];
     JXCategoryIndicatorLineView *lineView = [[JXCategoryIndicatorLineView alloc] init];
     lineView.indicatorLineViewColor = kMEPink;
     self.categoryView.indicators = @[lineView];
@@ -77,7 +86,11 @@
     if (!_monthVC) {
         _monthVC = [[MELoveListContentVC alloc] initWithType:self.type dateType:@"month"];
         _monthVC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _monthVC.view.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
+        CGRect frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
+        if (self.isHome) {
+            frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight-kCategoryViewHeight);
+        }
+        _monthVC.view.frame = frame;
         [self addChildViewController:_monthVC];
     }
     return _monthVC;
@@ -87,7 +100,11 @@
     if (!_yearVC) {
         _yearVC = [[MELoveListContentVC alloc] initWithType:self.type dateType:@"year"];
         _yearVC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _yearVC.view.frame = CGRectMake(SCREEN_WIDTH,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
+        CGRect frame = CGRectMake(SCREEN_WIDTH,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-kCategoryViewHeight);
+        if (self.isHome) {
+            frame = CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight-kCategoryViewHeight);
+        }
+        _yearVC.view.frame = frame;
         [self addChildViewController:_yearVC];
     }
     return _yearVC;

@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.navBarHidden = self.isHome;
     [self.view addSubview:self.tableView];
     [self.refresh addRefreshView];
 }

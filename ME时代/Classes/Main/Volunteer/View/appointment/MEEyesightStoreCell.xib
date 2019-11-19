@@ -39,11 +39,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBt-ID-OXB">
-                                <rect key="frame" x="23" y="61" width="40" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="Cj7-Q7-u6M"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBt-ID-OXB">
+                                <rect key="frame" x="23" y="61" width="40" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -96,6 +93,7 @@
                             <constraint firstAttribute="trailing" secondItem="AEn-jN-uGa" secondAttribute="trailing" constant="13" id="j6q-7W-14b"/>
                             <constraint firstItem="AEn-jN-uGa" firstAttribute="leading" secondItem="km8-fR-PNU" secondAttribute="trailing" constant="4" id="jnL-lg-YnW"/>
                             <constraint firstItem="5Zv-WJ-wu0" firstAttribute="centerY" secondItem="eEw-hs-WSp" secondAttribute="centerY" id="qub-JB-tzx"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="EBt-ID-OXB" secondAttribute="bottom" constant="5" id="wKG-BK-Cbp"/>
                             <constraint firstItem="EBt-ID-OXB" firstAttribute="leading" secondItem="bah-kK-P3s" secondAttribute="leading" constant="23" id="xq5-nv-iQR"/>
                             <constraint firstItem="eEw-hs-WSp" firstAttribute="leading" secondItem="bah-kK-P3s" secondAttribute="leading" constant="23" id="yTj-K5-bOu"/>
                         </constraints>

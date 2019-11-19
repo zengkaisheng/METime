@@ -20,6 +20,10 @@
 #import "MELianTongListVC.h"
 #import "MEPublicServiceCourseVC.h"
 #import "MERegisteVolunteerVC.h"
+#import "MEActivityRecruitVC.h"
+#import "MENewAvtivityVC.h"
+#import "MEPublicShowHomeVC.h"
+#import "MELoveListHomeVC.h"
 #import "MEPublicServiceEyesightVC.h"
 
 @interface MEFiveHomeVC ()<UIScrollViewDelegate>{
@@ -34,6 +38,7 @@
 @property (nonatomic, strong) MEFiveHomeBaseVC *choseVC;//精选
 @property (nonatomic, strong) UIColor *currentColor;
 @property (nonatomic, strong) UIButton *reloadBtn;
+@property (nonatomic, strong) MEActivityRecruitVC *recruitVC;
 
 @end
 
@@ -107,6 +112,35 @@
             VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
             [self addChildViewController:VC];
             [self.scrollview addSubview:VC.view];
+        }else  if ([dict[@"type"] integerValue] == 16) {//志愿者注册
+            MERegisteVolunteerVC *VC = [[MERegisteVolunteerVC alloc] init];
+            VC.isHome = YES;
+            VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
+            [self addChildViewController:VC];
+            [self.scrollview addSubview:VC.view];
+        }else  if ([dict[@"type"] integerValue] == 17) {//活动招募
+            MEActivityRecruitVC *VC = [[MEActivityRecruitVC alloc] init];
+            VC.isHome = YES;
+            self.recruitVC = VC;
+            VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
+            [self addChildViewController:VC];
+            [self.scrollview addSubview:VC.view];
+        }else  if ([dict[@"type"] integerValue] == 18) {//精选好物
+            MENewAvtivityVC *vc = [[MENewAvtivityVC alloc] initWithType:@"goods"];
+            vc.isHome = YES;
+            vc.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            vc.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
+            [self addChildViewController:vc];
+            [self.scrollview addSubview:vc.view];
+        }else  if ([dict[@"type"] integerValue] == 19) {//公益秀
+            MEPublicShowHomeVC *vc = [[MEPublicShowHomeVC alloc] init];
+            vc.isHome = YES;
+            vc.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            vc.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
+            [self addChildViewController:vc];
+            [self.scrollview addSubview:vc.view];
         }else  if ([dict[@"type"] integerValue] == 20) {//社区服务
             MECommunityServiceHomeVC *VC = [[MECommunityServiceHomeVC alloc] init];
             VC.isHome = YES;
@@ -121,8 +155,22 @@
             VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
             [self addChildViewController:VC];
             [self.scrollview addSubview:VC.view];
+        }else if ([dict[@"type"] integerValue] == 22) {//福利活动
+            MENewAvtivityVC *VC = [[MENewAvtivityVC alloc] init];
+            VC.isHome = YES;
+            VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
+            [self addChildViewController:VC];
+            [self.scrollview addSubview:VC.view];
         }else  if ([dict[@"type"] integerValue] == 23) {//视力预约
             MEPublicServiceEyesightVC *VC = [[MEPublicServiceEyesightVC alloc] init];
+            VC.isHome = YES;
+            VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
+            [self addChildViewController:VC];
+            [self.scrollview addSubview:VC.view];
+        }else  if ([dict[@"type"] integerValue] == 24) {//爱心榜
+            MELoveListHomeVC *VC = [[MELoveListHomeVC alloc] init];
             VC.isHome = YES;
             VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             VC.view.frame = CGRectMake(SCREEN_WIDTH*i,top, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-top);
@@ -310,7 +358,10 @@
             if(index>=0 && index<6){
                 if(strongSelf->_currentIndex != index){
                     NSDictionary *dict = strongSelf->_arrDicParm[index];
-                    if ([dict[@"type"] integerValue] == 15 || [dict[@"type"] integerValue] == 20 || [dict[@"type"] integerValue] == 23) {
+                    if ([dict[@"type"] integerValue] != 17 && self.recruitVC) {
+                        [strongSelf.recruitVC hideSiftView];
+                    }
+                    if ([dict[@"type"] integerValue] == 15 || [dict[@"type"] integerValue] == 16 || [dict[@"type"] integerValue] == 17 || [dict[@"type"] integerValue] == 19 || [dict[@"type"] integerValue] == 20 || [dict[@"type"] integerValue] == 23 || [dict[@"type"] integerValue] == 24 || [dict[@"type"] integerValue] == 25) {
                         if([MEUserInfoModel isLogin]){
                             if (kCurrentUser.is_volunteer != 1) {
                                 MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];

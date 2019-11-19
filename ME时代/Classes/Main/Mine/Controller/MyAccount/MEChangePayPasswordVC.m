@@ -33,6 +33,8 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"忘记支付密码";
     _consTop.constant = kMeNavBarHeight+72;
+    _phoneTF.text = kMeUnNilStr(kCurrentUser.mobile);
+    _phoneTF.enabled = NO;
     kMeWEAKSELF
     _phoneTF.contentBlock = ^(NSString *str) {
         kMeSTRONGSELF
@@ -89,15 +91,25 @@
         _phoneTF.text = @"";
         return;
     }
-    if (_codeTF.text.length < 5) {
+    if (_codeTF.text.length <= 0) {
+        [MEShowViewTool showMessage:@"请输入验证码" view:self.view];
+        return;
+    }else if (_codeTF.text.length < 6) {
         [MEShowViewTool showMessage:@"验证码格式不对" view:self.view];
         return;
     }
-    if (_passwordTF.text.length < 5) {
-        [MEShowViewTool showMessage:@"密码格式不对" view:self.view];
+    
+    if (_passwordTF.text.length <= 0) {
+        [MEShowViewTool showMessage:@"请输入新密码" view:self.view];
+        return;
+    }else if (_passwordTF.text.length < 6) {
+        [MEShowViewTool showMessage:@"新密码格式不对" view:self.view];
         return;
     }
-    if (_rPasswordTF.text.length < 5) {
+    if (_rPasswordTF.text.length <= 0) {
+        [MEShowViewTool showMessage:@"请输入确认密码" view:self.view];
+        return;
+    }else if (_rPasswordTF.text.length < 6) {
         [MEShowViewTool showMessage:@"确认密码格式不对" view:self.view];
         return;
     }

@@ -369,8 +369,12 @@ const static CGFloat kImgStoreH = 50;
     if(![data isKindOfClass:[NSArray class]]){
         return;
     }
-//    [self.refresh.arrData addObjectsFromArray:[MECoupleModel mj_objectArrayWithKeyValuesArray:data]];
-    [self.refresh.arrData addObjectsFromArray:@[]];
+    if (_type == 0) {
+        [self.refresh.arrData addObjectsFromArray:@[]];
+        
+    }else {
+        [self.refresh.arrData addObjectsFromArray:[MECoupleModel mj_objectArrayWithKeyValuesArray:data]];
+    }
 }
 
 #pragma mark -- Action

@@ -168,8 +168,7 @@
             [MECommonTool doNavigationWithEndLocation:@[kMeUnNilStr(strongSelf.model.serviceDetail.company_latitude),kMeUnNilStr(strongSelf.model.serviceDetail.company_longitude)]];
         };
         return cell;
-    }
-    else if (indexPath.row == 2) {
+    }else if (indexPath.row == 2) {
         MEEyesightBottomCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MEEyesightBottomCell class]) forIndexPath:indexPath];
         [cell setUIWithContent:kMeUnNilStr(self.model.serviceDetail.content)];
         return cell;

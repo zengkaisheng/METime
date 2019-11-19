@@ -98,9 +98,10 @@
 #pragma mark -- action
 - (void)payBtnAction {
     if ([self.model.price floatValue] > [self.accountModel.money floatValue]) {
-        MEAlertView *aler = [[MEAlertView alloc] initWithTitle:@"" message:@"您的资金余额不足"];
+        MEAlertView *aler = [[MEAlertView alloc] initWithTitle:@"" message:@"您的账户余额不足"];
         kMeWEAKSELF
-        [aler addButtonWithTitle:@"去充值" block:^{
+        [aler addButtonWithTitle:@"取消"];
+        [aler addButtonWithTitle:@"立即充值" block:^{
             kMeSTRONGSELF
             METopUpVC *vc = [[METopUpVC alloc] init];
             vc.finishBlock = ^{
@@ -108,7 +109,6 @@
             };
             [strongSelf.navigationController pushViewController:vc animated:YES];
         }];
-        [aler addButtonWithTitle:@"取消"];
         [aler show];
     }else {
         if (kCurrentUser.is_set_pay_pass == 1) {

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MENewAvtivityVC : MEBaseVC
 
+@property (nonatomic, assign) BOOL isHome;
+
 - (instancetype)initWithType:(NSString *)type;
 
 @end

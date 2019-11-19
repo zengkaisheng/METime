@@ -15,6 +15,9 @@
 #import "MERecruitListModel.h"
 #import "MERecruitDetailVC.h"
 
+#import "MEFiveHomeNavView.h"
+#import "MEFiveCategoryView.h"
+
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 #import <CoreLocation/CoreLocation.h>
@@ -51,7 +54,7 @@
     // Do any additional setup after loading the view.
     self.title = @"活动招募";
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    self.navBarHidden = self.isHome;
     self.titlesArr = @[@"全市",@"服务类型",@"智能筛选"];
     self.selectedIndex = -1;
     self.requestModel = [[MERecruitRequestModel alloc] init];
@@ -69,7 +72,7 @@
     kMeWEAKSELF
     self.headerMenuView =
     [[MEMenuHeaderView alloc] initWithTitle:self.titlesArr
-                                      frame:CGRectMake(0, kMeNavBarHeight, SCREEN_WIDTH, 51)
+                                      frame:CGRectMake(0, self.isHome?0:kMeNavBarHeight, SCREEN_WIDTH, 51)
                                        type:MEMenuHeaderViewSimple
                               tapIndexBlock:^(NSInteger index) {
                                   //显示下拉视图
@@ -78,7 +81,7 @@
                               }];
     [self.view addSubview:self.headerMenuView];
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, kMeNavBarHeight+50, SCREEN_WIDTH, 1)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, (self.isHome?0:kMeNavBarHeight)+50, SCREEN_WIDTH, 1)];
     line.backgroundColor = [UIColor colorWithHexString:@"#e0e0e0"];
     [self.view addSubview:line];
     
@@ -200,6 +203,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self hideSiftView];
+}
+
+- (void)hideSiftView {
     //重置与隐藏筛选控件
     [self.headerMenuView reset];
     if (self.pulldownMenuView.isVisible) {
@@ -237,7 +244,7 @@
     NSArray *items = [tempArray mutableCopy];
     [weakSelf.pulldownMenuView showWithItems:items
                                   isMultiple:NO
-                                     originY:kMeNavBarHeight+51
+                                     originY:self.isHome?(kMEFiveHomeNavViewHeight+kMEFiveCategoryViewHeight+51):(kMeNavBarHeight+51)
                         pulldownMenuViewType:MEPulldownListViewRow
                                tapIndexBlock:^(NSArray * _Nonnull indexs) {
                                    [weakSelf.headerMenuView reset];
@@ -273,7 +280,7 @@
     NSArray *items = [tempArray mutableCopy];
     [weakSelf.pulldownMenuView showWithItems:items
                                   isMultiple:NO
-                                     originY:kMeNavBarHeight+51
+                                     originY:self.isHome?(kMEFiveHomeNavViewHeight+kMEFiveCategoryViewHeight+51):(kMeNavBarHeight+51)
                         pulldownMenuViewType:MEPulldownListViewRow
                                tapIndexBlock:^(NSArray *indexs) {
                                    [weakSelf.headerMenuView reset];
@@ -308,7 +315,7 @@
     NSArray *items = [tempArray mutableCopy];
     [weakSelf.pulldownMenuView showWithItems:items
                                   isMultiple:NO
-                                     originY:kMeNavBarHeight+51
+                                     originY:self.isHome?(kMEFiveHomeNavViewHeight+kMEFiveCategoryViewHeight+51):(kMeNavBarHeight+51)
                         pulldownMenuViewType:MEPulldownListViewRow
                                tapIndexBlock:^(NSArray *indexs) {
                                    [weakSelf.headerMenuView reset];
@@ -397,7 +404,11 @@
 
 - (UITableView *)tableView{
     if(!_tableView){
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, kMeNavBarHeight+51, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-51) style:UITableViewStylePlain];
+        CGRect frame = CGRectMake(0, kMeNavBarHeight+51, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-51);
+        if (self.isHome) {
+            frame = CGRectMake(0, 51, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight-51);
+        }
+        _tableView = [[UITableView alloc]initWithFrame:frame style:UITableViewStylePlain];
         [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MEActivityRecruitListCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([MEActivityRecruitListCell class])];
         
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

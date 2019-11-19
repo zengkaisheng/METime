@@ -161,7 +161,8 @@
     if(kMeUnNilStr(frist).length){
         NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
         if (!status || status.length<=0) {
-            [kMeUserDefaults setObject:@"customer" forKey:kMENowStatus];
+            status = @"customer";
+            [kMeUserDefaults setObject:status forKey:kMENowStatus];
             [kMeUserDefaults synchronize];
         }
         if ([status isEqualToString:@"customer"]) {

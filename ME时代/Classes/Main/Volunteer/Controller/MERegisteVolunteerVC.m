@@ -42,9 +42,9 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"成为志愿者";
     self.view.backgroundColor = [UIColor whiteColor];
-    _nameTFConsTop.constant = kMeNavBarHeight+55;
+    _nameTFConsTop.constant = self.isHome?55:(kMeNavBarHeight+55);
     _isError = NO;
-    
+    self.navBarHidden = self.isHome;
     kMeWEAKSELF
     _nameTF.contentBlock = ^(NSString *str) {
         kMeSTRONGSELF
