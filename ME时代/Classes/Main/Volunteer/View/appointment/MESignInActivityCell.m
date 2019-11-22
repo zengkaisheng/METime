@@ -43,13 +43,14 @@
 
 - (void)setUIWithModel:(MESignInActivityModel *)model {
     _titleLbl.text = kMeUnNilStr(model.title);
-    _activityTimeLbl.text = [NSString stringWithFormat:@"活动时间：%@",kMeUnNilStr(model.activity_start_time)];
+    _activityTimeLbl.text = [NSString stringWithFormat:@"活动时间：%@-%@",kMeUnNilStr(model.activity_start_time),kMeUnNilStr(model.activity_end_time)];
     _signInTimeLbl.text = [NSString stringWithFormat:@"签到时间 %@",kMeUnNilStr(model.start_time)];
-    _signOutTimeLbl.text = [NSString stringWithFormat:@"签退时间 %@",kMeUnNilStr(model.end_time)];
-    _statusLbl.text = kMeUnNilStr(model.status_name);
+    _signOutTimeLbl.text = [NSString stringWithFormat:@"签退时间 %@",kMeUnNilStr(model.end_time).length>0?kMeUnNilStr(model.end_time):@"无"];
     if (model.status == 1) {
+        _statusLbl.text = @"未签退";
         _statusLbl.backgroundColor = [UIColor colorWithHexString:@"#38CFB0"];
     }else {
+        _statusLbl.text = @"已签退";
         _statusLbl.backgroundColor = [UIColor colorWithHexString:@"#B7B7B7"];
     }
 }

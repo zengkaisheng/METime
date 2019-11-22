@@ -146,6 +146,8 @@
             <connections>
                 <outlet property="bgView" destination="YMB-Zb-0Wo" id="BcD-yr-Bct"/>
                 <outlet property="checkBtn" destination="IMC-2E-byp" id="yai-TU-Vrf"/>
+                <outlet property="checkBtnConsLeading" destination="8AR-eJ-50L" id="vMS-XT-QwV"/>
+                <outlet property="checkBtnConsWidth" destination="HqF-nw-oTn" id="XZW-sM-2vM"/>
                 <outlet property="downImageV" destination="SaD-yL-Uq4" id="hsz-aC-uIt"/>
                 <outlet property="placeHolderLbl" destination="Wjc-0i-SyP" id="Dp3-jr-LnO"/>
                 <outlet property="reviewBtn" destination="TeB-nD-7yo" id="mTd-cq-nZV"/>

@@ -55,14 +55,14 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="嘉兴博物馆志愿服务活动" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3p-CL-hE7">
-                    <rect key="frame" x="10" y="217" width="355" height="26.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3p-CL-hE7">
+                    <rect key="frame" x="10" y="217" width="355" height="0.0"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="签到成功计时开始" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Fc-da-WvE">
-                    <rect key="frame" x="77" y="262.5" width="221" height="44"/>
+                    <rect key="frame" x="77" y="236" width="221" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="BNy-2y-Wk5"/>
                         <constraint firstAttribute="width" constant="221" id="Xcl-LH-ie1"/>
@@ -83,7 +83,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="活动截至时间为" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syI-Ec-lYe">
-                    <rect key="frame" x="26" y="351.5" width="86" height="17"/>
+                    <rect key="frame" x="26" y="325" width="86" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="gXg-BU-Ac8"/>
                     </constraints>
@@ -92,7 +92,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KsL-Zf-9qY">
-                    <rect key="frame" x="26" y="374.5" width="40" height="21"/>
+                    <rect key="frame" x="26" y="348" width="40" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="1ur-Wi-alr"/>
                     </constraints>
@@ -101,7 +101,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K3O-bt-ene">
-                    <rect key="frame" x="77" y="497.5" width="221" height="44"/>
+                    <rect key="frame" x="77" y="471" width="221" height="44"/>
                     <color key="backgroundColor" red="0.18039215689999999" green="0.85098039219999999" blue="0.64313725489999995" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="kyq-U7-aqo"/>
@@ -120,7 +120,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请在此时间之前签退" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0a-1t-36R">
-                    <rect key="frame" x="26" y="418.5" width="110.5" height="17"/>
+                    <rect key="frame" x="26" y="392" width="110.5" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="ghr-v4-rSk"/>
                     </constraints>
@@ -129,7 +129,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="活动必须签退才能记录信用时数和积分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCY-yH-Qt9">
-                    <rect key="frame" x="26" y="441.5" width="208.5" height="17"/>
+                    <rect key="frame" x="26" y="415" width="208.5" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="zhh-ca-QaW"/>
                     </constraints>

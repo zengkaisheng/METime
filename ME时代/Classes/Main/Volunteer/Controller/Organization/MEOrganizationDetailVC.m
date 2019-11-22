@@ -14,9 +14,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topBGViewConsTop;
 @property (weak, nonatomic) IBOutlet UIView *topBGView;
 @property (weak, nonatomic) IBOutlet UIImageView *headerPic;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerPicConsWidth;
 @property (weak, nonatomic) IBOutlet UILabel *nameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *signLbl;
 @property (weak, nonatomic) IBOutlet UILabel *addressLbl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addressLblConsTop;
 
 @property (weak, nonatomic) IBOutlet UIView *centerBGView;
 @property (weak, nonatomic) IBOutlet UILabel *durationLbl;
@@ -54,6 +56,14 @@
     _topBGView.layer.cornerRadius = 14;
     _topBGView.clipsToBounds = false;
     _topBGViewConsTop.constant = kMeNavBarHeight+2;
+    
+    _headerPicConsWidth.constant = 69*kMeFrameScaleX();
+    _headerPic.layer.cornerRadius = (69*kMeFrameScaleX())/2.0;
+    if (IS_iPhone5S || IS_IPHONE_4S) {
+        _addressLblConsTop.constant = 3;
+    }else {
+        _addressLblConsTop.constant = 13;
+    }
     
     _centerBGView.layer.shadowOffset = CGSizeMake(0, 3);
     _centerBGView.layer.shadowOpacity = 1;

@@ -12,10 +12,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MEOrganizationDetailVC">
             <connections>
                 <outlet property="addressLbl" destination="pGP-qf-6ce" id="h5b-DF-S0z"/>
+                <outlet property="addressLblConsTop" destination="oHj-o7-OWp" id="dQt-bM-gNd"/>
                 <outlet property="bottomBGView" destination="sY2-BN-gR8" id="278-HN-aiW"/>
                 <outlet property="centerBGView" destination="5gn-X7-llR" id="ez8-oV-DsO"/>
                 <outlet property="durationLbl" destination="zyY-4B-Bgd" id="rQH-uC-cVC"/>
                 <outlet property="headerPic" destination="Tam-Sz-Iec" id="A9D-Ih-efG"/>
+                <outlet property="headerPicConsWidth" destination="ssZ-KZ-DKb" id="ZCf-YT-f0e"/>
                 <outlet property="nameLbl" destination="5l7-GI-WTP" id="cgl-Ry-u3O"/>
                 <outlet property="numberLbl" destination="4jy-89-d4j" id="bKg-oV-5jD"/>
                 <outlet property="signLbl" destination="est-b0-fa4" id="1gz-dq-ggB"/>
@@ -36,7 +38,7 @@
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tam-Sz-Iec">
                             <rect key="frame" x="128" y="18" width="69" height="69"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="69" id="5Pu-FO-7QL"/>
+                                <constraint firstAttribute="width" secondItem="Tam-Sz-Iec" secondAttribute="height" multiplier="1:1" id="6qf-cx-oj1"/>
                                 <constraint firstAttribute="width" constant="69" id="ssZ-KZ-DKb"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>

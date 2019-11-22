@@ -28,7 +28,7 @@
 
 - (void)setmodelWithStr:(MEGoodSpecModel *)model isSelect:(BOOL)isSelect{
     _lblContent.text = kMeUnNilStr(model.spec_value);
-    _lblContent.backgroundColor = isSelect ? kMEPink:kMEUnSelect;
+    _lblContent.backgroundColor = isSelect ? [UIColor colorWithHexString:@"#ff88a4"]:kMEUnSelect;
     
 }
 

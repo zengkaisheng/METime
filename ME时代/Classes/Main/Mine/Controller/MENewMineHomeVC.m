@@ -514,9 +514,11 @@
                 kNoticeUserLogout
             }
             if (kCurrentUser.user_type < 3) {
+                strongSelf.headerView.orderList = strongSelf.orderList;
                 [strongSelf.headerView reloadUIWithUserInfo];
                 strongSelf.tableView.tableHeaderView = strongSelf.headerView;
             }else {
+                strongSelf.headerCodeView.orderList = strongSelf.orderList;
                 [strongSelf.headerCodeView reloadUIWithUserInfo];
                 strongSelf.tableView.tableHeaderView = strongSelf.headerCodeView;
             }

@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="METopUpVC">
             <connections>
+                <outlet property="bottomimageVConsTop" destination="XbI-J0-Ow6" id="DpX-Pm-aGX"/>
                 <outlet property="consTop" destination="QOz-7S-szs" id="a7X-BL-eGJ"/>
                 <outlet property="topUpView" destination="muq-iK-Yrf" id="EKf-AF-Gxn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -53,7 +54,7 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="topUpBottomImage" translatesAutoresizingMaskIntoConstraints="NO" id="Xq5-Rd-Lhl">
                     <rect key="frame" x="37" y="422" width="301" height="231"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="231" id="Kv8-aN-DSk"/>
+                        <constraint firstAttribute="width" secondItem="Xq5-Rd-Lhl" secondAttribute="height" multiplier="43:33" id="0Po-kO-Nlq"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="muq-iK-Yrf">

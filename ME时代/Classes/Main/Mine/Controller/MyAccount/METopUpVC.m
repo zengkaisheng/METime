@@ -28,7 +28,9 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consTop;
 @property (weak, nonatomic) IBOutlet UIView *topUpView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomimageVConsTop;
 @property (nonatomic, strong) MBProgressHUD *hud;
+@property (nonatomic, assign) BOOL isFinish;
 
 @end
 
@@ -43,8 +45,14 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"充值";
     _order_amount = @"";
+    self.isFinish = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     _consTop.constant = kMeNavBarHeight+50;
+    if (IS_IPHONE_4S || IS_iPhone5S) {
+        _bottomimageVConsTop.constant = 40;
+    }else {
+        _bottomimageVConsTop.constant = 79;
+    }
     
     CGFloat spec = 20;
     CGFloat itemW = (SCREEN_WIDTH-37*2-spec*2)/3;
@@ -57,6 +65,10 @@
 }
 
 - (void)TopUpChooseAction:(UIButton *)sender {
+    if (!self.isFinish) {
+        [MECommonTool showMessage:@"充值还未结束，请稍后" view:kMeCurrentWindow];
+        return;
+    }
     UIButton *btn = (UIButton *)sender;
     for (UIButton *btn in _topUpView.subviews) {
         btn.selected = NO;
@@ -155,6 +167,7 @@
     if (self.hud) {
         [self.hud hideAnimated:YES];
     }
+    self.isFinish = YES;
     [MECommonTool showMessage:@"无法连接到 iTunes Store" view:kMeCurrentWindow];
 }
 
@@ -183,6 +196,7 @@
                 break;
             case SKPaymentTransactionStateFailed:
                 NSLog(@"交易失败");
+                self.isFinish = YES;
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
                 break;
             default:
@@ -194,6 +208,7 @@
 //交易结束,当交易结束后还要去appstore上验证支付信息是否都正确,只有所有都正确后,我们就可以给用户方法我们的虚拟物品了。
 - (void)completeTransaction:(SKPaymentTransaction *)transaction{
     NSLog(@"交易结束");
+    self.hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
     //交易验证
     //这里可以通过判断 state == 0 验证凭据成功，然后进入自己服务器二次验证，,也可以直接进行服务器逻辑的判断。
     //本地服务器验证成功之后别忘了 [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
@@ -244,15 +259,15 @@
         payModel.token = kMeUnNilStr(kCurrentUser.token);
         NSString *productIdentifier = dicInApp[@"product_id"];//读取产品标识
         
-        if ([productIdentifier isEqualToString:courseTopUpNumber1] ||
-            [productIdentifier isEqualToString:courseTopUpNumber2] ||
-            [productIdentifier isEqualToString:courseTopUpNumber3] ||
-            [productIdentifier isEqualToString:courseTopUpNumber4] ||
-            [productIdentifier isEqualToString:courseTopUpNumber5] ||
-            [productIdentifier isEqualToString:courseTopUpNumber6]) {
-            
+//        if ([productIdentifier isEqualToString:courseTopUpNumber1] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber2] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber3] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber4] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber5] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber6]) {
+        
             payModel.order_price_true = _order_amount;
-            
+        
             kMeWEAKSELF
 //            NSDictionary *dic = [payModel mj_keyValues];
             NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.token),
@@ -264,6 +279,8 @@
             NSString *url = kGetApiWithUrl(MEIPcommonMoneyAppleSuccess);
             [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
                 kMeSTRONGSELF
+                strongSelf.isFinish = YES;
+                [strongSelf.hud hideAnimated:YES];
                 METopUpSuccessVC *svc = [[METopUpSuccessVC alloc] initWithMoney:kMeUnNilStr(strongSelf->_order_amount) sucessConfireBlock:^{
                     kMeCallBlock(strongSelf.finishBlock);
                     NSArray *vcs = strongSelf.navigationController.viewControllers;
@@ -274,7 +291,7 @@
             } failure:^(id error) {
                 NSLog(@"error:%@",error);
             }];
-        }
+//        }
     }else if([dic[@"status"] intValue] == 21007){
         [self verifyPurchaseWithPaymentTransactionSANDBOX];
     }else{
@@ -312,12 +329,12 @@
         
         NSString *productIdentifier = dicInApp[@"product_id"];//读取产品标识
         //如果是消耗品则记录购买数量，非消耗品则记录是否购买过
-        if ([productIdentifier isEqualToString:courseTopUpNumber1] ||
-            [productIdentifier isEqualToString:courseTopUpNumber2] ||
-            [productIdentifier isEqualToString:courseTopUpNumber3] ||
-            [productIdentifier isEqualToString:courseTopUpNumber4] ||
-            [productIdentifier isEqualToString:courseTopUpNumber5] ||
-            [productIdentifier isEqualToString:courseTopUpNumber6]) {
+//        if ([productIdentifier isEqualToString:courseTopUpNumber1] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber2] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber3] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber4] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber5] ||
+//            [productIdentifier isEqualToString:courseTopUpNumber6]) {
         
             payModel.order_price_true = _order_amount;
             
@@ -334,6 +351,8 @@
         
             [THTTPManager postWithParameter:dic strUrl:url success:^(ZLRequestResponse *responseObject) {
                 kMeSTRONGSELF
+                strongSelf.isFinish = YES;
+                [strongSelf.hud hideAnimated:YES];
                 METopUpSuccessVC *svc = [[METopUpSuccessVC alloc] initWithMoney:kMeUnNilStr(strongSelf->_order_amount) sucessConfireBlock:^{
                     kMeCallBlock(strongSelf.finishBlock);
                     NSArray *vcs = strongSelf.navigationController.viewControllers;
@@ -344,7 +363,7 @@
             } failure:^(id error) {
                 NSLog(@"error:%@",error);
             }];
-        }
+//        }
     }else if([dic[@"status"] intValue] == 21007){
         
     }else{
@@ -408,10 +427,16 @@
 
 - (UIButton *)createButtomWithTitle:(NSString *)title frame:(CGRect)frame tag:(NSInteger)tag {
     NSArray *array = [title componentsSeparatedByString:@"\n"];
+    UIFont *firstfont = [UIFont systemFontOfSize:17];
+    UIFont *lastfont = [UIFont systemFontOfSize:11];
+    if (IS_IPHONE_4S || IS_iPhone5S) {
+        firstfont = [UIFont systemFontOfSize:15];
+        lastfont = [UIFont systemFontOfSize:9];
+    }
     //未选中时
-    NSMutableAttributedString *norAttribTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n",kMeUnNilStr(array.firstObject)] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17], NSForegroundColorAttributeName:kMEPink}];
+    NSMutableAttributedString *norAttribTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n",kMeUnNilStr(array.firstObject)] attributes:@{NSFontAttributeName:firstfont, NSForegroundColorAttributeName:kMEPink}];
     
-    NSAttributedString *bottomStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",kMeUnNilStr(array.lastObject)] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11],NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#30D9A5"]}];
+    NSAttributedString *bottomStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",kMeUnNilStr(array.lastObject)] attributes:@{NSFontAttributeName:lastfont,NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#30D9A5"]}];
     
     [norAttribTitle appendAttributedString:bottomStr];
     
@@ -420,9 +445,9 @@
     paraStyle.alignment = NSTextAlignmentCenter;
     [norAttribTitle addAttributes:@{NSParagraphStyleAttributeName:paraStyle} range:NSMakeRange(0, norAttribTitle.length)];
     //选中时
-    NSMutableAttributedString *selAttribTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n",kMeUnNilStr(array.firstObject)] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17], NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    NSMutableAttributedString *selAttribTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n",kMeUnNilStr(array.firstObject)] attributes:@{NSFontAttributeName:firstfont, NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
-    NSAttributedString *selBottomStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",kMeUnNilStr(array.lastObject)] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    NSAttributedString *selBottomStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",kMeUnNilStr(array.lastObject)] attributes:@{NSFontAttributeName:lastfont,NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
     [selAttribTitle appendAttributedString:selBottomStr];
     [selAttribTitle addAttributes:@{NSParagraphStyleAttributeName:paraStyle} range:NSMakeRange(0, selAttribTitle.length)];
@@ -450,6 +475,7 @@
         self.hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
         //bundleid+xxx 就是你添加内购条目设置的产品ID
         if([SKPaymentQueue canMakePayments]){
+            self.isFinish = NO;
             //是否允许内购
             if ([_order_amount isEqualToString:@"12"]) {
                 [self requestProductData:courseTopUpNumber1];

@@ -77,12 +77,16 @@
     [self.view addSubview:self.inputView];
     kMeWEAKSELF
     self.inputView.contentBlock = ^(NSString *str) {
-        kMeSTRONGSELF
-        if (strongSelf.index == -1) {
-            [strongSelf commentRecruitActivityWithContent:kMeUnNilStr(str)];
+        if (str.length <= 0) {
+            [MECommonTool showMessage:@"请输入您的评论" view:kMeCurrentWindow];
         }else {
-            MERecruitCommentModel *model = strongSelf.model.comment[strongSelf.index];
-            [strongSelf commentBackRecruitActivityWithContent:str commentId:[NSString stringWithFormat:@"%@",@(model.idField)]];
+            kMeSTRONGSELF
+            if (strongSelf.index == -1) {
+                [strongSelf commentRecruitActivityWithContent:kMeUnNilStr(str)];
+            }else {
+                MERecruitCommentModel *model = strongSelf.model.comment[strongSelf.index];
+                [strongSelf commentBackRecruitActivityWithContent:str commentId:[NSString stringWithFormat:@"%@",@(model.idField)]];
+            }
         }
     };
 }

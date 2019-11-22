@@ -14,6 +14,7 @@
                 <outlet property="bgView" destination="saC-eC-4GJ" id="FJB-aT-xOX"/>
                 <outlet property="bgViewConsTop" destination="b07-q5-Byu" id="97J-gs-N8I"/>
                 <outlet property="headerPic" destination="Clk-Iw-7IX" id="Fox-ML-bCT"/>
+                <outlet property="headerPicConsWidth" destination="Fls-Wg-H7M" id="E9B-in-kYs"/>
                 <outlet property="nameLbl" destination="F8h-7K-ugf" id="jEm-Rm-5Sl"/>
                 <outlet property="signLbl" destination="m7c-nt-ZhF" id="P6T-Xk-ppT"/>
                 <outlet property="timeLbl" destination="1Vp-2C-YdH" id="xMN-Ck-vGt"/>
@@ -32,7 +33,7 @@
                             <rect key="frame" x="128" y="18" width="69" height="69"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="69" id="Fls-Wg-H7M"/>
-                                <constraint firstAttribute="height" constant="69" id="Rpy-GR-U5k"/>
+                                <constraint firstAttribute="width" secondItem="Clk-Iw-7IX" secondAttribute="height" multiplier="1:1" id="SGO-Rb-bZv"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

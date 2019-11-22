@@ -37,12 +37,16 @@
         height = 0;
     }
     
-    UILabel *titleLbl = [self createLabelWithTitle:@"请输入活动编码" font:[UIFont boldSystemFontOfSize:20] lineNum:1 textAlign:NSTextAlignmentCenter frame:CGRectMake(100, kMeNavBarHeight+43+height, SCREEN_WIDTH-200, 28)];
+    UILabel *titleLbl = [self createLabelWithTitle:@"请输入活动编码" font:[UIFont boldSystemFontOfSize:20] lineNum:1 textAlign:NSTextAlignmentCenter frame:CGRectMake(50, kMeNavBarHeight+43+height, SCREEN_WIDTH-100, 28)];
     [self.view addSubview:titleLbl];
     
     CGFloat itemW = 28;
+    CGFloat space = 65;
+    if (IS_IPHONE_4S || IS_iPhone5S) {
+        space = 20;
+    }
     for (int i = 0; i < 6; i++) {
-        UITextField *textF = [self createTextFieldWithFrame:CGRectMake(65+(itemW+22)*i, CGRectGetMaxY(titleLbl.frame)+33, itemW, itemW)];
+        UITextField *textF = [self createTextFieldWithFrame:CGRectMake(space+(itemW+22)*i, CGRectGetMaxY(titleLbl.frame)+33, itemW, itemW)];
         [textF addTarget:self action:@selector(tfCodeTextDidChange:) forControlEvents:UIControlEventEditingChanged];
         switch (i) {
             case 0:
@@ -84,11 +88,14 @@
     
     UILabel *centerLbl = [self createLabelWithTitle:@"温馨提示" font:[UIFont boldSystemFontOfSize:20] lineNum:1 textAlign:NSTextAlignmentCenter frame:CGRectMake(100, CGRectGetMaxY(titleLbl.frame)+92+height, SCREEN_WIDTH-200, 21)];
     [self.view addSubview:centerLbl];
-    
-    UILabel *oneLbl = [self createLabelWithTitle:@"1.活动编码为6位数字，由活动发布着告知" font:[UIFont systemFontOfSize:12] lineNum:1 textAlign:NSTextAlignmentLeft frame:CGRectMake(77, CGRectGetMaxY(centerLbl.frame)+18, SCREEN_WIDTH-154, 17)];
+    space = 77;
+    if (IS_IPHONE_4S || IS_iPhone5S) {
+        space = 30;
+    }
+    UILabel *oneLbl = [self createLabelWithTitle:@"1.活动编码为6位数字，由活动发布着告知" font:[UIFont systemFontOfSize:12] lineNum:1 textAlign:NSTextAlignmentLeft frame:CGRectMake(space, CGRectGetMaxY(centerLbl.frame)+18, SCREEN_WIDTH-2*space, 17)];
     [self.view addSubview:oneLbl];
     
-    UILabel *twoLbl = [self createLabelWithTitle:@"2.活动编码请勿在公共场合，网络聊天室等渠道公开传播波。" font:[UIFont systemFontOfSize:12] lineNum:2 textAlign:NSTextAlignmentLeft frame:CGRectMake(77, CGRectGetMaxY(oneLbl.frame)+10, SCREEN_WIDTH-154, 34)];
+    UILabel *twoLbl = [self createLabelWithTitle:@"2.活动编码请勿在公共场合，网络聊天室等渠道公开传播波。" font:[UIFont systemFontOfSize:12] lineNum:2 textAlign:NSTextAlignmentLeft frame:CGRectMake(space, CGRectGetMaxY(oneLbl.frame)+10, SCREEN_WIDTH-2*space, 34)];
     [self.view addSubview:twoLbl];
     
     UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"volunteerSignImage"]];

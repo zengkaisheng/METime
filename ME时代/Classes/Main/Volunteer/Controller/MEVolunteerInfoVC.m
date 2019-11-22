@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIImageView *headerPic;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerPicConsWidth;
 @property (weak, nonatomic) IBOutlet UILabel *nameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *signLbl;
 @property (weak, nonatomic) IBOutlet UILabel *timeLbl;
@@ -48,6 +49,8 @@
     _bgView.layer.cornerRadius = 14;
     _bgView.clipsToBounds = false;
     _bgViewConsTop.constant = kMeNavBarHeight+2;
+    _headerPicConsWidth.constant = 69*kMeFrameScaleX();
+    _headerPic.layer.cornerRadius = (69*kMeFrameScaleX())/2.0;
     
     [self.view addSubview:self.praiseBtn];
     [self.view addSubview:self.attentionBtn];

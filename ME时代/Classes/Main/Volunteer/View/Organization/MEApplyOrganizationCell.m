@@ -23,6 +23,10 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *placeHolderLbl;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *checkBtnConsWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *checkBtnConsLeading;
+
+
 @end
 
 
@@ -38,6 +42,16 @@
     _bgView.layer.masksToBounds = false;
     _bgView.layer.cornerRadius = 14;
     _bgView.clipsToBounds = false;
+    
+    if (IS_IPHONE_4S || IS_iPhone5S) {
+        _checkBtnConsWidth.constant = 60;
+        [_checkBtn setTitle:@"模板查看" forState:UIControlStateNormal];
+        _checkBtnConsLeading.constant = 5;
+    }else {
+        _checkBtnConsWidth.constant = 90;
+        [_checkBtn setTitle:@"申请函模板查看" forState:UIControlStateNormal];
+        _checkBtnConsLeading.constant = 20;
+    }
     
     self.downImageV.hidden = YES;
     self.uploadBtn.hidden = YES;

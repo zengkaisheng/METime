@@ -51,12 +51,16 @@
     [self.view addSubview:self.commentBtn];
     kMeWEAKSELF
     self.inputView.contentBlock = ^(NSString *str) {
-        kMeSTRONGSELF
-        if (strongSelf.index == -1) {
-            [strongSelf commentPublicShowWithContent:kMeUnNilStr(str)];
+        if (str.length <= 0) {
+            [MECommonTool showMessage:@"请输入您的评论" view:kMeCurrentWindow];
         }else {
-            MERecruitCommentModel *model = strongSelf.model.comment[strongSelf.index];
-            [strongSelf commentBackPublicShowWithContent:str commentId:[NSString stringWithFormat:@"%@",@(model.idField)]];
+            kMeSTRONGSELF
+            if (strongSelf.index == -1) {
+                [strongSelf commentPublicShowWithContent:kMeUnNilStr(str)];
+            }else {
+                MERecruitCommentModel *model = strongSelf.model.comment[strongSelf.index];
+                [strongSelf commentBackPublicShowWithContent:str commentId:[NSString stringWithFormat:@"%@",@(model.idField)]];
+            }
         }
     };
 }
