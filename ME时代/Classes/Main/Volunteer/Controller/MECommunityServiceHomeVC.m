@@ -80,7 +80,7 @@
     if (self.arrModel.count < 2) {
         categoryViewHeight = 0.1;
     }
-    CGRect frame = CGRectMake(0, kMeNavBarHeight+kCategoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight);
+    CGRect frame = CGRectMake(0, kMeNavBarHeight+categoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeNavBarHeight-categoryViewHeight);
     if (self.isHome) {
         frame = CGRectMake(0, categoryViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight-kMEFiveCategoryViewHeight-categoryViewHeight);
     }

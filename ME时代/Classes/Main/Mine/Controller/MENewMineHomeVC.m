@@ -458,33 +458,6 @@
         } failure:^(id object) {
             dispatch_semaphore_signal(semaphore);
         }];
-        
-        /*
-        [MEPublicNetWorkTool getUserMenuDataWithType:type successBlock:^(ZLRequestResponse *responseObject) {
-            kMeSTRONGSELF
-            if ([responseObject.data isKindOfClass:[NSArray class]]) {
-                strongSelf.memuList = [MEMineHomeMuneModel mj_objectArrayWithKeyValuesArray:responseObject.data];
-                NSMutableArray *titles = [[NSMutableArray alloc] init];
-                NSMutableArray *items = [[NSMutableArray alloc] init];
-                NSMutableArray *childrens = [[NSMutableArray alloc] init];
-                [strongSelf.memuList enumerateObjectsUsingBlock:^(MEMineHomeMuneModel *menuModel, NSUInteger idx, BOOL * _Nonnull stop) {
-                    [titles addObject:menuModel.name];
-                    
-                    [childrens addObjectsFromArray:menuModel.children];
-//                    [menuModel.children enumerateObjectsUsingBlock:^(MEMineHomeMuneChildrenModel *subModel, NSUInteger idx, BOOL * _Nonnull stop) {
-//                        [childrens addObject:@([subModel.path intValue])];
-//                    }];
-                    [items addObject:[childrens mutableCopy]];
-                    [childrens removeAllObjects];
-                }];
-                strongSelf->_arrtypeTitle = [titles mutableCopy];
-                strongSelf->_arrtype = [items mutableCopy];
-            }
-            dispatch_semaphore_signal(semaphore);
-        } failure:^(id object) {
-            dispatch_semaphore_signal(semaphore);
-        }];
-         */
     });
     
     
@@ -881,6 +854,10 @@
             kMeSTRONGSELF
             [strongSelf tapVCWithTypre:index];
         };
+        _headerView.changeBlock = ^{
+            kMeSTRONGSELF
+            [strongSelf loadData];
+        };
     }
     return _headerView;
 }
@@ -906,6 +883,10 @@
         _headerCodeView.indexBlock = ^(NSInteger index) {
             kMeSTRONGSELF
             [strongSelf tapVCWithTypre:index];
+        };
+        _headerCodeView.changeBlock = ^{
+            kMeSTRONGSELF
+            [strongSelf loadData];
         };
     }
     return _headerCodeView;

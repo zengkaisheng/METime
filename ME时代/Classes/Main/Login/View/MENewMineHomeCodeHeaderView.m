@@ -112,7 +112,7 @@
 }
 
 - (void)reloadUIWithUserInfo{
-    _lblName.text = kMeUnNilStr(kCurrentUser.name);
+    _lblName.text = kMeUnNilStr(kCurrentUser.nick_name);
 
     NSString *invationStr = [NSString stringWithFormat:@"邀请码：%@",kMeUnNilStr(kCurrentUser.invitation_code)];
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:invationStr attributes:@{NSFontAttributeName: [UIFont fontWithName:@"PingFang-SC-Medium" size: 15],NSForegroundColorAttributeName: [UIColor colorWithRed:205/255.0 green:177/255.0 blue:126/255.0 alpha:1.0]}];
@@ -280,6 +280,11 @@
 - (IBAction)changeInfoAction:(id)sender {
     MENewMineHomeVC *home = (MENewMineHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MENewMineHomeVC class] targetResponderView:self];
     MEMyInfoVC *infoVC = [[MEMyInfoVC alloc] init];
+    kMeWEAKSELF
+    infoVC.changeBlock = ^{
+        kMeSTRONGSELF
+        kMeCallBlock(strongSelf.changeBlock);
+    };
     if(home){
         [home.navigationController pushViewController:infoVC animated:YES];
     }

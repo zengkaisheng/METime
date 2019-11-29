@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MEMyInfoVC : MEBaseVC
 
+@property (nonatomic, copy) kMeBasicBlock changeBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

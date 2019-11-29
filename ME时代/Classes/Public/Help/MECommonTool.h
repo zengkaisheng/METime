@@ -26,7 +26,7 @@
 /**
  *  校验身份证号码是否正确
  */
-+ (BOOL)checkIdentityStringValid:(NSString *)identityString;
++ (BOOL)checkIdentityStringValid:(NSString *)identity;
 
 //color->image
 + (UIImage*) createImageWithColor:(UIColor*) color;

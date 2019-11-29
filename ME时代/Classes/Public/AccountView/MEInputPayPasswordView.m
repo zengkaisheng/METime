@@ -94,7 +94,6 @@
             case 0:
             {
                 self.tf1 = textF;
-                [self.tf1 becomeFirstResponder];
             }
                 break;
             case 1:

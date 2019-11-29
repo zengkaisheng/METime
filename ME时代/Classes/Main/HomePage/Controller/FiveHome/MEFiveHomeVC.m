@@ -189,7 +189,15 @@
                     if (index == 0) {
                         strongSelf.categoryView.hidden = YES;
                     }else {
-                        strongSelf.categoryView.hidden = NO;
+                        NSDictionary *dict = strongSelf->_arrDicParm[index];
+                        if ([dict[@"type"] integerValue] == 15) {
+                            strongSelf.categoryView.hidden = YES;
+                            strongSelf.categoryView.categoryView.defaultSelectedIndex = 0;
+                            [strongSelf.categoryView.categoryView reloadData];
+                            return;
+                        }else {
+                            strongSelf.categoryView.hidden = NO;
+                        }
                     }
                     strongSelf.categoryView.categoryView.defaultSelectedIndex = index;
                     [strongSelf.categoryView.categoryView reloadData];
@@ -361,7 +369,7 @@
                     if ([dict[@"type"] integerValue] != 17 && self.recruitVC) {
                         [strongSelf.recruitVC hideSiftView];
                     }
-                    if ([dict[@"type"] integerValue] == 15 || [dict[@"type"] integerValue] == 16 || [dict[@"type"] integerValue] == 17 || [dict[@"type"] integerValue] == 19 || [dict[@"type"] integerValue] == 20 || [dict[@"type"] integerValue] == 23 || [dict[@"type"] integerValue] == 24 || [dict[@"type"] integerValue] == 25) {
+                    if ([dict[@"type"] integerValue] == 16 || [dict[@"type"] integerValue] == 17 || [dict[@"type"] integerValue] == 19 || [dict[@"type"] integerValue] == 20 || [dict[@"type"] integerValue] == 23 || [dict[@"type"] integerValue] == 24 || [dict[@"type"] integerValue] == 25) {
                         if([MEUserInfoModel isLogin]){
                             if (kCurrentUser.is_volunteer != 1) {
                                 MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
@@ -400,15 +408,28 @@
                             }];
                         }
                     }else {
-                        strongSelf->_currentIndex = index;
-                        if (index > 0) {
-                            strongSelf.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
-                            strongSelf.categoryView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
-                        }else {
+                        if ([dict[@"type"] integerValue] == 15) {
                             [strongSelf.choseVC setCurrentIndex:0];
+                            strongSelf.categoryView.categoryView.defaultSelectedIndex = 0;
+                            [strongSelf.categoryView.categoryView reloadData];
+                            strongSelf.tabBarController.selectedIndex = 1;
+                            for (UIViewController *vc in strongSelf.tabBarController.viewControllers) {
+                                if ([vc.title isEqualToString:@"志愿星"]) {
+                                    vc.tabBarItem.image = [[UIImage imageNamed:@"home"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+                                    vc.tabBarItem.title = @"首页";
+                                    [vc.tabBarItem setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+                                }
+                            }
+                        }else {
+                            strongSelf->_currentIndex = index;
+                            if (index > 0) {
+                                strongSelf.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+                                strongSelf.categoryView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+                            }else {
+                                [strongSelf.choseVC setCurrentIndex:0];
+                            }
                         }
                     }
-                    
                 }
             }
         };

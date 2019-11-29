@@ -16,7 +16,6 @@
 #import "MEFillInvationCodeVC.h"
 #import "MEChooseStatusVC.h"
 #import "MENewStoreApplyVC.h"
-#import "MEFourHomeVC.h"
 
 @interface MEWxLoginVC (){
     BOOL _isNewUser;

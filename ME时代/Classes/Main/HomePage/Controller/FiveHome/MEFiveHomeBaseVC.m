@@ -56,6 +56,7 @@
 #import "MEJoinOrganizationVC.h"
 #import "MECreateOrganizationVC.h"
 #import "MELoveListHomeVC.h"
+#import "MEFiveHomeVC.h"
 
 #define kMEGoodsMargin ((IS_iPhoneX?8:7.5)*kMeFrameScaleX())
 
@@ -579,29 +580,34 @@ const static CGFloat kImgStoreH = 50;
             break;
         case 23:
         {//跳公益课程
-            if([MEUserInfoModel isLogin]){
-                if (kCurrentUser.is_volunteer == 1) {
-                    MEPublicServiceCourseVC *vc = [[MEPublicServiceCourseVC alloc] init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }else {
-                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-            }else {
-                kMeWEAKSELF
-                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
-                    kMeSTRONGSELF
-                    if (kCurrentUser.is_volunteer == 1) {
-                        MEPublicServiceCourseVC *vc = [[MEPublicServiceCourseVC alloc] init];
-                        [strongSelf.navigationController pushViewController:vc animated:YES];
-                    }else {
-                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
-                        [strongSelf.navigationController pushViewController:vc animated:YES];
-                    }
-                } failHandler:^(id object) {
-                    
-                }];
-            }
+            self.tabBarController.selectedIndex = 1;
+            MEFiveHomeVC *homeVC = (MEFiveHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MEFiveHomeVC class] targetResponderView:self];
+            homeVC.tabBarItem.image = [[UIImage imageNamed:@"home"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            homeVC.tabBarItem.title = @"首页";
+            [homeVC.tabBarItem setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+//            if([MEUserInfoModel isLogin]){
+//                if (kCurrentUser.is_volunteer == 1) {
+//                    MEPublicServiceCourseVC *vc = [[MEPublicServiceCourseVC alloc] init];
+//                    [self.navigationController pushViewController:vc animated:YES];
+//                }else {
+//                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+//                    [self.navigationController pushViewController:vc animated:YES];
+//                }
+//            }else {
+//                kMeWEAKSELF
+//                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+//                    kMeSTRONGSELF
+//                    if (kCurrentUser.is_volunteer == 1) {
+//                        MEPublicServiceCourseVC *vc = [[MEPublicServiceCourseVC alloc] init];
+//                        [strongSelf.navigationController pushViewController:vc animated:YES];
+//                    }else {
+//                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+//                        [strongSelf.navigationController pushViewController:vc animated:YES];
+//                    }
+//                } failHandler:^(id object) {
+//
+//                }];
+//            }
         }
             break;
         case 24:
@@ -1140,6 +1146,12 @@ const static CGFloat kImgStoreH = 50;
                 }
                 self.headerView = header;
                 kMeWEAKSELF
+                header.selectBannerIndexBlock = ^(NSInteger index) {
+                    kMeSTRONGSELF
+                    METhridHomeAdModel *model = strongSelf.homeModel.top_banner[index];
+                    MEAdModel *adModel = [MEAdModel mj_objectWithKeyValues:model.mj_keyValues];
+                    [strongSelf cycleScrollViewDidSelectItemWithModel:adModel];
+                };
                 header.scrollToIndexBlock = ^(NSInteger index) {
                     kMeSTRONGSELF
                     [strongSelf setSdBackgroundColorWithIndex:index];
@@ -1147,7 +1159,7 @@ const static CGFloat kImgStoreH = 50;
                 header.selectIndexBlock = ^(NSInteger index) {
                     kMeSTRONGSELF
                     NSDictionary *dict = strongSelf->_arrDicParm[index];
-                    if ([dict[@"type"] integerValue] == 15 || [dict[@"type"] integerValue] == 16 || [dict[@"type"] integerValue] == 17 || [dict[@"type"] integerValue] == 19 || [dict[@"type"] integerValue] == 20 || [dict[@"type"] integerValue] == 23 || [dict[@"type"] integerValue] == 24 || [dict[@"type"] integerValue] == 25) {
+                    if ([dict[@"type"] integerValue] == 16 || [dict[@"type"] integerValue] == 17 || [dict[@"type"] integerValue] == 19 || [dict[@"type"] integerValue] == 20 || [dict[@"type"] integerValue] == 23 || [dict[@"type"] integerValue] == 24 || [dict[@"type"] integerValue] == 25) {
                         if([MEUserInfoModel isLogin]){
                             if (kCurrentUser.is_volunteer != 1) {
                                 MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
@@ -1168,6 +1180,19 @@ const static CGFloat kImgStoreH = 50;
                             }];
                         }
                     }else {
+                        if ([dict[@"type"] integerValue] == 15) {
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [strongSelf setCurrentIndex:0];
+                            });
+                            strongSelf.tabBarController.selectedIndex = 1;
+                            for (UIViewController *vc in strongSelf.tabBarController.viewControllers) {
+                                if ([vc.title isEqualToString:@"志愿星"]) {
+                                    vc.tabBarItem.image = [[UIImage imageNamed:@"home"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+                                    vc.tabBarItem.title = @"首页";
+                                    [vc.tabBarItem setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+                                }
+                            }
+                        }
                         kMeCallBlock(strongSelf.selectedIndexBlock,index);
                     }
                 };

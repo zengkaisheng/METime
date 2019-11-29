@@ -84,7 +84,7 @@
 }
 
 - (void)reloadUIWithUserInfo{
-    _lblName.text = kMeUnNilStr(kCurrentUser.name);
+    _lblName.text = kMeUnNilStr(kCurrentUser.nick_name);
     
 //    NSMutableAttributedString * attriStr = [[NSMutableAttributedString alloc] initWithString:kMeUnNilStr(kCurrentUser.name)];
 //
@@ -253,6 +253,11 @@
 - (IBAction)changeInfoAction:(id)sender {
     MENewMineHomeVC *home = (MENewMineHomeVC *)[MECommonTool getVCWithClassWtihClassName:[MENewMineHomeVC class] targetResponderView:self];
     MEMyInfoVC *infoVC = [[MEMyInfoVC alloc] init];
+    kMeWEAKSELF
+    infoVC.changeBlock = ^{
+        kMeSTRONGSELF
+        kMeCallBlock(strongSelf.changeBlock);
+    };
     if(home){
         [home.navigationController pushViewController:infoVC animated:YES];
     }

@@ -12,7 +12,9 @@
 #import "MESignInTimerVC.h"
 #import "MESignOutVC.h"
 
-@interface MEInputSginUpCodeVC ()
+@interface MEInputSginUpCodeVC ()<UITextFieldDelegate>
+
+@property (nonatomic, strong) UITextField *codeTF;
 
 @property (nonatomic, strong) UITextField *tf1;
 @property (nonatomic, strong) UITextField *tf2;
@@ -32,6 +34,15 @@
     self.title = @"活动编码";
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.codeTF = [[UITextField alloc] init];
+    self.codeTF.frame = CGRectMake(0, 0, 0, 0);
+    self.codeTF.delegate = self;
+    self.codeTF.keyboardType = UIKeyboardTypeNumberPad;
+    [self.codeTF addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.view addSubview:self.codeTF];
+    
+    [self.codeTF becomeFirstResponder];
+    
     CGFloat height = 30;
     if (IS_iPhone5S || IS_IPHONE_4S) {
         height = 0;
@@ -47,12 +58,11 @@
     }
     for (int i = 0; i < 6; i++) {
         UITextField *textF = [self createTextFieldWithFrame:CGRectMake(space+(itemW+22)*i, CGRectGetMaxY(titleLbl.frame)+33, itemW, itemW)];
-        [textF addTarget:self action:@selector(tfCodeTextDidChange:) forControlEvents:UIControlEventEditingChanged];
+        textF.enabled = NO;
         switch (i) {
             case 0:
             {
                 self.tf1 = textF;
-                [self.tf1 becomeFirstResponder];
             }
                 break;
             case 1:
@@ -129,49 +139,56 @@
     return tf;
 }
 
-- (void)tfCodeTextDidChange:(UITextField *)textField {
-    if (textField.text.length >= 1) {
-        if ([textField isEqual:self.tf1]) {
-            [self.tf2 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf2]) {
-            [self.tf3 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf3]) {
-            [self.tf4 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf4]) {
-            [self.tf5 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf5]) {
-            [self.tf6 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf6]) {
-            self.tf6.text = [textField.text substringWithRange:NSMakeRange(0, 1)];
+#pragma mark - 文本框内容发生改变
+- (void)textFieldDidChange:(UITextField*) sender {
+    UITextField *_field = sender;
+    switch (_field.text.length) {
+        case 0:
+            self.tf1.text = self.tf2.text = self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 1:
+            self.tf1.text = [_field.text substringWithRange:NSMakeRange(0, 1)];
+            self.tf2.text = self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 2:
+            self.tf2.text = [_field.text substringWithRange:NSMakeRange(1, 1)];
+            self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 3:
+            self.tf3.text = [_field.text substringWithRange:NSMakeRange(2, 1)];
+            self.tf4.text = self.tf5.text = self.tf6.text = @"";
+            break;
+        case 4:
+            self.tf4.text = [_field.text substringWithRange:NSMakeRange(3, 1)];
+            self.tf5.text = self.tf6.text = @"";
+            break;
+        case 5:
+            self.tf5.text = [_field.text substringWithRange:NSMakeRange(4, 1)];
+            self.tf6.text = @"";
+            break;
+        case 6:
+            self.tf6.text = [_field.text substringWithRange:NSMakeRange(5, 1)];
             [self.view endEditing:YES];
             [self checkSignInCodeWithNetWork];
-        }
-    }else {
-        if ([textField isEqual:self.tf6]) {
-            [self.tf5 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf5]) {
-            [self.tf4 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf4]) {
-            [self.tf3 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf3]) {
-            [self.tf2 becomeFirstResponder];
-        }else if ([textField isEqual:self.tf2]) {
-            [self.tf1 becomeFirstResponder];
-        }
+            break;
+        default:
+            break;
     }
 }
+
 
 #pragma mark -- Networking
 //验证活动编码
 - (void)checkSignInCodeWithNetWork {
-    if (self.tf1.text <= 0 || self.tf2.text <= 0 || self.tf3.text <= 0 || self.tf4.text <= 0 || self.tf5.text <= 0 || self.tf6.text <= 0) {
+    NSString *code = [NSString stringWithFormat:@"%@",kMeUnNilStr(self.codeTF.text)];
+    if (code.length < 6 ) {
         [MECommonTool showMessage:@"您的活动编码格式不正确" view:kMeCurrentWindow];
         self.tf1.text = self.tf2.text = self.tf3.text = self.tf4.text = self.tf5.text = self.tf6.text = @"";
-        [self.tf1 becomeFirstResponder];
+        self.codeTF.text = @"";
+        [self.codeTF becomeFirstResponder];
         return;
     }
     kMeWEAKSELF
-    NSString *code = [NSString stringWithFormat:@"%@%@%@%@%@%@",kMeUnNilStr(self.tf1.text),kMeUnNilStr(self.tf2.text),kMeUnNilStr(self.tf3.text),kMeUnNilStr(self.tf4.text),kMeUnNilStr(self.tf5.text),kMeUnNilStr(self.tf6.text)];
     [MEPublicNetWorkTool postCheckSignInCodeWithCode:code successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF
         if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
@@ -192,6 +209,8 @@
             strongSelf.model = nil;
         }
     } failure:^(id object) {
+        kMeSTRONGSELF
+        [strongSelf.codeTF becomeFirstResponder];
     }];
 }
 

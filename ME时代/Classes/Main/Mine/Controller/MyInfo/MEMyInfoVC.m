@@ -107,6 +107,9 @@
         kMeSTRONGSELF
         if ([responseObject.data isKindOfClass:[NSDictionary class]]) {
             strongSelf.model = [MEMyInfoModel mj_objectWithKeyValues:responseObject.data];
+            kCurrentUser.nick_name = strongSelf.model.nick_name;
+            kCurrentUser.signature = strongSelf.model.signature;
+            [kCurrentUser save];
         }else{
             strongSelf.model = nil;
         }
@@ -151,6 +154,7 @@
             kMeWEAKSELF
             vc.finishBlock = ^{
                 kMeSTRONGSELF
+                kMeCallBlock(strongSelf.changeBlock);
                 [strongSelf requestMyInfoWithNetWork];
             };
             [self.navigationController pushViewController:vc animated:YES];

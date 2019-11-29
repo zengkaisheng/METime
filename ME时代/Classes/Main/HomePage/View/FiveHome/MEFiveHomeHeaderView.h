@@ -22,6 +22,7 @@ const static CGFloat kMEFiveHomeHeaderViewHeight = 369;
 
 @property (nonatomic,copy) kMeIndexBlock scrollToIndexBlock;
 @property (nonatomic,copy) kMeIndexBlock selectIndexBlock;
+@property (nonatomic,copy) kMeIndexBlock selectBannerIndexBlock;
 @property (nonatomic,copy) kMeTextBlock activityBlock;
 @property (nonatomic,copy) kMeBasicBlock reloadBlock;
 

@@ -173,7 +173,6 @@
 
 - (void)requestDidFinish:(SKRequest *)request{
     NSLog(@"------------反馈信息结束-----------------");
-    [self.hud hideAnimated:YES];
 }
 
 #pragma mark - SKPaymentTransactionObserver
@@ -196,6 +195,7 @@
                 break;
             case SKPaymentTransactionStateFailed:
                 NSLog(@"交易失败");
+                [self.hud hideAnimated:YES];
                 self.isFinish = YES;
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
                 break;
@@ -208,7 +208,7 @@
 //交易结束,当交易结束后还要去appstore上验证支付信息是否都正确,只有所有都正确后,我们就可以给用户方法我们的虚拟物品了。
 - (void)completeTransaction:(SKPaymentTransaction *)transaction{
     NSLog(@"交易结束");
-    self.hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
+//    self.hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
     //交易验证
     //这里可以通过判断 state == 0 验证凭据成功，然后进入自己服务器二次验证，,也可以直接进行服务器逻辑的判断。
     //本地服务器验证成功之后别忘了 [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
@@ -473,6 +473,9 @@
     NSString *status = [kMeUserDefaults objectForKey:kMENowStatus];
     if ([status isEqualToString:@"customer"]) {//C端
         self.hud = [MBProgressHUD showHUDAddedTo:kMeCurrentWindow animated:YES];
+        self.hud.detailsLabel.text = @"充值进行中...";
+        // 隐藏时候从父控件中移除
+        self.hud.removeFromSuperViewOnHide = YES;
         //bundleid+xxx 就是你添加内购条目设置的产品ID
         if([SKPaymentQueue canMakePayments]){
             self.isFinish = NO;

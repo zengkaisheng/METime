@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/HomePage/Controller/FiveHome/MEFiveHomeBaseVC.m"
-            timestampString = "596084943.462516"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/Mine/Controller/MENewMineHomeHeaderView.m"
+            timestampString = "596705063.890538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1427"
-            endingLineNumber = "1427"
-            landmarkName = "-categoryView"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "-reloadUIWithUserInfo"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

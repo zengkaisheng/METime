@@ -58,7 +58,7 @@
     [self.bgView addSubview:tv];
     
     self.selectedImgV = [[UIImageView alloc] initWithFrame:CGRectMake(42, CGRectGetMaxY(tv.frame)+31, 11, 11)];
-    self.selectedImgV.image = [UIImage imageNamed:@"icon_delCollection_nor"];
+    self.selectedImgV.image = [UIImage imageNamed:@"icon_diagnoseSuccess"];
     [self.bgView addSubview:self.selectedImgV];
     
     UILabel *tipLbl = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.selectedImgV.frame)+7, CGRectGetMaxY(tv.frame)+29, 165, 16)];
@@ -71,6 +71,7 @@
     self.protocolBtn.frame = CGRectMake(42, CGRectGetMaxY(tv.frame)+24, BGViewWidth-84, 21);
     [self.protocolBtn addTarget:self action:@selector(protocolBtnDidClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.bgView addSubview:self.protocolBtn];
+    self.protocolBtn.selected = YES;
     
     UIButton *sginUpBtn = [[UIButton alloc] initWithFrame:CGRectMake(42, CGRectGetMaxY(tipLbl.frame)+11, BGViewWidth-84, 37)];
     sginUpBtn.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
@@ -94,7 +95,7 @@
 - (void)sginUpAction {
     if (self.protocolBtn.selected) {
         kMeCallBlock(_confirmBlock);
-        [self hide];
+//        [self hide];
     }else {
         [MECommonTool showMessage:@"请阅读并同意签到诚信协议" view:kMeCurrentWindow];
     }

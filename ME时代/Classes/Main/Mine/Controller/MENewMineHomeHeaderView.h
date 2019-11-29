@@ -18,6 +18,7 @@ const static CGFloat kMENewMineHomeHeaderViewHeight = 295;
 
 @property (nonatomic, copy) kMeBasicBlock changeStatus;
 @property (nonatomic, copy) kMeIndexBlock indexBlock;
+@property (nonatomic, copy) kMeBasicBlock changeBlock;
 @property (weak, nonatomic) IBOutlet UILabel *lblTel;
 @property (nonatomic, strong) NSArray *orderList;
 @end
