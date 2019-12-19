@@ -45,8 +45,6 @@
     // Do any additional setup after loading the view.
     self.title = @"申请退款";
     self.remindStr = @"";
-//    [self.view addSubview:self.tableView];
-//    [self.view addSubview:self.bottomBtn];
     kMeWEAKSELF
     [MEPublicNetWorkTool getOrderDetailWithGoodSn:_orderGoodsSn successBlock:^(ZLRequestResponse *responseObject) {
         kMeSTRONGSELF

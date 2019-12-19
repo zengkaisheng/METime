@@ -54,7 +54,7 @@
     
     self.view.backgroundColor = kMEf5f4f4;
     _currentIndex = 0;
-    self.currentColor = [UIColor colorWithHexString:@"#2ED9A4"];
+//    self.currentColor = [UIColor colorWithHexString:@"#2ED9A4"];
     [self.view addSubview:self.reloadBtn];
     self.reloadBtn.hidden = YES;
     [self requestMaterialData];
@@ -95,10 +95,32 @@
     self.scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kMEFiveHomeNavViewHeight, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight)];
     self.scrollview.delegate = self;
     self.scrollview.pagingEnabled = YES;
-    self.scrollview.contentSize = CGSizeMake(SCREEN_WIDTH * _arrDicParm.count,  SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight);//
+    self.scrollview.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight);
+//旧版    CGSizeMake(SCREEN_WIDTH * _arrDicParm.count, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight);
     self.scrollview.bounces = NO;
     self.scrollview.showsVerticalScrollIndicator = NO;
     self.scrollview.showsHorizontalScrollIndicator = NO;
+    //新
+    MEFiveHomeBaseVC *VC = [[MEFiveHomeBaseVC alloc] initWithType:0 materialArray:_arrDicParm];
+    VC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    VC.view.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-kMeTabBarHeight-kMEFiveHomeNavViewHeight);
+    [self addChildViewController:VC];
+    kMeWEAKSELF
+    self.choseVC = VC;
+    VC.changeColorBlock = ^(id object) {
+        kMeSTRONGSELF
+        if (strongSelf->_contentOffSetX <= SCREEN_WIDTH) {
+            if ([object isKindOfClass:[UIColor class]]) {
+                UIColor *color = (UIColor *)object;
+                strongSelf.navView.backgroundColor = color;
+//                strongSelf.categoryView.backgroundColor = color;
+//                strongSelf.currentColor = color;
+            }
+        }
+    };
+    [self.scrollview addSubview:VC.view];
+        
+    /*
     for (int i = 0; i < _arrDicParm.count; i++) {
         CGFloat top = 0.0;
         if (i > 0) {
@@ -217,7 +239,7 @@
             [self.scrollview addSubview:VC.view];
         }
     }
-    
+    */
     [self.view addSubview:self.scrollview];
     
     self.scrollview.scrollEnabled = NO;
@@ -320,21 +342,21 @@
 
 #pragma mark -- ScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    _contentOffSetX = scrollView.contentOffset.x;
-    if (_contentOffSetX > 0) {
-        if (self.categoryView.hidden) {
-            self.categoryView.hidden = NO;
-            self.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
-        }
-    }else {
+//    _contentOffSetX = scrollView.contentOffset.x;
+//    if (_contentOffSetX > 0) {
+//        if (self.categoryView.hidden) {
+//            self.categoryView.hidden = NO;
+//            self.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+//        }
+//    }else {
         self.categoryView.hidden = YES;
-        self.navView.backgroundColor = self.currentColor;
-        [self.choseVC setCurrentIndex:0];
-    }
-    if (_contentOffSetX >= SCREEN_WIDTH) {
-        self.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
-        self.categoryView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
-    }
+//        self.navView.backgroundColor = self.currentColor;
+//        [self.choseVC setCurrentIndex:0];
+//    }
+//    if (_contentOffSetX >= SCREEN_WIDTH) {
+//        self.navView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+//        self.categoryView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
+//    }
 }
 
 - (void)searchCoupon{

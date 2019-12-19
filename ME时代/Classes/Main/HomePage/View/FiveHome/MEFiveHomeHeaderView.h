@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class METhridHomeModel;
 
 const static CGFloat kFiveSdHeight = 137;
-const static CGFloat kMEFiveHomeHeaderViewHeight = 369;
+const static CGFloat kMEFiveHomeHeaderViewHeight = 369-39-92;
 
 @interface MEFiveHomeHeaderView : UICollectionReusableView
 

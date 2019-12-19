@@ -409,6 +409,8 @@
 
 //APP首页各入口选项
 #define MEIPcommonGetHomeOptions @"common/home/getHomeOptions"
+//APP首页公益秀
+#define MEIPcommonGetHomePublicShows @"common/usefulactivity/getIndexList"
 /*********************************************/
 
 

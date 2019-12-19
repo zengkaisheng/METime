@@ -1506,6 +1506,27 @@
         kMeCallBlock(failure,error);
     }];
 }
+//获取首页公益秀
++ (void)postGetSixHomePublicShowsWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
+    NSDictionary *dic = @{@"token":kMeUnNilStr(kCurrentUser.uid)};
+    NSString *url = kGetApiWithUrl(MEIPcommonGetHomePublicShows);
+    [THTTPManager postWithParameter:nil strUrl:url success:^(ZLRequestResponse *responseObject) {
+        kMeCallBlock(successBlock,responseObject);
+    } failure:^(id error) {
+        if([error isKindOfClass:[ZLRequestResponse class]]){
+            ZLRequestResponse *res = (ZLRequestResponse*)error;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kMeUnNilStr(res.message) view:kMeCurrentWindow];
+            });
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MEShowViewTool showMessage:kApiError view:kMeCurrentWindow];
+            });
+        }
+        kMeCallBlock(failure,error);
+    }];
+}
+
 //获取首页推荐商品/活动2019-7-31
 + (void)postFourGetHomeRecommendGoodsAndActivityWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure{
     NSDictionary *dic = @{@"uid":kMeUnNilStr(kCurrentUser.uid)};

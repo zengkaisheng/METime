@@ -46,6 +46,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consSdHeight;
 @property (weak, nonatomic) IBOutlet UIView *optionsView;
 
+@property (nonatomic, strong) UIScrollView *scrollview;
+
 @end
 
 @implementation MEFiveHomeHeaderView
@@ -67,24 +69,29 @@
     self.categoryView.titleSelectedColor = [UIColor whiteColor];
     self.categoryView.titleColor =  [UIColor whiteColor];
     self.categoryView.defaultSelectedIndex = 0;
+    
+    self.scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 92)];
+    self.scrollview.showsVerticalScrollIndicator = NO;
+    self.scrollview.showsHorizontalScrollIndicator = NO;
+    [self.optionsView addSubview:self.scrollview];
 }
 
 - (void)setUIWithModel:(METhridHomeModel *)model materArray:(NSArray *)materArray optionsArray:(NSArray *)options{
-    if (materArray.count <= 0) {
+//    if (materArray.count <= 0) {
         _categoryViewConsHeight.constant = 0.0;
         _categoryView.hidden = YES;
-    }else {
-        _categoryView.hidden = NO;
-        _categoryViewConsHeight.constant = 39.0;
-        
-        NSMutableArray *titleArray = [[NSMutableArray alloc] init];
-        for (int i = 0; i < materArray.count; i++) {
-            NSDictionary *dic = materArray[i];
-            NSString *title = dic[@"title"];
-            [titleArray addObject:title];
-        }
-        self.categoryView.titles = [titleArray copy];
-    }
+//    }else {
+//        _categoryView.hidden = NO;
+//        _categoryViewConsHeight.constant = 39.0;
+//
+//        NSMutableArray *titleArray = [[NSMutableArray alloc] init];
+//        for (int i = 0; i < materArray.count; i++) {
+//            NSDictionary *dic = materArray[i];
+//            NSString *title = dic[@"title"];
+//            [titleArray addObject:title];
+//        }
+//        self.categoryView.titles = [titleArray copy];
+//    }
     
     _model = model;
     _optionsArray = options;
@@ -98,6 +105,15 @@
     _sdView.autoScrollTimeInterval = 4;
     _sdView.backgroundColor = [UIColor clearColor];
     
+    CGFloat itemW = SCREEN_WIDTH/9*2;
+    CGFloat itemH = 92;
+    for (int i = 0; i < options.count; i++) {
+        MEHomeOptionsModel *model = _optionsArray[i];
+        UIButton *btn = [self createBtnWithModel:model frame:CGRectMake(itemW*i, 0, itemW, itemH)];
+        [self.scrollview addSubview:btn];
+    }
+    self.scrollview.contentSize = CGSizeMake(itemW*options.count, 92);
+    /*旧版
     for (UIView *view in self.optionsView.subviews) {
         [view removeFromSuperview];
     }
@@ -121,6 +137,7 @@
         UIButton *btn = [self createBtnWithModel:model frame:CGRectMake(itemW*(i%lineCount), (itemH-5)*(i/lineCount), itemW, itemH)];
         [self.optionsView addSubview:btn];
     }
+     */
 }
 
 #pragma mark -- JXCategoryViewDelegate

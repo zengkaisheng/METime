@@ -1273,6 +1273,8 @@
 		EB6F14DC236AE10800E32324 /* MESignInTimerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6F14DA236AE10800E32324 /* MESignInTimerVC.xib */; };
 		EB6F14E0236AECAF00E32324 /* MESignOutVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6F14DE236AECAF00E32324 /* MESignOutVC.m */; };
 		EB6F14E1236AECAF00E32324 /* MESignOutVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6F14DF236AECAF00E32324 /* MESignOutVC.xib */; };
+		EB6F76AB23AB299F00249176 /* MEPublicShowListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6F76A923AB299F00249176 /* MEPublicShowListCell.m */; };
+		EB6F76AC23AB299F00249176 /* MEPublicShowListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6F76AA23AB299F00249176 /* MEPublicShowListCell.xib */; };
 		EB708EE3230926B30001F9E1 /* MEDiagnoseConsultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB708EE2230926B30001F9E1 /* MEDiagnoseConsultModel.m */; };
 		EB708EE623092A920001F9E1 /* MEDiagnoseReportModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB708EE523092A920001F9E1 /* MEDiagnoseReportModel.m */; };
 		EB708EEA23092B060001F9E1 /* MEDiagnoseListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB708EE823092B060001F9E1 /* MEDiagnoseListCell.m */; };
@@ -3796,6 +3798,9 @@
 		EB6F14DD236AECAF00E32324 /* MESignOutVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MESignOutVC.h; sourceTree = "<group>"; };
 		EB6F14DE236AECAF00E32324 /* MESignOutVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MESignOutVC.m; sourceTree = "<group>"; };
 		EB6F14DF236AECAF00E32324 /* MESignOutVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MESignOutVC.xib; sourceTree = "<group>"; };
+		EB6F76A823AB299F00249176 /* MEPublicShowListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEPublicShowListCell.h; sourceTree = "<group>"; };
+		EB6F76A923AB299F00249176 /* MEPublicShowListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEPublicShowListCell.m; sourceTree = "<group>"; };
+		EB6F76AA23AB299F00249176 /* MEPublicShowListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MEPublicShowListCell.xib; sourceTree = "<group>"; };
 		EB708EE1230926B30001F9E1 /* MEDiagnoseConsultModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEDiagnoseConsultModel.h; sourceTree = "<group>"; };
 		EB708EE2230926B30001F9E1 /* MEDiagnoseConsultModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEDiagnoseConsultModel.m; sourceTree = "<group>"; };
 		EB708EE423092A920001F9E1 /* MEDiagnoseReportModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEDiagnoseReportModel.h; sourceTree = "<group>"; };
@@ -8839,6 +8844,9 @@
 				EB683271235EFC4800422807 /* MEFiveHomeCouponView.xib */,
 				EB74CA94235FF1ED00B2519A /* MEFiveCouponListView.h */,
 				EB74CA95235FF1ED00B2519A /* MEFiveCouponListView.m */,
+				EB6F76A823AB299F00249176 /* MEPublicShowListCell.h */,
+				EB6F76A923AB299F00249176 /* MEPublicShowListCell.m */,
+				EB6F76AA23AB299F00249176 /* MEPublicShowListCell.xib */,
 			);
 			path = FiveHome;
 			sourceTree = "<group>";
@@ -9674,6 +9682,7 @@
 				EB5ABA1B22E94F8700ADF22D /* MEHomeAddTestSubjectImageCell.xib in Resources */,
 				3628E7C521C09CC100D5405B /* MEClerkCell.xib in Resources */,
 				36B00BA821F5ADCF00EF8898 /* MECommondCouponContentCell.xib in Resources */,
+				EB6F76AC23AB299F00249176 /* MEPublicShowListCell.xib in Resources */,
 				EB3E3B5022A1166A002EAC8D /* MENewFilterGoodsMiddleHeaderView.xib in Resources */,
 				36E3D1E62171F26B0033B192 /* MELogisticsCell.xib in Resources */,
 				EB6F124522CB46F900619D4D /* MENewCoupleHomeMainHeaderView.xib in Resources */,
@@ -10696,6 +10705,7 @@
 				EB737C0E22BA0A090027A714 /* MESpecialSaleVC.m in Sources */,
 				EBD4CE2A229FC53900D3C36E /* MENewFilterBannerModel.m in Sources */,
 				36B77BB321DDE6E100B4A207 /* MECoupleHomeVC.m in Sources */,
+				EB6F76AB23AB299F00249176 /* MEPublicShowListCell.m in Sources */,
 				36707290221C04BB0070BA90 /* ZHMapView.m in Sources */,
 				36F27DF3224375D300276A77 /* MEStoreApplyModel.m in Sources */,
 				36435C2E214F5CA800F823B4 /* MEAdModel.m in Sources */,

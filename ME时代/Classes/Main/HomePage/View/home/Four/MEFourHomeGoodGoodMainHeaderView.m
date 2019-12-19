@@ -81,6 +81,9 @@
             NSArray *excellent_course = dict[@"excellent_course"];
             return excellent_course.count;
         }
+//        else if ([dict.allKeys containsObject:@"publicShow"]) {
+//            return 0;
+//        }
     }
     return 0;
 }
@@ -236,6 +239,9 @@
             [cell setUIWithModel:model];
             return cell;
         }
+//        else if ([dict.allKeys containsObject:@"publicShow"]) {
+//            return nil;
+//        }
     }
     return nil;
 }
@@ -409,14 +415,24 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (_isShow) {
-        return kMMEThridHomeCommondSectionViewHeight;
+        NSDictionary *dict = _arrHot[section];
+        if ([dict.allKeys containsObject:@"publicShow"]) {
+            return 42;
+        }else {
+           return kMMEThridHomeCommondSectionViewHeight;
+        }
     }
     return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     METhridHomeCommondSectionView *footView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:NSStringFromClass([METhridHomeCommondSectionView class])];
-    [footView setUIWithIndex:2];
+    NSDictionary *dict = _arrHot[section];
+    if ([dict.allKeys containsObject:@"publicShow"]) {
+        [footView setUIWithIndex:5];
+    }else {
+        [footView setUIWithIndex:2];
+    }
     return footView;
 }
 

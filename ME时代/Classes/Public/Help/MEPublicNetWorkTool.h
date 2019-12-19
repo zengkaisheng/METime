@@ -266,6 +266,8 @@
 
 //APP首页各入口选项
 + (void)postFourHomeOptionsWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
+//获取首页公益秀
++ (void)postGetSixHomePublicShowsWithSuccessBlock:(RequestResponse)successBlock failure:(kMeObjBlock)failure;
 /***************************************/
 
 

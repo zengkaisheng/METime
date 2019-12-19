@@ -21,6 +21,10 @@
 #import "MEFourHomeGoodGoodMainHeaderView.h"
 #import "MESpecialSaleHeaderView.h"
 
+#import "MEPublicShowListCell.h"
+#import "MECommunityServericeListModel.h"
+#import "MEPublicShowDetailVC.h"
+
 #import "METhridProductDetailsVC.h"
 #import "MEHomeAddRedeemcodeVC.h"
 #import "MECoupleMailDetalVC.h"
@@ -94,7 +98,7 @@ const static CGFloat kImgStoreH = 50;
     kNSNotificationCenterDealloc
 }
 
-- (instancetype)initWithType:(NSInteger)type  materialArray:(NSArray *)materialArray{
+- (instancetype)initWithType:(NSInteger)type materialArray:(NSArray *)materialArray{
     if (self = [super init]) {
         _type = type;
         _arrDicParm = [materialArray copy];
@@ -354,6 +358,27 @@ const static CGFloat kImgStoreH = 50;
     });
 }
 
+//点赞/取消点赞
+- (void)praiseShowWithShowModel:(MECommunityServericeListModel *)model finishBlock:(kMeBasicBlock)finishBlock{
+    
+    [MEPublicNetWorkTool postPraiseShowWithShowId:model.idField status:model.is_praise==1?0:1 successBlock:^(ZLRequestResponse *responseObject) {
+        if ([responseObject.status_code integerValue] == 200) {
+            if (model.is_praise == 0) {
+                [MECommonTool showMessage:@"点赞成功" view:kMeCurrentWindow];
+                model.is_praise = 1;
+                model.praise_num++;
+            }else {
+                [MECommonTool showMessage:@"取消点赞成功" view:kMeCurrentWindow];
+                model.is_praise = 0;
+                model.praise_num--;
+            }
+            kMeCallBlock(finishBlock);
+        }
+    } failure:^(id object) {
+        
+    }];
+}
+
 - (NSDictionary *)requestParameter{
     if(self.refresh.pageIndex == 1){
         if (_type == 0) {
@@ -361,21 +386,21 @@ const static CGFloat kImgStoreH = 50;
         }
     }
 
-    NSDictionary *dic = _arrDicParm[_type];
-    //    NSLog(@"---------%@",dic);
-    return dic;
+//    NSDictionary *dic = _arrDicParm[_type];
+//    return dic;
+    return @{@"token":kMeUnNilStr(kCurrentUser.token)};
 }
 
 - (void)handleResponse:(id)data{
     if(![data isKindOfClass:[NSArray class]]){
         return;
     }
-    if (_type == 0) {
-        [self.refresh.arrData addObjectsFromArray:@[]];
-        
-    }else {
-        [self.refresh.arrData addObjectsFromArray:[MECoupleModel mj_objectArrayWithKeyValuesArray:data]];
-    }
+//    if (_type == 0) {
+//        [self.refresh.arrData addObjectsFromArray:@[]];
+//    }else {
+//        [self.refresh.arrData addObjectsFromArray:[MECoupleModel mj_objectArrayWithKeyValuesArray:data]];
+//    }
+    [self.refresh.arrData addObjectsFromArray:[MECommunityServericeListModel mj_objectArrayWithKeyValuesArray:data]];
 }
 
 #pragma mark -- Action
@@ -928,19 +953,21 @@ const static CGFloat kImgStoreH = 50;
 #pragma mark- CollectionView Delegate And DataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     if (_type == 0) {
-        return 14;
+        return 15;
     }
     return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (_type == 0) {
-        if (section == 0 || section == 2 || section == 3 || section == 4 || section == 5 || section == 6 || section == 8 || section == 9 || section == 10 || section == 11 || section == 12) {
+        if (section == 0 || section == 2 || section == 3 || section == 4 || section == 5 || section == 6 || section == 8 || section == 9 || section == 10 || section == 11 || section == 12 || section == 13) {
             return 0;
         }else if (section == 1) {
             return 1;
         }else if (section == 7) {
             return self.homeModel.modules.modules_list.count;
+        }else if (section == 14) {
+            return self.refresh.arrData.count;
         }
     }
     return self.refresh.arrData.count;
@@ -958,6 +985,29 @@ const static CGFloat kImgStoreH = 50;
             MEFiveHomeEntranceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MEFiveHomeEntranceCell class]) forIndexPath:indexPath];
             METhridHomeAdModel *adModel = self.homeModel.modules.modules_list[indexPath.row];
             [cell setUIWithModel:adModel];
+            return cell;
+        }else if (indexPath.section == 14) {
+            MEPublicShowListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MEPublicShowListCell class]) forIndexPath:indexPath];
+            MECommunityServericeListModel *model = self.refresh.arrData[indexPath.row];
+            [cell setShowUIWithModel:model];
+            kMeWEAKSELF
+            cell.indexBlock = ^(NSInteger index) {
+                kMeSTRONGSELF
+                switch (index) {
+                    case 0:
+                    {
+                        [strongSelf praiseShowWithShowModel:model finishBlock:^{
+                            [strongSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                        }];
+                    }
+                        break;
+                    case 1:
+                        //评论
+                        break;
+                    default:
+                        break;
+                }
+            };
             return cell;
         }
     }
@@ -999,6 +1049,40 @@ const static CGFloat kImgStoreH = 50;
                 vc.recordType = 1;
                 [self.navigationController pushViewController:vc animated:YES];
             }
+        }else if (indexPath.section == 14) {
+            if([MEUserInfoModel isLogin]){
+                if (kCurrentUser.is_volunteer == 1) {
+                    MECommunityServericeListModel *model = self.refresh.arrData[indexPath.row];
+                    MEPublicShowDetailVC *vc = [[MEPublicShowDetailVC alloc] initWithShowId:model.idField];
+                    kMeWEAKSELF
+                    vc.praiseBlock = ^(NSInteger index) {
+                        kMeSTRONGSELF
+                        model.is_praise = index;
+                        [strongSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                    };
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else {
+                    MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            }else{
+                [MEWxLoginVC presentLoginVCWithSuccessHandler:^(id object) {
+                    if (kCurrentUser.is_volunteer == 1) {
+                        MECommunityServericeListModel *model = self.refresh.arrData[indexPath.row];
+                        MEPublicShowDetailVC *vc = [[MEPublicShowDetailVC alloc] initWithShowId:model.idField];
+                        kMeWEAKSELF
+                        vc.praiseBlock = ^(NSInteger index) {
+                            kMeSTRONGSELF
+                            model.is_praise = index;
+                            [strongSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                        };
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        MERegisteVolunteerVC *vc = [[MERegisteVolunteerVC alloc] init];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                } failHandler:nil];
+            }
         }
     }else {
         MECoupleModel *model = self.refresh.arrData[indexPath.row];
@@ -1032,6 +1116,13 @@ const static CGFloat kImgStoreH = 50;
                 return CGSizeMake(kMEFiveHomeEntranceCellWdith, kMEFiveHomeEntranceCellHeight);
             }else {
                 return CGSizeZero;
+            }
+        }else if (indexPath.section == 14) {
+            MECommunityServericeListModel *model = self.refresh.arrData[indexPath.row];
+            if (kMeUnArr(model.images).count > 1) {
+                return CGSizeMake(SCREEN_WIDTH, kMEPublicShowListCellHeight);
+            } else {
+                return CGSizeMake(SCREEN_WIDTH, kMEPublicShowListCellHeight-20);
             }
         }
         return CGSizeZero;
@@ -1125,7 +1216,13 @@ const static CGFloat kImgStoreH = 50;
             }
             return CGSizeMake(SCREEN_WIDTH, height);
         }else if (section == 12) {
-            return CGSizeMake(SCREEN_WIDTH, kMEFiveHomeCouponViewHeight);
+//            return CGSizeMake(SCREEN_WIDTH, kMEFiveHomeCouponViewHeight);
+            return CGSizeZero;
+        }else if (section == 14) {
+            if (self.refresh.arrData.count > 0) {
+                return CGSizeMake(SCREEN_WIDTH, 42);
+            }
+            return CGSizeZero;
         }
     }
     return CGSizeMake(0, 0);
@@ -1355,6 +1452,10 @@ const static CGFloat kImgStoreH = 50;
                 
                 self.couponView = header;
                 headerView = header;
+            }else if (indexPath.section == 14) {
+                MEFourHomeGoodGoodMainHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFourHomeGoodGoodMainHeaderView class]) forIndexPath:indexPath];
+                [header setupUIWithArray:@[@{@"publicShow":@[]}] showFooter:YES];
+                headerView = header;
             }
         }
     }
@@ -1365,18 +1466,26 @@ const static CGFloat kImgStoreH = 50;
     if (_type == 0) {
         if (section == 7) {
             return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin+2, kMEGoodsMargin, kMEGoodsMargin+2);
-        }else if (section != 12) {
-            return UIEdgeInsetsMake(0, 0, 0, 0);
         }
+//        else if (section != 12) {
+//            return UIEdgeInsetsMake(0, 0, 0, 0);
+//        }
+        return UIEdgeInsetsMake(0, 0, 0, 0);
     }
     return UIEdgeInsetsMake(kMEGoodsMargin, kMEGoodsMargin+2, kMEGoodsMargin, kMEGoodsMargin+2);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    if (section == 14) {
+        return 0;
+    }
     return kMEGoodsMargin;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    if (section == 14) {
+        return 0;
+    }
     return kMEGoodsMargin;
 }
 #pragma setter && getter
@@ -1395,6 +1504,7 @@ const static CGFloat kImgStoreH = 50;
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MESpecialSaleHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MESpecialSaleHeaderView class])];
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFiveHomeVolunteerHeaderView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFiveHomeVolunteerHeaderView class])];
          [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFiveHomeEntranceCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MEFiveHomeEntranceCell class])];
+        [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEPublicShowListCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MEPublicShowListCell class])];
         
         [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MEFiveHomeCouponView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([MEFiveHomeCouponView class])];
         
@@ -1407,11 +1517,12 @@ const static CGFloat kImgStoreH = 50;
 
 - (ZLRefreshTool *)refresh{
     if(!_refresh){
-        NSString *str = MEIPcommonTaobaokeGetDgMaterialOptional;
+        NSString *str = MEIPcommonGetHomePublicShows;
+//        MEIPcommonTaobaokeGetDgMaterialOptional;
         _refresh = [[ZLRefreshTool alloc]initWithContentView:self.collectionView url:kGetApiWithUrl(str)];
         _refresh.delegate = self;
-        _refresh.isCoupleMater = YES;
-        _refresh.isPinduoduoCoupleMater = NO;
+//        _refresh.isCoupleMater = YES;
+//        _refresh.isPinduoduoCoupleMater = NO;
         _refresh.isDataInside = YES;
         _refresh.showFailView = NO;
     }

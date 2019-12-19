@@ -30,6 +30,7 @@
             _titleLbl.textColor = [UIColor colorWithHexString:@"#FF7979"];
             _leftImageV.hidden = _rightImageV.hidden = YES;
             _leftView.hidden = _rightView.hidden = NO;
+            _leftView.backgroundColor = _rightView.backgroundColor = [UIColor colorWithHexString:@"#FF7979"];
             _bgImageV.hidden = YES;
         }
             break;
@@ -55,6 +56,7 @@
             _titleLbl.textColor = [UIColor colorWithHexString:@"#FF7979"];
             _leftImageV.hidden = _rightImageV.hidden = YES;
             _leftView.hidden = _rightView.hidden = NO;
+            _leftView.backgroundColor = _rightView.backgroundColor = [UIColor colorWithHexString:@"#FF7979"];
             _bgImageV.hidden = YES;
         }
             break;
@@ -64,6 +66,17 @@
             _titleLbl.textColor = [UIColor colorWithHexString:@"#FF7979"];
             _leftImageV.hidden = _rightImageV.hidden = YES;
             _leftView.hidden = _rightView.hidden = NO;
+            _leftView.backgroundColor = _rightView.backgroundColor = [UIColor colorWithHexString:@"#FF7979"];
+            _bgImageV.hidden = YES;
+        }
+            break;
+        case 5:
+        {
+            _titleLbl.text = @"公益秀";
+            _titleLbl.textColor = [UIColor colorWithHexString:@"#2ED9A4"];
+            _leftImageV.hidden = _rightImageV.hidden = YES;
+            _leftView.hidden = _rightView.hidden = NO;
+            _leftView.backgroundColor = _rightView.backgroundColor = [UIColor colorWithHexString:@"#2ED9A4"];
             _bgImageV.hidden = YES;
         }
             break;

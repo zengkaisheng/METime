@@ -167,7 +167,7 @@
                 <outlet property="timeLbl" destination="D3q-dU-K9k" id="Pj4-pf-APX"/>
                 <outlet property="titleLbl" destination="w42-bp-5VU" id="K3I-zW-CNc"/>
             </connections>
-            <point key="canvasLocation" x="40.799999999999997" y="46.776611694152926"/>
+            <point key="canvasLocation" x="-220" y="40.479760119940032"/>
         </tableViewCell>
     </objects>
     <resources>

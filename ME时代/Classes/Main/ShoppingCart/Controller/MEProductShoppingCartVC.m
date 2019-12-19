@@ -121,7 +121,6 @@
 
 
 #pragma makr - private
-
 - (void)clickAllSelectBottomView:(MEShopppingCartBottomView *)bottomView {
     kMeWEAKSELF
     bottomView.AllClickBlock = ^(BOOL isClick) {

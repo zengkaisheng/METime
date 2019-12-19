@@ -19,13 +19,140 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/Mine/Controller/MENewMineHomeHeaderView.m"
-            timestampString = "596705063.890538"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/HomePage/View/FiveHome/MESixHomePublicShowHeaderView.m"
+            timestampString = "598419038.426069"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "-reloadUIWithUserInfo"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "-tableView:heightForHeaderInSection:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/HomePage/View/FiveHome/MESixHomePublicShowHeaderView.m"
+            timestampString = "598419038.42614"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "-tableView:heightForHeaderInSection:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/HomePage/View/FiveHome/MESixHomePublicShowHeaderView.m"
+            timestampString = "598419038.426199"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "-tableView:heightForHeaderInSection:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Public/Help/MEPublicNetWorkTool.m"
+            timestampString = "598437142.014688"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1513"
+            endingLineNumber = "1513"
+            landmarkName = "+postGetSixHomePublicShowsWithSuccessBlock:failure:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[MEPublicNetWorkTool postGetSixHomePublicShowsWithSuccessBlock:failure:]"
+                  moduleName = "ME&#x65f6;&#x4ee3;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Public/Help/MEPublicNetWorkTool.m"
+                  timestampString = "598437144.913752"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1513"
+                  endingLineNumber = "1513"
+                  offsetFromSymbolStart = "1070">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__73+[MEPublicNetWorkTool postGetSixHomePublicShowsWithSuccessBlock:failure:]_block_invoke"
+                  moduleName = "ME&#x65f6;&#x4ee3;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Public/Help/MEPublicNetWorkTool.m"
+                  timestampString = "598437144.917143"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1513"
+                  endingLineNumber = "1513"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.1133"
+                  moduleName = "ME&#x65f6;&#x4ee3;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Public/Help/MEPublicNetWorkTool.m"
+                  timestampString = "598437144.920043"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1513"
+                  endingLineNumber = "1513"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Public/Help/MEPublicNetWorkTool.m"
+            timestampString = "598437142.015469"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1514"
+            endingLineNumber = "1514"
+            landmarkName = "+postGetSixHomePublicShowsWithSuccessBlock:failure:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Public/Help/MEPublicNetWorkTool.m"
+            timestampString = "598437142.015936"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1516"
+            endingLineNumber = "1516"
+            landmarkName = "+postGetSixHomePublicShowsWithSuccessBlock:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
