@@ -52,10 +52,8 @@
     [self.view addSubview:titleLbl];
     
     CGFloat itemW = 28;
-    CGFloat space = 65;
-    if (IS_IPHONE_4S || IS_iPhone5S) {
-        space = 20;
-    }
+    CGFloat space = (SCREEN_WIDTH-(itemW*6+22*5))/2;
+    
     for (int i = 0; i < 6; i++) {
         UITextField *textF = [self createTextFieldWithFrame:CGRectMake(space+(itemW+22)*i, CGRectGetMaxY(titleLbl.frame)+33, itemW, itemW)];
         textF.enabled = NO;

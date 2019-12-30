@@ -26,6 +26,8 @@
 #import "MELoveListHomeVC.h"
 #import "MEPublicServiceEyesightVC.h"
 
+#import "MENewCoupleHomeVC.h"
+
 @interface MEFiveHomeVC ()<UIScrollViewDelegate>{
     NSInteger _currentIndex;
     NSArray *_arrDicParm;
@@ -39,6 +41,7 @@
 @property (nonatomic, strong) UIColor *currentColor;
 @property (nonatomic, strong) UIButton *reloadBtn;
 @property (nonatomic, strong) MEActivityRecruitVC *recruitVC;
+@property (nonatomic, strong) UIButton *couponBtn;
 
 @end
 
@@ -58,6 +61,9 @@
     [self.view addSubview:self.reloadBtn];
     self.reloadBtn.hidden = YES;
     [self requestMaterialData];
+    
+    [kMeCurrentWindow addSubview:self.couponBtn];
+    self.couponBtn.hidden = YES;
     
     [self getUnInfo];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUnInfo) name:kUnNoticeMessage object:nil];
@@ -256,10 +262,16 @@
     
     [self getRushGood];
 }
-
+#pragma mark -- action
 - (void)reloadBtnDidClick {
     self.reloadBtn.hidden = YES;
     [self requestMaterialData];
+}
+
+- (void)couponBtnAction {
+    MENewCoupleHomeVC *vc= [[MENewCoupleHomeVC alloc]initWithIsTbK:YES];
+    vc.recordType = 1;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)requestNetWorhWithClickRecord {
@@ -333,11 +345,19 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.tabBarController.selectedIndex == 0) {
+            self.couponBtn.hidden = NO;
+        }else {
+            self.couponBtn.hidden = YES;
+        }
+    });
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    self.couponBtn.hidden = YES;
 }
 
 #pragma mark -- ScrollViewDelegate
@@ -469,6 +489,16 @@
         [_reloadBtn addTarget:self action:@selector(reloadBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _reloadBtn;
+}
+
+- (UIButton *)couponBtn {
+    if (!_couponBtn) {
+        _couponBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _couponBtn.frame = CGRectMake(0, SCREEN_HEIGHT-kMeTabBarHeight, SCREEN_WIDTH/5, kMeTabBarHeight);
+//        _couponBtn.backgroundColor = [UIColor orangeColor];
+        [_couponBtn addTarget:self action:@selector(couponBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _couponBtn;
 }
 
 @end

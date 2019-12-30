@@ -84,12 +84,12 @@
                   moduleName = "ME&#x65f6;&#x4ee3;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Public/Help/MEPublicNetWorkTool.m"
-                  timestampString = "598437144.913752"
+                  timestampString = "598868626.175885"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1513"
                   endingLineNumber = "1513"
-                  offsetFromSymbolStart = "1070">
+                  offsetFromSymbolStart = "1024">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -99,12 +99,12 @@
                   moduleName = "ME&#x65f6;&#x4ee3;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Public/Help/MEPublicNetWorkTool.m"
-                  timestampString = "598437144.917143"
+                  timestampString = "598868626.178103"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1513"
                   endingLineNumber = "1513"
-                  offsetFromSymbolStart = "16">
+                  offsetFromSymbolStart = "24">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -114,12 +114,12 @@
                   moduleName = "ME&#x65f6;&#x4ee3;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Public/Help/MEPublicNetWorkTool.m"
-                  timestampString = "598437144.920043"
+                  timestampString = "598868626.180364"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1513"
                   endingLineNumber = "1513"
-                  offsetFromSymbolStart = "16">
+                  offsetFromSymbolStart = "20">
                </Location>
             </Locations>
          </BreakpointContent>

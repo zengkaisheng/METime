@@ -43,7 +43,7 @@ img.style.maxWidth = %f;   \
 #define kImgBannerPlaceholder  [UIImage imageNamed:@"icon-hkwultu"]
 
 
-#define kApiError @"网络错误,接口异常"
+#define kApiError @"当前网络繁忙，请稍后重试"
 
 #define kMEAppName [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]
 //app版本
