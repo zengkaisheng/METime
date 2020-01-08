@@ -49,7 +49,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" tag="103" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_huiyuanbiaoshi.png" translatesAutoresizingMaskIntoConstraints="NO" id="GLv-ug-9AU">
+                <imageView userInteractionEnabled="NO" tag="103" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_huiyuanbiaoshi" translatesAutoresizingMaskIntoConstraints="NO" id="GLv-ug-9AU">
                     <rect key="frame" x="132" y="455" width="15" height="15"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="15" id="QqP-G1-aFJ"/>
@@ -121,6 +121,6 @@
         </view>
     </objects>
     <resources>
-        <image name="pic_huiyuanbiaoshi.png" width="15" height="15"/>
+        <image name="pic_huiyuanbiaoshi" width="17" height="17"/>
     </resources>
 </document>

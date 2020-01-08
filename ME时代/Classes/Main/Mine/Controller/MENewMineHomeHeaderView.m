@@ -153,6 +153,9 @@
         if ([obj isKindOfClass:[UIButton class]]) {
             [obj removeFromSuperview];
         }
+        if ([obj isKindOfClass:[UIImageView class]]) {
+            [obj removeFromSuperview];
+        }
     }
     CGFloat btnWidth = (SCREEN_WIDTH-60)/self.orderList.count;
     for (int i = 0; i < self.orderList.count; i++) {

@@ -8,7 +8,6 @@
 
 #import "MEExchangDetailsBottomView.h"
 #import "MEMidelButton.h"
-#import "MEMemberHomeVC.h"
 #import "MEMineExchangeDetailVC.h"
 
 @interface MEExchangDetailsBottomView()

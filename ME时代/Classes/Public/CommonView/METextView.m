@@ -57,6 +57,9 @@
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
+    if ([textView.text length] > 0) {
+        kMeCallBlock(self.doneBlock,[textView.text trimSpace]);
+    }
     kMeCallBlock(self.cancelBlock);
 }
 

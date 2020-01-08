@@ -42,7 +42,9 @@
     };
     self.textView.doneBlock = ^(NSString *str) {
         kMeSTRONGSELF
-        kMeCallBlock(strongSelf.contentBlock,str);
+        if ([str length] > 0) {
+            kMeCallBlock(strongSelf.contentBlock,str);
+        }
         strongSelf.textView.textView.text = @"";
         strongSelf.textView.textView.backgroundColor = [UIColor clearColor];
         strongSelf.textView.placeholderTextView.hidden = NO;
@@ -53,7 +55,7 @@
 - (void)senderBtnClick {
 //    NSLog(@"点击了发送按钮");
     [self.textView.textView resignFirstResponder];
-    kMeCallBlock(self.contentBlock,[self.textView.textView.text trimSpace]);
+//    kMeCallBlock(self.contentBlock,[self.textView.textView.text trimSpace]);
     self.textView.textView.text = @"";
     self.textView.textView.backgroundColor = [UIColor clearColor];
     self.textView.placeholderTextView.hidden = NO;

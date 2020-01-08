@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MEVolunteerCommentCell : UITableViewCell
 
 @property (nonatomic, copy) kMeTextBlock answerBlock;
+
 - (void)setUIWithModel:(MERecruitCommentModel *)model;
 
 - (void)setListUIWithModel:(MERecruitCommentModel *)model;

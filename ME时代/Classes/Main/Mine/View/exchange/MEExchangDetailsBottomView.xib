@@ -45,7 +45,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y1q-44-tjL">
                     <rect key="frame" x="0.0" y="0.0" width="139.5" height="50"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAa-Fl-qNb" customClass="MEMidelButton">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAa-Fl-qNb" customClass="MEMidelButton">
                             <rect key="frame" x="0.0" y="0.0" width="46.5" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46.5" id="CcW-Gk-Zlg"/>
@@ -117,7 +117,7 @@
         </view>
     </objects>
     <resources>
-        <image name="icon-pteb" width="14.5" height="14"/>
+        <image name="icon-pteb" width="14" height="14"/>
         <image name="icon_haoyou" width="14" height="14"/>
         <image name="icon_shouye" width="14" height="14"/>
     </resources>
