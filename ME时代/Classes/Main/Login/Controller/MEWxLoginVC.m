@@ -232,7 +232,7 @@
         _addTelVIew.finishBlock = ^(BOOL sucess) {
             kMeSTRONGSELF
             if(sucess){//确认无误
-                [strongSelf showInvitationCodeView:YES];
+                [strongSelf showInvitationCodeView:kCurrentUser.is_invitation == 1?NO:YES];
             }else{//信息错误
                 [MEUserInfoModel logout];
 //           [kCurrentUser removeFromLocalData];

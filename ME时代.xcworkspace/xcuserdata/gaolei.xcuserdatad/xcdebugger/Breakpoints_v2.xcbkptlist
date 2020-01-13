@@ -84,7 +84,7 @@
                   moduleName = "ME&#x65f6;&#x4ee3;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Public/Help/MEPublicNetWorkTool.m"
-                  timestampString = "599389940.97755"
+                  timestampString = "600593967.866882"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1513"
@@ -99,7 +99,7 @@
                   moduleName = "ME&#x65f6;&#x4ee3;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Public/Help/MEPublicNetWorkTool.m"
-                  timestampString = "599389940.98013"
+                  timestampString = "600593967.870701"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1513"
@@ -114,7 +114,7 @@
                   moduleName = "ME&#x65f6;&#x4ee3;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/gaolei/Desktop/%E5%B7%A5%E4%BD%9C/METIME/ME%E6%97%B6%E4%BB%A3/Classes/Public/Help/MEPublicNetWorkTool.m"
-                  timestampString = "599389940.982573"
+                  timestampString = "600593967.874548"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1513"
@@ -153,6 +153,22 @@
             startingLineNumber = "1516"
             endingLineNumber = "1516"
             landmarkName = "+postGetSixHomePublicShowsWithSuccessBlock:failure:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ME&#x65f6;&#x4ee3;/Classes/Main/Login/Controller/MELoginVC.m"
+            timestampString = "600593967.149519"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "-wxlogin:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
